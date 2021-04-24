@@ -1,0 +1,38 @@
+[tool.poetry]
+name = "notquiteparadise2"
+version = "0.1.0"
+description = ""
+authors = ["Snayff <snaith2@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pygame = "^2.0.1"
+pygame-gui = "^0.5.7"
+
+[tool.poetry.dev-dependencies]
+mypy = "^0.812"
+isort = "^5.8.0"
+black = "^20.8b1"
+
+[tool.black]
+target-version = ['py38']
+line-length = 120
+
+[tool.isort]
+force_alphabetical_sort_within_sections = true
+include_trailing_comma = true
+sections = ['FUTURE', 'STDLIB', 'THIRDPARTY', 'FIRSTPARTY', 'LOCALFOLDER']
+multi_line_output = 3
+force_grid_wrap = 0
+use_parentheses = true
+line_length = 120
+indent = 4
+lines_between_types = 0
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+
+
+
