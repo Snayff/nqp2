@@ -1,3 +1,4 @@
+from scripts.constants import CombatState
 from scripts.elements.terrain import Terrain
 from scripts.ui.combat import CombatUI
 
@@ -15,6 +16,8 @@ class Combat:
 
         self.deck = self.game.memory.deck.copy()
         self.hand = self.deck.draw(5)
+
+        self.state = CombatState.CHOOSE_CARD
 
     def update(self):
         self.ui.update()

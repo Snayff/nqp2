@@ -1,3 +1,5 @@
+from scripts.constants import CombatState
+
 class CombatUI:
     def __init__(self, game):
         self.game = game
@@ -22,11 +24,12 @@ class CombatUI:
     def render(self, surf):
         cards = self.game.combat.hand.cards
 
-        start_pos = self.game.window.display.get_width() // 2 - (len(cards) - 1) * 30
+        if self.game.combat.state != CombatState.WATCH:
+            start_pos = self.game.window.display.get_width() // 2 - (len(cards) - 1) * 30
 
-        for i, card in enumerate(cards):
-            height_offset = 0
-            if self.selected_card == i:
-                height_offset = -12
+            for i, card in enumerate(cards):
+                height_offset = 0
+                if self.selected_card == i:
+                    height_offset = -12
 
-            card.render(surf, (start_pos + i * 60 - 25, 300 + height_offset))
+                card.render(surf, (start_pos + i * 60 - 25, 300 + height_offset))
