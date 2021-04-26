@@ -5,6 +5,11 @@ class Input:
     def __init__(self, game):
         self.game = game
 
+        self.states = {
+            'right': False,
+            'left': False,
+        }
+
     def update(self):
         for event in pygame.event.get():
             if event.type == QUIT:
@@ -13,3 +18,9 @@ class Input:
             if event.type == KEYDOWN:
                 if event.key == K_ESCAPE:
                     self.game.quit()
+
+                if event.key == K_RIGHT:
+                    self.states['right'] = True
+
+                if event.key == K_LEFT:
+                    self.states['left'] = True
