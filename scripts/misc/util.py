@@ -14,3 +14,9 @@ def clip(surf, x, y, x_size, y_size):
     handle_surf.set_clip(clip_r)
     image = surf.subsurface(handle_surf.get_clip())
     return image.copy()
+
+def offset(list, offset, offset_mult=1):
+    for i, val in enumerate(list):
+        list[i] += offset[i] * offset_mult
+
+    return list

@@ -10,5 +10,5 @@ INFINITE: int = 999
 
 class CombatState:
     CHOOSE_CARD = auto()
-    SELECT_TILE_TARGET = auto()
+    SELECT_TARGET = auto()
     WATCH = auto()

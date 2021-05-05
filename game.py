@@ -17,13 +17,16 @@ class Game:
         self.combat = Combat(self)
         self.assets = Assets(self)
 
+        # point this to whatever "screen" is active
+        self.active_state = self.combat
+
     def update(self):
         self.input.update()
-        self.combat.update()
+        self.active_state.update()
 
     def render(self):
         self.window.render_frame()
-        self.combat.render()
+        self.active_state.render()
 
     def run(self):
         while True:

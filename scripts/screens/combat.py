@@ -1,5 +1,7 @@
 from scripts.constants import CombatState
+from scripts.elements.camera import Camera
 from scripts.elements.terrain import Terrain
+from scripts.elements.unit_manager import UnitManager
 from scripts.ui.combat import CombatUI
 
 """
@@ -9,8 +11,13 @@ class Combat:
     def __init__(self, game):
         self.game = game
 
+        self.camera = Camera()
+        self.camera.pos = [-100, -50]
+
         self.terrain = Terrain()
         self.terrain.generate()
+
+        self.units = UnitManager(game)
 
         self.ui = CombatUI(game)
 
@@ -21,7 +28,13 @@ class Combat:
 
     def update(self):
         self.ui.update()
+        self.units.update()
+
+        # temporary hack to end watch phase
+        if self.game.combat.state == CombatState.WATCH:
+            self.state = CombatState.CHOOSE_CARD
 
     def render(self):
-        self.terrain.render(self.game.window.display, (100, 50))
+        self.terrain.render(self.game.window.display, self.camera.render_offset())
+        self.units.render(self.game.window.display, self.camera.render_offset())
         self.ui.render(self.game.window.display)
