@@ -39,11 +39,11 @@ jobs:
         python -m pip install --upgrade poetry
         poetry config virtualenvs.create false
         poetry install --no-root
-
-    - name: mypy Type Check
-      if: always()
-      run: |
-        poetry run python -m mypy scripts/
+# not everyone is using type hinting
+#    - name: mypy Type Check
+#      if: always()
+#      run: |
+#        poetry run python -m mypy scripts/
 
     - name: Format with isort
       if: always()
