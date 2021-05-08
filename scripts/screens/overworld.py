@@ -18,11 +18,11 @@ class Overworld:
     def __init__(self, game: Game):
         self.game: Game = game
 
-        self.map = MapManager(game)
+        self.map: MapManager = MapManager(game)
 
 
     def update(self):
         pass
 
     def render(self):
-        pass
+        self.map.render(self.game.window.display)

@@ -8,7 +8,7 @@ class CombatUI:
     def __init__(self, game):
         self.game = game
 
-        self.selected_card = 0
+        self.selected_card = 0  # card index
 
         # position relative to terrain
         self.place_target = [0, 0]

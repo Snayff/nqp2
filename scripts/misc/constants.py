@@ -41,5 +41,7 @@ class NodeState(IntEnum):
 class NodeType(IntEnum):
     COMBAT = auto()
     EVENT = auto()
-    SHOP = auto()
+    INN = auto()
+    TRAINING = auto()
+
 
