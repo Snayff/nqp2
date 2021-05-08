@@ -76,4 +76,4 @@ data/saves/
 docs/_build/**
 
 # profiling
-logs/profiling/*
+.debug/profiling/*

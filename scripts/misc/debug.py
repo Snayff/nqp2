@@ -11,7 +11,7 @@ import time
 import timeit
 from typing import TYPE_CHECKING
 
-from scripts.constants import INFINITE, VERSION
+from scripts.misc.constants import DEBUGGING_PATH, INFINITE, LOGGING_PATH, PROFILING_PATH, VERSION
 
 if TYPE_CHECKING:
     from typing import Callable, List, Optional, Tuple, TYPE_CHECKING, Union
@@ -34,6 +34,10 @@ __all__ = [
 
 class Debugger:
     def __init__(self):
+
+        # create required folders
+        self._create_folders()
+
         # objects
         self.profiler: Optional[cProfile.Profile] = None
 
@@ -72,6 +76,20 @@ class Debugger:
         else:
             frames_to_count = self._frames
         self.recent_average_fps += (self.current_fps - self.average_fps) / frames_to_count
+
+    def _create_folders(self):
+        #  create folders and prevent FileNotFoundError
+        path = str(DEBUGGING_PATH)
+        if not os.path.isdir(path + "/"):
+            os.mkdir(path)
+
+        profiling_path = str(PROFILING_PATH)
+        if not os.path.isdir(profiling_path):
+            os.mkdir(profiling_path + "/")
+
+        logging_path = str(LOGGING_PATH)
+        if not os.path.isdir(logging_path):
+            os.mkdir(logging_path + "/")
 
 
 _debugger = Debugger()
@@ -114,10 +132,13 @@ def initialise_logging():
 
     # 8 adds space for 8 characters (# CRITICAL)
     log_format = "%(asctime)s| %(levelname)-8s| %(message)s"
-    logging.basicConfig(filename=log_file_name, filemode=file_mode, level=log_level, format=log_format)
+    logging.basicConfig(filename=str(DEBUGGING_PATH / "logging" / log_file_name), filemode=file_mode,
+                        level=log_level, format=log_format)
 
     # format into uk time
     logging.Formatter.converter = time.gmtime
+
+    logging.info(f"Logging initialised.")
 
 
 def kill_logging():
@@ -190,28 +211,18 @@ def _dump_profiling_data():
 
     _debugger.profiler.create_stats()
 
-    #  create folders and prevent FileNotFoundError
-    path = "tests"
-    if not os.path.isdir(path + "/"):
-        os.mkdir(path)
-    path += "/.metrics"
-    if not os.path.isdir(path + "/"):
-        os.mkdir(path)
-    path += "/profiling"
-    if not os.path.isdir(path):
-        os.mkdir(path + "/")
-
     # dump the profiler stats
     s = io.StringIO()
     ps = pstats.Stats(_debugger.profiler, stream=s).sort_stats("tottime")
-    ps.dump_stats("tests/.metrics/profiling/profile.dump")
+    profiling_path = str(PROFILING_PATH) + "/"
+    ps.dump_stats(profiling_path + "profile.dump")
 
     # convert profiling to human readable format
     date_and_time = datetime.datetime.utcnow()
     out_stream = open(
-        "tests/.metrics/profiling/" + date_and_time.strftime("%Y%m%d@%H%M") + "_" + VERSION + ".profile", "w"
+        profiling_path + date_and_time.strftime("%Y%m%d@%H%M") + "_" + VERSION + ".profile", "w"
     )
-    ps = pstats.Stats("tests/.metrics/profiling/profile.dump", stream=out_stream)
+    ps = pstats.Stats(profiling_path + "profile.dump", stream=out_stream)
     ps.strip_dirs().sort_stats("tottime").print_stats()
 
 
