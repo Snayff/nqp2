@@ -2,8 +2,12 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from scripts.elements.map_manager import MapManager
+
 if TYPE_CHECKING:
     from scripts.management.game import Game
+
+__all__ = ["Overworld"]
 
 
 class Overworld:
@@ -13,6 +17,8 @@ class Overworld:
 
     def __init__(self, game: Game):
         self.game: Game = game
+
+        self.map = MapManager(game)
 
 
     def update(self):

@@ -32,3 +32,14 @@ class CombatState(IntEnum):
     WATCH = auto()
 
 
+class NodeState(IntEnum):
+    REACHABLE = auto()  # could reach the node
+    SELECTABLE = auto()  # can select the node
+    NOT_REACHABLE = auto()  # could never reach the node
+
+
+class NodeType(IntEnum):
+    COMBAT = auto()
+    EVENT = auto()
+    SHOP = auto()
+
