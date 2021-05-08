@@ -13,7 +13,7 @@ class Window:
         self.scaled_resolution = [1280, 720]
 
         self.window = pygame.display.set_mode(self.scaled_resolution, 0, 32)
-        pygame.display.set_caption("NQP2?")
+        pygame.display.set_caption("NQP2")
 
         self.display = pygame.Surface(self.base_resolution)
 

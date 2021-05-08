@@ -1,7 +1,7 @@
 import pygame
 
-from scripts.misc.util import offset
-from scripts.constants import CombatState
+from scripts.misc.utility import offset
+from scripts.misc.constants import CombatState
 from scripts.elements.unit import Unit
 
 class CombatUI:

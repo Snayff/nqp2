@@ -1,6 +1,6 @@
 import pygame
 
-from scripts.misc.util import offset
+from scripts.misc.utility import offset
 
 class Unit:
     def __init__(self, unit_type, pos=[0, 0]):

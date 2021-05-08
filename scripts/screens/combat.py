@@ -1,4 +1,4 @@
-from scripts.constants import CombatState
+from scripts.misc.constants import CombatState
 from scripts.elements.camera import Camera
 from scripts.elements.terrain import Terrain
 from scripts.elements.unit_manager import UnitManager

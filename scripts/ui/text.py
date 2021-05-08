@@ -2,7 +2,7 @@ import sys
 
 import pygame
 
-from scripts.misc.util import swap_color, clip
+from scripts.misc.utility import swap_color, clip
 
 def load_font_img(path, font_color):
     fg_color = (255, 0, 0)
