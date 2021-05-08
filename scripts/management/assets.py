@@ -9,11 +9,14 @@ from typing import List, TYPE_CHECKING
 if TYPE_CHECKING:
     from typing import Dict, Tuple
     import pygame
+    from scripts.management.game import Game
+
+__all__ = ["Assets"]
 
 
 class Assets:
-    def __init__(self, game):
-        self.game = game
+    def __init__(self, game: Game):
+        self.game: Game = game
 
         self.fonts = {
             'small_red': Font(str(ASSET_PATH / "fonts/small_font.png"), (255, 0, 0))

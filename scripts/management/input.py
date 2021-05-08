@@ -1,9 +1,17 @@
+from __future__ import annotations
 import pygame
 from pygame.locals import *
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from scripts.management.game import Game
+
+__all__ = ["Input"]
+
 
 class Input:
-    def __init__(self, game):
-        self.game = game
+    def __init__(self, game: Game):
+        self.game: Game = game
 
         self.states = {
             'right': False,

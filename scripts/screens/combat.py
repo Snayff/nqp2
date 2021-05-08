@@ -1,15 +1,26 @@
+from __future__ import annotations
+
 from scripts.misc.constants import CombatState
 from scripts.elements.camera import Camera
 from scripts.elements.terrain import Terrain
 from scripts.elements.unit_manager import UnitManager
 from scripts.ui.combat import CombatUI
 
-"""
-This is the object that manages the entire combat scene.
-"""
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from scripts.management.game import Game
+
+__all__ = ["Combat"]
+
+
 class Combat:
-    def __init__(self, game):
-        self.game = game
+    """
+    Represents the combat and handles related interactions.
+    """
+
+    def __init__(self, game: Game):
+        self.game: Game = game
 
         self.camera = Camera()
         self.camera.pos = [-100, -50]
@@ -24,7 +35,7 @@ class Combat:
         self.deck = self.game.memory.deck.copy()
         self.hand = self.deck.draw(5)
 
-        self.state = CombatState.CHOOSE_CARD
+        self.state: CombatState = CombatState.CHOOSE_CARD
 
     def update(self):
         self.ui.update()

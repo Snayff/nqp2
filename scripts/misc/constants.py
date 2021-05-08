@@ -20,12 +20,15 @@ PROFILING_PATH = DEBUGGING_PATH / "profiling"
 DEFAULT_IMAGE_SIZE = 16
 
 
+# states
+class GameState(IntEnum):
+    PLAYING = auto()
+    EXITING = auto()
+
+
 class CombatState(IntEnum):
     CHOOSE_CARD = auto()
     SELECT_TARGET = auto()
     WATCH = auto()
 
 
-class GameState(IntEnum):
-    PLAYING = auto()
-    EXITING = auto()

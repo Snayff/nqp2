@@ -58,7 +58,7 @@ def game_loop():
     """
     game = Game()
 
-    while game.current_state == GameState.PLAYING:
+    while game.state == GameState.PLAYING:
         game.run()
 
 

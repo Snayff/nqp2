@@ -1,11 +1,19 @@
+from __future__ import annotations
 import time
 
 import pygame
-from pygame.locals import *
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from scripts.management.game import Game
+
+__all__ = ["Window"]
+
 
 class Window:
-    def __init__(self, game):
-        self.game = game
+    def __init__(self, game: Game):
+        self.game: Game = game
 
         pygame.init()
 
