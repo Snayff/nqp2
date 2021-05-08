@@ -1,12 +1,12 @@
 from __future__ import annotations
 
-from scripts.misc.constants import CombatState
+from typing import TYPE_CHECKING
+
 from scripts.elements.camera import Camera
 from scripts.elements.terrain import Terrain
 from scripts.elements.unit_manager import UnitManager
+from scripts.misc.constants import CombatState
 from scripts.ui.combat import CombatUI
-
-from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from scripts.management.game import Game

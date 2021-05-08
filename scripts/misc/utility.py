@@ -1,9 +1,9 @@
 from __future__ import annotations
+
 import random
 from typing import TypeVar
 
 import pygame
-
 
 _V = TypeVar("_V", int, float)  # to represent where we don't know which type is being used
 
@@ -16,6 +16,7 @@ def swap_color(img, old_c, new_c):
     surf.set_colorkey((0, 0, 0))
     return surf
 
+
 def clip(surf, x, y, x_size, y_size):
     handle_surf = surf.copy()
     clip_r = pygame.Rect(x, y, x_size, y_size)
@@ -23,11 +24,13 @@ def clip(surf, x, y, x_size, y_size):
     image = surf.subsurface(handle_surf.get_clip())
     return image.copy()
 
+
 def offset(list, offset, offset_mult=1):
     for i, val in enumerate(list):
         list[i] += offset[i] * offset_mult
 
     return list
+
 
 def lerp(initial_value: float, target_value: float, lerp_fraction: float) -> float:
     """

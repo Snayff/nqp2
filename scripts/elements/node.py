@@ -21,7 +21,6 @@ class Node:
         self.pos: List[int] = pos
         self.icon: pygame.Surface = icon
 
-
     def update(self):
         pass
 

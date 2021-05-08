@@ -1,14 +1,16 @@
 from __future__ import annotations
 
 import logging
+from typing import List, TYPE_CHECKING
 
 from scripts.misc.constants import ASSET_PATH, DEFAULT_IMAGE_SIZE, IMAGE_NOT_FOUND_PATH
 from scripts.ui.text import Font
-from typing import List, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from typing import Dict, Tuple
+
     import pygame
+
     from scripts.management.game import Game
 
 __all__ = ["Assets"]
@@ -18,9 +20,7 @@ class Assets:
     def __init__(self, game: Game):
         self.game: Game = game
 
-        self.fonts = {
-            'small_red': Font(str(ASSET_PATH / "fonts/small_font.png"), (255, 0, 0))
-        }
+        self.fonts = {"small_red": Font(str(ASSET_PATH / "fonts/small_font.png"), (255, 0, 0))}
 
         # used to hold images called during runtime so only one copy ever exists.
         self.images: Dict[str, pygame.Surface] = {}
@@ -72,8 +72,9 @@ class Assets:
         else:
             return image
 
-    def get_images(self, img_paths: List[str], desired_dimensions: Tuple[int, int],
-            copy: bool = False) -> List[pygame.Surface]:
+    def get_images(
+        self, img_paths: List[str], desired_dimensions: Tuple[int, int], copy: bool = False
+    ) -> List[pygame.Surface]:
         """
         Get a collection of images.
         """

@@ -9,8 +9,9 @@ from scripts.elements.node import Node
 from scripts.misc.constants import ASSET_PATH, DEFAULT_IMAGE_SIZE, NodeState, NodeType
 
 if TYPE_CHECKING:
-    from scripts.management.game import Game
     from typing import List
+
+    from scripts.management.game import Game
 
 __all__ = ["MapManager"]
 
@@ -108,6 +109,3 @@ class MapManager:
             node_icon = self.game.assets.get_image(str(ASSET_PATH / "icons/Skills/Skill15.png"))
 
         return node_icon
-
-
-

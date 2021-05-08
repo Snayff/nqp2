@@ -4,6 +4,7 @@ from .tile import Tile
 
 TILE_SIZE = 20
 
+
 class Terrain:
     def __init__(self):
         self.terrain = {}
@@ -15,12 +16,17 @@ class Terrain:
         for y in range(self.size[1]):
             for x in range(self.size[0]):
                 loc = (x, y)
-                self.terrain[loc] = Tile('plains', loc)
+                self.terrain[loc] = Tile("plains", loc)
 
     def render(self, surf, offset=(0, 0)):
         for loc in self.terrain:
             tile = self.terrain[loc]
 
             # rendering rects temporarily
-            r = pygame.Rect(offset[0] + tile.loc[0] * self.tile_size, offset[1] + tile.loc[1] * self.tile_size, self.tile_size, self.tile_size)
+            r = pygame.Rect(
+                offset[0] + tile.loc[0] * self.tile_size,
+                offset[1] + tile.loc[1] * self.tile_size,
+                self.tile_size,
+                self.tile_size,
+            )
             pygame.draw.rect(surf, (200, 200, 200), r, 1)

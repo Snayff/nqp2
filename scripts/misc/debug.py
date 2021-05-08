@@ -132,8 +132,9 @@ def initialise_logging():
 
     # 8 adds space for 8 characters (# CRITICAL)
     log_format = "%(asctime)s| %(levelname)-8s| %(message)s"
-    logging.basicConfig(filename=str(DEBUGGING_PATH / "logging" / log_file_name), filemode=file_mode,
-                        level=log_level, format=log_format)
+    logging.basicConfig(
+        filename=str(DEBUGGING_PATH / "logging" / log_file_name), filemode=file_mode, level=log_level, format=log_format
+    )
 
     # format into uk time
     logging.Formatter.converter = time.gmtime
@@ -219,9 +220,7 @@ def _dump_profiling_data():
 
     # convert profiling to human readable format
     date_and_time = datetime.datetime.utcnow()
-    out_stream = open(
-        profiling_path + date_and_time.strftime("%Y%m%d@%H%M") + "_" + VERSION + ".profile", "w"
-    )
+    out_stream = open(profiling_path + date_and_time.strftime("%Y%m%d@%H%M") + "_" + VERSION + ".profile", "w")
     ps = pstats.Stats(profiling_path + "profile.dump", stream=out_stream)
     ps.strip_dirs().sort_stats("tottime").print_stats()
 

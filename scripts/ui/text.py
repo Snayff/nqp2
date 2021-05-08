@@ -2,7 +2,8 @@ import sys
 
 import pygame
 
-from scripts.misc.utility import swap_color, clip
+from scripts.misc.utility import clip, swap_color
+
 
 def load_font_img(path, font_color):
     fg_color = (255, 0, 0)
@@ -22,10 +23,96 @@ def load_font_img(path, font_color):
         letter.set_colorkey(bg_color)
     return letters, letter_spacing, font_img.get_height()
 
-class Font():
+
+class Font:
     def __init__(self, path, color):
         self.letters, self.letter_spacing, self.line_height = load_font_img(path, color)
-        self.font_order = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','.','-',',',':','+','\'','!','?','0','1','2','3','4','5','6','7','8','9','(',')','/','_','=','\\','[',']','*','"','<','>',';','∞']
+        self.font_order = [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G",
+            "H",
+            "I",
+            "J",
+            "K",
+            "L",
+            "M",
+            "N",
+            "O",
+            "P",
+            "Q",
+            "R",
+            "S",
+            "T",
+            "U",
+            "V",
+            "W",
+            "X",
+            "Y",
+            "Z",
+            "a",
+            "b",
+            "c",
+            "d",
+            "e",
+            "f",
+            "g",
+            "h",
+            "i",
+            "j",
+            "k",
+            "l",
+            "m",
+            "n",
+            "o",
+            "p",
+            "q",
+            "r",
+            "s",
+            "t",
+            "u",
+            "v",
+            "w",
+            "x",
+            "y",
+            "z",
+            ".",
+            "-",
+            ",",
+            ":",
+            "+",
+            "'",
+            "!",
+            "?",
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "(",
+            ")",
+            "/",
+            "_",
+            "=",
+            "\\",
+            "[",
+            "]",
+            "*",
+            '"',
+            "<",
+            ">",
+            ";",
+            "∞",
+        ]
         self.space_width = self.letter_spacing[0]
         self.base_spacing = 1
         self.line_spacing = 2
@@ -33,7 +120,7 @@ class Font():
     def width(self, text):
         text_width = 0
         for char in text:
-            if char == ' ':
+            if char == " ":
                 text_width += self.space_width + self.base_spacing
             else:
                 text_width += self.letter_spacing[self.font_order.index(char)] + self.base_spacing
@@ -46,7 +133,7 @@ class Font():
             spaces = []
             x = 0
             for i, char in enumerate(text):
-                if char == ' ':
+                if char == " ":
                     spaces.append((x, i))
                     x += self.space_width + self.base_spacing
                 else:
@@ -56,12 +143,12 @@ class Font():
                 if (space[0] - line_offset) > line_width:
                     line_offset += spaces[i - 1][0] - line_offset
                     if i != 0:
-                        text = text[:spaces[i - 1][1]] + '\n' + text[spaces[i - 1][1] + 1:]
+                        text = text[: spaces[i - 1][1]] + "\n" + text[spaces[i - 1][1] + 1 :]
         for char in text:
-            if char not in ['\n', ' ']:
+            if char not in ["\n", " "]:
                 surf.blit(self.letters[self.font_order.index(char)], (loc[0] + x_offset, loc[1] + y_offset))
                 x_offset += self.letter_spacing[self.font_order.index(char)] + self.base_spacing
-            elif char == ' ':
+            elif char == " ":
                 x_offset += self.space_width + self.base_spacing
             else:
                 y_offset += self.line_spacing + self.line_height

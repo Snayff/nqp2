@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
+
 import pygame
 
 from scripts.misc.constants import DEFAULT_IMAGE_SIZE, NodeType
@@ -22,10 +23,9 @@ class OverworldUI:
 
         self.selected_node = 0  # node index
 
-
     def update(self):
         row_nodes = self.game.overworld.map.nodes[self.game.overworld.map.current_row]
-        
+
         if self.game.input.states["left"]:
             self.game.input.states["left"] = False
             self.selected_node -= 1
@@ -45,11 +45,5 @@ class OverworldUI:
 
             self.game.overworld.map.current_row += 1
 
-        
     def render(self, surface: pygame.surface):
         pass
-
-
-
-
-    

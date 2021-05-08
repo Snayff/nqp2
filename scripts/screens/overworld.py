@@ -20,7 +20,6 @@ class Overworld:
 
         self.map: MapManager = MapManager(game)
 
-
     def update(self):
         pass
 

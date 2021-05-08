@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 from enum import auto, IntEnum
 from pathlib import Path
 
@@ -43,5 +44,3 @@ class NodeType(IntEnum):
     EVENT = auto()
     INN = auto()
     TRAINING = auto()
-
-

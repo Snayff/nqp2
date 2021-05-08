@@ -1,7 +1,8 @@
 from __future__ import annotations
-from scripts.elements.card_collection import CardCollection
 
 from typing import TYPE_CHECKING
+
+from scripts.elements.card_collection import CardCollection
 
 if TYPE_CHECKING:
     from scripts.management.game import Game
@@ -13,6 +14,7 @@ class Memory:
     """
     Game related values that persist outside of individual “screens”. E.g. money.
     """
+
     def __init__(self, game: Game):
         self.game: Game = game
 

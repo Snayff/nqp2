@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-from scripts.management.window import Window
+from scripts.management.assets import Assets
 from scripts.management.input import Input
 from scripts.management.memory import Memory
-from scripts.management.assets import Assets
+from scripts.management.window import Window
 from scripts.misc.constants import GameState
 from scripts.screens.combat import Combat
 from scripts.screens.overworld import Overworld
@@ -43,6 +43,3 @@ class Game:
 
     def quit(self):
         self.state = GameState.EXITING
-
-
-
