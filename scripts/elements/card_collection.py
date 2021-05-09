@@ -2,6 +2,7 @@ import random
 
 from .card import Card
 
+
 class CardCollection:
     def __init__(self, game):
         self.game = game
@@ -36,7 +37,7 @@ class CardCollection:
     # just a tool for now
     def generate(self, count):
         for i in range(count):
-            self.add_card(Card(self.game, 'spearman'))
+            self.add_card(Card(self.game, "spearman"))
 
     def copy(self):
         new_col = CardCollection(self.game)

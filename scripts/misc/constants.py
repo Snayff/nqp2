@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 from enum import auto, IntEnum
 from pathlib import Path
 
@@ -20,12 +21,31 @@ PROFILING_PATH = DEBUGGING_PATH / "profiling"
 DEFAULT_IMAGE_SIZE = 16
 
 
-class CombatState:
+# states
+class GameState(IntEnum):
+    PLAYING = auto()
+    EXITING = auto()
+
+
+class CombatState(IntEnum):
     CHOOSE_CARD = auto()
     SELECT_TARGET = auto()
     WATCH = auto()
 
 
-class GameState(IntEnum):
-    PLAYING = auto()
-    EXITING = auto()
+class MapState(IntEnum):
+    LOADING = auto()
+    READY = auto()
+
+
+class NodeState(IntEnum):
+    REACHABLE = auto()  # could reach the node
+    SELECTABLE = auto()  # can select the node
+    NOT_REACHABLE = auto()  # could never reach the node
+
+
+class NodeType(IntEnum):
+    COMBAT = auto()
+    EVENT = auto()
+    INN = auto()
+    TRAINING = auto()

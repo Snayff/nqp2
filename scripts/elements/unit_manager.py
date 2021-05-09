@@ -1,3 +1,10 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+import pygame
+
+
 class UnitManager:
     def __init__(self, game):
         self.game = game
@@ -11,6 +18,6 @@ class UnitManager:
         for unit in self.units:
             unit.update()
 
-    def render(self, surf, offset=(0, 0)):
+    def render(self, surface: pygame.Surface, offset=(0, 0)):
         for unit in self.units:
-            unit.render(surf, shift=offset)
+            unit.render(surface, shift=offset)
