@@ -33,6 +33,11 @@ class CombatState(IntEnum):
     WATCH = auto()
 
 
+class MapState(IntEnum):
+    LOADING = auto()
+    READY = auto()
+
+
 class NodeState(IntEnum):
     REACHABLE = auto()  # could reach the node
     SELECTABLE = auto()  # can select the node

@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from scripts.elements.map_manager import MapManager
+from scripts.ui.overworld import OverworldUI
 
 if TYPE_CHECKING:
     from scripts.management.game import Game
@@ -20,8 +21,11 @@ class Overworld:
 
         self.map: MapManager = MapManager(game)
 
+        self.ui = OverworldUI(game)
+
     def update(self):
-        pass
+        self.ui.update()
+        self.map.update()
 
     def render(self):
         self.map.render(self.game.window.display)

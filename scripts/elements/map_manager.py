@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 import pygame
 
 from scripts.elements.node import Node
-from scripts.misc.constants import ASSET_PATH, DEFAULT_IMAGE_SIZE, NodeState, NodeType
+from scripts.misc.constants import ASSET_PATH, DEFAULT_IMAGE_SIZE, MapState, NodeState, NodeType
 
 if TYPE_CHECKING:
     from typing import List
@@ -25,7 +25,11 @@ class MapManager:
         self.game: Game = game
 
         self.nodes: List[List[Node]] = []
-        self.current_row = 0
+        self.active_row = 0
+
+        self.state: MapState = MapState.LOADING
+
+        self.generate_map()
 
     def update(self):
         for row in self.nodes:
@@ -60,39 +64,56 @@ class MapManager:
 
         nodes = []
         row = []
+        previous_row = []
 
         # positions
-        x = 10
+        base_x = 10
+        x = base_x
         y = 10
 
         # generate first row
         # proc number of nodes
         num_nodes = random.randint(min_nodes_per_row, max_nodes_per_row)
 
-        # init node values
-        for _ in range(1, num_nodes):
-            # generate node type
-            node_type = random.choices(node_types, node_weights, k=1)[0]
+        # TODO - replace with procedural generation
+        # init nodes
+        for row_num in range(0, depth):
+            row = []
+            y = y + DEFAULT_IMAGE_SIZE * 2
 
-            # get node icon
-            node_icon = self.get_node_icon(node_type)
+            for node_num in range(0, num_nodes):
+                # generate node type
+                node_type = random.choices(node_types, node_weights, k=1)[0]
 
-            # init  node
-            node = Node(node_type, [x, y], node_icon)
+                # get node icon
+                node_icon = self.get_node_icon(node_type)
 
-            # change state as we're in first row
-            node.state = NodeState.SELECTABLE
+                # init  node
+                node = Node(node_type, [x, y], node_icon)
 
-            # increment position
-            x += DEFAULT_IMAGE_SIZE * 3
+                # change state as we're in first row
+                if row_num == 0:
+                    node.state = NodeState.SELECTABLE
+                else:
+                    # connect to previous row
+                    node.connected_previous_row_nodes = previous_row[node_num]
 
-            row.append(node)
+                # increment position
+                x += DEFAULT_IMAGE_SIZE * 3
 
-        nodes.append(row)
+                row.append(node)
 
-        # TODO - create remaining rows and connect nodes
+            # store row
+            nodes.append(row)
+
+            # reset x
+            x = base_x
+
+            # retain row info
+            previous_row = row
 
         self.nodes = nodes
+        self.state = MapState.READY
 
     def get_node_icon(self, node_type: NodeType) -> pygame.Surface:
         """

@@ -25,7 +25,7 @@ class Game:
         self.overworld = Overworld(self)
 
         # point this to whatever "screen" is active
-        self.active_screen = self.combat
+        self.active_screen = self.overworld
 
         self.state: GameState = GameState.PLAYING
 
