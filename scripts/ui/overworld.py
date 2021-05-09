@@ -63,7 +63,7 @@ class OverworldUI:
 
     def render(self, surface: pygame.surface):
         overworld_map = self.game.overworld.map
-        
+
         if overworld_map.state == MapState.LOADING:
             # draw loading screen
             window_height = self.game.window.base_resolution[1]
@@ -85,14 +85,16 @@ class OverworldUI:
                         connected_node_centre = connected_node.pos[0] + (node_width / 2)
                         connected_node_bottom = connected_node.pos[1] + node_height + line_offset
                         # FIXME - are these nodes the wrong way round?
-                        
-                        pygame.draw.line(surface, (255, 255, 255), (node_centre_x, node_top),
-                                         (connected_node_centre, connected_node_bottom))
-                        
+
+                        pygame.draw.line(
+                            surface,
+                            (255, 255, 255),
+                            (node_centre_x, node_top),
+                            (connected_node_centre, connected_node_bottom),
+                        )
+
             # draw selection
             selected_node = overworld_map.nodes[overworld_map.active_row][self.selected_node]
             selected_node_centre_x = selected_node.pos[0] + (node_width / 2)
             selected_node_centre_y = selected_node.pos[1] + (node_height / 2)
             pygame.draw.circle(surface, (255, 0, 0), (selected_node_centre_x, selected_node_centre_y), node_width, 2)
-                    
-
