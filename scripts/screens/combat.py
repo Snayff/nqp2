@@ -45,6 +45,10 @@ class Combat:
         if self.game.combat.state == CombatState.WATCH:
             self.state = CombatState.CHOOSE_CARD
 
+        # end combat when all cards spent
+        if len(self.hand.cards) == 0:
+            self.game.active_screen = self.game.overworld
+
     def render(self):
         self.terrain.render(self.game.window.display, self.camera.render_offset())
         self.units.render(self.game.window.display, self.camera.render_offset())

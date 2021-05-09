@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 
 import pygame
 
-from scripts.misc.constants import MapState
+from scripts.misc.constants import MapState, NodeType
 
 if TYPE_CHECKING:
     from scripts.management.game import Game
@@ -43,7 +43,21 @@ class OverworldUI:
             if self.game.input.states["select"]:
                 self.game.input.states["select"] = False
 
-                # TODO - Trigger the node, e.g. the event,  combat etc. - change the active screen
+                selected_node = self.game.overworld.map.nodes[self.game.overworld.map.active_row][self.selected_node]
+                selected_node_type = selected_node.type
+
+                # change active screen
+                if selected_node_type == NodeType.COMBAT:
+                    self.game.active_screen = self.game.combat
+                elif selected_node_type == NodeType.INN:
+                    # TODO - update to inn
+                    self.game.active_screen = self.game.combat
+                elif selected_node_type == NodeType.TRAINING:
+                    # TODO - update to training
+                    self.game.active_screen = self.game.combat
+                elif selected_node_type == NodeType.EVENT:
+                    # TODO - update to event
+                    self.game.active_screen = self.game.combat
 
                 self.game.overworld.map.active_row += 1
 
