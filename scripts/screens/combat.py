@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from scripts.elements.camera import Camera
+from scripts.elements.card_collection import CardCollection
 from scripts.elements.terrain import Terrain
 from scripts.elements.unit_manager import UnitManager
 from scripts.misc.constants import CombatState
@@ -16,23 +17,23 @@ __all__ = ["Combat"]
 
 class Combat:
     """
-    Represents the combat and handles related interactions.
+    Handles Combat interactions and consolidates the rendering.
     """
 
     def __init__(self, game: Game):
         self.game: Game = game
 
-        self.camera = Camera()
+        self.camera: Camera = Camera()
         self.camera.pos = [-100, -50]
 
-        self.terrain = Terrain()
+        self.terrain: Terrain = Terrain()
         self.terrain.generate()
 
-        self.units = UnitManager(game)
+        self.units: UnitManager = UnitManager(game)
 
-        self.ui = CombatUI(game)
+        self.ui: CombatUI = CombatUI(game)
 
-        self.deck = self.game.memory.deck.copy()
+        self.deck: CardCollection = self.game.memory.deck.copy()
         self.hand = self.deck.draw(5)
 
         self.state: CombatState = CombatState.CHOOSE_CARD

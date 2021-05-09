@@ -21,8 +21,8 @@ class Game:
         self.assets = Assets(self)
 
         # screens
-        self.combat = Combat(self)
-        self.overworld = Overworld(self)
+        self.combat: Combat = Combat(self)
+        self.overworld: Overworld = Overworld(self)
 
         # point this to whatever "screen" is active
         self.active_screen = self.overworld

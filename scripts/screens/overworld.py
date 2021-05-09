@@ -13,7 +13,7 @@ __all__ = ["Overworld"]
 
 class Overworld:
     """
-    Represents the overworld view and handles related interactions.
+    Handles Overworld interactions and consolidates the rendering.
     """
 
     def __init__(self, game: Game):
@@ -21,11 +21,11 @@ class Overworld:
 
         self.map: MapManager = MapManager(game)
 
-        self.ui = OverworldUI(game)
+        self.ui: OverworldUI = OverworldUI(game)
 
     def update(self):
-        self.ui.update()
         self.map.update()
+        self.ui.update()
 
     def render(self):
         self.map.render(self.game.window.display)

@@ -6,7 +6,7 @@ from typing import List, TYPE_CHECKING
 import pygame
 
 from scripts.misc.constants import ASSET_PATH, DEFAULT_IMAGE_SIZE, IMAGE_NOT_FOUND_PATH
-from scripts.ui.text import Font
+from scripts.ui_elements.text import Font
 
 if TYPE_CHECKING:
     from typing import Dict, Tuple

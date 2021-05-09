@@ -18,5 +18,5 @@ class Memory:
     def __init__(self, game: Game):
         self.game: Game = game
 
-        self.deck = CardCollection(game)
+        self.deck: CardCollection = CardCollection(game)
         self.deck.generate(20)
