@@ -3,12 +3,14 @@ from __future__ import annotations
 import logging
 from typing import List, TYPE_CHECKING
 
+import pygame
+
 from scripts.misc.constants import ASSET_PATH, DEFAULT_IMAGE_SIZE, IMAGE_NOT_FOUND_PATH
 from scripts.ui.text import Font
-import pygame
 
 if TYPE_CHECKING:
     from typing import Dict, Tuple
+
     from scripts.management.game import Game
 
 __all__ = ["Assets"]
@@ -23,8 +25,12 @@ class Assets:
         # used to hold images called during runtime so only one copy ever exists.
         self.images: Dict[str, pygame.Surface] = {}
 
-    def get_image(self, img_path: str, desired_dimensions: Tuple[int, int] = (DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE)
-            , copy: bool = False) -> pygame.Surface:
+    def get_image(
+        self,
+        img_path: str,
+        desired_dimensions: Tuple[int, int] = (DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE),
+        copy: bool = False,
+    ) -> pygame.Surface:
         """
         Get the specified image and resize if dimensions provided. Dimensions are in (width, height) format. If img
         path is "none" then a blank surface is created to the size of the desired dimensions, or TILE_SIZE if no

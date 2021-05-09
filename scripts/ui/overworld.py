@@ -69,6 +69,9 @@ class OverworldUI:
                         connected_node_centre = connected_node.pos[0] + (node_width / 2)
                         connected_node_bottom = connected_node.pos[1] + node_height + line_offset
 
-
-                        pygame.draw.line(surface, (255, 255, 255), (node_centre, node_top),
-                                         (connected_node_centre, connected_node_bottom))
+                        pygame.draw.line(
+                            surface,
+                            (255, 255, 255),
+                            (node_centre, node_top),
+                            (connected_node_centre, connected_node_bottom),
+                        )
