@@ -126,7 +126,7 @@ class Font:
                 text_width += self.letter_spacing[self.font_order.index(char)] + self.base_spacing
         return text_width
 
-    def render(self, text, surf, loc, line_width=0):
+    def render(self, text, surface, loc, line_width=0):
         x_offset = 0
         y_offset = 0
         if line_width != 0:
@@ -146,7 +146,7 @@ class Font:
                         text = text[: spaces[i - 1][1]] + "\n" + text[spaces[i - 1][1] + 1 :]
         for char in text:
             if char not in ["\n", " "]:
-                surf.blit(self.letters[self.font_order.index(char)], (loc[0] + x_offset, loc[1] + y_offset))
+                surface.blit(self.letters[self.font_order.index(char)], (loc[0] + x_offset, loc[1] + y_offset))
                 x_offset += self.letter_spacing[self.font_order.index(char)] + self.base_spacing
             elif char == " ":
                 x_offset += self.space_width + self.base_spacing

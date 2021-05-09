@@ -18,7 +18,7 @@ class Terrain:
                 loc = (x, y)
                 self.terrain[loc] = Tile("plains", loc)
 
-    def render(self, surf, offset=(0, 0)):
+    def render(self, surface: pygame.Surface, offset=(0, 0)):
         for loc in self.terrain:
             tile = self.terrain[loc]
 
@@ -29,4 +29,4 @@ class Terrain:
                 self.tile_size,
                 self.tile_size,
             )
-            pygame.draw.rect(surf, (200, 200, 200), r, 1)
+            pygame.draw.rect(surface, (200, 200, 200), r, 1)

@@ -61,11 +61,11 @@ class CombatUI:
                 self.game.combat.hand.cards.pop(self.selected_card)
                 self.game.combat.state = CombatState.WATCH
 
-    def render(self, surf):
+    def render(self, surface: pygame.Surface):
         cards = self.game.combat.hand.cards
 
         if self.game.combat.state == CombatState.SELECT_TARGET:
-            pygame.draw.circle(surf, (255, 255, 255), self.game.combat.camera.render_offset(self.place_target), 8, 1)
+            pygame.draw.circle(surface, (255, 255, 255), self.game.combat.camera.render_offset(self.place_target), 8, 1)
 
         if self.game.combat.state != CombatState.WATCH:
             start_pos = self.game.window.display.get_width() // 2 - (len(cards) - 1) * 30
@@ -78,4 +78,4 @@ class CombatUI:
                 elif self.game.combat.state == CombatState.SELECT_TARGET:
                     height_offset += 12
 
-                card.render(surf, (start_pos + i * 60 - 25, 300 + height_offset))
+                card.render(surface, (start_pos + i * 60 - 25, 300 + height_offset))
