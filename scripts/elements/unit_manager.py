@@ -1,3 +1,10 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+import pygame
+
+
 class UnitManager:
     def __init__(self, game):
         self.game = game

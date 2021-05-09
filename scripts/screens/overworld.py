@@ -29,3 +29,4 @@ class Overworld:
 
     def render(self):
         self.map.render(self.game.window.display)
+        self.ui.render(self.game.window.display)

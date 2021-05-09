@@ -49,5 +49,26 @@ class OverworldUI:
 
     def render(self, surface: pygame.surface):
         if self.game.overworld.map.state == MapState.LOADING:
+            # draw loading screen
             window_height = self.game.window.base_resolution[1]
             self.game.assets.fonts["small_red"].render("Loading...", surface, (10, window_height - 20))
+
+        elif self.game.overworld.map.state == MapState.READY:
+            # get node icon details
+            node_width = self.game.overworld.map.nodes[0][0].icon.get_width()
+            node_height = self.game.overworld.map.nodes[0][0].icon.get_height()
+            line_offset = 2
+
+            # draw node connections
+            for row in self.game.overworld.map.nodes:
+                for node in row:
+                    for connected_node in node.connected_previous_row_nodes:
+                        # get positions
+                        node_centre = node.pos[0] + (node_width / 2)
+                        node_top = node.pos[1] - line_offset
+                        connected_node_centre = connected_node.pos[0] + (node_width / 2)
+                        connected_node_bottom = connected_node.pos[1] + node_height + line_offset
+
+
+                        pygame.draw.line(surface, (255, 255, 255), (node_centre, node_top),
+                                         (connected_node_centre, connected_node_bottom))

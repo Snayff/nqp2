@@ -56,7 +56,7 @@ class MapManager:
         # 3. connections between nodes must not cross.
 
         # config
-        min_nodes_per_row = 1
+        min_nodes_per_row = 2
         max_nodes_per_row = 4
         depth = 5
         node_types = [NodeType.COMBAT, NodeType.EVENT, NodeType.INN, NodeType.TRAINING]
@@ -96,7 +96,7 @@ class MapManager:
                     node.state = NodeState.SELECTABLE
                 else:
                     # connect to previous row
-                    node.connected_previous_row_nodes = previous_row[node_num]
+                    node.connected_previous_row_nodes.append(previous_row[node_num])
 
                 # increment position
                 x += DEFAULT_IMAGE_SIZE * 3
