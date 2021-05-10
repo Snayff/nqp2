@@ -12,11 +12,12 @@ class UnitManager:
         self.units = []
 
     def add_unit(self, unit):
+        unit.spawn_entities()
         self.units.append(unit)
 
     def update(self):
         for unit in self.units:
-            unit.update()
+            unit.update(self.game.combat.dt)
 
     def render(self, surface: pygame.Surface, offset=(0, 0)):
         for unit in self.units:

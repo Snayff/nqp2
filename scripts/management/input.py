@@ -23,10 +23,12 @@ class Input:
             "hold_up": False,
             "hold_down": False,
             "select": False,
+            "cancel": False,
         }
 
     def soft_reset(self):
         self.states["select"] = False
+        self.states["cancel"] = False
 
     def update(self):
         self.soft_reset()
@@ -38,6 +40,9 @@ class Input:
             if event.type == KEYDOWN:
                 if event.key == K_ESCAPE:
                     self.game.quit()
+
+                if event.key == K_x:
+                    self.states["cancel"] = True
 
                 if event.key == K_RIGHT:
                     self.states["right"] = True

@@ -1,15 +1,61 @@
 import pygame
 
-from scripts.misc.utility import offset
-
+from scripts.misc.utility import itr
+from scripts.elements.entity import Entity
 
 class Unit:
-    def __init__(self, unit_type, pos=[0, 0]):
+    def __init__(self, game, unit_type, pos=[0, 0], team='player'):
+        self.game = game
         self.type = unit_type
+        self.stats = self.game.memory.unit_info[self.type].copy()
         self.pos = list(pos)
+        self.team = team
 
-    def update(self):
-        pass
+        self.behavior_type = self.stats['default_behavior']
+        self.behavior = self.game.memory.behaviors.unit_behaviors[self.behavior_type](self)
+
+        self.alive = True
+
+        # temporary
+        if self.team == 'player':
+            self.color = (0, 0, 255)
+        else:
+            self.color = (255, 0, 0)
+
+        self.entities = []
+
+    def update_pos(self):
+        '''
+        Update unit "position" by averaging the positions of all its entities.
+        '''
+
+        if self.entities != []:
+            pos = [0, 0]
+            for entity in self.entities:
+                pos[0] += entity.pos[0]
+                pos[1] += entity.pos[1]
+            self.pos[0] = pos[0] / len(self.entities)
+            self.pos[1] = pos[1] / len(self.entities)
+
+    def spawn_entities(self):
+        for i in range(self.stats['count']):
+            self.entities.append(Entity(self))
+
+    def update(self, dt):
+        self.update_pos()
+
+        # a unit is alive if all of its entities are alive
+        self.alive = bool(len(self.entities))
+
+        self.behavior.process(dt)
+
+        for i, entity in itr(self.entities):
+            entity.update(dt)
+
+            # remove if dead
+            if not entity.alive:
+                self.entities.pop(i)
 
     def render(self, surface: pygame.Surface, shift=(0, 0)):
-        pygame.draw.circle(surface, (255, 0, 0), offset(shift.copy(), self.pos), 3)
+        for entity in self.entities:
+            entity.render(surface, shift=shift)

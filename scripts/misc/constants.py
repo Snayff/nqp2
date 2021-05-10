@@ -20,6 +20,10 @@ PROFILING_PATH = DEBUGGING_PATH / "profiling"
 # sizes
 DEFAULT_IMAGE_SIZE = 16
 
+# algorithm/formula constants
+WEIGHT_SCALE = 5
+DEFENSE_SCALE = 10
+PUSH_FORCE = 14
 
 # states
 class GameState(IntEnum):

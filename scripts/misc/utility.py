@@ -57,3 +57,9 @@ def roll(min_value: int = 0, max_value: int = 99) -> int:
     Roll for a number between min and max
     """
     return random.randint(min_value, max_value)
+
+def itr(iterable):
+    '''
+    An iteration tool for easy removal.
+    '''
+    return sorted(enumerate(iterable), reverse=True)

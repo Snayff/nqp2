@@ -25,14 +25,10 @@ class CombatUI:
             if self.game.input.states["left"]:
                 self.game.input.states["left"] = False
                 self.selected_card -= 1
-                if self.selected_card < 0:
-                    self.selected_card = len(cards) - 1
 
             if self.game.input.states["right"]:
                 self.game.input.states["right"] = False
                 self.selected_card += 1
-                if self.selected_card >= len(cards):
-                    self.selected_card = 0
 
             if self.game.input.states["select"]:
                 self.game.combat.state = CombatState.SELECT_TARGET
@@ -40,6 +36,9 @@ class CombatUI:
                     self.game.combat.terrain.pixel_size[0] // 2,
                     self.game.combat.terrain.pixel_size[1] // 2,
                 ]
+
+            if self.game.input.states["cancel"]:
+                self.game.combat.state = CombatState.WATCH
 
         elif self.game.combat.state == CombatState.SELECT_TARGET:
             directions = {
@@ -60,10 +59,19 @@ class CombatUI:
 
             if self.game.input.states["select"]:
                 self.game.combat.units.add_unit(
-                    Unit(self.game.combat.hand.cards[self.selected_card].type, self.place_target)
+                    Unit(self.game, self.game.combat.hand.cards[self.selected_card].type, self.place_target)
                 )
                 self.game.combat.hand.cards.pop(self.selected_card)
-                self.game.combat.state = CombatState.WATCH
+                self.game.combat.state = CombatState.CHOOSE_CARD
+
+            if self.game.input.states["cancel"]:
+                self.game.combat.state = CombatState.CHOOSE_CARD
+
+        # correct card selection index for looping
+        if self.selected_card < 0:
+            self.selected_card = len(cards) - 1
+        if self.selected_card >= len(cards):
+            self.selected_card = 0
 
     def render(self, surface: pygame.Surface):
         cards = self.game.combat.hand.cards

@@ -1,0 +1,13 @@
+{
+  "health": 5,
+  "defense": 2,
+  "damage": 2,
+  "range": 7,
+  "attack_speed": 1.5,
+  "move_speed": 24,
+  "ammo": -1,
+  "count": 10,
+  "size": 5,
+  "weight": 2,
+  "default_behavior": "swarm"
+}
