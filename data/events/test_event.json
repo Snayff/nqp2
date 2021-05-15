@@ -2,16 +2,18 @@
     "id": "test",
     "description": "this is what will show and will describe what is happening.",
     "rarity": "common",
-    "choice1": {
-        "text": "this is the first choice",
-        "result": "?"
-    },
-    "choice2": {
-        "text": "this is the second choice",
-        "result": "?"
-    },
-    "choice3": {
-        "text": "this is the third choice",
-        "result": "?"
-    }
+    "options": [
+        {
+            "text": "this is the first choice",
+            "result": "?"
+        },
+        {
+            "text": "this is the second choice",
+            "result": "?"
+        },
+        {
+            "text": "this is the third choice",
+            "result": "?"
+        }
+    ]
 }

@@ -8,6 +8,9 @@ from scripts.elements.unit import Unit
 from scripts.misc.constants import CombatState
 from scripts.misc.utility import offset
 
+if TYPE_CHECKING:
+    pass
+
 
 class CombatUI:
     def __init__(self, game):

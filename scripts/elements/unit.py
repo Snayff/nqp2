@@ -7,7 +7,7 @@ class Unit:
     def __init__(self, game, unit_type, pos=[0, 0], team='player'):
         self.game = game
         self.type = unit_type
-        self.stats = self.game.memory.unit_info[self.type].copy()
+        self.stats = self.game.memory.units[self.type].copy()
         self.pos = list(pos)
         self.team = team
 

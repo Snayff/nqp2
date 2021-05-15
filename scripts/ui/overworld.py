@@ -56,8 +56,7 @@ class OverworldUI:
                     # TODO - update to training
                     self.game.active_screen = self.game.combat
                 elif selected_node_type == NodeType.EVENT:
-                    # TODO - update to event
-                    self.game.active_screen = self.game.combat
+                    self.game.active_screen = self.game.event
 
                 self.game.overworld.map.active_row += 1
 
