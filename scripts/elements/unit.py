@@ -1,23 +1,24 @@
 import pygame
 
-from scripts.misc.utility import itr
 from scripts.elements.entity import Entity
+from scripts.misc.utility import itr
+
 
 class Unit:
-    def __init__(self, game, unit_type, pos=[0, 0], team='player'):
+    def __init__(self, game, unit_type, pos=[0, 0], team="player"):
         self.game = game
         self.type = unit_type
         self.stats = self.game.memory.units[self.type].copy()
         self.pos = list(pos)
         self.team = team
 
-        self.behavior_type = self.stats['default_behavior']
+        self.behavior_type = self.stats["default_behavior"]
         self.behavior = self.game.memory.behaviors.unit_behaviors[self.behavior_type](self)
 
         self.alive = True
 
         # temporary
-        if self.team == 'player':
+        if self.team == "player":
             self.color = (0, 0, 255)
         else:
             self.color = (255, 0, 0)
@@ -25,9 +26,9 @@ class Unit:
         self.entities = []
 
     def update_pos(self):
-        '''
+        """
         Update unit "position" by averaging the positions of all its entities.
-        '''
+        """
 
         if self.entities != []:
             pos = [0, 0]
@@ -38,7 +39,7 @@ class Unit:
             self.pos[1] = pos[1] / len(self.entities)
 
     def spawn_entities(self):
-        for i in range(self.stats['count']):
+        for i in range(self.stats["count"]):
             self.entities.append(Entity(self))
 
     def update(self, dt):

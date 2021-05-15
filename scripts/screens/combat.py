@@ -4,9 +4,9 @@ from typing import TYPE_CHECKING
 
 from scripts.elements.camera import Camera
 from scripts.elements.card_collection import CardCollection
+from scripts.elements.enemy_combatants_generator import EnemyCombatantsGenerator
 from scripts.elements.terrain import Terrain
 from scripts.elements.unit_manager import UnitManager
-from scripts.elements.enemy_combatants_generator import EnemyCombatantsGenerator
 from scripts.misc.constants import CombatState
 from scripts.ui.combat import CombatUI
 

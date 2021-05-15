@@ -37,4 +37,3 @@ class Overworld:
 # TODO - allow number of nodes per row to vary
 # TODO - connect nodes between rows randomly
 # TODO - output to log results of generation
-

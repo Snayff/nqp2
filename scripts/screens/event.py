@@ -6,8 +6,9 @@ from typing import TYPE_CHECKING
 from scripts.ui.event import EventUI
 
 if TYPE_CHECKING:
-    from scripts.management.game import Game
     from typing import Dict
+
+    from scripts.management.game import Game
 
 __all__ = ["Event"]
 
@@ -23,7 +24,6 @@ class Event:
         self.ui: EventUI = EventUI(game)
 
         self.active_event: Dict = self._get_random_event()
-
 
     def update(self):
         self.ui.update()
@@ -67,4 +67,3 @@ class Event:
         Amend the current gold value by the given amount.
         """
         self.game.memory.gold = max(0, self.game.memory.gold, amount)
-

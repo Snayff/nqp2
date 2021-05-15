@@ -2,6 +2,7 @@ import random
 
 from scripts.elements.unit import Unit
 
+
 class EnemyCombatantsGenerator:
     def __init__(self, game):
         self.game = game
@@ -16,7 +17,7 @@ class EnemyCombatantsGenerator:
             # choose a random spot on the right side of the map
             pos = [random.random() * map_size[0] // 2 + map_size[0] // 2, random.random() * map_size[1]]
 
-            enemy_type = random.choice(['spearman', 'juggernaut'])
+            enemy_type = random.choice(["spearman", "juggernaut"])
 
-            unit = Unit(self.game, enemy_type, pos, team='enemy')
+            unit = Unit(self.game, enemy_type, pos, team="enemy")
             self.game.combat.units.add_unit(unit)

@@ -75,12 +75,7 @@ class EventUI:
                     (option_x + font.width(option["text"]), option_y + font_height),
                 )
 
-
             count += 1
 
         # show gold
         font.render(f"Gold: {self.game.memory.gold}", surface, (0, 0), 2)
-
-
-
-
