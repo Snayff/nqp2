@@ -45,6 +45,8 @@ class Event:
         Trigger the result for the indicated option.
 
         Results are in a key value pair, separated by a colon. Separate results are split  by a comma.
+        Example:
+            "Gold:10,Gold:10" - would add 10 gold twice.
         """
         result_string = self.active_event["options"][option_index]["result"]
         result_list = result_string.split(",")
