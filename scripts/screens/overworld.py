@@ -35,6 +35,6 @@ class Overworld:
 ## TO DO LIST ##
 # TODO - implement use of a seed
 # TODO - allow number of nodes per row to vary
-# TODO - connect nodes across rows randomly
+# TODO - connect nodes between rows randomly
 # TODO - output to log results of generation
 

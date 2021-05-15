@@ -15,6 +15,7 @@ if TYPE_CHECKING:
 
 __all__ = ["Combat"]
 
+
 class Combat:
     """
     Handles Combat interactions and consolidates the rendering.

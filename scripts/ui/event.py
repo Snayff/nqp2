@@ -31,6 +31,14 @@ class EventUI:
             self.game.input.states["down"] = False
             self.selected_option += 1
 
+        # select option and trigger result
+        if self.game.input.states["select"]:
+            self.game.input.states["select"] = False
+            self.game.event.trigger_result(self.selected_option)
+
+            # return to overworld
+            self.game.active_screen = self.game.overworld
+
         # correct selection index for looping
         if self.selected_option < 0:
             self.selected_option = len(options) - 1
@@ -70,6 +78,8 @@ class EventUI:
 
             count += 1
 
+        # show gold
+        font.render(f"Gold: {self.game.memory.gold}", surface, (0, 0), 2)
 
 
 

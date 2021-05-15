@@ -22,13 +22,18 @@ class Memory:
     def __init__(self, game: Game):
         self.game: Game = game
 
+        # combat
         self.deck: CardCollection = CardCollection(game)
         self.deck.generate(20)
-
         self.units: Dict = self.load_unit_info()
+        self.behaviors = BehaviorManager()
+
+        # event
         self.events: Dict = self.load_events()
 
-        self.behaviors = BehaviorManager()
+        # general
+        self.gold = 0
+
 
     @staticmethod
     def load_unit_info() -> Dict:

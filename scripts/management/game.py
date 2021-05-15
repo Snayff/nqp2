@@ -26,11 +26,8 @@ class Game:
         self.overworld: Overworld = Overworld(self)
         self.event: Event = Event(self)
 
-        # temp
-        self.combat.begin_combat()
-
         # point this to whatever "screen" is active
-        self.active_screen = self.event
+        self.active_screen = self.overworld
 
         self.state: GameState = GameState.PLAYING
 

@@ -48,6 +48,7 @@ class OverworldUI:
 
                 # change active screen
                 if selected_node_type == NodeType.COMBAT:
+                    self.game.combat.begin_combat()
                     self.game.active_screen = self.game.combat
                 elif selected_node_type == NodeType.INN:
                     # TODO - update to inn

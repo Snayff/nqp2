@@ -94,3 +94,10 @@ class CombatUI:
                     height_offset += 12
 
                 card.render(surface, (start_pos + i * 60 - 25, 300 + height_offset))
+
+
+## TO DO LIST ##
+# TODO -  Win state/ lose state; when all of one side is dead.
+# TODO - show bar that is all of remaining health for both sides as a % of total. So when player is winning the bar
+#  will progress to one side and if the opposite then it will progress to the other.
+

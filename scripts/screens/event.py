@@ -22,7 +22,7 @@ class Event:
 
         self.ui: EventUI = EventUI(game)
 
-        self.active_event: Dict = self.get_random_event()
+        self.active_event: Dict = self._get_random_event()
 
 
     def update(self):
@@ -31,7 +31,7 @@ class Event:
     def render(self):
         self.ui.render(self.game.window.display)
 
-    def get_random_event(self) -> Dict:
+    def _get_random_event(self) -> Dict:
         if len(self.game.memory.events) > 0:
 
             # convert dict items to list, get a random choice from list, get the dict value from the tuple
@@ -40,16 +40,29 @@ class Event:
             event = {}
         return event
 
+    def trigger_result(self, option_index: int):
+        """
+        Trigger the result for the indicated option.
 
-## IMPLEMENTATION NOTES ##
-# triggering an event node can cause any node to trigger, including an event.
-# chance of each node type is weighted, event being most likely
-# when an event is activated roll for the type of event (grab one at random, using rarity as weighting)
-# all of this randomness needs to use the seed
-#
-# how can we articulate the choices and results in json?
+        Results are in a key value pair, separated by a colon. Separate results are split  by a comma.
+        """
+        result_string = self.active_event["options"][option_index]["result"]
+        result_list = result_string.split(",")
 
-## TO DO LIST ##
-# TODO - display the description and the choices
-# TODO - pick event at random, using seed
-# TODO - have choice trigger a response; we'll need vars to alter, e.g. gold.
+        for result_line in result_list:
+            key, value = result_line.split(":", 1)
+            self._action_result(key, value)
+
+    def _action_result(self, result_key: str, result_value: str):
+        """
+        Resolve the action from the result
+        """
+        if result_key == "gold":
+            self._amend_gold(int(result_value))
+
+    def _amend_gold(self, amount: int):
+        """
+        Amend the current gold value by the given amount.
+        """
+        self.game.memory.gold = max(0, self.game.memory.gold, amount)
+
