@@ -23,12 +23,12 @@ class EventUI:
     def update(self):
         options = self.game.event.active_event["options"]
 
-        if self.game.input.states["left"]:
-            self.game.input.states["left"] = False
+        if self.game.input.states["up"]:
+            self.game.input.states["up"] = False
             self.selected_option -= 1
 
-        if self.game.input.states["right"]:
-            self.game.input.states["right"] = False
+        if self.game.input.states["down"]:
+            self.game.input.states["down"] = False
             self.selected_option += 1
 
         # correct selection index for looping
@@ -38,4 +38,39 @@ class EventUI:
             self.selected_option = 0
 
     def render(self, surface: pygame.surface):
-        pass
+        event = self.game.event.active_event
+        font = self.game.assets.fonts["small_red"]
+
+        # positions
+        option_x = 20
+        option_start_y = self.game.window.height // 2
+        gap = 10
+        font_height = 12  # FIXME - get actual font height
+
+        # show description
+        font.render(event["description"], surface, (10, 0 + 20))
+
+        # show options
+        count = 0
+        for option in event["options"]:
+
+            # draw option
+            option_y = option_start_y + ((font_height + gap) * count)
+            font.render(option["text"], surface, (option_x, option_y))
+
+            # draw selector
+            if count == self.selected_option:
+                pygame.draw.line(
+                    surface,
+                    (255, 255, 255),
+                    (option_x, option_y + font_height),
+                    (option_x + font.width(option["text"]), option_y + font_height),
+                )
+
+
+            count += 1
+
+
+
+
+

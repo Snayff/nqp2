@@ -40,6 +40,7 @@ class Event:
             event = {}
         return event
 
+
 ## IMPLEMENTATION NOTES ##
 # triggering an event node can cause any node to trigger, including an event.
 # chance of each node type is weighted, event being most likely
