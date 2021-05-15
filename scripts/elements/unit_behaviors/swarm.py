@@ -1,5 +1,6 @@
 from scripts.elements.unit_behaviors.behavior import Behavior
 
+
 class Swarm(Behavior):
     def complete_init(self):
         # these are pointers. be careful with modifying them.
@@ -7,9 +8,9 @@ class Swarm(Behavior):
         self.target_pos = None
 
     def find_target(self):
-        '''
+        """
         Find the nearest enemy from a different team and update the target.
-        '''
+        """
         nearest = [None, 9999999]
         for entity in self.game.combat.all_entities:
             if entity.team != self.unit.team:

@@ -35,3 +35,11 @@ class Window:
 
         self.dt = time.time() - self.frame_start
         self.frame_start = time.time()
+
+    @property
+    def height(self) -> int:
+        return self.base_resolution[1]
+
+    @property
+    def width(self) -> int:
+        return self.base_resolution[0]

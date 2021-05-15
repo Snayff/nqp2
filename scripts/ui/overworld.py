@@ -48,6 +48,7 @@ class OverworldUI:
 
                 # change active screen
                 if selected_node_type == NodeType.COMBAT:
+                    self.game.combat.begin_combat()
                     self.game.active_screen = self.game.combat
                 elif selected_node_type == NodeType.INN:
                     # TODO - update to inn
@@ -56,8 +57,7 @@ class OverworldUI:
                     # TODO - update to training
                     self.game.active_screen = self.game.combat
                 elif selected_node_type == NodeType.EVENT:
-                    # TODO - update to event
-                    self.game.active_screen = self.game.combat
+                    self.game.active_screen = self.game.event
 
                 self.game.overworld.map.active_row += 1
 
@@ -66,7 +66,7 @@ class OverworldUI:
 
         if overworld_map.state == MapState.LOADING:
             # draw loading screen
-            window_height = self.game.window.base_resolution[1]
+            window_height = self.game.window.height
             self.game.assets.fonts["small_red"].render("Loading...", surface, (10, window_height - 20))
 
         elif overworld_map.state == MapState.READY:

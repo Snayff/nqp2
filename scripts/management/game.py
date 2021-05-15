@@ -6,6 +6,7 @@ from scripts.management.memory import Memory
 from scripts.management.window import Window
 from scripts.misc.constants import GameState
 from scripts.screens.combat import Combat
+from scripts.screens.event import Event
 from scripts.screens.overworld import Overworld
 
 __all__ = ["Game"]
@@ -23,12 +24,10 @@ class Game:
         # screens
         self.combat: Combat = Combat(self)
         self.overworld: Overworld = Overworld(self)
-
-        # temp
-        self.combat.begin_combat()
+        self.event: Event = Event(self)
 
         # point this to whatever "screen" is active
-        self.active_screen = self.combat
+        self.active_screen = self.overworld
 
         self.state: GameState = GameState.PLAYING
 

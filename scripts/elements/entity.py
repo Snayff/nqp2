@@ -3,13 +3,14 @@ import random
 
 import pygame
 
+from scripts.misc.constants import DEFENSE_SCALE, PUSH_FORCE, WEIGHT_SCALE
 from scripts.misc.utility import offset
-from scripts.misc.constants import WEIGHT_SCALE, PUSH_FORCE, DEFENSE_SCALE
 
-'''
+"""
 Don't try to enforce typing with some of the functions here. They're meant to take anything with a "pos" attribute.
 This can be adjusted to have valid typing, but it'd make a lot of stuff unnecessarily complicated.
-'''
+"""
+
 
 class Entity:
     def __init__(self, parent_unit):
@@ -36,15 +37,15 @@ class Entity:
         self.color = self.unit.color
 
     def dis(self, entity):
-        '''
+        """
         Find the distance to another entity or other object with a position.
-        '''
+        """
         return math.sqrt((self.pos[0] - entity.pos[0]) ** 2 + (self.pos[1] - entity.pos[1]) ** 2)
 
     def angle(self, entity):
-        '''
+        """
         Find the angle to another entity or other object with a position.
-        '''
+        """
         return math.atan2(entity.pos[1] - self.pos[1], entity.pos[0] - self.pos[0])
 
     def advance(self, angle, amount):
@@ -52,19 +53,19 @@ class Entity:
         self.pos[1] += math.sin(angle) * amount
 
     def damage(self, amount, owner):
-        self.stats['health'] -= amount * (DEFENSE_SCALE / (DEFENSE_SCALE + self.stats['defense']))
-        if self.stats['health'] <= 0:
-            self.stats['health'] = 0
+        self.stats["health"] -= amount * (DEFENSE_SCALE / (DEFENSE_SCALE + self.stats["defense"]))
+        if self.stats["health"] <= 0:
+            self.stats["health"] = 0
             self.alive = False
 
         self.damaged_by_log = (self.damaged_by_log + [owner])[-30:]
 
     def attempt_attack(self, entity):
         if self.attack_timer <= 0:
-            self.attack_timer = 1 / self.stats['attack_speed']
-            if self.dis(entity) - (entity.stats['size'] + self.stats['size']) < self.stats['range']:
-                entity.damage(self.stats['damage'], self)
-                self.attack_timer = 1 / self.stats['attack_speed']
+            self.attack_timer = 1 / self.stats["attack_speed"]
+            if self.dis(entity) - (entity.stats["size"] + self.stats["size"]) < self.stats["range"]:
+                entity.damage(self.stats["damage"], self)
+                self.attack_timer = 1 / self.stats["attack_speed"]
 
     def update(self, dt):
         self.attack_timer = max(0, self.attack_timer - dt)
@@ -74,7 +75,7 @@ class Entity:
         # handle collision
         for entity in self.game.combat.all_entities:
             if entity != self:
-                combined_size = self.stats['size'] + entity.stats['size']
+                combined_size = self.stats["size"] + entity.stats["size"]
                 # horizontal scan
                 if abs(entity.pos[0] - self.pos[0]) < combined_size:
                     # vertical scan
@@ -84,18 +85,41 @@ class Entity:
                         if dis < combined_size:
                             # push both (pushing gets doubled)
                             angle = self.angle(entity)
-                            force = (1 - dis / combined_size)
-                            entity.advance(angle, (self.stats['weight'] + WEIGHT_SCALE) / (entity.stats['weight'] + WEIGHT_SCALE) * dt * PUSH_FORCE * force)
-                            self.advance(angle + math.pi, (entity.stats['weight'] + WEIGHT_SCALE) / (self.stats['weight'] + WEIGHT_SCALE) * dt * PUSH_FORCE * force)
+                            force = 1 - dis / combined_size
+                            entity.advance(
+                                angle,
+                                (self.stats["weight"] + WEIGHT_SCALE)
+                                / (entity.stats["weight"] + WEIGHT_SCALE)
+                                * dt
+                                * PUSH_FORCE
+                                * force,
+                            )
+                            self.advance(
+                                angle + math.pi,
+                                (entity.stats["weight"] + WEIGHT_SCALE)
+                                / (self.stats["weight"] + WEIGHT_SCALE)
+                                * dt
+                                * PUSH_FORCE
+                                * force,
+                            )
                             entity.pushed_by_log = (entity.pushed_by_log + [self])[-30:]
                             self.pushed_log = (self.pushed_log + [entity])[-30:]
 
-
     def render(self, surface: pygame.Surface, shift=(0, 0)):
-        pygame.draw.circle(surface, self.color, offset(shift.copy(), self.pos), self.stats['size'])
+        pygame.draw.circle(surface, self.color, offset(shift.copy(), self.pos), self.stats["size"])
 
         # debug stuff for swarm targeting
         if self.behavior.priority_target:
-            pygame.draw.line(surface, (255, 0, 255), offset(shift.copy(), self.pos), offset(shift.copy(), self.behavior.priority_target.pos))
+            pygame.draw.line(
+                surface,
+                (255, 0, 255),
+                offset(shift.copy(), self.pos),
+                offset(shift.copy(), self.behavior.priority_target.pos),
+            )
         elif self.unit.behavior.target:
-            pygame.draw.line(surface, (255, 255, 0), offset(shift.copy(), self.pos), offset(shift.copy(), self.unit.behavior.target.pos))
+            pygame.draw.line(
+                surface,
+                (255, 255, 0),
+                offset(shift.copy(), self.pos),
+                offset(shift.copy(), self.unit.behavior.target.pos),
+            )

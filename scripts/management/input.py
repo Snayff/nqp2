@@ -18,6 +18,8 @@ class Input:
         self.states = {
             "right": False,
             "left": False,
+            "up": False,
+            "down": False,
             "hold_right": False,
             "hold_left": False,
             "hold_up": False,
@@ -53,9 +55,11 @@ class Input:
                     self.states["hold_left"] = True
 
                 if event.key == K_UP:
+                    self.states["up"] = True
                     self.states["hold_up"] = True
 
                 if event.key == K_DOWN:
+                    self.states["down"] = True
                     self.states["hold_down"] = True
 
                 if event.key == K_RETURN:
