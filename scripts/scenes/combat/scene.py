@@ -43,6 +43,7 @@ class CombatScene(Scene):
         self.state: CombatState = CombatState.CHOOSE_CARD
 
         self.combat_speed = 1
+        self.dt = 0
 
         self.all_entities = self.get_all_entities()
 

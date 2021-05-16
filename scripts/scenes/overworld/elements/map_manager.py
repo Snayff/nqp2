@@ -63,7 +63,6 @@ class MapManager:
         node_weights = [0.7, 0.2, 0.1, 0.1,  0.2]
 
         nodes = []
-        row = []
         previous_row = []
 
         # positions

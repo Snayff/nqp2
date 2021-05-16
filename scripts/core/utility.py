@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import random
-from typing import TypeVar
+from typing import List, TypeVar
 
 import pygame
 
@@ -25,11 +25,11 @@ def clip(surface, x, y, x_size, y_size):
     return image.copy()
 
 
-def offset(list, offset, offset_mult=1):
-    for i, val in enumerate(list):
-        list[i] += offset[i] * offset_mult
+def offset(list_: List, offset_, offset_mult=1):
+    for i, val in enumerate(list_):
+        list_[i] += offset_[i] * offset_mult
 
-    return list
+    return list_
 
 
 def lerp(initial_value: float, target_value: float, lerp_fraction: float) -> float:

@@ -77,7 +77,8 @@ class Debugger:
             frames_to_count = self._frames
         self.recent_average_fps += (self.current_fps - self.average_fps) / frames_to_count
 
-    def _create_folders(self):
+    @staticmethod
+    def _create_folders():
         #  create folders and prevent FileNotFoundError
         path = str(DEBUGGING_PATH)
         if not os.path.isdir(path + "/"):

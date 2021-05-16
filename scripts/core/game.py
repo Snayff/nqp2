@@ -6,7 +6,6 @@ from scripts.core.memory import Memory
 from scripts.core.window import Window
 from scripts.core.constants import GameState, SceneType
 
-
 from scripts.scenes.combat.scene import CombatScene
 from scripts.scenes.event.scene import EventScene
 from scripts.scenes.inn.scene import InnScene
@@ -33,8 +32,7 @@ class Game:
         self.training: TrainingScene = TrainingScene(self)
         self.inn: InnScene = InnScene(self)
 
-
-        # point this to whatever "scene" is active
+        # point this to whatever scene is active
         self.active_scene = self.overworld
 
         self.state: GameState = GameState.PLAYING

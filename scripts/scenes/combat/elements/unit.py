@@ -1,3 +1,5 @@
+from typing import List
+
 import pygame
 
 from scripts.scenes.combat.elements.entity import Entity
@@ -5,7 +7,11 @@ from scripts.core.utility import itr
 
 
 class Unit:
-    def __init__(self, game, unit_type, pos=[0, 0], team="player"):
+    def __init__(self, game, unit_type, pos: List = None, team="player"):
+        # handle mutable arg
+        if pos is None:
+            pos = [0, 0]
+
         self.game = game
         self.type = unit_type
         self.stats = self.game.memory.units[self.type].copy()

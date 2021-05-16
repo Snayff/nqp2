@@ -4,6 +4,9 @@ from typing import TYPE_CHECKING
 
 import pygame
 
+if TYPE_CHECKING:
+    pass
+
 
 class UnitManager:
     def __init__(self, game):
