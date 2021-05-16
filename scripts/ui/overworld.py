@@ -49,15 +49,15 @@ class OverworldUI:
                 # change active screen
                 if selected_node_type == NodeType.COMBAT:
                     self.game.combat.begin_combat()
-                    self.game.active_screen = self.game.combat
+                    self.game.active_scene = self.game.combat
                 elif selected_node_type == NodeType.INN:
                     # TODO - update to inn
-                    self.game.active_screen = self.game.combat
+                    self.game.active_scene = self.game.combat
                 elif selected_node_type == NodeType.TRAINING:
                     # TODO - update to training
-                    self.game.active_screen = self.game.combat
+                    self.game.active_scene = self.game.combat
                 elif selected_node_type == NodeType.EVENT:
-                    self.game.active_screen = self.game.event
+                    self.game.active_scene = self.game.event
 
                 self.game.overworld.map.active_row += 1
 

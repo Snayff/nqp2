@@ -71,7 +71,7 @@ class Combat:
 
         # end combat when all cards spent
         # if len(self.hand.cards) == 0:
-        #    self.game.active_screen = self.game.overworld
+        #    self.game.active_scene = self.game.overworld
 
     def render(self):
         self.terrain.render(self.game.window.display, self.camera.render_offset())
