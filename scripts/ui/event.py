@@ -37,7 +37,7 @@ class EventUI:
             self.game.event.trigger_result(self.selected_option)
 
             # return to overworld
-            self.game.active_screen = self.game.overworld
+            self.game.active_scene = self.game.overworld
 
         # correct selection index for looping
         if self.selected_option < 0:

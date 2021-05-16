@@ -1,10 +1,11 @@
 from __future__ import annotations
 
+import random
 from typing import TYPE_CHECKING
 
 import pygame
 
-from scripts.misc.constants import MapState, NodeType
+from scripts.misc.constants import MapState, NodeType, SceneType
 
 if TYPE_CHECKING:
     from scripts.management.game import Game
@@ -48,16 +49,17 @@ class OverworldUI:
 
                 # change active screen
                 if selected_node_type == NodeType.COMBAT:
-                    self.game.combat.begin_combat()
-                    self.game.active_screen = self.game.combat
+                    scene = SceneType.COMBAT
                 elif selected_node_type == NodeType.INN:
-                    # TODO - update to inn
-                    self.game.active_screen = self.game.combat
+                    scene = SceneType.INN
                 elif selected_node_type == NodeType.TRAINING:
-                    # TODO - update to training
-                    self.game.active_screen = self.game.combat
+                    scene = SceneType.TRAINING
                 elif selected_node_type == NodeType.EVENT:
-                    self.game.active_screen = self.game.event
+                    scene = SceneType.EVENT
+                elif selected_node_type == NodeType.UNKNOWN:
+                    scene = self.pick_unknown_node()
+
+                self.game.change_scene(scene)
 
                 self.game.overworld.map.active_row += 1
 
@@ -98,3 +100,15 @@ class OverworldUI:
             selected_node_centre_x = selected_node.pos[0] + (node_width / 2)
             selected_node_centre_y = selected_node.pos[1] + (node_height / 2)
             pygame.draw.circle(surface, (255, 0, 0), (selected_node_centre_x, selected_node_centre_y), node_width, 2)
+
+    @staticmethod
+    def pick_unknown_node() -> NodeType:
+        """
+        Randomly pick a node type that isnt Unknown.
+        """
+        node_types = [NodeType.COMBAT, NodeType.EVENT, NodeType.INN, NodeType.TRAINING]
+        node_weights = [0.2, 0.4, 0.1, 0.1]
+
+        node_type = random.choices(node_types, node_weights, k=1)[0]
+
+        return node_type

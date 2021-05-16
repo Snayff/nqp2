@@ -59,8 +59,8 @@ class MapManager:
         min_nodes_per_row = 2
         max_nodes_per_row = 4
         depth = 5
-        node_types = [NodeType.COMBAT, NodeType.EVENT, NodeType.INN, NodeType.TRAINING]
-        node_weights = [0.9, 0.2, 0.1, 0.1]
+        node_types = [NodeType.COMBAT, NodeType.EVENT, NodeType.INN, NodeType.TRAINING, NodeType.UNKNOWN]
+        node_weights = [0.7, 0.2, 0.1, 0.1,  0.2]
 
         nodes = []
         row = []
@@ -125,8 +125,10 @@ class MapManager:
             node_icon = self.game.assets.get_image(str(ASSET_PATH / "icons/Skills/Skill93.png"))
         elif node_type == NodeType.INN:
             node_icon = self.game.assets.get_image(str(ASSET_PATH / "icons/Skills/Skill84.png"))
-        else:
-            # node_type == NodeType.TRAINING
+        elif node_type == NodeType.TRAINING:
             node_icon = self.game.assets.get_image(str(ASSET_PATH / "icons/Skills/Skill15.png"))
+        else:
+            # node_type == NodeType.UNKNOWN
+            node_icon = self.game.assets.get_image(str(ASSET_PATH / "icons/Skills/Skill129.png"))
 
         return node_icon
