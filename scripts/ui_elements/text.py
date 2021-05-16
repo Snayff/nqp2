@@ -1,8 +1,6 @@
-import sys
-
 import pygame
 
-from scripts.misc.utility import clip, swap_color
+from scripts.core.utility import clip, swap_color
 
 
 def load_font_img(path, font_color):

@@ -6,9 +6,9 @@ import traceback
 
 import pygame
 
-from scripts.management.game import Game
-from scripts.misc import debug
-from scripts.misc.constants import GameState
+from scripts.core import debug
+from scripts.core.constants import GameState
+from scripts.core.game import Game
 
 
 def main():
