@@ -1,26 +1,29 @@
 from __future__ import annotations
 
+from abc import ABC
 from typing import TYPE_CHECKING
 
-import pygame
+from scripts.core.base_classes.ui import UI
 
 if TYPE_CHECKING:
     from scripts.core.game import Game
 
+__all__ = ["Scene"]
 
-__all__ = ["InnUI"]
 
-
-class InnUI:
+class Scene(ABC):
     """
-    Represent the UI of the InnScene.
+    Handles Scene interactions and consolidates the rendering.
     """
 
     def __init__(self, game: Game):
         self.game: Game = game
 
+        self.ui: UI
+
     def update(self):
         pass
 
-    def render(self, surface: pygame.surface):
+    def render(self):
         pass
+

@@ -47,7 +47,7 @@ class OverworldUI:
                 selected_node = self.game.overworld.map.nodes[self.game.overworld.map.active_row][self.selected_node]
                 selected_node_type = selected_node.type
 
-                # change active screen
+                # change active scene
                 if selected_node_type == NodeType.COMBAT:
                     scene = SceneType.COMBAT
                 elif selected_node_type == NodeType.INN:

@@ -7,12 +7,12 @@ from scripts.scenes.inn.ui import InnUI
 if TYPE_CHECKING:
     from scripts.core.game import Game
 
-__all__ = ["Inn"]
+__all__ = ["InnScene"]
 
 
-class Inn:
+class InnScene:
     """
-    Handles Inn interactions and consolidates the rendering. Inn is used to buy units.
+    Handles InnScene interactions and consolidates the rendering. InnScene is used to buy units.
     """
 
     def __init__(self, game: Game):

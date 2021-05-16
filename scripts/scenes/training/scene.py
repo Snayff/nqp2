@@ -7,12 +7,12 @@ from scripts.scenes.training.ui import TrainingUI
 if TYPE_CHECKING:
     from scripts.core.game import Game
 
-__all__ = ["Training"]
+__all__ = ["TrainingScene"]
 
 
-class Training:
+class TrainingScene:
     """
-    Handles Training interactions and consolidates the rendering. Training is used to upgrade units.
+    Handles TrainingScene interactions and consolidates the rendering. TrainingScene is used to upgrade units.
     """
 
     def __init__(self, game: Game):

@@ -8,12 +8,12 @@ from scripts.scenes.overworld.ui import OverworldUI
 if TYPE_CHECKING:
     from scripts.core.game import Game
 
-__all__ = ["Overworld"]
+__all__ = ["OverworldScene"]
 
 
-class Overworld:
+class OverworldScene:
     """
-    Handles Overworld interactions and consolidates the rendering.
+    Handles OverworldScene interactions and consolidates the rendering.
     """
 
     def __init__(self, game: Game):

@@ -12,7 +12,7 @@ __all__ = ["EventUI"]
 
 class EventUI:
     """
-    Represent the UI of the Event screen.
+    Represent the UI of the EventScene.
     """
 
     def __init__(self, game: Game):

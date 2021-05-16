@@ -12,7 +12,7 @@ __all__ = ["TrainingUI"]
 
 class TrainingUI:
     """
-    Represent the UI of the Training screen.
+    Represent the UI of the TrainingScene.
     """
 
     def __init__(self, game: Game):

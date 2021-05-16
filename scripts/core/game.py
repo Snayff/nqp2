@@ -7,9 +7,12 @@ from scripts.core.window import Window
 from scripts.core.constants import GameState, SceneType
 
 
-from scripts.scenes.combat.scene import Combat
-from scripts.scenes.event.scene import Event
-from scripts.scenes.overworld.scene import Overworld
+from scripts.scenes.combat.scene import CombatScene
+from scripts.scenes.event.scene import EventScene
+from scripts.scenes.inn.scene import InnScene
+from scripts.scenes.overworld.scene import OverworldScene
+from scripts.scenes.training.scene import TrainingScene
+
 
 __all__ = ["Game"]
 
@@ -24,11 +27,14 @@ class Game:
         self.assets = Assets(self)
 
         # scenes
-        self.combat: Combat = Combat(self)
-        self.overworld: Overworld = Overworld(self)
-        self.event: Event = Event(self)
+        self.combat: CombatScene = CombatScene(self)
+        self.overworld: OverworldScene = OverworldScene(self)
+        self.event: EventScene = EventScene(self)
+        self.training: TrainingScene = TrainingScene(self)
+        self.inn: InnScene = InnScene(self)
 
-        # point this to whatever "screen" is active
+
+        # point this to whatever "scene" is active
         self.active_scene = self.overworld
 
         self.state: GameState = GameState.PLAYING
@@ -56,10 +62,10 @@ class Game:
             self.combat.begin_combat()
             self.active_scene = self.combat
         elif scene == SceneType.TRAINING:
-            # TODO - add Training
+            # TODO - add TrainingScene
             pass
         elif scene == SceneType.INN:
-            # TODO - add Inn
+            # TODO - add InnScene
             pass
         elif scene == SceneType.EVENT:
             self.active_scene = self.event

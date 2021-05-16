@@ -13,12 +13,12 @@ from scripts.scenes.combat.ui import CombatUI
 if TYPE_CHECKING:
     from scripts.core.game import Game
 
-__all__ = ["Combat"]
+__all__ = ["CombatScene"]
 
 
-class Combat:
+class CombatScene:
     """
-    Handles Combat interactions and consolidates the rendering.
+    Handles CombatScene interactions and consolidates the rendering.
     """
 
     def __init__(self, game: Game):
