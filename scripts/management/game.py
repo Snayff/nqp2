@@ -4,7 +4,7 @@ from scripts.management.assets import Assets
 from scripts.management.input import Input
 from scripts.management.memory import Memory
 from scripts.management.window import Window
-from scripts.misc.constants import GameState
+from scripts.misc.constants import GameState, SceneType
 from scripts.scenes.combat import Combat
 from scripts.scenes.event import Event
 from scripts.scenes.overworld import Overworld
@@ -45,3 +45,24 @@ class Game:
 
     def quit(self):
         self.state = GameState.EXITING
+
+    def change_scene(self, scene: SceneType):
+        """
+        Change the active scene
+        """
+        if scene == SceneType.COMBAT:
+            self.combat.begin_combat()
+            self.active_scene = self.combat
+        elif scene == SceneType.TRAINING:
+            # TODO - add Training
+            pass
+        elif scene == SceneType.INN:
+            # TODO - add Inn
+            pass
+        elif scene == SceneType.EVENT:
+            self.active_scene = self.event
+        elif scene == SceneType.OVERWORLD:
+            self.active_scene = self.overworld
+        elif scene == SceneType.MAIN_MENU:
+            # TODO - add main menu
+            pass

@@ -100,3 +100,5 @@ class CombatUI:
 # TODO -  Win state/ lose state; when all of one side is dead.
 # TODO - show bar that is all of remaining health for both sides as a % of total. So when player is winning the bar
 #  will progress to one side and if the opposite then it will progress to the other.
+# TODO - dev tool - instant win button
+# TODO - dont start combat until all units placed / units up to limit placed

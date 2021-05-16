@@ -54,3 +54,13 @@ class NodeType(IntEnum):
     EVENT = auto()
     INN = auto()
     TRAINING = auto()
+    UNKNOWN = auto()
+
+
+class SceneType(IntEnum):
+    COMBAT = auto()
+    EVENT = auto()
+    INN = auto()
+    TRAINING = auto()
+    OVERWORLD = auto()
+    MAIN_MENU = auto()

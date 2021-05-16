@@ -66,4 +66,4 @@ class Event:
         """
         Amend the current gold value by the given amount.
         """
-        self.game.memory.gold = max(0, self.game.memory.gold, amount)
+        self.game.memory.gold = max(0, self.game.memory.gold + amount)
