@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 
 import pygame
 
+from scripts.core.base_classes.ui import UI
 from scripts.core.constants import MapState, NodeType, SceneType
 
 if TYPE_CHECKING:
@@ -14,13 +15,13 @@ if TYPE_CHECKING:
 __all__ = ["OverworldUI"]
 
 
-class OverworldUI:
+class OverworldUI(UI):
     """
     Represents the overworld UI.
     """
 
     def __init__(self, game: Game):
-        self.game: Game = game
+        super().__init__(game)
 
         self.selected_node = 0  # node index
 
@@ -56,7 +57,8 @@ class OverworldUI:
                     scene = SceneType.TRAINING
                 elif selected_node_type == NodeType.EVENT:
                     scene = SceneType.EVENT
-                elif selected_node_type == NodeType.UNKNOWN:
+                else:
+                    # selected_node_type == NodeType.UNKNOWN:
                     scene = self.pick_unknown_node()
 
                 self.game.change_scene(scene)

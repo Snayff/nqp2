@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from scripts.core.base_classes.scene import Scene
 from scripts.scenes.combat.elements.camera import Camera
 from scripts.scenes.combat.elements.card_collection import CardCollection
 from scripts.scenes.combat.elements.enemy_combatants_generator import EnemyCombatantsGenerator
@@ -16,13 +17,13 @@ if TYPE_CHECKING:
 __all__ = ["CombatScene"]
 
 
-class CombatScene:
+class CombatScene(Scene):
     """
     Handles CombatScene interactions and consolidates the rendering.
     """
 
     def __init__(self, game: Game):
-        self.game: Game = game
+        super().__init__(game)
 
         self.camera: Camera = Camera()
         self.camera.pos = [-100, -50]

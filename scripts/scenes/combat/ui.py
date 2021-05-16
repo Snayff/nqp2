@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING
 
 import pygame
 
+from scripts.core.base_classes.ui import UI
 from scripts.scenes.combat.elements.unit import Unit
 from scripts.core.constants import CombatState
 from scripts.core.utility import offset
@@ -12,9 +13,9 @@ if TYPE_CHECKING:
     pass
 
 
-class CombatUI:
+class CombatUI(UI):
     def __init__(self, game):
-        self.game = game
+        super().__init__(game)
 
         self.selected_card = 0  # card index
 

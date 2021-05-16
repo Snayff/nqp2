@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING
 
 from scripts.scenes.overworld.elements.map_manager import MapManager
 from scripts.scenes.overworld.ui import OverworldUI
+from scripts.core.base_classes.scene import Scene
 
 if TYPE_CHECKING:
     from scripts.core.game import Game
@@ -11,13 +12,13 @@ if TYPE_CHECKING:
 __all__ = ["OverworldScene"]
 
 
-class OverworldScene:
+class OverworldScene(Scene):
     """
     Handles OverworldScene interactions and consolidates the rendering.
     """
 
     def __init__(self, game: Game):
-        self.game: Game = game
+        super().__init__(game)
 
         self.map: MapManager = MapManager(game)
 

@@ -3,6 +3,7 @@ from __future__ import annotations
 import random
 from typing import TYPE_CHECKING
 
+from scripts.core.base_classes.scene import Scene
 from scripts.scenes.event.ui import EventUI
 
 if TYPE_CHECKING:
@@ -13,13 +14,13 @@ if TYPE_CHECKING:
 __all__ = ["EventScene"]
 
 
-class EventScene:
+class EventScene(Scene):
     """
     Handles EventScene interactions and consolidates the rendering. EventScene is used to give players a text choice.
     """
 
     def __init__(self, game: Game):
-        self.game: Game = game
+        super().__init__(game)
 
         self.ui: EventUI = EventUI(game)
 
