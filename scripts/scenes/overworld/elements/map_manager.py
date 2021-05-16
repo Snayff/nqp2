@@ -5,8 +5,8 @@ from typing import TYPE_CHECKING
 
 import pygame
 
-from scripts.scenes.overworld.elements.node import Node
 from scripts.core.constants import ASSET_PATH, DEFAULT_IMAGE_SIZE, MapState, NodeState, NodeType
+from scripts.scenes.overworld.elements.node import Node
 
 if TYPE_CHECKING:
     from typing import List
@@ -60,7 +60,7 @@ class MapManager:
         max_nodes_per_row = 4
         depth = 5
         node_types = [NodeType.COMBAT, NodeType.EVENT, NodeType.INN, NodeType.TRAINING, NodeType.UNKNOWN]
-        node_weights = [0.7, 0.2, 0.1, 0.1,  0.2]
+        node_weights = [0.7, 0.2, 0.1, 0.1, 0.2]
 
         nodes = []
         previous_row = []

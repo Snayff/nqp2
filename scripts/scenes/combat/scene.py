@@ -3,12 +3,12 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.scene import Scene
+from scripts.core.constants import CombatState
 from scripts.scenes.combat.elements.camera import Camera
 from scripts.scenes.combat.elements.card_collection import CardCollection
 from scripts.scenes.combat.elements.enemy_combatants_generator import EnemyCombatantsGenerator
 from scripts.scenes.combat.elements.terrain import Terrain
 from scripts.scenes.combat.elements.unit_manager import UnitManager
-from scripts.core.constants import CombatState
 from scripts.scenes.combat.ui import CombatUI
 
 if TYPE_CHECKING:

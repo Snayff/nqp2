@@ -4,8 +4,9 @@ from abc import ABC
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from scripts.core.game import Game
     import pygame
+
+    from scripts.core.game import Game
 
 
 __all__ = ["UI"]

@@ -26,4 +26,3 @@ class Scene(ABC):
 
     def render(self):
         pass
-

@@ -25,6 +25,7 @@ class BehaviorManager:
 
                 # only works with single-word class names for now
                 class_name = behavior[0].upper() + behavior[1:]
-                module = __import__("scripts.scenes.combat.elements.entity_behaviors." + behavior,
-                                    fromlist=[class_name])
+                module = __import__(
+                    "scripts.scenes.combat.elements.entity_behaviors." + behavior, fromlist=[class_name]
+                )
                 self.entity_behaviors[behavior] = getattr(module, class_name)

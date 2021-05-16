@@ -2,9 +2,9 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from scripts.core.base_classes.scene import Scene
 from scripts.scenes.overworld.elements.map_manager import MapManager
 from scripts.scenes.overworld.ui import OverworldUI
-from scripts.core.base_classes.scene import Scene
 
 if TYPE_CHECKING:
     from scripts.core.game import Game

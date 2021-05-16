@@ -1,17 +1,15 @@
 from __future__ import annotations
 
 from scripts.core.assets import Assets
+from scripts.core.constants import GameState, SceneType
 from scripts.core.input import Input
 from scripts.core.memory import Memory
 from scripts.core.window import Window
-from scripts.core.constants import GameState, SceneType
-
 from scripts.scenes.combat.scene import CombatScene
 from scripts.scenes.event.scene import EventScene
 from scripts.scenes.inn.scene import InnScene
 from scripts.scenes.overworld.scene import OverworldScene
 from scripts.scenes.training.scene import TrainingScene
-
 
 __all__ = ["Game"]
 

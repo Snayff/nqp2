@@ -5,9 +5,9 @@ from typing import TYPE_CHECKING
 import pygame
 
 from scripts.core.base_classes.ui import UI
-from scripts.scenes.combat.elements.unit import Unit
 from scripts.core.constants import CombatState
 from scripts.core.utility import offset
+from scripts.scenes.combat.elements.unit import Unit
 
 if TYPE_CHECKING:
     pass

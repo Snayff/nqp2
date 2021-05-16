@@ -2,8 +2,8 @@ from typing import List
 
 import pygame
 
-from scripts.scenes.combat.elements.entity import Entity
 from scripts.core.utility import itr
+from scripts.scenes.combat.elements.entity import Entity
 
 
 class Unit:
