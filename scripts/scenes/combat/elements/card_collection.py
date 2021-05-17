@@ -35,9 +35,14 @@ class CardCollection:
         self.cards += card_col.cards
 
     # just a tool for now
-    def generate(self, count):
+    def generate_units(self, count):
         for i in range(count):
             self.add_card(Card(self.game, "spearman"))
+
+    # also just a tool for now
+    def generate_actions(self, count):
+        for i in range(count):
+            self.add_card(Card(self.game, "fireball"))
 
     def copy(self):
         new_col = CardCollection(self.game)

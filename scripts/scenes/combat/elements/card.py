@@ -5,6 +5,7 @@ class Card:
     def __init__(self, game, card_type):
         self.game = game
         self.type = card_type
+        self.cost = 3
 
     def copy(self):
         return Card(self.game, self.type)
