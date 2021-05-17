@@ -31,6 +31,7 @@ class Game:
         self.inn: InnScene = InnScene(self)
 
         # point this to whatever scene is active
+        #self.combat.begin_combat()
         self.active_scene = self.overworld
 
         self.state: GameState = GameState.PLAYING

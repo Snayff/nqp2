@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.scene import Scene
-from scripts.core.constants import CombatState
+from scripts.core.constants import CombatState, SceneType
 from scripts.scenes.combat.elements.camera import Camera
 from scripts.scenes.combat.elements.card_collection import CardCollection
 from scripts.scenes.combat.elements.enemy_combatants_generator import EnemyCombatantsGenerator
@@ -37,10 +37,10 @@ class CombatScene(Scene):
 
         self.ui: CombatUI = CombatUI(game)
 
-        self.deck: CardCollection = self.game.memory.deck.copy()
+        self.deck: CardCollection = self.game.memory.unit_deck.copy()
         self.hand = self.deck.draw(5)
 
-        self.state: CombatState = CombatState.CHOOSE_CARD
+        self.state: CombatState = CombatState.UNIT_CHOOSE_CARD
 
         self.combat_speed = 1
         self.dt = 0
@@ -62,18 +62,26 @@ class CombatScene(Scene):
         # call once per frame instead of once per entity to save processing power
         self.all_entities = self.get_all_entities()
 
+        # end combat when either side is empty
+        if self.game.combat.state not in [CombatState.UNIT_CHOOSE_CARD, CombatState.UNIT_SELECT_TARGET]:
+            player_entities = [e for e in self.all_entities if e.team == "player"]
+            if (len(player_entities) == 0) or (len(player_entities) == len(self.all_entities)):
+                self.game.change_scene(SceneType.OVERWORLD)
+
         self.ui.update()
         self.units.update()
 
-        # reduce combat speed when applicable
+        # run at normal speed during watch phase
         if self.game.combat.state == CombatState.WATCH:
             self.combat_speed = 1
+
+        # pause combat during unit placement
+        elif self.game.combat.state in [CombatState.UNIT_CHOOSE_CARD, CombatState.UNIT_SELECT_TARGET]:
+            self.combat_speed = 0
+
+        # slow down combat when playing actions
         else:
             self.combat_speed = 0.3
-
-        # end combat when all cards spent
-        # if len(self.hand.cards) == 0:
-        #    self.game.active_scene = self.game.overworld
 
     def render(self):
         self.terrain.render(self.game.window.display, self.camera.render_offset())

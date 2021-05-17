@@ -24,8 +24,11 @@ class Memory:
         self.game: Game = game
 
         # combat
-        self.deck: CardCollection = CardCollection(game)
-        self.deck.generate(20)
+        self.unit_deck: CardCollection = CardCollection(game)
+        self.unit_deck.generate_units(20)
+        self.action_deck: CardCollection = CardCollection(game)
+        self.action_deck.generate_actions(20)
+
         self.units: Dict = self.load_unit_info()
         self.behaviors = BehaviorManager()
 

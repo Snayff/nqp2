@@ -25,7 +25,7 @@ class CombatUI(UI):
     def update(self):
         cards = self.game.combat.hand.cards
 
-        if self.game.combat.state == CombatState.CHOOSE_CARD:
+        if self.game.combat.state in [CombatState.UNIT_CHOOSE_CARD, CombatState.ACTION_CHOOSE_CARD]:
             if self.game.input.states["left"]:
                 self.game.input.states["left"] = False
                 self.selected_card -= 1
@@ -35,16 +35,27 @@ class CombatUI(UI):
                 self.selected_card += 1
 
             if self.game.input.states["select"]:
-                self.game.combat.state = CombatState.SELECT_TARGET
+
+                # transition to appropriate mode
+                if self.game.combat.state == CombatState.UNIT_CHOOSE_CARD:
+                    self.game.combat.state = CombatState.UNIT_SELECT_TARGET
+                else:
+                    self.game.combat.state = CombatState.ACTION_SELECT_TARGET
+
                 self.place_target = [
                     self.game.combat.terrain.pixel_size[0] // 2,
                     self.game.combat.terrain.pixel_size[1] // 2,
                 ]
 
             if self.game.input.states["cancel"]:
+                if self.game.combat.state == CombatState.UNIT_CHOOSE_CARD:
+                    # switch to action phase
+                    self.game.combat.deck: CardCollection = self.game.memory.action_deck.copy()
+                    self.game.combat.hand = self.game.combat.deck.draw(5)
+
                 self.game.combat.state = CombatState.WATCH
 
-        elif self.game.combat.state == CombatState.SELECT_TARGET:
+        elif self.game.combat.state in [CombatState.UNIT_SELECT_TARGET, CombatState.ACTION_SELECT_TARGET]:
             directions = {
                 "right": (1, 0),
                 "left": (-1, 0),
@@ -62,14 +73,28 @@ class CombatUI(UI):
             self.place_target = offset(self.place_target, move_amount)
 
             if self.game.input.states["select"]:
-                self.game.combat.units.add_unit(
-                    Unit(self.game, self.game.combat.hand.cards[self.selected_card].type, self.place_target)
-                )
-                self.game.combat.hand.cards.pop(self.selected_card)
-                self.game.combat.state = CombatState.CHOOSE_CARD
+                # hand will contain the hand for whichever deck is in use
+                if self.game.combat.state == CombatState.UNIT_SELECT_TARGET:
+                    print('added unit')
+                    self.game.combat.units.add_unit(
+                        Unit(self.game, self.game.combat.hand.cards[self.selected_card].type, self.place_target)
+                    )
+                else:
+                    # TODO: handle action cards here
+                    pass
 
+                self.game.combat.hand.cards.pop(self.selected_card)
+
+            if self.game.input.states["cancel"] or self.game.input.states["select"]:
+                # transition to appropriate state
+                if self.game.combat.state == CombatState.UNIT_SELECT_TARGET:
+                    self.game.combat.state = CombatState.UNIT_CHOOSE_CARD
+                else:
+                    self.game.combat.state = CombatState.ACTION_CHOOSE_CARD
+
+        elif self.game.combat.state == CombatState.WATCH:
             if self.game.input.states["cancel"]:
-                self.game.combat.state = CombatState.CHOOSE_CARD
+                self.game.combat.state = CombatState.ACTION_CHOOSE_CARD
 
         # correct card selection index for looping
         if self.selected_card < 0:
@@ -78,9 +103,20 @@ class CombatUI(UI):
             self.selected_card = 0
 
     def render(self, surface: pygame.Surface):
+        # render status text
+        if self.game.combat.state in [CombatState.UNIT_SELECT_TARGET, CombatState.ACTION_SELECT_TARGET]:
+            status = "select a target location"
+        if self.game.combat.state == CombatState.UNIT_CHOOSE_CARD:
+            status = "select a unit or press X to end unit placement"
+        if self.game.combat.state == CombatState.ACTION_CHOOSE_CARD:
+            status = "select an action or press X to watch"
+        if self.game.combat.state == CombatState.WATCH:
+            status = "press X to use an action"
+        self.game.assets.fonts["small_red"].render(status, surface, (4, 4))
+
         cards = self.game.combat.hand.cards
 
-        if self.game.combat.state == CombatState.SELECT_TARGET:
+        if self.game.combat.state in [CombatState.UNIT_SELECT_TARGET, CombatState.ACTION_SELECT_TARGET]:
             pygame.draw.circle(surface, (255, 255, 255), self.game.combat.camera.render_offset(self.place_target), 8, 1)
 
         if self.game.combat.state != CombatState.WATCH:
@@ -91,7 +127,7 @@ class CombatUI(UI):
                 if self.selected_card == i:
                     height_offset = -12
 
-                elif self.game.combat.state == CombatState.SELECT_TARGET:
+                elif self.game.combat.state in [CombatState.UNIT_SELECT_TARGET, CombatState.ACTION_SELECT_TARGET]:
                     height_offset += 12
 
                 card.render(surface, (start_pos + i * 60 - 25, 300 + height_offset))
