@@ -20,7 +20,11 @@ class Assets:
     def __init__(self, game: Game):
         self.game: Game = game
 
-        self.fonts = {"small_red": Font(str(ASSET_PATH / "fonts/small_font.png"), (255, 0, 0))}
+        self.fonts = {
+            "warning": Font(str(ASSET_PATH / "fonts/small_font.png"), (255, 0, 0)),
+            "disabled": Font(str(ASSET_PATH / "fonts/small_font.png"), (128, 128, 128)),
+            "default": Font(str(ASSET_PATH / "fonts/small_font.png"), (255, 255, 255)),
+        }
 
         # used to hold images called during runtime so only one copy ever exists.
         self.images: Dict[str, pygame.Surface] = {}

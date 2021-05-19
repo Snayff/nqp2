@@ -71,7 +71,7 @@ class OverworldUI(UI):
         if overworld_map.state == MapState.LOADING:
             # draw loading screen
             window_height = self.game.window.height
-            self.game.assets.fonts["small_red"].render("Loading...", surface, (10, window_height - 20))
+            self.game.assets.fonts["warning"].render("Loading...", surface, (10, window_height - 20))
 
         elif overworld_map.state == MapState.READY:
             # get node icon details

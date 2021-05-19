@@ -75,7 +75,7 @@ class CombatUI(UI):
             if self.game.input.states["select"]:
                 # hand will contain the hand for whichever deck is in use
                 if self.game.combat.state == CombatState.UNIT_SELECT_TARGET:
-                    print('added unit')
+                    print("added unit")
                     self.game.combat.units.add_unit(
                         Unit(self.game, self.game.combat.hand.cards[self.selected_card].type, self.place_target)
                     )
@@ -112,7 +112,7 @@ class CombatUI(UI):
             status = "select an action or press X to watch"
         if self.game.combat.state == CombatState.WATCH:
             status = "press X to use an action"
-        self.game.assets.fonts["small_red"].render(status, surface, (4, 4))
+        self.game.assets.fonts["warning"].render(status, surface, (4, 4))
 
         cards = self.game.combat.hand.cards
 
