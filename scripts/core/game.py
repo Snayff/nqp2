@@ -31,7 +31,7 @@ class Game:
         self.inn: InnScene = InnScene(self)
 
         # point this to whatever scene is active
-        self.active_scene = self.inn
+        self.active_scene = self.overworld
 
         self.state: GameState = GameState.PLAYING
 
@@ -61,8 +61,7 @@ class Game:
             # TODO - add TrainingScene
             pass
         elif scene == SceneType.INN:
-            # TODO - add InnScene
-            pass
+            self.active_scene = self.inn
         elif scene == SceneType.EVENT:
             self.active_scene = self.event
         elif scene == SceneType.OVERWORLD:

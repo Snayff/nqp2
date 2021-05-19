@@ -27,7 +27,7 @@ class Memory:
 
         # combat
         self.unit_deck: CardCollection = CardCollection(game)
-        self.unit_deck.generate_units(20)
+        self.unit_deck.generate_units(4)
         self.action_deck: CardCollection = CardCollection(game)
         self.action_deck.generate_actions(20)
 
@@ -75,6 +75,7 @@ class Memory:
         """
         if amendment == "add":
             self.unit_deck.add_card(Card(self.game, unit_name))
+            # FIXME - this is adding to the CarcCollection but the card isnt showing up in Combat
         elif amendment == "remove":
             self.unit_deck.remove_card()
         else:
