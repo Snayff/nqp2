@@ -75,7 +75,7 @@ class CombatUI(UI):
             if self.game.input.states["select"]:
                 # hand will contain the hand for whichever deck is in use
                 if self.game.combat.state == CombatState.UNIT_SELECT_TARGET:
-                    print('added unit')
+                    print("added unit")
                     self.game.combat.units.add_unit(
                         Unit(self.game, self.game.combat.hand.cards[self.selected_card].type, self.place_target)
                     )

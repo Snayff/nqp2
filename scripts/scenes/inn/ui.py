@@ -58,17 +58,7 @@ class InnUI(UI):
         default_font = self.game.assets.fonts["default"]
         disabled_font = self.game.assets.fonts["disabled"]
         warning_font = self.game.assets.fonts["warning"]
-        stats = [
-            "health",
-            "defense",
-            "damage",
-            "range",
-            "attack_speed",
-            "move_speed",
-            "ammo",
-            "count",
-            "gold_cost"
-        ]
+        stats = ["health", "defense", "damage", "range", "attack_speed", "move_speed", "ammo", "count", "gold_cost"]
 
         # positions
         start_x = 20

@@ -62,7 +62,6 @@ class Memory:
 
         return events
 
-
     def amend_gold(self, amount: int):
         """
         Amend the current gold value by the given amount.
@@ -81,4 +80,3 @@ class Memory:
         else:
             # given incorrect command
             logging.warning(f"amend_unit: received {amendment} instead of add or remove. Ignored.")
-

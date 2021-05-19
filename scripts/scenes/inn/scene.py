@@ -7,8 +7,9 @@ from scripts.core.base_classes.scene import Scene
 from scripts.scenes.inn.ui import InnUI
 
 if TYPE_CHECKING:
-    from scripts.core.game import Game
     from typing import Dict
+
+    from scripts.core.game import Game
 
 __all__ = ["InnScene"]
 
@@ -76,4 +77,3 @@ class InnScene(Scene):
 
             # add unit
             self.game.memory.amend_unit(name)
-
