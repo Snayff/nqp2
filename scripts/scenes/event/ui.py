@@ -50,7 +50,7 @@ class EventUI(UI):
 
     def render(self, surface: pygame.surface):
         event = self.game.event.active_event
-        font = self.game.assets.fonts["small_red"]
+        default_font = self.game.assets.fonts["default"]
 
         # positions
         option_x = 20
@@ -59,7 +59,7 @@ class EventUI(UI):
         font_height = 12  # FIXME - get actual font height
 
         # draw description
-        font.render(event["description"], surface, (10, 0 + 20))
+        default_font.render(event["description"], surface, (10, 0 + 20))
 
         # draw options
         count = 0
@@ -67,7 +67,7 @@ class EventUI(UI):
 
             # draw option
             option_y = option_start_y + ((font_height + gap) * count)
-            font.render(option["text"], surface, (option_x, option_y))
+            default_font.render(option["text"], surface, (option_x, option_y))
 
             # draw selector
             if count == self.selected_option:
@@ -75,10 +75,10 @@ class EventUI(UI):
                     surface,
                     (255, 255, 255),
                     (option_x, option_y + font_height),
-                    (option_x + font.width(option["text"]), option_y + font_height),
+                    (option_x + default_font.width(option["text"]), option_y + font_height),
                 )
 
             count += 1
 
         # show gold
-        font.render(f"Gold: {self.game.memory.gold}", surface, (1, 1), 2)
+        default_font.render(f"Gold: {self.game.memory.gold}", surface, (1, 1), 2)

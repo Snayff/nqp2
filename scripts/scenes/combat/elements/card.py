@@ -18,4 +18,4 @@ class Card:
             r = pygame.Rect(offset[0], offset[1], size[0], size[1])
             pygame.draw.rect(surface, (255, 255, 255), r)
             pygame.draw.rect(surface, (255, 0, 0), r, 1)
-            self.game.assets.fonts["small_red"].render(self.type, surface, (offset[0] + 3, offset[1] + 3))
+            self.game.assets.fonts["warning"].render(self.type, surface, (offset[0] + 3, offset[1] + 3))

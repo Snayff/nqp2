@@ -112,7 +112,7 @@ class CombatUI(UI):
             status = "select an action or press X to watch"
         if self.game.combat.state == CombatState.WATCH:
             status = "press X to use an action"
-        self.game.assets.fonts["small_red"].render(status, surface, (4, 4))
+        self.game.assets.fonts["warning"].render(status, surface, (4, 4))
 
         cards = self.game.combat.hand.cards
 

@@ -55,7 +55,9 @@ class InnUI(UI):
 
     def render(self, surface: pygame.surface):
         units_for_sale = self.game.inn.units_for_sale
-        font = self.game.assets.fonts["small_red"]
+        default_font = self.game.assets.fonts["default"]
+        disabled_font = self.game.assets.fonts["disabled"]
+        warning_font = self.game.assets.fonts["warning"]
         stats = [
             "health",
             "defense",
@@ -80,7 +82,7 @@ class InnUI(UI):
         col_count = 0
         for stat in stats:
             col_x = start_x + (col_width * col_count)
-            font.render(stat, surface, (col_x, start_y))
+            default_font.render(stat, surface, (col_x, start_y))
 
             col_count += 1
 
@@ -90,7 +92,13 @@ class InnUI(UI):
             name = list(unit)[0]
             details = unit.get(name)
 
-            option_y = start_y + ((font_height + gap) * (row_count + 1))
+            # check can afford
+            if details["gold_cost"] > self.game.memory.gold:
+                active_font = disabled_font
+            else:
+                active_font = default_font
+
+            option_y = start_y + ((font_height + gap) * (row_count + 1))  # + 1 due to headers
 
             # draw stats
             col_count = 0
@@ -102,10 +110,13 @@ class InnUI(UI):
                 else:
                     text = str(details.get(stat))
 
-                font.render(text, surface, (col_x, option_y))
+                # if can't afford then show cost as red to highlight the issue
+                if active_font == disabled_font and stat == "gold_cost":
+                    warning_font.render(text, surface, (col_x, option_y))
+                else:
+                    active_font.render(text, surface, (col_x, option_y))
 
                 col_count += 1
-
 
             # draw selector
             if row_count == self.selected_option:
@@ -113,10 +124,10 @@ class InnUI(UI):
                     surface,
                     (255, 255, 255),
                     (start_x, option_y + font_height),
-                    (start_x + font.width(name), option_y + font_height),
+                    (start_x + active_font.width(name), option_y + font_height),
                 )
 
             row_count += 1
 
             # show gold
-            font.render(f"Gold: {self.game.memory.gold}", surface, (1, 1), 2)
+            default_font.render(f"Gold: {self.game.memory.gold}", surface, (1, 1), 2)
