@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 import pygame
 
 from scripts.core.base_classes.ui import UI
+from scripts.core.constants import SceneType
 
 if TYPE_CHECKING:
     from scripts.core.game import Game
@@ -39,7 +40,7 @@ class EventUI(UI):
             self.game.event.trigger_result(self.selected_option)
 
             # return to overworld
-            self.game.active_scene = self.game.overworld
+            self.game.change_scene(SceneType.OVERWORLD)
 
         # correct selection index for looping
         if self.selected_option < 0:
@@ -57,10 +58,10 @@ class EventUI(UI):
         gap = 10
         font_height = 12  # FIXME - get actual font height
 
-        # show description
+        # draw description
         font.render(event["description"], surface, (10, 0 + 20))
 
-        # show options
+        # draw options
         count = 0
         for option in event["options"]:
 
