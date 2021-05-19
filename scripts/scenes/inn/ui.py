@@ -65,6 +65,7 @@ class InnUI(UI):
             "move_speed",
             "ammo",
             "count",
+            "gold_cost"
         ]
 
         # positions
@@ -118,4 +119,4 @@ class InnUI(UI):
             row_count += 1
 
             # show gold
-            font.render(f"Gold: {self.game.memory.gold}", surface, (0, 0), 2)
+            font.render(f"Gold: {self.game.memory.gold}", surface, (1, 1), 2)
