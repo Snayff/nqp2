@@ -65,4 +65,15 @@ class InnScene(Scene):
         """
         Purchase the unit
         """
-        purchase = self.units_for_sale[option_index]
+
+        name = list(self.units_for_sale[option_index])[0]
+        details = self.units_for_sale[option_index].get(name)
+
+        # can we afford
+        if details["gold_cost"] <= self.game.memory.gold:
+            # pay gold
+            self.game.memory.amend_gold(-details["gold_cost"])
+
+            # add unit
+            self.game.memory.amend_unit(name)
+

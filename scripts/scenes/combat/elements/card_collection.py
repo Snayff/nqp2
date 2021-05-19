@@ -11,6 +11,10 @@ class CardCollection:
     def add_card(self, card):
         self.cards.append(card)
 
+    def remove_card(self):
+        # FIXME - this is a stub
+        pass
+
     def shuffle(self):
         random.shuffle(self.cards)
 

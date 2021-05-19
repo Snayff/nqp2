@@ -61,10 +61,6 @@ class EventScene(Scene):
         Resolve the action from the result
         """
         if result_key == "gold":
-            self._amend_gold(int(result_value))
+            self.game.memory.amend_gold(int(result_value))
 
-    def _amend_gold(self, amount: int):
-        """
-        Amend the current gold value by the given amount.
-        """
-        self.game.memory.gold = max(0, self.game.memory.gold + amount)
+
