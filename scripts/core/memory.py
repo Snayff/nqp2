@@ -50,6 +50,8 @@ class Memory:
             units[unit.split(".")[0]] = json.load(f)
             f.close()
 
+        logging.info(f"Memory: All unit data loaded.")
+
         return units
 
     @staticmethod
@@ -59,6 +61,8 @@ class Memory:
             f = open("data/events/" + event, "r")
             events[event.split(".")[0]] = json.load(f)
             f.close()
+
+        logging.info(f"Memory: All event data loaded.")
 
         return events
 
