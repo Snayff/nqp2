@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import logging
+import time
 from typing import TYPE_CHECKING
 
 import pygame
@@ -13,6 +15,9 @@ __all__ = ["Input"]
 
 class Input:
     def __init__(self, game: Game):
+        # start timer
+        start_time = time.time()
+
         self.game: Game = game
 
         self.states = {
@@ -27,6 +32,10 @@ class Input:
             "select": False,
             "cancel": False,
         }
+
+        # record duration
+        end_time = time.time()
+        logging.info(f"Input: initialised in {format(end_time - start_time, '.2f')}s.")
 
     def soft_reset(self):
         self.states["select"] = False

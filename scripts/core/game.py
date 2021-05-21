@@ -20,7 +20,6 @@ __all__ = ["Game"]
 
 class Game:
     def __init__(self):
-
         # start timer
         start_time = time.time()
 

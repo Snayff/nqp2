@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import logging
 import os
+import time
 from typing import TYPE_CHECKING
 
 import pygame
@@ -19,6 +20,9 @@ __all__ = ["Assets"]
 
 class Assets:
     def __init__(self, game: Game):
+        # start timer
+        start_time = time.time()
+
         self.game: Game = game
 
         self.fonts = {
@@ -29,6 +33,10 @@ class Assets:
 
         # used to hold images so only one copy per dimension ever exists.
         self.images: Dict[str, Dict[str, pygame.Surface]] = self._load_images()
+
+        # record duration
+        end_time = time.time()
+        logging.info(f"Assets: initialised in {format(end_time - start_time, '.2f')}s.")
 
 
     def get_image(
