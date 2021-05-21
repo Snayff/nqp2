@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import logging
+import time
 from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.scene import Scene
@@ -18,11 +20,18 @@ class OverworldScene(Scene):
     """
 
     def __init__(self, game: Game):
+        # start timer
+        start_time = time.time()
+
         super().__init__(game)
 
         self.map: MapManager = MapManager(game)
 
         self.ui: OverworldUI = OverworldUI(game)
+
+        # record duration
+        end_time = time.time()
+        logging.info(f"OverworldScene: initialised in {format(end_time - start_time, '.2f')}s.")
 
     def update(self):
         self.map.update()

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import logging
+import time
 from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.scene import Scene
@@ -23,6 +25,9 @@ class CombatScene(Scene):
     """
 
     def __init__(self, game: Game):
+        # start timer
+        start_time = time.time()
+
         super().__init__(game)
 
         self.camera: Camera = Camera()
@@ -46,6 +51,10 @@ class CombatScene(Scene):
         self.dt = 0
 
         self.all_entities = self.get_all_entities()
+
+        # record duration
+        end_time = time.time()
+        logging.info(f"CombatScene: initialised in {format(end_time - start_time, '.2f')}s.")
 
     def begin_combat(self):
         self.enemy_generator.generate()

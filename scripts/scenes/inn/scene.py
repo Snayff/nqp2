@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import logging
 import random
+import time
 from typing import List, TYPE_CHECKING
 
 from scripts.core.base_classes.scene import Scene
@@ -20,11 +22,18 @@ class InnScene(Scene):
     """
 
     def __init__(self, game: Game):
+        # start timer
+        start_time = time.time()
+
         super().__init__(game)
 
         self.ui: InnUI = InnUI(game)
 
         self.units_for_sale: List = self._get_random_units(5)
+
+        # record duration
+        end_time = time.time()
+        logging.info(f"InnScene: initialised in {format(end_time - start_time, '.2f')}s.")
 
     def update(self):
         self.ui.update()

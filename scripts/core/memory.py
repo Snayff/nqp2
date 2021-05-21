@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import logging
 import os
+import time
 from typing import TYPE_CHECKING
 
 from scripts.scenes.combat.elements.behavior_manager import BehaviorManager
@@ -23,6 +24,9 @@ class Memory:
     """
 
     def __init__(self, game: Game):
+        # start timer
+        start_time = time.time()
+
         self.game: Game = game
 
         # combat
@@ -42,6 +46,10 @@ class Memory:
         # general
         self.gold = 10
 
+        # record duration
+        end_time = time.time()
+        logging.info(f"Memory: initialised in {format(end_time - start_time, '.2f')}s.")
+
     @staticmethod
     def load_unit_info() -> Dict:
         units = {}
@@ -49,6 +57,8 @@ class Memory:
             f = open("data/units/" + unit, "r")
             units[unit.split(".")[0]] = json.load(f)
             f.close()
+
+        logging.info(f"Memory: All unit data loaded.")
 
         return units
 
@@ -59,6 +69,8 @@ class Memory:
             f = open("data/events/" + event, "r")
             events[event.split(".")[0]] = json.load(f)
             f.close()
+
+        logging.info(f"Memory: All event data loaded.")
 
         return events
 

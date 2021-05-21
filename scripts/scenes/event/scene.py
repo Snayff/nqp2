@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import logging
 import random
+import time
 from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.scene import Scene
@@ -20,11 +22,18 @@ class EventScene(Scene):
     """
 
     def __init__(self, game: Game):
+        # start timer
+        start_time = time.time()
+
         super().__init__(game)
 
         self.ui: EventUI = EventUI(game)
 
         self.active_event: Dict = self._get_random_event()
+
+        # record duration
+        end_time = time.time()
+        logging.info(f"EventScene: initialised in {format(end_time - start_time, '.2f')}s.")
 
     def update(self):
         self.ui.update()

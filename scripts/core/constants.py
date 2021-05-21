@@ -11,7 +11,6 @@ INFINITE: int = 999
 ROOT_PATH = Path(__file__).parent.parent.parent  # constants.py is 2 directories deep
 DATA_PATH = ROOT_PATH / "data/"
 ASSET_PATH = ROOT_PATH / "assets/"
-IMAGE_NOT_FOUND_PATH = ASSET_PATH / "debug/image_not_found.png"
 SAVE_PATH = DATA_PATH / "saves/"
 DEBUGGING_PATH = ROOT_PATH / ".debug"
 LOGGING_PATH = DEBUGGING_PATH / "logging"

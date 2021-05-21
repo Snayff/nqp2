@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 import time
 from typing import TYPE_CHECKING
 
@@ -13,6 +14,9 @@ __all__ = ["Window"]
 
 class Window:
     def __init__(self, game: Game):
+        # start timer
+        start_time = time.time()
+
         self.game: Game = game
 
         pygame.init()
@@ -27,6 +31,10 @@ class Window:
 
         self.dt = 0.1
         self.frame_start = time.time()
+
+        # record duration
+        end_time = time.time()
+        logging.info(f"Window: initialised in {format(end_time - start_time, '.2f')}s.")
 
     def render_frame(self):
         self.window.blit(pygame.transform.scale(self.display, self.window.get_size()), (0, 0))

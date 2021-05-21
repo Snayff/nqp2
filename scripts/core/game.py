@@ -1,5 +1,9 @@
 from __future__ import annotations
 
+import logging
+import time
+
+from scripts.core import debug
 from scripts.core.assets import Assets
 from scripts.core.constants import GameState, SceneType
 from scripts.core.input import Input
@@ -16,12 +20,14 @@ __all__ = ["Game"]
 
 class Game:
     def __init__(self):
+        # start timer
+        start_time = time.time()
 
         # managers
-        self.window = Window(self)
-        self.input = Input(self)
-        self.memory = Memory(self)
-        self.assets = Assets(self)
+        self.window: Window = Window(self)
+        self.input: Input = Input(self)
+        self.memory: Memory = Memory(self)
+        self.assets: Assets = Assets(self)
 
         # scenes
         self.combat: CombatScene = CombatScene(self)
@@ -35,9 +41,14 @@ class Game:
 
         self.state: GameState = GameState.PLAYING
 
+        # record duration
+        end_time = time.time()
+        logging.info(f"Game initialised in {format(end_time - start_time, '.2f')}s.")
+
     def update(self):
         self.input.update()
         self.active_scene.update()
+        debug.update()
 
     def render(self):
         self.window.render_frame()
