@@ -2,11 +2,11 @@ from __future__ import annotations
 
 import logging
 import os
-from typing import List, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 import pygame
 
-from scripts.core.constants import ASSET_PATH, DATA_PATH, DEFAULT_IMAGE_SIZE, IMAGE_NOT_FOUND_PATH
+from scripts.core.constants import ASSET_PATH, DEFAULT_IMAGE_SIZE
 from scripts.ui_elements.text import Font
 
 if TYPE_CHECKING:
@@ -33,50 +33,59 @@ class Assets:
 
     def get_image(
         self,
-        folder: str,
+        folder_name: str,
         image_name: str,
         desired_dimensions: Tuple[int, int] = (DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE),
         copy: bool = False,
     ) -> pygame.Surface:
         """
-        Get the specified image and resize if dimensions provided. Dimensions are in (width, height) format. If img
-        path is "none" then a blank surface is created to the size of the desired dimensions, or DEFAULT_IMAGE_SIZE
-        if no dimensions provided.
+        Get the specified image and resize if dimensions provided. Dimensions are in (width, height) format.
+
+        A transparent surface can be returned by folder_name = "debug" and image_name = "blank".
         """
+        desired_width, desired_height = desired_dimensions
+        
         # ensure numbers arent negative
-        if desired_dimensions[0] <= 0 or desired_dimensions[1] <= 0:
+        if desired_width <= 0 or desired_height <= 0:
             logging.warning(
                 f"Get_image: Tried to use dimensions of {desired_dimensions}, which are negative. Default size "
                 f"used instead."
             )
             desired_dimensions = (DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE)
+        
+        internal_name = f"{image_name}@{desired_width}x{desired_height}"
+        
+        # check if exists already
+        try:
+            image = self.images[folder_name][internal_name]
+        
+        except KeyError:
+            # try and get the image specified
+            try:
+                image = pygame.image.load(str(ASSET_PATH / folder_name / image_name)).convert_alpha()
 
-        # check if image path provided
-        if str(img_path).lower() != "none":
+                # resize if needed - should only need to resize if we havent got it from storage
+                if image.get_width() != desired_width or image.get_height() != desired_height:
+                    image = pygame.transform.smoothscale(image, desired_dimensions)
 
-            if f"{img_path}{desired_dimensions}" in self.images:
-                image = self.images[f"{img_path}{desired_dimensions}"]
-            else:
-                try:
-                    # try and get the image provided
-                    image = pygame.image.load(str(ASSET_PATH / img_path)).convert_alpha()
+                # add new image to storage
+                self.images[folder_name][internal_name] = image
+            
+            except FileNotFoundError:
+                # didnt find image requested so use not found image
+                not_found_name = f"not_found@{desired_width}x{desired_height}"
+                if not_found_name in self.images["debug"]:
+                    image = self.images["debug"][not_found_name]
+                else:
+                    image = pygame.image.load(str(ASSET_PATH / "debug/image_not_found.png")).convert_alpha()
 
-                except Exception:
-                    image = pygame.image.load(str(IMAGE_NOT_FOUND_PATH)).convert_alpha()
-                    logging.warning(
-                        f"Get_image: Tried to use {img_path} but it wasn`t found. Used the not_found image instead."
-                    )
-        else:
-            image = pygame.Surface((DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE))
-            image.set_alpha(0)
+                    # add new image to storage
+                    self.images["debug"][internal_name] = image
 
-        # resize if needed - should only need to resize if we havent got it from storage
-        if image.get_width() != desired_dimensions[0] or image.get_height() != desired_dimensions[1]:
-            width, height = desired_dimensions
-            image = pygame.transform.smoothscale(image, (width, height))
-
-            # add to storage
-            self.images[f"{img_path}{desired_dimensions}"] = image
+                logging.warning(
+                    f"Get_image: Tried to use {folder_name}/{image_name} but it wasn't found. "
+                    f"Used the not_found image instead."
+                )
 
         # return a copy if requested
         if copy:
@@ -84,26 +93,14 @@ class Assets:
         else:
             return image
 
-    def get_images(
-        self, img_paths: List[str], desired_dimensions: Tuple[int, int], copy: bool = False
-    ) -> List[pygame.Surface]:
-        """
-        Get a collection of images.
-        """
-        images = []
-
-        for path in img_paths:
-            images.append(self.get_image(path, desired_dimensions, copy))
-
-        return images
-
     @staticmethod
     def _load_images() -> Dict[str, Dict[str, pygame.Surface]]:
         """
         Load all images by folder.
         """
         images = {}
-
+        
+        # specify folders in assets that need to be loaded
         folders = [
             "nodes"
         ]

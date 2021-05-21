@@ -119,15 +119,15 @@ class MapManager:
         Get the node icon from the node type
         """
         if node_type == NodeType.COMBAT:
-            node_icon = self.game.assets.get_image(str(ASSET_PATH / "icons/Skills/Skill112.png"))
+            node_icon = self.game.assets.get_image("nodes", "combat")
         elif node_type == NodeType.EVENT:
-            node_icon = self.game.assets.get_image(str(ASSET_PATH / "icons/Skills/Skill93.png"))
+            node_icon = self.game.assets.get_image("nodes", "event")
         elif node_type == NodeType.INN:
-            node_icon = self.game.assets.get_image(str(ASSET_PATH / "icons/Skills/Skill84.png"))
+            node_icon = self.game.assets.get_image("nodes", "inn")
         elif node_type == NodeType.TRAINING:
-            node_icon = self.game.assets.get_image(str(ASSET_PATH / "icons/Skills/Skill15.png"))
+            node_icon = self.game.assets.get_image("nodes", "training")
         else:
             # node_type == NodeType.UNKNOWN
-            node_icon = self.game.assets.get_image(str(ASSET_PATH / "icons/Skills/Skill129.png"))
+            node_icon = self.game.assets.get_image("nodes", "unknown")
 
         return node_icon
