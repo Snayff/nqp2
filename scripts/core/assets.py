@@ -38,7 +38,6 @@ class Assets:
         end_time = time.time()
         logging.info(f"Assets: initialised in {format(end_time - start_time, '.2f')}s.")
 
-
     def get_image(
         self,
         folder_name: str,
@@ -52,7 +51,7 @@ class Assets:
         A transparent surface can be returned by folder_name = "debug" and image_name = "blank".
         """
         desired_width, desired_height = desired_dimensions
-        
+
         # ensure numbers arent negative
         if desired_width <= 0 or desired_height <= 0:
             logging.warning(
@@ -60,13 +59,13 @@ class Assets:
                 f"used instead."
             )
             desired_dimensions = (DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE)
-        
+
         internal_name = f"{image_name}@{desired_width}x{desired_height}"
-        
+
         # check if exists already
         try:
             image = self.images[folder_name][internal_name]
-        
+
         except KeyError:
             # try and get the image specified
             try:
@@ -78,7 +77,7 @@ class Assets:
 
                 # add new image to storage
                 self.images[folder_name][internal_name] = image
-            
+
             except FileNotFoundError:
                 # didnt find image requested so use not found image
                 not_found_name = f"not_found@{desired_width}x{desired_height}"
@@ -107,11 +106,9 @@ class Assets:
         Load all images by folder.
         """
         images = {}
-        
+
         # specify folders in assets that need to be loaded
-        folders = [
-            "nodes"
-        ]
+        folders = ["nodes"]
 
         for folder in folders:
             path = ASSET_PATH / folder
@@ -136,4 +133,3 @@ class Assets:
         logging.info(f"Assets: All images loaded.")
 
         return images
-
