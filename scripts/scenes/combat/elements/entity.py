@@ -34,7 +34,7 @@ class Entity:
         self.pos[1] += random.random() * 0.1 - 0.05
 
         # temp
-        self.color = self.unit.color
+        self.colour = self.unit.colour
 
     def dis(self, entity):
         """
@@ -106,7 +106,7 @@ class Entity:
                             self.pushed_log = (self.pushed_log + [entity])[-30:]
 
     def render(self, surface: pygame.Surface, shift=(0, 0)):
-        pygame.draw.circle(surface, self.color, offset(shift.copy(), self.pos), self.stats["size"])
+        pygame.draw.circle(surface, self.colour, offset(shift.copy(), self.pos), self.stats["size"])
 
         # debug stuff for swarm targeting
         if self.behavior.priority_target:

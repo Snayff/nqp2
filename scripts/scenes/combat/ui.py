@@ -7,7 +7,7 @@ import pygame
 from scripts.core.base_classes.ui import UI
 from scripts.core.constants import CombatState
 from scripts.core.utility import offset
-from scripts.scenes.combat.elements.unit import Unit
+from scripts.scenes.combat.elements.oldunit import OldUnit
 
 if TYPE_CHECKING:
     pass
@@ -77,7 +77,7 @@ class CombatUI(UI):
                 if self.game.combat.state == CombatState.UNIT_SELECT_TARGET:
                     print("added unit")
                     self.game.combat.units.add_unit(
-                        Unit(self.game, self.game.combat.hand.cards[self.selected_card].type, self.place_target)
+                        OldUnit(self.game, self.game.combat.hand.cards[self.selected_card].type, self.place_target)
                     )
                 else:
                     # TODO: handle action cards here

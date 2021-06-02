@@ -27,6 +27,7 @@ class Memory:
         self.game: Game = game
 
         # combat
+        self.troupe: Dict[Unit] = {}
         self.unit_deck: CardCollection = CardCollection(game)
         self.unit_deck.generate_units(4)
         self.action_deck: CardCollection = CardCollection(game)

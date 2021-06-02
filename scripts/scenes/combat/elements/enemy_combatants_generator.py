@@ -1,6 +1,6 @@
 import random
 
-from scripts.scenes.combat.elements.unit import Unit
+from scripts.scenes.combat.elements.oldunit import OldUnit
 
 
 class EnemyCombatantsGenerator:
@@ -19,5 +19,5 @@ class EnemyCombatantsGenerator:
 
             enemy_type = random.choice(["spearman", "juggernaut"])
 
-            unit = Unit(self.game, enemy_type, pos, team="enemy")
+            unit = OldUnit(self.game, enemy_type, pos, team="enemy")
             self.game.combat.units.add_unit(unit)
