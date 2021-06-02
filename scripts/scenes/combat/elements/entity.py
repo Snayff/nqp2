@@ -20,7 +20,7 @@ class Entity:
         self.team = self.unit.team
         self.stats = self.unit.stats.copy()
 
-        self.behavior = self.game.memory.behaviors.entity_behaviors[self.unit.behavior_type](self)
+        self.behavior = self.game.data.behaviors.entity_behaviors[self.unit.behavior_type](self)
 
         self.attack_timer = 0
         self.pushed_by_log = []

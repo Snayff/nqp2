@@ -14,12 +14,12 @@ class Unit:
 
         self.game = game
         self.type = unit_type
-        self.stats = self.game.memory.units[self.type].copy()
+        self.stats = self.game.data.units[self.type].copy()
         self.pos = list(pos)
         self.team = team
 
         self.behavior_type = self.stats["default_behavior"]
-        self.behavior = self.game.memory.behaviors.unit_behaviors[self.behavior_type](self)
+        self.behavior = self.game.data.behaviors.unit_behaviors[self.behavior_type](self)
 
         self.alive = True
 
@@ -36,7 +36,7 @@ class Unit:
         Update unit "position" by averaging the positions of all its entities.
         """
 
-        if self.entities != []:
+        if not self.entities:
             pos = [0, 0]
             for entity in self.entities:
                 pos[0] += entity.pos[0]

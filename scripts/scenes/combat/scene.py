@@ -42,6 +42,7 @@ class CombatScene(Scene):
 
         self.ui: CombatUI = CombatUI(game)
 
+        # FIXME - why are we taking a copy rather than referencing the unit deck in memory?
         self.deck: CardCollection = self.game.memory.unit_deck.copy()
         self.hand = self.deck.draw(5)
 

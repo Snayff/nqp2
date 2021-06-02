@@ -6,6 +6,7 @@ import time
 from scripts.core import debug
 from scripts.core.assets import Assets
 from scripts.core.constants import GameState, SceneType
+from scripts.core.data import Data
 from scripts.core.input import Input
 from scripts.core.memory import Memory
 from scripts.core.window import Window
@@ -28,6 +29,7 @@ class Game:
         self.input: Input = Input(self)
         self.memory: Memory = Memory(self)
         self.assets: Assets = Assets(self)
+        self.data: Data = Data(self)
 
         # scenes
         self.combat: CombatScene = CombatScene(self)

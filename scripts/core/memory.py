@@ -1,17 +1,14 @@
 from __future__ import annotations
 
-import json
 import logging
-import os
 import time
 from typing import TYPE_CHECKING
 
-from scripts.scenes.combat.elements.behavior_manager import BehaviorManager
 from scripts.scenes.combat.elements.card import Card
 from scripts.scenes.combat.elements.card_collection import CardCollection
 
 if TYPE_CHECKING:
-    from typing import Dict
+    pass
 
     from scripts.core.game import Game
 
@@ -35,44 +32,12 @@ class Memory:
         self.action_deck: CardCollection = CardCollection(game)
         self.action_deck.generate_actions(20)
 
-        # FIXME - we need to differentiate between static data and dynamic data; units, behaviours etc. never change
-        #  and should be held separately. e.g. split data and memory.
-        self.units: Dict = self.load_unit_info()
-        self.behaviors = BehaviorManager()
-
-        # event
-        self.events: Dict = self.load_events()
-
         # general
         self.gold = 10
 
         # record duration
         end_time = time.time()
         logging.info(f"Memory: initialised in {format(end_time - start_time, '.2f')}s.")
-
-    @staticmethod
-    def load_unit_info() -> Dict:
-        units = {}
-        for unit in os.listdir("data/units"):
-            f = open("data/units/" + unit, "r")
-            units[unit.split(".")[0]] = json.load(f)
-            f.close()
-
-        logging.info(f"Memory: All unit data loaded.")
-
-        return units
-
-    @staticmethod
-    def load_events() -> Dict:
-        events = {}
-        for event in os.listdir("data/events"):
-            f = open("data/events/" + event, "r")
-            events[event.split(".")[0]] = json.load(f)
-            f.close()
-
-        logging.info(f"Memory: All event data loaded.")
-
-        return events
 
     def amend_gold(self, amount: int):
         """
@@ -86,7 +51,7 @@ class Memory:
         """
         if amendment == "add":
             self.unit_deck.add_card(Card(self.game, unit_name))
-            # FIXME - this is adding to the CarcCollection but the card isnt showing up in Combat
+            # FIXME - this is adding to the CardCollection but the card isnt showing up in Combat
         elif amendment == "remove":
             self.unit_deck.remove_card()
         else:
