@@ -1,11 +1,13 @@
 import random
 
-from scripts.scenes.combat.elements.oldunit import OldUnit
+from scripts.scenes.combat.elements.unit import Unit
+from scripts.scenes.combat.troupe import Troupe
 
 
 class EnemyCombatantsGenerator:
     def __init__(self, game):
         self.game = game
+        self.enemy_troupe: Troupe = Troupe(game)
 
     def generate(self):
         # lots of temp stuff here for now
@@ -18,6 +20,8 @@ class EnemyCombatantsGenerator:
             pos = [random.random() * map_size[0] // 2 + map_size[0] // 2, random.random() * map_size[1]]
 
             enemy_type = random.choice(["spearman", "juggernaut"])
+            id_ = self.enemy_troupe.add_unit(enemy_type, "enemy")
+            unit = self.enemy_troupe.units[id_]
+            unit.pos = pos
 
-            unit = OldUnit(self.game, enemy_type, pos, team="enemy")
             self.game.combat.units.add_unit(unit)

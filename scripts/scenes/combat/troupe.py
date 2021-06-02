@@ -28,14 +28,17 @@ class Troupe:
         for i in range(4):
             self.add_unit("spearman", "player")
 
-    def add_unit(self, unit_type: str, team: str):
+    def add_unit(self, unit_type: str, team: str) -> int:
         """
-        Add a unit to the troupe
+        Add a unit to the troupe. Return id.
         """
         id_ = self._generate_id()
         unit = Unit(self.game, id_, unit_type, team)
         self.units[id_] = unit
+
         logging.info(f"Unit ({unit.id}: {unit.type}) added to player's troupe.")
+
+        return id_
 
     def remove_unit(self, id_: int):
         try:

@@ -34,23 +34,23 @@ class Swarm(Behaviour):
         # turn on attacker
         if self.entity.damaged_by_log != []:
             for entity in self.entity.pushed_by_log[::-1]:
-                if entity.stats["range"] < self.entity.stats["range"] * 1.2:
+                if entity.range < self.entity.range * 1.2:
                     self.priority_target = entity
             self.entity.damaged_by_log = []
 
         if self.priority_target:
             dis = self.entity.dis(self.priority_target) - (
-                self.entity.stats["size"] + self.priority_target.stats["size"]
+                self.entity.size + self.priority_target.size
             )
-            if dis > self.entity.stats["range"]:
+            if dis > self.entity.range:
                 angle = self.entity.angle(self.priority_target)
-                self.entity.advance(angle, self.entity.stats["move_speed"] * dt)
+                self.entity.advance(angle, self.entity.move_speed * dt)
 
             # always try to attack
             self.entity.attempt_attack(self.priority_target)
 
             # add a case to cancel if the target gets away
-            if dis > self.entity.stats["range"] * 2:
+            if dis > self.entity.range * 2:
                 self.priority_target = None
 
             # check if target is dead
@@ -61,14 +61,14 @@ class Swarm(Behaviour):
             angle = self.entity.angle(self.entity.unit.behaviour.target)
 
             if self.loop_around > 0:
-                self.entity.advance(angle + (math.pi / 1.7) * self.loop_direction, self.entity.stats["move_speed"] * dt)
+                self.entity.advance(angle + (math.pi / 1.7) * self.loop_direction, self.entity.move_speed * dt)
 
             else:
                 dis = self.entity.dis(self.entity.unit.behaviour.target) - (
-                    self.entity.stats["size"] + self.entity.unit.behaviour.target.stats["size"]
+                    self.entity.size + self.entity.unit.behaviour.target.size
                 )
-                if dis > self.entity.stats["range"]:
-                    self.entity.advance(angle, self.entity.stats["move_speed"] * dt)
+                if dis > self.entity.range:
+                    self.entity.advance(angle, self.entity.move_speed * dt)
 
                 # always try to attack
                 self.entity.attempt_attack(self.entity.unit.behaviour.target)
