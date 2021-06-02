@@ -27,9 +27,9 @@ class Game:
         # managers
         self.window: Window = Window(self)
         self.input: Input = Input(self)
-        self.memory: Memory = Memory(self)
         self.assets: Assets = Assets(self)
         self.data: Data = Data(self)
+        self.memory: Memory = Memory(self)
 
         # scenes
         self.combat: CombatScene = CombatScene(self)

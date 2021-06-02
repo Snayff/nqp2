@@ -2,12 +2,11 @@ from __future__ import annotations
 
 import logging
 from typing import TYPE_CHECKING
-
-from scripts.core.game import Game
 from scripts.scenes.combat.elements.unit import Unit
 
 if TYPE_CHECKING:
     from typing import Dict
+    from scripts.core.game import Game
 
 __all__ = ["Troupe"]
 

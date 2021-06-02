@@ -1,10 +1,10 @@
 import math
 import random
 
-from scripts.scenes.combat.elements.entity_behaviors.behavior import Behavior
+from scripts.scenes.combat.elements.entity_behaviours.behaviour import Behaviour
 
 
-class Swarm(Behavior):
+class Swarm(Behaviour):
     def complete_init(self):
         self.priority_target = None
         self.loop_around = 0
@@ -57,18 +57,18 @@ class Swarm(Behavior):
             elif not self.priority_target.alive:
                 self.priority_target = None
 
-        elif self.entity.unit.behavior.target:
-            angle = self.entity.angle(self.entity.unit.behavior.target)
+        elif self.entity.unit.behaviour.target:
+            angle = self.entity.angle(self.entity.unit.behaviour.target)
 
             if self.loop_around > 0:
                 self.entity.advance(angle + (math.pi / 1.7) * self.loop_direction, self.entity.stats["move_speed"] * dt)
 
             else:
-                dis = self.entity.dis(self.entity.unit.behavior.target) - (
-                    self.entity.stats["size"] + self.entity.unit.behavior.target.stats["size"]
+                dis = self.entity.dis(self.entity.unit.behaviour.target) - (
+                    self.entity.stats["size"] + self.entity.unit.behaviour.target.stats["size"]
                 )
                 if dis > self.entity.stats["range"]:
                     self.entity.advance(angle, self.entity.stats["move_speed"] * dt)
 
                 # always try to attack
-                self.entity.attempt_attack(self.entity.unit.behavior.target)
+                self.entity.attempt_attack(self.entity.unit.behaviour.target)

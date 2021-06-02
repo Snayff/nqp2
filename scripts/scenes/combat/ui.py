@@ -23,7 +23,7 @@ class CombatUI(UI):
         self.place_target = [0, 0]
 
     def update(self):
-        cards = self.game.combat.hand.cards
+        cards = self.game.combat.units_to_place
 
         if self.game.combat.state in [CombatState.UNIT_CHOOSE_CARD, CombatState.ACTION_CHOOSE_CARD]:
             if self.game.input.states["left"]:
@@ -49,9 +49,10 @@ class CombatUI(UI):
 
             if self.game.input.states["cancel"]:
                 if self.game.combat.state == CombatState.UNIT_CHOOSE_CARD:
-                    # switch to action phase
-                    self.game.combat.deck: CardCollection = self.game.memory.action_deck.copy()
-                    self.game.combat.hand = self.game.combat.deck.draw(5)
+                    # # switch to action phase
+                    # self.game.combat.deck: CardCollection = self.game.memory.action_deck.copy()
+                    # self.game.combat.hand = self.game.combat.deck.draw(5)
+                    pass
 
                 self.game.combat.state = CombatState.WATCH
 
@@ -76,14 +77,17 @@ class CombatUI(UI):
                 # hand will contain the hand for whichever deck is in use
                 if self.game.combat.state == CombatState.UNIT_SELECT_TARGET:
                     print("added unit")
+                    unit_id = self.game.combat.units_to_place[self.selected_card]
                     self.game.combat.units.add_unit(
-                        OldUnit(self.game, self.game.combat.hand.cards[self.selected_card].type, self.place_target)
+                        self.game.memory.player_troupe.units[unit_id]
+                        # OldUnit(self.game, self.game.combat.hand.cards[self.selected_card].type, self.place_target)
                     )
                 else:
                     # TODO: handle action cards here
                     pass
 
-                self.game.combat.hand.cards.pop(self.selected_card)
+                # self.game.combat.hand.cards.pop(self.selected_card)
+                self.game.combat.units_to_place.pop(self.selected_card)
 
             if self.game.input.states["cancel"] or self.game.input.states["select"]:
                 # transition to appropriate state

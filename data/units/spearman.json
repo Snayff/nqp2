@@ -9,6 +9,6 @@
     "count": 10,
     "size": 5,
     "weight": 2,
-    "default_behavior": "swarm",
+    "default_behaviour": "swarm",
     "gold_cost": 5
 }

@@ -18,8 +18,8 @@ class OldUnit:
         self.pos = list(pos)
         self.team = team
 
-        self.behavior_type = self.stats["default_behavior"]
-        self.behavior = self.game.data.behaviors.unit_behaviors[self.behavior_type](self)
+        self.behaviour_type = self.stats["default_behaviour"]
+        self.behaviour = self.game.data.behaviours.unit_behaviours[self.behaviour_type](self)
 
         self.alive = True
 
@@ -54,7 +54,7 @@ class OldUnit:
         # a unit is alive if all of its entities are alive
         self.alive = bool(len(self.entities))
 
-        self.behavior.process(dt)
+        self.behaviour.process(dt)
 
         for i, entity in itr(self.entities):
             entity.update(dt)

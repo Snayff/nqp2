@@ -20,7 +20,7 @@ class Entity:
         self.team = self.unit.team
         self.stats = self.unit.stats.copy()
 
-        self.behavior = self.game.data.behaviors.entity_behaviors[self.unit.behavior_type](self)
+        self.behaviour = self.game.data.behaviours.entity_behaviours[self.unit.behaviour_type](self)
 
         self.attack_timer = 0
         self.pushed_by_log = []
@@ -70,7 +70,7 @@ class Entity:
     def update(self, dt):
         self.attack_timer = max(0, self.attack_timer - dt)
 
-        self.behavior.process(dt)
+        self.behaviour.process(dt)
 
         # handle collision
         for entity in self.game.combat.all_entities:
@@ -109,17 +109,17 @@ class Entity:
         pygame.draw.circle(surface, self.colour, offset(shift.copy(), self.pos), self.stats["size"])
 
         # debug stuff for swarm targeting
-        if self.behavior.priority_target:
+        if self.behaviour.priority_target:
             pygame.draw.line(
                 surface,
                 (255, 0, 255),
                 offset(shift.copy(), self.pos),
-                offset(shift.copy(), self.behavior.priority_target.pos),
+                offset(shift.copy(), self.behaviour.priority_target.pos),
             )
-        elif self.unit.behavior.target:
+        elif self.unit.behaviour.target:
             pygame.draw.line(
                 surface,
                 (255, 255, 0),
                 offset(shift.copy(), self.pos),
-                offset(shift.copy(), self.unit.behavior.target.pos),
+                offset(shift.copy(), self.unit.behaviour.target.pos),
             )

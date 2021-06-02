@@ -4,12 +4,12 @@ from typing import TYPE_CHECKING
 
 import pygame
 
-from scripts.core.game import Game
 from scripts.core.utility import itr
 from scripts.scenes.combat.elements.entity import Entity
 
 if TYPE_CHECKING:
     from typing import List
+    from scripts.core.game import Game
 
 __all__ = ["Unit"]
 
@@ -32,23 +32,25 @@ class Unit:
         self.count: int = unit_data["count"]
         self.size: int = unit_data["size"]
         self.weight: int = unit_data["weight"]
-        self.default_behavior: str = unit_data["default_behaviour"]
+        self.default_behaviour: str = unit_data["default_behaviour"]
         self.gold_cost: int = unit_data["gold_cost"]
         self.team: str = team
 
         # in combat
-        self.behavior = self.game.data.behaviors.unit_behaviors[self.default_behavior](self)
+        self.behaviour = self.game.data.behaviours.unit_behaviours[self.default_behaviour](self)
         self.alive: bool = True
         self.colour = (0, 0, 255)
         self.entities: List[Entity] = []
         self.pos: List[int, int] = [0, 0]
+        self.placed: bool = False
 
     def reset_for_combat(self):
         """
         Reset the in combat values ready to begin combat.
         """
-        self.behavior = self.game.data.behaviors.unit_behaviors[self.default_behavior](self)
+        self.behaviour = self.game.data.behaviours.unit_behaviours[self.default_behaviour](self)
         self.alive = True
+        self.placed = False
 
         if self.team == "player":
             self.colour = (0, 0, 255)
@@ -82,7 +84,7 @@ class Unit:
         # a unit is alive if all of its entities are alive
         self.alive = bool(len(self.entities))
 
-        self.behavior.process(dt)
+        self.behaviour.process(dt)
 
         for i, entity in itr(self.entities):
             entity.update(dt)

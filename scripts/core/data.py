@@ -6,7 +6,7 @@ import os
 import time
 from typing import TYPE_CHECKING
 
-from scripts.scenes.combat.elements.behavior_manager import BehaviorManager
+from scripts.scenes.combat.elements.behavior_manager import BehaviourManager
 
 if TYPE_CHECKING:
     from typing import Dict
@@ -28,7 +28,7 @@ class Data:
         self.game: Game = game
 
         self.units: Dict = self.load_unit_info()
-        self.behaviors = BehaviorManager()
+        self.behaviours = BehaviourManager()
 
         # event
         self.events: Dict = self.load_events()
