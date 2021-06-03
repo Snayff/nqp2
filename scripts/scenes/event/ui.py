@@ -39,8 +39,10 @@ class EventUI(UI):
         if self.game.input.states["select"]:
             self.game.input.states["select"] = False
 
-            logging.info(f"Selected option {self.selected_option},"
-                         f" {self.game.event.active_event['options'][self.selected_option]}.")
+            logging.info(
+                f"Selected option {self.selected_option},"
+                f" {self.game.event.active_event['options'][self.selected_option]}."
+            )
 
             self.game.event.trigger_result(self.selected_option)
 
