@@ -1,42 +1,77 @@
-from typing import List
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
 
 import pygame
 
 from scripts.core.utility import itr
 from scripts.scenes.combat.elements.entity import Entity
 
+if TYPE_CHECKING:
+    from typing import List
+
+    from scripts.core.game import Game
+
+__all__ = ["Unit"]
+
 
 class Unit:
-    def __init__(self, game, unit_type, pos: List = None, team="player"):
-        # handle mutable arg
-        if pos is None:
-            pos = [0, 0]
+    def __init__(self, game: Game, id_: int, unit_type: str, team: str):
+        self.game: Game = game
 
-        self.game = game
-        self.type = unit_type
-        self.stats = self.game.memory.units[self.type].copy()
-        self.pos = list(pos)
-        self.team = team
+        # persistent
+        unit_data = self.game.data.units[unit_type]
+        self.id = id_
+        self.type: str = unit_type
+        self.health: int = unit_data["health"]
+        self.defense: int = unit_data["defense"]
+        self.damage: int = unit_data["damage"]
+        self.range: int = unit_data["range"]
+        self.attack_speed: int = unit_data["attack_speed"]
+        self.move_speed: int = unit_data["move_speed"]
+        self.ammo: int = unit_data["ammo"]
+        self.count: int = unit_data["count"]
+        self.size: int = unit_data["size"]
+        self.weight: int = unit_data["weight"]
+        self.default_behaviour: str = unit_data["default_behaviour"]
+        self.gold_cost: int = unit_data["gold_cost"]
+        self.team: str = team
 
-        self.behavior_type = self.stats["default_behavior"]
-        self.behavior = self.game.memory.behaviors.unit_behaviors[self.behavior_type](self)
+        # in combat
+        self.behaviour = self.game.data.behaviours.unit_behaviours[self.default_behaviour](self)
+        self.alive: bool = True
+        self.colour = (0, 0, 255)
+        self.entities: List[Entity] = []
+        self.pos: List[int, int] = [0, 0]
+        self.placed: bool = False
 
+    def reset_for_combat(self):
+        """
+        Reset the in combat values ready to begin combat.
+        """
+        self.behaviour = self.game.data.behaviours.unit_behaviours[self.default_behaviour](self)
         self.alive = True
+        self.placed = False
 
-        # temporary
         if self.team == "player":
-            self.color = (0, 0, 255)
+            self.colour = (0, 0, 255)
         else:
-            self.color = (255, 0, 0)
+            self.colour = (255, 0, 0)
 
         self.entities = []
+
+    def spawn_entities(self):
+        """
+        Spawn the unit's entities.
+        """
+        for i in range(self.count):
+            self.entities.append(Entity(self))
 
     def update_pos(self):
         """
         Update unit "position" by averaging the positions of all its entities.
         """
-
-        if self.entities != []:
+        if not self.entities:
             pos = [0, 0]
             for entity in self.entities:
                 pos[0] += entity.pos[0]
@@ -44,17 +79,13 @@ class Unit:
             self.pos[0] = pos[0] / len(self.entities)
             self.pos[1] = pos[1] / len(self.entities)
 
-    def spawn_entities(self):
-        for i in range(self.stats["count"]):
-            self.entities.append(Entity(self))
-
     def update(self, dt):
         self.update_pos()
 
         # a unit is alive if all of its entities are alive
         self.alive = bool(len(self.entities))
 
-        self.behavior.process(dt)
+        self.behaviour.process(dt)
 
         for i, entity in itr(self.entities):
             entity.update(dt)

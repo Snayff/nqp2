@@ -45,7 +45,7 @@ class InnScene(Scene):
         units = []
         max_attempts = 100
 
-        if len(self.game.memory.units) > 0:
+        if len(self.game.data.units) > 0:
 
             for i in range(0, number_of_units - 1):
                 unique = False
@@ -54,7 +54,7 @@ class InnScene(Scene):
 
                 while not unique:
                     # convert dict items to list, get a random choice from list, get the dict value from the tuple
-                    choice = random.choice(list(self.game.memory.units.items()))
+                    choice = random.choice(list(self.game.data.units.items()))
                     unit[choice[0]] = choice[1]
 
                     # ensure we havent pulled a unit already on offer, or have reached max attempts
@@ -76,13 +76,13 @@ class InnScene(Scene):
         Purchase the unit
         """
 
-        name = list(self.units_for_sale[option_index])[0]
-        details = self.units_for_sale[option_index].get(name)
+        unit_type = list(self.units_for_sale[option_index])[0]
+        details = self.units_for_sale[option_index].get(unit_type)
 
         # can we afford
         if details["gold_cost"] <= self.game.memory.gold:
             # pay gold
-            self.game.memory.amend_gold(-details["gold_cost"])
+            self.game.memory.amend_gold(-details["gold_cost"])  # remove gold cost
 
             # add unit
-            self.game.memory.amend_unit(name)
+            self.game.memory.player_troupe.add_unit(unit_type, "player")

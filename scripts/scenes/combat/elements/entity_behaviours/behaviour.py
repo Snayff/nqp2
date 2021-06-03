@@ -1,7 +1,7 @@
-class Behavior:
-    def __init__(self, unit):
-        self.game = unit.game
-        self.unit = unit
+class Behaviour:
+    def __init__(self, entity):
+        self.game = entity.game
+        self.entity = entity
 
         self.complete_init()
 

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 from typing import TYPE_CHECKING
 
 import pygame
@@ -37,6 +38,12 @@ class EventUI(UI):
         # select option and trigger result
         if self.game.input.states["select"]:
             self.game.input.states["select"] = False
+
+            logging.info(
+                f"Selected option {self.selected_option},"
+                f" {self.game.event.active_event['options'][self.selected_option]}."
+            )
+
             self.game.event.trigger_result(self.selected_option)
 
             # return to overworld

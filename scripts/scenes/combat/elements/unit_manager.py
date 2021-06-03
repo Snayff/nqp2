@@ -7,6 +7,8 @@ import pygame
 if TYPE_CHECKING:
     pass
 
+__all__ = ["UnitManager"]
+
 
 class UnitManager:
     def __init__(self, game):
@@ -15,6 +17,7 @@ class UnitManager:
         self.units = []
 
     def add_unit(self, unit):
+        unit.reset_for_combat()
         unit.spawn_entities()
         self.units.append(unit)
 

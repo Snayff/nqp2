@@ -1,10 +1,16 @@
 import math
 import random
+from typing import TYPE_CHECKING
 
 import pygame
 
 from scripts.core.constants import DEFENSE_SCALE, PUSH_FORCE, WEIGHT_SCALE
 from scripts.core.utility import offset
+
+if TYPE_CHECKING:
+    from scripts.scenes.combat.elements.unit import Unit
+
+__all__ = ["Entity"]
 
 """
 Don't try to enforce typing with some of the functions here. They're meant to take anything with a "pos" attribute.
@@ -14,13 +20,24 @@ This can be adjusted to have valid typing, but it'd make a lot of stuff unnecess
 
 class Entity:
     def __init__(self, parent_unit):
-        self.unit = parent_unit
+        self.unit: Unit = parent_unit
         self.game = self.unit.game
+
         self.pos = self.unit.pos.copy()
         self.team = self.unit.team
-        self.stats = self.unit.stats.copy()
+        self.type: str = self.unit.type
+        self.health: int = self.unit.health
+        self.defense: int = self.unit.defense
+        self.damage: int = self.unit.damage
+        self.range: int = self.unit.range
+        self.attack_speed: int = self.unit.attack_speed
+        self.move_speed: int = self.unit.move_speed
+        self.ammo: int = self.unit.ammo
+        self.count: int = self.unit.count
+        self.size: int = self.unit.size
+        self.weight: int = self.unit.weight
 
-        self.behavior = self.game.memory.behaviors.entity_behaviors[self.unit.behavior_type](self)
+        self.behaviour = self.game.data.behaviours.entity_behaviours[self.unit.default_behaviour](self)
 
         self.attack_timer = 0
         self.pushed_by_log = []
@@ -34,7 +51,7 @@ class Entity:
         self.pos[1] += random.random() * 0.1 - 0.05
 
         # temp
-        self.color = self.unit.color
+        self.colour = self.unit.colour
 
     def dis(self, entity):
         """
@@ -52,30 +69,30 @@ class Entity:
         self.pos[0] += math.cos(angle) * amount
         self.pos[1] += math.sin(angle) * amount
 
-    def damage(self, amount, owner):
-        self.stats["health"] -= amount * (DEFENSE_SCALE / (DEFENSE_SCALE + self.stats["defense"]))
-        if self.stats["health"] <= 0:
-            self.stats["health"] = 0
+    def deal_damage(self, amount, owner):
+        self.health -= amount * (DEFENSE_SCALE / (DEFENSE_SCALE + self.defense))
+        if self.health <= 0:
+            self.health = 0
             self.alive = False
 
         self.damaged_by_log = (self.damaged_by_log + [owner])[-30:]
 
     def attempt_attack(self, entity):
         if self.attack_timer <= 0:
-            self.attack_timer = 1 / self.stats["attack_speed"]
-            if self.dis(entity) - (entity.stats["size"] + self.stats["size"]) < self.stats["range"]:
-                entity.damage(self.stats["damage"], self)
-                self.attack_timer = 1 / self.stats["attack_speed"]
+            self.attack_timer = 1 / self.attack_speed
+            if self.dis(entity) - (entity.size + self.size) < self.range:
+                entity.deal_damage(self.damage, self)
+                self.attack_timer = 1 / self.attack_speed
 
     def update(self, dt):
         self.attack_timer = max(0, self.attack_timer - dt)
 
-        self.behavior.process(dt)
+        self.behaviour.process(dt)
 
         # handle collision
         for entity in self.game.combat.all_entities:
             if entity != self:
-                combined_size = self.stats["size"] + entity.stats["size"]
+                combined_size = self.size + entity.size
                 # horizontal scan
                 if abs(entity.pos[0] - self.pos[0]) < combined_size:
                     # vertical scan
@@ -88,38 +105,30 @@ class Entity:
                             force = 1 - dis / combined_size
                             entity.advance(
                                 angle,
-                                (self.stats["weight"] + WEIGHT_SCALE)
-                                / (entity.stats["weight"] + WEIGHT_SCALE)
-                                * dt
-                                * PUSH_FORCE
-                                * force,
+                                (self.weight + WEIGHT_SCALE) / (entity.weight + WEIGHT_SCALE) * dt * PUSH_FORCE * force,
                             )
                             self.advance(
                                 angle + math.pi,
-                                (entity.stats["weight"] + WEIGHT_SCALE)
-                                / (self.stats["weight"] + WEIGHT_SCALE)
-                                * dt
-                                * PUSH_FORCE
-                                * force,
+                                (entity.weight + WEIGHT_SCALE) / (self.weight + WEIGHT_SCALE) * dt * PUSH_FORCE * force,
                             )
                             entity.pushed_by_log = (entity.pushed_by_log + [self])[-30:]
                             self.pushed_log = (self.pushed_log + [entity])[-30:]
 
     def render(self, surface: pygame.Surface, shift=(0, 0)):
-        pygame.draw.circle(surface, self.color, offset(shift.copy(), self.pos), self.stats["size"])
+        pygame.draw.circle(surface, self.colour, offset(shift.copy(), self.pos), self.size)
 
         # debug stuff for swarm targeting
-        if self.behavior.priority_target:
+        if self.behaviour.priority_target:
             pygame.draw.line(
                 surface,
                 (255, 0, 255),
                 offset(shift.copy(), self.pos),
-                offset(shift.copy(), self.behavior.priority_target.pos),
+                offset(shift.copy(), self.behaviour.priority_target.pos),
             )
-        elif self.unit.behavior.target:
+        elif self.unit.behaviour.target:
             pygame.draw.line(
                 surface,
                 (255, 255, 0),
                 offset(shift.copy(), self.pos),
-                offset(shift.copy(), self.unit.behavior.target.pos),
+                offset(shift.copy(), self.unit.behaviour.target.pos),
             )

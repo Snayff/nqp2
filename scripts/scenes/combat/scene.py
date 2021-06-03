@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import logging
 import time
-from typing import TYPE_CHECKING
+from typing import List, TYPE_CHECKING
 
 from scripts.core.base_classes.scene import Scene
 from scripts.core.constants import CombatState, SceneType
@@ -42,6 +42,11 @@ class CombatScene(Scene):
 
         self.ui: CombatUI = CombatUI(game)
 
+        self.units_to_place: List[int] = []  # unit ids
+
+        # FIXME - need to revise use/need for CardCollection and Cards. Card, or similar, likely needed as a UI class
+        #  to contain all the UI info for selecting and playing a unit, but the CardCollection feels unnecessary now.
+        #  units_to_place is using unit ids and these can be used to pull info from the Troupe.
         self.deck: CardCollection = self.game.memory.unit_deck.copy()
         self.hand = self.deck.draw(5)
 
@@ -57,6 +62,7 @@ class CombatScene(Scene):
         logging.info(f"CombatScene: initialised in {format(end_time - start_time, '.2f')}s.")
 
     def begin_combat(self):
+        self.game.combat.refresh_units_to_place()
         self.enemy_generator.generate()
 
     def get_all_entities(self):
@@ -96,3 +102,10 @@ class CombatScene(Scene):
         self.terrain.render(self.game.window.display, self.camera.render_offset())
         self.units.render(self.game.window.display, self.camera.render_offset())
         self.ui.render(self.game.window.display)
+
+    def refresh_units_to_place(self):
+        """
+        Refresh the unit ids held in units to place
+        """
+        for unit in self.game.memory.player_troupe.units.keys():
+            self.units_to_place.append(unit)

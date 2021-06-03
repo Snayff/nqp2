@@ -1,7 +1,7 @@
-from scripts.scenes.combat.elements.unit_behaviors.behavior import Behavior
+from scripts.scenes.combat.elements.unit_behaviours.behaviour import Behaviour
 
 
-class Swarm(Behavior):
+class Swarm(Behaviour):
     def complete_init(self):
         # these are pointers. be careful with modifying them.
         self.target = None

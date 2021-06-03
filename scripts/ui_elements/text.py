@@ -23,8 +23,8 @@ def load_font_img(path, font_color):
 
 
 class Font:
-    def __init__(self, path, color):
-        self.letters, self.letter_spacing, self.line_height = load_font_img(path, color)
+    def __init__(self, path, colour):
+        self.letters, self.letter_spacing, self.line_height = load_font_img(path, colour)
         self.font_order = [
             "A",
             "B",
