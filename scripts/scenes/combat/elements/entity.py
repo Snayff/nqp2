@@ -1,8 +1,9 @@
 import math
 import random
+from typing import TYPE_CHECKING
 
 import pygame
-from typing import TYPE_CHECKING
+
 from scripts.core.constants import DEFENSE_SCALE, PUSH_FORCE, WEIGHT_SCALE
 from scripts.core.utility import offset
 
@@ -21,7 +22,7 @@ class Entity:
     def __init__(self, parent_unit):
         self.unit: Unit = parent_unit
         self.game = self.unit.game
-        
+
         self.pos = self.unit.pos.copy()
         self.team = self.unit.team
         self.type: str = self.unit.type
@@ -104,19 +105,11 @@ class Entity:
                             force = 1 - dis / combined_size
                             entity.advance(
                                 angle,
-                                (self.weight + WEIGHT_SCALE)
-                                / (entity.weight + WEIGHT_SCALE)
-                                * dt
-                                * PUSH_FORCE
-                                * force,
+                                (self.weight + WEIGHT_SCALE) / (entity.weight + WEIGHT_SCALE) * dt * PUSH_FORCE * force,
                             )
                             self.advance(
                                 angle + math.pi,
-                                (entity.weight + WEIGHT_SCALE)
-                                / (self.weight + WEIGHT_SCALE)
-                                * dt
-                                * PUSH_FORCE
-                                * force,
+                                (entity.weight + WEIGHT_SCALE) / (self.weight + WEIGHT_SCALE) * dt * PUSH_FORCE * force,
                             )
                             entity.pushed_by_log = (entity.pushed_by_log + [self])[-30:]
                             self.pushed_log = (self.pushed_log + [entity])[-30:]

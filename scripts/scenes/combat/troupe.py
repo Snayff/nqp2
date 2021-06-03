@@ -2,10 +2,12 @@ from __future__ import annotations
 
 import logging
 from typing import TYPE_CHECKING
+
 from scripts.scenes.combat.elements.unit import Unit
 
 if TYPE_CHECKING:
     from typing import Dict
+
     from scripts.core.game import Game
 
 __all__ = ["Troupe"]
@@ -20,10 +22,10 @@ class Troupe:
         self._last_id = 0
 
         self._debug_init_units()
-        
+
     def _debug_init_units(self):
         """
-        Initialise some units. For testing. 
+        Initialise some units. For testing.
         """
         for i in range(4):
             self.add_unit("spearman", "player")
@@ -53,5 +55,3 @@ class Troupe:
         """
         self._last_id += 1
         return self._last_id
-
-

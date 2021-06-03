@@ -33,7 +33,6 @@ class Data:
         # event
         self.events: Dict = self.load_events()
 
-
         # record duration
         end_time = time.time()
         logging.info(f"Data: initialised in {format(end_time - start_time, '.2f')}s.")

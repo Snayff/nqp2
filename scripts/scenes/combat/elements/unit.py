@@ -9,6 +9,7 @@ from scripts.scenes.combat.elements.entity import Entity
 
 if TYPE_CHECKING:
     from typing import List
+
     from scripts.core.game import Game
 
 __all__ = ["Unit"]

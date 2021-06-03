@@ -39,9 +39,7 @@ class Swarm(Behaviour):
             self.entity.damaged_by_log = []
 
         if self.priority_target:
-            dis = self.entity.dis(self.priority_target) - (
-                self.entity.size + self.priority_target.size
-            )
+            dis = self.entity.dis(self.priority_target) - (self.entity.size + self.priority_target.size)
             if dis > self.entity.range:
                 angle = self.entity.angle(self.priority_target)
                 self.entity.advance(angle, self.entity.move_speed * dt)

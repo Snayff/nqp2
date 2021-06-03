@@ -14,7 +14,9 @@ class BehaviourManager:
 
                 # only works with single-word class names for now
                 class_name = behaviour[0].upper() + behaviour[1:]
-                module = __import__("scripts.scenes.combat.elements.unit_behaviours." + behaviour, fromlist=[class_name])
+                module = __import__(
+                    "scripts.scenes.combat.elements.unit_behaviours." + behaviour, fromlist=[class_name]
+                )
                 self.unit_behaviours[behaviour] = getattr(module, class_name)
 
         # load entity behaviours

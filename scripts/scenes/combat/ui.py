@@ -83,9 +83,7 @@ class CombatUI(UI):
                 # hand will contain the hand for whichever deck is in use
                 if self.game.combat.state == CombatState.UNIT_SELECT_TARGET:
                     unit_id = self.game.combat.units_to_place.pop(self.selected_card)
-                    self.game.combat.units.add_unit(
-                        self.game.memory.player_troupe.units[unit_id]
-                    )
+                    self.game.combat.units.add_unit(self.game.memory.player_troupe.units[unit_id])
                 else:
                     # TODO: handle action cards here
                     pass
@@ -139,6 +137,3 @@ class CombatUI(UI):
                     height_offset += 12
 
                 card.render(surface, (start_pos + i * 60 - 25, 300 + height_offset))
-
-
-
