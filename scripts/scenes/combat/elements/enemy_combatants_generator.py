@@ -1,6 +1,5 @@
 import random
 
-from scripts.scenes.combat.elements.unit import Unit
 from scripts.scenes.combat.troupe import Troupe
 
 

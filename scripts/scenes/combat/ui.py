@@ -7,10 +7,19 @@ import pygame
 from scripts.core.base_classes.ui import UI
 from scripts.core.constants import CombatState
 from scripts.core.utility import offset
-from scripts.scenes.combat.elements.oldunit import OldUnit
 
 if TYPE_CHECKING:
     pass
+
+__all__ = ["CombatUI"]
+
+## TO DO LIST ##
+# TODO -  Win state/ lose state; when all of one side is dead.
+# TODO - show bar that is all of remaining health for both sides as a % of total. So when player is winning the bar
+#  will progress to one side and if the opposite then it will progress to the other.
+# TODO - dev tool - instant win button
+# TODO - dont start combat until all units placed / units up to limit placed
+# TODO -
 
 
 class CombatUI(UI):
@@ -49,9 +58,6 @@ class CombatUI(UI):
 
             if self.game.input.states["cancel"]:
                 if self.game.combat.state == CombatState.UNIT_CHOOSE_CARD:
-                    # # switch to action phase
-                    # self.game.combat.deck: CardCollection = self.game.memory.action_deck.copy()
-                    # self.game.combat.hand = self.game.combat.deck.draw(5)
                     pass
 
                 self.game.combat.state = CombatState.WATCH
@@ -76,11 +82,9 @@ class CombatUI(UI):
             if self.game.input.states["select"]:
                 # hand will contain the hand for whichever deck is in use
                 if self.game.combat.state == CombatState.UNIT_SELECT_TARGET:
-                    print("added unit")
-                    unit_id = self.game.combat.units_to_place[self.selected_card]
+                    unit_id = self.game.combat.units_to_place.pop(self.selected_card)
                     self.game.combat.units.add_unit(
                         self.game.memory.player_troupe.units[unit_id]
-                        # OldUnit(self.game, self.game.combat.hand.cards[self.selected_card].type, self.place_target)
                     )
                 else:
                     # TODO: handle action cards here
@@ -137,9 +141,4 @@ class CombatUI(UI):
                 card.render(surface, (start_pos + i * 60 - 25, 300 + height_offset))
 
 
-## TO DO LIST ##
-# TODO -  Win state/ lose state; when all of one side is dead.
-# TODO - show bar that is all of remaining health for both sides as a % of total. So when player is winning the bar
-#  will progress to one side and if the opposite then it will progress to the other.
-# TODO - dev tool - instant win button
-# TODO - dont start combat until all units placed / units up to limit placed
+

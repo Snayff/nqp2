@@ -80,7 +80,7 @@ class Entity:
         if self.attack_timer <= 0:
             self.attack_timer = 1 / self.attack_speed
             if self.dis(entity) - (entity.size + self.size) < self.range:
-                entity.damage(self.damage, self)
+                entity.deal_damage(self.damage, self)
                 self.attack_timer = 1 / self.attack_speed
 
     def update(self, dt):

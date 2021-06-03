@@ -44,7 +44,9 @@ class CombatScene(Scene):
 
         self.units_to_place: List[int] = []  # unit ids
 
-        # FIXME - why are we taking a copy rather than referencing the unit deck in memory?
+        # FIXME - need to revise use/need for CardCollection and Cards. Card, or similar, likely needed as a UI class
+        #  to contain all the UI info for selecting and playing a unit, but the CardCollection feels unnecessary now.
+        #  units_to_place is using unit ids and these can be used to pull info from the Troupe.
         self.deck: CardCollection = self.game.memory.unit_deck.copy()
         self.hand = self.deck.draw(5)
 
