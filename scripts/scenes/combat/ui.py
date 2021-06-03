@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 from typing import TYPE_CHECKING
 
 import pygame
@@ -83,7 +84,12 @@ class CombatUI(UI):
                 # hand will contain the hand for whichever deck is in use
                 if self.game.combat.state == CombatState.UNIT_SELECT_TARGET:
                     unit_id = self.game.combat.units_to_place.pop(self.selected_card)
-                    self.game.combat.units.add_unit(self.game.memory.player_troupe.units[unit_id])
+                    unit = self.game.memory.player_troupe.units[unit_id]
+                    unit.pos = self.place_target
+
+                    self.game.combat.units.add_unit(unit)
+
+                    logging.info(f"Placed {unit.type}({unit.id}) at {unit.pos}.")
                 else:
                     # TODO: handle action cards here
                     pass

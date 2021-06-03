@@ -71,3 +71,4 @@ class EventScene(Scene):
         """
         if result_key == "gold":
             self.game.memory.amend_gold(int(result_value))
+            logging.info(f"Gold changed by {result_value}. New gold amount is {self.game.memory.gold}.")
