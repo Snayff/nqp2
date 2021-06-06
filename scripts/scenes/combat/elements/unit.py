@@ -47,7 +47,6 @@ class Unit:
         self.default_behaviour: str = unit_data["default_behaviour"]
         self.upgrade_cost: int = unit_data["upgrade_cost"]
 
-
         # in combat
         self.behaviour = self.game.data.behaviours.unit_behaviours[self.default_behaviour](self)
         self.alive: bool = True

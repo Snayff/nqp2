@@ -176,4 +176,3 @@ class TrainingUI(UI):
 
         # show gold
         default_font.render(f"Gold: {self.game.memory.gold}", surface, (1, 1), 2)
-
