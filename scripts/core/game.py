@@ -74,8 +74,7 @@ class Game:
             self.combat.begin_combat()
             self.active_scene = self.combat
         elif scene_type == SceneType.TRAINING:
-            # TODO - add TrainingScene
-            pass
+            self.active_scene = self.training
         elif scene_type == SceneType.INN:
             self.active_scene = self.inn
         elif scene_type == SceneType.EVENT:

@@ -14,6 +14,13 @@ if TYPE_CHECKING:
 __all__ = ["OverworldScene"]
 
 
+## TO DO LIST ##
+# TODO - implement use of a seed
+# TODO - allow number of nodes per row to vary
+# TODO - connect nodes between rows randomly
+# TODO - output to log results of generation
+
+
 class OverworldScene(Scene):
     """
     Handles OverworldScene interactions and consolidates the rendering.
@@ -42,8 +49,4 @@ class OverworldScene(Scene):
         self.ui.render(self.game.window.display)
 
 
-## TO DO LIST ##
-# TODO - implement use of a seed
-# TODO - allow number of nodes per row to vary
-# TODO - connect nodes between rows randomly
-# TODO - output to log results of generation
+

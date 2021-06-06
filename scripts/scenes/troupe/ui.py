@@ -25,7 +25,7 @@ class TroupeUI(UI):
         self.selected_option: int = 0
 
     def update(self):
-        options = self.game.event.active_event["options"]
+        units = self.game.memory.player_troupe.units
 
         if self.game.input.states["up"]:
             self.game.input.states["up"] = False
@@ -43,8 +43,8 @@ class TroupeUI(UI):
 
         # correct selection index for looping
         if self.selected_option < 0:
-            self.selected_option = len(options) - 1
-        if self.selected_option >= len(options):
+            self.selected_option = len(units) - 1
+        if self.selected_option >= len(units):
             self.selected_option = 0
 
     def render(self, surface: pygame.surface):
@@ -93,15 +93,6 @@ class TroupeUI(UI):
                 default_font.render(str(getattr(unit, stat)), surface, (stat_info_x, info_y + (font_height // 2)))
 
                 stat_count += 1
-
-            # draw selector
-            # if unit_count == self.selected_option:
-            #     pygame.draw.line(
-            #         surface,
-            #         (255, 255, 255),
-            #         (option_x, option_y + font_height),
-            #         (option_x + default_font.width(option["text"]), option_y + font_height),
-            #     )
 
             unit_count += 1
 

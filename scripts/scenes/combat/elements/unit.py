@@ -45,6 +45,7 @@ class Unit:
         self.gold_cost: int = unit_data["gold_cost"][i]
 
         self.default_behaviour: str = unit_data["default_behaviour"]
+        self.upgrade_cost: int = unit_data["upgrade_cost"]
 
 
         # in combat
