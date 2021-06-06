@@ -61,7 +61,7 @@ class TroupeUI(UI):
         stat_width = DEFAULT_IMAGE_SIZE
         stat_height = DEFAULT_IMAGE_SIZE
         stat_icon_size = (stat_width, stat_height)
-        gap = 10
+        gap = 2
         font_height = 12  # FIXME - get actual font height
 
         # draw options
@@ -74,26 +74,32 @@ class TroupeUI(UI):
             unit_icon = self.game.assets.get_image("units", unit.type + "_icon", unit_size)
             surface.blit(unit_icon, unit_icon_pos)
 
-            # draw unit info
+            # draw unit type
             info_x = start_x + ((section_width * unit_count) + gap)
-
-            # draw type
-            default_font.render(unit.type, surface, (info_x, (start_y + unit_height)))
+            unit_type_y = start_y + unit_height + gap
+            default_font.render(unit.type, surface, (info_x, unit_type_y))
 
             # draw stats
             stats = [
+                "health",
                 "attack",
                 "defence",
-                "health"
+                "range",
+                "attack_speed",
+                "move_speed",
+                "ammo",
+                "count",
+                "size"
             ]
-            stat_count = 2  # start 2 increments down
+            stat_count = 0
             for stat in stats:
-                info_y = start_y + ((stat_height * stat_count) + gap)
+                info_y = unit_type_y + font_height + ((stat_height + gap) * stat_count) + gap
                 stat_icon_x = info_x + (stat_width // 2)
                 stat_info_x = stat_icon_x + stat_width + 2
 
                 stat_icon = self.game.assets.get_image("stats", stat, stat_icon_size)
                 surface.blit(stat_icon, (stat_icon_x, info_y))
+                # + half font height to vertical centre it
                 default_font.render(str(getattr(unit, stat)), surface, (stat_info_x, info_y + (font_height // 2)))
 
                 stat_count += 1
