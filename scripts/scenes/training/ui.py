@@ -90,10 +90,10 @@ class TrainingUI(UI):
 
             # determine which font to use
             cost = unit.upgrade_cost
-            if cost < self.game.memory.gold and not unit.is_upgraded:
+            if cost <= self.game.memory.gold and not unit.is_upgraded:
                 font = default_font
             else:
-                font = disabled_font
+                font = warning_font
 
             font.render(unit.type, surface, (unit_type_x, unit_type_y))
 
@@ -156,12 +156,22 @@ class TrainingUI(UI):
                 surface.blit(stat_icon, (stat_icon_x, info_y))
 
                 # determine font
-                if getattr(selected_unit, stat) < getattr(upgraded_unit, stat):
+                if unit == selected_unit:
+                    font = default_font
+                elif getattr(selected_unit, stat) < getattr(upgraded_unit, stat):
                     font = positive_font
-                else:
+                elif getattr(selected_unit, stat) > getattr(upgraded_unit, stat):
                     font = warning_font
+                else:
+                    font = default_font
 
                 # + half font height to vertical centre it
                 font.render(str(getattr(unit, stat)), surface, (stat_info_x, info_y + (font_height // 2)))
 
                 stat_count += 1
+
+            unit_count += 1
+
+        # show gold
+        default_font.render(f"Gold: {self.game.memory.gold}", surface, (1, 1), 2)
+
