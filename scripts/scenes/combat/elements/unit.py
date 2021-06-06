@@ -16,26 +16,36 @@ __all__ = ["Unit"]
 
 
 class Unit:
-    def __init__(self, game: Game, id_: int, unit_type: str, team: str):
+    def __init__(self, game: Game, id_: int, unit_type: str, team: str, is_upgraded: bool = False):
         self.game: Game = game
 
         # persistent
         unit_data = self.game.data.units[unit_type]
         self.id = id_
         self.type: str = unit_type
-        self.health: int = unit_data["health"]
-        self.attack: int = unit_data["attack"]
-        self.defence: int = unit_data["defence"]
-        self.range: int = unit_data["range"]
-        self.attack_speed: int = unit_data["attack_speed"]
-        self.move_speed: int = unit_data["move_speed"]
-        self.ammo: int = unit_data["ammo"]
-        self.count: int = unit_data["count"]
-        self.size: int = unit_data["size"]
-        self.weight: int = unit_data["weight"]
-        self.default_behaviour: str = unit_data["default_behaviour"]
-        self.gold_cost: int = unit_data["gold_cost"]
+        self.is_upgraded = is_upgraded
         self.team: str = team
+
+        # determine which value to get from tuple
+        if is_upgraded:
+            i = 1
+        else:
+            i = 0
+
+        self.health: int = unit_data["health"][i]
+        self.attack: int = unit_data["attack"][i]
+        self.defence: int = unit_data["defence"][i]
+        self.range: int = unit_data["range"][i]
+        self.attack_speed: float = unit_data["attack_speed"][i]
+        self.move_speed: int = unit_data["move_speed"][i]
+        self.ammo: int = unit_data["ammo"][i]
+        self.count: int = unit_data["count"][i]
+        self.size: int = unit_data["size"][i]
+        self.weight: int = unit_data["weight"][i]
+        self.gold_cost: int = unit_data["gold_cost"][i]
+
+        self.default_behaviour: str = unit_data["default_behaviour"]
+
 
         # in combat
         self.behaviour = self.game.data.behaviours.unit_behaviours[self.default_behaviour](self)
