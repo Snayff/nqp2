@@ -90,6 +90,27 @@ class Unit:
             self.pos[0] = pos[0] / len(self.entities)
             self.pos[1] = pos[1] / len(self.entities)
 
+    def upgrade(self):
+        """
+        Upgrade the unit and their stats
+        """
+        self.is_upgraded = True
+
+        # update stats
+        unit_data = self.game.data.units[self.type]
+        i = 1
+        self.health: int = unit_data["health"][i]
+        self.attack: int = unit_data["attack"][i]
+        self.defence: int = unit_data["defence"][i]
+        self.range: int = unit_data["range"][i]
+        self.attack_speed: float = unit_data["attack_speed"][i]
+        self.move_speed: int = unit_data["move_speed"][i]
+        self.ammo: int = unit_data["ammo"][i]
+        self.count: int = unit_data["count"][i]
+        self.size: int = unit_data["size"][i]
+        self.weight: int = unit_data["weight"][i]
+        self.gold_cost: int = unit_data["gold_cost"][i]
+
     def update(self, dt):
         self.update_pos()
 

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import Optional, TYPE_CHECKING
 
 import pygame
 
@@ -23,6 +23,7 @@ class TrainingUI(UI):
         super().__init__(game)
 
         self.selected_option: int = 0
+        self.selected_unit: Optional[Unit] = None
 
     def update(self):
         units = self.game.memory.player_troupe.units
@@ -39,6 +40,8 @@ class TrainingUI(UI):
         if self.game.input.states["select"]:
             self.game.input.states["select"] = False
 
+            if self.selected_unit:
+                self.game.training.upgrade_unit(self.selected_unit.id)
 
         # exit
         if self.game.input.states["cancel"]:
@@ -59,7 +62,6 @@ class TrainingUI(UI):
 
     def render(self, surface: pygame.surface):
         units = self.game.memory.player_troupe.units
-        selected_unit = None
         default_font = self.game.assets.fonts["default"]
         disabled_font = self.game.assets.fonts["disabled"]
         warning_font = self.game.assets.fonts["warning"]
@@ -99,7 +101,7 @@ class TrainingUI(UI):
 
             # note selected unit
             if self.selected_option == unit_count:
-                selected_unit = unit
+                self.selected_unit = unit
 
             # draw selector
             if unit_count == self.selected_option:
@@ -113,11 +115,11 @@ class TrainingUI(UI):
             unit_count += 1
 
         # ensure a selected unit is found
-        if not selected_unit:
+        if not self.selected_unit:
             return
 
         # get upgrade details
-        upgraded_unit = Unit(self.game, -1, selected_unit.type, "player", True)
+        upgraded_unit = Unit(self.game, -1, self.selected_unit.type, "player", True)
 
         # positions
         comparison_x = self.game.window.width // 2
@@ -132,7 +134,7 @@ class TrainingUI(UI):
 
         # show selected unit and upgraded unit details
         unit_count = 0
-        for unit in [selected_unit, upgraded_unit]:
+        for unit in [self.selected_unit, upgraded_unit]:
             # draw icon
             unit_icon_x = comparison_x + (comparison_unit_icon_width // 2) + (section_width * unit_count)
             unit_icon_pos = (unit_icon_x, comparison_y)
@@ -156,11 +158,11 @@ class TrainingUI(UI):
                 surface.blit(stat_icon, (stat_icon_x, info_y))
 
                 # determine font
-                if unit == selected_unit:
+                if unit == self.selected_unit:
                     font = default_font
-                elif getattr(selected_unit, stat) < getattr(upgraded_unit, stat):
+                elif getattr(self.selected_unit, stat) < getattr(upgraded_unit, stat):
                     font = positive_font
-                elif getattr(selected_unit, stat) > getattr(upgraded_unit, stat):
+                elif getattr(self.selected_unit, stat) > getattr(upgraded_unit, stat):
                     font = warning_font
                 else:
                     font = default_font
