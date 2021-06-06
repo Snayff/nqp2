@@ -1,24 +1,15 @@
 from __future__ import annotations
-from scripts.core.constants import SceneType
+
 import random
 from typing import List, TypeVar
 
 import pygame
 
-
+from scripts.core.constants import SceneType
 
 _V = TypeVar("_V", int, float)  # to represent where we don't know which type is being used
 
-__all__ = [
-    "swap_color",
-    "clip",
-    "offset",
-    "lerp",
-    "clamp",
-    "roll",
-    "itr",
-    "scene_to_scene_type"
-]
+__all__ = ["swap_color", "clip", "offset", "lerp", "clamp", "roll", "itr", "scene_to_scene_type"]
 
 
 def swap_color(img, old_c, new_c):
@@ -102,5 +93,3 @@ def scene_to_scene_type(scene) -> SceneType:
         return SceneType.OVERWORLD
     elif type(scene) is EventScene:
         return SceneType.EVENT
-
-

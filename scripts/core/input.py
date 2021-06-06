@@ -31,7 +31,7 @@ class Input:
             "hold_down": False,
             "select": False,
             "cancel": False,
-            "view_troupe": False
+            "view_troupe": False,
         }
 
         # record duration

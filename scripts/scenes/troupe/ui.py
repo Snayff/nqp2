@@ -80,17 +80,7 @@ class TroupeUI(UI):
             default_font.render(unit.type, surface, (info_x, unit_type_y))
 
             # draw stats
-            stats = [
-                "health",
-                "attack",
-                "defence",
-                "range",
-                "attack_speed",
-                "move_speed",
-                "ammo",
-                "count",
-                "size"
-            ]
+            stats = ["health", "attack", "defence", "range", "attack_speed", "move_speed", "ammo", "count", "size"]
             stat_count = 0
             for stat in stats:
                 info_y = unit_type_y + font_height + ((stat_height + gap) * stat_count) + gap
@@ -103,7 +93,6 @@ class TroupeUI(UI):
                 default_font.render(str(getattr(unit, stat)), surface, (stat_info_x, info_y + (font_height // 2)))
 
                 stat_count += 1
-
 
             # draw selector
             # if unit_count == self.selected_option:
