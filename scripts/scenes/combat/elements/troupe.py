@@ -26,14 +26,17 @@ class Troupe:
         Initialise some units. For testing.
         """
         for i in range(4):
-            self.add_unit("spearman", "player")
+            if i % 2 == 1:
+                self.add_unit("spearman", "player")
+            else:
+                self.add_unit("spearman", "player", True)
 
-    def add_unit(self, unit_type: str, team: str) -> int:
+    def add_unit(self, unit_type: str, team: str, is_upgraded: bool = False) -> int:
         """
         Add a unit to the troupe. Return id.
         """
         id_ = self._generate_id()
-        unit = Unit(self.game, id_, unit_type, team)
+        unit = Unit(self.game, id_, unit_type, team, is_upgraded)
         self.units[id_] = unit
 
         logging.info(f"Unit {unit.type}({unit.id}) added to {team}'s troupe.")

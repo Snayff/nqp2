@@ -1,14 +1,15 @@
 {
-    "health": 5,
-    "defence": 2,
-    "attack": 2,
-    "range": 7,
-    "attack_speed": 1.5,
-    "move_speed": 24,
-    "ammo": -1,
-    "count": 10,
-    "size": 5,
-    "weight": 2,
+    "health": [5, 7],
+    "defence": [2, 2],
+    "attack": [2, 2],
+    "range": [7, 7],
+    "attack_speed": [1.5, 2],
+    "move_speed": [24, 24],
+    "ammo": [-1, -1],
+    "count": [10, 10],
+    "size": [5, 4],
+    "weight": [2, 2],
+    "gold_cost": [5, 10],
     "default_behaviour": "swarm",
-    "gold_cost": 5
+    "upgrade_cost": 10
 }

@@ -35,3 +35,17 @@ class TrainingScene(Scene):
 
     def render(self):
         self.ui.render(self.game.window.display)
+
+    def upgrade_unit(self, id_: int):
+        """
+        Upgrade the specified unit.
+        """
+        unit = self.game.memory.player_troupe.units[id_]
+
+        # can we afford
+        if unit.upgrade_cost <= self.game.memory.gold:
+            # pay gold
+            self.game.memory.amend_gold(-unit.upgrade_cost)  # remove gold cost
+
+            # upgrade unit
+            unit.upgrade()
