@@ -65,6 +65,10 @@ class OverworldUI(UI):
 
                 self.game.overworld.map.active_row += 1
 
+            if self.game.input.states["view_troupe"]:
+                self.game.input.states["view_troupe"] = False
+                self.game.change_scene(SceneType.TROUPE)
+
     def render(self, surface: pygame.surface):
         overworld_map = self.game.overworld.map
 

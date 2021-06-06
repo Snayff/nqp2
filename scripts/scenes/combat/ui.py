@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 import pygame
 
 from scripts.core.base_classes.ui import UI
-from scripts.core.constants import CombatState
+from scripts.core.constants import CombatState, SceneType
 from scripts.core.utility import offset
 
 if TYPE_CHECKING:
@@ -107,6 +107,10 @@ class CombatUI(UI):
         elif self.game.combat.state == CombatState.WATCH:
             if self.game.input.states["cancel"]:
                 self.game.combat.state = CombatState.ACTION_CHOOSE_CARD
+
+        if self.game.input.states["view_troupe"]:
+            self.game.input.states["view_troupe"] = False
+            self.game.change_scene(SceneType.TROUPE)
 
         # correct card selection index for looping
         if self.selected_card < 0:

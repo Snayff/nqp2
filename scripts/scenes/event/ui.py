@@ -49,6 +49,10 @@ class EventUI(UI):
             # return to overworld
             self.game.change_scene(SceneType.OVERWORLD)
 
+        if self.game.input.states["view_troupe"]:
+            self.game.input.states["view_troupe"] = False
+            self.game.change_scene(SceneType.TROUPE)
+
         # correct selection index for looping
         if self.selected_option < 0:
             self.selected_option = len(options) - 1

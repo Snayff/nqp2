@@ -27,8 +27,8 @@ class Entity:
         self.team = self.unit.team
         self.type: str = self.unit.type
         self.health: int = self.unit.health
-        self.defense: int = self.unit.defense
-        self.damage: int = self.unit.damage
+        self.defence: int = self.unit.defence
+        self.attack: int = self.unit.attack
         self.range: int = self.unit.range
         self.attack_speed: int = self.unit.attack_speed
         self.move_speed: int = self.unit.move_speed
@@ -70,7 +70,7 @@ class Entity:
         self.pos[1] += math.sin(angle) * amount
 
     def deal_damage(self, amount, owner):
-        self.health -= amount * (DEFENSE_SCALE / (DEFENSE_SCALE + self.defense))
+        self.health -= amount * (DEFENSE_SCALE / (DEFENSE_SCALE + self.defence))
         if self.health <= 0:
             self.health = 0
             self.alive = False
@@ -81,7 +81,7 @@ class Entity:
         if self.attack_timer <= 0:
             self.attack_timer = 1 / self.attack_speed
             if self.dis(entity) - (entity.size + self.size) < self.range:
-                entity.deal_damage(self.damage, self)
+                entity.deal_damage(self.attack, self)
                 self.attack_timer = 1 / self.attack_speed
 
     def update(self, dt):

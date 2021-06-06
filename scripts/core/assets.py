@@ -104,11 +104,13 @@ class Assets:
     def _load_images() -> Dict[str, Dict[str, pygame.Surface]]:
         """
         Load all images by folder.
+
+        N.B. if image isnt loading ensure the containing folder is listed in the method.
         """
         images = {}
 
         # specify folders in assets that need to be loaded
-        folders = ["nodes"]
+        folders = ["nodes", "stats", "units"]
 
         for folder in folders:
             path = ASSET_PATH / folder

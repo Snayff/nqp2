@@ -1,6 +1,6 @@
 import random
 
-from scripts.scenes.combat.troupe import Troupe
+from scripts.scenes.combat.elements.troupe import Troupe
 
 
 class EnemyCombatantsGenerator:
