@@ -3,7 +3,7 @@ from __future__ import annotations
 import logging
 import time
 
-from scripts.core import debug
+from scripts.core import debug, utility
 from scripts.core.assets import Assets
 from scripts.core.constants import GameState, SceneType
 from scripts.core.data import Data
@@ -17,6 +17,8 @@ from scripts.scenes.overworld.scene import OverworldScene
 from scripts.scenes.training.scene import TrainingScene
 
 __all__ = ["Game"]
+
+from scripts.scenes.troupe.scene import TroupeScene
 
 
 class Game:
@@ -37,6 +39,7 @@ class Game:
         self.event: EventScene = EventScene(self)
         self.training: TrainingScene = TrainingScene(self)
         self.inn: InnScene = InnScene(self)
+        self.troupe: TroupeScene = TroupeScene(self)
 
         # point this to whatever scene is active
         self.active_scene = self.overworld
@@ -63,22 +66,25 @@ class Game:
     def quit(self):
         self.state = GameState.EXITING
 
-    def change_scene(self, scene: SceneType):
+    def change_scene(self, scene_type: SceneType):
         """
         Change the active scene
         """
-        if scene == SceneType.COMBAT:
+        if scene_type == SceneType.COMBAT:
             self.combat.begin_combat()
             self.active_scene = self.combat
-        elif scene == SceneType.TRAINING:
+        elif scene_type == SceneType.TRAINING:
             # TODO - add TrainingScene
             pass
-        elif scene == SceneType.INN:
+        elif scene_type == SceneType.INN:
             self.active_scene = self.inn
-        elif scene == SceneType.EVENT:
+        elif scene_type == SceneType.EVENT:
             self.active_scene = self.event
-        elif scene == SceneType.OVERWORLD:
+        elif scene_type == SceneType.OVERWORLD:
             self.active_scene = self.overworld
-        elif scene == SceneType.MAIN_MENU:
+        elif scene_type == SceneType.MAIN_MENU:
             # TODO - add main menu
             pass
+        elif scene_type == SceneType.TROUPE:
+            self.troupe.previous_scene_type = utility.scene_to_scene_type(self.active_scene)
+            self.active_scene = self.troupe

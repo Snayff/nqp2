@@ -47,6 +47,10 @@ class InnUI(UI):
             # return to overworld
             self.game.change_scene(SceneType.OVERWORLD)
 
+        if self.game.input.states["view_troupe"]:
+            self.game.input.states["view_troupe"] = False
+            self.game.change_scene(SceneType.TROUPE)
+
         # correct selection index for looping
         if self.selected_option < 0:
             self.selected_option = len(units_for_sale) - 1
@@ -58,7 +62,7 @@ class InnUI(UI):
         default_font = self.game.assets.fonts["default"]
         disabled_font = self.game.assets.fonts["disabled"]
         warning_font = self.game.assets.fonts["warning"]
-        stats = ["health", "defense", "damage", "range", "attack_speed", "move_speed", "ammo", "count", "gold_cost"]
+        stats = ["health", "defence", "attack", "range", "attack_speed", "move_speed", "ammo", "count", "gold_cost"]
 
         # positions
         start_x = 20

@@ -65,3 +65,4 @@ class SceneType(IntEnum):
     TRAINING = auto()
     OVERWORLD = auto()
     MAIN_MENU = auto()
+    TROUPE = auto()

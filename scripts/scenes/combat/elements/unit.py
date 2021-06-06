@@ -24,8 +24,8 @@ class Unit:
         self.id = id_
         self.type: str = unit_type
         self.health: int = unit_data["health"]
-        self.defense: int = unit_data["defense"]
-        self.damage: int = unit_data["damage"]
+        self.attack: int = unit_data["attack"]
+        self.defence: int = unit_data["defence"]
         self.range: int = unit_data["range"]
         self.attack_speed: int = unit_data["attack_speed"]
         self.move_speed: int = unit_data["move_speed"]

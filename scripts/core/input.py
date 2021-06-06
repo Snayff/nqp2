@@ -31,6 +31,7 @@ class Input:
             "hold_down": False,
             "select": False,
             "cancel": False,
+            "view_troupe": False,
         }
 
         # record duration
@@ -38,6 +39,7 @@ class Input:
         logging.info(f"Input: initialised in {format(end_time - start_time, '.2f')}s.")
 
     def soft_reset(self):
+        # FIXME - should this reset all values?
         self.states["select"] = False
         self.states["cancel"] = False
 
@@ -73,6 +75,9 @@ class Input:
 
                 if event.key == K_RETURN:
                     self.states["select"] = True
+
+                if event.key == K_v:
+                    self.states["view_troupe"] = True
 
             if event.type == KEYUP:
                 if event.key == K_RIGHT:

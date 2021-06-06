@@ -11,6 +11,11 @@ if TYPE_CHECKING:
 
 __all__ = ["UI"]
 
+#### To Do List######
+# TODO - add an overlay method to draw standardised info such as gold
+# TODO - add option selection and looping selection to update
+# TODO - amend selection approach to work on a grid, so we can move across columns and rows.
+
 
 class UI(ABC):
     """

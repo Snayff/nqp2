@@ -5,7 +5,11 @@ from typing import List, TypeVar
 
 import pygame
 
+from scripts.core.constants import SceneType
+
 _V = TypeVar("_V", int, float)  # to represent where we don't know which type is being used
+
+__all__ = ["swap_color", "clip", "offset", "lerp", "clamp", "roll", "itr", "scene_to_scene_type"]
 
 
 def swap_color(img, old_c, new_c):
@@ -64,3 +68,28 @@ def itr(iterable):
     An iteration tool for easy removal.
     """
     return sorted(enumerate(iterable), reverse=True)
+
+
+def scene_to_scene_type(scene) -> SceneType:
+    """
+    Take a Scene and return the relevant SceneType
+    """
+    from scripts.scenes.combat.scene import CombatScene
+    from scripts.scenes.event.scene import EventScene
+    from scripts.scenes.inn.scene import InnScene
+    from scripts.scenes.overworld.scene import OverworldScene
+    from scripts.scenes.training.scene import TrainingScene
+    from scripts.scenes.troupe.scene import TroupeScene
+
+    if type(scene) is CombatScene:
+        return SceneType.COMBAT
+    elif type(scene) is TroupeScene:
+        return SceneType.TROUPE
+    elif type(scene) is TrainingScene:
+        return SceneType.TRAINING
+    elif type(scene) is InnScene:
+        return SceneType.INN
+    elif type(scene) is OverworldScene:
+        return SceneType.OVERWORLD
+    elif type(scene) is EventScene:
+        return SceneType.EVENT

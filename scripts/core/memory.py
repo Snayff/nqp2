@@ -4,9 +4,8 @@ import logging
 import time
 from typing import TYPE_CHECKING
 
-from scripts.scenes.combat.elements.card import Card
 from scripts.scenes.combat.elements.card_collection import CardCollection
-from scripts.scenes.combat.troupe import Troupe
+from scripts.scenes.combat.elements.troupe import Troupe
 
 if TYPE_CHECKING:
     pass
