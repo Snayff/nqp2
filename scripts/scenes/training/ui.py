@@ -72,6 +72,7 @@ class TrainingUI(UI):
         select_unit_icon_height = DEFAULT_IMAGE_SIZE
         select_unit_icon_size = (select_unit_icon_width, select_unit_icon_height)
         gap = 2
+        font_height = 12  # FIXME - get actual font height
 
         # draw list of unit names
         unit_count = 0
@@ -100,6 +101,15 @@ class TrainingUI(UI):
             if self.selected_option == unit_count:
                 selected_unit = unit
 
+            # draw selector
+            if unit_count == self.selected_option:
+                pygame.draw.line(
+                    surface,
+                    (255, 255, 255),
+                    (unit_type_x, unit_type_y + font_height),
+                    (unit_type_x + default_font.width(unit.type), unit_type_y + font_height),
+                )
+
             unit_count += 1
 
         # ensure a selected unit is found
@@ -119,7 +129,6 @@ class TrainingUI(UI):
         stat_height = DEFAULT_IMAGE_SIZE
         stat_icon_size = (stat_width, stat_height)
         section_width = comparison_unit_icon_width * 2
-        font_height = 12  # FIXME - get actual font height
 
         # show selected unit and upgraded unit details
         unit_count = 0
@@ -131,8 +140,8 @@ class TrainingUI(UI):
             surface.blit(unit_icon, unit_icon_pos)
 
             # draw unit type
-            info_x = start_x + ((section_width * unit_count) + gap)
-            unit_type_y = start_y + comparison_unit_icon_height + gap
+            info_x = comparison_x + ((section_width * unit_count) + gap)
+            unit_type_y = comparison_y + comparison_unit_icon_height + gap
             default_font.render(unit.type, surface, (info_x, unit_type_y))
 
             # draw stats
