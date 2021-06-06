@@ -69,8 +69,9 @@ class TroupeUI(UI):
         for unit in units.values():
 
             # draw icon
-            unit_icon_pos = (start_x + (unit_width // 2) + ((section_width * unit_count) + gap), start_y)
-            unit_icon = self.game.assets.get_image("units", "ArcherIcon", unit_size)
+            unit_icon_x = start_x + (unit_width // 2) + (section_width * unit_count)
+            unit_icon_pos = (unit_icon_x, start_y)
+            unit_icon = self.game.assets.get_image("units", unit.type + "_icon", unit_size)
             surface.blit(unit_icon, unit_icon_pos)
 
             # draw unit info

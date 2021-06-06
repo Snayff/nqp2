@@ -69,7 +69,7 @@ class Assets:
         except KeyError:
             # try and get the image specified
             try:
-                image = pygame.image.load(str(ASSET_PATH / folder_name / image_name)).convert_alpha()
+                image = pygame.image.load(str(ASSET_PATH / folder_name / image_name) + ".png").convert_alpha()
 
                 # resize if needed - should only need to resize if we havent got it from storage
                 if image.get_width() != desired_width or image.get_height() != desired_height:
