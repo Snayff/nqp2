@@ -53,12 +53,14 @@ class TroupeUI(UI):
 
         # positions
         start_x = 20
-        start_y = self.game.window.height // 2
-        unit_width = DEFAULT_IMAGE_SIZE
-        unit_height = DEFAULT_IMAGE_SIZE
-        section_width = unit_width * 2
-        stat_icon_size = (DEFAULT_IMAGE_SIZE // 2, DEFAULT_IMAGE_SIZE // 2)
-        stat_height = stat_icon_size[1]
+        start_y = 20
+        unit_width = DEFAULT_IMAGE_SIZE * 2
+        unit_height = DEFAULT_IMAGE_SIZE * 2
+        unit_size = (unit_width, unit_height)
+        section_width = unit_width * 3
+        stat_width = DEFAULT_IMAGE_SIZE
+        stat_height = DEFAULT_IMAGE_SIZE
+        stat_icon_size = (stat_width, stat_height)
         gap = 10
         font_height = 12  # FIXME - get actual font height
 
@@ -67,15 +69,15 @@ class TroupeUI(UI):
         for unit in units.values():
 
             # draw icon
-            unit_icon_pos = (start_x + (unit_width // 2), start_y + unit_height)
-            unit_icon = self.game.assets.get_image("units", "ArcherIcon")
+            unit_icon_pos = (start_x + (unit_width // 2) + ((section_width * unit_count) + gap), start_y)
+            unit_icon = self.game.assets.get_image("units", "ArcherIcon", unit_size)
             surface.blit(unit_icon, unit_icon_pos)
 
             # draw unit info
-            info_x = start_x + (section_width * unit_count)
+            info_x = start_x + ((section_width * unit_count) + gap)
 
             # draw type
-            default_font.render(unit.type, surface, (info_x, start_y + unit_height))
+            default_font.render(unit.type, surface, (info_x, (start_y + unit_height)))
 
             # draw stats
             stats = [
@@ -83,13 +85,15 @@ class TroupeUI(UI):
                 "defence",
                 "health"
             ]
-            stat_count = 1
+            stat_count = 2  # start 2 increments down
             for stat in stats:
-                info_y = start_y + (stat_height * stat_count)
+                info_y = start_y + ((stat_height * stat_count) + gap)
+                stat_icon_x = info_x + (stat_width // 2)
+                stat_info_x = stat_icon_x + stat_width + 2
 
                 stat_icon = self.game.assets.get_image("stats", stat, stat_icon_size)
-                surface.blit(stat_icon, (info_x, info_y))
-                default_font.render(str(getattr(unit, stat)), surface, (info_x, info_y))
+                surface.blit(stat_icon, (stat_icon_x, info_y))
+                default_font.render(str(getattr(unit, stat)), surface, (stat_info_x, info_y + (font_height // 2)))
 
                 stat_count += 1
 
