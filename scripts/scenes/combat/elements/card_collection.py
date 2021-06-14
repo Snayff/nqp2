@@ -39,9 +39,10 @@ class CardCollection:
         self.cards += card_col.cards
 
     # just a tool for now
-    def generate_units(self, count):
-        for i in range(count):
-            self.add_card(Card(self.game, "spearman"))
+    def from_troupe(self, troupe_src):
+        self.cards = []
+        for unit in troupe_src.units:
+            self.add_card(Card(self.game, troupe_src=troupe_src, troupe_id=unit))
 
     # also just a tool for now
     def generate_actions(self, count):

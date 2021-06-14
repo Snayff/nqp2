@@ -81,7 +81,7 @@ class Unit:
         """
         Update unit "position" by averaging the positions of all its entities.
         """
-        if not self.entities:
+        if len(self.entities):
             pos = [0, 0]
             for entity in self.entities:
                 pos[0] += entity.pos[0]
