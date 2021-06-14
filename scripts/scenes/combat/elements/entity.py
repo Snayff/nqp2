@@ -37,12 +37,19 @@ class Entity:
         self.size: int = self.unit.size
         self.weight: int = self.unit.weight
 
+        # animation stuff
+        self.action = "idle"
+        self.frame_timer = 0
+
         self.behaviour = self.game.data.behaviours.entity_behaviours[self.unit.default_behaviour](self)
 
         self.attack_timer = 0
         self.pushed_by_log = []
         self.pushed_log = []
         self.damaged_by_log = []
+
+        # tracks movement from the previous frame
+        self.pos_change = [0, 0]
 
         self.alive = True
 
@@ -85,9 +92,18 @@ class Entity:
                 self.attack_timer = 1 / self.attack_speed
 
     def update(self, dt):
+        self.frame_timer += dt
+        # temporary looping frame logic
+        while self.frame_timer > 0.66:
+            self.frame_timer -= 0.66
+
         self.attack_timer = max(0, self.attack_timer - dt)
 
+        start_pos = self.pos.copy()
+
         self.behaviour.process(dt)
+
+        self.pos_change = [self.pos[0] - start_pos[0], self.pos[1] - start_pos[1]]
 
         # handle collision
         for entity in self.game.combat.all_entities:
@@ -114,21 +130,39 @@ class Entity:
                             entity.pushed_by_log = (entity.pushed_by_log + [self])[-30:]
                             self.pushed_log = (self.pushed_log + [entity])[-30:]
 
+    @property
+    def img(self):
+        # temporary frame logic
+        frame = int(self.frame_timer * 6)
+        try:
+            img = self.game.assets.unit_animations[self.type][self.action][frame]
+        except KeyError:
+            img = pygame.Surface((self.size * 2, self.size * 2))
+            
+        return img
+
     def render(self, surface: pygame.Surface, shift=(0, 0)):
-        pygame.draw.circle(surface, self.colour, offset(shift.copy(), self.pos), self.size)
+        if self.type in self.game.assets.unit_animations:
+            flip = False
+            if self.pos_change[0] < 0:
+                flip = True
+
+            surface.blit(pygame.transform.flip(self.img, flip, False), (self.pos[0] + shift[0] - self.img.get_width() // 2, self.pos[1] + shift[1] - self.img.get_height() // 2))
+        else:
+            pygame.draw.circle(surface, self.colour, offset(shift.copy(), self.pos), self.size)
 
         # debug stuff for swarm targeting
-        if self.behaviour.priority_target:
-            pygame.draw.line(
-                surface,
-                (255, 0, 255),
-                offset(shift.copy(), self.pos),
-                offset(shift.copy(), self.behaviour.priority_target.pos),
-            )
-        elif self.unit.behaviour.target:
-            pygame.draw.line(
-                surface,
-                (255, 255, 0),
-                offset(shift.copy(), self.pos),
-                offset(shift.copy(), self.unit.behaviour.target.pos),
-            )
+        #if self.behaviour.priority_target:
+        #    pygame.draw.line(
+        #        surface,
+        #        (255, 0, 255),
+        #        offset(shift.copy(), self.pos),
+        #        offset(shift.copy(), self.behaviour.priority_target.pos),
+        #    )
+        #elif self.unit.behaviour.target:
+        #    pygame.draw.line(
+        #        surface,
+        #        (255, 255, 0),
+        #        offset(shift.copy(), self.pos),
+        #        offset(shift.copy(), self.unit.behaviour.target.pos),
+        #    )

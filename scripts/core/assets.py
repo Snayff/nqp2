@@ -40,7 +40,6 @@ class Assets:
         logging.info(f"Assets: initialised in {format(end_time - start_time, '.2f')}s.")
 
         self.unit_animations = {unit : {action : self.load_image_dir(ASSET_PATH / "units/animations/" / unit / action) for action in os.listdir(ASSET_PATH / "units/animations/" / unit)} for unit in os.listdir(ASSET_PATH / "units/animations")}
-        print(self.unit_animations)
 
     def get_image(
         self,
