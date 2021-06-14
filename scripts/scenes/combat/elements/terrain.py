@@ -2,31 +2,24 @@ import pygame
 
 from .tile import Tile
 
-TILE_SIZE = 20
+TILE_SIZE = 16
 
 
 class Terrain:
-    def __init__(self):
+    def __init__(self, game):
+        self.game = game
         self.terrain = {}
         self.tile_size = TILE_SIZE
-        self.size = (12, 12)
+        self.size = (20, 20)
         self.pixel_size = (self.size[0] * TILE_SIZE, self.size[1] * TILE_SIZE)
 
-    def generate(self):
-        for y in range(self.size[1]):
-            for x in range(self.size[0]):
+    def generate(self, map_data):
+        for y, row in enumerate(map_data):
+            for x, tiles in enumerate(row):
                 loc = (x, y)
-                self.terrain[loc] = Tile("plains", loc)
+                self.terrain[loc] = [Tile(tile_type, loc) for tile_type in tiles]
 
     def render(self, surface: pygame.Surface, offset=(0, 0)):
         for loc in self.terrain:
-            tile = self.terrain[loc]
-
-            # rendering rects temporarily
-            r = pygame.Rect(
-                offset[0] + tile.loc[0] * self.tile_size,
-                offset[1] + tile.loc[1] * self.tile_size,
-                self.tile_size,
-                self.tile_size,
-            )
-            pygame.draw.rect(surface, (200, 200, 200), r, 1)
+            for tile in self.terrain[loc]:
+                tile.render(self.game, surface, self.game.combat.camera.pos)

@@ -33,6 +33,16 @@ class CombatUI(UI):
         self.place_target = [0, 0]
 
     def update(self):
+        # move camera
+        target_pos = self.game.combat.get_team_center('player')
+        if not target_pos:
+            target_pos = [0, 0]
+        else:
+            target_pos[0] -= self.game.window.base_resolution[0] // 2
+            target_pos[1] -= self.game.window.base_resolution[1] // 2
+        self.game.combat.camera.pos[0] += (target_pos[0] - self.game.combat.camera.pos[0]) / 10 * (self.game.window.dt * 60)
+        self.game.combat.camera.pos[1] += (target_pos[1] - self.game.combat.camera.pos[1]) / 10 * (self.game.window.dt * 60)
+
         cards = self.game.combat.hand.cards
 
         if self.game.combat.state in [CombatState.UNIT_CHOOSE_CARD, CombatState.ACTION_CHOOSE_CARD]:
