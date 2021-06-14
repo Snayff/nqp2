@@ -7,7 +7,7 @@
     "move_speed": [24, 24],
     "ammo": [-1, -1],
     "count": [10, 10],
-    "size": [5, 4],
+    "size": [7, 6],
     "weight": [2, 2],
     "gold_cost": [5, 10],
     "default_behaviour": "swarm",
