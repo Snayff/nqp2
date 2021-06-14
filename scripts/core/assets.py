@@ -3,6 +3,7 @@ from __future__ import annotations
 import logging
 import os
 import time
+import json
 from typing import TYPE_CHECKING
 
 import pygame
@@ -17,6 +18,23 @@ if TYPE_CHECKING:
 
 __all__ = ["Assets"]
 
+TILE_SIZE = 16
+
+def clip(surf, pos, size):
+    x, y = pos
+    x_size, y_size = size
+
+    handle_surf = surf.copy()
+    clip_r = pygame.Rect(x, y, x_size, y_size)
+    handle_surf.set_clip(clip_r)
+    image = surf.subsurface(handle_surf.get_clip())
+    return image.copy()
+
+def json_read(path):
+    f = open(path, 'r')
+    data = json.load(f)
+    f.close()
+    return data
 
 class Assets:
     def __init__(self, game: Game):
@@ -40,6 +58,10 @@ class Assets:
         logging.info(f"Assets: initialised in {format(end_time - start_time, '.2f')}s.")
 
         self.unit_animations = {unit : {action : self.load_image_dir(ASSET_PATH / "units/animations/" / unit / action) for action in os.listdir(ASSET_PATH / "units/animations/" / unit)} for unit in os.listdir(ASSET_PATH / "units/animations")}
+
+        self.tilesets = {tileset.split('.')[0] : self.load_tileset(ASSET_PATH / "tiles" / tileset) for tileset in os.listdir(ASSET_PATH / "tiles")}
+
+        self.maps = {map.split('.')[0] : json_read("data/maps/" + map) for map in os.listdir("data/maps")}
 
     def get_image(
         self,
@@ -102,6 +124,21 @@ class Assets:
             return image.copy()
         else:
             return image
+
+    def load_tileset(self, path):
+        """
+        Loads a tileset from a spritesheet.
+        """
+
+        tileset_data = []
+
+        spritesheet = pygame.image.load(str(path)).convert_alpha()
+        for y in range(spritesheet.get_height() // TILE_SIZE):
+            tileset_data.append([])
+            for x in range(spritesheet.get_width() // TILE_SIZE):
+                tileset_data[-1].append(clip(spritesheet, [x * TILE_SIZE, y * TILE_SIZE], [TILE_SIZE, TILE_SIZE]))
+
+        return tileset_data
 
     def load_image_dir(self, path, format="list"):
         """

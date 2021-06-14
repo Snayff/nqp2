@@ -31,10 +31,10 @@ class CombatScene(Scene):
         super().__init__(game)
 
         self.camera: Camera = Camera()
-        self.camera.pos = [-100, -50]
+        self.camera.pos = [0, 100]
 
-        self.terrain: Terrain = Terrain()
-        self.terrain.generate()
+        self.terrain: Terrain = Terrain(game)
+        self.terrain.generate(game.assets.maps['plains_1'])
 
         self.units: UnitManager = UnitManager(game)
 
@@ -64,6 +64,19 @@ class CombatScene(Scene):
         for unit in self.units.units:
             entities += unit.entities
         return entities
+
+    def get_team_center(self, team):
+        count = 0
+        pos_totals = [0, 0]
+        for unit in self.units.units:
+            if unit.team == team:
+                pos_totals[0] += unit.pos[0]
+                pos_totals[1] += unit.pos[1]
+                count += 1
+        if count:
+            return [pos_totals[0] / count, pos_totals[1] / count]
+        else:
+            return None
 
     def update(self):
         self.dt = self.combat_speed * self.game.window.dt

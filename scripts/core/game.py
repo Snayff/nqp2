@@ -46,11 +46,14 @@ class Game:
 
         self.state: GameState = GameState.PLAYING
 
+        self.master_clock = 0
+
         # record duration
         end_time = time.time()
         logging.info(f"Game initialised in {format(end_time - start_time, '.2f')}s.")
 
     def update(self):
+        self.master_clock += self.window.dt
         self.input.update()
         self.active_scene.update()
         debug.update()
