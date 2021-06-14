@@ -33,7 +33,7 @@ class CombatUI(UI):
         self.place_target = [0, 0]
 
     def update(self):
-        cards = self.game.combat.units_to_place
+        cards = self.game.combat.hand.cards
 
         if self.game.combat.state in [CombatState.UNIT_CHOOSE_CARD, CombatState.ACTION_CHOOSE_CARD]:
             if self.game.input.states["left"]:
@@ -48,7 +48,9 @@ class CombatUI(UI):
 
                 # transition to appropriate mode
                 if self.game.combat.state == CombatState.UNIT_CHOOSE_CARD:
-                    self.game.combat.state = CombatState.UNIT_SELECT_TARGET
+                    # can only use a card if there are cards in your hand
+                    if len(cards):
+                        self.game.combat.state = CombatState.UNIT_SELECT_TARGET
                 else:
                     self.game.combat.state = CombatState.ACTION_SELECT_TARGET
 
@@ -83,10 +85,8 @@ class CombatUI(UI):
             if self.game.input.states["select"]:
                 # hand will contain the hand for whichever deck is in use
                 if self.game.combat.state == CombatState.UNIT_SELECT_TARGET:
-                    unit_id = self.game.combat.units_to_place.pop(self.selected_card)
-                    unit = self.game.memory.player_troupe.units[unit_id]
-                    unit.pos = self.place_target
-
+                    unit = cards[self.selected_card].unit
+                    unit.pos = self.place_target.copy()
                     self.game.combat.units.add_unit(unit)
 
                     logging.info(f"Placed {unit.type}({unit.id}) at {unit.pos}.")
@@ -94,8 +94,7 @@ class CombatUI(UI):
                     # TODO: handle action cards here
                     pass
 
-                # self.game.combat.hand.cards.pop(self.selected_card)
-                self.game.combat.units_to_place.pop(self.selected_card)
+                cards.pop(self.selected_card)
 
             if self.game.input.states["cancel"] or self.game.input.states["select"]:
                 # transition to appropriate state

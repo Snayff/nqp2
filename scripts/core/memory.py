@@ -31,7 +31,7 @@ class Memory:
         self.player_troupe.debug_init_units()  # during testing only
 
         self.unit_deck: CardCollection = CardCollection(game)
-        self.unit_deck.generate_units(4)
+        self.unit_deck.from_troupe(self.player_troupe)
         self.action_deck: CardCollection = CardCollection(game)
         self.action_deck.generate_actions(20)
 
