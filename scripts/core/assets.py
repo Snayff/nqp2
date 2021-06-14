@@ -39,6 +39,9 @@ class Assets:
         end_time = time.time()
         logging.info(f"Assets: initialised in {format(end_time - start_time, '.2f')}s.")
 
+        self.unit_animations = {unit : {action : self.load_image_dir(ASSET_PATH / "units/animations/" / unit / action) for action in os.listdir(ASSET_PATH / "units/animations/" / unit)} for unit in os.listdir(ASSET_PATH / "units/animations")}
+        print(self.unit_animations)
+
     def get_image(
         self,
         folder_name: str,
@@ -101,6 +104,27 @@ class Assets:
         else:
             return image
 
+    def load_image_dir(self, path, format="list"):
+        """
+        Load images in a directory with specified format.
+        """
+
+        images = None
+        if format == "list":
+            images = []
+        if format == "dict":
+            images = {}
+
+        for img_path in os.listdir(path):
+            img = pygame.image.load(str(path) + '/' + img_path).convert_alpha()
+            if format == "list":
+                images.append(img)
+            if format == "dict":
+                images[img_path.split('.')[0]] = img
+
+        return images
+
+
     @staticmethod
     def _load_images() -> Dict[str, Dict[str, pygame.Surface]]:
         """
@@ -117,10 +141,11 @@ class Assets:
             path = ASSET_PATH / folder
             images[folder] = {}
             for image_name in os.listdir(path):
-                image = pygame.image.load(str(path / image_name)).convert_alpha()
-                width = image.get_width()
-                height = image.get_height()
-                images[folder][f"{image_name.split('.')[0]}@{width}x{height}"] = image  # split to remove extension
+                if image_name.split('.')[-1] == "png":
+                    image = pygame.image.load(str(path / image_name)).convert_alpha()
+                    width = image.get_width()
+                    height = image.get_height()
+                    images[folder][f"{image_name.split('.')[0]}@{width}x{height}"] = image  # split to remove extension
 
         # add not found image to debug
         images["debug"] = {}
