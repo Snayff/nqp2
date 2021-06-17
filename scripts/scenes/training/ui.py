@@ -22,7 +22,6 @@ class TrainingUI(UI):
     def __init__(self, game: Game):
         super().__init__(game)
 
-        self.selected_option: int = 0
         self.selected_unit: Optional[Unit] = None
 
     def update(self):
@@ -30,11 +29,11 @@ class TrainingUI(UI):
 
         if self.game.input.states["up"]:
             self.game.input.states["up"] = False
-            self.selected_option -= 1
+            self.selected_index -= 1
 
         if self.game.input.states["down"]:
             self.game.input.states["down"] = False
-            self.selected_option += 1
+            self.selected_index += 1
 
         # select option and trigger result
         if self.game.input.states["select"]:
@@ -54,11 +53,8 @@ class TrainingUI(UI):
             self.game.input.states["view_troupe"] = False
             self.game.change_scene(SceneType.TROUPE)
 
-        # correct selection index for looping
-        if self.selected_option < 0:
-            self.selected_option = len(units) - 1
-        if self.selected_option >= len(units):
-            self.selected_option = 0
+        # manage looping
+        self.handle_selected_index_looping(len(units))
 
     def render(self, surface: pygame.surface):
         units = self.game.memory.player_troupe.units
@@ -99,11 +95,11 @@ class TrainingUI(UI):
             font.render(unit.type, surface, (unit_type_x, unit_type_y))
 
             # note selected unit
-            if self.selected_option == unit_count:
+            if self.selected_index == unit_count:
                 self.selected_unit = unit
 
             # draw selector
-            if unit_count == self.selected_option:
+            if unit_count == self.selected_index:
                 pygame.draw.line(
                     surface,
                     (255, 255, 255),

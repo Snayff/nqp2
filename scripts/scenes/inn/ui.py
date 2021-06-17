@@ -22,23 +22,21 @@ class InnUI(UI):
     def __init__(self, game: Game):
         super().__init__(game)
 
-        self.selected_option: int = 0
-
     def update(self):
         units_for_sale = self.game.inn.units_for_sale
 
         if self.game.input.states["up"]:
             self.game.input.states["up"] = False
-            self.selected_option -= 1
+            self.selected_index -= 1
 
         if self.game.input.states["down"]:
             self.game.input.states["down"] = False
-            self.selected_option += 1
+            self.selected_index += 1
 
         # select option and trigger result
         if self.game.input.states["select"]:
             self.game.input.states["select"] = False
-            self.game.inn.purchase_unit(self.selected_option)
+            self.game.inn.purchase_unit(self.selected_index)
 
         # exit
         if self.game.input.states["cancel"]:
@@ -51,11 +49,8 @@ class InnUI(UI):
             self.game.input.states["view_troupe"] = False
             self.game.change_scene(SceneType.TROUPE)
 
-        # correct selection index for looping
-        if self.selected_option < 0:
-            self.selected_option = len(units_for_sale) - 1
-        if self.selected_option >= len(units_for_sale):
-            self.selected_option = 0
+        # manage looping
+        self.handle_selected_index_looping(len(units_for_sale))
 
     def render(self, surface: pygame.surface):
         units_for_sale = self.game.inn.units_for_sale
@@ -114,7 +109,7 @@ class InnUI(UI):
                 col_count += 1
 
             # draw selector
-            if row_count == self.selected_option:
+            if row_count == self.selected_index:
                 pygame.draw.line(
                     surface,
                     (255, 255, 255),
