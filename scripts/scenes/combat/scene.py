@@ -34,7 +34,7 @@ class CombatScene(Scene):
         self.camera.pos = [0, 100]
 
         self.terrain: Terrain = Terrain(game)
-        self.terrain.generate(game.assets.maps['plains_1'])
+        self.terrain.generate(game.assets.maps["plains_1"])
 
         self.units: UnitManager = UnitManager(game)
 

@@ -22,23 +22,15 @@ class InnUI(UI):
     def __init__(self, game: Game):
         super().__init__(game)
 
-        self.selected_option: int = 0
-
     def update(self):
         units_for_sale = self.game.inn.units_for_sale
 
-        if self.game.input.states["up"]:
-            self.game.input.states["up"] = False
-            self.selected_option -= 1
-
-        if self.game.input.states["down"]:
-            self.game.input.states["down"] = False
-            self.selected_option += 1
+        self.handle_directional_input_for_selection()
 
         # select option and trigger result
         if self.game.input.states["select"]:
             self.game.input.states["select"] = False
-            self.game.inn.purchase_unit(self.selected_option)
+            self.game.inn.purchase_unit(self.selected_row)
 
         # exit
         if self.game.input.states["cancel"]:
@@ -51,17 +43,14 @@ class InnUI(UI):
             self.game.input.states["view_troupe"] = False
             self.game.change_scene(SceneType.TROUPE)
 
-        # correct selection index for looping
-        if self.selected_option < 0:
-            self.selected_option = len(units_for_sale) - 1
-        if self.selected_option >= len(units_for_sale):
-            self.selected_option = 0
+        # manage looping
+        self.handle_selected_index_looping(len(units_for_sale))
 
     def render(self, surface: pygame.surface):
         units_for_sale = self.game.inn.units_for_sale
-        default_font = self.game.assets.fonts["default"]
-        disabled_font = self.game.assets.fonts["disabled"]
-        warning_font = self.game.assets.fonts["warning"]
+        default_font = self.default_font
+        disabled_font = self.disabled_font
+        warning_font = self.warning_font
 
         stats = ["health", "defence", "attack", "range", "attack_speed", "move_speed", "ammo", "count", "gold_cost"]
 
@@ -88,7 +77,8 @@ class InnUI(UI):
             details = unit.get(name)
 
             # check can afford
-            if details["gold_cost"] > self.game.memory.gold:
+            # TODO - add pick if upgraded at point of sale and then remove [0]
+            if details["gold_cost"][0] > self.game.memory.gold:
                 active_font = disabled_font
             else:
                 active_font = default_font
@@ -114,7 +104,7 @@ class InnUI(UI):
                 col_count += 1
 
             # draw selector
-            if row_count == self.selected_option:
+            if row_count == self.selected_row:
                 pygame.draw.line(
                     surface,
                     (255, 255, 255),
@@ -125,4 +115,4 @@ class InnUI(UI):
             row_count += 1
 
             # show gold
-            default_font.render(f"Gold: {self.game.memory.gold}", surface, (1, 1), 2)
+            self.draw_gold(surface)

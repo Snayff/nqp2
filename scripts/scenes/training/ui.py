@@ -22,19 +22,12 @@ class TrainingUI(UI):
     def __init__(self, game: Game):
         super().__init__(game)
 
-        self.selected_option: int = 0
         self.selected_unit: Optional[Unit] = None
 
     def update(self):
         units = self.game.memory.player_troupe.units
 
-        if self.game.input.states["up"]:
-            self.game.input.states["up"] = False
-            self.selected_option -= 1
-
-        if self.game.input.states["down"]:
-            self.game.input.states["down"] = False
-            self.selected_option += 1
+        self.handle_directional_input_for_selection()
 
         # select option and trigger result
         if self.game.input.states["select"]:
@@ -54,18 +47,14 @@ class TrainingUI(UI):
             self.game.input.states["view_troupe"] = False
             self.game.change_scene(SceneType.TROUPE)
 
-        # correct selection index for looping
-        if self.selected_option < 0:
-            self.selected_option = len(units) - 1
-        if self.selected_option >= len(units):
-            self.selected_option = 0
+        # manage looping
+        self.handle_selected_index_looping(len(units))
 
     def render(self, surface: pygame.surface):
         units = self.game.memory.player_troupe.units
-        default_font = self.game.assets.fonts["default"]
-        disabled_font = self.game.assets.fonts["disabled"]
-        warning_font = self.game.assets.fonts["warning"]
-        positive_font = self.game.assets.fonts["positive"]
+        default_font = self.default_font
+        warning_font = self.warning_font
+        positive_font = self.positive_font
 
         # positions
         start_x = 20
@@ -100,11 +89,11 @@ class TrainingUI(UI):
             font.render(unit.type, surface, (unit_type_x, unit_type_y))
 
             # note selected unit
-            if self.selected_option == unit_count:
+            if self.selected_row == unit_count:
                 self.selected_unit = unit
 
             # draw selector
-            if unit_count == self.selected_option:
+            if unit_count == self.selected_row:
                 pygame.draw.line(
                     surface,
                     (255, 255, 255),
@@ -175,4 +164,4 @@ class TrainingUI(UI):
             unit_count += 1
 
         # show gold
-        default_font.render(f"Gold: {self.game.memory.gold}", surface, (1, 1), 2)
+        self.draw_gold(surface)
