@@ -48,7 +48,6 @@ class EventUI(UI):
         # manage looping
         self.handle_selected_index_looping(len(options))
 
-
     def render(self, surface: pygame.surface):
         event = self.game.event.active_event
         default_font = self.default_font

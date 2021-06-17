@@ -32,14 +32,18 @@ class CombatUI(UI):
     def update(self):
 
         # move camera
-        target_pos = self.game.combat.get_team_center('player')
+        target_pos = self.game.combat.get_team_center("player")
         if not target_pos:
             target_pos = [0, 0]
         else:
             target_pos[0] -= self.game.window.base_resolution[0] // 2
             target_pos[1] -= self.game.window.base_resolution[1] // 2
-        self.game.combat.camera.pos[0] += (target_pos[0] - self.game.combat.camera.pos[0]) / 10 * (self.game.window.dt * 60)
-        self.game.combat.camera.pos[1] += (target_pos[1] - self.game.combat.camera.pos[1]) / 10 * (self.game.window.dt * 60)
+        self.game.combat.camera.pos[0] += (
+            (target_pos[0] - self.game.combat.camera.pos[0]) / 10 * (self.game.window.dt * 60)
+        )
+        self.game.combat.camera.pos[1] += (
+            (target_pos[1] - self.game.combat.camera.pos[1]) / 10 * (self.game.window.dt * 60)
+        )
 
         cards = self.game.combat.hand.cards
 
@@ -115,7 +119,6 @@ class CombatUI(UI):
 
         # manage looping
         self.handle_selected_index_looping(0, len(cards))
-
 
     def render(self, surface: pygame.Surface):
         warning_font = self.warning_font

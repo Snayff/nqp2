@@ -17,7 +17,7 @@ class Tile:
 
     def render(self, game, surf, offset=[0, 0]):
         tileset = game.assets.tilesets[self.group]
-        if self.group[-8:] == 'animated':
+        if self.group[-8:] == "animated":
             self.type[2] = int((game.master_clock * 2) % len(tileset[self.src_y]))
 
         img = tileset[self.src_y][self.src_x]
