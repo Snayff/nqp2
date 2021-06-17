@@ -27,13 +27,7 @@ class TrainingUI(UI):
     def update(self):
         units = self.game.memory.player_troupe.units
 
-        if self.game.input.states["up"]:
-            self.game.input.states["up"] = False
-            self.selected_index -= 1
-
-        if self.game.input.states["down"]:
-            self.game.input.states["down"] = False
-            self.selected_index += 1
+        self.handle_directional_input_for_selection()
 
         # select option and trigger result
         if self.game.input.states["select"]:
@@ -95,11 +89,11 @@ class TrainingUI(UI):
             font.render(unit.type, surface, (unit_type_x, unit_type_y))
 
             # note selected unit
-            if self.selected_index == unit_count:
+            if self.selected_row == unit_count:
                 self.selected_unit = unit
 
             # draw selector
-            if unit_count == self.selected_index:
+            if unit_count == self.selected_row:
                 pygame.draw.line(
                     surface,
                     (255, 255, 255),

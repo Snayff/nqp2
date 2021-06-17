@@ -25,24 +25,18 @@ class EventUI(UI):
     def update(self):
         options = self.game.event.active_event["options"]
 
-        if self.game.input.states["up"]:
-            self.game.input.states["up"] = False
-            self.selected_index -= 1
-
-        if self.game.input.states["down"]:
-            self.game.input.states["down"] = False
-            self.selected_index += 1
+        self.handle_directional_input_for_selection()
 
         # select option and trigger result
         if self.game.input.states["select"]:
             self.game.input.states["select"] = False
 
             logging.info(
-                f"Selected option {self.selected_index},"
-                f" {self.game.event.active_event['options'][self.selected_index]}."
+                f"Selected option {self.selected_row},"
+                f" {self.game.event.active_event['options'][self.selected_row]}."
             )
 
-            self.game.event.trigger_result(self.selected_index)
+            self.game.event.trigger_result(self.selected_row)
 
             # return to overworld
             self.game.change_scene(SceneType.OVERWORLD)
@@ -77,7 +71,7 @@ class EventUI(UI):
             default_font.render(option["text"], surface, (option_x, option_y))
 
             # draw selector
-            if count == self.selected_index:
+            if count == self.selected_row:
                 pygame.draw.line(
                     surface,
                     (255, 255, 255),

@@ -25,18 +25,12 @@ class InnUI(UI):
     def update(self):
         units_for_sale = self.game.inn.units_for_sale
 
-        if self.game.input.states["up"]:
-            self.game.input.states["up"] = False
-            self.selected_index -= 1
-
-        if self.game.input.states["down"]:
-            self.game.input.states["down"] = False
-            self.selected_index += 1
+        self.handle_directional_input_for_selection()
 
         # select option and trigger result
         if self.game.input.states["select"]:
             self.game.input.states["select"] = False
-            self.game.inn.purchase_unit(self.selected_index)
+            self.game.inn.purchase_unit(self.selected_row)
 
         # exit
         if self.game.input.states["cancel"]:
@@ -83,7 +77,8 @@ class InnUI(UI):
             details = unit.get(name)
 
             # check can afford
-            if details["gold_cost"] > self.game.memory.gold:
+            # TODO - add pick if upgraded at point of sale and then remove [0]
+            if details["gold_cost"][0] > self.game.memory.gold:
                 active_font = disabled_font
             else:
                 active_font = default_font
@@ -109,7 +104,7 @@ class InnUI(UI):
                 col_count += 1
 
             # draw selector
-            if row_count == self.selected_index:
+            if row_count == self.selected_row:
                 pygame.draw.line(
                     surface,
                     (255, 255, 255),

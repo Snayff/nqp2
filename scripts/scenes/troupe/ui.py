@@ -25,13 +25,7 @@ class TroupeUI(UI):
     def update(self):
         units = self.game.memory.player_troupe.units
 
-        if self.game.input.states["up"]:
-            self.game.input.states["up"] = False
-            self.selected_index -= 1
-
-        if self.game.input.states["down"]:
-            self.game.input.states["down"] = False
-            self.selected_index += 1
+        self.handle_directional_input_for_selection()
 
         if self.game.input.states["cancel"]:
             self.game.input.states["cancel"] = False

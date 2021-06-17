@@ -15,12 +15,11 @@ if TYPE_CHECKING:
 __all__ = ["CombatUI"]
 
 ## TO DO LIST ##
-# TODO -  Win state/ lose state; when all of one side is dead.
 # TODO - show bar that is all of remaining health for both sides as a % of total. So when player is winning the bar
 #  will progress to one side and if the opposite then it will progress to the other.
 # TODO - dev tool - instant win button
 # TODO - dont start combat until all units placed / units up to limit placed
-# TODO -
+# TODO - transition to reward screen on victory
 
 
 class CombatUI(UI):
@@ -45,13 +44,7 @@ class CombatUI(UI):
         cards = self.game.combat.hand.cards
 
         if self.game.combat.state in [CombatState.UNIT_CHOOSE_CARD, CombatState.ACTION_CHOOSE_CARD]:
-            if self.game.input.states["left"]:
-                self.game.input.states["left"] = False
-                self.selected_index -= 1
-
-            if self.game.input.states["right"]:
-                self.game.input.states["right"] = False
-                self.selected_index += 1
+            self.handle_directional_input_for_selection()
 
             if self.game.input.states["select"]:
 
@@ -94,7 +87,7 @@ class CombatUI(UI):
             if self.game.input.states["select"]:
                 # hand will contain the hand for whichever deck is in use
                 if self.game.combat.state == CombatState.UNIT_SELECT_TARGET:
-                    unit = cards[self.selected_index].unit
+                    unit = cards[self.selected_col].unit
                     unit.pos = self.place_target.copy()
                     self.game.combat.units.add_unit(unit)
 
@@ -103,7 +96,7 @@ class CombatUI(UI):
                     # TODO: handle action cards here
                     pass
 
-                cards.pop(self.selected_index)
+                cards.pop(self.selected_col)
 
             if self.game.input.states["cancel"] or self.game.input.states["select"]:
                 # transition to appropriate state
@@ -121,7 +114,7 @@ class CombatUI(UI):
             self.game.change_scene(SceneType.TROUPE)
 
         # manage looping
-        self.handle_selected_index_looping(len(cards))
+        self.handle_selected_index_looping(0, len(cards))
 
 
     def render(self, surface: pygame.Surface):
@@ -149,7 +142,7 @@ class CombatUI(UI):
 
             for i, card in enumerate(cards):
                 height_offset = 0
-                if self.selected_index == i:
+                if self.selected_col == i:
                     height_offset = -12
 
                 elif self.game.combat.state in [CombatState.UNIT_SELECT_TARGET, CombatState.ACTION_SELECT_TARGET]:
