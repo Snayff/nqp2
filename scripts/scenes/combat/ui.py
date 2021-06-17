@@ -128,7 +128,10 @@ class CombatUI(UI):
             self.selected_card = 0
 
     def render(self, surface: pygame.Surface):
+        warning_font = self.warning_font
+
         # render status text
+        status = "None"
         if self.game.combat.state in [CombatState.UNIT_SELECT_TARGET, CombatState.ACTION_SELECT_TARGET]:
             status = "select a target location"
         if self.game.combat.state == CombatState.UNIT_CHOOSE_CARD:
@@ -137,7 +140,7 @@ class CombatUI(UI):
             status = "select an action or press X to watch"
         if self.game.combat.state == CombatState.WATCH:
             status = "press X to use an action"
-        self.game.assets.fonts["warning"].render(status, surface, (4, 4))
+        warning_font.render(status, surface, (4, 4))
 
         cards = self.game.combat.hand.cards
 

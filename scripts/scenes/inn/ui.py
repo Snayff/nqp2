@@ -59,9 +59,9 @@ class InnUI(UI):
 
     def render(self, surface: pygame.surface):
         units_for_sale = self.game.inn.units_for_sale
-        default_font = self.game.assets.fonts["default"]
-        disabled_font = self.game.assets.fonts["disabled"]
-        warning_font = self.game.assets.fonts["warning"]
+        default_font = self.default_font
+        disabled_font = self.disabled_font
+        warning_font = self.warning_font
 
         stats = ["health", "defence", "attack", "range", "attack_speed", "move_speed", "ammo", "count", "gold_cost"]
 
@@ -125,4 +125,4 @@ class InnUI(UI):
             row_count += 1
 
             # show gold
-            default_font.render(f"Gold: {self.game.memory.gold}", surface, (1, 1), 2)
+            self.draw_gold(surface)

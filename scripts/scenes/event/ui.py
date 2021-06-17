@@ -61,7 +61,7 @@ class EventUI(UI):
 
     def render(self, surface: pygame.surface):
         event = self.game.event.active_event
-        default_font = self.game.assets.fonts["default"]
+        default_font = self.default_font
 
         # positions
         option_x = 20
@@ -92,4 +92,4 @@ class EventUI(UI):
             count += 1
 
         # show gold
-        default_font.render(f"Gold: {self.game.memory.gold}", surface, (1, 1), 2)
+        self.draw_gold(surface)

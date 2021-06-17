@@ -62,10 +62,9 @@ class TrainingUI(UI):
 
     def render(self, surface: pygame.surface):
         units = self.game.memory.player_troupe.units
-        default_font = self.game.assets.fonts["default"]
-        disabled_font = self.game.assets.fonts["disabled"]
-        warning_font = self.game.assets.fonts["warning"]
-        positive_font = self.game.assets.fonts["positive"]
+        default_font = self.default_font
+        warning_font = self.warning_font
+        positive_font = self.positive_font
 
         # positions
         start_x = 20
@@ -175,4 +174,4 @@ class TrainingUI(UI):
             unit_count += 1
 
         # show gold
-        default_font.render(f"Gold: {self.game.memory.gold}", surface, (1, 1), 2)
+        self.draw_gold(surface)

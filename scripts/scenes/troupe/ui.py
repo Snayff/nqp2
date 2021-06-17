@@ -49,7 +49,7 @@ class TroupeUI(UI):
 
     def render(self, surface: pygame.surface):
         units = self.game.memory.player_troupe.units
-        default_font = self.game.assets.fonts["default"]
+        default_font = self.default_font
 
         # positions
         start_x = 20
@@ -97,4 +97,4 @@ class TroupeUI(UI):
             unit_count += 1
 
         # show gold
-        default_font.render(f"Gold: {self.game.memory.gold}", surface, (1, 1), 2)
+        self.draw_gold(surface)
