@@ -25,6 +25,7 @@ __all__ = ["CombatScene"]
 # TODO - differentiate enemy and ally sprites. perhaps give the team a colour on a small circle under each
 #  entity to denote their team?
 
+
 class CombatScene(Scene):
     """
     Handles CombatScene interactions and consolidates the rendering.

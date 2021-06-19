@@ -36,8 +36,6 @@ class Memory:
         self.action_deck: CardCollection = CardCollection(game)
         self.action_deck.generate_actions(20)
 
-
-
         # general
         self.gold = 10
 

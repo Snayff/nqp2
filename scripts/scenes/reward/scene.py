@@ -12,8 +12,9 @@ from scripts.scenes.combat.elements.unit import Unit
 from scripts.scenes.reward.ui import RewardUI
 
 if TYPE_CHECKING:
+    from typing import Any, List
+
     from scripts.core.game import Game
-    from typing import List, Any
 
 __all__ = ["RewardScene"]
 
@@ -130,8 +131,10 @@ class RewardScene(Scene):
         if isinstance(reward, Unit):
             self.game.memory.player_troupe.add_unit(reward)
         else:
-            logging.warning(f"Chose {reward} as a unit reward. As it isnt a unit, something has "
-                            f"seriously gone wrong! No reward added.")
+            logging.warning(
+                f"Chose {reward} as a unit reward. As it isnt a unit, something has "
+                f"seriously gone wrong! No reward added."
+            )
 
     def _choose_action_rewards(self, reward: Any):
         """STUB"""

@@ -18,6 +18,7 @@ class Troupe:
     """
     Management of a group of units
     """
+
     def __init__(self, game, team: str):
         self.game: Game = game
 
@@ -103,7 +104,6 @@ class Troupe:
                     unit_types.append((chosen_type.replace("_upgraded", ""), True))
                 else:
                     unit_types.append((chosen_type, False))
-
 
         # create units
         for unit_type, is_upgraded in unit_types:

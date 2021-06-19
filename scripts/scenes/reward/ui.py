@@ -36,7 +36,6 @@ class RewardUI(UI):
                 self.game.reward.choose_reward(self.selected_reward)
                 self.game.change_scene(SceneType.OVERWORLD)
 
-
         # exit
         if self.game.input.states["cancel"]:
             self.game.input.states["cancel"] = False
