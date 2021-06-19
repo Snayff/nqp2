@@ -23,4 +23,4 @@ class EnemyCombatantsGenerator:
             unit = self.enemy_troupe.units[id_]
             unit.pos = pos
 
-            self.game.combat.units.add_unit_from_type(unit)
+            self.game.combat.units.add_unit_to_combat(unit)

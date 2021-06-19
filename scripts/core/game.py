@@ -3,6 +3,8 @@ from __future__ import annotations
 import logging
 import time
 
+import pygame
+
 from scripts.core import debug, utility
 from scripts.core.assets import Assets
 from scripts.core.constants import GameState, SceneType
@@ -27,12 +29,15 @@ class Game:
         # start timer
         start_time = time.time()
 
+        # init libraries
+        pygame.init()
+
         # managers
         self.window: Window = Window(self)
-        self.input: Input = Input(self)
-        self.assets: Assets = Assets(self)
         self.data: Data = Data(self)
         self.memory: Memory = Memory(self)
+        self.assets: Assets = Assets(self)
+        self.input: Input = Input(self)
 
         # scenes
         self.combat: CombatScene = CombatScene(self)
@@ -49,6 +54,9 @@ class Game:
         self.state: GameState = GameState.PLAYING
 
         self.master_clock = 0
+
+        # FOR USE DURING TESTING
+        self.memory.player_troupe.debug_init_units()
 
         # record duration
         end_time = time.time()

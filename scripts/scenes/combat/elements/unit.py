@@ -32,7 +32,12 @@ class Unit:
         else:
             i = 0
 
-        self.type: int = unit_data["type"][i]
+        # attributes that cant change due to upgrade
+        self.type: str = unit_data["type"]
+        self.default_behaviour: str = unit_data["default_behaviour"]
+        self.upgrade_cost: int = unit_data["upgrade_cost"]
+
+        # attributes affected by being upgraded
         self.health: int = unit_data["health"][i]
         self.attack: int = unit_data["attack"][i]
         self.defence: int = unit_data["defence"][i]
@@ -45,9 +50,6 @@ class Unit:
         self.weight: int = unit_data["weight"][i]
         self.gold_cost: int = unit_data["gold_cost"][i]
         self.rarity: int = unit_data["rarity"][i]
-
-        self.default_behaviour: str = unit_data["default_behaviour"]
-        self.upgrade_cost: int = unit_data["upgrade_cost"]
 
         # in combat
         self.behaviour = self.game.data.behaviours.unit_behaviours[self.default_behaviour](self)
