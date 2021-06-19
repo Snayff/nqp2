@@ -29,7 +29,7 @@ class Memory:
         # combat
         self._last_id = 0
 
-        self.player_troupe: Troupe = Troupe(self.game)
+        self.player_troupe: Troupe = Troupe(self.game, "player")
         self.player_troupe.debug_init_units()  # during testing only
 
         self.unit_deck: CardCollection = CardCollection(game)

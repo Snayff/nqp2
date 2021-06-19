@@ -19,6 +19,9 @@ if TYPE_CHECKING:
 __all__ = ["CombatScene"]
 
 
+########### To Do List #############
+# TODO - add combat with multiple participants, not just player vs enemy; team vs team or free for all.
+
 class CombatScene(Scene):
     """
     Handles CombatScene interactions and consolidates the rendering.

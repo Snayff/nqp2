@@ -6,6 +6,7 @@ import time
 from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.scene import Scene
+from scripts.scenes.combat.elements.troupe import Troupe
 from scripts.scenes.combat.elements.unit import Unit
 from scripts.scenes.reward.ui import RewardUI
 
@@ -30,7 +31,7 @@ class RewardScene(Scene):
 
         self.ui: RewardUI = RewardUI(game)
 
-        self.reward_units: List[Unit] = []
+        self.reward_units: Troupe = Troupe(self.game, "reward")
         self.gold_reward: int = 0
 
         # record duration
@@ -54,6 +55,6 @@ class RewardScene(Scene):
         # roll gold
         self.gold_reward = random.randint(gold_min, gold_max)
 
-        # roll units
-        for count in range(num_rewards):
-            pass
+        # generate units in Troupe
+        self.reward_units.remove_all_units()
+        self.reward_units.generate_units(num_rewards)
