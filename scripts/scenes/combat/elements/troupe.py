@@ -68,6 +68,7 @@ class Troupe:
         Remove all units from the Troupe
         """
         self.units = {}
+        logging.info(f"All units removed from {self.team}'s troupe.")
 
     def generate_units(self, number_of_units: int, unit_types: List[Tuple[str, bool]] = None):
         """

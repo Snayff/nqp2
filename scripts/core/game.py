@@ -95,6 +95,7 @@ class Game:
             self.active_scene = self.training
 
         elif scene_type == SceneType.INN:
+            self.inn.generate_sale_options()
             self.active_scene = self.inn
 
         elif scene_type == SceneType.EVENT:
@@ -114,3 +115,5 @@ class Game:
         elif scene_type == SceneType.REWARD:
             self.reward.generate_reward()
             self.active_scene = self.reward
+
+        logging.info(f"Active scene changed to {scene_type}.")
