@@ -9,7 +9,7 @@ from typing import TYPE_CHECKING
 from scripts.scenes.combat.elements.behavior_manager import BehaviourManager
 
 if TYPE_CHECKING:
-    from typing import Dict
+    from typing import Dict, List
 
     from scripts.core.game import Game
 

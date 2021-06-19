@@ -23,7 +23,7 @@ class InnUI(UI):
         super().__init__(game)
 
     def update(self):
-        units_for_sale = self.game.inn.units_for_sale
+        units_for_sale = self.game.inn.sale_troupe
 
         self.handle_directional_input_for_selection()
 
@@ -44,15 +44,26 @@ class InnUI(UI):
             self.game.change_scene(SceneType.TROUPE)
 
         # manage looping
-        self.handle_selected_index_looping(len(units_for_sale))
+        self.handle_selected_index_looping(len(units_for_sale.units))
 
     def render(self, surface: pygame.surface):
-        units_for_sale = self.game.inn.units_for_sale
+        units_for_sale = list(self.game.inn.sale_troupe.units.values())
         default_font = self.default_font
         disabled_font = self.disabled_font
         warning_font = self.warning_font
 
-        stats = ["health", "defence", "attack", "range", "attack_speed", "move_speed", "ammo", "count", "gold_cost"]
+        stats = [
+            "type",
+            "health",
+            "defence",
+            "attack",
+            "range",
+            "attack_speed",
+            "move_speed",
+            "ammo",
+            "count",
+            "gold_cost",
+        ]
 
         # positions
         start_x = 20
@@ -73,12 +84,9 @@ class InnUI(UI):
         # draw unit info
         row_count = 0
         for unit in units_for_sale:
-            name = list(unit)[0]
-            details = unit.get(name)
 
             # check can afford
-            # TODO - add pick if upgraded at point of sale and then remove [0]
-            if details["gold_cost"][0] > self.game.memory.gold:
+            if unit.gold_cost > self.game.memory.gold:
                 active_font = disabled_font
             else:
                 active_font = default_font
@@ -90,12 +98,8 @@ class InnUI(UI):
             for stat in stats:
                 col_x = start_x + (col_width * col_count)
 
-                if col_count == 0:
-                    text = name
-                else:
-                    text = str(details.get(stat))
-
                 # if can't afford then show cost as red to highlight the issue
+                text = str(getattr(unit, stat))
                 if active_font == disabled_font and stat == "gold_cost":
                     warning_font.render(text, surface, (col_x, option_y))
                 else:
@@ -109,7 +113,7 @@ class InnUI(UI):
                     surface,
                     (255, 255, 255),
                     (start_x, option_y + font_height),
-                    (start_x + active_font.width(name), option_y + font_height),
+                    (start_x + active_font.width(unit.type), option_y + font_height),
                 )
 
             row_count += 1

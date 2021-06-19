@@ -16,7 +16,7 @@ class UnitManager:
 
         self.units = []
 
-    def add_unit(self, unit):
+    def add_unit_to_combat(self, unit):
         unit.reset_for_combat()
         unit.spawn_entities()
         self.units.append(unit)

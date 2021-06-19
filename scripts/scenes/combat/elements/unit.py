@@ -24,7 +24,7 @@ class Unit:
         self.id = id_
         self.type: str = unit_type
         self.is_upgraded = is_upgraded
-        self.team: str = team
+        self.team: str = team  # this is derived from the Troupe but can be overridden in combat
 
         # determine which value to get from tuple
         if is_upgraded:
@@ -32,6 +32,12 @@ class Unit:
         else:
             i = 0
 
+        # attributes that cant change due to upgrade
+        self.type: str = unit_data["type"]
+        self.default_behaviour: str = unit_data["default_behaviour"]
+        self.upgrade_cost: int = unit_data["upgrade_cost"]
+
+        # attributes affected by being upgraded
         self.health: int = unit_data["health"][i]
         self.attack: int = unit_data["attack"][i]
         self.defence: int = unit_data["defence"][i]
@@ -43,9 +49,7 @@ class Unit:
         self.size: int = unit_data["size"][i]
         self.weight: int = unit_data["weight"][i]
         self.gold_cost: int = unit_data["gold_cost"][i]
-
-        self.default_behaviour: str = unit_data["default_behaviour"]
-        self.upgrade_cost: int = unit_data["upgrade_cost"]
+        self.rarity: int = unit_data["rarity"][i]
 
         # in combat
         self.behaviour = self.game.data.behaviours.unit_behaviours[self.default_behaviour](self)
