@@ -56,7 +56,6 @@ def clamp(value: _V, min_value: _V, max_value: _V) -> _V:
     return max(min_value, min(value, max_value))
 
 
-
 def itr(iterable):
     """
     An iteration tool for easy removal.
