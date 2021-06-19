@@ -14,6 +14,9 @@ __all__ = ["Troupe"]
 
 
 class Troupe:
+    """
+    Management of a group of units
+    """
     def __init__(self, game):
         self.game: Game = game
 
@@ -35,7 +38,7 @@ class Troupe:
         """
         Add a unit to the troupe. Return id.
         """
-        id_ = self._generate_id()
+        id_ = self.game.memory.generate_id()
         unit = Unit(self.game, id_, unit_type, team, is_upgraded)
         self.units[id_] = unit
 
@@ -50,9 +53,3 @@ class Troupe:
         except KeyError:
             logging.warning(f"remove_unit: {id_} not found in {self.units}. No unit removed.")
 
-    def _generate_id(self) -> int:
-        """
-        Create unique ID for a unit
-        """
-        self._last_id += 1
-        return self._last_id
