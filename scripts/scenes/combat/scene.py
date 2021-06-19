@@ -21,8 +21,8 @@ __all__ = ["CombatScene"]
 
 ########### To Do List #############
 # TODO - add combat with multiple participants, not just player vs enemy; team vs team or free for all.
-# FIXME - when visiting a second combat node, combat gets skipped
-# TODO - differentiate enemy and ally sprites. perhaps give the team a colour and render a small circle under each
+# FIXME - when visiting a second combat node, combat isnt refreshed and resumes previous state, though with new enemies.
+# TODO - differentiate enemy and ally sprites. perhaps give the team a colour on a small circle under each
 #  entity to denote their team?
 
 class CombatScene(Scene):

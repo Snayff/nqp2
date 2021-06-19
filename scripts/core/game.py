@@ -108,4 +108,5 @@ class Game:
             self.active_scene = self.troupe
 
         elif scene_type == SceneType.REWARD:
+            self.reward.generate_reward()
             self.active_scene = self.reward

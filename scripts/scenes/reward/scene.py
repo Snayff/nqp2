@@ -13,7 +13,7 @@ from scripts.scenes.reward.ui import RewardUI
 
 if TYPE_CHECKING:
     from scripts.core.game import Game
-    from typing import List
+    from typing import List, Any
 
 __all__ = ["RewardScene"]
 
@@ -104,8 +104,43 @@ class RewardScene(Scene):
         """STUB"""
         pass
 
-    def choose_troupe_reward(self, unit: Unit):
+    def choose_reward(self, reward: Any):
         """
-        Add the chosen unit to the player's troupe
+        Add the current reward and the reward gold.
         """
-        self.game.memory.player_troupe.add_unit(unit)
+        # add current reward
+        reward_type = self.reward_type
+        if reward_type == RewardType.UNIT:
+            self._choose_troupe_rewards(reward)
+
+        elif reward_type == RewardType.ACTION:
+            self._choose_action_rewards(reward)
+
+        elif reward_type == RewardType.UPGRADE:
+            self._choose_upgrade_rewards(reward)
+
+        else:
+            # reward_type == RewardType.RESOURCE
+            self._choose_resource_rewards(reward)
+
+        # add gold
+        self.game.memory.amend_gold(self.gold_reward)
+
+    def _choose_troupe_rewards(self, reward: Unit):
+        if isinstance(reward, Unit):
+            self.game.memory.player_troupe.add_unit(reward)
+        else:
+            logging.warning(f"Chose {reward} as a unit reward. As it isnt a unit, something has "
+                            f"seriously gone wrong! No reward added.")
+
+    def _choose_action_rewards(self, reward: Any):
+        """STUB"""
+        pass
+
+    def _choose_upgrade_rewards(self, reward: Any):
+        """STUB"""
+        pass
+
+    def _choose_resource_rewards(self, reward: Any):
+        """STUB"""
+        pass

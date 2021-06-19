@@ -26,21 +26,16 @@ class RewardUI(UI):
         self.selected_reward: Optional[Unit] = None
 
     def update(self):
-        units = self.game.memory.player_troupe.units
-
         self.handle_directional_input_for_selection()
 
         # select option and trigger result
         if self.game.input.states["select"]:
             self.game.input.states["select"] = False
 
-            if self.selected_reward and self.game.reward.reward_type == RewardType.UNIT:
-                if isinstance(self.selected_reward, Unit):
-                    self.game.reward.choose_troupe_reward(self.selected_reward)
-                    self.game.training.upgrade_unit(self.selected_reward.id)
-                else:
-                    logging.warning(f"Chose {self.selected_reward} as a unit reward. As it isnt a unit something has "
-                                    f"seriously gone wrong! No reward added")
+            if self.selected_reward:
+                self.game.reward.choose_reward(self.selected_reward)
+                self.game.change_scene(SceneType.OVERWORLD)
+
 
         # exit
         if self.game.input.states["cancel"]:
@@ -53,8 +48,21 @@ class RewardUI(UI):
             self.game.input.states["view_troupe"] = False
             self.game.change_scene(SceneType.TROUPE)
 
+        # get index value depending on reward
+        reward_type = self.game.reward.reward_type
+        reward = self.game.reward
+        if reward_type == RewardType.UNIT:
+            index_size = len(reward.troupe_rewards.units)
+        elif reward_type == RewardType.ACTION:
+            index_size = 0
+        elif reward_type == RewardType.UPGRADE:
+            index_size = 0
+        else:
+            # reward_type == RewardType.RESOURCE
+            index_size = 0
+
         # manage looping
-        self.handle_selected_index_looping(len(units))
+        self.handle_selected_index_looping(index_size)
 
     def render(self, surface: pygame.surface):
         reward_type = self.game.reward.reward_type
@@ -77,7 +85,8 @@ class RewardUI(UI):
         default_font = self.default_font
         disabled_font = self.disabled_font
         warning_font = self.warning_font
-        stats = ["health", "defence", "attack", "range", "attack_speed", "move_speed", "ammo", "count"]
+        positive_font = self.positive_font
+        stats = ["type", "health", "defence", "attack", "range", "attack_speed", "move_speed", "ammo", "count"]
 
         # positions
         start_x = 20
@@ -85,13 +94,27 @@ class RewardUI(UI):
         gap = 10
         font_height = 12
         window_width = self.game.window.width
+        window_height = self.game.window.height
         col_width = int((window_width - (start_x * 2)) / len(stats))
 
+        # victory message
+        positive_font.render("Victory!", surface, (start_x, start_y))
+
+        # gold reward
+        current_y = start_y + (font_height * 2)
+        gold_reward = self.game.reward.gold_reward
+        default_font.render(f"{gold_reward} gold scavenged from the dead.", surface, (start_x, current_y))
+
+        # instruction
+        current_y = window_height // 2
+        warning_font.render(f"Choose one of the following rewards.", surface, (start_x, current_y))
+
         # draw headers
+        current_y = current_y + (font_height * 2)
         col_count = 0
         for stat in stats:
             col_x = start_x + (col_width * col_count)
-            default_font.render(stat, surface, (col_x, start_y))
+            default_font.render(stat, surface, (col_x, current_y))
 
             col_count += 1
 
@@ -100,19 +123,14 @@ class RewardUI(UI):
         for unit in reward_units:
             active_font = default_font
 
-            option_y = start_y + ((font_height + gap) * (row_count + 1))  # + 1 due to headers
+            option_y = current_y + ((font_height + gap) * (row_count + 1))  # + 1 due to headers
 
             # draw stats
             col_count = 0
             for stat in stats:
                 col_x = start_x + (col_width * col_count)
 
-                # draw type or state value
-                if col_count == 0:
-                    text = unit.type
-                else:
-                    text = str(getattr(unit, stat))
-
+                text = str(getattr(unit, stat))
                 active_font.render(text, surface, (col_x, option_y))
 
                 col_count += 1

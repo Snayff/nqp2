@@ -12,7 +12,7 @@ class EnemyCombatantsGenerator:
         # lots of temp stuff here for now
         map_size = self.game.combat.terrain.pixel_size
 
-        enemy_count = 4
+        enemy_count = 2
 
         for i in range(enemy_count):
             # choose a random spot on the right side of the map

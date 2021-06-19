@@ -82,7 +82,7 @@ class Troupe:
             # get unit info
             unit_types_ = []
             unit_rarity = []
-            for unit_details in self.game.data.units:
+            for unit_details in self.game.data.units.values():
 
                 # get upgrades and non upgrades
                 for is_upgraded_ in range(1):

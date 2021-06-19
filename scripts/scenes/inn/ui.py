@@ -52,7 +52,8 @@ class InnUI(UI):
         disabled_font = self.disabled_font
         warning_font = self.warning_font
 
-        stats = ["health", "defence", "attack", "range", "attack_speed", "move_speed", "ammo", "count", "gold_cost"]
+        stats = ["type", "health", "defence", "attack", "range", "attack_speed", "move_speed", "ammo", "count",
+            "gold_cost"]
 
         # positions
         start_x = 20
@@ -87,13 +88,8 @@ class InnUI(UI):
             for stat in stats:
                 col_x = start_x + (col_width * col_count)
 
-                # draw type or state value
-                if col_count == 0:
-                    text = unit.type
-                else:
-                    text = str(getattr(unit, stat))
-
                 # if can't afford then show cost as red to highlight the issue
+                text = str(getattr(unit, stat))
                 if active_font == disabled_font and stat == "gold_cost":
                     warning_font.render(text, surface, (col_x, option_y))
                 else:

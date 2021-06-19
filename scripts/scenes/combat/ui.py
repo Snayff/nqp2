@@ -18,13 +18,14 @@ __all__ = ["CombatUI"]
 # TODO - show bar that is all of remaining health for both sides as a % of total. So when player is winning the bar
 #  will progress to one side and if the opposite then it will progress to the other.
 # TODO - dev tool - instant win button
-# TODO - dont start combat until all units placed / units up to limit placed
 # TODO - transition to reward screen on victory
 # TODO - occasional unit speech bubbles, triggered by key actions e.g. critical hit, ally death.
 # TODO - spawn all entities when unit placed so they all appear together, rather than popping them out when combat
 #  begins
 # TODO - if a crit kills an entity have chance of knocking entity back
 # FIXME - some enemies rendering invisible
+# TODO - can't place units on same position.
+# TODO - keep cursor at the same position after making a selection, e.g. placing a unit.
 
 
 class CombatUI(UI):
