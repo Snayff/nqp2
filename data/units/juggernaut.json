@@ -11,7 +11,7 @@
     "size": [8, 12],
     "weight": [40, 50],
     "gold_cost": [10, 20],
-    "rarity": [50, 750],
+    "rarity": [10, 1],
     "default_behaviour": "swarm",
     "upgrade_cost": 20
 }

@@ -63,7 +63,7 @@ class RewardScene(Scene):
         gold_max = 50
 
         # roll gold
-        self.gold_reward = random.randint(gold_min, gold_max)
+        self.gold_reward = self.game.rng.randint(gold_min, gold_max)
 
         # generate required rewards
         reward_type = self.reward_type

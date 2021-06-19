@@ -96,7 +96,7 @@ class Troupe:
                     unit_rarity.append(unit_details["rarity"][is_upgraded_])
 
             # choose units
-            chosen_types = random.choices(unit_types_, unit_rarity, k=number_of_units)
+            chosen_types = self.game.rng.choices(unit_types_, unit_rarity, k=number_of_units)
 
             # identify which are upgrades
             for chosen_type in chosen_types:

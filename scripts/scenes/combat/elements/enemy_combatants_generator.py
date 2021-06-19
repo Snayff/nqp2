@@ -1,5 +1,3 @@
-import random
-
 from scripts.scenes.combat.elements.troupe import Troupe
 
 
@@ -11,15 +9,16 @@ class EnemyCombatantsGenerator:
     def generate(self):
         # lots of temp stuff here for now
         map_size = self.game.combat.terrain.pixel_size
+        rng = self.game.rng
 
         enemy_count = 2
 
         for i in range(enemy_count):
             # choose a random spot on the right side of the map
-            pos = [random.random() * map_size[0] // 2 + map_size[0] // 2, random.random() * map_size[1]]
+            pos = [rng.random() * map_size[0] // 2 + map_size[0] // 2, rng.random() * map_size[1]]
 
-            enemy_type = random.choice(["spearman", "juggernaut"])
-            id_ = self.enemy_troupe.add_unit_from_type(enemy_type, "enemy")
+            enemy_type = rng.choice(["spearman", "juggernaut"])
+            id_ = self.enemy_troupe.add_unit_from_type(enemy_type)
             unit = self.enemy_troupe.units[id_]
             unit.pos = pos
 

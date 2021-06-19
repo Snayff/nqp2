@@ -74,7 +74,7 @@ class MapManager:
 
         # generate first row
         # proc number of nodes
-        num_nodes = random.randint(min_nodes_per_row, max_nodes_per_row)
+        num_nodes = self.game.rng.randint(min_nodes_per_row, max_nodes_per_row)
 
         # TODO - replace with procedural generation
         # init nodes
@@ -84,7 +84,7 @@ class MapManager:
 
             for node_num in range(0, num_nodes):
                 # generate node type
-                node_type = random.choices(node_types, node_weights, k=1)[0]
+                node_type = self.game.rng.choices(node_types, node_weights, k=1)[0]
 
                 # get node icon
                 node_icon = self.get_node_icon(node_type)

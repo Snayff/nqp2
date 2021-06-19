@@ -16,7 +16,7 @@ class CardCollection:
         pass
 
     def shuffle(self):
-        random.shuffle(self.cards)
+        self.game.rng.shuffle(self.cards)
 
     def draw(self, count=1, to=None):
         drawn_cards = []
