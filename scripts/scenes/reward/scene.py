@@ -31,7 +31,7 @@ class RewardScene(Scene):
 
         self.ui: RewardUI = RewardUI(game)
 
-        self.reward_units: Troupe = Troupe(self.game, "reward")
+        self.reward_troupe: Troupe = Troupe(self.game, "reward")
         self.gold_reward: int = 0
 
         # record duration
@@ -56,5 +56,5 @@ class RewardScene(Scene):
         self.gold_reward = random.randint(gold_min, gold_max)
 
         # generate units in Troupe
-        self.reward_units.remove_all_units()
-        self.reward_units.generate_units(num_rewards)
+        self.reward_troupe.remove_all_units()
+        self.reward_troupe.generate_units(num_rewards)

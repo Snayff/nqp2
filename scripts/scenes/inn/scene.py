@@ -30,7 +30,7 @@ class InnScene(Scene):
 
         self.ui: InnUI = InnUI(game)
 
-        self.units_for_sale: Troupe = Troupe(self.game, "inn")
+        self.sale_troupe: Troupe = Troupe(self.game, "inn")
 
         # record duration
         end_time = time.time()
@@ -46,7 +46,8 @@ class InnScene(Scene):
         """
         Purchase the unit
         """
-        unit = option_index  # FIXME - get the unit using the option index
+        units = list(self.sale_troupe.units.values())
+        unit = units[option_index]
 
         # can we afford
         if unit.gold_cost <= self.game.memory.gold:
