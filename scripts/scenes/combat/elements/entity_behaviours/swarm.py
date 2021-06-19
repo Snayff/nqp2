@@ -8,7 +8,7 @@ class Swarm(Behaviour):
     def complete_init(self):
         self.priority_target = None
         self.loop_around = 0
-        self.loop_direction = random.choice([random.random() * 2 - 1, 0])
+        self.loop_direction = random.choice([random.random() * 2 - 1, 0])  # don't use seeded rng
 
     def process(self, dt):
         # reduce loop around timer

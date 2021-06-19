@@ -54,8 +54,8 @@ class Entity:
         self.alive = True
 
         # slightly adjust position so the initial spread is round
-        self.pos[0] += random.random() * 0.1 - 0.05
-        self.pos[1] += random.random() * 0.1 - 0.05
+        self.pos[0] += random.random() * 0.1 - 0.05  # don't use seeded rng
+        self.pos[1] += random.random() * 0.1 - 0.05  # don't use seeded rng
 
         # temp
         self.colour = self.unit.colour

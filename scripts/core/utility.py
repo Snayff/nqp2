@@ -9,7 +9,7 @@ from scripts.core.constants import SceneType
 
 _V = TypeVar("_V", int, float)  # to represent where we don't know which type is being used
 
-__all__ = ["swap_color", "clip", "offset", "lerp", "clamp", "roll", "itr", "scene_to_scene_type"]
+__all__ = ["swap_color", "clip", "offset", "lerp", "clamp", "itr", "scene_to_scene_type"]
 
 
 def swap_color(img, old_c, new_c):
@@ -54,13 +54,6 @@ def clamp(value: _V, min_value: _V, max_value: _V) -> _V:
     Return the value, clamped between min and max.
     """
     return max(min_value, min(value, max_value))
-
-
-def roll(min_value: int = 0, max_value: int = 99) -> int:
-    """
-    Roll for a number between min and max
-    """
-    return random.randint(min_value, max_value)
 
 
 def itr(iterable):

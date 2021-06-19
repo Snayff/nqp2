@@ -45,7 +45,7 @@ class EventScene(Scene):
         if len(self.game.data.events) > 0:
 
             # convert dict items to list, get a random choice from list, get the dict value from the tuple
-            event = random.choice(list(self.game.data.events.items()))[1]
+            event = self.game.rng.choice(list(self.game.data.events.items()))[1]
         else:
             event = {}
         return event

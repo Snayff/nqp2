@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import logging
+import random
 import time
+from datetime import datetime
 
 import pygame
 
@@ -11,6 +13,7 @@ from scripts.core.constants import GameState, SceneType
 from scripts.core.data import Data
 from scripts.core.input import Input
 from scripts.core.memory import Memory
+from scripts.core.rng import RNG
 from scripts.core.window import Window
 from scripts.scenes.combat.scene import CombatScene
 from scripts.scenes.event.scene import EventScene
@@ -38,6 +41,7 @@ class Game:
         self.memory: Memory = Memory(self)
         self.assets: Assets = Assets(self)
         self.input: Input = Input(self)
+        self.rng: RNG = RNG(self)
 
         # scenes
         self.combat: CombatScene = CombatScene(self)
