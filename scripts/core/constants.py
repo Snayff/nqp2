@@ -67,3 +67,10 @@ class SceneType(IntEnum):
     OVERWORLD = auto()
     MAIN_MENU = auto()
     TROUPE = auto()
+
+
+class RewardType(IntEnum):
+    UNIT = auto()
+    ACTION = auto()
+    UPGRADE = auto()
+    RESOURCE = auto()

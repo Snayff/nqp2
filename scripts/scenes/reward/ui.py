@@ -1,11 +1,12 @@
 from __future__ import annotations
 
+import logging
 from typing import Optional, TYPE_CHECKING
 
 import pygame
 
 from scripts.core.base_classes.ui import UI
-from scripts.core.constants import DEFAULT_IMAGE_SIZE, SceneType
+from scripts.core.constants import DEFAULT_IMAGE_SIZE, RewardType, SceneType
 from scripts.scenes.combat.elements.unit import Unit
 
 if TYPE_CHECKING:
@@ -22,7 +23,7 @@ class RewardUI(UI):
     def __init__(self, game: Game):
         super().__init__(game)
 
-        self.selected_unit: Optional[Unit] = None
+        self.selected_reward: Optional[Unit] = None
 
     def update(self):
         units = self.game.memory.player_troupe.units
@@ -33,8 +34,13 @@ class RewardUI(UI):
         if self.game.input.states["select"]:
             self.game.input.states["select"] = False
 
-            if self.selected_unit:
-                self.game.training.upgrade_unit(self.selected_unit.id)
+            if self.selected_reward and self.game.reward.reward_type == RewardType.UNIT:
+                if isinstance(self.selected_reward, Unit):
+                    self.game.reward.choose_troupe_reward(self.selected_reward)
+                    self.game.training.upgrade_unit(self.selected_reward.id)
+                else:
+                    logging.warning(f"Chose {self.selected_reward} as a unit reward. As it isnt a unit something has "
+                                    f"seriously gone wrong! No reward added")
 
         # exit
         if self.game.input.states["cancel"]:
@@ -51,117 +57,79 @@ class RewardUI(UI):
         self.handle_selected_index_looping(len(units))
 
     def render(self, surface: pygame.surface):
-        units = self.game.memory.player_troupe.units
+        reward_type = self.game.reward.reward_type
+        if reward_type == RewardType.UNIT:
+            self._render_unit_rewards(surface)
+
+        elif reward_type == RewardType.ACTION:
+            pass
+
+        elif reward_type == RewardType.UPGRADE:
+            pass
+
+        else:
+            # reward_type == RewardType.RESOURCE
+            pass
+
+    def _render_unit_rewards(self, surface: pygame.surface):
+
+        reward_units = list(self.game.reward.troupe_rewards.units.values())
         default_font = self.default_font
+        disabled_font = self.disabled_font
         warning_font = self.warning_font
-        positive_font = self.positive_font
+        stats = ["health", "defence", "attack", "range", "attack_speed", "move_speed", "ammo", "count"]
 
         # positions
         start_x = 20
-        start_y = 20
-        select_unit_icon_width = DEFAULT_IMAGE_SIZE
-        select_unit_icon_height = DEFAULT_IMAGE_SIZE
-        select_unit_icon_size = (select_unit_icon_width, select_unit_icon_height)
-        gap = 2
-        font_height = 12  # FIXME - get actual font height
+        start_y = 60
+        gap = 10
+        font_height = 12
+        window_width = self.game.window.width
+        col_width = int((window_width - (start_x * 2)) / len(stats))
 
-        # draw list of unit names
-        unit_count = 0
-        for unit in units.values():
-            # draw icon
-            unit_icon_x = start_x
-            unit_icon_y = start_y + ((select_unit_icon_height + gap) * unit_count)
-            unit_icon_pos = (unit_icon_x, unit_icon_y)
-            unit_icon = self.game.assets.get_image("units", unit.type + "_icon", select_unit_icon_size)
-            surface.blit(unit_icon, unit_icon_pos)
+        # draw headers
+        col_count = 0
+        for stat in stats:
+            col_x = start_x + (col_width * col_count)
+            default_font.render(stat, surface, (col_x, start_y))
 
-            # draw unit type
-            unit_type_x = unit_icon_x + select_unit_icon_width + gap
-            unit_type_y = unit_icon_y + (select_unit_icon_height // 2)
+            col_count += 1
 
-            # determine which font to use
-            cost = unit.upgrade_cost
-            if cost <= self.game.memory.gold and not unit.is_upgraded:
-                font = default_font
-            else:
-                font = warning_font
+        # draw unit info
+        row_count = 0
+        for unit in reward_units:
+            active_font = default_font
 
-            font.render(unit.type, surface, (unit_type_x, unit_type_y))
+            option_y = start_y + ((font_height + gap) * (row_count + 1))  # + 1 due to headers
 
-            # note selected unit
-            if self.selected_row == unit_count:
-                self.selected_unit = unit
+            # draw stats
+            col_count = 0
+            for stat in stats:
+                col_x = start_x + (col_width * col_count)
+
+                # draw type or state value
+                if col_count == 0:
+                    text = unit.type
+                else:
+                    text = str(getattr(unit, stat))
+
+                active_font.render(text, surface, (col_x, option_y))
+
+                col_count += 1
 
             # draw selector
-            if unit_count == self.selected_row:
+            if row_count == self.selected_row:
+                # note the selected unit
+                self.selected_reward = unit
+
                 pygame.draw.line(
                     surface,
                     (255, 255, 255),
-                    (unit_type_x, unit_type_y + font_height),
-                    (unit_type_x + default_font.width(unit.type), unit_type_y + font_height),
+                    (start_x, option_y + font_height),
+                    (start_x + active_font.width(unit.type), option_y + font_height),
                 )
 
-            unit_count += 1
+            row_count += 1
 
-        # ensure a selected unit is found
-        if not self.selected_unit:
-            return
-
-        # get upgrade details
-        upgraded_unit = Unit(self.game, -1, self.selected_unit.type, "player", True)
-
-        # positions
-        comparison_x = self.game.window.width // 2
-        comparison_y = start_y
-        comparison_unit_icon_width = DEFAULT_IMAGE_SIZE * 2
-        comparison_unit_icon_height = DEFAULT_IMAGE_SIZE * 2
-        comparison_unit_icon_size = (comparison_unit_icon_width, comparison_unit_icon_height)
-        stat_width = DEFAULT_IMAGE_SIZE
-        stat_height = DEFAULT_IMAGE_SIZE
-        stat_icon_size = (stat_width, stat_height)
-        section_width = comparison_unit_icon_width * 2
-
-        # show selected unit and upgraded unit details
-        unit_count = 0
-        for unit in [self.selected_unit, upgraded_unit]:
-            # draw icon
-            unit_icon_x = comparison_x + (comparison_unit_icon_width // 2) + (section_width * unit_count)
-            unit_icon_pos = (unit_icon_x, comparison_y)
-            unit_icon = self.game.assets.get_image("units", unit.type + "_icon", comparison_unit_icon_size)
-            surface.blit(unit_icon, unit_icon_pos)
-
-            # draw unit type
-            info_x = comparison_x + ((section_width * unit_count) + gap)
-            unit_type_y = comparison_y + comparison_unit_icon_height + gap
-            default_font.render(unit.type, surface, (info_x, unit_type_y))
-
-            # draw stats
-            stats = ["health", "attack", "defence", "range", "attack_speed", "move_speed", "ammo", "count", "size"]
-            stat_count = 0
-            for stat in stats:
-                info_y = unit_type_y + font_height + ((stat_height + gap) * stat_count) + gap
-                stat_icon_x = info_x + (stat_width // 2)
-                stat_info_x = stat_icon_x + stat_width + 2
-
-                stat_icon = self.game.assets.get_image("stats", stat, stat_icon_size)
-                surface.blit(stat_icon, (stat_icon_x, info_y))
-
-                # determine font
-                if unit == self.selected_unit:
-                    font = default_font
-                elif getattr(self.selected_unit, stat) < getattr(upgraded_unit, stat):
-                    font = positive_font
-                elif getattr(self.selected_unit, stat) > getattr(upgraded_unit, stat):
-                    font = warning_font
-                else:
-                    font = default_font
-
-                # + half font height to vertical centre it
-                font.render(str(getattr(unit, stat)), surface, (stat_info_x, info_y + (font_height // 2)))
-
-                stat_count += 1
-
-            unit_count += 1
-
-        # show gold
-        self.draw_gold(surface)
+            # show gold
+            self.draw_gold(surface)

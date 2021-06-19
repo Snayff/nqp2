@@ -21,6 +21,9 @@ __all__ = ["CombatScene"]
 
 ########### To Do List #############
 # TODO - add combat with multiple participants, not just player vs enemy; team vs team or free for all.
+# FIXME - when visiting a second combat node, combat gets skipped
+# TODO - differentiate enemy and ally sprites. perhaps give the team a colour and render a small circle under each
+#  entity to denote their team?
 
 class CombatScene(Scene):
     """
@@ -91,7 +94,7 @@ class CombatScene(Scene):
         if self.game.combat.state not in [CombatState.UNIT_CHOOSE_CARD, CombatState.UNIT_SELECT_TARGET]:
             player_entities = [e for e in self.all_entities if e.team == "player"]
             if (len(player_entities) == 0) or (len(player_entities) == len(self.all_entities)):
-                self.game.change_scene(SceneType.OVERWORLD)
+                self.game.change_scene(SceneType.REWARD)
 
         self.ui.update()
         self.units.update()
