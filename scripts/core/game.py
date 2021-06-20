@@ -116,4 +116,4 @@ class Game:
             self.reward.generate_reward()
             self.active_scene = self.reward
 
-        logging.info(f"Active scene changed to {scene_type}.")
+        logging.info(f"Active scene changed to {scene_type.name}.")

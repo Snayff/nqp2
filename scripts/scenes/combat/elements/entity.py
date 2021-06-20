@@ -30,7 +30,7 @@ class Entity:
         self.defence: int = self.unit.defence
         self.attack: int = self.unit.attack
         self.range: int = self.unit.range
-        self.attack_speed: int = self.unit.attack_speed
+        self.attack_speed: float = self.unit.attack_speed
         self.move_speed: int = self.unit.move_speed
         self.ammo: int = self.unit.ammo
         self.count: int = self.unit.count

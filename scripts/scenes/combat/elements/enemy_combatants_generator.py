@@ -17,7 +17,7 @@ class EnemyCombatantsGenerator:
             # choose a random spot on the right side of the map
             pos = [rng.random() * map_size[0] // 2 + map_size[0] // 2, rng.random() * map_size[1]]
 
-            enemy_type = rng.choice(["spearman", "juggernaut"])
+            enemy_type = rng.choice(["spearman", "pikeman"])
             id_ = self.enemy_troupe.add_unit_from_type(enemy_type)
             unit = self.enemy_troupe.units[id_]
             unit.pos = pos

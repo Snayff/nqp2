@@ -1,8 +1,8 @@
 {
-    "type": "spearman",
+    "type": "pikeman",
     "health": 3,
-    "defence": 1,
-    "attack": 1,
+    "defence": 2,
+    "attack": 2,
     "range": 3,
     "attack_speed": 2,
     "move_speed": 20,
@@ -10,9 +10,9 @@
     "count": 10,
     "size": 7,
     "weight": 3,
-    "gold_cost": 5,
+    "gold_cost": 12,
     "occur_rate": 200,
     "default_behaviour": "swarm",
-    "upgrade_cost": 10,
-    "upgrades_to":"pikeman"
+    "upgrade_cost": 0,
+    "upgrades_to":""
 }

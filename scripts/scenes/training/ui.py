@@ -81,7 +81,7 @@ class TrainingUI(UI):
 
             # determine which font to use
             cost = unit.upgrade_cost
-            if cost <= self.game.memory.gold and not unit.is_upgraded:
+            if cost <= self.game.memory.gold and unit.upgrades_to:
                 font = default_font
             else:
                 font = warning_font
@@ -108,7 +108,7 @@ class TrainingUI(UI):
             return
 
         # get upgrade details
-        upgraded_unit = Unit(self.game, -1, self.selected_unit.type, "player", True)
+        upgraded_unit = Unit(self.game, -1, self.selected_unit.type, "player")
 
         # positions
         comparison_x = self.game.window.width // 2
