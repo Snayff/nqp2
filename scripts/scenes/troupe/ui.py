@@ -60,7 +60,7 @@ class TroupeUI(UI):
             # draw icon
             unit_icon_x = start_x + (unit_width // 2) + (section_width * unit_count)
             unit_icon_pos = (unit_icon_x, start_y)
-            unit_icon = self.game.assets.get_image("units", unit.type + "_icon", unit_size)
+            unit_icon = self.game.assets.unit_animations[unit.type]["icon"][0]
             surface.blit(unit_icon, unit_icon_pos)
 
             # draw unit type
