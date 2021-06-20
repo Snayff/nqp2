@@ -37,10 +37,10 @@ class Unit:
         self.move_speed: int = unit_data["move_speed"]
         self.ammo: int = unit_data["ammo"]
         self.count: int = unit_data["count"]
-        self.size: int = unit_data["size"]
+        self.size: int = unit_data["size"]  # size of the hitbox
         self.weight: int = unit_data["weight"]
         self.gold_cost: int = unit_data["gold_cost"]
-        self.occur_rate: int = unit_data["occur_rate"]
+        self.occur_rate: int = unit_data["occur_rate"]  # how often they are generated, lower means less often.
 
         # during combat
         self.behaviour = self.game.data.behaviours.unit_behaviours[self.default_behaviour](self)

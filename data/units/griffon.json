@@ -1,0 +1,18 @@
+{
+    "type": "griffon",
+    "health": 35,
+    "defence": 1,
+    "attack": 6,
+    "range": 1,
+    "attack_speed": 1.5,
+    "move_speed": 30,
+    "ammo": -1,
+    "count": 1,
+    "size": 7,
+    "weight": 7,
+    "gold_cost": 90,
+    "occur_rate": 80,
+    "default_behaviour": "swarm",
+    "upgrade_cost": 30,
+    "upgrades_to":"greater_griffon"
+}

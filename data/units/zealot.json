@@ -1,0 +1,18 @@
+{
+    "type": "zealot",
+    "health": 5,
+    "defence": 1,
+    "attack": 2,
+    "range": 70,
+    "attack_speed": 3,
+    "move_speed": 5,
+    "ammo": 999,
+    "count": 3,
+    "size": 7,
+    "weight": 2,
+    "gold_cost": 130,
+    "occur_rate": 1,
+    "default_behaviour": "swarm",
+    "upgrade_cost": 0,
+    "upgrades_to":""
+}

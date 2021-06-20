@@ -1,0 +1,18 @@
+{
+    "type": "cavalier",
+    "health": 10,
+    "defence": 5,
+    "attack": 3,
+    "range": 1,
+    "attack_speed": 1,
+    "move_speed": 25,
+    "ammo": -1,
+    "count": 3,
+    "size": 14,
+    "weight": 5,
+    "gold_cost": 10,
+    "occur_rate": 10,
+    "default_behaviour": "swarm",
+    "upgrade_cost": 30,
+    "upgrades_to":"knight"
+}
