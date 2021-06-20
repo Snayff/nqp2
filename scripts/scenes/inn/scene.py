@@ -57,6 +57,9 @@ class InnScene(Scene):
             # add unit
             self.game.memory.player_troupe.add_unit(unit)
 
+        # remove option from list
+        self.sale_troupe.remove_unit(unit.id)
+
     def generate_sale_options(self):
         """
         Generate the options for sale at the Inn.
