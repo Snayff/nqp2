@@ -88,10 +88,10 @@ class Troupe:
 
         logging.info(f"All units removed from {self.team}'s troupe.")
 
-    def generate_units(self, number_of_units: int, unit_types: List[str] = None):
+    def generate_units(self, number_of_units: int, unit_types: List[str] = None) -> List[int]:
         """
         Generate units for the Troupe, based on parameters given. If no unit types are given then any unit type can
-        be chosen.
+        be chosen. Returns list of created ids.
 
         unit_types is expressed as [unit.name, ...]
         """
@@ -114,8 +114,12 @@ class Troupe:
                 unit_types.append(chosen_type)
 
         # create units
+        ids = []
         for unit_type in unit_types:
-            self.add_unit_from_type(unit_type)
+            id_ = self.add_unit_from_type(unit_type)
+            ids.append(id_)
+
+        return ids
 
     def upgrade_unit(self, id_: int):
         """
