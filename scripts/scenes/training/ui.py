@@ -72,7 +72,7 @@ class TrainingUI(UI):
             unit_icon_x = start_x
             unit_icon_y = start_y + ((select_unit_icon_height + gap) * unit_count)
             unit_icon_pos = (unit_icon_x, unit_icon_y)
-            unit_icon = self.game.assets.get_image("units", unit.type + "_icon", select_unit_icon_size)
+            unit_icon = self.game.assets.unit_animations[unit.type]["icon"][0]
             surface.blit(unit_icon, unit_icon_pos)
 
             # draw unit type

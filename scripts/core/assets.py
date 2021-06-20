@@ -62,10 +62,10 @@ class Assets:
 
         self.unit_animations = {
             unit: {
-                action: self.load_image_dir(ASSET_PATH / "units/animations/" / unit / action)
-                for action in os.listdir(ASSET_PATH / "units/animations/" / unit)
+                action: self.load_image_dir(ASSET_PATH / "units/" / unit / action)
+                for action in os.listdir(ASSET_PATH / "units/" / unit)
             }
-            for unit in os.listdir(ASSET_PATH / "units/animations")
+            for unit in os.listdir(ASSET_PATH / "units/")
         }
 
         self.tilesets = {
@@ -182,7 +182,7 @@ class Assets:
         images = {}
 
         # specify folders in assets that need to be loaded
-        folders = ["nodes", "stats", "units"]
+        folders = ["nodes", "stats"]
 
         for folder in folders:
             path = ASSET_PATH / folder
