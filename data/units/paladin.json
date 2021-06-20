@@ -1,0 +1,18 @@
+{
+    "type": "paladin",
+    "health": 20,
+    "defence": 5,
+    "attack": 5,
+    "range": 1,
+    "attack_speed": 2.2,
+    "move_speed": 20,
+    "ammo": -1,
+    "count": 4,
+    "size": 7,
+    "weight": 10,
+    "gold_cost": 120,
+    "occur_rate": 10,
+    "default_behaviour": "swarm",
+    "upgrade_cost": 80,
+    "upgrades_to":"templar"
+}

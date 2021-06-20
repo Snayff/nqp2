@@ -1,0 +1,18 @@
+{
+    "type": "swordsman",
+    "health": 10,
+    "defence": 2,
+    "attack": 3,
+    "range": 1,
+    "attack_speed": 1.5,
+    "move_speed": 10,
+    "ammo": -1,
+    "count": 5,
+    "size": 7,
+    "weight": 3,
+    "gold_cost": 40,
+    "occur_rate": 40,
+    "default_behaviour": "swarm",
+    "upgrade_cost": 30,
+    "upgrades_to":"crusader"
+}

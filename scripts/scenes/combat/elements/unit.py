@@ -16,42 +16,33 @@ __all__ = ["Unit"]
 
 
 class Unit:
-    def __init__(self, game: Game, id_: int, unit_type: str, team: str, is_upgraded: bool = False):
+    def __init__(self, game: Game, id_: int, unit_type: str, team: str):
         self.game: Game = game
 
         # persistent
         unit_data = self.game.data.units[unit_type]
         self.id = id_
         self.type: str = unit_type
-        self.is_upgraded = is_upgraded
         self.team: str = team  # this is derived from the Troupe but can be overridden in combat
 
-        # determine which value to get from tuple
-        if is_upgraded:
-            i = 1
-        else:
-            i = 0
-
-        # attributes that cant change due to upgrade
+        self.upgrades_to: str = unit_data["upgrades_to"]
+        self.upgrade_cost: int = unit_data["upgrade_cost"]
         self.type: str = unit_data["type"]
         self.default_behaviour: str = unit_data["default_behaviour"]
-        self.upgrade_cost: int = unit_data["upgrade_cost"]
+        self.health: int = unit_data["health"]
+        self.attack: int = unit_data["attack"]
+        self.defence: int = unit_data["defence"]
+        self.range: int = unit_data["range"]
+        self.attack_speed: float = unit_data["attack_speed"]
+        self.move_speed: int = unit_data["move_speed"]
+        self.ammo: int = unit_data["ammo"]
+        self.count: int = unit_data["count"]
+        self.size: int = unit_data["size"]  # size of the hitbox
+        self.weight: int = unit_data["weight"]
+        self.gold_cost: int = unit_data["gold_cost"]
+        self.occur_rate: int = unit_data["occur_rate"]  # how often they are generated, lower means less often.
 
-        # attributes affected by being upgraded
-        self.health: int = unit_data["health"][i]
-        self.attack: int = unit_data["attack"][i]
-        self.defence: int = unit_data["defence"][i]
-        self.range: int = unit_data["range"][i]
-        self.attack_speed: float = unit_data["attack_speed"][i]
-        self.move_speed: int = unit_data["move_speed"][i]
-        self.ammo: int = unit_data["ammo"][i]
-        self.count: int = unit_data["count"][i]
-        self.size: int = unit_data["size"][i]
-        self.weight: int = unit_data["weight"][i]
-        self.gold_cost: int = unit_data["gold_cost"][i]
-        self.rarity: int = unit_data["rarity"][i]
-
-        # in combat
+        # during combat
         self.behaviour = self.game.data.behaviours.unit_behaviours[self.default_behaviour](self)
         self.alive: bool = True
         self.colour = (0, 0, 255)
@@ -92,27 +83,6 @@ class Unit:
                 pos[1] += entity.pos[1]
             self.pos[0] = pos[0] / len(self.entities)
             self.pos[1] = pos[1] / len(self.entities)
-
-    def upgrade(self):
-        """
-        Upgrade the unit and their stats
-        """
-        self.is_upgraded = True
-
-        # update stats
-        unit_data = self.game.data.units[self.type]
-        i = 1
-        self.health: int = unit_data["health"][i]
-        self.attack: int = unit_data["attack"][i]
-        self.defence: int = unit_data["defence"][i]
-        self.range: int = unit_data["range"][i]
-        self.attack_speed: float = unit_data["attack_speed"][i]
-        self.move_speed: int = unit_data["move_speed"][i]
-        self.ammo: int = unit_data["ammo"][i]
-        self.count: int = unit_data["count"][i]
-        self.size: int = unit_data["size"][i]
-        self.weight: int = unit_data["weight"][i]
-        self.gold_cost: int = unit_data["gold_cost"][i]
 
     def update(self, dt):
         self.update_pos()

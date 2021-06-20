@@ -1,0 +1,18 @@
+{
+    "type": "templar",
+    "health": 30,
+    "defence": 8,
+    "attack": 7,
+    "range": 1,
+    "attack_speed": 2.2,
+    "move_speed": 20,
+    "ammo": -1,
+    "count": 4,
+    "size": 7,
+    "weight": 15,
+    "gold_cost": 200,
+    "occur_rate": 1,
+    "default_behaviour": "swarm",
+    "upgrade_cost": 0,
+    "upgrades_to":""
+}

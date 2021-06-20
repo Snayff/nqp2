@@ -1,0 +1,18 @@
+{
+    "type": "crossbowman",
+    "health": 1,
+    "defence": 1,
+    "attack": 4,
+    "range": 17,
+    "attack_speed": 0.5,
+    "move_speed": 15,
+    "ammo": 10,
+    "count": 5,
+    "size": 7,
+    "weight": 3,
+    "gold_cost": 30,
+    "occur_rate": 500,
+    "default_behaviour": "swarm",
+    "upgrade_cost": 0,
+    "upgrades_to":""
+}
