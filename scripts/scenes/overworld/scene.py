@@ -15,10 +15,10 @@ __all__ = ["OverworldScene"]
 
 
 ## TO DO LIST ##
-# TODO - implement use of a seed
 # TODO - allow number of nodes per row to vary
 # TODO - connect nodes between rows randomly
 # TODO - output to log results of generation
+# FIXME - able to select across unconnected nodes
 
 
 class OverworldScene(Scene):

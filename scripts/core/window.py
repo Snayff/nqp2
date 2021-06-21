@@ -19,8 +19,6 @@ class Window:
 
         self.game: Game = game
 
-        pygame.init()
-
         self.base_resolution = [640, 360]
         self.scaled_resolution = [1280, 720]
 

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import logging
 import os
 import time
@@ -31,7 +32,7 @@ def clip(surf, pos, size):
     return image.copy()
 
 def json_read(path):
-    f = open(path, 'r')
+    f = open(path, "r")
     data = json.load(f)
     f.close()
     return data
@@ -57,7 +58,20 @@ class Assets:
         end_time = time.time()
         logging.info(f"Assets: initialised in {format(end_time - start_time, '.2f')}s.")
 
-        self.unit_animations = {unit : {action : self.load_image_dir(ASSET_PATH / "units/animations/" / unit / action) for action in os.listdir(ASSET_PATH / "units/animations/" / unit)} for unit in os.listdir(ASSET_PATH / "units/animations")}
+        self.unit_animations = {
+            unit: {
+                action: self.load_image_dir(ASSET_PATH / "units/" / unit / action)
+                for action in os.listdir(ASSET_PATH / "units/" / unit)
+            }
+            for unit in os.listdir(ASSET_PATH / "units/")
+        }
+
+        self.tilesets = {
+            tileset.split(".")[0]: self.load_tileset(ASSET_PATH / "tiles" / tileset)
+            for tileset in os.listdir(ASSET_PATH / "tiles")
+        }
+
+        self.maps = {map.split(".")[0]: json_read("data/maps/" + map) for map in os.listdir("data/maps")}
 
         self.tilesets = {tileset.split('.')[0] : self.load_tileset(ASSET_PATH / "tiles" / tileset) for tileset in os.listdir(ASSET_PATH / "tiles")}
 
@@ -152,14 +166,13 @@ class Assets:
             images = {}
 
         for img_path in os.listdir(path):
-            img = pygame.image.load(str(path) + '/' + img_path).convert_alpha()
+            img = pygame.image.load(str(path) + "/" + img_path).convert_alpha()
             if format == "list":
                 images.append(img)
             if format == "dict":
-                images[img_path.split('.')[0]] = img
+                images[img_path.split(".")[0]] = img
 
         return images
-
 
     @staticmethod
     def _load_images() -> Dict[str, Dict[str, pygame.Surface]]:
@@ -171,13 +184,13 @@ class Assets:
         images = {}
 
         # specify folders in assets that need to be loaded
-        folders = ["nodes", "stats", "units"]
+        folders = ["nodes", "stats"]
 
         for folder in folders:
             path = ASSET_PATH / folder
             images[folder] = {}
             for image_name in os.listdir(path):
-                if image_name.split('.')[-1] == "png":
+                if image_name.split(".")[-1] == "png":
                     image = pygame.image.load(str(path / image_name)).convert_alpha()
                     width = image.get_width()
                     height = image.get_height()

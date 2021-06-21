@@ -22,18 +22,10 @@ class TroupeUI(UI):
     def __init__(self, game: Game):
         super().__init__(game)
 
-        self.selected_option: int = 0
-
     def update(self):
         units = self.game.memory.player_troupe.units
 
-        if self.game.input.states["up"]:
-            self.game.input.states["up"] = False
-            self.selected_option -= 1
-
-        if self.game.input.states["down"]:
-            self.game.input.states["down"] = False
-            self.selected_option += 1
+        self.handle_directional_input_for_selection()
 
         if self.game.input.states["cancel"]:
             self.game.input.states["cancel"] = False
@@ -41,15 +33,12 @@ class TroupeUI(UI):
             # return to previous scene
             self.game.change_scene(self.game.troupe.previous_scene_type)
 
-        # correct selection index for looping
-        if self.selected_option < 0:
-            self.selected_option = len(units) - 1
-        if self.selected_option >= len(units):
-            self.selected_option = 0
+        # manage looping
+        self.handle_selected_index_looping(len(units))
 
     def render(self, surface: pygame.surface):
         units = self.game.memory.player_troupe.units
-        default_font = self.game.assets.fonts["default"]
+        default_font = self.default_font
 
         # positions
         start_x = 20
@@ -71,7 +60,7 @@ class TroupeUI(UI):
             # draw icon
             unit_icon_x = start_x + (unit_width // 2) + (section_width * unit_count)
             unit_icon_pos = (unit_icon_x, start_y)
-            unit_icon = self.game.assets.get_image("units", unit.type + "_icon", unit_size)
+            unit_icon = self.game.assets.unit_animations[unit.type]["icon"][0]
             surface.blit(unit_icon, unit_icon_pos)
 
             # draw unit type
@@ -97,4 +86,4 @@ class TroupeUI(UI):
             unit_count += 1
 
         # show gold
-        default_font.render(f"Gold: {self.game.memory.gold}", surface, (1, 1), 2)
+        self.draw_gold(surface)

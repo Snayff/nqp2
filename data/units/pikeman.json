@@ -1,0 +1,18 @@
+{
+    "type": "pikeman",
+    "health": 3,
+    "defence": 2,
+    "attack": 2,
+    "range": 3,
+    "attack_speed": 2,
+    "move_speed": 20,
+    "ammo": -1,
+    "count": 10,
+    "size": 7,
+    "weight": 3,
+    "gold_cost": 12,
+    "occur_rate": 100,
+    "default_behaviour": "swarm",
+    "upgrade_cost": 0,
+    "upgrades_to":""
+}

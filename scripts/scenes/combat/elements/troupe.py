@@ -1,12 +1,13 @@
 from __future__ import annotations
 
 import logging
+import random
 from typing import TYPE_CHECKING
 
 from scripts.scenes.combat.elements.unit import Unit
 
 if TYPE_CHECKING:
-    from typing import Dict
+    from typing import Dict, List, Tuple
 
     from scripts.core.game import Game
 
@@ -14,12 +15,28 @@ __all__ = ["Troupe"]
 
 
 class Troupe:
-    def __init__(self, game):
+    """
+    Management of a group of units
+    """
+
+    def __init__(self, game, team: str):
         self.game: Game = game
 
-        self.units: Dict[int, Unit] = {}
+        self._unit_ids: List[int] = []  # used to manage order
+        self._units: Dict[int, Unit] = {}
+        self.team: str = team
 
         self._last_id = 0
+
+    @property
+    def units(self) -> Dict[int, Unit]:
+        units_ = {}
+
+        # build new dict respecting order
+        for id_ in self._unit_ids:
+            units_[id_] = self._units[id_]
+
+        return units_
 
     def debug_init_units(self):
         """
@@ -27,32 +44,102 @@ class Troupe:
         """
         for i in range(4):
             if i % 2 == 1:
-                self.add_unit("spearman", "player")
+                self.add_unit_from_type("spearman")
             else:
-                self.add_unit("spearman", "player", True)
+                self.add_unit_from_type("pikeman")
 
-    def add_unit(self, unit_type: str, team: str, is_upgraded: bool = False) -> int:
+    def add_unit(self, unit: Unit):
         """
-        Add a unit to the troupe. Return id.
+        Add a unit instance to the troupe. Used when buying an existing unit, e.g. from Inn.
         """
-        id_ = self._generate_id()
-        unit = Unit(self.game, id_, unit_type, team, is_upgraded)
-        self.units[id_] = unit
+        self._units[unit.id] = unit
+        self._unit_ids.append(unit.id)
 
-        logging.info(f"Unit {unit.type}({unit.id}) added to {team}'s troupe.")
+        logging.info(f"Unit {unit.type}({unit.id}) added to {self.team}'s troupe.")
+
+    def add_unit_from_type(self, unit_type: str) -> int:
+        """
+        Create a unit based on the unit type and add the unit to the troupe. Return id.
+        """
+        id_ = self.game.memory.generate_id()
+        unit = Unit(self.game, id_, unit_type, self.team)
+        self._units[id_] = unit
+        self._unit_ids.append(id_)
+
+        logging.info(f"Unit {unit.type}({unit.id}) created and added to {self.team}'s troupe.")
 
         return id_
 
     def remove_unit(self, id_: int):
         try:
-            unit = self.units.pop(id_)
+            unit = self._units.pop(id_)
+            self._unit_ids.pop(id_)
+
             logging.info(f"Unit {unit.type}({unit.id}) removed from {unit.team}'s troupe.")
         except KeyError:
             logging.warning(f"remove_unit: {id_} not found in {self.units}. No unit removed.")
 
-    def _generate_id(self) -> int:
+    def remove_all_units(self):
         """
-        Create unique ID for a unit
+        Remove all units from the Troupe
         """
-        self._last_id += 1
-        return self._last_id
+        self._units = {}
+        self._unit_ids = []
+
+        logging.info(f"All units removed from {self.team}'s troupe.")
+
+    def generate_units(self, number_of_units: int, unit_types: List[str] = None) -> List[int]:
+        """
+        Generate units for the Troupe, based on parameters given. If no unit types are given then any unit type can
+        be chosen. Returns list of created ids.
+
+        unit_types is expressed as [unit.name, ...]
+        """
+        # handle default mutable
+        if unit_types is None:
+            unit_types = []
+
+            # get unit info
+            unit_types_ = []
+            unit_occur_rate = []
+            for unit_details in self.game.data.units.values():
+                unit_types_.append(unit_details["type"])
+                unit_occur_rate.append(unit_details["occur_rate"])
+
+            # choose units
+            chosen_types = self.game.rng.choices(unit_types_, unit_occur_rate, k=number_of_units)
+
+            # identify which are upgrades
+            for chosen_type in chosen_types:
+                unit_types.append(chosen_type)
+
+        # create units
+        ids = []
+        for unit_type in unit_types:
+            id_ = self.add_unit_from_type(unit_type)
+            ids.append(id_)
+
+        return ids
+
+    def upgrade_unit(self, id_: int):
+        """
+        Upgrade a unit, if it has an upgrade.
+        """
+        # get unit
+        unit = self.units[id_]
+
+        # confirm there is an upgrade
+        if not unit.upgrades_to:
+            logging.warning(f"Tried to upgrade {unit.type} but it cannot be upgraded further.")
+            return
+
+        # create upgraded unit. Not using add methods so that we can set position
+        new_id = self.game.memory.generate_id()
+        upgraded_unit = Unit(self.game, new_id, unit.upgrades_to, self.team)
+        self._units[new_id] = upgraded_unit
+
+        # insert after the existing unit
+        self._unit_ids.insert(self._unit_ids.index(id_) + 1, new_id)
+
+        # remove non upgraded unit
+        self.remove_unit(id_)

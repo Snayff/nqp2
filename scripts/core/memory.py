@@ -27,8 +27,9 @@ class Memory:
         self.game: Game = game
 
         # combat
-        self.player_troupe: Troupe = Troupe(self.game)
-        self.player_troupe.debug_init_units()  # during testing only
+        self._last_id = 0
+
+        self.player_troupe: Troupe = Troupe(self.game, "player")
 
         self.unit_deck: CardCollection = CardCollection(game)
         self.unit_deck.from_troupe(self.player_troupe)
@@ -47,3 +48,10 @@ class Memory:
         Amend the current gold value by the given amount.
         """
         self.gold = max(0, self.gold + amount)
+
+    def generate_id(self) -> int:
+        """
+        Create unique ID for an instance, such as a unit.
+        """
+        self._last_id += 1
+        return self._last_id

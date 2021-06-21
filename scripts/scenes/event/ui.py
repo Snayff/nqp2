@@ -22,29 +22,21 @@ class EventUI(UI):
     def __init__(self, game: Game):
         super().__init__(game)
 
-        self.selected_option: int = 0
-
     def update(self):
         options = self.game.event.active_event["options"]
 
-        if self.game.input.states["up"]:
-            self.game.input.states["up"] = False
-            self.selected_option -= 1
-
-        if self.game.input.states["down"]:
-            self.game.input.states["down"] = False
-            self.selected_option += 1
+        self.handle_directional_input_for_selection()
 
         # select option and trigger result
         if self.game.input.states["select"]:
             self.game.input.states["select"] = False
 
             logging.info(
-                f"Selected option {self.selected_option},"
-                f" {self.game.event.active_event['options'][self.selected_option]}."
+                f"Selected option {self.selected_row},"
+                f" {self.game.event.active_event['options'][self.selected_row]}."
             )
 
-            self.game.event.trigger_result(self.selected_option)
+            self.game.event.trigger_result(self.selected_row)
 
             # return to overworld
             self.game.change_scene(SceneType.OVERWORLD)
@@ -53,15 +45,12 @@ class EventUI(UI):
             self.game.input.states["view_troupe"] = False
             self.game.change_scene(SceneType.TROUPE)
 
-        # correct selection index for looping
-        if self.selected_option < 0:
-            self.selected_option = len(options) - 1
-        if self.selected_option >= len(options):
-            self.selected_option = 0
+        # manage looping
+        self.handle_selected_index_looping(len(options))
 
     def render(self, surface: pygame.surface):
         event = self.game.event.active_event
-        default_font = self.game.assets.fonts["default"]
+        default_font = self.default_font
 
         # positions
         option_x = 20
@@ -81,7 +70,7 @@ class EventUI(UI):
             default_font.render(option["text"], surface, (option_x, option_y))
 
             # draw selector
-            if count == self.selected_option:
+            if count == self.selected_row:
                 pygame.draw.line(
                     surface,
                     (255, 255, 255),
@@ -92,4 +81,4 @@ class EventUI(UI):
             count += 1
 
         # show gold
-        default_font.render(f"Gold: {self.game.memory.gold}", surface, (1, 1), 2)
+        self.draw_gold(surface)

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 import random
 from typing import TYPE_CHECKING
 
@@ -107,14 +108,13 @@ class OverworldUI(UI):
             selected_node_centre_y = selected_node.pos[1] + (node_height / 2)
             pygame.draw.circle(surface, (255, 0, 0), (selected_node_centre_x, selected_node_centre_y), node_width, 2)
 
-    @staticmethod
-    def pick_unknown_node() -> NodeType:
+    def pick_unknown_node(self) -> NodeType:
         """
         Randomly pick a node type that isnt Unknown.
         """
         node_types = [NodeType.COMBAT, NodeType.EVENT, NodeType.INN, NodeType.TRAINING]
         node_weights = [0.2, 0.4, 0.1, 0.1]
 
-        node_type = random.choices(node_types, node_weights, k=1)[0]
+        node_type = self.game.rng.choices(node_types, node_weights, k=1)[0]
 
         return node_type

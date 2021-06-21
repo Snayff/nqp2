@@ -60,9 +60,17 @@ class NodeType(IntEnum):
 
 class SceneType(IntEnum):
     COMBAT = auto()
+    REWARD = auto()
     EVENT = auto()
     INN = auto()
     TRAINING = auto()
     OVERWORLD = auto()
     MAIN_MENU = auto()
     TROUPE = auto()
+
+
+class RewardType(IntEnum):
+    UNIT = auto()
+    ACTION = auto()
+    UPGRADE = auto()
+    RESOURCE = auto()

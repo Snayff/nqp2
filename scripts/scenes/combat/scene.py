@@ -19,6 +19,13 @@ if TYPE_CHECKING:
 __all__ = ["CombatScene"]
 
 
+########### To Do List #############
+# TODO - add combat with multiple participants, not just player vs enemy; team vs team or free for all.
+# FIXME - when visiting a second combat node, combat isnt refreshed and resumes previous state, though with new enemies.
+# TODO - differentiate enemy and ally sprites. perhaps give the team a colour on a small circle under each
+#  entity to denote their team?
+
+
 class CombatScene(Scene):
     """
     Handles CombatScene interactions and consolidates the rendering.
@@ -34,7 +41,7 @@ class CombatScene(Scene):
         self.camera.pos = [0, 100]
 
         self.terrain: Terrain = Terrain(game)
-        self.terrain.generate(game.assets.maps['plains_1'])
+        self.terrain.generate(game.assets.maps["plains_1"])
 
         self.units: UnitManager = UnitManager(game)
 
@@ -88,7 +95,7 @@ class CombatScene(Scene):
         if self.game.combat.state not in [CombatState.UNIT_CHOOSE_CARD, CombatState.UNIT_SELECT_TARGET]:
             player_entities = [e for e in self.all_entities if e.team == "player"]
             if (len(player_entities) == 0) or (len(player_entities) == len(self.all_entities)):
-                self.game.change_scene(SceneType.OVERWORLD)
+                self.game.change_scene(SceneType.REWARD)
 
         self.ui.update()
         self.units.update()
