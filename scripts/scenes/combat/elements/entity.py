@@ -60,6 +60,32 @@ class Entity:
         # temp
         self.colour = self.unit.colour
 
+    def move(self, movement):
+        '''
+        Splits the movement operation into smaller amounts to prevent issues with high speed movement.
+        Calls the move sub-process anywhere from one to several times depending on the speed.
+        '''
+        move_count = int(abs(movement[0]) // self.game.combat.terrain.tile_size + 1)
+        move_count = max(int(abs(movement[1]) // self.game.combat.terrain.tile_size + 1), move_count)
+        move_amount = [movement[0] / move_count, movement[1] / move_count]
+        for i in range(move_count):
+            self.sub_move(move_amount)
+
+    def sub_move(self, movement):
+        self.pos[0] += movement[0]
+        if self.game.combat.terrain.check_tile_solid(self.pos):
+            if movement[0] > 0:
+                self.pos[0] = self.game.combat.terrain.tile_rect_px(self.pos).left - 1
+            if movement[0] < 0:
+                self.pos[0] = self.game.combat.terrain.tile_rect_px(self.pos).right + 1
+
+        self.pos[1] += movement[1]
+        if self.game.combat.terrain.check_tile_solid(self.pos):
+            if movement[1] > 0:
+                self.pos[1] = self.game.combat.terrain.tile_rect_px(self.pos).top - 1
+            if movement[1] < 0:
+                self.pos[1] = self.game.combat.terrain.tile_rect_px(self.pos).bottom + 1
+
     def dis(self, entity):
         """
         Find the distance to another entity or other object with a position.
@@ -73,8 +99,8 @@ class Entity:
         return math.atan2(entity.pos[1] - self.pos[1], entity.pos[0] - self.pos[0])
 
     def advance(self, angle, amount):
-        self.pos[0] += math.cos(angle) * amount
-        self.pos[1] += math.sin(angle) * amount
+        movement = [math.cos(angle) * amount, math.sin(angle) * amount]
+        self.move(movement)
 
     def deal_damage(self, amount, owner):
         self.health -= amount * (DEFENSE_SCALE / (DEFENSE_SCALE + self.defence))

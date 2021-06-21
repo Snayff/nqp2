@@ -1,7 +1,13 @@
+from copy import deepcopy
+
 class Tile:
-    def __init__(self, tile_type, location):
+    def __init__(self, tile_type, location, tile_config):
         self.type = tile_type
         self.loc = list(location)
+
+        self.config = deepcopy(tile_config[('default', 0, 0)])
+        if tuple(self.type) in tile_config:
+            self.config.update(tile_config[tuple(self.type)])
 
     @property
     def group(self):
