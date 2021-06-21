@@ -1,0 +1,83 @@
+{
+  "default|0|0": {
+    "solid": false
+  },
+  "plains|1|0": {
+    "solid": true
+  },
+  "plains_animated|0|0": {
+    "solid": true
+  },
+  "plains_animated|1|0": {
+    "solid": true
+  },
+  "plains_animated|2|0": {
+    "solid": true
+  },
+  "plains_animated|3|0": {
+    "solid": true
+  },
+  "plains_animated|4|0": {
+    "solid": true
+  },
+  "plains_animated|5|0": {
+    "solid": true
+  },
+  "plains_animated|6|0": {
+    "solid": true
+  },
+  "plains_animated|7|0": {
+    "solid": true
+  },
+  "plains_animated|8|0": {
+    "solid": true
+  },
+  "plains_animated|9|0": {
+    "solid": true
+  },
+  "plains_animated|10|0": {
+    "solid": true
+  },
+  "plains_animated|11|0": {
+    "solid": true
+  },
+  "plains_animated|12|0": {
+    "solid": true
+  },
+  "plains_animated|13|0": {
+    "solid": true
+  },
+  "plains_animated|14|0": {
+    "solid": true
+  },
+  "plains_animated|15|0": {
+    "solid": true
+  },
+  "plains_animated|16|0": {
+    "solid": true
+  },
+  "plains_animated|17|0": {
+    "solid": true
+  },
+  "plains_animated|18|0": {
+    "solid": true
+  },
+  "plains_animated|19|0": {
+    "solid": true
+  },
+  "plains_animated|20|0": {
+    "solid": true
+  },
+  "plains_animated|21|0": {
+    "solid": true
+  },
+  "plains_animated|22|0": {
+    "solid": true
+  },
+  "plains_animated|23|0": {
+    "solid": true
+  },
+  "plains_animated|24|0": {
+    "solid": true
+  }
+}

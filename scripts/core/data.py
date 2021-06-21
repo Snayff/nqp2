@@ -29,6 +29,7 @@ class Data:
 
         self.units: Dict = self.load_unit_info()
         self.behaviours = BehaviourManager()
+        self.tiles = self.load_tile_info()
 
         # event
         self.events: Dict = self.load_events()
@@ -36,6 +37,19 @@ class Data:
         # record duration
         end_time = time.time()
         logging.info(f"Data: initialised in {format(end_time - start_time, '.2f')}s.")
+
+    @staticmethod
+    def load_tile_info() -> Dict:
+        f = open('data/tiles.json', 'r')
+        tile_info_raw = json.load(f)
+        f.close()
+
+        # convert tile IDs to tuples (JSON doesn't allow tuples)
+        tile_info = {}
+        for tile_id in tile_info_raw:
+            tile_info[tuple([id_section if i == 0 else int(id_section) for i, id_section in enumerate(tile_id.split('|'))])] = tile_info_raw[tile_id]
+
+        return tile_info
 
     @staticmethod
     def load_unit_info() -> Dict:

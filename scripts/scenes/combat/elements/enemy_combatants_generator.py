@@ -17,7 +17,10 @@ class EnemyCombatantsGenerator:
         positions = []
         for i in range(enemy_count):
             # choose a random spot on the right side of the map
-            pos = [rng.random() * map_size[0] // 2 + map_size[0] // 2, rng.random() * map_size[1]]
+            while True:
+                pos = [rng.random() * map_size[0] // 2 + map_size[0] // 2, rng.random() * map_size[1]]
+                if not self.game.combat.terrain.check_tile_solid(pos):
+                    break
             positions.append(pos)
 
         # generate units
