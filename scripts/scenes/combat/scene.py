@@ -11,6 +11,7 @@ from scripts.scenes.combat.elements.card_collection import CardCollection
 from scripts.scenes.combat.elements.enemy_combatants_generator import EnemyCombatantsGenerator
 from scripts.scenes.combat.elements.terrain import Terrain
 from scripts.scenes.combat.elements.unit_manager import UnitManager
+from scripts.scenes.combat.elements.actions import actions
 from scripts.scenes.combat.ui import CombatUI
 
 if TYPE_CHECKING:
@@ -49,6 +50,8 @@ class CombatScene(Scene):
 
         self.ui: CombatUI = CombatUI(game)
 
+        self.actions = actions
+
         self.state: CombatState = CombatState.UNIT_CHOOSE_CARD
 
         self.combat_speed = 1
@@ -84,6 +87,10 @@ class CombatScene(Scene):
             return [pos_totals[0] / count, pos_totals[1] / count]
         else:
             return None
+
+    def start_action_phase(self):
+        self.deck: CardCollection = self.game.memory.action_deck.copy()
+        self.hand = self.deck.draw(5)
 
     def update(self):
         self.dt = self.combat_speed * self.game.window.dt

@@ -102,7 +102,7 @@ class Entity:
         movement = [math.cos(angle) * amount, math.sin(angle) * amount]
         self.move(movement)
 
-    def deal_damage(self, amount, owner):
+    def deal_damage(self, amount, owner=None):
         self.health -= amount * (DEFENSE_SCALE / (DEFENSE_SCALE + self.defence))
         if self.health <= 0:
             self.health = 0

@@ -35,7 +35,7 @@ class CombatState(IntEnum):
     UNIT_CHOOSE_CARD = auto()
     UNIT_SELECT_TARGET = auto()
     ACTION_CHOOSE_CARD = auto()
-    ACTION_SELECT_TARGET = auto()
+    ACTION_SELECT_TARGET_FREE = auto()
     WATCH = auto()
 
 
