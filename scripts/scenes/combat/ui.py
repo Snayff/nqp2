@@ -42,7 +42,7 @@ class CombatUI(UI):
         else:
             target_pos[0] -= self.game.window.base_resolution[0] // 2
             target_pos[1] -= self.game.window.base_resolution[1] // 2
-            
+
         self.game.combat.camera.pos[0] += (
             (target_pos[0] - self.game.combat.camera.pos[0]) / 10 * (self.game.window.dt * 60)
         )
@@ -63,7 +63,10 @@ class CombatUI(UI):
                     if len(cards):
                         self.game.combat.state = CombatState.UNIT_SELECT_TARGET
                 else:
-                    self.game.combat.state = CombatState.ACTION_SELECT_TARGET
+                    # determine action target mode
+                    target_type = self.game.combat.actions[cards[self.selected_col].type](self.game).target_type
+                    if target_type == 'free':
+                        self.game.combat.state = CombatState.ACTION_SELECT_TARGET_FREE
 
                 self.place_target = [
                     self.game.combat.terrain.pixel_size[0] // 2,
@@ -76,7 +79,7 @@ class CombatUI(UI):
 
                 self.game.combat.state = CombatState.WATCH
 
-        elif self.game.combat.state in [CombatState.UNIT_SELECT_TARGET, CombatState.ACTION_SELECT_TARGET]:
+        elif self.game.combat.state in [CombatState.UNIT_SELECT_TARGET, CombatState.ACTION_SELECT_TARGET_FREE]:
             directions = {
                 "right": (1, 0),
                 "left": (-1, 0),
@@ -102,8 +105,8 @@ class CombatUI(UI):
 
                     logging.info(f"Placed {unit.type}({unit.id}) at {unit.pos}.")
                 else:
-                    # TODO: handle action cards here
-                    pass
+                    action = self.game.combat.actions[cards[self.selected_col].type](self.game)
+                    action.use(self.place_target.copy())
 
                 cards.pop(self.selected_col)
 
@@ -117,6 +120,7 @@ class CombatUI(UI):
         elif self.game.combat.state == CombatState.WATCH:
             if self.game.input.states["cancel"]:
                 self.game.combat.state = CombatState.ACTION_CHOOSE_CARD
+                self.game.combat.start_action_phase()
 
         if self.game.input.states["view_troupe"]:
             self.game.input.states["view_troupe"] = False
@@ -130,7 +134,7 @@ class CombatUI(UI):
 
         # render status text
         status = "None"
-        if self.game.combat.state in [CombatState.UNIT_SELECT_TARGET, CombatState.ACTION_SELECT_TARGET]:
+        if self.game.combat.state in [CombatState.UNIT_SELECT_TARGET, CombatState.ACTION_SELECT_TARGET_FREE]:
             status = "select a target location"
         if self.game.combat.state == CombatState.UNIT_CHOOSE_CARD:
             status = "select a unit or press X to end unit placement"
@@ -142,7 +146,7 @@ class CombatUI(UI):
 
         cards = self.game.combat.hand.cards
 
-        if self.game.combat.state in [CombatState.UNIT_SELECT_TARGET, CombatState.ACTION_SELECT_TARGET]:
+        if self.game.combat.state in [CombatState.UNIT_SELECT_TARGET, CombatState.ACTION_SELECT_TARGET_FREE]:
             pygame.draw.circle(surface, (255, 255, 255), self.game.combat.camera.render_offset(self.place_target), 8, 1)
 
         if self.game.combat.state != CombatState.WATCH:
@@ -153,7 +157,7 @@ class CombatUI(UI):
                 if self.selected_col == i:
                     height_offset = -12
 
-                elif self.game.combat.state in [CombatState.UNIT_SELECT_TARGET, CombatState.ACTION_SELECT_TARGET]:
+                elif self.game.combat.state in [CombatState.UNIT_SELECT_TARGET, CombatState.ACTION_SELECT_TARGET_FREE]:
                     height_offset += 12
 
                 card.render(surface, (start_pos + i * 60 - 25, 300 + height_offset))
