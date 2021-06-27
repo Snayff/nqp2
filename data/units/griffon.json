@@ -11,7 +11,6 @@
     "size": 7,
     "weight": 7,
     "gold_cost": 90,
-    "occur_rate": 80,
     "default_behaviour": "swarm",
     "upgrade_cost": 30,
     "upgrades_to": "greater_griffon",

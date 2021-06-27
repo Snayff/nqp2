@@ -11,7 +11,6 @@
     "size": 7,
     "weight": 3,
     "gold_cost": 40,
-    "occur_rate": 40,
     "default_behaviour": "swarm",
     "upgrade_cost": 30,
     "upgrades_to":"crusader",
