@@ -45,6 +45,7 @@ class RunSetupUI(UI):
     def render(self, surface: pygame.surface):
         default_font = self.default_font
         positive_font = self.positive_font
+        disabled_font = self.disabled_font
 
         homes = self.game.data.homes
         num_sections = 4  # home, ally, seed, confirm
@@ -64,8 +65,13 @@ class RunSetupUI(UI):
         for home in homes:
             current_x = start_x + (count * (section_width + gap))
 
+            # get correct font
             if self.game.run_setup.selected_home == home:
+                # selected already
                 active_font = positive_font
+            elif self.game.run_setup.selected_ally == home:
+                # already used by other option
+                active_font = disabled_font
             else:
                 active_font = default_font
 
@@ -91,8 +97,13 @@ class RunSetupUI(UI):
         for home in homes:
             current_x = start_x + (count * (section_width + gap))
 
+            # get correct font
             if self.game.run_setup.selected_ally == home:
+                # selected already
                 active_font = positive_font
+            elif self.game.run_setup.selected_home == home:
+                # already used by other option
+                active_font = disabled_font
             else:
                 active_font = default_font
 
@@ -118,7 +129,7 @@ class RunSetupUI(UI):
         count = 0
 
         active_font = default_font
-        active_font.render("Seed: " + str(self.game.rng.current_seed), surface, (current_x, current_y))
+        active_font.render("Seed: " + str(self.game.run_setup.selected_seed), surface, (current_x, current_y))
 
         # draw selector
         if count == self.selected_col and current_row == self.selected_row:
@@ -137,7 +148,12 @@ class RunSetupUI(UI):
         current_x = start_x
         count = 0
 
-        active_font = default_font
+        # get correct font
+        if self.game.run_setup.ready_to_start:
+            active_font = default_font
+        else:
+            active_font = disabled_font
+
         active_font.render("Start run", surface, (current_x, current_y))
 
         # draw selector
@@ -152,11 +168,23 @@ class RunSetupUI(UI):
     def handle_selection(self):
         # selected home
         if self.selected_row == 0:
-            self.game.run_setup.selected_home = self.game.data.homes[self.selected_col]
+            selected_home = self.game.data.homes[self.selected_col]
+
+            # if already using this home unset it
+            if self.game.run_setup.selected_ally == selected_home:
+                self.game.run_setup.selected_ally = ""
+
+            self.game.run_setup.selected_home = selected_home
 
         # selected ally
         elif self.selected_row == 1:
-            self.game.run_setup.selected_ally = self.game.data.homes[self.selected_col]
+            selected_home = self.game.data.homes[self.selected_col]
+
+            # if already using this home unset it
+            if self.game.run_setup.selected_home == selected_home:
+                self.game.run_setup.selected_home = ""
+
+            self.game.run_setup.selected_ally = selected_home
 
         # seed
         elif self.selected_row == 2:
@@ -165,5 +193,7 @@ class RunSetupUI(UI):
 
         # confirm
         elif self.selected_row == 3:
-            self.game.run_setup.start_run()
+            # ensure conditions are as we need them
+            if self.game.run_setup.ready_to_start:
+                self.game.run_setup.start_run()
 

@@ -25,6 +25,8 @@ class Troupe:
         self._unit_ids: List[int] = []  # used to manage order
         self._units: Dict[int, Unit] = {}
         self.team: str = team
+        self.home: str = ""
+        self.allies: List[str] = []
 
         self._last_id = 0
 

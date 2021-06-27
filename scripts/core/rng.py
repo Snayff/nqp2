@@ -21,7 +21,6 @@ class RNG(random.Random):
         super().__init__()
 
         self.current_seed = 0
-        self.set_seed(int(datetime.now().strftime("%Y%m%d%H%M%S")))
 
         # record duration
         end_time = time.time()

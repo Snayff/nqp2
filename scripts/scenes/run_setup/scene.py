@@ -2,9 +2,11 @@ from __future__ import annotations
 
 import logging
 import time
+from datetime import datetime
 from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.scene import Scene
+from scripts.core.constants import SceneType
 from scripts.scenes.run_setup.ui import RunSetupUI
 
 if TYPE_CHECKING:
@@ -29,8 +31,9 @@ class RunSetupScene(Scene):
 
         self.ui: RunSetupUI = RunSetupUI(game)
 
-        self.selected_home = ""
-        self.selected_ally = ""
+        self.selected_home: str = ""
+        self.selected_ally: str = ""
+        self.selected_seed: int = int(datetime.now().strftime("%Y%m%d%H%M%S"))
 
         # record duration
         end_time = time.time()
@@ -43,5 +46,22 @@ class RunSetupScene(Scene):
         self.ui.render(self.game.window.display)
 
     def start_run(self):
-        pass
-    
+        # set the seed
+        self.game.rng.set_seed(self.selected_seed)
+
+        # set the home and ally
+        self.game.memory.player_troupe.home = self.selected_home
+        self.game.memory.player_troupe.allies.append(self.selected_ally)
+
+        # change scene
+        self.game.change_scene(SceneType.OVERWORLD)
+
+    @property
+    def ready_to_start(self) -> bool:
+        """
+        Checks conditions are met to begin
+        """
+        if self.selected_home != "" and self.selected_ally != "":
+            return True
+        else:
+            return False
