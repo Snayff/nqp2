@@ -25,7 +25,9 @@ class TroupeUI(UI):
     def update(self):
         units = self.game.memory.player_troupe.units
 
+        self.handle_selection_dimensions(len(units), 1)
         self.handle_directional_input_for_selection()
+        self.handle_selected_index_looping()
 
         if self.game.input.states["cancel"]:
             self.game.input.states["cancel"] = False
@@ -33,8 +35,6 @@ class TroupeUI(UI):
             # return to previous scene
             self.game.change_scene(self.game.troupe.previous_scene_type)
 
-        # manage looping
-        self.handle_selected_index_looping(len(units))
 
     def render(self, surface: pygame.surface):
         units = self.game.memory.player_troupe.units

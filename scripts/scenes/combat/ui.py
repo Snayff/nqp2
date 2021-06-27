@@ -126,8 +126,9 @@ class CombatUI(UI):
             self.game.input.states["view_troupe"] = False
             self.game.change_scene(SceneType.TROUPE)
 
-        # manage looping
-        self.handle_selected_index_looping(0, len(cards))
+        # manage selection
+        self.handle_selection_dimensions(0, len(cards))
+        self.handle_selected_index_looping()
 
     def render(self, surface: pygame.Surface):
         warning_font = self.warning_font

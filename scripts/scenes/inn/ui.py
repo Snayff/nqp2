@@ -25,7 +25,9 @@ class InnUI(UI):
     def update(self):
         units_for_sale = self.game.inn.sale_troupe
 
+        self.handle_selection_dimensions(len(units_for_sale.units), 1)
         self.handle_directional_input_for_selection()
+        self.handle_selected_index_looping()
 
         # select option and trigger result
         if self.game.input.states["select"]:
@@ -42,9 +44,6 @@ class InnUI(UI):
         if self.game.input.states["view_troupe"]:
             self.game.input.states["view_troupe"] = False
             self.game.change_scene(SceneType.TROUPE)
-
-        # manage looping
-        self.handle_selected_index_looping(len(units_for_sale.units))
 
     def render(self, surface: pygame.surface):
         units_for_sale = list(self.game.inn.sale_troupe.units.values())

@@ -27,6 +27,7 @@ class OverworldUI(UI):
         self.selected_node = 0  # node index
 
     def update(self):
+        # FIXME - update to align to selection approach of UI
 
         if self.game.overworld.map.state == MapState.READY:
             row_nodes = self.game.overworld.map.nodes[self.game.overworld.map.active_row]
