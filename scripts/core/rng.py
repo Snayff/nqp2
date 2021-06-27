@@ -20,6 +20,7 @@ class RNG(random.Random):
 
         super().__init__()
 
+        self.current_seed = 0
         self.set_seed(int(datetime.now().strftime("%Y%m%d%H%M%S")))
 
         # record duration
@@ -31,6 +32,7 @@ class RNG(random.Random):
         Set the seed for randomness.
         """
         self.seed(seed)
+        self.current_seed = seed
         logging.info(f"Seed set to {seed}.")
 
     def roll(self, min_value: int = 0, max_value: int = 99) -> int:

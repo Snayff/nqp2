@@ -16,7 +16,7 @@ from scripts.core.memory import Memory
 from scripts.core.rng import RNG
 from scripts.core.window import Window
 from scripts.scenes.combat.scene import CombatScene
-from scripts.scenes.event.scene import EventScene
+from scripts.scenes.event.scene import EventScene, RunSetupScene
 from scripts.scenes.inn.scene import InnScene
 from scripts.scenes.overworld.scene import OverworldScene
 from scripts.scenes.reward.scene import RewardScene
@@ -51,6 +51,7 @@ class Game:
         self.training: TrainingScene = TrainingScene(self)
         self.inn: InnScene = InnScene(self)
         self.troupe: TroupeScene = TroupeScene(self)
+        self.run_setup: RunSetupScene = RunSetupScene(self)
 
         # point this to whatever scene is active
         self.active_scene = self.overworld
@@ -115,5 +116,8 @@ class Game:
         elif scene_type == SceneType.REWARD:
             self.reward.generate_reward()
             self.active_scene = self.reward
+
+        elif scene_type == SceneType.RUN_SETUP:
+            self.active_scene = self.run_setup
 
         logging.info(f"Active scene changed to {scene_type.name}.")
