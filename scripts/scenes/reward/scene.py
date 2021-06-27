@@ -40,7 +40,8 @@ class RewardScene(Scene):
 
         # reward options
         self.gold_reward: int = 0
-        self.troupe_rewards: Troupe = Troupe(self.game, "reward")
+        player_troupe = self.game.memory.player_troupe
+        self.troupe_rewards: Troupe = Troupe(self.game, "reward", player_troupe.home, player_troupe.allies)
         self.resource_rewards = None
         self.upgrade_rewards = None
         self.action_rewards = None

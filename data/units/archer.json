@@ -14,5 +14,7 @@
     "occur_rate": 100,
     "default_behaviour": "swarm",
     "upgrade_cost": 15,
-    "upgrades_to":"crossbowman"
+    "upgrades_to":"crossbowman",
+    "home": "castle",
+    "tier": 1
 }

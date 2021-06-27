@@ -4,7 +4,6 @@ import json
 import logging
 import os
 import time
-import json
 from typing import TYPE_CHECKING
 
 import pygame
@@ -21,6 +20,7 @@ __all__ = ["Assets"]
 
 TILE_SIZE = 16
 
+
 def clip(surf, pos, size):
     x, y = pos
     x_size, y_size = size
@@ -31,11 +31,13 @@ def clip(surf, pos, size):
     image = surf.subsurface(handle_surf.get_clip())
     return image.copy()
 
+
 def json_read(path):
     f = open(path, "r")
     data = json.load(f)
     f.close()
     return data
+
 
 class Assets:
     def __init__(self, game: Game):
@@ -73,9 +75,12 @@ class Assets:
 
         self.maps = {map.split(".")[0]: json_read("data/maps/" + map) for map in os.listdir("data/maps")}
 
-        self.tilesets = {tileset.split('.')[0] : self.load_tileset(ASSET_PATH / "tiles" / tileset) for tileset in os.listdir(ASSET_PATH / "tiles")}
+        self.tilesets = {
+            tileset.split(".")[0]: self.load_tileset(ASSET_PATH / "tiles" / tileset)
+            for tileset in os.listdir(ASSET_PATH / "tiles")
+        }
 
-        self.maps = {map.split('.')[0] : json_read("data/maps/" + map) for map in os.listdir("data/maps")}
+        self.maps = {map.split(".")[0]: json_read("data/maps/" + map) for map in os.listdir("data/maps")}
 
     def get_image(
         self,

@@ -65,7 +65,7 @@ class CombatUI(UI):
                 else:
                     # determine action target mode
                     target_type = self.game.combat.actions[cards[self.selected_col].type](self.game).target_type
-                    if target_type == 'free':
+                    if target_type == "free":
                         self.game.combat.state = CombatState.ACTION_SELECT_TARGET_FREE
 
                 self.place_target = [
@@ -124,10 +124,11 @@ class CombatUI(UI):
 
         if self.game.input.states["view_troupe"]:
             self.game.input.states["view_troupe"] = False
-            self.game.change_scene(SceneType.TROUPE)
+            self.game.change_scene(SceneType.VIEW_TROUPE)
 
-        # manage looping
-        self.handle_selected_index_looping(0, len(cards))
+        # manage selection
+        self.handle_selection_dimensions(0, len(cards))
+        self.handle_selected_index_looping()
 
     def render(self, surface: pygame.Surface):
         warning_font = self.warning_font

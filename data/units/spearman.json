@@ -14,5 +14,7 @@
     "occur_rate": 200,
     "default_behaviour": "swarm",
     "upgrade_cost": 10,
-    "upgrades_to":"pikeman"
+    "upgrades_to":"pikeman",
+    "home": "castle",
+    "tier": 1
 }

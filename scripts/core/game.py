@@ -1,9 +1,7 @@
 from __future__ import annotations
 
 import logging
-import random
 import time
-from datetime import datetime
 
 import pygame
 
@@ -20,11 +18,12 @@ from scripts.scenes.event.scene import EventScene
 from scripts.scenes.inn.scene import InnScene
 from scripts.scenes.overworld.scene import OverworldScene
 from scripts.scenes.reward.scene import RewardScene
+from scripts.scenes.run_setup.scene import RunSetupScene
 from scripts.scenes.training.scene import TrainingScene
 
 __all__ = ["Game"]
 
-from scripts.scenes.troupe.scene import TroupeScene
+from scripts.scenes.view_troupe.scene import ViewTroupeScene
 
 
 class Game:
@@ -50,10 +49,11 @@ class Game:
         self.event: EventScene = EventScene(self)
         self.training: TrainingScene = TrainingScene(self)
         self.inn: InnScene = InnScene(self)
-        self.troupe: TroupeScene = TroupeScene(self)
+        self.troupe: ViewTroupeScene = ViewTroupeScene(self)
+        self.run_setup: RunSetupScene = RunSetupScene(self)
 
         # point this to whatever scene is active
-        self.active_scene = self.overworld
+        self.active_scene = self.run_setup
 
         self.state: GameState = GameState.PLAYING
 
@@ -108,12 +108,15 @@ class Game:
             # TODO - add main menu
             pass
 
-        elif scene_type == SceneType.TROUPE:
+        elif scene_type == SceneType.VIEW_TROUPE:
             self.troupe.previous_scene_type = utility.scene_to_scene_type(self.active_scene)
             self.active_scene = self.troupe
 
         elif scene_type == SceneType.REWARD:
             self.reward.generate_reward()
             self.active_scene = self.reward
+
+        elif scene_type == SceneType.RUN_SETUP:
+            self.active_scene = self.run_setup
 
         logging.info(f"Active scene changed to {scene_type.name}.")

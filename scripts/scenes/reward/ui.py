@@ -26,7 +26,22 @@ class RewardUI(UI):
         self.selected_reward: Optional[Unit] = None
 
     def update(self):
+        # get index value depending on reward
+        reward_type = self.game.reward.reward_type
+        reward = self.game.reward
+        if reward_type == RewardType.UNIT:
+            index_size = len(reward.troupe_rewards.units)
+        elif reward_type == RewardType.ACTION:
+            index_size = 0
+        elif reward_type == RewardType.UPGRADE:
+            index_size = 0
+        else:
+            # reward_type == RewardType.RESOURCE
+            index_size = 0
+
+        self.handle_selection_dimensions(index_size, 1)
         self.handle_directional_input_for_selection()
+        self.handle_selected_index_looping()
 
         # select option and trigger result
         if self.game.input.states["select"]:
@@ -45,23 +60,7 @@ class RewardUI(UI):
 
         if self.game.input.states["view_troupe"]:
             self.game.input.states["view_troupe"] = False
-            self.game.change_scene(SceneType.TROUPE)
-
-        # get index value depending on reward
-        reward_type = self.game.reward.reward_type
-        reward = self.game.reward
-        if reward_type == RewardType.UNIT:
-            index_size = len(reward.troupe_rewards.units)
-        elif reward_type == RewardType.ACTION:
-            index_size = 0
-        elif reward_type == RewardType.UPGRADE:
-            index_size = 0
-        else:
-            # reward_type == RewardType.RESOURCE
-            index_size = 0
-
-        # manage looping
-        self.handle_selected_index_looping(index_size)
+            self.game.change_scene(SceneType.VIEW_TROUPE)
 
     def render(self, surface: pygame.surface):
         reward_type = self.game.reward.reward_type

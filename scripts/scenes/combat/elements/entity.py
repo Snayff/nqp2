@@ -61,10 +61,10 @@ class Entity:
         self.colour = self.unit.colour
 
     def move(self, movement):
-        '''
+        """
         Splits the movement operation into smaller amounts to prevent issues with high speed movement.
         Calls the move sub-process anywhere from one to several times depending on the speed.
-        '''
+        """
         move_count = int(abs(movement[0]) // self.game.combat.terrain.tile_size + 1)
         move_count = max(int(abs(movement[1]) // self.game.combat.terrain.tile_size + 1), move_count)
         move_amount = [movement[0] / move_count, movement[1] / move_count]

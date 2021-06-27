@@ -13,9 +13,6 @@ if TYPE_CHECKING:
 
 __all__ = ["UI"]
 
-#### To Do List######
-# TODO - amend selection approach to work on a grid, so we can move across columns and rows.
-
 
 class UI(ABC):
     """
@@ -32,29 +29,43 @@ class UI(ABC):
 
         self.selected_row: int = 0
         self.selected_col: int = 0
+        self.max_rows: int = 0
+        self.max_cols: int = 0
 
     @abstractmethod
     def update(self):
         pass
 
+    def handle_selection_dimensions(self, max_rows: int, max_cols: int):
+        self.max_rows = max_rows
+        self.max_cols = max_cols
+
+        # ensure we're on a valid column
+        if self.selected_col >= max_cols:
+            self.selected_col = max_cols
+
+        # ensure we're on a valid row
+        if self.selected_row >= max_rows:
+            self.selected_row = max_rows
+
     @abstractmethod
     def render(self, surface: pygame.surface):
         pass
 
-    def handle_selected_index_looping(self, max_row_index: int, max_col_index: int = 0):
+    def handle_selected_index_looping(self):
         """
         Manage the looping of the selection index
         """
         # row
         if self.selected_row < 0:
-            self.selected_row = max_row_index - 1
-        elif self.selected_row >= max_row_index:
+            self.selected_row = self.max_rows - 1
+        elif self.selected_row >= self.max_rows:
             self.selected_row = 0
 
         # col
         if self.selected_col < 0:
-            self.selected_col = max_col_index - 1
-        elif self.selected_col >= max_col_index:
+            self.selected_col = self.max_cols - 1
+        elif self.selected_col >= self.max_cols:
             self.selected_col = 0
 
     def handle_directional_input_for_selection(self):

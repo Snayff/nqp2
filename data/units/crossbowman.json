@@ -14,5 +14,7 @@
     "occur_rate": 500,
     "default_behaviour": "swarm",
     "upgrade_cost": 0,
-    "upgrades_to":""
+    "upgrades_to":"",
+    "home": "castle",
+    "tier": 1
 }

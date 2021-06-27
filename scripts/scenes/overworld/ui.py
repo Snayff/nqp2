@@ -27,6 +27,7 @@ class OverworldUI(UI):
         self.selected_node = 0  # node index
 
     def update(self):
+        # FIXME - update to align to selection approach of UI
 
         if self.game.overworld.map.state == MapState.READY:
             row_nodes = self.game.overworld.map.nodes[self.game.overworld.map.active_row]
@@ -68,7 +69,7 @@ class OverworldUI(UI):
 
             if self.game.input.states["view_troupe"]:
                 self.game.input.states["view_troupe"] = False
-                self.game.change_scene(SceneType.TROUPE)
+                self.game.change_scene(SceneType.VIEW_TROUPE)
 
     def render(self, surface: pygame.surface):
         overworld_map = self.game.overworld.map

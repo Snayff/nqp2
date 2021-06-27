@@ -6,12 +6,12 @@ from typing import List, TYPE_CHECKING
 
 from scripts.core.base_classes.scene import Scene
 from scripts.core.constants import CombatState, SceneType
+from scripts.scenes.combat.elements.actions import actions
 from scripts.scenes.combat.elements.camera import Camera
 from scripts.scenes.combat.elements.card_collection import CardCollection
 from scripts.scenes.combat.elements.enemy_combatants_generator import EnemyCombatantsGenerator
 from scripts.scenes.combat.elements.terrain import Terrain
 from scripts.scenes.combat.elements.unit_manager import UnitManager
-from scripts.scenes.combat.elements.actions import actions
 from scripts.scenes.combat.ui import CombatUI
 
 if TYPE_CHECKING:

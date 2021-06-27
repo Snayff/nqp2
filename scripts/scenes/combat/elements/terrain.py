@@ -21,7 +21,7 @@ class Terrain:
         loc = self.px_to_loc(pos)
         if loc in self.terrain:
             for tile in self.terrain[loc]:
-                if tile.config['solid']:
+                if tile.config["solid"]:
                     return True
 
         return False

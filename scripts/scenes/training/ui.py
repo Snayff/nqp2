@@ -27,7 +27,9 @@ class TrainingUI(UI):
     def update(self):
         units = self.game.memory.player_troupe.units
 
+        self.handle_selection_dimensions(len(units), 1)
         self.handle_directional_input_for_selection()
+        self.handle_selected_index_looping()
 
         # select option and trigger result
         if self.game.input.states["select"]:
@@ -45,10 +47,7 @@ class TrainingUI(UI):
 
         if self.game.input.states["view_troupe"]:
             self.game.input.states["view_troupe"] = False
-            self.game.change_scene(SceneType.TROUPE)
-
-        # manage looping
-        self.handle_selected_index_looping(len(units))
+            self.game.change_scene(SceneType.VIEW_TROUPE)
 
     def render(self, surface: pygame.surface):
         units = self.game.memory.player_troupe.units
