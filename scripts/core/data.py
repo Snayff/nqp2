@@ -25,7 +25,7 @@ __all__ = ["Data"]
 
 class Data:
     """
-    Game related values that persist outside of individual “scenes”. E.g. money.
+    Raw data that doesnt change. Usually pulled from external files.
     """
 
     def __init__(self, game: Game):

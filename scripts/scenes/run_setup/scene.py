@@ -53,13 +53,16 @@ class RunSetupScene(Scene):
         self.game.memory.player_troupe.home = self.selected_home
         self.game.memory.player_troupe.allies.append(self.selected_ally)
 
+        logging.info(f"Player chose {self.selected_home} as their home and {self.selected_ally} as their ally.")
+
         # prep player troupe
-        debug_mode = False  # TODO - replace with actual debug mode
         player_troupe = self.game.memory.player_troupe
-        if debug_mode:
+        if self.game.debug.debug_mode:
             player_troupe.debug_init_units()
         else:
-            player_troupe.generate_units(3, None, [1])
+            player_troupe.generate_units(3, [1])
+
+        logging.info(f"Run starting now!")
 
         # change scene
         self.game.change_scene(SceneType.OVERWORLD)

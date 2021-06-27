@@ -9,6 +9,7 @@ from scripts.core import debug, utility
 from scripts.core.assets import Assets
 from scripts.core.constants import GameState, SceneType
 from scripts.core.data import Data
+from scripts.core.debug import Debugger
 from scripts.core.input import Input
 from scripts.core.memory import Memory
 from scripts.core.rng import RNG
@@ -41,6 +42,7 @@ class Game:
         self.assets: Assets = Assets(self)
         self.input: Input = Input(self)
         self.rng: RNG = RNG(self)
+        self.debug: Debugger = Debugger(self)
 
         # scenes
         self.combat: CombatScene = CombatScene(self)
@@ -65,13 +67,15 @@ class Game:
 
     def update(self):
         self.master_clock += self.window.dt
+
         self.input.update()
         self.active_scene.update()
-        debug.update()
+        self.debug.update()
 
     def render(self):
         self.window.render_frame()
         self.active_scene.render()
+        self.debug.render()  # always last so it is on top
 
     def run(self):
         self.update()

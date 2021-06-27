@@ -15,18 +15,19 @@ def main():
     """
     The entry for the game initialisation and game loop
     """
+    game = Game()
 
     # initialise logging
-    if debug.is_logging():
-        debug.initialise_logging()
+    if game.debug.is_logging:
+        game.debug.initialise_logging()
 
     # initialise profiling
-    if debug.is_profiling():
-        debug.enable_profiling()
+    if game.debug.is_profiling:
+        game.debug.enable_profiling()
 
     # run the game
     try:
-        game_loop()
+        game_loop(game)
 
     except Exception:
         logging.critical(f"Something went wrong and killed the game loop!")
@@ -38,12 +39,12 @@ def main():
         traceback.print_exc()
 
     # we've left the game loop so now close everything down
-    if debug.is_logging():
-        debug.kill_logging()
+    if game.debug.is_logging:
+        game.debug.kill_logging()
         # print debug values
-        debug.print_values_to_console()
-    if debug.is_profiling():
-        debug.kill_profiler()
+        game.debug.print_values_to_console()
+    if game.debug.is_profiling:
+        game.debug.kill_profiler()
 
     # clean up pygame resources
     pygame.quit()
@@ -52,11 +53,10 @@ def main():
     raise SystemExit
 
 
-def game_loop():
+def game_loop(game: Game):
     """
     The core game loop, handling input, rendering and logic.
     """
-    game = Game()
 
     while game.state == GameState.PLAYING:
         game.run()
