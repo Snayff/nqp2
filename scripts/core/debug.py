@@ -15,11 +15,10 @@ from scripts.core.constants import DEBUGGING_PATH, INFINITE, LOGGING_PATH, PROFI
 
 if TYPE_CHECKING:
     from typing import Callable, List, Optional, Tuple, TYPE_CHECKING, Union
+
     from scripts.core.game import Game
 
-__all__ = [
-    "Debugger"
-]
+__all__ = ["Debugger"]
 
 
 class Debugger:
@@ -110,7 +109,6 @@ class Debugger:
         if not os.path.isdir(logging_path):
             os.mkdir(logging_path + "/")
 
-
     def initialise_logging(self):
         """
         Initialise logging.
@@ -127,44 +125,43 @@ class Debugger:
         #     'w' - open for writing, truncating the file first
         #     'x' - open for exclusive creation, failing if the file already exists
         #     'a' - open for writing, appending to the end of the file if it exists
-    
+
         self.is_logging = True
-    
+
         log_file_name = "game.log"
         log_level = logging.DEBUG
         file_mode = "w"
-    
+
         for handler in logging.root.handlers[:]:
             logging.root.removeHandler(handler)
-    
+
         # 8 adds space for 8 characters (# CRITICAL)
         log_format = "%(asctime)s| %(levelname)-8s| %(message)s"
         logging.basicConfig(
-            filename=str(DEBUGGING_PATH / "logging" / log_file_name), filemode=file_mode,
-            level=log_level, format=log_format
+            filename=str(DEBUGGING_PATH / "logging" / log_file_name),
+            filemode=file_mode,
+            level=log_level,
+            format=log_format,
         )
-    
+
         # format into uk time
         logging.Formatter.converter = time.gmtime
-    
+
         logging.info(f"Logging initialised.")
-    
-    
+
     def kill_logging(self):
         """
         Kill logging resources
         """
         logging.shutdown()
         self.is_logging = False
-    
-    
+
     def _create_profiler(self):
         """
         Create the profiler.
         """
         self.profiler = cProfile.Profile()
-    
-    
+
     def enable_profiling(self, duration: int = INFINITE):
         """
         Enable profiling. Create profiler if one doesnt exist
@@ -172,14 +169,13 @@ class Debugger:
         # if we dont have a profiler create one
         if not self.profiler:
             self._create_profiler()
-    
+
         # enable, set flag and set duration
         assert isinstance(self.profiler, cProfile.Profile)
         self.profiler.enable()
         self.is_profiling = True
         self.profile_duration_remaining = duration
-    
-    
+
     def disable_profiling(self, dump_data: bool = False):
         """
         Turn off current profiling. Dump data to file if required.
@@ -187,11 +183,10 @@ class Debugger:
         if self.profiler:
             if dump_data:
                 self._dump_profiling_data()
-    
+
             self.profiler.disable()
             self.is_profiling = False
-    
-    
+
     def kill_profiler(self):
         """
         Kill profiling resource
@@ -199,50 +194,48 @@ class Debugger:
         if self.profiler:
             self.disable_profiling(True)
             self.profiler = None
-    
-    
+
     def _dump_profiling_data(self):
         """
         Dump data to a readable file
         """
         if not self.is_profiling:
             return
-    
+
         self.profiler.create_stats()
-    
+
         # dump the profiler stats
         s = io.StringIO()
         ps = pstats.Stats(self.profiler, stream=s).sort_stats("tottime")
         profiling_path = str(PROFILING_PATH) + "/"
         ps.dump_stats(profiling_path + "profile.dump")
-    
+
         # convert profiling to human readable format
         date_and_time = datetime.datetime.utcnow()
         out_stream = open(profiling_path + date_and_time.strftime("%Y%m%d@%H%M") + "_" + VERSION + ".profile", "w")
         ps = pstats.Stats(profiling_path + "profile.dump", stream=out_stream)
         ps.strip_dirs().sort_stats("tottime").print_stats()
-    
-    
+
     @staticmethod
     def performance_test(
-            method_descs: List[str],
-            old_methods: List[Tuple[Union[str, Callable], str]],
-            new_methods: List[Tuple[Union[str, Callable], str]],
-            num_runs: int = 1000,
-            repeats: int = 3,
+        method_descs: List[str],
+        old_methods: List[Tuple[Union[str, Callable], str]],
+        new_methods: List[Tuple[Union[str, Callable], str]],
+        num_runs: int = 1000,
+        repeats: int = 3,
     ) -> str:
         """
         Run performance testing on a collection of methods/functions. Returns a formatted string detailing
         performance  of old, new and % change between them.
-    
+
         method_descs are used as descriptions only.
         old_methods/new_methods expects a list of tuples that are (method_to_test, setup). Setup can be an empty string
         but is usually an import.
         Index in each list much match, i.e. method_name[0] is the alias of the methods in old_methods[0] and
         new_methods[0].
-    
+
         Outputs as "Access Trait: 0.00123 -> 0.00036(71.00033%)".
-    
+
         example usage:
         method_descs = ["Set Var", "Access Skill"]
         old_methods = [("x = 1", ""),("library.get_skill_data('lunge')", "")]
@@ -251,7 +244,7 @@ class Debugger:
         """
         result = f"== Performance Test ==\n(Run {num_runs} * {repeats})"
         gc.disable()
-    
+
         for x in range(0, len(method_descs)):
             name = method_descs[x]
             old = min(timeit.repeat(old_methods[x][0], setup=old_methods[x][1], number=num_runs, repeat=repeats))
@@ -260,11 +253,10 @@ class Debugger:
                 f"\n{name}: {format(old, '0.5f')} -> {format(new, '0.5f')}"
                 f"({format(((old - new) / old) * 100, '0.2f')}%)"
             )
-    
+
         gc.enable()
         return result
-    
-    
+
     def print_values_to_console(self):
         """
         Print the debuggers stats.
