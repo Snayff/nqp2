@@ -6,19 +6,19 @@ from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.scene import Scene
 from scripts.core.constants import SceneType
-from scripts.scenes.troupe.ui import TroupeUI
+from scripts.scenes.view_troupe.ui import ViewTroupeUI
 
 if TYPE_CHECKING:
     from typing import Dict
 
     from scripts.core.game import Game
 
-__all__ = ["TroupeScene"]
+__all__ = ["ViewTroupeScene"]
 
 
-class TroupeScene(Scene):
+class ViewTroupeScene(Scene):
     """
-    Handles TroupeScene interactions and consolidates the rendering. TroupeScene is used to view the troupe
+    Handles ViewTroupeScene interactions and consolidates the rendering. ViewTroupeScene is used to view the troupe
     information.
     """
 
@@ -28,13 +28,13 @@ class TroupeScene(Scene):
 
         super().__init__(game)
 
-        self.ui: TroupeUI = TroupeUI(game)
+        self.ui: ViewTroupeUI = ViewTroupeUI(game)
 
-        self.previous_scene_type: SceneType = SceneType.TROUPE
+        self.previous_scene_type: SceneType = SceneType.VIEW_TROUPE
 
         # record duration
         end_time = time.time()
-        logging.info(f"TroupeScene: initialised in {format(end_time - start_time, '.2f')}s.")
+        logging.info(f"ViewTroupeScene: initialised in {format(end_time - start_time, '.2f')}s.")
 
     def update(self):
         self.ui.update()

@@ -23,7 +23,7 @@ from scripts.scenes.training.scene import TrainingScene
 
 __all__ = ["Game"]
 
-from scripts.scenes.troupe.scene import TroupeScene
+from scripts.scenes.view_troupe.scene import ViewTroupeScene
 
 
 class Game:
@@ -49,7 +49,7 @@ class Game:
         self.event: EventScene = EventScene(self)
         self.training: TrainingScene = TrainingScene(self)
         self.inn: InnScene = InnScene(self)
-        self.troupe: TroupeScene = TroupeScene(self)
+        self.troupe: ViewTroupeScene = ViewTroupeScene(self)
         self.run_setup: RunSetupScene = RunSetupScene(self)
 
         # point this to whatever scene is active
@@ -108,7 +108,7 @@ class Game:
             # TODO - add main menu
             pass
 
-        elif scene_type == SceneType.TROUPE:
+        elif scene_type == SceneType.VIEW_TROUPE:
             self.troupe.previous_scene_type = utility.scene_to_scene_type(self.active_scene)
             self.active_scene = self.troupe
 

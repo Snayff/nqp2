@@ -124,7 +124,7 @@ class CombatUI(UI):
 
         if self.game.input.states["view_troupe"]:
             self.game.input.states["view_troupe"] = False
-            self.game.change_scene(SceneType.TROUPE)
+            self.game.change_scene(SceneType.VIEW_TROUPE)
 
         # manage selection
         self.handle_selection_dimensions(0, len(cards))

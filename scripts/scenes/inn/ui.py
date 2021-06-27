@@ -43,7 +43,7 @@ class InnUI(UI):
 
         if self.game.input.states["view_troupe"]:
             self.game.input.states["view_troupe"] = False
-            self.game.change_scene(SceneType.TROUPE)
+            self.game.change_scene(SceneType.VIEW_TROUPE)
 
     def render(self, surface: pygame.surface):
         units_for_sale = list(self.game.inn.sale_troupe.units.values())

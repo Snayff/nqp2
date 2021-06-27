@@ -11,12 +11,12 @@ from scripts.core.constants import DEFAULT_IMAGE_SIZE, SceneType
 if TYPE_CHECKING:
     from scripts.core.game import Game
 
-__all__ = ["TroupeUI"]
+__all__ = ["ViewTroupeUI"]
 
 
-class TroupeUI(UI):
+class ViewTroupeUI(UI):
     """
-    Represent the UI of the TroupeScene.
+    Represent the UI of the ViewTroupeScene.
     """
 
     def __init__(self, game: Game):

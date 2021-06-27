@@ -71,12 +71,12 @@ def scene_to_scene_type(scene) -> SceneType:
     from scripts.scenes.inn.scene import InnScene
     from scripts.scenes.overworld.scene import OverworldScene
     from scripts.scenes.training.scene import TrainingScene
-    from scripts.scenes.troupe.scene import TroupeScene
+    from scripts.scenes.view_troupe.scene import ViewTroupeScene
 
     if type(scene) is CombatScene:
         return SceneType.COMBAT
-    elif type(scene) is TroupeScene:
-        return SceneType.TROUPE
+    elif type(scene) is ViewTroupeScene:
+        return SceneType.VIEW_TROUPE
     elif type(scene) is TrainingScene:
         return SceneType.TRAINING
     elif type(scene) is InnScene:
