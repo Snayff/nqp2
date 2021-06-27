@@ -31,6 +31,7 @@ class Data:
         self.behaviours = BehaviourManager()
         self.tiles = self.load_tile_info()
 
+
         # event
         self.events: Dict = self.load_events()
 
@@ -48,6 +49,8 @@ class Data:
         tile_info = {}
         for tile_id in tile_info_raw:
             tile_info[tuple([id_section if i == 0 else int(id_section) for i, id_section in enumerate(tile_id.split('|'))])] = tile_info_raw[tile_id]
+
+        logging.info(f"Data: All tileset data loaded.")
 
         return tile_info
 
@@ -74,3 +77,16 @@ class Data:
         logging.info(f"Data: All event data loaded.")
 
         return events
+
+    def get_units_by_category(self, homes: List[str], tiers: List[int]):
+        """
+        Return list of unit types for all units with a matching home and tier.
+        """
+        units = []
+
+        for home in homes:
+            for unit in self.units.values():
+                if unit["home"] == home and unit["tier"] in tiers:
+                    units.append(unit["type"])
+
+

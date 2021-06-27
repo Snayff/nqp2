@@ -14,5 +14,7 @@
     "occur_rate": 40,
     "default_behaviour": "swarm",
     "upgrade_cost": 30,
-    "upgrades_to":"crusader"
+    "upgrades_to":"crusader",
+    "home": "castle",
+    "tier": 2
 }

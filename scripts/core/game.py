@@ -54,7 +54,7 @@ class Game:
         self.run_setup: RunSetupScene = RunSetupScene(self)
 
         # point this to whatever scene is active
-        self.active_scene = self.overworld
+        self.active_scene = self.run_setup
 
         self.state: GameState = GameState.PLAYING
 

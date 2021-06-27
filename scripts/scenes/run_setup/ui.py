@@ -41,15 +41,10 @@ class RunSetupUI(UI):
             # return to overworld
             self.game.change_scene(SceneType.OVERWORLD)
 
-        if self.game.input.states["view_troupe"]:
-            self.game.input.states["view_troupe"] = False
-            self.game.change_scene(SceneType.TROUPE)
-
         # manage looping
         self.handle_selected_index_looping(len(options))
 
     def render(self, surface: pygame.surface):
-        event = self.game.event.active_event
         default_font = self.default_font
 
         # positions
@@ -57,6 +52,21 @@ class RunSetupUI(UI):
         option_start_y = self.game.window.height // 2
         gap = 10
         font_height = 12  # FIXME - get actual font height
+
+        # draw commander options
+
+
+        # draw aide options
+
+
+        # draw seed
+        # TODO - convert to input field so player can set seed
+
+        # draw confirm option
+
+
+
+
 
         # draw description
         default_font.render(event["description"], surface, (10, 0 + 20))
@@ -80,5 +90,3 @@ class RunSetupUI(UI):
 
             count += 1
 
-        # show gold
-        self.draw_gold(surface)
