@@ -16,6 +16,11 @@ if TYPE_CHECKING:
 __all__ = ["Data"]
 
 
+########### TO DO LIST #############
+# TODO - create a data editor for quicker editing of data, particularly units
+#   support with information about other units, such as max, min and avg for a stat
+#
+
 class Data:
     """
     Game related values that persist outside of individual “scenes”. E.g. money.
