@@ -88,10 +88,13 @@ class Data:
 
         return events
 
-    def get_units_by_category(self, homes: List[str], tiers: List[int]) -> List[str]:
+    def get_units_by_category(self, homes: List[str], tiers: List[int] = None) -> List[str]:
         """
         Return list of unit types for all units with a matching home and tier.
         """
+        # handle mutable default
+        if tiers is None:
+            tiers = [1, 2, 3, 4]
         units = []
 
         for home in homes:

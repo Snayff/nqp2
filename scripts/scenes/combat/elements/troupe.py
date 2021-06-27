@@ -19,14 +19,14 @@ class Troupe:
     Management of a group of units
     """
 
-    def __init__(self, game, team: str):
+    def __init__(self, game, team: str, home: str, allies: List[str]):
         self.game: Game = game
 
         self._unit_ids: List[int] = []  # used to manage order
         self._units: Dict[int, Unit] = {}
         self.team: str = team
-        self.home: str = ""
-        self.allies: List[str] = []
+        self.home: str = home
+        self.allies: List[str] = allies
 
         self._last_id = 0
 
@@ -93,7 +93,7 @@ class Troupe:
     def generate_units(self, number_of_units: int, unit_types: List[str] = None) -> List[int]:
         """
         Generate units for the Troupe, based on parameters given. If no unit types are given then any unit type can
-        be chosen. Returns list of created ids.
+        be chosen from home and ally. Returns list of created ids.
 
         unit_types is expressed as [unit.name, ...]
         """
@@ -104,9 +104,10 @@ class Troupe:
             # get unit info
             unit_types_ = []
             unit_occur_rate = []
-            for unit_details in self.game.data.units.values():
-                unit_types_.append(unit_details["type"])
-                unit_occur_rate.append(unit_details["occur_rate"])
+            for unit_type in self.game.data.get_units_by_category([self.home] + self.allies):
+                unit_types_.append(unit_type)
+                occur_rate = self.game.data.units[unit_type]["occur_rate"]
+                unit_occur_rate.append(occur_rate)
 
             # choose units
             chosen_types = self.game.rng.choices(unit_types_, unit_occur_rate, k=number_of_units)
