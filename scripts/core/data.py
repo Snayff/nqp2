@@ -22,6 +22,7 @@ __all__ = ["Data"]
 #   support with information about other units, such as max, min and avg for a stat
 # TODO - add modifier to increase likelihood of rare things generating in line with player progression
 
+
 class Data:
     """
     Game related values that persist outside of individual “scenes”. E.g. money.
@@ -105,7 +106,6 @@ class Data:
 
         return config
 
-
     def get_units_by_category(self, homes: List[str], tiers: List[int] = None) -> List[str]:
         """
         Return list of unit types for all units with a matching home and tier.
@@ -151,5 +151,3 @@ class Data:
         occur_rate = tier_occur_rates[str(event_tier)]  # str as json keys are strs
 
         return occur_rate
-
-

@@ -37,7 +37,6 @@ __all__ = [
 # TODO - use debug flag to allow quicker setup in debug mode
 
 
-
 class Debugger:
     def __init__(self):
 

@@ -19,6 +19,7 @@ __all__ = ["Unit"]
 # TODO - random generation of name, based on home, e.g. 3rd legion of Name
 # TODO - option to set unit name manually
 
+
 class Unit:
     def __init__(self, game: Game, id_: int, unit_type: str, team: str):
         self.game: Game = game

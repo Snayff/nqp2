@@ -90,8 +90,9 @@ class Troupe:
 
         logging.info(f"All units removed from {self.team}'s troupe.")
 
-    def generate_units(self, number_of_units: int, unit_types: List[str] = None,
-            tiers_allowed: List[int] = None) -> List[int]:
+    def generate_units(
+        self, number_of_units: int, unit_types: List[str] = None, tiers_allowed: List[int] = None
+    ) -> List[int]:
         """
         Generate units for the Troupe, based on parameters given. If no unit types are given then any unit type can
         be chosen from home and ally. Returns list of created ids.
