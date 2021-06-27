@@ -30,7 +30,7 @@ class Data:
         self.units: Dict = self.load_unit_info()
         self.behaviours = BehaviourManager()
         self.tiles = self.load_tile_info()
-
+        self.homes: List[str] = self.load_homes()
 
         # event
         self.events: Dict = self.load_events()
@@ -66,6 +66,16 @@ class Data:
 
         return units
 
+    def load_homes(self) -> List[str]:
+        homes = []
+
+        for unit in self.units.values():
+            if unit["home"] not in homes:
+                homes.append(unit["home"])
+
+        return homes
+
+
     @staticmethod
     def load_events() -> Dict:
         events = {}
@@ -78,15 +88,21 @@ class Data:
 
         return events
 
-    def get_units_by_category(self, homes: List[str], tiers: List[int]):
+    def get_units_by_category(self, homes: List[str], tiers: List[int]) -> List[str]:
         """
         Return list of unit types for all units with a matching home and tier.
         """
         units = []
 
         for home in homes:
+            # check home is valid
+            if home not in self.homes:
+                logging.warning(f"get_units_by_category: {home} not found in {self.homes}. Value skipped.")
+                continue
+
+            # get units as specified
             for unit in self.units.values():
                 if unit["home"] == home and unit["tier"] in tiers:
                     units.append(unit["type"])
 
-
+        return units

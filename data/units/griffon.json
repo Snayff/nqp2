@@ -14,6 +14,7 @@
     "occur_rate": 80,
     "default_behaviour": "swarm",
     "upgrade_cost": 30,
-    "upgrades_to":"greater_griffon",
+    "upgrades_to": "greater_griffon",
     "home": "castle",
     "tier": 3
+}
