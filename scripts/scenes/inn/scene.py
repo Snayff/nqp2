@@ -65,5 +65,10 @@ class InnScene(Scene):
         """
         Generate the options for sale at the Inn.
         """
+        # update troupe to match players
+        player_troupe = self.game.memory.player_troupe
+        self.sale_troupe.home = player_troupe.home
+        self.sale_troupe.allies = player_troupe.allies
+
         self.sale_troupe.remove_all_units()
         self.sale_troupe.generate_units(5)

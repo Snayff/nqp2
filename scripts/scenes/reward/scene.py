@@ -90,6 +90,11 @@ class RewardScene(Scene):
 
     def _generate_troupe_rewards(self):
 
+        # update troupe to match players
+        player_troupe = self.game.memory.player_troupe
+        self.troupe_rewards.home = player_troupe.home
+        self.troupe_rewards.allies = player_troupe.allies
+
         # generate units in Troupe
         self.troupe_rewards.remove_all_units()
         self.troupe_rewards.generate_units(self.num_rewards)
