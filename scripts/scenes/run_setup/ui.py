@@ -23,13 +23,15 @@ class RunSetupUI(UI):
         super().__init__(game)
 
     def update(self):
-        max_rows = 4
-        if self.selected_row == max_rows:
-            max_cols = 1
-        else:
-            max_cols = len(self.game.data.homes)
+        num_homes = len(self.game.data.homes)
+        dimensions = {
+            0: num_homes,
+            1: num_homes,
+            2: 1,
+            3: 1
+        }
 
-        self.handle_selection_dimensions(max_rows, max_cols)
+        self.handle_selection_dimensions(len(dimensions.keys()), dimensions[self.selected_row])
         self.handle_directional_input_for_selection()
         self.handle_selected_index_looping()
 
