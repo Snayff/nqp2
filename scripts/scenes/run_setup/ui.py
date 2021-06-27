@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import Dict, TYPE_CHECKING
 
 import pygame
 
@@ -22,16 +22,17 @@ class RunSetupUI(UI):
     def __init__(self, game: Game):
         super().__init__(game)
 
-    def update(self):
         num_homes = len(self.game.data.homes)
-        dimensions = {
+        self.dimensions: Dict[int, int] = {
             0: num_homes,
             1: num_homes,
             2: 1,
             3: 1
         }
 
-        self.handle_selection_dimensions(len(dimensions.keys()), dimensions[self.selected_row])
+    def update(self):
+
+        self.handle_selection_dimensions(len(self.dimensions.keys()), self.dimensions[self.selected_row])
         self.handle_directional_input_for_selection()
         self.handle_selected_index_looping()
 
@@ -39,15 +40,7 @@ class RunSetupUI(UI):
         if self.game.input.states["select"]:
             self.game.input.states["select"] = False
 
-            logging.info(
-                f"Selected option {self.selected_row},"
-                f" {self.game.event.active_event['options'][self.selected_row]}."
-            )
-
-            self.game.event.trigger_result(self.selected_row)
-
-            # return to overworld
-            self.game.change_scene(SceneType.OVERWORLD)
+            self.handle_selection()
 
     def render(self, surface: pygame.surface):
         default_font = self.default_font
@@ -121,7 +114,6 @@ class RunSetupUI(UI):
         current_row += 1
 
         # draw seed
-        # TODO - convert to input field so player can set seed
         current_x = start_x
         count = 0
 
@@ -157,4 +149,21 @@ class RunSetupUI(UI):
                 (current_x + default_font.width("home"), current_y + font_height),
             )
 
+    def handle_selection(self):
+        # selected home
+        if self.selected_row == 0:
+            self.game.run_setup.selected_home = self.game.data.homes[self.selected_col]
+
+        # selected ally
+        elif self.selected_row == 1:
+            self.game.run_setup.selected_ally = self.game.data.homes[self.selected_col]
+
+        # seed
+        elif self.selected_row == 2:
+            # TODO - allow player to set seed
+            pass
+
+        # confirm
+        elif self.selected_row == 3:
+            self.game.run_setup.start_run()
 

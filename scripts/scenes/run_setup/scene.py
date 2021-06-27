@@ -41,3 +41,7 @@ class RunSetupScene(Scene):
 
     def render(self):
         self.ui.render(self.game.window.display)
+
+    def start_run(self):
+        pass
+    
