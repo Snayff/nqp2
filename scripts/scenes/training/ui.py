@@ -49,7 +49,6 @@ class TrainingUI(UI):
             self.game.input.states["view_troupe"] = False
             self.game.change_scene(SceneType.VIEW_TROUPE)
 
-
     def render(self, surface: pygame.surface):
         units = self.game.memory.player_troupe.units
         default_font = self.default_font

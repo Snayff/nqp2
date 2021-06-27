@@ -1,5 +1,6 @@
 import math
 
+
 class Hitbox:
     def __init__(self, entities, shape_type, shape_data, damage, owner=None, friendly_fire=False):
         self.entities = entities
@@ -13,11 +14,13 @@ class Hitbox:
         for entity in self.entities:
             if (not self.friendly_fire) or (entity.team != owner.team):
                 hit = False
-                if self.shape_type == 'circle':
-                    dis = math.sqrt((entity.pos[0] - self.shape_data[0][0]) ** 2 + (entity.pos[1] - self.shape_data[0][1]) ** 2)
+                if self.shape_type == "circle":
+                    dis = math.sqrt(
+                        (entity.pos[0] - self.shape_data[0][0]) ** 2 + (entity.pos[1] - self.shape_data[0][1]) ** 2
+                    )
                     if dis < self.shape_data[1]:
                         hit = True
-                if self.shape_type == 'rect':
+                if self.shape_type == "rect":
                     if self.shape_data.collidepoint(entity.pos):
                         hit = True
 

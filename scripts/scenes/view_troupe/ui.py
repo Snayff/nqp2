@@ -35,7 +35,6 @@ class ViewTroupeUI(UI):
             # return to previous scene
             self.game.change_scene(self.game.troupe.previous_scene_type)
 
-
     def render(self, surface: pygame.surface):
         units = self.game.memory.player_troupe.units
         default_font = self.default_font

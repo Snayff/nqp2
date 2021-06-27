@@ -67,9 +67,9 @@ def scene_to_scene_type(scene) -> SceneType:
     Take a Scene and return the relevant SceneType
     """
     from scripts.scenes.combat.scene import CombatScene
-    from scripts.scenes.run_setup.scene import EventScene
     from scripts.scenes.inn.scene import InnScene
     from scripts.scenes.overworld.scene import OverworldScene
+    from scripts.scenes.run_setup.scene import EventScene
     from scripts.scenes.training.scene import TrainingScene
     from scripts.scenes.view_troupe.scene import ViewTroupeScene
 

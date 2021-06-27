@@ -23,12 +23,7 @@ class RunSetupUI(UI):
         super().__init__(game)
 
         num_homes = len(self.game.data.homes)
-        self.dimensions: Dict[int, int] = {
-            0: num_homes,
-            1: num_homes,
-            2: 1,
-            3: 1
-        }
+        self.dimensions: Dict[int, int] = {0: num_homes, 1: num_homes, 2: 1, 3: 1}
 
     def update(self):
 
@@ -196,4 +191,3 @@ class RunSetupUI(UI):
             # ensure conditions are as we need them
             if self.game.run_setup.ready_to_start:
                 self.game.run_setup.start_run()
-

@@ -65,7 +65,7 @@ class CombatUI(UI):
                 else:
                     # determine action target mode
                     target_type = self.game.combat.actions[cards[self.selected_col].type](self.game).target_type
-                    if target_type == 'free':
+                    if target_type == "free":
                         self.game.combat.state = CombatState.ACTION_SELECT_TARGET_FREE
 
                 self.place_target = [

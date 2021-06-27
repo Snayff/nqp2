@@ -15,10 +15,10 @@ from scripts.core.rng import RNG
 from scripts.core.window import Window
 from scripts.scenes.combat.scene import CombatScene
 from scripts.scenes.event.scene import EventScene
-from scripts.scenes.run_setup.scene import RunSetupScene
 from scripts.scenes.inn.scene import InnScene
 from scripts.scenes.overworld.scene import OverworldScene
 from scripts.scenes.reward.scene import RewardScene
+from scripts.scenes.run_setup.scene import RunSetupScene
 from scripts.scenes.training.scene import TrainingScene
 
 __all__ = ["Game"]

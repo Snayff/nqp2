@@ -62,7 +62,6 @@ class RewardUI(UI):
             self.game.input.states["view_troupe"] = False
             self.game.change_scene(SceneType.VIEW_TROUPE)
 
-
     def render(self, surface: pygame.surface):
         reward_type = self.game.reward.reward_type
         if reward_type == RewardType.UNIT:

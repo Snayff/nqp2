@@ -41,14 +41,16 @@ class Data:
 
     @staticmethod
     def load_tile_info() -> Dict:
-        f = open('data/tiles.json', 'r')
+        f = open("data/tiles.json", "r")
         tile_info_raw = json.load(f)
         f.close()
 
         # convert tile IDs to tuples (JSON doesn't allow tuples)
         tile_info = {}
         for tile_id in tile_info_raw:
-            tile_info[tuple([id_section if i == 0 else int(id_section) for i, id_section in enumerate(tile_id.split('|'))])] = tile_info_raw[tile_id]
+            tile_info[
+                tuple([id_section if i == 0 else int(id_section) for i, id_section in enumerate(tile_id.split("|"))])
+            ] = tile_info_raw[tile_id]
 
         logging.info(f"Data: All tileset data loaded.")
 
@@ -74,7 +76,6 @@ class Data:
                 homes.append(unit["home"])
 
         return homes
-
 
     @staticmethod
     def load_events() -> Dict:
