@@ -1,5 +1,5 @@
 {
-    "type": "bishop",
+    "type": "salamander",
     "health": 1,
     "defence": 1,
     "attack": 1,
@@ -13,7 +13,7 @@
     "gold_cost": 10,
     "default_behaviour": "swarm",
     "upgrade_cost": 15,
-    "upgrades_to":"",
+    "upgrades_to":"flame_salamander",
     "home": "dungeon",
     "tier": 1
 }
