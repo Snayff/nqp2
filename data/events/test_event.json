@@ -1,7 +1,7 @@
 {
     "id": "test",
     "description": "this is what will show and will describe what is happening.",
-    "occur_rate": "common",
+    "tier": 1,
     "options": [
         {
             "text": "this is the first choice",

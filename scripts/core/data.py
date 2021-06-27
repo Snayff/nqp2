@@ -20,7 +20,7 @@ __all__ = ["Data"]
 ########### TO DO LIST #############
 # TODO - create a data editor for quicker editing of data, particularly units
 #   support with information about other units, such as max, min and avg for a stat
-#
+# TODO - add modifier to increase likelihood of rare things generating in line with player progression
 
 class Data:
     """
@@ -96,13 +96,13 @@ class Data:
         return events
 
     @staticmethod
-    def _load_config():
+    def _load_config() -> Dict:
         f = open(str(DATA_PATH / "config.json"), "r")
         config = json.load(f)
         f.close()
 
         logging.info(f"Data: Config data loaded.")
-        
+
         return config
 
 
@@ -127,3 +127,29 @@ class Data:
                     units.append(unit["type"])
 
         return units
+
+    def get_unit_occur_rate(self, unit_type: str) -> int:
+        """
+        Get the unit occur rate based on the tier. Lower means less often.
+        """
+        tier_occur_rates = self.config["unit_tier_occur_rates"]
+        unit_details = self.units[unit_type]
+        unit_tier = unit_details["tier"]
+
+        occur_rate = tier_occur_rates[str(unit_tier)]  # str as json keys are strs
+
+        return occur_rate
+
+    def get_event_occur_rate(self, id_: str) -> int:
+        """
+        Get the event occur rate based on the tier. Lower means less often.
+        """
+        tier_occur_rates = self.config["event_tier_occur_rates"]
+        event = self.events[id_]
+        event_tier = event["tier"]
+
+        occur_rate = tier_occur_rates[str(event_tier)]  # str as json keys are strs
+
+        return occur_rate
+
+
