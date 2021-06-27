@@ -29,7 +29,9 @@ class RunSetupUI(UI):
         else:
             max_cols = len(self.game.data.homes)
 
+        self.handle_selection_dimensions(max_rows, max_cols)
         self.handle_directional_input_for_selection()
+        self.handle_selected_index_looping()
 
         # select option and trigger result
         if self.game.input.states["select"]:
@@ -44,9 +46,6 @@ class RunSetupUI(UI):
 
             # return to overworld
             self.game.change_scene(SceneType.OVERWORLD)
-
-        # manage looping
-        self.handle_selected_index_looping(max_rows, max_cols)
 
     def render(self, surface: pygame.surface):
         default_font = self.default_font
