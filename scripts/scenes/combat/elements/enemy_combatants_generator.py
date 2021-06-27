@@ -24,7 +24,7 @@ class EnemyCombatantsGenerator:
             positions.append(pos)
 
         # generate units
-        ids = self.enemy_troupe.generate_units(enemy_count)
+        ids = self.enemy_troupe.generate_units(enemy_count, [1, 2])
 
         # assign positions and add to combat
         for id_ in ids:

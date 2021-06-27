@@ -8,8 +8,6 @@ from scripts.scenes.combat.elements.card_collection import CardCollection
 from scripts.scenes.combat.elements.troupe import Troupe
 
 if TYPE_CHECKING:
-    pass
-
     from scripts.core.game import Game
 
 __all__ = ["Memory"]

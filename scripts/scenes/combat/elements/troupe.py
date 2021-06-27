@@ -91,7 +91,7 @@ class Troupe:
         logging.info(f"All units removed from {self.team}'s troupe.")
 
     def generate_units(
-        self, number_of_units: int, unit_types: List[str] = None, tiers_allowed: List[int] = None
+        self, number_of_units: int, tiers_allowed: List[int] = None, unit_types: List[str] = None
     ) -> List[int]:
         """
         Generate units for the Troupe, based on parameters given. If no unit types are given then any unit type can
@@ -106,7 +106,8 @@ class Troupe:
             # get unit info
             unit_types_ = []
             unit_occur_rate = []
-            for unit_type in self.game.data.get_units_by_category([self.home] + self.allies, tiers_allowed):
+            homes = [self.home] + self.allies
+            for unit_type in self.game.data.get_units_by_category(homes, tiers_allowed):
                 unit_types_.append(unit_type)
                 occur_rate = self.game.data.get_unit_occur_rate(unit_type)
                 unit_occur_rate.append(occur_rate)
