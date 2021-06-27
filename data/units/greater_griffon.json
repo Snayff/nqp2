@@ -11,7 +11,6 @@
     "size": 9,
     "weight": 9,
     "gold_cost": 120,
-    "occur_rate": 7,
     "default_behaviour": "swarm",
     "upgrade_cost": 0,
     "upgrades_to":"",

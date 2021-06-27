@@ -15,6 +15,11 @@ if TYPE_CHECKING:
 __all__ = ["Unit"]
 
 
+########### TO DO LIST #############
+# TODO - random generation of name, based on home, e.g. 3rd legion of Name
+# TODO - option to set unit name manually
+
+
 class Unit:
     def __init__(self, game: Game, id_: int, unit_type: str, team: str):
         self.game: Game = game
@@ -40,7 +45,6 @@ class Unit:
         self.size: int = unit_data["size"]  # size of the hitbox
         self.weight: int = unit_data["weight"]
         self.gold_cost: int = unit_data["gold_cost"]
-        self.occur_rate: int = unit_data["occur_rate"]  # how often they are generated, lower means less often.
 
         # during combat
         self.behaviour = self.game.data.behaviours.unit_behaviours[self.default_behaviour](self)

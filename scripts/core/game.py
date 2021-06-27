@@ -59,9 +59,6 @@ class Game:
 
         self.master_clock = 0
 
-        # FOR USE DURING TESTING
-        self.memory.player_troupe.debug_init_units()
-
         # record duration
         end_time = time.time()
         logging.info(f"Game initialised in {format(end_time - start_time, '.2f')}s.")

@@ -31,6 +31,11 @@ __all__ = [
     "get_visible_values",
 ]
 
+######## TO DO LIST #############
+# TODO - make an attribute of game
+# TODO - turn funcs to methods
+# TODO - use debug flag to allow quicker setup in debug mode
+
 
 class Debugger:
     def __init__(self):

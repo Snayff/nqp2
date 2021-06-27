@@ -4,8 +4,9 @@ import json
 import logging
 import os
 import time
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Union
 
+from scripts.core.constants import DATA_PATH
 from scripts.scenes.combat.elements.behavior_manager import BehaviourManager
 
 if TYPE_CHECKING:
@@ -14,6 +15,12 @@ if TYPE_CHECKING:
     from scripts.core.game import Game
 
 __all__ = ["Data"]
+
+
+########### TO DO LIST #############
+# TODO - create a data editor for quicker editing of data, particularly units
+#   support with information about other units, such as max, min and avg for a stat
+# TODO - add modifier to increase likelihood of rare things generating in line with player progression
 
 
 class Data:
@@ -27,21 +34,21 @@ class Data:
 
         self.game: Game = game
 
-        self.units: Dict = self.load_unit_info()
+        self.units: Dict = self._load_unit_info()
         self.behaviours = BehaviourManager()
-        self.tiles = self.load_tile_info()
-        self.homes: List[str] = self.load_homes()
+        self.tiles = self._load_tile_info()
+        self.homes: List[str] = self._create_homes_list()
+        self.events: Dict = self._load_events()
 
-        # event
-        self.events: Dict = self.load_events()
+        self.config: Dict = self._load_config()
 
         # record duration
         end_time = time.time()
         logging.info(f"Data: initialised in {format(end_time - start_time, '.2f')}s.")
 
     @staticmethod
-    def load_tile_info() -> Dict:
-        f = open("data/tiles.json", "r")
+    def _load_tile_info() -> Dict:
+        f = f = open(str(DATA_PATH / "tiles.json"), "r")
         tile_info_raw = json.load(f)
         f.close()
 
@@ -57,10 +64,10 @@ class Data:
         return tile_info
 
     @staticmethod
-    def load_unit_info() -> Dict:
+    def _load_unit_info() -> Dict:
         units = {}
         for unit in os.listdir("data/units"):
-            f = open("data/units/" + unit, "r")
+            f = f = open(str(DATA_PATH / "units" / unit), "r")
             units[unit.split(".")[0]] = json.load(f)
             f.close()
 
@@ -68,7 +75,7 @@ class Data:
 
         return units
 
-    def load_homes(self) -> List[str]:
+    def _create_homes_list(self) -> List[str]:
         homes = []
 
         for unit in self.units.values():
@@ -78,16 +85,26 @@ class Data:
         return homes
 
     @staticmethod
-    def load_events() -> Dict:
+    def _load_events() -> Dict:
         events = {}
         for event in os.listdir("data/events"):
-            f = open("data/events/" + event, "r")
+            f = open(str(DATA_PATH / "events" / event), "r")
             events[event.split(".")[0]] = json.load(f)
             f.close()
 
         logging.info(f"Data: All event data loaded.")
 
         return events
+
+    @staticmethod
+    def _load_config() -> Dict:
+        f = open(str(DATA_PATH / "config.json"), "r")
+        config = json.load(f)
+        f.close()
+
+        logging.info(f"Data: Config data loaded.")
+
+        return config
 
     def get_units_by_category(self, homes: List[str], tiers: List[int] = None) -> List[str]:
         """
@@ -110,3 +127,27 @@ class Data:
                     units.append(unit["type"])
 
         return units
+
+    def get_unit_occur_rate(self, unit_type: str) -> int:
+        """
+        Get the unit occur rate based on the tier. Lower means less often.
+        """
+        tier_occur_rates = self.config["unit_tier_occur_rates"]
+        unit_details = self.units[unit_type]
+        unit_tier = unit_details["tier"]
+
+        occur_rate = tier_occur_rates[str(unit_tier)]  # str as json keys are strs
+
+        return occur_rate
+
+    def get_event_occur_rate(self, id_: str) -> int:
+        """
+        Get the event occur rate based on the tier. Lower means less often.
+        """
+        tier_occur_rates = self.config["event_tier_occur_rates"]
+        event = self.events[id_]
+        event_tier = event["tier"]
+
+        occur_rate = tier_occur_rates[str(event_tier)]  # str as json keys are strs
+
+        return occur_rate
