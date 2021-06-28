@@ -21,6 +21,7 @@ from scripts.scenes.overworld.scene import OverworldScene
 from scripts.scenes.reward.scene import RewardScene
 from scripts.scenes.run_setup.scene import RunSetupScene
 from scripts.scenes.training.scene import TrainingScene
+from scripts.scenes.unit_data.scene import UnitDataScene
 
 __all__ = ["Game"]
 
@@ -54,8 +55,12 @@ class Game:
         self.troupe: ViewTroupeScene = ViewTroupeScene(self)
         self.run_setup: RunSetupScene = RunSetupScene(self)
 
+        # for testing
+        self.unit_data_menu: UnitDataScene = UnitDataScene(self)
+
         # point this to whatever scene is active
-        self.active_scene = self.run_setup
+        #self.active_scene = self.run_setup
+        self.active_scene = self.unit_data_menu
 
         self.state: GameState = GameState.PLAYING
 
