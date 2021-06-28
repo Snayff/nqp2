@@ -189,7 +189,7 @@ class Assets:
         images = {}
 
         # specify folders in assets that need to be loaded
-        folders = ["nodes", "stats"]
+        folders = ["nodes", "stats", "ui"]
 
         for folder in folders:
             path = ASSET_PATH / folder
