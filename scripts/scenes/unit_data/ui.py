@@ -1,10 +1,13 @@
 from __future__ import annotations
 
+import json
+import logging
 from typing import TYPE_CHECKING
 
 import pygame
 
 from scripts.core.base_classes.ui import UI
+from scripts.core.constants import DATA_PATH
 from scripts.ui_elements.button import Button
 from scripts.ui_elements.input_box import InputBox
 
@@ -32,20 +35,12 @@ class UnitDataUI(UI):
             "cancel": Button(game, "cancel", (100, 300), size=[30, 20])
         }
 
-        # self.left_arrow = Button(game,
-        #                          pygame.transform.flip(self.game.assets.get_image("ui", "arrow_button"),
-        #                                                True, False),
-        #                          (10, 10))
-        # self.right_arrow = Button(game, self.game.assets.get_image("ui", "arrow_button"), (120, 10))
-        # self.save_button = Button(game, "save", (400, 300), size=[30, 20])
-        # self.cancel_button = Button(game, "cancel", (100, 300), size=[30, 20])
-
         self.fields = {}
 
         self.unit_list = list(self.game.data.units)
         self.unit_index = 0
         self.current_unit = 0
-        self.current_unit_data = 0
+        self.current_unit_data = {}
 
         self.load_unit(self.unit_list[self.unit_index])
 
@@ -69,13 +64,15 @@ class UnitDataUI(UI):
                 if button == buttons["save"]:
                     for field in self.current_unit_data:
                         self.current_unit_data[field] = self.fields[field].value
-                    # TODO: save to JSON here?
+
                     print(self.current_unit_data)
+                    self.save()
 
                 if button == buttons["cancel"]:
                     # go back to previous scene
                     self.game.change_scene(self.game.dev_unit_data.previous_scene_type)
 
+        # update text fields
         for field in self.current_unit_data:
             self.fields[field].update()
             if self.fields[field].should_focus:
@@ -84,14 +81,15 @@ class UnitDataUI(UI):
                 self.fields[field].unfocus()
 
     def render(self, surface: pygame.surface):
-        self.game.assets.fonts["default"].render(
+        default_font = self.game.assets.fonts["default"]
+
+        default_font.render(
             self.current_unit,
             surface,
-            (76 - self.game.assets.fonts["default"].width(self.current_unit) // 2, 15)
+            (76 - default_font.width(self.current_unit) // 2, 15)
         )
         for field in self.current_unit_data:
-            self.game.assets.fonts["default"].render(field, surface,
-                                                     (self.fields[field].pos[0] - 90, self.fields[field].pos[1] + 3))
+            default_font.render(field, surface, (self.fields[field].pos[0] - 90, self.fields[field].pos[1] + 3))
             self.fields[field].render(surface)
 
         for button in self.buttons.values():
@@ -113,3 +111,11 @@ class UnitDataUI(UI):
                 input_type="detect",
                 text=self.current_unit_data[field]
             )
+
+    def save(self):
+        unit_type = self.current_unit_data["type"]
+        str_path = str(DATA_PATH / "units" / f"{unit_type}.json")
+
+        with open(str_path, "w") as file:
+            json.dump(self.current_unit_data, file, indent=4)
+            logging.info(f"UnitDataUI: updated {unit_type}; new data saved.")

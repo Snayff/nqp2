@@ -47,6 +47,8 @@ class Debugger:
         # values
         self._num_frames_considered_recent: int = 600
 
+        self.initialise_logging()
+
     def update(self):
 
         self._frames += 1

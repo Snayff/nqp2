@@ -37,13 +37,13 @@ class Game:
         pygame.init()
 
         # managers
+        self.debug: Debugger = Debugger(self)
         self.window: Window = Window(self)
         self.data: Data = Data(self)
         self.memory: Memory = Memory(self)
         self.assets: Assets = Assets(self)
         self.input: Input = Input(self)
         self.rng: RNG = RNG(self)
-        self.debug: Debugger = Debugger(self)
 
         # scenes
         self.combat: CombatScene = CombatScene(self)
