@@ -54,7 +54,7 @@ class UnitDataUI(UI):
         self.confirmation_timer = 0
         self.show_confirmation = True
 
-        self.load_unit(self.unit_list[self.unit_index])
+        self.refresh_unit_fields(self.unit_list[self.unit_index])
         self.calculate_unit_metrics()
 
     def update(self):
@@ -72,14 +72,16 @@ class UnitDataUI(UI):
                     if self.unit_index < 0:
                         self.unit_index = len(self.unit_list) - 1
                 if button in [buttons["right_arrow"], buttons["left_arrow"]]:
-                    self.load_unit(self.unit_list[self.unit_index])
+                    self.refresh_unit_fields(self.unit_list[self.unit_index])
 
                 if button == buttons["save"]:
                     for field in self.current_unit_data:
                         self.current_unit_data[field] = self.fields[field].value
 
-                    print(self.current_unit_data)
                     self.save()
+
+                    # update metrics
+                    self.calculate_unit_metrics()
 
                 if button == buttons["cancel"]:
                     # go back to previous scene
@@ -102,9 +104,13 @@ class UnitDataUI(UI):
     def render(self, surface: pygame.surface):
         default_font = self.game.assets.fonts["default"]
         positive_font = self.game.assets.fonts["positive"]
+        disabled_font = self.game.assets.fonts["disabled"]
 
         window_width = self.game.window.width
         window_height = self.game.window.height
+        font_height = 12  # FIXME - get actual font height
+        metric_col_width = 80
+        metric_second_row_start_y = window_height // 2
 
         default_font.render(
             self.current_unit,
@@ -120,14 +126,66 @@ class UnitDataUI(UI):
 
         # show confirmation message
         if self.show_confirmation:
-            positive_font.render("Save successful.", surface, (window_width - 100, window_height - 20))
+            msg = "Save successful."
+            text_width = default_font.width(msg)
+            positive_font.render(msg, surface, (window_width - text_width, window_height - 40))
 
+        # set positions
+        start_x = window_width - (window_width // 2.8)
+        start_y = 20
+
+        # draw headers
+        current_x = start_x + metric_col_width
+        current_y = start_y
+        for tier_title in ["Tier 1", "Tier 2"]:
+            disabled_font.render(tier_title, surface, (current_x, current_y))
+            current_x += metric_col_width
+
+        # draw second row headers
+        current_x = start_x + metric_col_width
+        current_y = metric_second_row_start_y
+        for tier_title in ["Tier 3", "Tier 4"]:
+            disabled_font.render(tier_title, surface, (current_x, current_y))
+            current_x += metric_col_width
+
+        # draw stat list
+        current_x = start_x
+        current_y = start_y + font_height
+        for stat in self.tier1_metrics.keys():
+            disabled_font.render(stat, surface, (current_x, current_y))
+            current_y += font_height
+
+        # draw stat list for second row
+        current_x = start_x
+        current_y = metric_second_row_start_y + font_height
+        for stat in self.tier1_metrics.keys():
+            disabled_font.render(stat, surface, (current_x, current_y))
+            current_y += font_height
 
         # show info regarding other units
+        current_x = start_x + metric_col_width
+        current_y = start_y + font_height
+        for tier in [self.tier1_metrics, self.tier2_metrics]:
+            for stat_value in tier.values():
+                disabled_font.render(str(stat_value), surface, (current_x, current_y))
+                current_y += font_height
+
+            current_x += metric_col_width
+            current_y = start_y + font_height
+
+        # show info regarding other units on second row
+        current_x = start_x + metric_col_width
+        current_y = metric_second_row_start_y + font_height
+        for tier in [self.tier3_metrics, self.tier4_metrics]:
+            for stat_value in tier.values():
+                disabled_font.render(str(stat_value), surface, (current_x, current_y))
+                current_y += font_height
+
+            current_x += metric_col_width
+            current_y = metric_second_row_start_y + font_height
 
 
-
-    def load_unit(self, unit_id):
+    def refresh_unit_fields(self, unit_id):
         self.current_unit = unit_id
         self.current_unit_data = self.game.data.units[unit_id]
         self.game.input.mode = "default"
@@ -183,8 +241,8 @@ class UnitDataUI(UI):
 
             # add all units stats to stat lists
             for stat, value in unit.items():
-                # ignore strings
-                if isinstance(value, str):
+                # ignore strings and tier
+                if isinstance(value, str) or stat == "tier":
                     continue
 
                 # init list
@@ -201,25 +259,25 @@ class UnitDataUI(UI):
         # do calculations
         for stat, values in tier1.items():
             min_ = min(values)
-            avg = mean(values)
+            avg = format(mean(values), ".2f")
             max_ = max(values)
             tier1_calc[stat] = [min_, avg, max_]
 
         for stat, values in tier2.items():
             min_ = min(values)
-            avg = mean(values)
+            avg = format(mean(values), ".2f")
             max_ = max(values)
             tier2_calc[stat] = [min_, avg, max_]
 
         for stat, values in tier3.items():
             min_ = min(values)
-            avg = mean(values)
+            avg = format(mean(values), ".2f")
             max_ = max(values)
             tier3_calc[stat] = [min_, avg, max_]
 
         for stat, values in tier4.items():
             min_ = min(values)
-            avg = mean(values)
+            avg = format(mean(values), ".2f")
             max_ = max(values)
             tier4_calc[stat] = [min_, avg, max_]
 

@@ -126,6 +126,9 @@ class Font:
         return text_width
 
     def render(self, text, surface, loc, line_width=0):
+        if not isinstance(text, str):
+            text = str(text)
+
         x_offset = 0
         y_offset = 0
         if line_width != 0:
