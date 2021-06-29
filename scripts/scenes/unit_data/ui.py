@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import logging
+from statistics import mean
 from typing import TYPE_CHECKING
 
 import pygame
@@ -26,14 +27,17 @@ class UnitDataUI(UI):
     def __init__(self, game: Game):
         super().__init__(game)
 
+        window_width = self.game.window.width
+        window_height = self.game.window.height
+
         self.buttons: Dict[str, Button] = {
             "left_arrow": Button(game,
                                  pygame.transform.flip(self.game.assets.get_image("ui", "arrow_button"),
                                                        True, False),
                                  (10, 10)),
             "right_arrow": Button(game, self.game.assets.get_image("ui", "arrow_button"), (120, 10)),
-            "save": Button(game, "save", (400, 300), size=[30, 20]),
-            "cancel": Button(game, "cancel", (100, 300), size=[30, 20])
+            "save": Button(game, "save", (window_width - 32, window_height - 22), size=[30, 20]),
+            "cancel": Button(game, "cancel", (2, window_height - 22), size=[30, 20])
         }
 
         self.fields = {}
@@ -42,10 +46,16 @@ class UnitDataUI(UI):
         self.current_unit = 0
         self.current_unit_data = {}
 
+        self.tier1_metrics = {}
+        self.tier2_metrics = {}
+        self.tier3_metrics = {}
+        self.tier4_metrics = {}
+
         self.confirmation_timer = 0
         self.show_confirmation = True
 
         self.load_unit(self.unit_list[self.unit_index])
+        self.calculate_unit_metrics()
 
     def update(self):
         # handle button presses
@@ -112,6 +122,11 @@ class UnitDataUI(UI):
         if self.show_confirmation:
             positive_font.render("Save successful.", surface, (window_width - 100, window_height - 20))
 
+
+        # show info regarding other units
+
+
+
     def load_unit(self, unit_id):
         self.current_unit = unit_id
         self.current_unit_data = self.game.data.units[unit_id]
@@ -119,8 +134,8 @@ class UnitDataUI(UI):
 
         self.fields = {}
         for i, field in enumerate(self.current_unit_data):
-            y = i % 10
-            x = i // 10
+            y = i % 15  # this is the rows in the col
+            x = i // 15  # must match int used for y
             self.fields[field] = InputBox(
                 self.game,
                 [80, 16],
@@ -130,6 +145,9 @@ class UnitDataUI(UI):
             )
 
     def save(self):
+        """
+        Save the current unit data to the json.
+        """
         unit_type = self.current_unit_data["type"]
         str_path = str(DATA_PATH / "units" / f"{unit_type}.json")
 
@@ -140,3 +158,74 @@ class UnitDataUI(UI):
         # trigger confirmation message
         self.show_confirmation = True
         self.confirmation_timer = 800
+
+
+    def calculate_unit_metrics(self):
+        """
+        Calculate useful info.
+        """
+        tier1 = {}
+        tier2 = {}
+        tier3 = {}
+        tier4 = {}
+
+        # get data sorted by stat
+        for unit in self.game.data.units.values():
+            if unit["tier"] == 1:
+                current_dict = tier1
+            elif unit["tier"] == 2:
+                current_dict = tier2
+            elif unit["tier"] == 3:
+                current_dict = tier3
+            else:
+                # unit["tier"] == 4:
+                current_dict = tier4
+
+            # add all units stats to stat lists
+            for stat, value in unit.items():
+                # ignore strings
+                if isinstance(value, str):
+                    continue
+
+                # init list
+                if stat not in current_dict:
+                    current_dict[stat] = [value]
+                else:
+                    current_dict[stat].append(value)
+
+        tier1_calc = {}
+        tier2_calc = {}
+        tier3_calc = {}
+        tier4_calc = {}
+
+        # do calculations
+        for stat, values in tier1.items():
+            min_ = min(values)
+            avg = mean(values)
+            max_ = max(values)
+            tier1_calc[stat] = [min_, avg, max_]
+
+        for stat, values in tier2.items():
+            min_ = min(values)
+            avg = mean(values)
+            max_ = max(values)
+            tier2_calc[stat] = [min_, avg, max_]
+
+        for stat, values in tier3.items():
+            min_ = min(values)
+            avg = mean(values)
+            max_ = max(values)
+            tier3_calc[stat] = [min_, avg, max_]
+
+        for stat, values in tier4.items():
+            min_ = min(values)
+            avg = mean(values)
+            max_ = max(values)
+            tier4_calc[stat] = [min_, avg, max_]
+
+
+        # overwrite attributes
+        self.tier1_metrics = tier1_calc
+        self.tier2_metrics = tier2_calc
+        self.tier3_metrics = tier3_calc
+        self.tier4_metrics = tier4_calc
