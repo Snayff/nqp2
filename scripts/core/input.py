@@ -34,6 +34,7 @@ class Input:
             "view_troupe": False,
             "shift": False,
             "backspace": False,
+            "toggle_data_editor": False
         }
 
         self.mouse_state = {
@@ -53,9 +54,9 @@ class Input:
         logging.info(f"Input: initialised in {format(end_time - start_time, '.2f')}s.")
 
     def soft_reset(self):
-        '''
+        """
         Resets inputs that should only be activated for 1 frame.
-        '''
+        """
         self.states["select"] = False
         self.states["cancel"] = False
         self.mouse_state["left"] = False
@@ -135,6 +136,9 @@ class Input:
 
                     if event.key == K_v:
                         self.states["view_troupe"] = True
+
+                    if event.key == K_BACKQUOTE:
+                        self.states["toggle_data_editor"] = True
 
                 if event.type == KEYUP:
                     if event.key == K_RIGHT:

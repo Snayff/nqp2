@@ -37,6 +37,11 @@ class RunSetupUI(UI):
 
             self.handle_selection()
 
+        if self.game.input.states["toggle_data_editor"]:
+            self.game.input.states["toggle_data_editor"] = False
+
+            self.game.change_scene(SceneType.DEV_UNIT_DATA)
+
     def render(self, surface: pygame.surface):
         default_font = self.default_font
         positive_font = self.positive_font

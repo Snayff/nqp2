@@ -59,8 +59,7 @@ class Game:
         self.dev_unit_data: UnitDataScene = UnitDataScene(self)
 
         # point this to whatever scene is active
-        #self.active_scene = self.run_setup
-        self.active_scene = self.dev_unit_data
+        self.active_scene = self.run_setup
 
         self.state: GameState = GameState.PLAYING
 
@@ -125,7 +124,8 @@ class Game:
         elif scene_type == SceneType.RUN_SETUP:
             self.active_scene = self.run_setup
 
-        elif scene_type == SceneType.UNIT_DATA:
+        elif scene_type == SceneType.DEV_UNIT_DATA:
+            self.dev_unit_data.previous_scene_type = utility.scene_to_scene_type(self.active_scene)
             self.active_scene = self.dev_unit_data
 
         logging.info(f"Active scene changed to {scene_type.name}.")

@@ -3,13 +3,15 @@ from __future__ import annotations
 import logging
 from typing import TYPE_CHECKING
 import time
+
+from scripts.core.constants import SceneType
 from scripts.scenes.unit_data.ui import UnitDataUI
 from scripts.core.base_classes.scene import Scene
 
 if TYPE_CHECKING:
     from scripts.core.game import Game
 
-__all__ = ["UnitDataUI"]
+__all__ = ["UnitDataScene"]
 
 
 class UnitDataScene(Scene):
@@ -21,9 +23,11 @@ class UnitDataScene(Scene):
 
         self.ui: UnitDataUI = UnitDataUI(game)
 
+        self.previous_scene_type: SceneType = SceneType.DEV_UNIT_DATA
+
         # record duration
         end_time = time.time()
-        logging.info(f"EventScene: initialised in {format(end_time - start_time, '.2f')}s.")
+        logging.info(f"UnitDataScene: initialised in {format(end_time - start_time, '.2f')}s.")
 
     def update(self):
         self.ui.update()
