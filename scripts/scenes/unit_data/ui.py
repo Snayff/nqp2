@@ -13,6 +13,7 @@ from scripts.ui_elements.input_box import InputBox
 
 if TYPE_CHECKING:
     from scripts.core.game import Game
+    from typing import Dict
 
 __all__ = ["UnitDataUI"]
 
@@ -25,7 +26,7 @@ class UnitDataUI(UI):
     def __init__(self, game: Game):
         super().__init__(game)
 
-        self.buttons = {
+        self.buttons: Dict[str, Button] = {
             "left_arrow": Button(game,
                                  pygame.transform.flip(self.game.assets.get_image("ui", "arrow_button"),
                                                        True, False),
@@ -36,11 +37,13 @@ class UnitDataUI(UI):
         }
 
         self.fields = {}
-
         self.unit_list = list(self.game.data.units)
         self.unit_index = 0
         self.current_unit = 0
         self.current_unit_data = {}
+
+        self.confirmation_timer = 0
+        self.show_confirmation = True
 
         self.load_unit(self.unit_list[self.unit_index])
 
@@ -80,8 +83,18 @@ class UnitDataUI(UI):
             else:
                 self.fields[field].unfocus()
 
+        # update confirmation timer
+        if self.confirmation_timer > 0:
+            self.confirmation_timer -= 1
+        else:
+            self.show_confirmation = False
+
     def render(self, surface: pygame.surface):
         default_font = self.game.assets.fonts["default"]
+        positive_font = self.game.assets.fonts["positive"]
+
+        window_width = self.game.window.width
+        window_height = self.game.window.height
 
         default_font.render(
             self.current_unit,
@@ -94,6 +107,10 @@ class UnitDataUI(UI):
 
         for button in self.buttons.values():
             button.render(surface)
+
+        # show confirmation message
+        if self.show_confirmation:
+            positive_font.render("Save successful.", surface, (window_width - 100, window_height - 20))
 
     def load_unit(self, unit_id):
         self.current_unit = unit_id
@@ -119,3 +136,7 @@ class UnitDataUI(UI):
         with open(str_path, "w") as file:
             json.dump(self.current_unit_data, file, indent=4)
             logging.info(f"UnitDataUI: updated {unit_type}; new data saved.")
+
+        # trigger confirmation message
+        self.show_confirmation = True
+        self.confirmation_timer = 800
