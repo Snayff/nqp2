@@ -1,5 +1,6 @@
 import pygame
 
+
 class Button:
     def __init__(self, game, content, pos, push_down=True, size=[10, 10], color=(255, 255, 255)):
         self.game = game
@@ -18,7 +19,7 @@ class Button:
     def pressed(self):
         r = pygame.Rect(*self.pos, *self.size)
         if r.collidepoint(self.game.input.mouse_pos):
-            if self.game.input.mouse_state['left']:
+            if self.game.input.mouse_state["left"]:
                 self.push_timer = 0.2
                 return True
         return False
@@ -35,4 +36,13 @@ class Button:
         else:
             r = pygame.Rect(self.pos[0] + offset[0], self.pos[1] + offset[1], *self.size)
             pygame.draw.rect(surf, self.color, r, width=1)
-            self.game.assets.fonts['default'].render(self.content, surf, (self.pos[0] + offset[0] + (self.size[0] - self.game.assets.fonts['default'].width(self.content)) // 2, self.pos[1] + offset[1] + (self.size[1] - self.game.assets.fonts['default'].height) // 2))
+            self.game.assets.fonts["default"].render(
+                self.content,
+                surf,
+                (
+                    self.pos[0]
+                    + offset[0]
+                    + (self.size[0] - self.game.assets.fonts["default"].width(self.content)) // 2,
+                    self.pos[1] + offset[1] + (self.size[1] - self.game.assets.fonts["default"].height) // 2,
+                ),
+            )

@@ -13,8 +13,9 @@ from scripts.ui_elements.button import Button
 from scripts.ui_elements.input_box import InputBox
 
 if TYPE_CHECKING:
-    from scripts.core.game import Game
     from typing import Dict
+
+    from scripts.core.game import Game
 
 __all__ = ["UnitDataUI"]
 
@@ -31,13 +32,12 @@ class UnitDataUI(UI):
         window_height = self.game.window.height
 
         self.buttons: Dict[str, Button] = {
-            "left_arrow": Button(game,
-                                 pygame.transform.flip(self.game.assets.get_image("ui", "arrow_button"),
-                                                       True, False),
-                                 (10, 10)),
+            "left_arrow": Button(
+                game, pygame.transform.flip(self.game.assets.get_image("ui", "arrow_button"), True, False), (10, 10)
+            ),
             "right_arrow": Button(game, self.game.assets.get_image("ui", "arrow_button"), (120, 10)),
             "save": Button(game, "save", (window_width - 32, window_height - 22), size=[30, 20]),
-            "cancel": Button(game, "cancel", (2, window_height - 22), size=[30, 20])
+            "cancel": Button(game, "cancel", (2, window_height - 22), size=[30, 20]),
         }
 
         self.fields = {}
@@ -112,11 +112,7 @@ class UnitDataUI(UI):
         metric_col_width = 80
         metric_second_row_start_y = window_height // 2
 
-        default_font.render(
-            self.current_unit,
-            surface,
-            (76 - default_font.width(self.current_unit) // 2, 15)
-        )
+        default_font.render(self.current_unit, surface, (76 - default_font.width(self.current_unit) // 2, 15))
         for field in self.current_unit_data:
             default_font.render(field, surface, (self.fields[field].pos[0] - 90, self.fields[field].pos[1] + 3))
             self.fields[field].render(surface)
@@ -184,7 +180,6 @@ class UnitDataUI(UI):
             current_x += metric_col_width
             current_y = metric_second_row_start_y + font_height
 
-
     def refresh_unit_fields(self, unit_id):
         self.current_unit = unit_id
         self.current_unit_data = self.game.data.units[unit_id]
@@ -199,7 +194,7 @@ class UnitDataUI(UI):
                 [80, 16],
                 pos=[100 + x * 200, 30 + y * 20],
                 input_type="detect",
-                text=self.current_unit_data[field]
+                text=self.current_unit_data[field],
             )
 
     def save(self):
@@ -216,7 +211,6 @@ class UnitDataUI(UI):
         # trigger confirmation message
         self.show_confirmation = True
         self.confirmation_timer = 800
-
 
     def calculate_unit_metrics(self):
         """
@@ -280,7 +274,6 @@ class UnitDataUI(UI):
             avg = format(mean(values), ".2f")
             max_ = max(values)
             tier4_calc[stat] = [min_, avg, max_]
-
 
         # overwrite attributes
         self.tier1_metrics = tier1_calc

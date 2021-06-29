@@ -1,12 +1,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
 import time
+from typing import TYPE_CHECKING
 
+from scripts.core.base_classes.scene import Scene
 from scripts.core.constants import SceneType
 from scripts.scenes.unit_data.ui import UnitDataUI
-from scripts.core.base_classes.scene import Scene
 
 if TYPE_CHECKING:
     from scripts.core.game import Game
@@ -34,4 +34,3 @@ class UnitDataScene(Scene):
 
     def render(self):
         self.ui.render(self.game.window.display)
-

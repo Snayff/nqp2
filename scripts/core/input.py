@@ -34,16 +34,14 @@ class Input:
             "view_troupe": False,
             "shift": False,
             "backspace": False,
-            "toggle_data_editor": False
+            "toggle_data_editor": False,
         }
 
-        self.mouse_state = {
-            "left": False
-        }
+        self.mouse_state = {"left": False}
 
-        self.mode = 'default'
+        self.mode = "default"
 
-        self.char_buffer = ''
+        self.char_buffer = ""
         self.backspace_hold = 0
 
         self.mouse_pos = [0, 0]
@@ -74,14 +72,53 @@ class Input:
         self.mouse_pos[0] *= self.game.window.base_resolution[0] / self.game.window.scaled_resolution[0]
         self.mouse_pos[1] *= self.game.window.base_resolution[1] / self.game.window.scaled_resolution[1]
 
-        chars = ['.', '-', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+        chars = [
+            ".",
+            "-",
+            "a",
+            "b",
+            "c",
+            "d",
+            "e",
+            "f",
+            "g",
+            "h",
+            "i",
+            "j",
+            "k",
+            "l",
+            "m",
+            "n",
+            "o",
+            "p",
+            "q",
+            "r",
+            "s",
+            "t",
+            "u",
+            "v",
+            "w",
+            "x",
+            "y",
+            "z",
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+        ]
 
-        if self.mode == 'typing':
+        if self.mode == "typing":
             if self.states["backspace"]:
                 self.backspace_hold += self.game.window.dt
                 if self.backspace_hold > 0.7:
                     self.backspace_hold -= 0.035
-                    self.char_buffer.append('backspace')
+                    self.char_buffer.append("backspace")
             else:
                 self.backspace_hold = 0
 
@@ -110,7 +147,7 @@ class Input:
                 if event.key == K_BACKSPACE:
                     self.states["backspace"] = False
 
-            if self.mode == 'default':
+            if self.mode == "default":
                 if event.type == KEYDOWN:
                     if event.key == K_x:
                         self.states["cancel"] = True
@@ -153,18 +190,18 @@ class Input:
                     if event.key == K_DOWN:
                         self.states["hold_down"] = False
 
-            elif self.mode == 'typing':
+            elif self.mode == "typing":
                 if event.type == KEYDOWN:
                     for char in chars:
                         if event.key == ord(char):
                             if self.states["shift"]:
                                 char = char.upper()
-                                if char == '-':
-                                    char = '_'
+                                if char == "-":
+                                    char = "_"
                             self.char_buffer.append(char)
 
                     if event.key == K_BACKSPACE:
-                        self.char_buffer.append('backspace')
+                        self.char_buffer.append("backspace")
 
                     if event.key == K_SPACE:
-                        self.char_buffer.append(' ')
+                        self.char_buffer.append(" ")
