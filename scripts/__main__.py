@@ -17,10 +17,6 @@ def main():
     """
     game = Game()
 
-    # initialise logging
-    if game.debug.is_logging:
-        game.debug.initialise_logging()
-
     # initialise profiling
     if game.debug.is_profiling:
         game.debug.enable_profiling()

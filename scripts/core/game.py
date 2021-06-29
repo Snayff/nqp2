@@ -37,13 +37,13 @@ class Game:
         pygame.init()
 
         # managers
+        self.debug: Debugger = Debugger(self)
         self.window: Window = Window(self)
         self.data: Data = Data(self)
         self.memory: Memory = Memory(self)
         self.assets: Assets = Assets(self)
         self.input: Input = Input(self)
         self.rng: RNG = RNG(self)
-        self.debug: Debugger = Debugger(self)
 
         # scenes
         self.combat: CombatScene = CombatScene(self)
@@ -55,12 +55,11 @@ class Game:
         self.troupe: ViewTroupeScene = ViewTroupeScene(self)
         self.run_setup: RunSetupScene = RunSetupScene(self)
 
-        # for testing
-        self.unit_data_menu: UnitDataScene = UnitDataScene(self)
+        # dev scenes
+        self.dev_unit_data: UnitDataScene = UnitDataScene(self)
 
         # point this to whatever scene is active
-        #self.active_scene = self.run_setup
-        self.active_scene = self.unit_data_menu
+        self.active_scene = self.run_setup
 
         self.state: GameState = GameState.PLAYING
 
@@ -124,5 +123,9 @@ class Game:
 
         elif scene_type == SceneType.RUN_SETUP:
             self.active_scene = self.run_setup
+
+        elif scene_type == SceneType.DEV_UNIT_DATA:
+            self.dev_unit_data.previous_scene_type = utility.scene_to_scene_type(self.active_scene)
+            self.active_scene = self.dev_unit_data
 
         logging.info(f"Active scene changed to {scene_type.name}.")
