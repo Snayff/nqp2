@@ -55,12 +55,12 @@ class Game:
         self.troupe: ViewTroupeScene = ViewTroupeScene(self)
         self.run_setup: RunSetupScene = RunSetupScene(self)
 
-        # for testing
-        self.unit_data_menu: UnitDataScene = UnitDataScene(self)
+        # dev scenes
+        self.dev_unit_data: UnitDataScene = UnitDataScene(self)
 
         # point this to whatever scene is active
         #self.active_scene = self.run_setup
-        self.active_scene = self.unit_data_menu
+        self.active_scene = self.dev_unit_data
 
         self.state: GameState = GameState.PLAYING
 
@@ -124,5 +124,8 @@ class Game:
 
         elif scene_type == SceneType.RUN_SETUP:
             self.active_scene = self.run_setup
+
+        elif scene_type == SceneType.UNIT_DATA:
+            self.active_scene = self.dev_unit_data
 
         logging.info(f"Active scene changed to {scene_type.name}.")
