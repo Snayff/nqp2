@@ -21,6 +21,7 @@ __all__ = ["UnitDataUI"]
 
 
 ####### TO DO LIST ########
+# TODO - toggle tier info with info for the upgrade/non upgrade version
 # TODO - add a goto option next ot the upgrade to quickly take you to the upgrade unit
 
 class UnitDataUI(UI):
@@ -156,7 +157,8 @@ class UnitDataUI(UI):
         if self.show_confirmation:
             msg = "Save successful."
             text_width = default_font.width(msg)
-            positive_font.render(msg, surface, (window_width - text_width, window_height - font_height))
+            positive_font.render(msg, surface, (window_width - text_width - 35, window_height - font_height))
+            # 32 = button width + 5
 
         # set positions
         start_x = window_width - (window_width // 2.8)

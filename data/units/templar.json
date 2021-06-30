@@ -1,19 +1,19 @@
 {
     "type": "templar",
     "health": 30,
-    "defence": 8,
+    "defence": 55,
     "attack": 7,
     "range": 1,
-    "attack_speed": 2.2,
+    "attack_speed": 1.8,
     "move_speed": 20,
     "ammo": -1,
     "count": 4,
     "size": 7,
     "weight": 15,
-    "gold_cost": 200,
+    "gold_cost": 430,
     "default_behaviour": "swarm",
-    "upgrade_cost": 0,
+    "upgrade_cost": 80,
     "upgrades_to":"",
     "home": "castle",
-    "tier": 3
+    "tier": 4
 }
