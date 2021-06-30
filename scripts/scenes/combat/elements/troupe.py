@@ -40,15 +40,19 @@ class Troupe:
 
         return units_
 
-    def debug_init_units(self):
+    def debug_init_units(self) -> List[int]:
         """
-        Initialise some units. For testing.
+        Initialise all units for Troupe home. Returns list of created ids.
         """
-        for i in range(4):
-            if i % 2 == 1:
-                self.add_unit_from_type("spearman")
-            else:
-                self.add_unit_from_type("pikeman")
+        ids = []
+
+        unit_types = self.game.data.get_units_by_category([self.home])
+        for unit_type in unit_types:
+            id_ = self.add_unit_from_type(unit_type)
+            ids.append(id_)
+
+        return ids
+
 
     def add_unit(self, unit: Unit):
         """
@@ -97,7 +101,7 @@ class Troupe:
         Generate units for the Troupe, based on parameters given. If no unit types are given then any unit type can
         be chosen from home and ally. Returns list of created ids.
 
-        unit_types is expressed as [unit.name, ...]
+        unit_types is expressed as [unit.type, ...]
         """
         # handle default mutable
         if unit_types is None:

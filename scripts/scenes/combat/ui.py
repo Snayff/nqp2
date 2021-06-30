@@ -15,13 +15,9 @@ if TYPE_CHECKING:
 __all__ = ["CombatUI"]
 
 ## TO DO LIST ##
-# TODO - Combat clean start.
-# TODO - Combat defeat condition; send to DefeatScene (just stub, I'll fill the details in). Currently always getting
-#  victory.
-# TODO - Convert actions to cooldown based, instead of cards.
-# TODO - Injury/healing (health persistence outside of combat. See Design Doc for info.)
-# FIXME - some enemies rendering invisible
 # TODO - Combat animations
+# TODO - zoom out to show the whole map (prevent the need to have the cursor scroll the map)
+# FIXME - some enemies rendering invisible
 # TODO - prevent placing units on same position.
 # TODO - show bar that is all of remaining health for both sides as a % of total. So when player is winning the bar
 #  will progress to one side and if the opposite then it will progress to the other.
@@ -31,6 +27,8 @@ __all__ = ["CombatUI"]
 #  begins
 # TODO - if a crit kills an entity have chance of knocking entity back
 # TODO - keep cursor at the same position after making a selection, e.g. placing a unit.
+# TODO - differentiate enemy and ally sprites. perhaps give the team a colour on a small circle under each
+#  entity to denote their team?
 
 
 class CombatUI(UI):
