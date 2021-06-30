@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING
 import pygame
 
 from scripts.core.base_classes.ui import UI
-from scripts.core.constants import DATA_PATH
+from scripts.core.constants import DATA_PATH, DEFAULT_IMAGE_SIZE
 from scripts.ui_elements.button import Button
 from scripts.ui_elements.input_box import InputBox
 
@@ -53,6 +53,8 @@ class UnitDataUI(UI):
 
         self.confirmation_timer = 0
         self.show_confirmation = True
+        self.frame_timer = 0
+        self.frame_counter = 0
 
         self.refresh_unit_fields(self.unit_list[self.unit_index])
         self.calculate_unit_metrics()
@@ -101,6 +103,14 @@ class UnitDataUI(UI):
         else:
             self.show_confirmation = False
 
+        self.frame_timer += 1
+        if self.frame_timer > 20:
+            self.frame_timer = 0
+            self.frame_counter += 1
+
+            if self.frame_counter > 4:
+                self.frame_counter = 0
+
     def render(self, surface: pygame.surface):
         default_font = self.game.assets.fonts["default"]
         positive_font = self.game.assets.fonts["positive"]
@@ -119,8 +129,26 @@ class UnitDataUI(UI):
             self.fields[field].render(surface)
 
         # draw unit icon
-        unit_icon = self.game.assets.unit_animations[self.current_unit_data["type"]]["icon"][0]
-        surface.blit(unit_icon, (150, 10))
+        current_img_x = 150
+        current_img_y = 10
+        unit_type = self.current_unit_data["type"]
+        unit_icon = self.game.assets.unit_animations[unit_type]["icon"][0]
+        surface.blit(unit_icon, (current_img_x, current_img_y))
+
+        # draw unit animations
+        frame = self.frame_counter
+
+
+        try:
+            for animation_name in ["icon", "idle", "walk", "attack", "hit", "death"]:
+                num_frames = len(self.game.assets.unit_animations[unit_type][animation_name])
+                frame_ = min(frame, num_frames - 1)
+                img = self.game.assets.unit_animations[unit_type][animation_name][frame_]
+                surface.blit(img, (current_img_x, current_img_y))
+
+                current_img_x += DEFAULT_IMAGE_SIZE + 2
+        except KeyError:
+            pass
 
         # draw buttons
         for button in self.buttons.values():
