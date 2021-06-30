@@ -20,6 +20,9 @@ if TYPE_CHECKING:
 __all__ = ["UnitDataUI"]
 
 
+####### TO DO LIST ########
+# TODO - add a goto option next ot the upgrade to quickly take you to the upgrade unit
+
 class UnitDataUI(UI):
     """
     Represent the UI of the UnitDataScene.
@@ -128,23 +131,18 @@ class UnitDataUI(UI):
             default_font.render(field, surface, (self.fields[field].pos[0] - 90, self.fields[field].pos[1] + 3))
             self.fields[field].render(surface)
 
-        # draw unit icon
+        # draw unit animations
+        frame = self.frame_counter
         current_img_x = 150
         current_img_y = 10
         unit_type = self.current_unit_data["type"]
-        unit_icon = self.game.assets.unit_animations[unit_type]["icon"][0]
-        surface.blit(unit_icon, (current_img_x, current_img_y))
-
-        # draw unit animations
-        frame = self.frame_counter
-
-
         try:
             for animation_name in ["icon", "idle", "walk", "attack", "hit", "death"]:
                 num_frames = len(self.game.assets.unit_animations[unit_type][animation_name])
                 frame_ = min(frame, num_frames - 1)
                 img = self.game.assets.unit_animations[unit_type][animation_name][frame_]
-                surface.blit(img, (current_img_x, current_img_y))
+                img_ = pygame.transform.scale(img, (DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE))
+                surface.blit(img_, (current_img_x, current_img_y))
 
                 current_img_x += DEFAULT_IMAGE_SIZE + 2
         except KeyError:
@@ -158,7 +156,7 @@ class UnitDataUI(UI):
         if self.show_confirmation:
             msg = "Save successful."
             text_width = default_font.width(msg)
-            positive_font.render(msg, surface, (window_width - text_width, window_height - 40))
+            positive_font.render(msg, surface, (window_width - text_width, window_height - font_height))
 
         # set positions
         start_x = window_width - (window_width // 2.8)
