@@ -11,7 +11,7 @@ class EnemyCombatantsGenerator:
         map_size = self.game.combat.terrain.pixel_size
         rng = self.game.rng
 
-        enemy_count = 2
+        enemy_count = 5
 
         # generate positions
         positions = []
@@ -24,7 +24,11 @@ class EnemyCombatantsGenerator:
             positions.append(pos)
 
         # generate units
-        ids = self.enemy_troupe.generate_units(enemy_count, [1, 2])
+        if self.game.debug.debug_mode:
+            ids = self.enemy_troupe.debug_init_units()
+            ids = ids[:enemy_count]
+        else:
+            ids = self.enemy_troupe.generate_units(enemy_count, [1, 2])
 
         # assign positions and add to combat
         for id_ in ids:

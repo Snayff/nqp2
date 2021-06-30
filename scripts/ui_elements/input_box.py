@@ -1,5 +1,9 @@
 import pygame
 
+# TODO - add numpad support
+# TODO - add special character support, particularly - .
+# TODO - handle blank input fields
+
 
 class InputBox:
     def __init__(self, game, size, pos=[0, 0], color=(255, 255, 255), input_type="all", text="", font=None):

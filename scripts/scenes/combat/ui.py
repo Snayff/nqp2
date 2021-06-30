@@ -15,17 +15,20 @@ if TYPE_CHECKING:
 __all__ = ["CombatUI"]
 
 ## TO DO LIST ##
+# TODO - Combat animations
+# TODO - zoom out to show the whole map (prevent the need to have the cursor scroll the map)
+# FIXME - some enemies rendering invisible
+# TODO - prevent placing units on same position.
 # TODO - show bar that is all of remaining health for both sides as a % of total. So when player is winning the bar
 #  will progress to one side and if the opposite then it will progress to the other.
 # TODO - dev tool - instant win button
-# TODO - transition to reward screen on victory
 # TODO - occasional unit speech bubbles, triggered by key actions e.g. critical hit, ally death.
 # TODO - spawn all entities when unit placed so they all appear together, rather than popping them out when combat
 #  begins
 # TODO - if a crit kills an entity have chance of knocking entity back
-# FIXME - some enemies rendering invisible
-# TODO - can't place units on same position.
 # TODO - keep cursor at the same position after making a selection, e.g. placing a unit.
+# TODO - differentiate enemy and ally sprites. perhaps give the team a colour on a small circle under each
+#  entity to denote their team?
 
 
 class CombatUI(UI):

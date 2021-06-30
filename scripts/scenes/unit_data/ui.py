@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING
 import pygame
 
 from scripts.core.base_classes.ui import UI
-from scripts.core.constants import DATA_PATH
+from scripts.core.constants import DATA_PATH, DEFAULT_IMAGE_SIZE
 from scripts.ui_elements.button import Button
 from scripts.ui_elements.input_box import InputBox
 
@@ -18,6 +18,11 @@ if TYPE_CHECKING:
     from scripts.core.game import Game
 
 __all__ = ["UnitDataUI"]
+
+
+####### TO DO LIST ########
+# TODO - toggle tier info with info for the upgrade/non upgrade version
+# TODO - add a goto option next ot the upgrade to quickly take you to the upgrade unit
 
 
 class UnitDataUI(UI):
@@ -53,6 +58,8 @@ class UnitDataUI(UI):
 
         self.confirmation_timer = 0
         self.show_confirmation = True
+        self.frame_timer = 0
+        self.frame_counter = 0
 
         self.refresh_unit_fields(self.unit_list[self.unit_index])
         self.calculate_unit_metrics()
@@ -101,6 +108,14 @@ class UnitDataUI(UI):
         else:
             self.show_confirmation = False
 
+        self.frame_timer += 1
+        if self.frame_timer > 20:
+            self.frame_timer = 0
+            self.frame_counter += 1
+
+            if self.frame_counter > 4:
+                self.frame_counter = 0
+
     def render(self, surface: pygame.surface):
         default_font = self.game.assets.fonts["default"]
         positive_font = self.game.assets.fonts["positive"]
@@ -112,11 +127,30 @@ class UnitDataUI(UI):
         metric_col_width = 80
         metric_second_row_start_y = window_height // 2
 
+        # draw fields and their titles
         default_font.render(self.current_unit, surface, (76 - default_font.width(self.current_unit) // 2, 15))
         for field in self.current_unit_data:
             default_font.render(field, surface, (self.fields[field].pos[0] - 90, self.fields[field].pos[1] + 3))
             self.fields[field].render(surface)
 
+        # draw unit animations
+        frame = self.frame_counter
+        current_img_x = 150
+        current_img_y = 10
+        unit_type = self.current_unit_data["type"]
+        try:
+            for animation_name in ["icon", "idle", "walk", "attack", "hit", "death"]:
+                num_frames = len(self.game.assets.unit_animations[unit_type][animation_name])
+                frame_ = min(frame, num_frames - 1)
+                img = self.game.assets.unit_animations[unit_type][animation_name][frame_]
+                img_ = pygame.transform.scale(img, (DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE))
+                surface.blit(img_, (current_img_x, current_img_y))
+
+                current_img_x += DEFAULT_IMAGE_SIZE + 2
+        except KeyError:
+            pass
+
+        # draw buttons
         for button in self.buttons.values():
             button.render(surface)
 
@@ -124,7 +158,8 @@ class UnitDataUI(UI):
         if self.show_confirmation:
             msg = "Save successful."
             text_width = default_font.width(msg)
-            positive_font.render(msg, surface, (window_width - text_width, window_height - 40))
+            positive_font.render(msg, surface, (window_width - text_width - 35, window_height - font_height))
+            # 32 = button width + 5
 
         # set positions
         start_x = window_width - (window_width // 2.8)
