@@ -24,6 +24,7 @@ __all__ = ["UnitDataUI"]
 # TODO - toggle tier info with info for the upgrade/non upgrade version
 # TODO - add a goto option next ot the upgrade to quickly take you to the upgrade unit
 
+
 class UnitDataUI(UI):
     """
     Represent the UI of the UnitDataScene.

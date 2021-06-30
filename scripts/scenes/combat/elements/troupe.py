@@ -53,7 +53,6 @@ class Troupe:
 
         return ids
 
-
     def add_unit(self, unit: Unit):
         """
         Add a unit instance to the troupe. Used when buying an existing unit, e.g. from Inn.

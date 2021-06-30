@@ -16,6 +16,7 @@ __all__ = ["TrainingScene"]
 #### TO DO LIST ##########
 # TODO - set standard upgrade cost per tier.
 
+
 class TrainingScene(Scene):
     """
     Handles TrainingScene interactions and consolidates the rendering. TrainingScene is used to upgrade units.
