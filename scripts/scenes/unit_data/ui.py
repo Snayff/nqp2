@@ -112,11 +112,17 @@ class UnitDataUI(UI):
         metric_col_width = 80
         metric_second_row_start_y = window_height // 2
 
+        # draw fields and their titles
         default_font.render(self.current_unit, surface, (76 - default_font.width(self.current_unit) // 2, 15))
         for field in self.current_unit_data:
             default_font.render(field, surface, (self.fields[field].pos[0] - 90, self.fields[field].pos[1] + 3))
             self.fields[field].render(surface)
 
+        # draw unit icon
+        unit_icon = self.game.assets.unit_animations[self.current_unit_data["type"]]["icon"][0]
+        surface.blit(unit_icon, (150, 10))
+
+        # draw buttons
         for button in self.buttons.values():
             button.render(surface)
 
