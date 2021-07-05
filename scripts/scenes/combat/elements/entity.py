@@ -38,7 +38,7 @@ class Entity:
         self.weight: int = self.unit.weight
 
         # animation stuff
-        self.action = "idle"
+        self.action = "walk"
         self.frame_timer = 0
 
         self.behaviour = self.game.data.behaviours.entity_behaviours[self.unit.default_behaviour](self)
