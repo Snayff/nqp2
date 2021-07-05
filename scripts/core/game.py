@@ -22,6 +22,7 @@ from scripts.scenes.reward.scene import RewardScene
 from scripts.scenes.run_setup.scene import RunSetupScene
 from scripts.scenes.training.scene import TrainingScene
 from scripts.scenes.unit_data.scene import UnitDataScene
+from scripts.scenes.defeat.scene import DefeatScene
 
 __all__ = ["Game"]
 
@@ -48,6 +49,7 @@ class Game:
         # scenes
         self.combat: CombatScene = CombatScene(self)
         self.reward: RewardScene = RewardScene(self)
+        self.defeat: DefeatScene = DefeatScene(self)
         self.overworld: OverworldScene = OverworldScene(self)
         self.event: EventScene = EventScene(self)
         self.training: TrainingScene = TrainingScene(self)
@@ -120,6 +122,9 @@ class Game:
         elif scene_type == SceneType.REWARD:
             self.reward.generate_reward()
             self.active_scene = self.reward
+
+        elif scene_type == SceneType.DEFEAT:
+            self.active_scene = self.defeat
 
         elif scene_type == SceneType.RUN_SETUP:
             self.active_scene = self.run_setup

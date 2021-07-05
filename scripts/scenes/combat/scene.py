@@ -41,17 +41,22 @@ class CombatScene(Scene):
 
         super().__init__(game)
 
+        # record duration
+        end_time = time.time()
+        logging.info(f"CombatScene: initialised in {format(end_time - start_time, '.2f')}s.")
+
+    def begin_combat(self):
         self.camera: Camera = Camera()
         self.camera.pos = [0, 100]
 
-        self.terrain: Terrain = Terrain(game)
-        self.terrain.generate(game.assets.maps["plains_1"])
+        self.terrain: Terrain = Terrain(self.game)
+        self.terrain.generate(self.game.assets.maps["plains_1"])
 
-        self.units: UnitManager = UnitManager(game)
+        self.units: UnitManager = UnitManager(self.game)
 
-        self.enemy_generator = EnemyCombatantsGenerator(game)
+        self.enemy_generator = EnemyCombatantsGenerator(self.game)
 
-        self.ui: CombatUI = CombatUI(game)
+        self.ui: CombatUI = CombatUI(self.game)
 
         self.actions = actions
 
@@ -62,11 +67,6 @@ class CombatScene(Scene):
 
         self.all_entities = self.get_all_entities()
 
-        # record duration
-        end_time = time.time()
-        logging.info(f"CombatScene: initialised in {format(end_time - start_time, '.2f')}s.")
-
-    def begin_combat(self):
         self.enemy_generator.generate()
         self.game.memory.unit_deck.from_troupe(self.game.memory.player_troupe)
         self.deck: CardCollection = self.game.memory.unit_deck.copy()
@@ -104,7 +104,9 @@ class CombatScene(Scene):
         # end combat when either side is empty
         if self.game.combat.state not in [CombatState.UNIT_CHOOSE_CARD, CombatState.UNIT_SELECT_TARGET]:
             player_entities = [e for e in self.all_entities if e.team == "player"]
-            if (len(player_entities) == 0) or (len(player_entities) == len(self.all_entities)):
+            if len(player_entities) == 0:
+                self.game.change_scene(SceneType.DEFEAT)
+            if len(player_entities) == len(self.all_entities):
                 self.game.change_scene(SceneType.REWARD)
 
         self.ui.update()
