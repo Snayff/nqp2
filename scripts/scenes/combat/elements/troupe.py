@@ -27,7 +27,7 @@ class Troupe:
         self._units: Dict[int, Unit] = {}
         self.team: str = team
         self.allies: List[str] = allies
-        self.commander: Optional[Commander] = None
+
 
     @property
     def units(self) -> Dict[int, Unit]:

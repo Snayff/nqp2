@@ -72,6 +72,8 @@ class CombatScene(Scene):
         self.deck: CardCollection = self.game.memory.unit_deck.copy()
         self.hand = self.deck.draw(5)
 
+        self.leadership_points_spent = 0  # points spent to place units
+
     def get_all_entities(self):
         entities = []
         for unit in self.units.units:

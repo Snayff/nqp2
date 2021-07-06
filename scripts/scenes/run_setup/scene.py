@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.scene import Scene
 from scripts.core.constants import SceneType
+from scripts.scenes.combat.elements.commander import Commander
 from scripts.scenes.run_setup.ui import RunSetupUI
 
 if TYPE_CHECKING:
@@ -48,9 +49,10 @@ class RunSetupScene(Scene):
         # set the seed
         self.game.rng.set_seed(self.selected_seed)
 
-        # set allies
+        # register commander values
         commander = self.game.data.commanders[self.selected_commander]
         self.game.memory.player_troupe.allies = commander["allies"]
+        self.game.memory.commander = Commander(self.game, commander["name"])
 
         logging.info(f"Player chose {self.selected_commander} as their commander.")
 
