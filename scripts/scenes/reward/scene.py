@@ -134,7 +134,10 @@ class RewardScene(Scene):
 
     def _choose_troupe_rewards(self, reward: Unit):
         if isinstance(reward, Unit):
-            self.game.memory.player_troupe.add_unit(reward)
+            # check can afford
+            has_enough_charisma = self.game.memory.commander.charisma_remaining > 0
+            if has_enough_charisma:
+                self.game.memory.player_troupe.add_unit(reward)
         else:
             logging.warning(
                 f"Chose {reward} as a unit reward. As it isnt a unit, something has "
