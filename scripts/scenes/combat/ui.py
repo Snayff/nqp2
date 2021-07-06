@@ -42,6 +42,8 @@ class CombatUI(UI):
         self.place_target = [0, 0]
 
     def update(self, delta_time: float):
+        super().update(delta_time)
+
         target_pos = self.game.combat.get_team_center("player")
         if not target_pos:
             target_pos = [0, 0]

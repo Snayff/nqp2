@@ -28,7 +28,10 @@ class RunSetupUI(UI):
             1: 1,
         }  # row number: number of columns
 
+        self.set_instruction_text("Choose who will lead the rebellion.")
+
     def update(self, delta_time: float):
+        super().update(delta_time)
 
         self.set_selection_dimensions(len(self.dimensions.keys()), self.dimensions[self.selected_row])
         self.handle_directional_input_for_selection()
@@ -147,6 +150,8 @@ class RunSetupUI(UI):
                 (current_x, current_y + font_height),
                 (current_x + confirm_width, current_y + font_height),
             )
+
+        self.draw_instruction(surface)
 
     def handle_selection(self):
         # select commander

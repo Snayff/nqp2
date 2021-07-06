@@ -24,7 +24,11 @@ class TrainingUI(UI):
 
         self.selected_unit: Optional[Unit] = None
 
+        self.set_instruction_text("Choose who to upgrade.")
+
     def update(self, delta_time: float):
+        super().update(delta_time)
+
         units = self.game.memory.player_troupe.units
 
         self.set_selection_dimensions(len(units), 1)
@@ -36,7 +40,15 @@ class TrainingUI(UI):
             self.game.input.states["select"] = False
 
             if self.selected_unit:
-                self.game.training.upgrade_unit(self.selected_unit.id)
+                # can we afford
+                id_ = self.selected_unit.id
+                unit = self.game.memory.player_troupe.units[id_]
+                if unit.upgrade_cost <= self.game.memory.gold:
+                    self.game.memory.amend_gold(-unit.upgrade_cost)  # remove gold cost
+                    self.game.memory.player_troupe.upgrade_unit(id_)
+
+                else:
+                    self.set_instruction_text(f"You can't afford {unit.type}.", True)
 
         # exit
         if self.game.input.states["cancel"]:
@@ -162,5 +174,8 @@ class TrainingUI(UI):
 
             unit_count += 1
 
-        # show gold
+        # show core info
         self.draw_gold(surface)
+        self.draw_charisma(surface)
+        self.draw_leadership(surface)
+        self.draw_instruction(surface)

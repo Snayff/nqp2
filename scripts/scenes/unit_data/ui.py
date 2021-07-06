@@ -65,6 +65,8 @@ class UnitDataUI(UI):
         self.calculate_unit_metrics()
 
     def update(self, delta_time: float):
+        super().update(delta_time)
+
         # handle button presses
         buttons = self.buttons
         for button in buttons.values():

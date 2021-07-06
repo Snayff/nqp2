@@ -22,7 +22,11 @@ class EventUI(UI):
     def __init__(self, game: Game):
         super().__init__(game)
 
+        self.set_instruction_text("Choose what to do next.")
+
     def update(self, delta_time: float):
+        super().update(delta_time)
+
         options = self.game.event.active_event["options"]
 
         self.set_selection_dimensions(len(options), 1)
@@ -79,5 +83,8 @@ class EventUI(UI):
 
             count += 1
 
-        # show gold
+        # show core info
         self.draw_gold(surface)
+        self.draw_charisma(surface)
+        self.draw_leadership(surface)
+        self.draw_instruction(surface)

@@ -65,7 +65,7 @@ class UI(ABC):
     def set_instruction_text(self, text: str, temporary: bool = False):
         if temporary:
             self.temporary_instruction_text = text
-            self.temporary_instruction_timer = 800
+            self.temporary_instruction_timer = 400
         else:
             self.instruction_text = text
 
@@ -115,12 +115,14 @@ class UI(ABC):
         self.disabled_font.render(f"Leadership: {self.game.memory.commander.leadership}", surface, (122, 2))
 
     def draw_instruction(self, surface: pygame.surface):
-        x = 2
-        y = self.game.window.height - 12  # 12 = font height
-
         if self.temporary_instruction_text:
             text = self.temporary_instruction_text
+            font = self.warning_font
         else:
             text = self.instruction_text
-        self.warning_font.render(text, surface, (x, y))
+            font = self.disabled_font
+
+        x = self.game.window.width - font.width(text) - 2
+        y = 2
+        font.render(text, surface, (x, y))
 
