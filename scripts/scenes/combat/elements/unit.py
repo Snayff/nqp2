@@ -45,6 +45,7 @@ class Unit:
         self.size: int = unit_data["size"]  # size of the hitbox
         self.weight: int = unit_data["weight"]
         self.gold_cost: int = unit_data["gold_cost"]
+        self.tier: int = unit_data["tier"]
 
         # during combat
         self.behaviour = self.game.data.behaviours.unit_behaviours[self.default_behaviour](self)

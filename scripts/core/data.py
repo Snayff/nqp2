@@ -4,7 +4,7 @@ import json
 import logging
 import os
 import time
-from typing import TYPE_CHECKING, Union
+from typing import Any, TYPE_CHECKING, Union
 
 from scripts.core.constants import DATA_PATH
 from scripts.scenes.combat.elements.behavior_manager import BehaviourManager
@@ -18,8 +18,6 @@ __all__ = ["Data"]
 
 
 ########### TO DO LIST #############
-# TODO - create a data editor for quicker editing of data, particularly units
-#   support with information about other units, such as max, min and avg for a stat
 # TODO - add modifier to increase likelihood of rare things generating in line with player progression
 
 
@@ -34,13 +32,14 @@ class Data:
 
         self.game: Game = game
 
-        self.units: Dict = self._load_unit_info()
+        self.commanders: Dict[str, Any] = self._load_commanders()
+        self.units: Dict[str, Any] = self._load_unit_info()
         self.behaviours = BehaviourManager()
         self.tiles = self._load_tile_info()
         self.homes: List[str] = self._create_homes_list()
-        self.events: Dict = self._load_events()
+        self.events: Dict[str, Any] = self._load_events()
 
-        self.config: Dict = self._load_config()
+        self.config: Dict[str, Any] = self._load_config()
 
         # record duration
         end_time = time.time()
@@ -48,7 +47,7 @@ class Data:
 
     @staticmethod
     def _load_tile_info() -> Dict:
-        f = f = open(str(DATA_PATH / "tiles.json"), "r")
+        f = open(str(DATA_PATH / "maps" / "tiles.json"), "r")
         tile_info_raw = json.load(f)
         f.close()
 
@@ -105,6 +104,18 @@ class Data:
         logging.info(f"Data: Config data loaded.")
 
         return config
+
+    @staticmethod
+    def _load_commanders() -> Dict:
+        commanders = {}
+        for commander in os.listdir("data/commanders"):
+            f = open(str(DATA_PATH / "commanders" / commander), "r")
+            commanders[commander.split(".")[0]] = json.load(f)
+            f.close()
+
+        logging.info(f"Data: All commanders data loaded.")
+
+        return commanders
 
     def get_units_by_category(self, homes: List[str], tiers: List[int] = None) -> List[str]:
         """

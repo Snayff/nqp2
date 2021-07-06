@@ -149,3 +149,5 @@ class RewardUI(UI):
 
             # show gold
             self.draw_gold(surface)
+            self.draw_charisma(surface)
+            self.draw_leadership(surface)

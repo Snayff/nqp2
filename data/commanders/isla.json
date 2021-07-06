@@ -1,0 +1,10 @@
+{
+    "name": "isla",
+    "backstory": "Overthrowing the patriarchy is her only desire.",
+    "charisma": 7,
+    "leadership": 6,
+    "allies": [
+        "castle",
+        "dungeon"
+    ]
+}

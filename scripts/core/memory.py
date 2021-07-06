@@ -5,9 +5,12 @@ import time
 from typing import TYPE_CHECKING
 
 from scripts.scenes.combat.elements.card_collection import CardCollection
+from scripts.scenes.combat.elements.commander import Commander
 from scripts.scenes.combat.elements.troupe import Troupe
 
 if TYPE_CHECKING:
+    from typing import Dict, List, Optional, Tuple
+
     from scripts.core.game import Game
 
 __all__ = ["Memory"]
@@ -28,7 +31,8 @@ class Memory:
         self._last_id = 0
 
         # empty values will be overwritten in run_start
-        self.player_troupe: Troupe = Troupe(self.game, "player", "", [])
+        self.player_troupe: Troupe = Troupe(self.game, "player", [])
+        self.commander: Optional[Commander] = None
 
         self.unit_deck: CardCollection = CardCollection(game)
         self.unit_deck.from_troupe(self.player_troupe)

@@ -6,7 +6,7 @@ from typing import Dict, TYPE_CHECKING
 import pygame
 
 from scripts.core.base_classes.ui import UI
-from scripts.core.constants import SceneType
+from scripts.core.constants import DEFAULT_IMAGE_SIZE, SceneType
 
 if TYPE_CHECKING:
     from scripts.core.game import Game
@@ -22,8 +22,11 @@ class RunSetupUI(UI):
     def __init__(self, game: Game):
         super().__init__(game)
 
-        num_homes = len(self.game.data.homes)
-        self.dimensions: Dict[int, int] = {0: num_homes, 1: num_homes, 2: 1, 3: 1}
+        num_commanders = len(self.game.data.commanders)
+        self.dimensions: Dict[int, int] = {
+            0: num_commanders,
+            1: 1,
+        }  # row number: number of columns
 
     def update(self):
 
@@ -47,8 +50,8 @@ class RunSetupUI(UI):
         positive_font = self.positive_font
         disabled_font = self.disabled_font
 
-        homes = self.game.data.homes
-        num_sections = 4  # home, ally, seed, confirm
+        commanders = self.game.data.commanders
+        selected_commander = self.game.run_setup.selected_commander
         current_row = 0
 
         # positions
@@ -56,143 +59,104 @@ class RunSetupUI(UI):
         start_y = 20
         gap = 10
         font_height = 12  # FIXME - get actual font height
-        section_width = (self.game.window.width - (start_x * 2)) // len(homes)
-        section_height = (self.game.window.height - (start_y * 2)) // num_sections
+        window_width = self.game.window.width
+        window_height = self.game.window.height
 
-        # draw home options
-        count = 0
+        # draw commanders
+        sel_col_count = 0
+        current_x = start_x
         current_y = start_y
-        for home in homes:
-            current_x = start_x + (count * (section_width + gap))
+        for commander in commanders.values():
+            # get icon and details
+            icon_pos = (current_x, current_y)
+            icon = self.game.assets.commander_animations[commander["name"]]["icon"][0]
+            icon_width = icon.get_width()
+            icon_height = icon.get_height()
 
-            # get correct font
-            if self.game.run_setup.selected_home == home:
-                # selected already
-                active_font = positive_font
-            elif self.game.run_setup.selected_ally == home:
-                # already used by other option
-                active_font = disabled_font
-            else:
-                active_font = default_font
+            # highlight if selected
+            if selected_commander == commander["name"]:
+                pygame.draw.rect(surface, (252, 211, 3), (icon_pos, (icon_width, icon_height)))
 
-            active_font.render(home, surface, (current_x, current_y))
+            # draw icon
+            surface.blit(icon, icon_pos)
 
             # draw selector
-            if count == self.selected_col and current_row == self.selected_row:
+            if sel_col_count == self.selected_col and current_row == self.selected_row:
                 pygame.draw.line(
                     surface,
                     (255, 255, 255),
-                    (current_x, current_y + font_height),
-                    (current_x + default_font.width("home"), current_y + font_height),
+                    (current_x, current_y + icon_height + 2),
+                    (current_x + icon_width, current_y + icon_height + 2),
                 )
 
-            count += 1
+            # increment draw pos and counter
+            current_x += icon_width + gap
+            sel_col_count += 1
 
-        # increment
-        current_y += section_height
-        current_row += 1
+        # draw info
+        commander = commanders[selected_commander]
+        current_y = start_y + DEFAULT_IMAGE_SIZE + gap
+        info_x = start_x + 200
+        header_x = start_x
 
-        # draw ally options
-        count = 0
-        for home in homes:
-            current_x = start_x + (count * (section_width + gap))
+        # name
+        default_font.render("Name", surface, (header_x, current_y))
+        default_font.render(commander["name"], surface, (info_x, current_y))
 
-            # get correct font
-            if self.game.run_setup.selected_ally == home:
-                # selected already
-                active_font = positive_font
-            elif self.game.run_setup.selected_home == home:
-                # already used by other option
-                active_font = disabled_font
+        current_y += font_height + gap
+
+        # backstory - N.B. no header
+        disabled_font.render(commander["backstory"], surface, (header_x, current_y))
+
+        current_y += font_height + gap
+
+        # limits
+        default_font.render("Charisma", surface, (header_x, current_y))
+        default_font.render(commander["charisma"], surface, (info_x, current_y))
+        current_y += font_height
+        default_font.render("Leadership", surface, (header_x, current_y))
+        default_font.render(commander["leadership"], surface, (info_x, current_y))
+
+        current_y += font_height + gap
+
+        # allies
+        allies = ""
+        for ally in commander["allies"]:
+            # add comma
+            if allies == "":
+                allies += ally
             else:
-                active_font = default_font
+                allies += ", " + ally
 
-            active_font.render(home, surface, (current_x, current_y))
+        default_font.render("Allies", surface, (header_x, current_y))
+        default_font.render(allies, surface, (info_x, current_y))
 
-            # draw selector
-            if count == self.selected_col and current_row == self.selected_row:
-                pygame.draw.line(
-                    surface,
-                    (255, 255, 255),
-                    (current_x, current_y + font_height),
-                    (current_x + default_font.width("home"), current_y + font_height),
-                )
+        # draw confirm button
+        confirm_text = "begin"
+        confirm_width = default_font.width(confirm_text)
+        current_x = window_width - (confirm_width + gap)
+        current_y = window_height - (font_height + gap)
+        default_font.render(confirm_text, surface, (current_x, current_y))
 
-            count += 1
-
-        # increment
-        current_y += section_height
+        # draw selector if confirm selected
         current_row += 1
-
-        # draw seed
-        current_x = start_x
-        count = 0
-
-        active_font = default_font
-        active_font.render("Seed: " + str(self.game.run_setup.selected_seed), surface, (current_x, current_y))
-
-        # draw selector
-        if count == self.selected_col and current_row == self.selected_row:
+        if current_row == self.selected_row:
             pygame.draw.line(
                 surface,
                 (255, 255, 255),
                 (current_x, current_y + font_height),
-                (current_x + default_font.width("home"), current_y + font_height),
-            )
-
-        # increment
-        current_y += section_height
-        current_row += 1
-
-        # draw confirm option
-        current_x = start_x
-        count = 0
-
-        # get correct font
-        if self.game.run_setup.ready_to_start:
-            active_font = default_font
-        else:
-            active_font = disabled_font
-
-        active_font.render("Start run", surface, (current_x, current_y))
-
-        # draw selector
-        if count == self.selected_col and current_row == self.selected_row:
-            pygame.draw.line(
-                surface,
-                (255, 255, 255),
-                (current_x, current_y + font_height),
-                (current_x + default_font.width("home"), current_y + font_height),
+                (current_x + confirm_width, current_y + font_height),
             )
 
     def handle_selection(self):
-        # selected home
+        # select commander
         if self.selected_row == 0:
-            selected_home = self.game.data.homes[self.selected_col]
+            selected_commander = list(self.game.data.commanders)[self.selected_col]
 
-            # if already using this home unset it
-            if self.game.run_setup.selected_ally == selected_home:
-                self.game.run_setup.selected_ally = ""
+            self.game.run_setup.selected_commander = selected_commander
 
-            self.game.run_setup.selected_home = selected_home
+            self.selected_row += 1
 
-        # selected ally
+        # begin
         elif self.selected_row == 1:
-            selected_home = self.game.data.homes[self.selected_col]
-
-            # if already using this home unset it
-            if self.game.run_setup.selected_home == selected_home:
-                self.game.run_setup.selected_home = ""
-
-            self.game.run_setup.selected_ally = selected_home
-
-        # seed
-        elif self.selected_row == 2:
-            # TODO - allow player to set seed
-            pass
-
-        # confirm
-        elif self.selected_row == 3:
-            # ensure conditions are as we need them
-            if self.game.run_setup.ready_to_start:
-                self.game.run_setup.start_run()
+            self.game.run_setup.start_run()

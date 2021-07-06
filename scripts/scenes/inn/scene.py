@@ -7,6 +7,7 @@ from typing import List, TYPE_CHECKING
 
 from scripts.core.base_classes.scene import Scene
 from scripts.scenes.combat.elements.troupe import Troupe
+from scripts.scenes.combat.elements.unit import Unit
 from scripts.scenes.inn.ui import InnUI
 
 if TYPE_CHECKING:
@@ -31,7 +32,7 @@ class InnScene(Scene):
         self.ui: InnUI = InnUI(game)
 
         player_troupe = self.game.memory.player_troupe
-        self.sale_troupe: Troupe = Troupe(self.game, "inn", player_troupe.home, player_troupe.allies)
+        self.sale_troupe: Troupe = Troupe(self.game, "inn", player_troupe.allies)
 
         # record duration
         end_time = time.time()
@@ -43,20 +44,16 @@ class InnScene(Scene):
     def render(self):
         self.ui.render(self.game.window.display)
 
-    def purchase_unit(self, option_index: int):
+    def purchase_unit(self, unit: Unit):
         """
         Purchase the unit
         """
-        units = list(self.sale_troupe.units.values())
-        unit = units[option_index]
 
-        # can we afford
-        if unit.gold_cost <= self.game.memory.gold:
-            # pay gold
-            self.game.memory.amend_gold(-unit.gold_cost)  # remove gold cost
+        # pay gold
+        self.game.memory.amend_gold(-unit.gold_cost)  # remove gold cost
 
-            # add unit
-            self.game.memory.player_troupe.add_unit(unit)
+        # add unit
+        self.game.memory.player_troupe.add_unit(unit)
 
         # remove option from list
         self.sale_troupe.remove_unit(unit.id)
@@ -67,7 +64,6 @@ class InnScene(Scene):
         """
         # update troupe to match players
         player_troupe = self.game.memory.player_troupe
-        self.sale_troupe.home = player_troupe.home
         self.sale_troupe.allies = player_troupe.allies
 
         self.sale_troupe.remove_all_units()

@@ -4,10 +4,11 @@ import logging
 import random
 from typing import TYPE_CHECKING
 
+from scripts.scenes.combat.elements.commander import Commander
 from scripts.scenes.combat.elements.unit import Unit
 
 if TYPE_CHECKING:
-    from typing import Dict, List, Tuple
+    from typing import Dict, List, Optional, Tuple
 
     from scripts.core.game import Game
 
@@ -19,16 +20,13 @@ class Troupe:
     Management of a group of units
     """
 
-    def __init__(self, game, team: str, home: str, allies: List[str]):
+    def __init__(self, game: Game, team: str, allies: List[str]):
         self.game: Game = game
 
         self._unit_ids: List[int] = []  # used to manage order
         self._units: Dict[int, Unit] = {}
         self.team: str = team
-        self.home: str = home
         self.allies: List[str] = allies
-
-        self._last_id = 0
 
     @property
     def units(self) -> Dict[int, Unit]:
@@ -46,7 +44,7 @@ class Troupe:
         """
         ids = []
 
-        unit_types = self.game.data.get_units_by_category([self.home])
+        unit_types = self.game.data.get_units_by_category(self.allies)
         for unit_type in unit_types:
             id_ = self.add_unit_from_type(unit_type)
             ids.append(id_)
@@ -77,8 +75,13 @@ class Troupe:
 
     def remove_unit(self, id_: int):
         try:
+            print(f"_units (pre-pop): {self._units}")
             unit = self._units.pop(id_)
-            self._unit_ids.pop(id_)
+            print(f"_units (post-pop): {self._units}")
+
+            print(f"_unit_ids (pre-pop): {self._unit_ids}")
+            self._unit_ids.remove(id_)
+            print(f"_unit_ids (post-pop): {self._unit_ids}")
 
             logging.info(f"Unit {unit.type}({unit.id}) removed from {unit.team}'s troupe.")
         except KeyError:
@@ -109,8 +112,7 @@ class Troupe:
             # get unit info
             unit_types_ = []
             unit_occur_rate = []
-            homes = [self.home] + self.allies
-            for unit_type in self.game.data.get_units_by_category(homes, tiers_allowed):
+            for unit_type in self.game.data.get_units_by_category(self.allies, tiers_allowed):
                 unit_types_.append(unit_type)
                 occur_rate = self.game.data.get_unit_occur_rate(unit_type)
                 unit_occur_rate.append(occur_rate)

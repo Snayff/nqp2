@@ -14,6 +14,10 @@ if TYPE_CHECKING:
 __all__ = ["UI"]
 
 
+######### TO DO LIST ###############
+# TODO - add a "draw_instruction" method, with another  to temporarily or permanently set the message.
+
+
 class UI(ABC):
     """
     Represent the UI of a scene
@@ -89,4 +93,10 @@ class UI(ABC):
             self.selected_col += 1
 
     def draw_gold(self, surface: pygame.surface):
-        self.default_font.render(f"Gold: {self.game.memory.gold}", surface, (1, 1), 2)
+        self.disabled_font.render(f"Gold: {self.game.memory.gold}", surface, (2, 2))
+
+    def draw_charisma(self, surface: pygame.surface):
+        self.disabled_font.render(f"Charisma: {self.game.memory.commander.charisma_remaining}", surface, (62, 2))
+
+    def draw_leadership(self, surface: pygame.surface):
+        self.disabled_font.render(f"Leadership: {self.game.memory.commander.leadership}", surface, (122, 2))

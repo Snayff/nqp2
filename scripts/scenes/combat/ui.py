@@ -29,6 +29,9 @@ __all__ = ["CombatUI"]
 # TODO - keep cursor at the same position after making a selection, e.g. placing a unit.
 # TODO - differentiate enemy and ally sprites. perhaps give the team a colour on a small circle under each
 #  entity to denote their team?
+# TODO - leave corpses when dead
+# TODO - show when unit cannot be placed due to lack of leadership points
+# TODO - display leadership remaining
 
 
 class CombatUI(UI):
@@ -62,8 +65,11 @@ class CombatUI(UI):
 
                 # transition to appropriate mode
                 if self.game.combat.state == CombatState.UNIT_CHOOSE_CARD:
-                    # can only use a card if there are cards in your hand
-                    if len(cards):
+                    # can only use a card if there are cards in your hand and point limit not hit
+                    unit = cards[self.selected_col].unit
+                    leadership = self.game.memory.commander.leadership
+                    leadership_remaining = leadership - self.game.combat.leadership_points_spent
+                    if len(cards) and leadership_remaining >= unit.tier:
                         self.game.combat.state = CombatState.UNIT_SELECT_TARGET
                 else:
                     # determine action target mode
@@ -104,6 +110,7 @@ class CombatUI(UI):
                 if self.game.combat.state == CombatState.UNIT_SELECT_TARGET:
                     unit = cards[self.selected_col].unit
                     unit.pos = self.place_target.copy()
+                    self.game.combat.leadership_points_spent += unit.tier
                     self.game.combat.units.add_unit_to_combat(unit)
 
                     logging.info(f"Placed {unit.type}({unit.id}) at {unit.pos}.")

@@ -28,6 +28,7 @@ __all__ = ["CombatScene"]
 # TODO - Convert actions to cooldown based, instead of cards.
 # TODO - Injury/healing (health persistence outside of combat. See Design Doc for info.)
 # TODO - add combat with multiple participants, not just player vs enemy; team vs team or free for all.
+# FIXME - ensure all attributes are created in __init__.
 
 
 class CombatScene(Scene):
@@ -71,6 +72,8 @@ class CombatScene(Scene):
         self.game.memory.unit_deck.from_troupe(self.game.memory.player_troupe)
         self.deck: CardCollection = self.game.memory.unit_deck.copy()
         self.hand = self.deck.draw(5)
+
+        self.leadership_points_spent = 0  # points spent to place units
 
     def get_all_entities(self):
         entities = []

@@ -1,0 +1,9 @@
+{
+    "name": "lilith",
+    "backstory": "From the shadows she came and like a hurricane she remains.",
+    "charisma": 10,
+    "leadership": 4,
+    "allies": [
+        "castle"
+    ]
+}

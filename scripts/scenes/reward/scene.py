@@ -41,7 +41,7 @@ class RewardScene(Scene):
         # reward options
         self.gold_reward: int = 0
         player_troupe = self.game.memory.player_troupe
-        self.troupe_rewards: Troupe = Troupe(self.game, "reward", player_troupe.home, player_troupe.allies)
+        self.troupe_rewards: Troupe = Troupe(self.game, "reward", player_troupe.allies)
         self.resource_rewards = None
         self.upgrade_rewards = None
         self.action_rewards = None
@@ -92,7 +92,6 @@ class RewardScene(Scene):
 
         # update troupe to match players
         player_troupe = self.game.memory.player_troupe
-        self.troupe_rewards.home = player_troupe.home
         self.troupe_rewards.allies = player_troupe.allies
 
         # generate units in Troupe
@@ -135,7 +134,10 @@ class RewardScene(Scene):
 
     def _choose_troupe_rewards(self, reward: Unit):
         if isinstance(reward, Unit):
-            self.game.memory.player_troupe.add_unit(reward)
+            # check can afford
+            has_enough_charisma = self.game.memory.commander.charisma_remaining > 0
+            if has_enough_charisma:
+                self.game.memory.player_troupe.add_unit(reward)
         else:
             logging.warning(
                 f"Chose {reward} as a unit reward. As it isnt a unit, something has "
