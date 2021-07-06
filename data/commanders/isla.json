@@ -6,5 +6,6 @@
     "allies": [
         "castle",
         "dungeon"
-    ]
+    ],
+    "starting_gold": 100
 }

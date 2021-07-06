@@ -134,6 +134,12 @@ class RunSetupUI(UI):
         default_font.render("Allies", surface, (header_x, current_y))
         default_font.render(allies, surface, (info_x, current_y))
 
+        current_y += font_height + gap
+
+        # gold
+        default_font.render("Gold", surface, (header_x, current_y))
+        default_font.render(commander["starting_gold"], surface, (info_x, current_y))
+
         # draw confirm button
         confirm_text = "begin"
         confirm_width = default_font.width(confirm_text)
