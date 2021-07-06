@@ -17,8 +17,8 @@ class Commander:
         data = self.game.data.commanders[name]
 
         self.name = name
-        self.command_limit = data["command_limit"]
-        self.field_limit = data["field_limit"]
+        self.charisma = data["charisma"]
+        self.leadership = data["leadership"]
         # allies not stored here as they are held in the Troupe
 
 

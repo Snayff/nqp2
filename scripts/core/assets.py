@@ -18,7 +18,10 @@ if TYPE_CHECKING:
 
 __all__ = ["Assets"]
 
-TILE_SIZE = 16
+
+######### TO DO LIST  ##########
+# TODO - either move functions to utility or make methods
+# TODO - update get_image to be easier to use and support animations - use name, with optional action and frame?
 
 
 def clip(surf, pos, size):
@@ -154,10 +157,11 @@ class Assets:
         tileset_data = []
 
         spritesheet = pygame.image.load(str(path)).convert_alpha()
-        for y in range(spritesheet.get_height() // TILE_SIZE):
+        for y in range(spritesheet.get_height() // DEFAULT_IMAGE_SIZE):
             tileset_data.append([])
-            for x in range(spritesheet.get_width() // TILE_SIZE):
-                tileset_data[-1].append(clip(spritesheet, [x * TILE_SIZE, y * TILE_SIZE], [TILE_SIZE, TILE_SIZE]))
+            for x in range(spritesheet.get_width() // DEFAULT_IMAGE_SIZE):
+                tileset_data[-1].append(clip(spritesheet, [x * DEFAULT_IMAGE_SIZE, y * DEFAULT_IMAGE_SIZE],
+                                             [DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE]))
 
         return tileset_data
 

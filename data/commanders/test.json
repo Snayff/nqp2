@@ -1,8 +1,8 @@
 {
     "name": "test",
     "backstory": "Searching for something",
-    "command_limit": 5,
-    "field_limit": 3,
+    "charisma": 5,
+    "leadership": 3,
     "allies": [
         "castle",
         "dungeon"

@@ -112,11 +112,11 @@ class RunSetupUI(UI):
         current_y += font_height + gap
 
         # limits
-        default_font.render("Command Size", surface, (header_x, current_y))
-        default_font.render(commander["command_limit"], surface, (info_x, current_y))
+        default_font.render("Charisma", surface, (header_x, current_y))
+        default_font.render(commander["charisma"], surface, (info_x, current_y))
         current_y += font_height
-        default_font.render("Field Limit", surface, (header_x, current_y))
-        default_font.render(commander["field_limit"], surface, (info_x, current_y))
+        default_font.render("Leadership", surface, (header_x, current_y))
+        default_font.render(commander["leadership"], surface, (info_x, current_y))
 
         current_y += font_height + gap
 
