@@ -68,12 +68,14 @@ class Assets:
             for unit in os.listdir(ASSET_PATH / "units/")
         }
 
-        self.tilesets = {
-            tileset.split(".")[0]: self.load_tileset(ASSET_PATH / "tiles" / tileset)
-            for tileset in os.listdir(ASSET_PATH / "tiles")
+        self.commander_animations = {
+            commander: {
+                action: self.load_image_dir(ASSET_PATH / "commanders/" / commander / action)
+                for action in os.listdir(ASSET_PATH / "commanders/" / commander)
+            }
+            for commander in os.listdir(ASSET_PATH / "commanders/")
         }
 
-        self.maps = {map.split(".")[0]: json_read("data/maps/" + map) for map in os.listdir("data/maps")}
 
         self.tilesets = {
             tileset.split(".")[0]: self.load_tileset(ASSET_PATH / "tiles" / tileset)

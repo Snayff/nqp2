@@ -1,0 +1,8 @@
+{
+    "type": "test2",
+    "command_limit": 10,
+    "field_limit": 4,
+    "homes": [
+        "castle"
+    ]
+}
