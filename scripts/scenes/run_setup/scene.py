@@ -32,8 +32,6 @@ class RunSetupScene(Scene):
         self.ui: RunSetupUI = RunSetupUI(game)
 
         self.selected_commander: str = list(self.game.data.commanders)[0]  # set to first commander
-        self.selected_home: str = ""
-        self.selected_ally: str = ""
         self.selected_seed: int = int(datetime.now().strftime("%Y%m%d%H%M%S"))
 
         # record duration
