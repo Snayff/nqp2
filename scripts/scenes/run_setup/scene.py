@@ -18,6 +18,9 @@ if TYPE_CHECKING:
 __all__ = ["RunSetupScene"]
 
 
+######### TO DO LIST ###############
+# TODO - add option to create a custom commander. Allow reuse of previous custom commander.
+
 class RunSetupScene(Scene):
     """
     Handles RunSetupScene interactions and consolidates the rendering. RunSetupScene is used to allow the player to
@@ -39,8 +42,9 @@ class RunSetupScene(Scene):
         end_time = time.time()
         logging.info(f"RunSetupScene: initialised in {format(end_time - start_time, '.2f')}s.")
 
-    def update(self):
-        self.ui.update()
+    def update(self, delta_time: float):
+        super().update(delta_time)
+        self.ui.update(delta_time)
 
     def render(self):
         self.ui.render(self.game.window.display)

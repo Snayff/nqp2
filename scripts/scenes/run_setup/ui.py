@@ -28,9 +28,9 @@ class RunSetupUI(UI):
             1: 1,
         }  # row number: number of columns
 
-    def update(self):
+    def update(self, delta_time: float):
 
-        self.handle_selection_dimensions(len(self.dimensions.keys()), self.dimensions[self.selected_row])
+        self.set_selection_dimensions(len(self.dimensions.keys()), self.dimensions[self.selected_row])
         self.handle_directional_input_for_selection()
         self.handle_selected_index_looping()
 
@@ -153,9 +153,12 @@ class RunSetupUI(UI):
         if self.selected_row == 0:
             selected_commander = list(self.game.data.commanders)[self.selected_col]
 
-            self.game.run_setup.selected_commander = selected_commander
+            # if selecting same commander then go to begin, else select
+            if self.game.run_setup.selected_commander == selected_commander:
+                self.selected_row += 1
+            else:
+                self.game.run_setup.selected_commander = selected_commander
 
-            self.selected_row += 1
 
         # begin
         elif self.selected_row == 1:

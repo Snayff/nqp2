@@ -22,7 +22,7 @@ __all__ = ["UnitDataUI"]
 
 ####### TO DO LIST ########
 # TODO - toggle tier info with info for the upgrade/non upgrade version
-# TODO - add a goto option next ot the upgrade to quickly take you to the upgrade unit
+# TODO - add a goto option next to the upgrade to quickly take you to the upgrade unit
 
 
 class UnitDataUI(UI):
@@ -64,11 +64,11 @@ class UnitDataUI(UI):
         self.refresh_unit_fields(self.unit_list[self.unit_index])
         self.calculate_unit_metrics()
 
-    def update(self):
+    def update(self, delta_time: float):
         # handle button presses
         buttons = self.buttons
         for button in buttons.values():
-            button.update()
+            button.update(delta_time)
             if button.pressed:
                 if button == buttons["right_arrow"]:
                     self.unit_index += 1

@@ -72,11 +72,13 @@ class Game:
         logging.info(f"Game initialised in {format(end_time - start_time, '.2f')}s.")
 
     def update(self):
-        self.master_clock += self.window.dt
+        delta_time = self.window.dt
 
-        self.input.update()
-        self.active_scene.update()
-        self.debug.update()
+        self.master_clock += delta_time
+
+        self.input.update(delta_time)
+        self.active_scene.update(delta_time)
+        self.debug.update(delta_time)
 
     def render(self):
         self.window.render_frame()

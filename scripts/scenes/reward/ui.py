@@ -25,7 +25,7 @@ class RewardUI(UI):
 
         self.selected_reward: Optional[Unit] = None
 
-    def update(self):
+    def update(self, delta_time: float):
         # get index value depending on reward
         reward_type = self.game.reward.reward_type
         reward = self.game.reward
@@ -39,7 +39,7 @@ class RewardUI(UI):
             # reward_type == RewardType.RESOURCE
             index_size = 0
 
-        self.handle_selection_dimensions(index_size, 1)
+        self.set_selection_dimensions(index_size, 1)
         self.handle_directional_input_for_selection()
         self.handle_selected_index_looping()
 

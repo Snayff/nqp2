@@ -15,7 +15,7 @@ __all__ = ["UI"]
 
 
 ######### TO DO LIST ###############
-# TODO - add a "draw_instruction" method, with another  to temporarily or permanently set the message.
+
 
 
 class UI(ABC):
@@ -36,11 +36,21 @@ class UI(ABC):
         self.max_rows: int = 0
         self.max_cols: int = 0
 
+        self.temporary_instruction_text: str = ""
+        self.temporary_instruction_timer: float = 0.0
+        self.instruction_text: str = ""
+
+    def update(self, delta_time: float):
+        self.temporary_instruction_timer -= delta_time
+
+        if self.temporary_instruction_timer <= 0:
+            self.temporary_instruction_text = ""
+
     @abstractmethod
-    def update(self):
+    def render(self, surface: pygame.surface):
         pass
 
-    def handle_selection_dimensions(self, max_rows: int, max_cols: int):
+    def set_selection_dimensions(self, max_rows: int, max_cols: int):
         self.max_rows = max_rows
         self.max_cols = max_cols
 
@@ -52,9 +62,12 @@ class UI(ABC):
         if self.selected_row >= max_rows:
             self.selected_row = max_rows
 
-    @abstractmethod
-    def render(self, surface: pygame.surface):
-        pass
+    def set_instruction_text(self, text: str, temporary: bool = False):
+        if temporary:
+            self.temporary_instruction_text = text
+            self.temporary_instruction_timer = 800
+        else:
+            self.instruction_text = text
 
     def handle_selected_index_looping(self):
         """
@@ -100,3 +113,14 @@ class UI(ABC):
 
     def draw_leadership(self, surface: pygame.surface):
         self.disabled_font.render(f"Leadership: {self.game.memory.commander.leadership}", surface, (122, 2))
+
+    def draw_instruction(self, surface: pygame.surface):
+        x = 2
+        y = self.game.window.height - 12  # 12 = font height
+
+        if self.temporary_instruction_text:
+            text = self.temporary_instruction_text
+        else:
+            text = self.instruction_text
+        self.warning_font.render(text, surface, (x, y))
+

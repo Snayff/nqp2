@@ -64,7 +64,7 @@ class Input:
         self.char_buffer = []
         return chars
 
-    def update(self):
+    def update(self, delta_time: float):
         self.soft_reset()
 
         self.mouse_pos = list(pygame.mouse.get_pos())

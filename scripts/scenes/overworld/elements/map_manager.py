@@ -31,10 +31,10 @@ class MapManager:
 
         self.generate_map()
 
-    def update(self):
+    def update(self, delta_time: float):
         for row in self.nodes:
             for node in row:
-                node.update()
+                node.update(delta_time)
 
     def render(self, surface: pygame.Surface):
         for row in self.nodes:

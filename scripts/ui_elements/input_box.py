@@ -69,7 +69,7 @@ class InputBox:
             self.game.input.mode = self.previous_input_mode
             self.focused = False
 
-    def update(self):
+    def update(self, delta_time: float):
         if self.focused:
             new_chars = self.game.input.unload_chars()
             for char in new_chars:

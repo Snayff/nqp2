@@ -24,10 +24,10 @@ class TrainingUI(UI):
 
         self.selected_unit: Optional[Unit] = None
 
-    def update(self):
+    def update(self, delta_time: float):
         units = self.game.memory.player_troupe.units
 
-        self.handle_selection_dimensions(len(units), 1)
+        self.set_selection_dimensions(len(units), 1)
         self.handle_directional_input_for_selection()
         self.handle_selected_index_looping()
 

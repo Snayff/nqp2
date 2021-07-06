@@ -21,7 +21,7 @@ class UnitManager:
         unit.spawn_entities()
         self.units.append(unit)
 
-    def update(self):
+    def update(self, delta_time: float):
         for unit in self.units:
             unit.update(self.game.combat.dt)
 

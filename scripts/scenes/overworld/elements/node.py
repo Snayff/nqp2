@@ -21,7 +21,7 @@ class Node:
         self.pos: List[int] = pos
         self.icon: pygame.Surface = icon
 
-    def update(self):
+    def update(self, delta_time: float):
         pass
 
     def render(self, surface: pygame.Surface):

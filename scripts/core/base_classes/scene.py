@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from abc import ABC
+from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.ui import UI
@@ -21,8 +21,10 @@ class Scene(ABC):
 
         self.ui: UI
 
-    def update(self):
+    @abstractmethod
+    def update(self, delta_time: float):
         pass
 
+    @abstractmethod
     def render(self):
         pass

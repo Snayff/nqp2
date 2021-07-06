@@ -22,10 +22,10 @@ class EventUI(UI):
     def __init__(self, game: Game):
         super().__init__(game)
 
-    def update(self):
+    def update(self, delta_time: float):
         options = self.game.event.active_event["options"]
 
-        self.handle_selection_dimensions(len(options), 1)
+        self.set_selection_dimensions(len(options), 1)
         self.handle_directional_input_for_selection()
         self.handle_selected_index_looping()
 

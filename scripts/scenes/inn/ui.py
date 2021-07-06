@@ -22,10 +22,10 @@ class InnUI(UI):
     def __init__(self, game: Game):
         super().__init__(game)
 
-    def update(self):
+    def update(self, delta_time: float):
         units_for_sale = self.game.inn.sale_troupe
 
-        self.handle_selection_dimensions(len(units_for_sale.units), 1)
+        self.set_selection_dimensions(len(units_for_sale.units), 1)
         self.handle_directional_input_for_selection()
         self.handle_selected_index_looping()
 

@@ -98,7 +98,11 @@ class CombatScene(Scene):
         self.deck: CardCollection = self.game.memory.action_deck.copy()
         self.hand = self.deck.draw(5)
 
-    def update(self):
+    def update(self, delta_time: float):
+        super().update(delta_time)
+        self.ui.update(delta_time)
+
+
         self.dt = self.combat_speed * self.game.window.dt
 
         # call once per frame instead of once per entity to save processing power
@@ -112,8 +116,8 @@ class CombatScene(Scene):
             if len(player_entities) == len(self.all_entities):
                 self.game.change_scene(SceneType.REWARD)
 
-        self.ui.update()
-        self.units.update()
+        self.ui.update(delta_time)
+        self.units.update(delta_time)
 
         # run at normal speed during watch phase
         if self.game.combat.state == CombatState.WATCH:
