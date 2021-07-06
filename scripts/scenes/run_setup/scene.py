@@ -48,11 +48,11 @@ class RunSetupScene(Scene):
         # set the seed
         self.game.rng.set_seed(self.selected_seed)
 
-        # set the home and ally
-        self.game.memory.player_troupe.home = self.selected_home
-        self.game.memory.player_troupe.allies.append(self.selected_ally)
+        # set allies
+        commander = self.game.data.commanders[self.selected_commander]
+        self.game.memory.player_troupe.allies.append(commander["allies"])
 
-        logging.info(f"Player chose {self.selected_home} as their home and {self.selected_ally} as their ally.")
+        logging.info(f"Player chose {self.selected_commander} as their commander.")
 
         # prep player troupe
         player_troupe = self.game.memory.player_troupe
@@ -65,13 +65,3 @@ class RunSetupScene(Scene):
 
         # change scene
         self.game.change_scene(SceneType.OVERWORLD)
-
-    @property
-    def ready_to_start(self) -> bool:
-        """
-        Checks conditions are met to begin
-        """
-        if self.selected_home != "" and self.selected_ally != "":
-            return True
-        else:
-            return False

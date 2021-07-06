@@ -3,7 +3,7 @@
     "name": "test",
     "command_limit": 10,
     "field_limit": 4,
-    "homes": [
+    "allies": [
         "castle"
     ]
 }

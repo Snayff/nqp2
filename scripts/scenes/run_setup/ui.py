@@ -22,8 +22,11 @@ class RunSetupUI(UI):
     def __init__(self, game: Game):
         super().__init__(game)
 
-        num_homes = len(self.game.data.homes)
-        self.dimensions: Dict[int, int] = {0: num_homes, 1: num_homes, 2: 1, 3: 1}
+        num_commanders = len(self.game.data.commanders)
+        self.dimensions: Dict[int, int] = {
+            0: num_commanders,
+            1: 1,
+        }  # row number: number of columns
 
     def update(self):
 
@@ -49,7 +52,6 @@ class RunSetupUI(UI):
 
         commanders = self.game.data.commanders
         selected_commander = self.game.run_setup.selected_commander
-        num_sections = 4  # home, ally, seed, confirm
         current_row = 0
 
         # positions
@@ -73,7 +75,7 @@ class RunSetupUI(UI):
 
             # highlight if selected
             if selected_commander == commander["type"]:
-                pygame.draw.rect(surface, (255, 255, 255), (icon_pos, (icon_width, icon_height)))
+                pygame.draw.rect(surface, (252, 211, 3), (icon_pos, (icon_width, icon_height)))
 
             # draw icon
             surface.blit(icon, icon_pos)
@@ -115,7 +117,7 @@ class RunSetupUI(UI):
 
         # allies
         allies = ""
-        for ally in commander["homes"]:
+        for ally in commander["allies"]:
             # add comma
             if allies == "":
                 allies += ally
