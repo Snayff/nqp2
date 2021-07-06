@@ -101,7 +101,6 @@ class CombatScene(Scene):
     def update(self, delta_time: float):
         super().update(delta_time)
 
-
         self.dt = self.combat_speed * self.game.window.dt
 
         # call once per frame instead of once per entity to save processing power

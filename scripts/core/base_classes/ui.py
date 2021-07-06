@@ -17,7 +17,6 @@ __all__ = ["UI"]
 ######### TO DO LIST ###############
 
 
-
 class UI(ABC):
     """
     Represent the UI of a scene
@@ -126,4 +125,3 @@ class UI(ABC):
         x = self.game.window.width - font.width(text) - 2
         y = 2
         font.render(text, surface, (x, y))
-

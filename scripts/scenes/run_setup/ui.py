@@ -164,7 +164,6 @@ class RunSetupUI(UI):
             else:
                 self.game.run_setup.selected_commander = selected_commander
 
-
         # begin
         elif self.selected_row == 1:
             self.game.run_setup.start_run()
