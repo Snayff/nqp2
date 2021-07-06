@@ -15,6 +15,9 @@ if TYPE_CHECKING:
 
 __all__ = ["MapManager"]
 
+############# TO DO LIST #################
+# TODO - merge into overworld scene
+
 
 class MapManager:
     """
