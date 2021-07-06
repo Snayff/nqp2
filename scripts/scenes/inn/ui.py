@@ -49,7 +49,7 @@ class InnUI(UI):
                 self.game.inn.purchase_unit(unit)
             else:
                 if not can_afford:
-                    self.set_instruction_text(f"You can't afford {unit.type}.", True)
+                    self.set_instruction_text(f"You can't afford the {unit.type}.", True)
                 else:
                     self.set_instruction_text(f"You don't have enough charisma to recruit them.", True)
 

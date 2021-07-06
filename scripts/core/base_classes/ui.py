@@ -65,7 +65,7 @@ class UI(ABC):
     def set_instruction_text(self, text: str, temporary: bool = False):
         if temporary:
             self.temporary_instruction_text = text
-            self.temporary_instruction_timer = 400
+            self.temporary_instruction_timer = 2
         else:
             self.instruction_text = text
 

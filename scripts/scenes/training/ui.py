@@ -48,7 +48,7 @@ class TrainingUI(UI):
                     self.game.memory.player_troupe.upgrade_unit(id_)
 
                 else:
-                    self.set_instruction_text(f"You can't afford {unit.type}.", True)
+                    self.set_instruction_text(f"You can't afford the {unit.type}.", True)
 
         # exit
         if self.game.input.states["cancel"]:
