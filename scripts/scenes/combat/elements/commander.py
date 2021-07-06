@@ -17,8 +17,14 @@ class Commander:
         data = self.game.data.commanders[name]
 
         self.name = name
-        self.charisma = data["charisma"]
-        self.leadership = data["leadership"]
-        # allies not stored here as they are held in the Troupe
+        self.charisma = data["charisma"]  # number of units that can be recruited
+        self.leadership = data["leadership"]  # points to spend to deploy units in combat
+        # N.B. allies not stored here as they are held in the Troupe
 
+    @property
+    def charisma_remaining(self) -> int:
+        num_units = len(self.game.memory.player_troupe.units)
+        remaining = self.charisma - num_units
+
+        return remaining
 

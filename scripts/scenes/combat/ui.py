@@ -30,6 +30,8 @@ __all__ = ["CombatUI"]
 # TODO - differentiate enemy and ally sprites. perhaps give the team a colour on a small circle under each
 #  entity to denote their team?
 # TODO - leave corpses when dead
+# TODO - show when unit cannot be placed due to lack of leadership points
+# TODO - display leadership remaining
 
 
 class CombatUI(UI):

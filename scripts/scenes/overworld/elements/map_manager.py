@@ -62,7 +62,7 @@ class MapManager:
         # node_types = [NodeType.TRAINING]
         # node_weights = [1]
         node_types = [NodeType.COMBAT, NodeType.EVENT, NodeType.INN, NodeType.TRAINING, NodeType.UNKNOWN]
-        node_weights = [0.7, 0.2, 0.1, 0.1, 0.2]
+        node_weights = [0.7, 0.2, 10.1, 0.1, 0.2]
 
         nodes = []
         previous_row = []

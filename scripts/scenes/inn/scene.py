@@ -50,8 +50,10 @@ class InnScene(Scene):
         units = list(self.sale_troupe.units.values())
         unit = units[option_index]
 
-        # can we afford
-        if unit.gold_cost <= self.game.memory.gold:
+        # can we purchase
+        can_afford = unit.gold_cost <= self.game.memory.gold
+        has_enough_charisma = self.game.memory.commander.charisma_remaining > 0
+        if can_afford and has_enough_charisma:
             # pay gold
             self.game.memory.amend_gold(-unit.gold_cost)  # remove gold cost
 

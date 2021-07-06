@@ -84,11 +84,13 @@ class InnUI(UI):
         row_count = 0
         for unit in units_for_sale:
 
-            # check can afford
-            if unit.gold_cost > self.game.memory.gold:
-                active_font = disabled_font
-            else:
+            # check can purchase
+            can_afford = unit.gold_cost <= self.game.memory.gold
+            has_enough_charisma = self.game.memory.commander.charisma_remaining > 0
+            if can_afford and has_enough_charisma:
                 active_font = default_font
+            else:
+                active_font = disabled_font
 
             option_y = start_y + ((font_height + gap) * (row_count + 1))  # + 1 due to headers
 
@@ -119,3 +121,6 @@ class InnUI(UI):
 
             # show gold
             self.draw_gold(surface)
+            self.draw_charisma(surface)
+            self.draw_leadership(surface)
+
