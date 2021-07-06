@@ -41,7 +41,9 @@ class CombatUI(UI):
         # position relative to terrain
         self.place_target = [0, 0]
 
-    def update(self):
+    def update(self, delta_time: float):
+        super().update(delta_time)
+
         target_pos = self.game.combat.get_team_center("player")
         if not target_pos:
             target_pos = [0, 0]
@@ -137,7 +139,7 @@ class CombatUI(UI):
             self.game.change_scene(SceneType.VIEW_TROUPE)
 
         # manage selection
-        self.handle_selection_dimensions(0, len(cards))
+        self.set_selection_dimensions(0, len(cards))
         self.handle_selected_index_looping()
 
     def render(self, surface: pygame.Surface):

@@ -24,8 +24,8 @@ class Button:
                 return True
         return False
 
-    def update(self):
-        self.push_timer = max(0, self.push_timer - self.game.window.dt)
+    def update(self, delta_time: float):
+        self.push_timer = max(0, self.push_timer - delta_time)
 
     def render(self, surf, offset=(0, 0)):
         offset = list(offset)

@@ -49,7 +49,7 @@ class Debugger:
 
         self.initialise_logging()
 
-    def update(self):
+    def update(self, delta_time: float):
 
         self._frames += 1
         self.current_fps = 1  # state.get_internal_clock().get_fps()  # FIXME - fix to new clock

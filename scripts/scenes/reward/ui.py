@@ -25,7 +25,11 @@ class RewardUI(UI):
 
         self.selected_reward: Optional[Unit] = None
 
-    def update(self):
+        self.set_instruction_text("Choose your rewards.")
+
+    def update(self, delta_time: float):
+        super().update(delta_time)
+
         # get index value depending on reward
         reward_type = self.game.reward.reward_type
         reward = self.game.reward
@@ -39,7 +43,7 @@ class RewardUI(UI):
             # reward_type == RewardType.RESOURCE
             index_size = 0
 
-        self.handle_selection_dimensions(index_size, 1)
+        self.set_selection_dimensions(index_size, 1)
         self.handle_directional_input_for_selection()
         self.handle_selected_index_looping()
 
@@ -76,6 +80,12 @@ class RewardUI(UI):
         else:
             # reward_type == RewardType.RESOURCE
             pass
+
+        # show core info
+        self.draw_gold(surface)
+        self.draw_charisma(surface)
+        self.draw_leadership(surface)
+        self.draw_instruction(surface)
 
     def _render_unit_rewards(self, surface: pygame.surface):
 
@@ -146,8 +156,3 @@ class RewardUI(UI):
                 )
 
             row_count += 1
-
-            # show gold
-            self.draw_gold(surface)
-            self.draw_charisma(surface)
-            self.draw_leadership(surface)

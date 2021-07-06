@@ -34,22 +34,9 @@ class TrainingScene(Scene):
         end_time = time.time()
         logging.info(f"TrainingScene: initialised in {format(end_time - start_time, '.2f')}s.")
 
-    def update(self):
-        self.ui.update()
+    def update(self, delta_time: float):
+        super().update(delta_time)
+        self.ui.update(delta_time)
 
     def render(self):
         self.ui.render(self.game.window.display)
-
-    def upgrade_unit(self, id_: int):
-        """
-        Upgrade the specified unit.
-        """
-        unit = self.game.memory.player_troupe.units[id_]
-
-        # can we afford
-        if unit.upgrade_cost <= self.game.memory.gold:
-            # pay gold
-            self.game.memory.amend_gold(-unit.upgrade_cost)  # remove gold cost
-
-            # upgrade unit
-            unit.upgrade()

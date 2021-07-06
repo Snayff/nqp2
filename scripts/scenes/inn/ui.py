@@ -13,6 +13,9 @@ if TYPE_CHECKING:
 
 __all__ = ["InnUI"]
 
+########### To Do List #############
+# TODO - Add button for going back to  overworld
+
 
 class InnUI(UI):
     """
@@ -22,10 +25,14 @@ class InnUI(UI):
     def __init__(self, game: Game):
         super().__init__(game)
 
-    def update(self):
+        self.set_instruction_text("Make your purchases.")
+
+    def update(self, delta_time: float):
+        super().update(delta_time)
+
         units_for_sale = self.game.inn.sale_troupe
 
-        self.handle_selection_dimensions(len(units_for_sale.units), 1)
+        self.set_selection_dimensions(len(units_for_sale.units), 1)
         self.handle_directional_input_for_selection()
         self.handle_selected_index_looping()
 
@@ -40,6 +47,11 @@ class InnUI(UI):
             has_enough_charisma = self.game.memory.commander.charisma_remaining > 0
             if can_afford and has_enough_charisma:
                 self.game.inn.purchase_unit(unit)
+            else:
+                if not can_afford:
+                    self.set_instruction_text(f"You can't afford the {unit.type}.", True)
+                else:
+                    self.set_instruction_text(f"You don't have enough charisma to recruit them.", True)
 
         # exit
         if self.game.input.states["cancel"]:
@@ -130,3 +142,4 @@ class InnUI(UI):
             self.draw_gold(surface)
             self.draw_charisma(surface)
             self.draw_leadership(surface)
+            self.draw_instruction(surface)

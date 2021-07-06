@@ -28,9 +28,12 @@ class RunSetupUI(UI):
             1: 1,
         }  # row number: number of columns
 
-    def update(self):
+        self.set_instruction_text("Choose who will lead the rebellion.")
 
-        self.handle_selection_dimensions(len(self.dimensions.keys()), self.dimensions[self.selected_row])
+    def update(self, delta_time: float):
+        super().update(delta_time)
+
+        self.set_selection_dimensions(len(self.dimensions.keys()), self.dimensions[self.selected_row])
         self.handle_directional_input_for_selection()
         self.handle_selected_index_looping()
 
@@ -148,14 +151,18 @@ class RunSetupUI(UI):
                 (current_x + confirm_width, current_y + font_height),
             )
 
+        self.draw_instruction(surface)
+
     def handle_selection(self):
         # select commander
         if self.selected_row == 0:
             selected_commander = list(self.game.data.commanders)[self.selected_col]
 
-            self.game.run_setup.selected_commander = selected_commander
-
-            self.selected_row += 1
+            # if selecting same commander then go to begin, else select
+            if self.game.run_setup.selected_commander == selected_commander:
+                self.selected_row += 1
+            else:
+                self.game.run_setup.selected_commander = selected_commander
 
         # begin
         elif self.selected_row == 1:

@@ -22,10 +22,14 @@ class ViewTroupeUI(UI):
     def __init__(self, game: Game):
         super().__init__(game)
 
-    def update(self):
+        self.set_instruction_text(f"Press X to exit the troupe overview.")
+
+    def update(self, delta_time: float):
+        super().update(delta_time)
+
         units = self.game.memory.player_troupe.units
 
-        self.handle_selection_dimensions(len(units), 1)
+        self.set_selection_dimensions(len(units), 1)
         self.handle_directional_input_for_selection()
         self.handle_selected_index_looping()
 
@@ -84,5 +88,8 @@ class ViewTroupeUI(UI):
 
             unit_count += 1
 
-        # show gold
+        # show core info
         self.draw_gold(surface)
+        self.draw_charisma(surface)
+        self.draw_leadership(surface)
+        self.draw_instruction(surface)

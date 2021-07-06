@@ -42,9 +42,11 @@ class OverworldScene(Scene):
         end_time = time.time()
         logging.info(f"OverworldScene: initialised in {format(end_time - start_time, '.2f')}s.")
 
-    def update(self):
-        self.map.update()
-        self.ui.update()
+    def update(self, delta_time: float):
+        super().update(delta_time)
+
+        self.ui.update(delta_time)
+        self.map.update(delta_time)
 
     def render(self):
         self.map.render(self.game.window.display)
