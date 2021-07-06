@@ -1,6 +1,6 @@
 {
-    "type": "test2",
-    "name": "test",
+    "name": "test2",
+    "backstory": "Looking for someone",
     "command_limit": 10,
     "field_limit": 4,
     "allies": [

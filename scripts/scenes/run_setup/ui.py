@@ -69,12 +69,12 @@ class RunSetupUI(UI):
         for commander in commanders.values():
             # get icon and details
             icon_pos = (current_x, current_y)
-            icon = self.game.assets.commander_animations[commander["type"]]["icon"][0]
+            icon = self.game.assets.commander_animations[commander["name"]]["icon"][0]
             icon_width = icon.get_width()
             icon_height = icon.get_height()
 
             # highlight if selected
-            if selected_commander == commander["type"]:
+            if selected_commander == commander["name"]:
                 pygame.draw.rect(surface, (252, 211, 3), (icon_pos, (icon_width, icon_height)))
 
             # draw icon
@@ -103,6 +103,11 @@ class RunSetupUI(UI):
         # name
         default_font.render("Name", surface, (header_x, current_y))
         default_font.render(commander["name"], surface, (info_x, current_y))
+
+        current_y += font_height + gap
+
+        # backstory - N.B. no header
+        disabled_font.render(commander["backstory"], surface, (header_x, current_y))
 
         current_y += font_height + gap
 

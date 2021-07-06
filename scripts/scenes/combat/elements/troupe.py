@@ -4,10 +4,11 @@ import logging
 import random
 from typing import TYPE_CHECKING
 
+from scripts.scenes.combat.elements.commander import Commander
 from scripts.scenes.combat.elements.unit import Unit
 
 if TYPE_CHECKING:
-    from typing import Dict, List, Tuple
+    from typing import Dict, List, Tuple, Optional
 
     from scripts.core.game import Game
 
@@ -19,15 +20,14 @@ class Troupe:
     Management of a group of units
     """
 
-    def __init__(self, game, team: str, allies: List[str]):
+    def __init__(self, game: Game, team: str, allies: List[str]):
         self.game: Game = game
 
         self._unit_ids: List[int] = []  # used to manage order
         self._units: Dict[int, Unit] = {}
         self.team: str = team
         self.allies: List[str] = allies
-
-        self._last_id = 0
+        self.commander: Optional[Commander] = None
 
     @property
     def units(self) -> Dict[int, Unit]:

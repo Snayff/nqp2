@@ -29,6 +29,7 @@ __all__ = ["CombatUI"]
 # TODO - keep cursor at the same position after making a selection, e.g. placing a unit.
 # TODO - differentiate enemy and ally sprites. perhaps give the team a colour on a small circle under each
 #  entity to denote their team?
+# TODO - leave corpses when dead
 
 
 class CombatUI(UI):
