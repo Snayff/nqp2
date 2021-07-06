@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -27,4 +28,3 @@ class Commander:
         remaining = self.charisma - num_units
 
         return remaining
-

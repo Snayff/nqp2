@@ -100,4 +100,3 @@ class UI(ABC):
 
     def draw_leadership(self, surface: pygame.surface):
         self.disabled_font.render(f"Leadership: {self.game.memory.commander.leadership}", surface, (122, 2))
-

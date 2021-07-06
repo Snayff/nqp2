@@ -8,7 +8,7 @@ from scripts.scenes.combat.elements.commander import Commander
 from scripts.scenes.combat.elements.unit import Unit
 
 if TYPE_CHECKING:
-    from typing import Dict, List, Tuple, Optional
+    from typing import Dict, List, Optional, Tuple
 
     from scripts.core.game import Game
 
@@ -27,7 +27,6 @@ class Troupe:
         self._units: Dict[int, Unit] = {}
         self.team: str = team
         self.allies: List[str] = allies
-
 
     @property
     def units(self) -> Dict[int, Unit]:

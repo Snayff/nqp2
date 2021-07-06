@@ -9,8 +9,9 @@ from scripts.scenes.combat.elements.commander import Commander
 from scripts.scenes.combat.elements.troupe import Troupe
 
 if TYPE_CHECKING:
+    from typing import Dict, List, Optional, Tuple
+
     from scripts.core.game import Game
-    from typing import Dict, List, Tuple, Optional
 
 __all__ = ["Memory"]
 

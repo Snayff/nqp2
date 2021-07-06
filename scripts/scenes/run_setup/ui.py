@@ -93,7 +93,6 @@ class RunSetupUI(UI):
             current_x += icon_width + gap
             sel_col_count += 1
 
-
         # draw info
         commander = commanders[selected_commander]
         current_y = start_y + DEFAULT_IMAGE_SIZE + gap
@@ -149,7 +148,6 @@ class RunSetupUI(UI):
                 (current_x + confirm_width, current_y + font_height),
             )
 
-
     def handle_selection(self):
         # select commander
         if self.selected_row == 0:
@@ -162,5 +160,3 @@ class RunSetupUI(UI):
         # begin
         elif self.selected_row == 1:
             self.game.run_setup.start_run()
-
-

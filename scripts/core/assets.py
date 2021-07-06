@@ -79,7 +79,6 @@ class Assets:
             for commander in os.listdir(ASSET_PATH / "commanders/")
         }
 
-
         self.tilesets = {
             tileset.split(".")[0]: self.load_tileset(ASSET_PATH / "tiles" / tileset)
             for tileset in os.listdir(ASSET_PATH / "tiles")
@@ -160,8 +159,13 @@ class Assets:
         for y in range(spritesheet.get_height() // DEFAULT_IMAGE_SIZE):
             tileset_data.append([])
             for x in range(spritesheet.get_width() // DEFAULT_IMAGE_SIZE):
-                tileset_data[-1].append(clip(spritesheet, [x * DEFAULT_IMAGE_SIZE, y * DEFAULT_IMAGE_SIZE],
-                                             [DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE]))
+                tileset_data[-1].append(
+                    clip(
+                        spritesheet,
+                        [x * DEFAULT_IMAGE_SIZE, y * DEFAULT_IMAGE_SIZE],
+                        [DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE],
+                    )
+                )
 
         return tileset_data
 

@@ -14,7 +14,7 @@ class Swarm(Behaviour):
         # reduce loop around timer
         self.loop_around = max(-0.5, self.loop_around - dt)
 
-        self.entity.action = 'walk'
+        self.entity.action = "walk"
 
         # set priority target if bumped
         if self.entity.pushed_log != []:
@@ -47,7 +47,7 @@ class Swarm(Behaviour):
                 self.entity.advance(angle, self.entity.move_speed * dt)
 
             # always try to attack
-            self.entity.action = 'attack'
+            self.entity.action = "attack"
             self.entity.attempt_attack(self.priority_target)
 
             # add a case to cancel if the target gets away
@@ -72,5 +72,5 @@ class Swarm(Behaviour):
                     self.entity.advance(angle, self.entity.move_speed * dt)
 
                 # always try to attack
-                self.entity.action = 'attack'
+                self.entity.action = "attack"
                 self.entity.attempt_attack(self.entity.unit.behaviour.target)
