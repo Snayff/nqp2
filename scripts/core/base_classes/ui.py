@@ -14,6 +14,10 @@ if TYPE_CHECKING:
 __all__ = ["UI"]
 
 
+######### TO DO LIST ###############
+# TODO - add a "draw_instruction" method, with another  to temporarily or permanently set the message.
+
+
 class UI(ABC):
     """
     Represent the UI of a scene

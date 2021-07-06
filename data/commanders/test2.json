@@ -1,9 +1,0 @@
-{
-    "name": "test2",
-    "backstory": "Looking for someone",
-    "charisma": 10,
-    "leadership": 4,
-    "allies": [
-        "castle"
-    ]
-}
