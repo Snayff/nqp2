@@ -4,7 +4,7 @@ from scripts.scenes.combat.elements.troupe import Troupe
 class EnemyCombatantsGenerator:
     def __init__(self, game):
         self.game = game
-        self.enemy_troupe: Troupe = Troupe(game, "enemy", "castle", [])
+        self.enemy_troupe: Troupe = Troupe(game, "enemy", ["castle"])
 
     def generate(self):
         # lots of temp stuff here for now

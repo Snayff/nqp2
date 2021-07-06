@@ -28,7 +28,7 @@ class Memory:
         self._last_id = 0
 
         # empty values will be overwritten in run_start
-        self.player_troupe: Troupe = Troupe(self.game, "player", "", [])
+        self.player_troupe: Troupe = Troupe(self.game, "player", [])
 
         self.unit_deck: CardCollection = CardCollection(game)
         self.unit_deck.from_troupe(self.player_troupe)

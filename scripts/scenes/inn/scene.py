@@ -31,7 +31,7 @@ class InnScene(Scene):
         self.ui: InnUI = InnUI(game)
 
         player_troupe = self.game.memory.player_troupe
-        self.sale_troupe: Troupe = Troupe(self.game, "inn", player_troupe.home, player_troupe.allies)
+        self.sale_troupe: Troupe = Troupe(self.game, "inn", player_troupe.allies)
 
         # record duration
         end_time = time.time()
@@ -67,7 +67,6 @@ class InnScene(Scene):
         """
         # update troupe to match players
         player_troupe = self.game.memory.player_troupe
-        self.sale_troupe.home = player_troupe.home
         self.sale_troupe.allies = player_troupe.allies
 
         self.sale_troupe.remove_all_units()

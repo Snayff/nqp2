@@ -50,7 +50,7 @@ class RunSetupScene(Scene):
 
         # set allies
         commander = self.game.data.commanders[self.selected_commander]
-        self.game.memory.player_troupe.allies.append(commander["allies"])
+        self.game.memory.player_troupe.allies = commander["allies"]
 
         logging.info(f"Player chose {self.selected_commander} as their commander.")
 

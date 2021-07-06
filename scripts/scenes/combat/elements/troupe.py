@@ -19,13 +19,12 @@ class Troupe:
     Management of a group of units
     """
 
-    def __init__(self, game, team: str, home: str, allies: List[str]):
+    def __init__(self, game, team: str, allies: List[str]):
         self.game: Game = game
 
         self._unit_ids: List[int] = []  # used to manage order
         self._units: Dict[int, Unit] = {}
         self.team: str = team
-        self.home: str = home
         self.allies: List[str] = allies
 
         self._last_id = 0
@@ -46,7 +45,7 @@ class Troupe:
         """
         ids = []
 
-        unit_types = self.game.data.get_units_by_category([self.home])
+        unit_types = self.game.data.get_units_by_category(self.allies)
         for unit_type in unit_types:
             id_ = self.add_unit_from_type(unit_type)
             ids.append(id_)
@@ -109,8 +108,7 @@ class Troupe:
             # get unit info
             unit_types_ = []
             unit_occur_rate = []
-            homes = [self.home] + self.allies
-            for unit_type in self.game.data.get_units_by_category(homes, tiers_allowed):
+            for unit_type in self.game.data.get_units_by_category(self.allies, tiers_allowed):
                 unit_types_.append(unit_type)
                 occur_rate = self.game.data.get_unit_occur_rate(unit_type)
                 unit_occur_rate.append(occur_rate)
