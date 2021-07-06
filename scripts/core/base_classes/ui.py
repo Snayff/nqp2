@@ -30,6 +30,7 @@ class UI(ABC):
         self.disabled_font: Font = self.game.assets.fonts["disabled"]
         self.warning_font: Font = self.game.assets.fonts["warning"]
         self.positive_font: Font = self.game.assets.fonts["positive"]
+        self.instruction_font: Font = self.game.assets.fonts["instruction"]
 
         self.selected_row: int = 0
         self.selected_col: int = 0
@@ -120,7 +121,7 @@ class UI(ABC):
             font = self.warning_font
         else:
             text = self.instruction_text
-            font = self.disabled_font
+            font = self.instruction_font
 
         x = self.game.window.width - font.width(text) - 2
         y = 2

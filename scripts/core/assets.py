@@ -54,6 +54,7 @@ class Assets:
             "disabled": Font(str(ASSET_PATH / "fonts/small_font.png"), (128, 128, 128)),
             "default": Font(str(ASSET_PATH / "fonts/small_font.png"), (255, 255, 255)),
             "positive": Font(str(ASSET_PATH / "fonts/small_font.png"), (0, 255, 0)),
+            "instruction": Font(str(ASSET_PATH / "fonts/small_font.png"), (240, 205, 48)),
         }
 
         # used to hold images so only one copy per dimension ever exists.
