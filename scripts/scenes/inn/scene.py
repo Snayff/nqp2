@@ -7,6 +7,7 @@ from typing import List, TYPE_CHECKING
 
 from scripts.core.base_classes.scene import Scene
 from scripts.scenes.combat.elements.troupe import Troupe
+from scripts.scenes.combat.elements.unit import Unit
 from scripts.scenes.inn.ui import InnUI
 
 if TYPE_CHECKING:
@@ -43,22 +44,16 @@ class InnScene(Scene):
     def render(self):
         self.ui.render(self.game.window.display)
 
-    def purchase_unit(self, option_index: int):
+    def purchase_unit(self, unit: Unit):
         """
         Purchase the unit
         """
-        units = list(self.sale_troupe.units.values())
-        unit = units[option_index]
 
-        # can we purchase
-        can_afford = unit.gold_cost <= self.game.memory.gold
-        has_enough_charisma = self.game.memory.commander.charisma_remaining > 0
-        if can_afford and has_enough_charisma:
-            # pay gold
-            self.game.memory.amend_gold(-unit.gold_cost)  # remove gold cost
+        # pay gold
+        self.game.memory.amend_gold(-unit.gold_cost)  # remove gold cost
 
-            # add unit
-            self.game.memory.player_troupe.add_unit(unit)
+        # add unit
+        self.game.memory.player_troupe.add_unit(unit)
 
         # remove option from list
         self.sale_troupe.remove_unit(unit.id)

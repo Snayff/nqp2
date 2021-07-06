@@ -76,8 +76,13 @@ class Troupe:
 
     def remove_unit(self, id_: int):
         try:
+            print(f"_units (pre-pop): {self._units}")
             unit = self._units.pop(id_)
-            self._unit_ids.pop(id_)
+            print(f"_units (post-pop): {self._units}")
+
+            print(f"_unit_ids (pre-pop): {self._unit_ids}")
+            self._unit_ids.remove(id_)
+            print(f"_unit_ids (post-pop): {self._unit_ids}")
 
             logging.info(f"Unit {unit.type}({unit.id}) removed from {unit.team}'s troupe.")
         except KeyError:

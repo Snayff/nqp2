@@ -32,7 +32,14 @@ class InnUI(UI):
         # select option and trigger result
         if self.game.input.states["select"]:
             self.game.input.states["select"] = False
-            self.game.inn.purchase_unit(self.selected_row)
+
+            # can we purchase
+            units = list(self.game.inn.sale_troupe.units.values())
+            unit = units[self.selected_row]
+            can_afford = unit.gold_cost <= self.game.memory.gold
+            has_enough_charisma = self.game.memory.commander.charisma_remaining > 0
+            if can_afford and has_enough_charisma:
+                self.game.inn.purchase_unit(unit)
 
         # exit
         if self.game.input.states["cancel"]:
