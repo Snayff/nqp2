@@ -1,0 +1,6 @@
+{
+    "type": "minor_attack",
+    "tier": 1,
+    "stat": "attack",
+    "mod_amount": 10
+}
