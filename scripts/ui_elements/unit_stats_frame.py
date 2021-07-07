@@ -14,10 +14,10 @@ if TYPE_CHECKING:
     from scripts.core.game import Game
 
 
-__all__ = ["UnitStats"]
+__all__ = ["UnitStatsFrame"]
 
 
-class UnitStats:
+class UnitStatsFrame:
     def __init__(self, game: Game, pos: Tuple[int, int], unit: Unit):
         self.game: Game = game
         self.unit: Unit = unit

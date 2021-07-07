@@ -69,7 +69,7 @@ class UI(ABC):
         else:
             self.instruction_text = text
 
-    def handle_selected_index_looping(self):
+    def handle_selector_index_looping(self):
         """
         Manage the looping of the selection index
         """

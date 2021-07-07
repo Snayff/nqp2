@@ -34,7 +34,7 @@ class InnUI(UI):
 
         self.set_selection_dimensions(len(units_for_sale.units), 1)
         self.handle_directional_input_for_selection()
-        self.handle_selected_index_looping()
+        self.handle_selector_index_looping()
 
         # select option and trigger result
         if self.game.input.states["select"]:

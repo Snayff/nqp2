@@ -47,7 +47,7 @@ class MapState(IntEnum):
     READY = auto()
 
 
-class InnState(IntEnum):
+class TrainingState(IntEnum):
     CHOOSE_UPGRADE = auto()
     CHOOSE_TARGET_UNIT = auto()
 

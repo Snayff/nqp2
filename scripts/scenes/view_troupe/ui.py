@@ -31,7 +31,7 @@ class ViewTroupeUI(UI):
 
         self.set_selection_dimensions(len(units), 1)
         self.handle_directional_input_for_selection()
-        self.handle_selected_index_looping()
+        self.handle_selector_index_looping()
 
         if self.game.input.states["cancel"]:
             self.game.input.states["cancel"] = False

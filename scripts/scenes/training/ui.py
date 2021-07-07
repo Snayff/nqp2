@@ -5,10 +5,12 @@ from typing import Optional, TYPE_CHECKING
 import pygame
 
 from scripts.core.base_classes.ui import UI
-from scripts.core.constants import DEFAULT_IMAGE_SIZE, SceneType, UPGRADE_COST, UPGRADE_TIER_MULTIPLIER
+from scripts.core.constants import DEFAULT_IMAGE_SIZE, SceneType, TrainingState
 from scripts.scenes.combat.elements.unit import Unit
+from scripts.ui_elements.unit_stats_frame import UnitStatsFrame
 
 if TYPE_CHECKING:
+    from typing import List, Tuple, Dict
     from scripts.core.game import Game
 
 __all__ = ["TrainingUI"]
@@ -23,160 +25,246 @@ class TrainingUI(UI):
         super().__init__(game)
 
         self.selected_unit: Optional[Unit] = None
+        self.selected_upgrade: Optional[str] = None
+        self.stat_frames: Optional[UnitStatsFrame] = None
+        self.stat_frame_pos: Tuple[int, int] = (0, 0)
+
+        self.dimensions: Dict[int, int] = {}
+        self.refresh_dimensions()
 
         self.set_instruction_text("Choose who to upgrade.")
 
     def update(self, delta_time: float):
         super().update(delta_time)
 
-        units = self.game.memory.player_troupe.units
+        self.set_selection_dimensions(len(self.dimensions.keys()), self.dimensions[self.selected_row])
+        self.handle_selector_index_looping()
+        # N.B. does not use default handle_directional_input_for_selection method
 
-        self.set_selection_dimensions(len(units), 1)
-        self.handle_directional_input_for_selection()
-        self.handle_selected_index_looping()
+        # handle selection based on selector position
+        if self.selected_col == 0:
+            self.handle_select_upgrade_input()
 
-        # select option and trigger result
-        if self.game.input.states["select"]:
-            self.game.input.states["select"] = False
+        elif self.selected_col == 1:
+            self.handle_choose_unit_input()
 
-            if self.selected_unit:
-                # can we afford
-                id_ = self.selected_unit.id
-                unit = self.game.memory.player_troupe.units[id_]
-                if unit.upgrade_cost <= self.game.memory.gold:
-
-                    self.game.memory.amend_gold(-unit.upgrade_cost)  # remove gold cost
-                    self.game.memory.player_troupe.upgrade_unit(id_)
-
-                else:
-                    self.set_instruction_text(f"You can't afford the {unit.type}.", True)
-
-        # exit
-        if self.game.input.states["cancel"]:
-            self.game.input.states["cancel"] = False
-
-            # return to overworld
-            self.game.change_scene(SceneType.OVERWORLD)
-
+        # view troupe, this is universally accessible
         if self.game.input.states["view_troupe"]:
             self.game.input.states["view_troupe"] = False
             self.game.change_scene(SceneType.VIEW_TROUPE)
 
     def render(self, surface: pygame.surface):
-        units = self.game.memory.player_troupe.units
         default_font = self.default_font
         warning_font = self.warning_font
         positive_font = self.positive_font
+        scene = self.game.training
 
-        # positions
         start_x = 20
         start_y = 20
-        select_unit_icon_width = DEFAULT_IMAGE_SIZE
-        select_unit_icon_height = DEFAULT_IMAGE_SIZE
-        select_unit_icon_size = (select_unit_icon_width, select_unit_icon_height)
+        icon_width = DEFAULT_IMAGE_SIZE
+        icon_height = DEFAULT_IMAGE_SIZE
+        icon_size = (icon_width, icon_height)
         gap = 2
         font_height = 12  # FIXME - get actual font height
+        window_width = self.game.window.width
+        window_height = self.game.window.height
 
-        # draw list of unit names
-        unit_count = 0
-        for unit in units.values():
-            # draw icon
-            unit_icon_x = start_x
-            unit_icon_y = start_y + ((select_unit_icon_height + gap) * unit_count)
-            unit_icon_pos = (unit_icon_x, unit_icon_y)
-            unit_icon = self.game.assets.unit_animations[unit.type]["icon"][0]
-            surface.blit(unit_icon, unit_icon_pos)
+        # draw upgrades
+        current_x = start_x
+        current_y = start_y
+        amount_x = current_x + icon_width + gap
+        selection_counter = 0
+        for upgrade in scene.upgrades_sold:
 
-            # draw unit type
-            unit_type_x = unit_icon_x + select_unit_icon_width + gap
-            unit_type_y = unit_icon_y + (select_unit_icon_height // 2)
+            # draw stat icon
+            stat_icon = self.game.assets.get_image("stats", upgrade["stat"], icon_size)
+            surface.blit(stat_icon, (current_x, current_y))
 
-            # determine which font to use
-            cost = unit.upgrade_cost
-            if cost <= self.game.memory.gold:
-                font = default_font
-            else:
-                font = warning_font
-
-            font.render(unit.type, surface, (unit_type_x, unit_type_y))
-
-            # note selected unit
-            if self.selected_row == unit_count:
-                self.selected_unit = unit
+            # draw amount, + half font height to vertical centre it
+            positive_font.render(str(f"+ {upgrade['stat']}"), surface, (amount_x, current_y + (font_height // 2)))
 
             # draw selector
-            if unit_count == self.selected_row:
+            if selection_counter == self.selected_row or upgrade["type"] == self.selected_upgrade:
                 pygame.draw.line(
                     surface,
                     (255, 255, 255),
-                    (unit_type_x, unit_type_y + font_height),
-                    (unit_type_x + default_font.width(unit.type), unit_type_y + font_height),
+                    (current_x, current_y + icon_height),
+                    (current_x + default_font.width(upgrade["type"]), current_y + icon_height),
                 )
 
-            unit_count += 1
+        # draw unit selection
+        if scene.state == TrainingState.CHOOSE_TARGET_UNIT:
 
-        # ensure a selected unit is found
-        if not self.selected_unit:
-            return
+            # draw list of units
+            current_x = start_x + 100  # add an offset
+            current_y = start_y + 20
+            selection_counter = 0
+            for unit in self.game.memory.player_troupe.units.values():
 
-        # get upgrade details
-        upgraded_unit = Unit(self.game, -1, self.selected_unit.type, "player")
+                # draw unit icon
+                unit_icon = self.game.assets.unit_animations[unit.type]["icon"][0]
+                surface.blit(unit_icon, (current_x, current_y))
 
-        # positions
-        comparison_x = self.game.window.width // 2
-        comparison_y = start_y
-        comparison_unit_icon_width = DEFAULT_IMAGE_SIZE * 2
-        comparison_unit_icon_height = DEFAULT_IMAGE_SIZE * 2
-        comparison_unit_icon_size = (comparison_unit_icon_width, comparison_unit_icon_height)
-        stat_width = DEFAULT_IMAGE_SIZE
-        stat_height = DEFAULT_IMAGE_SIZE
-        stat_icon_size = (stat_width, stat_height)
-        section_width = comparison_unit_icon_width * 2
+                # draw unit type, + half font height to vertical centre it
+                default_font.render(unit.type, surface, (current_x + icon_width + gap, current_y + (font_height // 2)))
 
-        # show selected unit and upgraded unit details
-        unit_count = 0
-        for unit in [self.selected_unit, upgraded_unit]:
-            # draw icon
-            unit_icon_x = comparison_x + (comparison_unit_icon_width // 2) + (section_width * unit_count)
-            unit_icon_pos = (unit_icon_x, comparison_y)
-            unit_icon = self.game.assets.get_image("units", unit.type + "_icon", comparison_unit_icon_size)
-            surface.blit(unit_icon, unit_icon_pos)
+                # draw selector
+                if selection_counter == self.selected_row and self.selected_col == 2:
+                    pygame.draw.line(
+                        surface,
+                        (255, 255, 255),
+                        (current_x, current_y + icon_height),
+                        (current_x + default_font.width(unit.type), current_y + icon_height),
+                    )
 
-            # draw unit type
-            info_x = comparison_x + ((section_width * unit_count) + gap)
-            unit_type_y = comparison_y + comparison_unit_icon_height + gap
-            default_font.render(unit.type, surface, (info_x, unit_type_y))
+                # increment
+                current_y += icon_height + gap
+                selection_counter += 1
 
-            # draw stats
-            stats = ["health", "attack", "defence", "range", "attack_speed", "move_speed", "ammo", "count", "size"]
-            stat_count = 0
-            for stat in stats:
-                info_y = unit_type_y + font_height + ((stat_height + gap) * stat_count) + gap
-                stat_icon_x = info_x + (stat_width // 2)
-                stat_info_x = stat_icon_x + stat_width + 2
+            # draw info for selected unit
+            self.stat_frame_pos = (current_x + 100, start_y)
+            self.stat_frames.render(surface)
 
-                stat_icon = self.game.assets.get_image("stats", stat, stat_icon_size)
-                surface.blit(stat_icon, (stat_icon_x, info_y))
+            # draw exit button
+            confirm_text = "leave"
+            confirm_width = default_font.width(confirm_text)
+            current_x = window_width - (confirm_width + gap)
+            current_y = window_height - (font_height + gap)
+            default_font.render(confirm_text, surface, (current_x, current_y))
 
-                # determine font
-                if unit == self.selected_unit:
-                    font = default_font
-                elif getattr(self.selected_unit, stat) < getattr(upgraded_unit, stat):
-                    font = positive_font
-                elif getattr(self.selected_unit, stat) > getattr(upgraded_unit, stat):
-                    font = warning_font
-                else:
-                    font = default_font
-
-                # + half font height to vertical centre it
-                font.render(str(getattr(unit, stat)), surface, (stat_info_x, info_y + (font_height // 2)))
-
-                stat_count += 1
-
-            unit_count += 1
+            # draw confirm selector
+            if self.selected_row == len(self.dimensions.keys()):
+                pygame.draw.line(
+                    surface,
+                    (255, 255, 255),
+                    (current_x, current_y + font_height),
+                    (current_x + confirm_width, current_y + font_height),
+                )
 
         # show core info
         self.draw_gold(surface)
         self.draw_charisma(surface)
         self.draw_leadership(surface)
         self.draw_instruction(surface)
+
+    def handle_select_upgrade_input(self):
+        if self.game.input.states["select"]:
+            self.game.input.states["select"] = False
+
+            # if on leave then exit to overworld
+            if self.selected_row == len(self.dimensions.keys()):
+                self.game.change_scene(SceneType.OVERWORLD)
+
+            else:
+
+                # select the upgrade
+                self.selected_upgrade = self.game.training.upgrades_sold[self.selected_row]
+
+                # move to selecting unit
+                self.selected_col += 1
+                self.game.training.state = TrainingState.CHOOSE_TARGET_UNIT
+
+
+        # changing selection up or down
+        if self.game.input.states["up"]:
+            self.game.input.states["up"] = False
+            self.selected_row -= 1
+
+            self.handle_selector_index_looping()
+
+            self.selected_upgrade = self.game.training.upgrades_sold[self.selected_row]
+
+        elif self.game.input.states["down"]:
+            self.game.input.states["down"] = False
+            self.selected_row += 1
+
+            self.handle_selector_index_looping()
+
+            self.selected_unit = self.game.training.upgrades_sold[self.selected_row]
+
+    def handle_choose_unit_input(self):
+        # return to upgrade select
+        if self.game.input.states["cancel"]:
+            self.game.input.states["cancel"] = False
+
+            # clear selected upgrade
+            self.selected_upgrade = None
+
+            # move to select upgrade
+            self.selected_col -= 1
+            self.game.training.state = TrainingState.CHOOSE_UPGRADE
+
+        # choose a unit
+        if self.game.input.states["select"]:
+            self.game.input.states["select"] = False
+
+            # do we have info needed
+            if self.selected_unit and self.selected_upgrade:
+                assert isinstance(self.selected_upgrade, str)
+
+                # can we afford
+                id_ = self.selected_unit.id
+                upgrade = self.game.data.upgrades[self.selected_upgrade]
+                upgrade_cost = self.game.training.calculate_upgrade_cost(upgrade["tier"])
+                if upgrade_cost <= self.game.memory.gold:
+
+                    # pay for the upgrade and execute it
+                    self.game.memory.amend_gold(-upgrade_cost)  # remove gold cost
+                    self.game.memory.player_troupe.upgrade_unit(id_, upgrade["type"])
+
+                    # remove upgrade from choices and refresh UI
+                    self.game.training.upgrades_sold.pop(self.selected_row)
+                    self.refresh_dimensions()
+
+                    # confirm to user
+                    self.set_instruction_text(f"{self.selected_unit.type} upgraded with {upgrade['type']}.")
+
+                    # reset values to choose another upgrade
+                    self.selected_unit = None
+                    self.selected_upgrade = None
+                    self.selected_col -= 1
+                    self.game.training.state = TrainingState.CHOOSE_UPGRADE
+
+
+                else:
+                    self.set_instruction_text(f"You can't afford the {upgrade['type']} upgrade.", True)
+
+            # changing selection up or down
+            if self.game.input.states["up"]:
+                self.game.input.states["up"] = False
+                self.selected_row -= 1
+
+                self.handle_selector_index_looping()
+
+                self.selected_unit = list(self.game.memory.player_troupe.units.values())[self.selected_row]
+
+            elif self.game.input.states["down"]:
+                self.game.input.states["down"] = False
+                self.selected_row += 1
+
+                self.handle_selector_index_looping()
+
+                self.selected_unit = list(self.game.memory.player_troupe.units.values())[self.selected_row]
+
+    def refresh_dimensions(self):
+        self.dimensions = {}
+
+        # add a row for each upgrade
+        upgrades = self.game.training.upgrades_sold
+        count = 0
+        for count in range(len(upgrades)):
+            self.dimensions[count] = 2  # set to 2 cols
+
+        # add an extra row for the confirm button
+        self.dimensions[count + 1] = 1  # set to 1 col
+
+    def refresh_stat_frame(self):
+        """
+        Refresh the unit stat frame to show the selected unit info or remove if no selected unit.
+        """
+        self.stat_frames = None
+
+        if self.selected_unit:
+            frame = UnitStatsFrame(self.game, self.stat_frame_pos, self.selected_unit)
+            self.stat_frames = frame
+

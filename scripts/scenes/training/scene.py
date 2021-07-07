@@ -5,6 +5,7 @@ import time
 from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.scene import Scene
+from scripts.core.constants import TrainingState, UPGRADE_COST, UPGRADE_TIER_MULTIPLIER
 from scripts.scenes.training.ui import TrainingUI
 
 if TYPE_CHECKING:
@@ -29,6 +30,9 @@ class TrainingScene(Scene):
         super().__init__(game)
 
         self.ui: TrainingUI = TrainingUI(game)
+        self.state: TrainingState = TrainingState.CHOOSE_UPGRADE
+
+        self.upgrades_sold = [self.game.data.upgrades["minor_attack"], self.game.data.upgrades["minor_defence"]]
 
         # record duration
         end_time = time.time()
@@ -40,3 +44,12 @@ class TrainingScene(Scene):
 
     def render(self):
         self.ui.render(self.game.window.display)
+
+    @staticmethod
+    def calculate_upgrade_cost(tier: int):
+        """
+        Calculate the cost of the upgrade based on the tier of the upgrade.
+        """
+        cost = int(((UPGRADE_TIER_MULTIPLIER * tier) * UPGRADE_COST))
+
+        return cost

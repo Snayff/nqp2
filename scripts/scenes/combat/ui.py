@@ -140,7 +140,7 @@ class CombatUI(UI):
 
         # manage selection
         self.set_selection_dimensions(0, len(cards))
-        self.handle_selected_index_looping()
+        self.handle_selector_index_looping()
 
     def render(self, surface: pygame.Surface):
         warning_font = self.warning_font

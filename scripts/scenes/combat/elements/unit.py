@@ -58,12 +58,6 @@ class Unit:
         self.placed: bool = False
 
     @property
-    def upgrade_cost(self) -> int:
-        cost = int(((UPGRADE_TIER_MULTIPLIER * self.tier) * UPGRADE_COST))
-
-        return cost
-
-    @property
     def health(self) -> int:
         value = self._health
 
