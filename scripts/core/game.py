@@ -101,6 +101,7 @@ class Game:
             self.active_scene = self.combat
 
         elif scene_type == SceneType.TRAINING:
+            self.training.ui.refresh_dimensions()
             self.active_scene = self.training
 
         elif scene_type == SceneType.INN:

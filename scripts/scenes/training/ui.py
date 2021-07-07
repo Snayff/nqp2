@@ -25,12 +25,12 @@ class TrainingUI(UI):
         super().__init__(game)
 
         self.selected_unit: Optional[Unit] = None
-        self.selected_upgrade: Optional[str] = None
-        self.stat_frames: Optional[UnitStatsFrame] = None
+        self.selected_upgrade: Optional[Dict] = None
+        self.stat_frame: Optional[UnitStatsFrame] = None
         self.stat_frame_pos: Tuple[int, int] = (0, 0)
 
         self.dimensions: Dict[int, int] = {}
-        self.refresh_dimensions()
+        self.last_row = 0
 
         self.set_instruction_text("Choose who to upgrade.")
 
@@ -81,16 +81,31 @@ class TrainingUI(UI):
             surface.blit(stat_icon, (current_x, current_y))
 
             # draw amount, + half font height to vertical centre it
-            positive_font.render(str(f"+ {upgrade['stat']}"), surface, (amount_x, current_y + (font_height // 2)))
+            default_font.render(str(f"{upgrade['stat']} +{upgrade['mod_amount']}"),
+                                surface, (amount_x, current_y + (font_height // 2)))
 
-            # draw selector
-            if selection_counter == self.selected_row or upgrade["type"] == self.selected_upgrade:
+            # draw selector if on current row
+            if selection_counter == self.selected_row:
                 pygame.draw.line(
                     surface,
                     (255, 255, 255),
                     (current_x, current_y + icon_height),
                     (current_x + default_font.width(upgrade["type"]), current_y + icon_height),
                 )
+
+            # draw selector on upgrade is choosing a unit
+            if self.selected_upgrade:
+                if upgrade["type"] == self.selected_upgrade["type"] and self.selected_col == 1:
+                    pygame.draw.line(
+                        surface,
+                        (255, 255, 255),
+                        (current_x, current_y + icon_height),
+                        (current_x + default_font.width(upgrade["type"]), current_y + icon_height),
+                    )
+
+            # increment
+            current_y += icon_height + gap
+            selection_counter += 1
 
         # draw unit selection
         if scene.state == TrainingState.CHOOSE_TARGET_UNIT:
@@ -123,23 +138,25 @@ class TrainingUI(UI):
 
             # draw info for selected unit
             self.stat_frame_pos = (current_x + 100, start_y)
-            self.stat_frames.render(surface)
+            if self.stat_frame:
+                self.stat_frame.render(surface)
 
-            # draw exit button
-            confirm_text = "leave"
-            confirm_width = default_font.width(confirm_text)
-            current_x = window_width - (confirm_width + gap)
-            current_y = window_height - (font_height + gap)
-            default_font.render(confirm_text, surface, (current_x, current_y))
+        # draw exit button
+        confirm_text = "leave"
+        confirm_width = default_font.width(confirm_text)
+        current_x = window_width - (confirm_width + gap)
+        current_y = window_height - (font_height + gap)
+        default_font.render(confirm_text, surface, (current_x, current_y))
 
-            # draw confirm selector
-            if self.selected_row == len(self.dimensions.keys()):
-                pygame.draw.line(
-                    surface,
-                    (255, 255, 255),
-                    (current_x, current_y + font_height),
-                    (current_x + confirm_width, current_y + font_height),
-                )
+        # draw confirm selector
+        print(f"Selected: {self.selected_row}, Last: {self.last_row}")
+        if self.selected_row == self.last_row:
+            pygame.draw.line(
+                surface,
+                (255, 255, 255),
+                (current_x, current_y + font_height),
+                (current_x + confirm_width, current_y + font_height),
+            )
 
         # show core info
         self.draw_gold(surface)
@@ -152,7 +169,7 @@ class TrainingUI(UI):
             self.game.input.states["select"] = False
 
             # if on leave then exit to overworld
-            if self.selected_row == len(self.dimensions.keys()):
+            if self.selected_row == self.last_row:
                 self.game.change_scene(SceneType.OVERWORLD)
 
             else:
@@ -172,15 +189,12 @@ class TrainingUI(UI):
 
             self.handle_selector_index_looping()
 
-            self.selected_upgrade = self.game.training.upgrades_sold[self.selected_row]
-
         elif self.game.input.states["down"]:
             self.game.input.states["down"] = False
             self.selected_row += 1
 
             self.handle_selector_index_looping()
 
-            self.selected_unit = self.game.training.upgrades_sold[self.selected_row]
 
     def handle_choose_unit_input(self):
         # return to upgrade select
@@ -200,11 +214,11 @@ class TrainingUI(UI):
 
             # do we have info needed
             if self.selected_unit and self.selected_upgrade:
-                assert isinstance(self.selected_upgrade, str)
+                assert isinstance(self.selected_upgrade, dict)
 
                 # can we afford
                 id_ = self.selected_unit.id
-                upgrade = self.game.data.upgrades[self.selected_upgrade]
+                upgrade = self.selected_upgrade
                 upgrade_cost = self.game.training.calculate_upgrade_cost(upgrade["tier"])
                 if upgrade_cost <= self.game.memory.gold:
 
@@ -258,13 +272,14 @@ class TrainingUI(UI):
         # add an extra row for the confirm button
         self.dimensions[count + 1] = 1  # set to 1 col
 
+
     def refresh_stat_frame(self):
         """
         Refresh the unit stat frame to show the selected unit info or remove if no selected unit.
         """
-        self.stat_frames = None
+        self.stat_frame = None
 
         if self.selected_unit:
             frame = UnitStatsFrame(self.game, self.stat_frame_pos, self.selected_unit)
-            self.stat_frames = frame
+            self.stat_frame = frame
 

@@ -35,6 +35,7 @@ class UI(ABC):
         self.selected_col: int = 0
         self.max_rows: int = 0
         self.max_cols: int = 0
+        self.last_row: int = 0
 
         self.temporary_instruction_text: str = ""
         self.temporary_instruction_timer: float = 0.0
@@ -61,6 +62,8 @@ class UI(ABC):
         # ensure we're on a valid row
         if self.selected_row >= max_rows:
             self.selected_row = max_rows
+
+        self.last_row = max_rows - 1
 
     def set_instruction_text(self, text: str, temporary: bool = False):
         if temporary:
