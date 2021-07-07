@@ -9,7 +9,7 @@ from scripts.core.utility import itr
 from scripts.scenes.combat.elements.entity import Entity
 
 if TYPE_CHECKING:
-    from typing import List
+    from typing import List, Dict, Tuple
 
     from scripts.core.game import Game
 
@@ -32,21 +32,22 @@ class Unit:
         self.type: str = unit_type
         self.team: str = team  # this is derived from the Troupe but can be overridden in combat
 
-        self.upgrade_cost: int = unit_data["upgrade_cost"]
         self.type: str = unit_data["type"]
         self.default_behaviour: str = unit_data["default_behaviour"]
-        self.health: int = unit_data["health"]
-        self.attack: int = unit_data["attack"]
-        self.defence: int = unit_data["defence"]
-        self.range: int = unit_data["range"]
-        self.attack_speed: float = unit_data["attack_speed"]
-        self.move_speed: int = unit_data["move_speed"]
-        self.ammo: int = unit_data["ammo"]
-        self.count: int = unit_data["count"]
+        self._health: int = unit_data["health"]
+        self._attack: int = unit_data["attack"]
+        self._defence: int = unit_data["defence"]
+        self._range: int = unit_data["range"]
+        self._attack_speed: float = unit_data["attack_speed"]
+        self._move_speed: int = unit_data["move_speed"]
+        self._ammo: int = unit_data["ammo"]
+        self.count: int = unit_data["count"]  # number of entities spawned
         self.size: int = unit_data["size"]  # size of the hitbox
         self.weight: int = unit_data["weight"]
         self.gold_cost: int = unit_data["gold_cost"]
         self.tier: int = unit_data["tier"]
+
+        self.modifiers: Dict[str, List[int]] = {}
 
         # during combat
         self.behaviour = self.game.data.behaviours.unit_behaviours[self.default_behaviour](self)
@@ -55,6 +56,103 @@ class Unit:
         self.entities: List[Entity] = []
         self.pos: List[int, int] = [0, 0]
         self.placed: bool = False
+
+    @property
+    def upgrade_cost(self) -> int:
+        cost = int(((UPGRADE_TIER_MULTIPLIER * self.tier) * UPGRADE_COST))
+
+        return cost
+
+    @property
+    def health(self) -> int:
+        value = self._health
+
+        try:
+            for mod in self.modifiers["health"]:
+                value += mod
+
+        except KeyError:
+            pass
+
+        return int(value)
+
+    @property
+    def attack(self) -> int:
+        value = self._attack
+
+        try:
+            for mod in self.modifiers["attack"]:
+                value += mod
+
+        except KeyError:
+            pass
+
+        return int(value)
+
+    @property
+    def defence(self) -> int:
+        value = self._defence
+
+        try:
+            for mod in self.modifiers["defence"]:
+                value += mod
+
+        except KeyError:
+            pass
+
+        return int(value)
+
+    @property
+    def attack_speed(self) -> float:
+        value = self._attack_speed
+
+        try:
+            for mod in self.modifiers["attack_speed"]:
+                value += mod
+
+        except KeyError:
+            pass
+
+        return value
+
+    @property
+    def range(self) -> int:
+        value = self._range
+
+        try:
+            for mod in self.modifiers["range"]:
+                value += mod
+
+        except KeyError:
+            pass
+
+        return int(value)
+
+    @property
+    def move_speed(self) -> int:
+        value = self._move_speed
+
+        try:
+            for mod in self.modifiers["move_speed"]:
+                value += mod
+
+        except KeyError:
+            pass
+
+        return int(value)
+
+    @property
+    def ammo(self) -> int:
+        value = self._ammo
+
+        try:
+            for mod in self.modifiers["ammo"]:
+                value += mod
+
+        except KeyError:
+            pass
+
+        return value
 
     def update(self, dt):
         self.update_pos()
@@ -109,9 +207,12 @@ class Unit:
             self.pos[0] = pos[0] / len(self.entities)
             self.pos[1] = pos[1] / len(self.entities)
 
+    def add_modifier(self, stat: str, amount: int):
+        """
+        Add a modifier to a stat.
+        """
+        if stat in self.modifiers:
+            self.modifiers[stat].append(amount)
+        else:
+            self.modifiers[stat] = [amount]
 
-    @property
-    def upgrade_cost(self) -> int:
-        cost = int(((UPGRADE_TIER_MULTIPLIER * self.tier) * UPGRADE_COST))
-
-        return cost

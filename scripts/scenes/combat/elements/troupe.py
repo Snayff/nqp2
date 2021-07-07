@@ -79,6 +79,7 @@ class Troupe:
             self._unit_ids.remove(id_)
 
             logging.info(f"Unit {unit.type}({unit.id}) removed from {unit.team}'s troupe.")
+
         except KeyError:
             logging.warning(f"remove_unit: {id_} not found in {self.units}. No unit removed.")
 
@@ -127,25 +128,17 @@ class Troupe:
 
         return ids
 
-    def upgrade_unit(self, id_: int):
+    def upgrade_unit(self, id_: int, upgrade_type: str):
         """
-        Upgrade a unit, if it has an upgrade.
+        Upgrade a unit with a given upgrade.
         """
         # get unit
         unit = self.units[id_]
 
-        # confirm there is an upgrade
-        if not unit.upgrades_to:
-            logging.warning(f"Tried to upgrade {unit.type} but it cannot be upgraded further.")
-            return
+        try:
+            data = self.game.data.upgrades[upgrade_type]
+            unit.add_modifier(data["stat"], data["mod_amount"])
 
-        # create upgraded unit. Not using add methods so that we can set position
-        new_id = self.game.memory.generate_id()
-        upgraded_unit = Unit(self.game, new_id, unit.upgrades_to, self.team)
-        self._units[new_id] = upgraded_unit
+        except KeyError:
+            logging.warning(f"Tried to upgrade {unit.id} with {upgrade_type} but upgrade not found. No action taken.")
 
-        # insert after the existing unit
-        self._unit_ids.insert(self._unit_ids.index(id_) + 1, new_id)
-
-        # remove non upgraded unit
-        self.remove_unit(id_)
