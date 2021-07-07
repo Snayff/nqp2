@@ -85,7 +85,7 @@ class TrainingUI(UI):
                                 surface, (amount_x, current_y + (font_height // 2)))
 
             # draw selector if on current row
-            if selection_counter == self.selected_row:
+            if selection_counter == self.selected_row and self.selected_col == 0:
                 pygame.draw.line(
                     surface,
                     (255, 255, 255),
@@ -124,7 +124,7 @@ class TrainingUI(UI):
                 default_font.render(unit.type, surface, (current_x + icon_width + gap, current_y + (font_height // 2)))
 
                 # draw selector
-                if selection_counter == self.selected_row and self.selected_col == 2:
+                if selection_counter == self.selected_row and self.selected_col == 1:
                     pygame.draw.line(
                         surface,
                         (255, 255, 255),
@@ -149,7 +149,6 @@ class TrainingUI(UI):
         default_font.render(confirm_text, surface, (current_x, current_y))
 
         # draw confirm selector
-        print(f"Selected: {self.selected_row}, Last: {self.last_row}")
         if self.selected_row == self.last_row:
             pygame.draw.line(
                 surface,
@@ -243,22 +242,22 @@ class TrainingUI(UI):
                 else:
                     self.set_instruction_text(f"You can't afford the {upgrade['type']} upgrade.", True)
 
-            # changing selection up or down
-            if self.game.input.states["up"]:
-                self.game.input.states["up"] = False
-                self.selected_row -= 1
+        # changing selection up or down
+        if self.game.input.states["up"]:
+            self.game.input.states["up"] = False
+            self.selected_row -= 1
 
-                self.handle_selector_index_looping()
+            self.handle_selector_index_looping()
 
-                self.selected_unit = list(self.game.memory.player_troupe.units.values())[self.selected_row]
+            self.selected_unit = list(self.game.memory.player_troupe.units.values())[self.selected_row]
 
-            elif self.game.input.states["down"]:
-                self.game.input.states["down"] = False
-                self.selected_row += 1
+        elif self.game.input.states["down"]:
+            self.game.input.states["down"] = False
+            self.selected_row += 1
 
-                self.handle_selector_index_looping()
+            self.handle_selector_index_looping()
 
-                self.selected_unit = list(self.game.memory.player_troupe.units.values())[self.selected_row]
+            self.selected_unit = list(self.game.memory.player_troupe.units.values())[self.selected_row]
 
     def refresh_dimensions(self):
         self.dimensions = {}
