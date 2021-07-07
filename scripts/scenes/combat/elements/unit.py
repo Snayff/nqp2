@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 
 import pygame
 
-from scripts.core.constants import UPGRADE_COST, UPGRADE_TIER_MULTIPLIER
+from scripts.core.constants import StatModifiedStatus, UPGRADE_COST, UPGRADE_TIER_MULTIPLIER
 from scripts.core.utility import itr
 from scripts.scenes.combat.elements.entity import Entity
 
@@ -216,3 +216,24 @@ class Unit:
         else:
             self.modifiers[stat] = [amount]
 
+    def get_modified_status(self, stat: str) -> StatModifiedStatus:
+        """
+        Check if a given stat is modified.
+        """
+        modifiers = self.modifiers
+
+        if stat in modifiers:
+            has_negatives = any(n < 0 for n in modifiers[stat])
+            has_positives = any(n > 0 for n in modifiers[stat])
+
+            if has_negatives and has_positives:
+                status = StatModifiedStatus.POSITIVE_AND_NEGATIVE
+            elif has_negatives and not has_positives:
+                status = StatModifiedStatus.NEGATIVE
+            else:
+                # not has_negatives and has_positives
+                status = StatModifiedStatus.POSITIVE
+        else:
+            status = StatModifiedStatus.NONE
+
+        return status

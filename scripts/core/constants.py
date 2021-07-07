@@ -47,6 +47,11 @@ class MapState(IntEnum):
     READY = auto()
 
 
+class InnState(IntEnum):
+    CHOOSE_UPGRADE = auto()
+    CHOOSE_TARGET_UNIT = auto()
+
+
 class NodeState(IntEnum):
     REACHABLE = auto()  # could reach the node
     SELECTABLE = auto()  # can select the node
@@ -80,3 +85,11 @@ class RewardType(IntEnum):
     ACTION = auto()
     UPGRADE = auto()
     RESOURCE = auto()
+
+
+class StatModifiedStatus(IntEnum):
+    NONE = auto()
+    POSITIVE = auto()
+    NEGATIVE = auto()
+    POSITIVE_AND_NEGATIVE = auto()
+
