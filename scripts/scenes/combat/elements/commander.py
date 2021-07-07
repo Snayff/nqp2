@@ -12,12 +12,12 @@ __all__ = ["Commander"]
 
 
 class Commander:
-    def __init__(self, game: Game, name: str):
+    def __init__(self, game: Game, type: str):
         self.game: Game = game
 
-        data = self.game.data.commanders[name]
+        data = self.game.data.commanders[type]
 
-        self.name = name
+        self.type = type
         self.charisma = data["charisma"]  # number of units that can be recruited
         self.leadership = data["leadership"]  # points to spend to deploy units in combat
         # N.B. allies not stored here as they are held in the Troupe
