@@ -12,8 +12,6 @@
     "weight": 15,
     "gold_cost": 430,
     "default_behaviour": "swarm",
-    "upgrade_cost": 80,
-    "upgrades_to":"templar",
     "home": "castle",
     "tier": 4
 }

@@ -12,8 +12,6 @@
     "weight": 7,
     "gold_cost": 180,
     "default_behaviour": "swarm",
-    "upgrade_cost": 30,
-    "upgrades_to": "",
     "home": "castle",
     "tier": 3
 }

@@ -12,8 +12,6 @@
     "weight": 20,
     "gold_cost": 200,
     "default_behaviour": "swarm",
-    "upgrade_cost": 130,
-    "upgrades_to": "broodmother",
     "home": "dungeon",
     "tier": 3
 }

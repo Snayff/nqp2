@@ -5,7 +5,7 @@ from typing import Optional, TYPE_CHECKING
 import pygame
 
 from scripts.core.base_classes.ui import UI
-from scripts.core.constants import DEFAULT_IMAGE_SIZE, SceneType
+from scripts.core.constants import DEFAULT_IMAGE_SIZE, SceneType, UPGRADE_COST, UPGRADE_TIER_MULTIPLIER
 from scripts.scenes.combat.elements.unit import Unit
 
 if TYPE_CHECKING:
@@ -44,6 +44,7 @@ class TrainingUI(UI):
                 id_ = self.selected_unit.id
                 unit = self.game.memory.player_troupe.units[id_]
                 if unit.upgrade_cost <= self.game.memory.gold:
+
                     self.game.memory.amend_gold(-unit.upgrade_cost)  # remove gold cost
                     self.game.memory.player_troupe.upgrade_unit(id_)
 
@@ -92,7 +93,7 @@ class TrainingUI(UI):
 
             # determine which font to use
             cost = unit.upgrade_cost
-            if cost <= self.game.memory.gold and unit.upgrades_to:
+            if cost <= self.game.memory.gold:
                 font = default_font
             else:
                 font = warning_font

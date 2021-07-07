@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING
 
 import pygame
 
+from scripts.core.constants import UPGRADE_COST, UPGRADE_TIER_MULTIPLIER
 from scripts.core.utility import itr
 from scripts.scenes.combat.elements.entity import Entity
 
@@ -31,7 +32,6 @@ class Unit:
         self.type: str = unit_type
         self.team: str = team  # this is derived from the Troupe but can be overridden in combat
 
-        self.upgrades_to: str = unit_data["upgrades_to"]
         self.upgrade_cost: int = unit_data["upgrade_cost"]
         self.type: str = unit_data["type"]
         self.default_behaviour: str = unit_data["default_behaviour"]
@@ -55,6 +55,25 @@ class Unit:
         self.entities: List[Entity] = []
         self.pos: List[int, int] = [0, 0]
         self.placed: bool = False
+
+    def update(self, dt):
+        self.update_pos()
+
+        # a unit is alive if all of its entities are alive
+        self.alive = bool(len(self.entities))
+
+        self.behaviour.process(dt)
+
+        for i, entity in itr(self.entities):
+            entity.update(dt)
+
+            # remove if dead
+            if not entity.alive:
+                self.entities.pop(i)
+
+    def render(self, surface: pygame.Surface, shift=(0, 0)):
+        for entity in self.entities:
+            entity.render(surface, shift=shift)
 
     def reset_for_combat(self):
         """
@@ -90,21 +109,9 @@ class Unit:
             self.pos[0] = pos[0] / len(self.entities)
             self.pos[1] = pos[1] / len(self.entities)
 
-    def update(self, dt):
-        self.update_pos()
 
-        # a unit is alive if all of its entities are alive
-        self.alive = bool(len(self.entities))
+    @property
+    def upgrade_cost(self) -> int:
+        cost = int(((UPGRADE_TIER_MULTIPLIER * self.tier) * UPGRADE_COST))
 
-        self.behaviour.process(dt)
-
-        for i, entity in itr(self.entities):
-            entity.update(dt)
-
-            # remove if dead
-            if not entity.alive:
-                self.entities.pop(i)
-
-    def render(self, surface: pygame.Surface, shift=(0, 0)):
-        for entity in self.entities:
-            entity.render(surface, shift=shift)
+        return cost

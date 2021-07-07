@@ -12,8 +12,6 @@
     "weight": 2,
     "gold_cost": 60,
     "default_behaviour": "swarm",
-    "upgrade_cost": 35,
-    "upgrades_to":"",
     "home": "dungeon",
     "tier": 1
 }
