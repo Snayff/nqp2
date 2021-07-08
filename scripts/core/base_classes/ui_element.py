@@ -18,7 +18,8 @@ class UIElement(ABC):
         self.size: Tuple[int, int] = size
         self.surface: pygame.Surface = pygame.Surface(self.size)
 
-        self.is_selected = False
+        self.is_selectable: bool = False
+        self.is_selected: bool = False
 
     @abstractmethod
     def update(self, delta_time: float):

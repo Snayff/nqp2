@@ -62,6 +62,7 @@ class Game:
 
         # point this to whatever scene is active
         self.active_scene = self.run_setup
+        self.run_setup.ui.rebuild_ui()
 
         self.state: GameState = GameState.PLAYING
 
@@ -101,7 +102,7 @@ class Game:
             self.active_scene = self.combat
 
         elif scene_type == SceneType.TRAINING:
-            self.training.ui.refresh_dimensions()
+            self.training.ui.rebuild_ui()
             self.active_scene = self.training
 
         elif scene_type == SceneType.INN:

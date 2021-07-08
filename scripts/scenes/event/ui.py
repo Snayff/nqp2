@@ -29,7 +29,7 @@ class EventUI(UI):
 
         options = self.game.event.active_event["options"]
 
-        self.set_selection_dimensions(len(options), 1)
+        self.set_element_array_dimensions(1, len(options))
         self.handle_directional_input_for_selection()
         self.handle_selector_index_looping()
 

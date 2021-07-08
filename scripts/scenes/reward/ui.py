@@ -43,7 +43,7 @@ class RewardUI(UI):
             # reward_type == RewardType.RESOURCE
             index_size = 0
 
-        self.set_selection_dimensions(index_size, 1)
+        self.set_element_array_dimensions(1, index_size)
         self.handle_directional_input_for_selection()
         self.handle_selector_index_looping()
 

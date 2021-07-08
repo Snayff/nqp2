@@ -29,7 +29,7 @@ class ViewTroupeUI(UI):
 
         units = self.game.memory.player_troupe.units
 
-        self.set_selection_dimensions(len(units), 1)
+        self.set_element_array_dimensions(1, len(units))
         self.handle_directional_input_for_selection()
         self.handle_selector_index_looping()
 

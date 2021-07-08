@@ -139,7 +139,7 @@ class CombatUI(UI):
             self.game.change_scene(SceneType.VIEW_TROUPE)
 
         # manage selection
-        self.set_selection_dimensions(0, len(cards))
+        self.set_element_array_dimensions(len(cards), 0)
         self.handle_selector_index_looping()
 
     def render(self, surface: pygame.Surface):

@@ -1,14 +1,16 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Type
 
+from scripts.core.base_classes.ui_element import UIElement
 from scripts.ui_elements.font import Font
 
 if TYPE_CHECKING:
     import pygame
 
     from scripts.core.game import Game
+    from typing import List, Optional
 
 
 __all__ = ["UI"]
@@ -33,9 +35,10 @@ class UI(ABC):
 
         self.selected_row: int = 0
         self.selected_col: int = 0
+        self.element_array: List[List] = []
+
         self.max_rows: int = 0
         self.max_cols: int = 0
-        self.last_row: int = 0
 
         self.temporary_instruction_text: str = ""
         self.temporary_instruction_timer: float = 0.0
@@ -51,19 +54,35 @@ class UI(ABC):
     def render(self, surface: pygame.surface):
         pass
 
-    def set_selection_dimensions(self, max_rows: int, max_cols: int):
-        self.max_rows = max_rows
-        self.max_cols = max_cols
+    @property
+    def last_row(self) -> int:
+        """
+        Returns last row in current column.
+        """
+        last_row_ = 0
+        try:
+            for count, val in enumerate(self.element_array[self.selected_col]):
+                if val is not None:
+                    last_row_ = count
+        except IndexError:
+            pass
 
-        # ensure we're on a valid column
-        if self.selected_col >= max_cols:
-            self.selected_col = max_cols
+        return last_row_
 
-        # ensure we're on a valid row
-        if self.selected_row >= max_rows:
-            self.selected_row = max_rows
+    @property
+    def last_col(self) -> int:
+        """
+        Returns last column in current row.
+        """
+        last_col_ = 0
+        try:
+            for count, val in enumerate(self.element_array):
+                if val[self.selected_row] is not None:
+                    last_col_ = count
+        except IndexError:
+            pass
 
-        self.last_row = max_rows - 1
+        return last_col_
 
     def set_instruction_text(self, text: str, temporary: bool = False):
         if temporary:
@@ -78,14 +97,14 @@ class UI(ABC):
         """
         # row
         if self.selected_row < 0:
-            self.selected_row = self.max_rows - 1
-        elif self.selected_row >= self.max_rows:
+            self.selected_row = self.last_row
+        elif self.selected_row >= self.last_row:
             self.selected_row = 0
 
         # col
         if self.selected_col < 0:
-            self.selected_col = self.max_cols - 1
-        elif self.selected_col >= self.max_cols:
+            self.selected_col = self.last_col - 1
+        elif self.selected_col >= self.last_col:
             self.selected_col = 0
 
     def handle_directional_input_for_selection(self):
@@ -128,3 +147,23 @@ class UI(ABC):
         x = self.game.window.width - font.width(text) - 2
         y = 2
         font.render(text, surface, (x, y))
+
+    def draw_element_array(self, surface: pygame.surface):
+        for col in self.element_array:
+            for element in col:
+                if element is not None:
+                    element.render(surface)
+
+    def rebuild_selection_array(self, max_cols: int, max_rows: int):
+        """
+        Rebuild the selection array.
+        """
+        self.max_cols = max_cols
+        self.max_rows = max_rows
+        width = self.max_cols
+        height = self.max_rows
+
+        for x in range(width):
+            self.element_array.append([])  # create new list for every col
+            for y in range(height):
+                self.element_array[x].append(None)

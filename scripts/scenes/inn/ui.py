@@ -32,7 +32,7 @@ class InnUI(UI):
 
         units_for_sale = self.game.inn.sale_troupe
 
-        self.set_selection_dimensions(len(units_for_sale.units), 1)
+        self.set_element_array_dimensions(1, len(units_for_sale.units))
         self.handle_directional_input_for_selection()
         self.handle_selector_index_looping()
 
