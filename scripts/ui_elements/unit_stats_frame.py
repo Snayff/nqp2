@@ -19,9 +19,8 @@ __all__ = ["UnitStatsFrame"]
 
 
 class UnitStatsFrame(UIElement):
-    def __init__(self, game: Game, pos: Tuple[int, int], size: Tuple[int, int], unit: Unit,
-            is_selectable: bool = False):
-        super().__init__(pos, size, is_selectable)
+    def __init__(self, game: Game, pos: Tuple[int, int], unit: Unit, is_selectable: bool = False):
+        super().__init__(pos, is_selectable)
 
         self.game: Game = game
         self.unit: Unit = unit
