@@ -45,118 +45,6 @@ class RunSetupUI(UI):
             self.game.change_scene(SceneType.DEV_UNIT_DATA)
 
     def render(self, surface: pygame.surface):
-        # default_font = self.default_font
-        # positive_font = self.positive_font
-        # disabled_font = self.disabled_font
-        #
-        # commanders = self.game.data.commanders
-        # selected_commander = self.game.run_setup.selected_commander
-        # current_row = 0
-        #
-        # # positions
-        # start_x = 20
-        # start_y = 20
-        # gap = 10
-        # font_height = 12  # FIXME - get actual font height
-        # window_width = self.game.window.width
-        # window_height = self.game.window.height
-        #
-        # # draw commanders
-        # sel_col_count = 0
-        # current_x = start_x
-        # current_y = start_y
-        # for commander in commanders.values():
-        #     # get icon and details
-        #     icon_pos = (current_x, current_y)
-        #     icon = self.game.assets.commander_animations[commander["type"]]["icon"][0]
-        #     icon_width = icon.get_width()
-        #     icon_height = icon.get_height()
-        #
-        #     # highlight if selected
-        #     if selected_commander == commander["type"]:
-        #         pygame.draw.rect(surface, (252, 211, 3), (icon_pos, (icon_width, icon_height)))
-        #
-        #     # draw icon
-        #     surface.blit(icon, icon_pos)
-        #
-        #     # draw selector
-        #     if sel_col_count == self.selected_col and current_row == self.selected_row:
-        #         pygame.draw.line(
-        #             surface,
-        #             (255, 255, 255),
-        #             (current_x, current_y + icon_height + 2),
-        #             (current_x + icon_width, current_y + icon_height + 2),
-        #         )
-        #
-        #     # increment draw pos and counter
-        #     current_x += icon_width + gap
-        #     sel_col_count += 1
-        #
-        # # draw info
-        # commander = commanders[selected_commander]
-        # current_y = start_y + DEFAULT_IMAGE_SIZE + gap
-        # info_x = start_x + 200
-        # header_x = start_x
-        #
-        # # name
-        # default_font.render("Name", surface, (header_x, current_y))
-        # default_font.render(commander["type"], surface, (info_x, current_y))
-        #
-        # current_y += font_height + gap
-        #
-        # # backstory - N.B. no header
-        # disabled_font.render(commander["backstory"], surface, (header_x, current_y))
-        #
-        # current_y += font_height + gap
-        #
-        # # limits
-        # default_font.render("Charisma", surface, (header_x, current_y))
-        # default_font.render(commander["charisma"], surface, (info_x, current_y))
-        # current_y += font_height
-        # default_font.render("Leadership", surface, (header_x, current_y))
-        # default_font.render(commander["leadership"], surface, (info_x, current_y))
-        #
-        # current_y += font_height + gap
-        #
-        # # allies
-        # allies = ""
-        # for ally in commander["allies"]:
-        #     # add comma
-        #     if allies == "":
-        #         allies += ally
-        #     else:
-        #         allies += ", " + ally
-        #
-        # default_font.render("Allies", surface, (header_x, current_y))
-        # default_font.render(allies, surface, (info_x, current_y))
-        #
-        # current_y += font_height + gap
-        #
-        # # gold
-        # default_font.render("Gold", surface, (header_x, current_y))
-        # default_font.render(commander["starting_gold"], surface, (info_x, current_y))
-        #
-        # # draw confirm button
-        # confirm_text = "begin"
-        # confirm_width = default_font.width(confirm_text)
-        # current_x = window_width - (confirm_width + gap)
-        # current_y = window_height - (font_height + gap)
-        # default_font.render(confirm_text, surface, (current_x, current_y))
-        #
-        # # draw selector if confirm selected
-        # current_row += 1
-        # if current_row == self.selected_row:
-        #     pygame.draw.line(
-        #         surface,
-        #         (255, 255, 255),
-        #         (current_x, current_y + font_height),
-        #         (current_x + confirm_width, current_y + font_height),
-        #     )
-
-        # TESTING
-        self.set_instruction_text(f"Selected row: {self.selected_row}, Selected col: {self.selected_col}"
-                                  f"; Max row: {self.max_rows}, Max col: {self.max_cols} ; "
-                                  f"Last row: {self.last_row}, Last col: {self.last_col}")
 
         self.draw_instruction(surface)
         self.draw_element_array(surface)
@@ -164,7 +52,6 @@ class RunSetupUI(UI):
     def rebuild_ui(self):
         commanders = self.game.data.commanders
         selected_commander = self.game.run_setup.selected_commander
-        current_row = 0
 
         # positions
         start_x = 20
@@ -173,6 +60,7 @@ class RunSetupUI(UI):
         font_height = 12  # FIXME - get actual font height
         window_width = self.game.window.width
         window_height = self.game.window.height
+        frame_width = 75
 
         # draw commanders
         current_x = start_x
@@ -181,19 +69,21 @@ class RunSetupUI(UI):
             icon = self.game.assets.commander_animations[commander["type"]]["icon"][0]
             icon_width = icon.get_width()
             icon_height = icon.get_height()
-            self.element_array[selection_counter][0] = Frame(
+            frame = Frame(
                 self.game,
                 (current_x, current_y),
                 (icon_width, icon_height),
                 icon,
                 is_selectable=True
             )
+            self.element_array[selection_counter][0] = frame
+
+            # show selected commander
+            if commander["type"] == selected_commander or selected_commander is None:
+                frame.is_selected = True
 
             # increment draw pos and counter
             current_x += icon_width + gap
-
-        # set first commander to selected
-        self.element_array[0][0].is_selected = True
 
         # draw info
         commander = commanders[selected_commander]
@@ -206,24 +96,24 @@ class RunSetupUI(UI):
         self.element_array[0][row_counter] = Frame(
             self.game,
             (header_x, current_y),
-            (100, font_height),
+            (frame_width, font_height),
             text="Name"
         )
         self.element_array[1][row_counter] = Frame(
             self.game,
             (info_x, current_y),
-            (100, font_height),
+            (frame_width, font_height),
             text=commander["type"]
         )
 
         current_y += font_height + gap
         row_counter += 1
 
-        # backstory - N.B. no header
+        # backstory - N.B. no header and needs wider frame
         self.element_array[1][row_counter] = Frame(
             self.game,
             (header_x, current_y),
-            (100, font_height),
+            (frame_width * 3, font_height),
             text=commander["backstory"]
         )
 
@@ -234,13 +124,13 @@ class RunSetupUI(UI):
         self.element_array[0][row_counter] = Frame(
             self.game,
             (header_x, current_y),
-            (100, font_height),
+            (frame_width, font_height),
             text="Charisma"
         )
         self.element_array[1][row_counter] = Frame(
             self.game,
             (info_x, current_y),
-            (100, font_height),
+            (frame_width, font_height),
             text=commander["charisma"]
         )
 
@@ -250,13 +140,13 @@ class RunSetupUI(UI):
         self.element_array[0][row_counter] = Frame(
             self.game,
             (header_x, current_y),
-            (100, font_height),
+            (frame_width, font_height),
             text="Leadership"
         )
         self.element_array[1][row_counter] = Frame(
             self.game,
             (info_x, current_y),
-            (100, font_height),
+            (frame_width, font_height),
             text=commander["leadership"]
         )
 
@@ -274,13 +164,13 @@ class RunSetupUI(UI):
         self.element_array[0][row_counter] = Frame(
             self.game,
             (header_x, current_y),
-            (100, font_height),
+            (frame_width, font_height),
             text="Allies"
         )
         self.element_array[1][row_counter] = Frame(
             self.game,
             (info_x, current_y),
-            (100, font_height),
+            (frame_width, font_height),
             text=allies
         )
 
@@ -291,13 +181,13 @@ class RunSetupUI(UI):
         self.element_array[0][row_counter] = Frame(
             self.game,
             (header_x, current_y),
-            (100, font_height),
+            (frame_width, font_height),
             text="Gold"
         )
         self.element_array[1][row_counter] = Frame(
             self.game,
             (info_x, current_y),
-            (100, font_height),
+            (frame_width, font_height),
             text=commander["starting_gold"]
         )
 
@@ -309,7 +199,7 @@ class RunSetupUI(UI):
         current_y = window_height - (font_height + gap)
         self.element_array[0][row_counter] = Frame(self.game,
                                                    (current_x, current_y),
-                                                   (font_height, confirm_width),
+                                                   (confirm_width + 1, font_height),
                                                    text=confirm_text,
                                                    is_selectable=True
                                                    )
@@ -325,6 +215,7 @@ class RunSetupUI(UI):
                 self.increment_selected_row()
             else:
                 self.game.run_setup.selected_commander = selected_commander
+                self.rebuild_ui()
 
         # begin
         elif self.selected_row == 7:
