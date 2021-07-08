@@ -3,7 +3,7 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 
-from scripts.ui_elements.text import Font
+from scripts.ui_elements.font import Font
 
 if TYPE_CHECKING:
     import pygame

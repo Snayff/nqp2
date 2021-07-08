@@ -4,9 +4,10 @@ from typing import TYPE_CHECKING
 
 import pygame
 
+from scripts.core.base_classes.ui_element import UIElement
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, StatModifiedStatus
 from scripts.scenes.combat.elements.unit import Unit
-from scripts.ui_elements.text import Font
+from scripts.ui_elements.font import Font
 
 if TYPE_CHECKING:
     from typing import List, Tuple
@@ -17,11 +18,12 @@ if TYPE_CHECKING:
 __all__ = ["UnitStatsFrame"]
 
 
-class UnitStatsFrame:
-    def __init__(self, game: Game, pos: Tuple[int, int], unit: Unit):
+class UnitStatsFrame(UIElement):
+    def __init__(self, game: Game, pos: Tuple[int, int], size: Tuple[int, int], unit: Unit):
+        super().__init__(pos, size)
+
         self.game: Game = game
         self.unit: Unit = unit
-        self.pos: Tuple[int, int] = pos
 
         self.default_font: Font = self.game.assets.fonts["default"]
         self.disabled_font: Font = self.game.assets.fonts["disabled"]
@@ -29,12 +31,16 @@ class UnitStatsFrame:
         self.positive_font: Font = self.game.assets.fonts["positive"]
         self.instruction_font: Font = self.game.assets.fonts["instruction"]
 
+        self.rebuild_surface()
 
+    def update(self, delta_time: float):
+        pass
 
-    def render(self, surface: pygame.surface):
+    def rebuild_surface(self):
+        surface = self.surface
         unit = self.unit
-        start_x = self.pos[0]
-        start_y = self.pos[1]
+        start_x = 0
+        start_y = 0
         default_font = self.default_font
         warning_font = self.warning_font
         positive_font = self.positive_font

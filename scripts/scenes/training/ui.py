@@ -69,6 +69,10 @@ class TrainingUI(UI):
         window_width = self.game.window.width
         window_height = self.game.window.height
 
+        # TESTING
+        self.set_instruction_text(f"Selected row: {self.selected_row}, Selected col: {self.selected_col}"
+                                  f"; Max row: {self.max_rows}, Max col: {self.max_cols} ; Last row: {self.last_row}")
+
         # draw upgrades
         current_x = start_x
         current_y = start_y
@@ -76,15 +80,19 @@ class TrainingUI(UI):
         selection_counter = 0
         for upgrade in scene.upgrades_sold:
 
+            # TODO - draw gold cost
+
             # draw stat icon
             stat_icon = self.game.assets.get_image("stats", upgrade["stat"], icon_size)
             surface.blit(stat_icon, (current_x, current_y))
 
             # draw amount, + half font height to vertical centre it
+            # TODO - pick font based on affordability
             default_font.render(str(f"{upgrade['stat']} +{upgrade['mod_amount']}"),
                                 surface, (amount_x, current_y + (font_height // 2)))
 
             # draw selector if on current row
+            # TODO -offset x by icon width
             if selection_counter == self.selected_row and self.selected_col == 0:
                 pygame.draw.line(
                     surface,
@@ -95,6 +103,7 @@ class TrainingUI(UI):
 
             # draw selector on upgrade is choosing a unit
             if self.selected_upgrade:
+                # TODO -offset x by icon width
                 if upgrade["type"] == self.selected_upgrade["type"] and self.selected_col == 1:
                     pygame.draw.line(
                         surface,
@@ -124,6 +133,7 @@ class TrainingUI(UI):
                 default_font.render(unit.type, surface, (current_x + icon_width + gap, current_y + (font_height // 2)))
 
                 # draw selector
+                # TODO -offset x by icon width
                 if selection_counter == self.selected_row and self.selected_col == 1:
                     pygame.draw.line(
                         surface,
@@ -148,7 +158,7 @@ class TrainingUI(UI):
         current_y = window_height - (font_height + gap)
         default_font.render(confirm_text, surface, (current_x, current_y))
 
-        # draw confirm selector
+        # draw exit selector
         if self.selected_row == self.last_row:
             pygame.draw.line(
                 surface,
@@ -179,6 +189,7 @@ class TrainingUI(UI):
                 # move to selecting unit
                 self.selected_col += 1
                 self.game.training.state = TrainingState.CHOOSE_TARGET_UNIT
+                self.selected_row = 0
 
 
         # changing selection up or down
@@ -193,7 +204,6 @@ class TrainingUI(UI):
             self.selected_row += 1
 
             self.handle_selector_index_looping()
-
 
     def handle_choose_unit_input(self):
         # return to upgrade select
@@ -250,6 +260,7 @@ class TrainingUI(UI):
             self.handle_selector_index_looping()
 
             self.selected_unit = list(self.game.memory.player_troupe.units.values())[self.selected_row]
+            self.refresh_stat_frame()
 
         elif self.game.input.states["down"]:
             self.game.input.states["down"] = False
@@ -258,6 +269,7 @@ class TrainingUI(UI):
             self.handle_selector_index_looping()
 
             self.selected_unit = list(self.game.memory.player_troupe.units.values())[self.selected_row]
+            self.refresh_stat_frame()
 
     def refresh_dimensions(self):
         self.dimensions = {}
@@ -269,8 +281,7 @@ class TrainingUI(UI):
             self.dimensions[count] = 2  # set to 2 cols
 
         # add an extra row for the confirm button
-        self.dimensions[count + 1] = 1  # set to 1 col
-
+        self.dimensions[count + 1] = 2  # set to 2 cols
 
     def refresh_stat_frame(self):
         """
@@ -279,6 +290,6 @@ class TrainingUI(UI):
         self.stat_frame = None
 
         if self.selected_unit:
-            frame = UnitStatsFrame(self.game, self.stat_frame_pos, self.selected_unit)
+            frame = UnitStatsFrame(self.game, self.stat_frame_pos, (400, 400), self.selected_unit)
             self.stat_frame = frame
 
