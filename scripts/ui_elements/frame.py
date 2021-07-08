@@ -42,7 +42,11 @@ class Frame(UIElement):
 
         if self.text and self.font:
             width += self.font.width(self.text) + GAP_SIZE
-            height += 12  # FIXME - get actual font height
+
+            # N.B. doesnt amend height as is drawn next to image
+            if height == 0:
+                height += 12  # FIXME - get font height
+
 
         self.size = (width, height)
         self.surface = pygame.Surface(self.size)

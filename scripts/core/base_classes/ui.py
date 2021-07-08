@@ -93,28 +93,10 @@ class UI(ABC):
         else:
             self.instruction_text = text
 
-    def handle_selector_index_looping(self):
-        """
-        Manage the looping of the selection index
-        """
-        # FIXME - REMOVE as handling of looping now in directional input
-        # row
-        if self.selected_row < 0:
-            self.selected_row = self.last_row
-        elif self.selected_row > self.last_row:
-            self.selected_row = 0
-
-        # col
-        if self.selected_col < 0:
-            self.selected_col = self.last_col
-        elif self.selected_col > self.last_col:
-            self.selected_col = 0
-
     def handle_directional_input_for_selection(self):
         """
         Handle amending the selected row and column with input
         """
-
 
         if self.game.input.states["up"]:
             self.game.input.states["up"] = False

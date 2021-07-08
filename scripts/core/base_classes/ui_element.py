@@ -55,8 +55,8 @@ class UIElement(ABC):
         pygame.draw.line(
             surface,
             (255, 255, 255),
-            (self.x, self.y + self.height + 2),
-            (self.x + self.width, self.y + self.height + 2),
+            (self.x, self.y + self.height),
+            (self.x + self.width, self.y + self.height),
         )
 
 

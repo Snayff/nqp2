@@ -29,6 +29,7 @@ class TrainingUI(UI):
         self.selected_upgrade: Optional[Dict] = None
         self.stat_frame: Optional[UnitStatsFrame] = None
         self.stat_frame_pos: Tuple[int, int] = (0, 0)
+        self.column_descriptors: Dict = {}  # col description: col number
 
         self.set_instruction_text("Choose who to upgrade.")
 
@@ -37,15 +38,21 @@ class TrainingUI(UI):
     def update(self, delta_time: float):
         super().update(delta_time)
 
-        self.handle_selector_index_looping()
         # N.B. does not use default handle_directional_input_for_selection method
+        self.handle_directional_input_for_selection()
 
         # handle selection based on selector position
-        if self.selected_col == 0:
+        if self.selected_col == self.column_descriptors["upgrades"]:
             self.handle_select_upgrade_input()
 
-        elif self.selected_col == 1:
+        elif self.selected_col == self.column_descriptors["units"]:
             self.handle_choose_unit_input()
+
+        elif self.selected_col == self.column_descriptors["exit"]:
+            if self.game.input.states["select"]:
+                self.game.input.states["select"] = False
+
+                self.game.change_scene(SceneType.OVERWORLD)
 
         # view troupe, this is universally accessible
         if self.game.input.states["view_troupe"]:
@@ -65,12 +72,7 @@ class TrainingUI(UI):
         self.draw_leadership(surface)
         self.draw_instruction(surface)
 
-        # draw info for selected unit
-        self.stat_frame_pos = (200, 40)
-        if self.stat_frame:
-            self.stat_frame.render(surface)
-
-        # draw selectables
+        # draw elements
         self.draw_element_array(surface)
 
     def rebuild_ui(self):
@@ -89,35 +91,57 @@ class TrainingUI(UI):
         # draw upgrades
         current_x = start_x
         current_y = start_y
+        col_number = 0
+        self.column_descriptors["upgrades"] = col_number
         for selection_counter, upgrade in enumerate(scene.upgrades_sold):
             # TODO - draw gold cost
             stat_icon = self.game.assets.get_image("stats", upgrade["stat"], icon_size)
-            self.element_array[0][selection_counter] = Frame(
+            frame = Frame(
                 (current_x, current_y),
                 image=stat_icon,
-                text_and_font=(f"{upgrade['stat']} +{upgrade['mod_amount']}", default_font)
+                text_and_font=(f"{upgrade['stat']} +{upgrade['mod_amount']}", default_font),
+                is_selectable=True
                 )
+            self.element_array[col_number][selection_counter] = frame
+
+            # highlight selected upgrade
+            if upgrade["type"] == self.selected_upgrade or self.selected_upgrade is None:
+                frame.is_selected = True
 
             # increment
             current_y += icon_height + GAP_SIZE
 
         # draw unit selection
         if scene.state == TrainingState.CHOOSE_TARGET_UNIT:
+            col_number += 1
+            self.column_descriptors["units"] = col_number
 
             # draw list of units
-            current_x = start_x + 100  # add an offset
-            current_y = start_y + 20
+            current_x = start_x + 100
+            current_y = start_y + 20  # add an offset
             for selection_counter, unit in enumerate(self.game.memory.player_troupe.units.values()):
                 unit_icon = self.game.assets.unit_animations[unit.type]["icon"][0]
-                self.element_array[1][selection_counter] = Frame(
+                self.element_array[col_number][selection_counter] = Frame(
                     (current_x, current_y),
                     image=unit_icon,
-                    text_and_font=(f"{unit.type}", default_font)
+                    text_and_font=(f"{unit.type}", default_font),
+                    is_selectable=True
                 )
 
                 # increment
                 current_y += icon_height + GAP_SIZE
 
+            # draw stat frame
+            col_number += 1
+            self.column_descriptors["stat_frame"] = col_number
+            current_x += 100
+            if self.selected_unit:
+                frame = UnitStatsFrame(self.game, self.stat_frame_pos, (400, 400), self.selected_unit)
+                self.stat_frame = frame
+
+
+        col_number += 1
+        self.column_descriptors["exit"] = col_number
         confirm_text = "Onwards"
         confirm_width = self.default_font.width(confirm_text)
         current_x = window_width - (confirm_width + GAP_SIZE)
@@ -131,35 +155,15 @@ class TrainingUI(UI):
         if self.game.input.states["select"]:
             self.game.input.states["select"] = False
 
-            # if on leave then exit to overworld
-            if self.selected_row == self.last_row:
-                self.game.change_scene(SceneType.OVERWORLD)
+            # select the upgrade
+            self.selected_upgrade = self.game.training.upgrades_sold[self.selected_row]
 
-            else:
+            # move to selecting unit
+            self.increment_selected_col()
+            self.game.training.state = TrainingState.CHOOSE_TARGET_UNIT
+            self.selected_row = 0
 
-                # select the upgrade
-                self.selected_upgrade = self.game.training.upgrades_sold[self.selected_row]
-
-                # move to selecting unit
-                self.selected_col += 1
-                self.game.training.state = TrainingState.CHOOSE_TARGET_UNIT
-                self.selected_row = 0
-
-                self.refresh_stat_frame()
-
-
-        # changing selection up or down
-        if self.game.input.states["up"]:
-            self.game.input.states["up"] = False
-            self.selected_row -= 1
-
-            self.handle_selector_index_looping()
-
-        elif self.game.input.states["down"]:
-            self.game.input.states["down"] = False
-            self.selected_row += 1
-
-            self.handle_selector_index_looping()
+            self.rebuild_ui()
 
     def handle_choose_unit_input(self):
         # return to upgrade select
@@ -170,10 +174,10 @@ class TrainingUI(UI):
             self.selected_upgrade = None
 
             # move to select upgrade
-            self.selected_col -= 1
+            self.decrement_selected_col()
             self.game.training.state = TrainingState.CHOOSE_UPGRADE
 
-            self.refresh_stat_frame()
+            self.rebuild_ui()
 
         # choose a unit
         if self.game.input.states["select"]:
@@ -202,39 +206,12 @@ class TrainingUI(UI):
                     # reset values to choose another upgrade
                     self.selected_unit = None
                     self.selected_upgrade = None
-                    self.selected_col -= 1
+                    self.decrement_selected_col()
                     self.game.training.state = TrainingState.CHOOSE_UPGRADE
+
+                    self.rebuild_ui()
 
 
                 else:
                     self.set_instruction_text(f"You can't afford the {upgrade['type']} upgrade.", True)
-
-        # changing selection up or down
-        if self.game.input.states["up"]:
-            self.game.input.states["up"] = False
-            self.selected_row -= 1
-
-            self.handle_selector_index_looping()
-
-            self.selected_unit = list(self.game.memory.player_troupe.units.values())[self.selected_row]
-            self.refresh_stat_frame()
-
-        elif self.game.input.states["down"]:
-            self.game.input.states["down"] = False
-            self.selected_row += 1
-
-            self.handle_selector_index_looping()
-
-            self.selected_unit = list(self.game.memory.player_troupe.units.values())[self.selected_row]
-            self.refresh_stat_frame()
-
-    def refresh_stat_frame(self):
-        """
-        Refresh the unit stat frame to show the selected unit info or remove if no selected unit.
-        """
-        self.stat_frame = None
-
-        if self.selected_unit:
-            frame = UnitStatsFrame(self.game, self.stat_frame_pos, (400, 400), self.selected_unit)
-            self.stat_frame = frame
 

@@ -30,7 +30,6 @@ class RunSetupUI(UI):
     def update(self, delta_time: float):
         super().update(delta_time)
 
-
         self.handle_directional_input_for_selection()
 
         # select option and trigger result
@@ -77,7 +76,7 @@ class RunSetupUI(UI):
             )
             self.element_array[selection_counter][0] = frame
 
-            # show selected commander
+            # highlight selected commander
             if commander["type"] == selected_commander or selected_commander is None:
                 frame.is_selected = True
 
