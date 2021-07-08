@@ -23,7 +23,7 @@ class RunSetupUI(UI):
     def __init__(self, game: Game):
         super().__init__(game)
 
-        self.rebuild_selection_array(len(self.game.data.commanders), 10)
+        self.rebuild_element_array(len(self.game.data.commanders), 10)
 
         self.set_instruction_text("Choose who will lead the rebellion.")
 

@@ -28,12 +28,12 @@ class TrainingUI(UI):
         self.selected_unit: Optional[Unit] = None
         self.selected_upgrade: Optional[Dict] = None
         self.stat_frame: Optional[UnitStatsFrame] = None
-        self.stat_frame_pos: Tuple[int, int] = (0, 0)
+
         self.column_descriptors: Dict = {}  # col description: col number
 
         self.set_instruction_text("Choose an upgrade to buy.")
 
-        self.rebuild_selection_array(10, 10)
+        self.rebuild_element_array(10, 10)
 
     def update(self, delta_time: float):
         super().update(delta_time)
@@ -74,7 +74,12 @@ class TrainingUI(UI):
         # draw elements
         self.draw_element_array(surface)
 
+        if self.stat_frame is not None:
+            self.stat_frame.render(surface)
+
     def rebuild_ui(self):
+        self.rebuild_element_array(10, 10)
+
         default_font = self.default_font
         scene = self.game.training
 
@@ -104,12 +109,10 @@ class TrainingUI(UI):
             self.element_array[col_number][selection_counter] = frame
 
             # highlight selected upgrade
-            if (upgrade["type"] == self.selected_upgrade or self.selected_upgrade is None)\
-                    and self.selected_col == col_number:
+            if self.selected_upgrade is None:
+                self.selected_upgrade = upgrade["type"]
+            if upgrade["type"] == self.selected_upgrade:
                 frame.is_selected = True
-
-                if self.selected_upgrade is None:
-                    self.selected_upgrade = upgrade["type"]
 
             # increment
             current_y += icon_height + GAP_SIZE
@@ -133,12 +136,10 @@ class TrainingUI(UI):
                 self.element_array[col_number][selection_counter] = frame
 
                 # highlight selected unit
-                if (unit.type == self.selected_unit or self.selected_unit is None) \
-                        and self.selected_col == col_number:
+                if self.selected_unit is None:
+                    self.selected_unit = unit
+                if unit.type == self.selected_unit:
                     frame.is_selected = True
-
-                    if self.selected_unit is None:
-                        self.selected_unit = unit
 
                 # increment
                 current_y += icon_height + GAP_SIZE
@@ -148,9 +149,8 @@ class TrainingUI(UI):
             self.column_descriptors["stat_frame"] = col_number
             current_x += 100
             if self.selected_unit is not None:
-                frame = UnitStatsFrame(self.game, self.stat_frame_pos, self.selected_unit)
+                frame = UnitStatsFrame(self.game, (current_x, start_y), self.selected_unit)
                 self.stat_frame = frame
-
 
         col_number += 1
         self.column_descriptors["exit"] = col_number
@@ -167,19 +167,22 @@ class TrainingUI(UI):
         if self.game.input.states["select"]:
             self.game.input.states["select"] = False
 
+            print(f"SELECT UPGRADE")
+
             # select the upgrade
             self.selected_upgrade = self.game.training.upgrades_sold[self.selected_row]
+
+            # change state then rebuild to include updated ui
+            self.game.training.state = TrainingState.CHOOSE_TARGET_UNIT
+            self.rebuild_ui()
 
             # move to selecting unit
             self.selected_row = 0
             self.increment_selected_col()
-            self.game.training.state = TrainingState.CHOOSE_TARGET_UNIT
 
             self.selected_unit = list(self.game.memory.player_troupe.units.values())[self.selected_row]
 
             self.set_instruction_text(f"Choose a unit to apply {self.selected_upgrade['type']} to.")
-
-            self.rebuild_ui()
 
         if self.game.input.states["up"]:
             self.game.input.states["up"] = False
@@ -195,7 +198,6 @@ class TrainingUI(UI):
             # select the upgrade
             self.selected_upgrade = self.game.training.upgrades_sold[self.selected_row]
 
-            self.rebuild_ui()
 
     def handle_choose_unit_input(self):
         # return to upgrade select
@@ -204,13 +206,16 @@ class TrainingUI(UI):
 
             self.selected_unit = None
 
-            # move to select upgrade
-            self.decrement_selected_col()
+            # change state then rebuild to include updated ui
             self.game.training.state = TrainingState.CHOOSE_UPGRADE
+            self.rebuild_ui()
+
+            # move to select upgrade
+            self.selected_row = self.game.training.upgrades_sold.index(self.selected_upgrade)
+            self.decrement_selected_col()
 
             self.set_instruction_text("Choose an upgrade to buy.")
 
-            self.rebuild_ui()
 
         # choose a unit
         if self.game.input.states["select"]:
@@ -225,16 +230,19 @@ class TrainingUI(UI):
                     # confirm to user
                     self.set_instruction_text(f"{self.selected_unit.type} upgraded with {upgrade['type']}.", True)
 
+                    # change state then rebuild to include updated ui
+                    self.game.training.state = TrainingState.CHOOSE_UPGRADE
+                    self.rebuild_ui()
+
                     # reset values to choose another upgrade
                     self.selected_unit = None
                     self.selected_upgrade = self.game.training.upgrades_sold[0]
                     self.selected_row = 0
+
                     self.decrement_selected_col()
-                    self.game.training.state = TrainingState.CHOOSE_UPGRADE
 
                     self.set_instruction_text("Choose an upgrade to buy.")
 
-                    self.rebuild_ui()
 
                 else:
                     self.set_instruction_text(f"You can't afford the {upgrade['type']} upgrade.", True)
@@ -246,7 +254,6 @@ class TrainingUI(UI):
             # select the unit
             self.selected_unit = list(self.game.memory.player_troupe.units.values())[self.selected_row]
 
-            self.rebuild_ui()
 
         if self.game.input.states["down"]:
             self.game.input.states["down"] = False
@@ -255,7 +262,6 @@ class TrainingUI(UI):
             # select the unit
             self.selected_unit = list(self.game.memory.player_troupe.units.values())[self.selected_row]
 
-            self.rebuild_ui()
 
     def upgrade_unit(self) -> bool:
         """

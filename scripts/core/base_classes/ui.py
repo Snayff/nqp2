@@ -141,10 +141,12 @@ class UI(ABC):
                 if element is not None:
                     element.render(surface)
 
-    def rebuild_selection_array(self, max_cols: int, max_rows: int):
+    def rebuild_element_array(self, max_cols: int, max_rows: int):
         """
-        Rebuild the selection array.
+        Rebuild the element array.
         """
+        self.element_array = []
+
         self.max_cols = max_cols
         self.max_rows = max_rows
         width = self.max_cols
@@ -170,7 +172,7 @@ class UI(ABC):
 
         if not found:
             # find next selectable element, after looping
-            for count in range(self.last_row, -1, -1):
+            for count in range(self.last_row + 1, -1, -1):
                 element = self.element_array[self.selected_col][count]
                 if element is not None:
                     if element.is_selectable:
@@ -180,10 +182,17 @@ class UI(ABC):
 
         if found:
             # unselect current
-            self.element_array[self.selected_col][self.selected_row].is_selected = False
+            try:
+                self.element_array[self.selected_col][self.selected_row].is_selected = False
+            except AttributeError:
+                # in case element no longer exists
+                pass
+
+            # set new
             self.selected_row = count
         else:
             self.selected_row = self.last_row
+
 
     def increment_selected_row(self):
         found = False
@@ -210,10 +219,17 @@ class UI(ABC):
 
         if found:
             # unselect current
-            self.element_array[self.selected_col][self.selected_row].is_selected = False
+            try:
+                self.element_array[self.selected_col][self.selected_row].is_selected = False
+            except AttributeError:
+                # in case element no longer exists
+                pass
+
+            # set new
             self.selected_row = count
         else:
             self.selected_row = self.last_row + 1  # to force being set to first in list
+
 
     def decrement_selected_col(self):
         found = False
@@ -230,7 +246,7 @@ class UI(ABC):
 
         if not found:
             # find next selectable element, after looping
-            for count in range(self.last_col, -1, -1):
+            for count in range(self.last_col + 1, -1, -1):
                 element = self.element_array[count][self.selected_row]
                 if element is not None:
                     if element.is_selectable:
@@ -239,8 +255,14 @@ class UI(ABC):
                         break
 
         if found:
-            # unselect current
-            self.element_array[self.selected_col][self.selected_row].is_selected = False
+            try:
+                # unselect current
+                self.element_array[self.selected_col][self.selected_row].is_selected = False
+            except AttributeError:
+                # in case element no longer exists
+                pass
+
+            # set new
             self.selected_col = count
         else:
             self.selected_col = self.last_col
@@ -270,8 +292,14 @@ class UI(ABC):
                         break
 
         if found:
-            # unselect current
-            self.element_array[self.selected_col][self.selected_row].is_selected = False
+            try:
+                # unselect current
+                self.element_array[self.selected_col][self.selected_row].is_selected = False
+            except AttributeError:
+                # in case element no longer exists
+                pass
+
+            # set new
             self.selected_col = count
         else:
             self.selected_col = self.last_col + 1  # to force being set to first in list
