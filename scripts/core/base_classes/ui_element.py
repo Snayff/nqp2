@@ -13,9 +13,9 @@ __all__ = ["UIElement"]
 
 
 class UIElement(ABC):
-    def __init__(self, pos: Tuple[int, int], size: Tuple[int, int], is_selectable: bool = False):
+    def __init__(self, pos: Tuple[int, int], is_selectable: bool = False):
         self.pos: Tuple[int, int] = pos
-        self.size: Tuple[int, int] = size
+        self.size: Tuple[int, int] = (0, 0)
         self.surface: pygame.Surface = pygame.Surface(self.size)
 
         self.is_selectable: bool = is_selectable

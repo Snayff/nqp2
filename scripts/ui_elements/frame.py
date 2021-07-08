@@ -19,43 +19,59 @@ __all__ = ["Frame"]
 
 
 class Frame(UIElement):
-    def __init__(self, game: Game, pos: Tuple[int, int], size: Tuple[int, int], image: Optional[pygame.surface] = None,
-            text: Optional[str] = None, is_selectable: bool = False):
-        super().__init__(pos, size, is_selectable)
+    def __init__(self, pos: Tuple[int, int], image: Optional[pygame.surface] = None,
+            text_and_font: Optional[Tuple[str, Font]] = (None, None), is_selectable: bool = False):
+        super().__init__(pos, is_selectable)
 
-        self.game: Game = game
-
-        if image is None:
-            image = pygame.Surface((0, 0))
-        self.image: pygame.Surface = image
-        self.text: str = text
-
-        self.default_font: Font = self.game.assets.fonts["default"]
-        self.disabled_font: Font = self.game.assets.fonts["disabled"]
-        self.warning_font: Font = self.game.assets.fonts["warning"]
-        self.positive_font: Font = self.game.assets.fonts["positive"]
-        self.instruction_font: Font = self.game.assets.fonts["instruction"]
+        self.image: Optional[pygame.surface] = image
+        self.text: Optional[str] = str(text_and_font[0])
+        self.font: Optional[Font] = text_and_font[1]
 
         self.rebuild_surface()
 
     def update(self, delta_time: float):
         pass
 
+    def _recalculate_size(self):
+        width = 0
+        height = 0
+
+        if self.image:
+            width += self.image.get_width()
+            height += self.image.get_height()
+
+        if self.text and self.font:
+            width += self.font.width(self.text)
+            height += 12  # FIXME - get actual font height
+
+        self.size = (width, height)
+        self.surface = pygame.Surface(self.size)
+
     def rebuild_surface(self):
+        self._recalculate_size()
+
         surface = self.surface
         image = self.image
         text = self.text
-        default_font = self.default_font
-        warning_font = self.warning_font
-        positive_font = self.positive_font
-        instruction_font = self.instruction_font
+        font = self.font
+
         gap = 2
-        font_height = 12  # FIXME - get actual font height
-        start_x = 0
-        start_y = 0
+        if font:
+            font_height = font.height
+        else:
+            font_height = 12
 
-        surface.blit(image, (0, 0))
+        # draw image
+        if image:
+            surface.blit(image, (0, 0))
 
-        default_font.render(text, surface, (image.get_width() + gap, font_height // 2))
+        # draw text
+        if text and font:
+            if image:
+                start_x = image.get_width() + gap
+            else:
+                start_x = 0
+
+            font.render(text, surface, (start_x, font_height // 2))
 
 

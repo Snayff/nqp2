@@ -52,6 +52,7 @@ class RunSetupUI(UI):
     def rebuild_ui(self):
         commanders = self.game.data.commanders
         selected_commander = self.game.run_setup.selected_commander
+        default_font = self.default_font
 
         # positions
         start_x = 20
@@ -70,9 +71,8 @@ class RunSetupUI(UI):
             icon_width = icon.get_width()
             icon_height = icon.get_height()
             frame = Frame(
-                self.game,
+
                 (current_x, current_y),
-                (icon_width, icon_height),
                 icon,
                 is_selectable=True
             )
@@ -94,16 +94,12 @@ class RunSetupUI(UI):
 
         # name
         self.element_array[0][row_counter] = Frame(
-            self.game,
             (header_x, current_y),
-            (frame_width, font_height),
-            text="Name"
+            text_and_font=("Name", default_font)
         )
         self.element_array[1][row_counter] = Frame(
-            self.game,
             (info_x, current_y),
-            (frame_width, font_height),
-            text=commander["type"]
+            text_and_font=(commander["type"], default_font)
         )
 
         current_y += font_height + gap
@@ -111,10 +107,8 @@ class RunSetupUI(UI):
 
         # backstory - N.B. no header and needs wider frame
         self.element_array[1][row_counter] = Frame(
-            self.game,
             (header_x, current_y),
-            (frame_width * 3, font_height),
-            text=commander["backstory"]
+            text_and_font=(commander["backstory"], default_font)
         )
 
         current_y += font_height + gap
@@ -122,32 +116,24 @@ class RunSetupUI(UI):
 
         # limits
         self.element_array[0][row_counter] = Frame(
-            self.game,
             (header_x, current_y),
-            (frame_width, font_height),
-            text="Charisma"
+            text_and_font=("Charisma", default_font)
         )
         self.element_array[1][row_counter] = Frame(
-            self.game,
             (info_x, current_y),
-            (frame_width, font_height),
-            text=commander["charisma"]
+            text_and_font=(commander["charisma"], default_font)
         )
 
         current_y += font_height
         row_counter += 1
 
         self.element_array[0][row_counter] = Frame(
-            self.game,
             (header_x, current_y),
-            (frame_width, font_height),
-            text="Leadership"
+            text_and_font=("Leadership", default_font)
         )
         self.element_array[1][row_counter] = Frame(
-            self.game,
             (info_x, current_y),
-            (frame_width, font_height),
-            text=commander["leadership"]
+            text_and_font=(commander["leadership"], default_font)
         )
 
         current_y += font_height + gap
@@ -162,16 +148,12 @@ class RunSetupUI(UI):
             else:
                 allies += ", " + ally
         self.element_array[0][row_counter] = Frame(
-            self.game,
             (header_x, current_y),
-            (frame_width, font_height),
-            text="Allies"
+            text_and_font=("Allies", default_font)
         )
         self.element_array[1][row_counter] = Frame(
-            self.game,
             (info_x, current_y),
-            (frame_width, font_height),
-            text=allies
+            text_and_font=(allies, default_font)
         )
 
         current_y += font_height + gap
@@ -179,16 +161,12 @@ class RunSetupUI(UI):
 
         # gold
         self.element_array[0][row_counter] = Frame(
-            self.game,
             (header_x, current_y),
-            (frame_width, font_height),
-            text="Gold"
+            text_and_font=("Gold", default_font)
         )
         self.element_array[1][row_counter] = Frame(
-            self.game,
             (info_x, current_y),
-            (frame_width, font_height),
-            text=commander["starting_gold"]
+            text_and_font=(commander["starting_gold"], default_font)
         )
 
         row_counter += 1
@@ -197,12 +175,11 @@ class RunSetupUI(UI):
         confirm_width = self.default_font.width(confirm_text)
         current_x = window_width - (confirm_width + gap)
         current_y = window_height - (font_height + gap)
-        self.element_array[0][row_counter] = Frame(self.game,
-                                                   (current_x, current_y),
-                                                   (confirm_width + 1, font_height),
-                                                   text=confirm_text,
-                                                   is_selectable=True
-                                                   )
+        self.element_array[0][row_counter] = Frame(
+            (current_x, current_y),
+            text_and_font=(confirm_text, default_font),
+            is_selectable=True
+        )
 
     def handle_selection(self):
         # select commander
