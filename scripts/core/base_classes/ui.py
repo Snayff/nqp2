@@ -114,116 +114,23 @@ class UI(ABC):
         """
         Handle amending the selected row and column with input
         """
-        found = False
-        count = 0
+
 
         if self.game.input.states["up"]:
             self.game.input.states["up"] = False
-
-            # find next selectable element
-            for count in range(self.selected_row - 1, -1, -1):
-                element = self.element_array[self.selected_col][count]
-                if element.is_selectable:
-                    element.is_selected = True
-                    found = True
-                    break
-
-            if not found:
-                # find next selectable element, after looping
-                for count in range(self.last_row, -1, -1):
-                    element = self.element_array[self.selected_col][count]
-                    if element.is_selectable:
-                        element.is_selected = True
-                        found = True
-                        break
-
-            if found:
-                # unselect current
-                self.element_array[self.selected_col][self.selected_row].is_selected = False
-                self.selected_row = count
-            else:
-                self.selected_row = self.last_row
+            self.decrement_selected_row()
 
         if self.game.input.states["down"]:
             self.game.input.states["down"] = False
-
-            # find next selectable element
-            for count in range(self.selected_row + 1, self.last_row + 1):
-                element = self.element_array[self.selected_col][count]
-                if element.is_selectable:
-                    element.is_selected = True
-                    found = True
-                    break
-
-            if not found:
-                # find next selectable element, after looping
-                for count in range(0, self.last_row + 1):
-                    element = self.element_array[self.selected_col][count]
-                    if element.is_selectable:
-                        element.is_selected = True
-                        found = True
-                        break
-
-            if found:
-                # unselect current
-                self.element_array[self.selected_col][self.selected_row].is_selected = False
-                self.selected_row = count
-            else:
-                self.selected_row = self.last_row + 1  # to force being set to first in list
+            self.increment_selected_row()
 
         if self.game.input.states["left"]:
             self.game.input.states["left"] = False
-
-            # find next selectable element
-            for count in range(self.selected_col - 1, -1, -1):
-                element = self.element_array[count][self.selected_row]
-                if element.is_selectable:
-                    element.is_selected = True
-                    found = True
-                    break
-
-            if not found:
-                # find next selectable element, after looping
-                for count in range(self.last_col, -1, -1):
-                    element = self.element_array[count][self.selected_row]
-                    if element.is_selectable:
-                        element.is_selected = True
-                        found = True
-                        break
-
-            if found:
-                # unselect current
-                self.element_array[self.selected_col][self.selected_row].is_selected = False
-                self.selected_col = count
-            else:
-                self.selected_col = self.last_col
+            self.decrement_selected_col()
 
         if self.game.input.states["right"]:
             self.game.input.states["right"] = False
-
-            # find next selectable element
-            for count in range(self.selected_col + 1, self.last_col + 1):
-                element = self.element_array[count][self.selected_row]
-                if element.is_selectable:
-                    element.is_selected = True
-                    found = True
-                    break
-
-            if not found:
-                # find next selectable element, after looping
-                for count in range(0, self.last_col + 1):
-                    element = self.element_array[count][self.selected_row]
-                    if element.is_selectable:
-                        element.is_selected = True
-                        found = True
-                        break
-
-            if found:
-                # unselect current
-                self.element_array[self.selected_col][self.selected_row].is_selected = False
-                self.selected_col = count
-            else:
-                self.selected_col = self.last_col + 1  # to force being set to first in list
+            self.increment_selected_col()
 
     def draw_gold(self, surface: pygame.surface):
         self.disabled_font.render(f"Gold: {self.game.memory.gold}", surface, (2, 2))
@@ -265,3 +172,125 @@ class UI(ABC):
             self.element_array.append([])  # create new list for every col
             for y in range(height):
                 self.element_array[x].append(None)
+
+    def decrement_selected_row(self):
+        found = False
+        count = 0
+
+        # find next selectable element
+        for count in range(self.selected_row - 1, -1, -1):
+            element = self.element_array[self.selected_col][count]
+            if element is not None:
+                if element.is_selectable:
+                    element.is_selected = True
+                    found = True
+                    break
+
+        if not found:
+            # find next selectable element, after looping
+            for count in range(self.last_row, -1, -1):
+                element = self.element_array[self.selected_col][count]
+                if element is not None:
+                    if element.is_selectable:
+                        element.is_selected = True
+                        found = True
+                        break
+
+        if found:
+            # unselect current
+            self.element_array[self.selected_col][self.selected_row].is_selected = False
+            self.selected_row = count
+        else:
+            self.selected_row = self.last_row
+
+    def increment_selected_row(self):
+        found = False
+        count = 0
+
+        # find next selectable element
+        for count in range(self.selected_row + 1, self.last_row + 1):
+            element = self.element_array[self.selected_col][count]
+            if element is not None:
+                if element.is_selectable:
+                    element.is_selected = True
+                    found = True
+                    break
+
+        if not found:
+            # find next selectable element, after looping
+            for count in range(0, self.last_row + 1):
+                element = self.element_array[self.selected_col][count]
+                if element is not None:
+                    if element.is_selectable:
+                        element.is_selected = True
+                        found = True
+                        break
+
+        if found:
+            # unselect current
+            self.element_array[self.selected_col][self.selected_row].is_selected = False
+            self.selected_row = count
+        else:
+            self.selected_row = self.last_row + 1  # to force being set to first in list
+
+    def decrement_selected_col(self):
+        found = False
+        count = 0
+
+        # find next selectable element
+        for count in range(self.selected_col - 1, -1, -1):
+            element = self.element_array[count][self.selected_row]
+            if element is not None:
+                if element.is_selectable:
+                    element.is_selected = True
+                    found = True
+                    break
+
+        if not found:
+            # find next selectable element, after looping
+            for count in range(self.last_col, -1, -1):
+                element = self.element_array[count][self.selected_row]
+                if element is not None:
+                    if element.is_selectable:
+                        element.is_selected = True
+                        found = True
+                        break
+
+        if found:
+            # unselect current
+            self.element_array[self.selected_col][self.selected_row].is_selected = False
+            self.selected_col = count
+        else:
+            self.selected_col = self.last_col
+
+
+    def increment_selected_col(self):
+        found = False
+        count = 0
+
+        # find next selectable element
+        for count in range(self.selected_col + 1, self.last_col + 1):
+            element = self.element_array[count][self.selected_row]
+            if element is not None:
+                if element.is_selectable:
+                    element.is_selected = True
+                    found = True
+                    break
+
+        if not found:
+            # find next selectable element, after looping
+            for count in range(0, self.last_col + 1):
+                element = self.element_array[count][self.selected_row]
+                if element is not None:
+                    if element.is_selectable:
+                        element.is_selected = True
+                        found = True
+                        break
+
+        if found:
+            # unselect current
+            self.element_array[self.selected_col][self.selected_row].is_selected = False
+            self.selected_col = count
+        else:
+            self.selected_col = self.last_col + 1  # to force being set to first in list
+

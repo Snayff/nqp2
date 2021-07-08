@@ -307,7 +307,7 @@ class RunSetupUI(UI):
         confirm_width = self.default_font.width(confirm_text)
         current_x = window_width - (confirm_width + gap)
         current_y = window_height - (font_height + gap)
-        self.element_array[1][row_counter] = Frame(self.game,
+        self.element_array[0][row_counter] = Frame(self.game,
                                                    (current_x, current_y),
                                                    (font_height, confirm_width),
                                                    text=confirm_text,
@@ -321,10 +321,11 @@ class RunSetupUI(UI):
 
             # if selecting same commander then go to begin, else select
             if self.game.run_setup.selected_commander == selected_commander:
-                self.selected_row += 1
+                self.selected_col = 0  # set to first col
+                self.increment_selected_row()
             else:
                 self.game.run_setup.selected_commander = selected_commander
 
         # begin
-        elif self.selected_row == 1:
+        elif self.selected_row == 7:
             self.game.run_setup.start_run()
