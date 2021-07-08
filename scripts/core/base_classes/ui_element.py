@@ -13,12 +13,12 @@ __all__ = ["UIElement"]
 
 
 class UIElement(ABC):
-    def __init__(self, pos: Tuple[int, int], size: Tuple[int, int]):
+    def __init__(self, pos: Tuple[int, int], size: Tuple[int, int], is_selectable: bool = False):
         self.pos: Tuple[int, int] = pos
         self.size: Tuple[int, int] = size
         self.surface: pygame.Surface = pygame.Surface(self.size)
 
-        self.is_selectable: bool = False
+        self.is_selectable: bool = is_selectable
         self.is_selected: bool = False
 
     @abstractmethod
@@ -27,6 +27,9 @@ class UIElement(ABC):
 
     def render(self, surface: pygame.Surface):
         surface.blit(self.surface, self.pos)
+
+        if self.is_selected:
+            self._draw_selector(surface)
 
     @abstractmethod
     def rebuild_surface(self):
@@ -48,12 +51,12 @@ class UIElement(ABC):
     def height(self) -> int:
         return self.size[1]
 
-    def draw_selector(self, surface: pygame.Surface):
+    def _draw_selector(self, surface: pygame.Surface):
         pygame.draw.line(
             surface,
             (255, 255, 255),
-            (self.x, self.y + self.height),
-            (self.x + self.width, self.y + self.height),
+            (self.x, self.y + self.height + 2),
+            (self.x + self.width, self.y + self.height + 2),
         )
 
 

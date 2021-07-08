@@ -32,7 +32,6 @@ class RunSetupUI(UI):
 
 
         self.handle_directional_input_for_selection()
-        self.handle_selector_index_looping()
 
         # select option and trigger result
         if self.game.input.states["select"]:
@@ -154,6 +153,11 @@ class RunSetupUI(UI):
         #         (current_x + confirm_width, current_y + font_height),
         #     )
 
+        # TESTING
+        self.set_instruction_text(f"Selected row: {self.selected_row}, Selected col: {self.selected_col}"
+                                  f"; Max row: {self.max_rows}, Max col: {self.max_cols} ; "
+                                  f"Last row: {self.last_row}, Last col: {self.last_col}")
+
         self.draw_instruction(surface)
         self.draw_element_array(surface)
 
@@ -181,11 +185,15 @@ class RunSetupUI(UI):
                 self.game,
                 (current_x, current_y),
                 (icon_width, icon_height),
-                icon
+                icon,
+                is_selectable=True
             )
 
             # increment draw pos and counter
             current_x += icon_width + gap
+
+        # set first commander to selected
+        self.element_array[0][0].is_selected = True
 
         # draw info
         commander = commanders[selected_commander]
@@ -300,10 +308,11 @@ class RunSetupUI(UI):
         current_x = window_width - (confirm_width + gap)
         current_y = window_height - (font_height + gap)
         self.element_array[1][row_counter] = Frame(self.game,
-                                         (current_x, current_y),
-                                         (font_height, confirm_width),
-                                         text=confirm_text
-                                         )
+                                                   (current_x, current_y),
+                                                   (font_height, confirm_width),
+                                                   text=confirm_text,
+                                                   is_selectable=True
+                                                   )
 
     def handle_selection(self):
         # select commander

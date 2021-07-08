@@ -63,7 +63,8 @@ class UI(ABC):
         try:
             for count, val in enumerate(self.element_array[self.selected_col]):
                 if val is not None:
-                    last_row_ = count
+                    if val.is_selectable:
+                        last_row_ = count
         except IndexError:
             pass
 
@@ -78,7 +79,8 @@ class UI(ABC):
         try:
             for count, val in enumerate(self.element_array):
                 if val[self.selected_row] is not None:
-                    last_col_ = count
+                    if val[self.selected_row].is_selectable:
+                        last_col_ = count
         except IndexError:
             pass
 
@@ -95,37 +97,133 @@ class UI(ABC):
         """
         Manage the looping of the selection index
         """
+        # FIXME - REMOVE as handling of looping now in directional input
         # row
         if self.selected_row < 0:
             self.selected_row = self.last_row
-        elif self.selected_row >= self.last_row:
+        elif self.selected_row > self.last_row:
             self.selected_row = 0
 
         # col
         if self.selected_col < 0:
-            self.selected_col = self.last_col - 1
-        elif self.selected_col >= self.last_col:
+            self.selected_col = self.last_col
+        elif self.selected_col > self.last_col:
             self.selected_col = 0
 
     def handle_directional_input_for_selection(self):
         """
         Handle amending the selected row and column with input
         """
+        found = False
+        count = 0
+
         if self.game.input.states["up"]:
             self.game.input.states["up"] = False
-            self.selected_row -= 1
+
+            # find next selectable element
+            for count in range(self.selected_row - 1, -1, -1):
+                element = self.element_array[self.selected_col][count]
+                if element.is_selectable:
+                    element.is_selected = True
+                    found = True
+                    break
+
+            if not found:
+                # find next selectable element, after looping
+                for count in range(self.last_row, -1, -1):
+                    element = self.element_array[self.selected_col][count]
+                    if element.is_selectable:
+                        element.is_selected = True
+                        found = True
+                        break
+
+            if found:
+                # unselect current
+                self.element_array[self.selected_col][self.selected_row].is_selected = False
+                self.selected_row = count
+            else:
+                self.selected_row = self.last_row
 
         if self.game.input.states["down"]:
             self.game.input.states["down"] = False
-            self.selected_row += 1
+
+            # find next selectable element
+            for count in range(self.selected_row + 1, self.last_row + 1):
+                element = self.element_array[self.selected_col][count]
+                if element.is_selectable:
+                    element.is_selected = True
+                    found = True
+                    break
+
+            if not found:
+                # find next selectable element, after looping
+                for count in range(0, self.last_row + 1):
+                    element = self.element_array[self.selected_col][count]
+                    if element.is_selectable:
+                        element.is_selected = True
+                        found = True
+                        break
+
+            if found:
+                # unselect current
+                self.element_array[self.selected_col][self.selected_row].is_selected = False
+                self.selected_row = count
+            else:
+                self.selected_row = self.last_row + 1  # to force being set to first in list
 
         if self.game.input.states["left"]:
             self.game.input.states["left"] = False
-            self.selected_col -= 1
+
+            # find next selectable element
+            for count in range(self.selected_col - 1, -1, -1):
+                element = self.element_array[count][self.selected_row]
+                if element.is_selectable:
+                    element.is_selected = True
+                    found = True
+                    break
+
+            if not found:
+                # find next selectable element, after looping
+                for count in range(self.last_col, -1, -1):
+                    element = self.element_array[count][self.selected_row]
+                    if element.is_selectable:
+                        element.is_selected = True
+                        found = True
+                        break
+
+            if found:
+                # unselect current
+                self.element_array[self.selected_col][self.selected_row].is_selected = False
+                self.selected_col = count
+            else:
+                self.selected_col = self.last_col
 
         if self.game.input.states["right"]:
             self.game.input.states["right"] = False
-            self.selected_col += 1
+
+            # find next selectable element
+            for count in range(self.selected_col + 1, self.last_col + 1):
+                element = self.element_array[count][self.selected_row]
+                if element.is_selectable:
+                    element.is_selected = True
+                    found = True
+                    break
+
+            if not found:
+                # find next selectable element, after looping
+                for count in range(0, self.last_col + 1):
+                    element = self.element_array[count][self.selected_row]
+                    if element.is_selectable:
+                        element.is_selected = True
+                        found = True
+                        break
+
+            if found:
+                # unselect current
+                self.element_array[self.selected_col][self.selected_row].is_selected = False
+                self.selected_col = count
+            else:
+                self.selected_col = self.last_col + 1  # to force being set to first in list
 
     def draw_gold(self, surface: pygame.surface):
         self.disabled_font.render(f"Gold: {self.game.memory.gold}", surface, (2, 2))

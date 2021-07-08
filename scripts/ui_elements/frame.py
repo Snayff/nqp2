@@ -20,8 +20,8 @@ __all__ = ["Frame"]
 
 class Frame(UIElement):
     def __init__(self, game: Game, pos: Tuple[int, int], size: Tuple[int, int], image: Optional[pygame.surface] = None,
-            text: Optional[str] = None):
-        super().__init__(pos, size)
+            text: Optional[str] = None, is_selectable: bool = False):
+        super().__init__(pos, size, is_selectable)
 
         self.game: Game = game
 
@@ -37,8 +37,6 @@ class Frame(UIElement):
         self.instruction_font: Font = self.game.assets.fonts["instruction"]
 
         self.rebuild_surface()
-
-
 
     def update(self, delta_time: float):
         pass

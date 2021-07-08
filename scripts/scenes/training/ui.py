@@ -54,6 +54,11 @@ class TrainingUI(UI):
 
     def render(self, surface: pygame.surface):
 
+        # TESTING
+        self.set_instruction_text(f"Selected row: {self.selected_row}, Selected col: {self.selected_col}"
+                                  f"; Max row: {self.max_rows}, Max col: {self.max_cols} ; "
+                                  f"Last row: {self.last_row}, Last col: {self.last_col}")
+
         # show core info
         self.draw_gold(surface)
         self.draw_charisma(surface)
@@ -79,11 +84,6 @@ class TrainingUI(UI):
         font_height = 12  # FIXME - get actual font height
         window_width = self.game.window.width
         window_height = self.game.window.height
-
-        # TESTING
-        self.set_instruction_text(f"Selected row: {self.selected_row}, Selected col: {self.selected_col}"
-                                  f"; Max row: {self.max_rows}, Max col: {self.max_cols} ; "
-                                  f"Last row: {self.last_row}, Last col: {self.last_col}")
 
         # draw upgrades
         current_x = start_x
