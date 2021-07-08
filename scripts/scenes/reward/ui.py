@@ -6,7 +6,7 @@ from typing import Optional, TYPE_CHECKING
 import pygame
 
 from scripts.core.base_classes.ui import UI
-from scripts.core.constants import DEFAULT_IMAGE_SIZE, RewardType, SceneType
+from scripts.core.constants import DEFAULT_IMAGE_SIZE, GAP_SIZE, RewardType, SceneType
 from scripts.scenes.combat.elements.unit import Unit
 
 if TYPE_CHECKING:
@@ -99,7 +99,6 @@ class RewardUI(UI):
         # positions
         start_x = 20
         start_y = 60
-        gap = 10
         font_height = 12
         window_width = self.game.window.width
         window_height = self.game.window.height
@@ -131,7 +130,7 @@ class RewardUI(UI):
         for unit in reward_units:
             active_font = default_font
 
-            option_y = current_y + ((font_height + gap) * (row_count + 1))  # + 1 due to headers
+            option_y = current_y + ((font_height + GAP_SIZE) * (row_count + 1))  # + 1 due to headers
 
             # draw stats
             col_count = 0

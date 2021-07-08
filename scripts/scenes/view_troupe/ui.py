@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 import pygame
 
 from scripts.core.base_classes.ui import UI
-from scripts.core.constants import DEFAULT_IMAGE_SIZE, SceneType
+from scripts.core.constants import DEFAULT_IMAGE_SIZE, GAP_SIZE, SceneType
 
 if TYPE_CHECKING:
     from scripts.core.game import Game
@@ -53,7 +53,6 @@ class ViewTroupeUI(UI):
         stat_width = DEFAULT_IMAGE_SIZE
         stat_height = DEFAULT_IMAGE_SIZE
         stat_icon_size = (stat_width, stat_height)
-        gap = 2
         font_height = 12  # FIXME - get actual font height
 
         # draw options
@@ -67,15 +66,15 @@ class ViewTroupeUI(UI):
             surface.blit(unit_icon, unit_icon_pos)
 
             # draw unit type
-            info_x = start_x + ((section_width * unit_count) + gap)
-            unit_type_y = start_y + unit_height + gap
+            info_x = start_x + ((section_width * unit_count) + GAP_SIZE)
+            unit_type_y = start_y + unit_height + GAP_SIZE
             default_font.render(unit.type, surface, (info_x, unit_type_y))
 
             # draw stats
             stats = ["health", "attack", "defence", "range", "attack_speed", "move_speed", "ammo", "count", "size"]
             stat_count = 0
             for stat in stats:
-                info_y = unit_type_y + font_height + ((stat_height + gap) * stat_count) + gap
+                info_y = unit_type_y + font_height + ((stat_height + GAP_SIZE) * stat_count) + GAP_SIZE
                 stat_icon_x = info_x + (stat_width // 2)
                 stat_info_x = stat_icon_x + stat_width + 2
 

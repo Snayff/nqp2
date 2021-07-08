@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import pygame
 
 from scripts.core.base_classes.ui_element import UIElement
-from scripts.core.constants import DEFAULT_IMAGE_SIZE, StatModifiedStatus
+from scripts.core.constants import DEFAULT_IMAGE_SIZE, GAP_SIZE, StatModifiedStatus
 from scripts.scenes.combat.elements.unit import Unit
 from scripts.ui_elements.font import Font
 
@@ -41,7 +41,7 @@ class Frame(UIElement):
             height += self.image.get_height()
 
         if self.text and self.font:
-            width += self.font.width(self.text)
+            width += self.font.width(self.text) + GAP_SIZE
             height += 12  # FIXME - get actual font height
 
         self.size = (width, height)
@@ -55,7 +55,6 @@ class Frame(UIElement):
         text = self.text
         font = self.font
 
-        gap = 2
         if font:
             font_height = font.height
         else:
@@ -68,7 +67,7 @@ class Frame(UIElement):
         # draw text
         if text and font:
             if image:
-                start_x = image.get_width() + gap
+                start_x = image.get_width() + GAP_SIZE
             else:
                 start_x = 0
 

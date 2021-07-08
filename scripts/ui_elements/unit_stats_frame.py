@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import pygame
 
 from scripts.core.base_classes.ui_element import UIElement
-from scripts.core.constants import DEFAULT_IMAGE_SIZE, StatModifiedStatus
+from scripts.core.constants import DEFAULT_IMAGE_SIZE, GAP_SIZE, StatModifiedStatus
 from scripts.scenes.combat.elements.unit import Unit
 from scripts.ui_elements.font import Font
 
@@ -47,7 +47,6 @@ class UnitStatsFrame(UIElement):
         positive_font = self.positive_font
         instruction_font = self.instruction_font
 
-        gap = 2
         font_height = 12  # FIXME - get actual font height
         stat_icon_size = (DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE)
 
@@ -57,16 +56,16 @@ class UnitStatsFrame(UIElement):
         unit_icon = self.game.assets.unit_animations[unit.type]["icon"][0]
         surface.blit(unit_icon, (current_x, current_y))
 
-        current_y += unit_icon.get_height() + gap
+        current_y += unit_icon.get_height() + GAP_SIZE
 
         # draw unit type
         default_font.render(unit.type, surface, (current_x, current_y))
 
-        current_y += font_height + gap
+        current_y += font_height + GAP_SIZE
 
         # draw stats
         icon_x = current_x
-        info_x = current_x + unit_icon.get_width() + gap
+        info_x = current_x + unit_icon.get_width() + GAP_SIZE
         stats = ["health", "attack", "defence", "range", "attack_speed", "move_speed", "ammo", "count", "size"]
         for stat in stats:
 
@@ -89,5 +88,5 @@ class UnitStatsFrame(UIElement):
             font.render(str(getattr(unit, stat)), surface, (info_x, current_y + (font_height // 2)))
 
             # increment y
-            current_y += unit_icon.get_height() + gap
+            current_y += unit_icon.get_height() + GAP_SIZE
 

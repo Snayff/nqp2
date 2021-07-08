@@ -6,7 +6,7 @@ from typing import Dict, TYPE_CHECKING
 import pygame
 
 from scripts.core.base_classes.ui import UI
-from scripts.core.constants import DEFAULT_IMAGE_SIZE, SceneType
+from scripts.core.constants import DEFAULT_IMAGE_SIZE, GAP_SIZE, SceneType
 from scripts.ui_elements.frame import Frame
 
 if TYPE_CHECKING:
@@ -57,7 +57,6 @@ class RunSetupUI(UI):
         # positions
         start_x = 20
         start_y = 20
-        gap = 10
         font_height = 12  # FIXME - get actual font height
         window_width = self.game.window.width
         window_height = self.game.window.height
@@ -83,11 +82,11 @@ class RunSetupUI(UI):
                 frame.is_selected = True
 
             # increment draw pos and counter
-            current_x += icon_width + gap
+            current_x += icon_width + GAP_SIZE
 
         # draw info
         commander = commanders[selected_commander]
-        current_y = start_y + DEFAULT_IMAGE_SIZE + gap
+        current_y = start_y + DEFAULT_IMAGE_SIZE + GAP_SIZE
         info_x = start_x + 200
         header_x = start_x
         row_counter = 1
@@ -102,7 +101,7 @@ class RunSetupUI(UI):
             text_and_font=(commander["type"], default_font)
         )
 
-        current_y += font_height + gap
+        current_y += font_height + GAP_SIZE
         row_counter += 1
 
         # backstory - N.B. no header and needs wider frame
@@ -111,7 +110,7 @@ class RunSetupUI(UI):
             text_and_font=(commander["backstory"], default_font)
         )
 
-        current_y += font_height + gap
+        current_y += font_height + GAP_SIZE
         row_counter += 1
 
         # limits
@@ -136,7 +135,7 @@ class RunSetupUI(UI):
             text_and_font=(commander["leadership"], default_font)
         )
 
-        current_y += font_height + gap
+        current_y += font_height + GAP_SIZE
         row_counter += 1
 
         # allies
@@ -156,7 +155,7 @@ class RunSetupUI(UI):
             text_and_font=(allies, default_font)
         )
 
-        current_y += font_height + gap
+        current_y += font_height + GAP_SIZE
         row_counter += 1
 
         # gold
@@ -173,8 +172,8 @@ class RunSetupUI(UI):
 
         confirm_text = "Onwards"
         confirm_width = self.default_font.width(confirm_text)
-        current_x = window_width - (confirm_width + gap)
-        current_y = window_height - (font_height + gap)
+        current_x = window_width - (confirm_width + GAP_SIZE)
+        current_y = window_height - (font_height + GAP_SIZE)
         self.element_array[0][row_counter] = Frame(
             (current_x, current_y),
             text_and_font=(confirm_text, default_font),

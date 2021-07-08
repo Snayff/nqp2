@@ -5,7 +5,7 @@ from typing import Optional, TYPE_CHECKING
 import pygame
 
 from scripts.core.base_classes.ui import UI
-from scripts.core.constants import DEFAULT_IMAGE_SIZE, SceneType, TrainingState
+from scripts.core.constants import DEFAULT_IMAGE_SIZE, GAP_SIZE, SceneType, TrainingState
 from scripts.scenes.combat.elements.unit import Unit
 from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.unit_stats_frame import UnitStatsFrame
@@ -74,13 +74,14 @@ class TrainingUI(UI):
         self.draw_element_array(surface)
 
     def rebuild_ui(self):
+        default_font = self.default_font
         scene = self.game.training
+
         start_x = 20
         start_y = 20
         icon_width = DEFAULT_IMAGE_SIZE
         icon_height = DEFAULT_IMAGE_SIZE
         icon_size = (icon_width, icon_height)
-        gap = 2
         font_height = 12  # FIXME - get actual font height
         window_width = self.game.window.width
         window_height = self.game.window.height
@@ -91,15 +92,14 @@ class TrainingUI(UI):
         for selection_counter, upgrade in enumerate(scene.upgrades_sold):
             # TODO - draw gold cost
             stat_icon = self.game.assets.get_image("stats", upgrade["stat"], icon_size)
-            self.element_array[0][selection_counter] = Frame(self.game,
-                                                             (current_x, current_y),
-                                                             (100, 100),
-                                                             stat_icon,
-                                                               f"{upgrade['stat']} +{upgrade['mod_amount']}"
-                                                             )
+            self.element_array[0][selection_counter] = Frame(
+                (current_x, current_y),
+                image=stat_icon,
+                text_and_font=(f"{upgrade['stat']} +{upgrade['mod_amount']}", default_font)
+                )
 
             # increment
-            current_y += icon_height + gap
+            current_y += icon_height + GAP_SIZE
 
         # draw unit selection
         if scene.state == TrainingState.CHOOSE_TARGET_UNIT:
@@ -109,25 +109,23 @@ class TrainingUI(UI):
             current_y = start_y + 20
             for selection_counter, unit in enumerate(self.game.memory.player_troupe.units.values()):
                 unit_icon = self.game.assets.unit_animations[unit.type]["icon"][0]
-                self.element_array[1][selection_counter] = Frame(self.game,
-                                                                 (current_x, current_y),
-                                                                 (100, 100),
-                                                                 unit_icon,
-                                                                   f"{unit.type}"
-                                                                 )
+                self.element_array[1][selection_counter] = Frame(
+                    (current_x, current_y),
+                    image=unit_icon,
+                    text_and_font=(f"{unit.type}", default_font)
+                )
 
                 # increment
-                current_y += icon_height + gap
+                current_y += icon_height + GAP_SIZE
 
         confirm_text = "Onwards"
         confirm_width = self.default_font.width(confirm_text)
-        current_x = window_width - (confirm_width + gap)
-        current_y = window_height - (font_height + gap)
-        self.element_array[2][0] = Frame(self.game,
-                                         (current_x, current_y),
-                                         (font_height, confirm_width),
-                                         text=confirm_text
-                                         )
+        current_x = window_width - (confirm_width + GAP_SIZE)
+        current_y = window_height - (font_height + GAP_SIZE)
+        self.element_array[2][0] = Frame(
+            (current_x, current_y),
+            text_and_font=(confirm_text, default_font)
+        )
 
     def handle_select_upgrade_input(self):
         if self.game.input.states["select"]:
@@ -197,7 +195,6 @@ class TrainingUI(UI):
 
                     # remove upgrade from choices and refresh UI
                     self.game.training.upgrades_sold.pop(self.selected_row)
-                    self.refresh_dimensions()
 
                     # confirm to user
                     self.set_instruction_text(f"{self.selected_unit.type} upgraded with {upgrade['type']}.")

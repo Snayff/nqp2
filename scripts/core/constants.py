@@ -18,6 +18,7 @@ PROFILING_PATH = DEBUGGING_PATH / "profiling"
 
 # sizes
 DEFAULT_IMAGE_SIZE = 16
+GAP_SIZE = 10
 
 # algorithm/formula constants
 WEIGHT_SCALE = 5

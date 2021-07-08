@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import pygame
 
 from scripts.core.base_classes.ui import UI
-from scripts.core.constants import SceneType
+from scripts.core.constants import GAP_SIZE, SceneType
 
 if TYPE_CHECKING:
     from scripts.core.game import Game
@@ -86,7 +86,6 @@ class InnUI(UI):
         # positions
         start_x = 20
         start_y = 60
-        gap = 10
         font_height = 12
         window_width = self.game.window.width
         col_width = int((window_width - (start_x * 2)) / len(stats))
@@ -111,7 +110,7 @@ class InnUI(UI):
             else:
                 active_font = disabled_font
 
-            option_y = start_y + ((font_height + gap) * (row_count + 1))  # + 1 due to headers
+            option_y = start_y + ((font_height + GAP_SIZE) * (row_count + 1))  # + 1 due to headers
 
             # draw stats
             col_count = 0
