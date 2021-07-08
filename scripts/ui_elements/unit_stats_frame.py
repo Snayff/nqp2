@@ -37,6 +37,9 @@ class UnitStatsFrame(UIElement):
         pass
 
     def rebuild_surface(self):
+        # resize surface
+        self.surface = pygame.Surface((100, 400))
+
         surface = self.surface
         unit = self.unit
         start_x = 0
@@ -87,5 +90,5 @@ class UnitStatsFrame(UIElement):
             font.render(str(getattr(unit, stat)), surface, (info_x, current_y + (font_height // 2)))
 
             # increment y
-            current_y += unit_icon.get_height() + GAP_SIZE
+            current_y += stat_icon_size[1] + GAP_SIZE
 

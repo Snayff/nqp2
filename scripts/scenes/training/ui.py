@@ -28,6 +28,7 @@ class TrainingUI(UI):
         self.selected_unit: Optional[Unit] = None
         self.selected_upgrade: Optional[Dict] = None
         self.stat_frame: Optional[UnitStatsFrame] = None
+        self.stat_frame_pos: Tuple[int, int] = (0, 0)
 
         self.column_descriptors: Dict = {}  # col description: col number
 
@@ -61,9 +62,9 @@ class TrainingUI(UI):
     def render(self, surface: pygame.surface):
 
         # TESTING
-        self.set_instruction_text(f"Selected row: {self.selected_row}, Selected col: {self.selected_col}"
-                                  f"; Max row: {self.max_rows}, Max col: {self.max_cols} ; "
-                                  f"Last row: {self.last_row}, Last col: {self.last_col}")
+        # self.set_instruction_text(f"Selected row: {self.selected_row}, Selected col: {self.selected_col}"
+        #                           f"; Max row: {self.max_rows}, Max col: {self.max_cols} ; "
+        #                           f"Last row: {self.last_row}, Last col: {self.last_col}")
 
         # show core info
         self.draw_gold(surface)
@@ -148,9 +149,8 @@ class TrainingUI(UI):
             col_number += 1
             self.column_descriptors["stat_frame"] = col_number
             current_x += 100
-            if self.selected_unit is not None:
-                frame = UnitStatsFrame(self.game, (current_x, start_y), self.selected_unit)
-                self.stat_frame = frame
+            self.stat_frame_pos = (current_x, start_y + 20)
+            self._rebuild_stat_frame()
 
         col_number += 1
         self.column_descriptors["exit"] = col_number
@@ -167,8 +167,6 @@ class TrainingUI(UI):
         if self.game.input.states["select"]:
             self.game.input.states["select"] = False
 
-            print(f"SELECT UPGRADE")
-
             # select the upgrade
             self.selected_upgrade = self.game.training.upgrades_sold[self.selected_row]
 
@@ -181,6 +179,7 @@ class TrainingUI(UI):
             self.increment_selected_col()
 
             self.selected_unit = list(self.game.memory.player_troupe.units.values())[self.selected_row]
+            self._rebuild_stat_frame()
 
             self.set_instruction_text(f"Choose a unit to apply {self.selected_upgrade['type']} to.")
 
@@ -198,6 +197,13 @@ class TrainingUI(UI):
             # select the upgrade
             self.selected_upgrade = self.game.training.upgrades_sold[self.selected_row]
 
+        # go to exit
+        if self.game.input.states["cancel"]:
+            self.game.input.states["cancel"] = False
+
+            #self.decrement_selected_col()
+            #self.selected_col = self.column_descriptors["exit"]
+            # FIXME - this doesnt handle highlighting
 
     def handle_choose_unit_input(self):
         # return to upgrade select
@@ -205,6 +211,7 @@ class TrainingUI(UI):
             self.game.input.states["cancel"] = False
 
             self.selected_unit = None
+            self._rebuild_stat_frame()
 
             # change state then rebuild to include updated ui
             self.game.training.state = TrainingState.CHOOSE_UPGRADE
@@ -215,7 +222,6 @@ class TrainingUI(UI):
             self.decrement_selected_col()
 
             self.set_instruction_text("Choose an upgrade to buy.")
-
 
         # choose a unit
         if self.game.input.states["select"]:
@@ -253,6 +259,7 @@ class TrainingUI(UI):
 
             # select the unit
             self.selected_unit = list(self.game.memory.player_troupe.units.values())[self.selected_row]
+            self._rebuild_stat_frame()
 
 
         if self.game.input.states["down"]:
@@ -261,7 +268,7 @@ class TrainingUI(UI):
 
             # select the unit
             self.selected_unit = list(self.game.memory.player_troupe.units.values())[self.selected_row]
-
+            self._rebuild_stat_frame()
 
     def upgrade_unit(self) -> bool:
         """
@@ -286,3 +293,11 @@ class TrainingUI(UI):
 
 
         return success
+
+    def _rebuild_stat_frame(self):
+        if self.selected_unit is not None:
+            print(f"created new stat frame for {self.selected_unit.id}")
+            frame = UnitStatsFrame(self.game, self.stat_frame_pos, self.selected_unit)
+            self.stat_frame = frame
+        else:
+            self.stat_frame = None
