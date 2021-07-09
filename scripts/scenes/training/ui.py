@@ -41,18 +41,19 @@ class TrainingUI(UI):
 
         # N.B. does not use default handle_directional_input_for_selection method
 
+        # handle go to exit
+        if self.selected_col == self.column_descriptors["exit"]:
+            if self.game.input.states["select"]:
+                self.game.input.states["select"] = False
+
+                self.game.change_scene(SceneType.OVERWORLD)
+
         # handle selection based on selector position
         if self.game.training.state == TrainingState.CHOOSE_UPGRADE:
             self.handle_select_upgrade_input()
 
         elif self.game.training.state == TrainingState.CHOOSE_TARGET_UNIT:
             self.handle_choose_unit_input()
-
-        if self.selected_col == self.column_descriptors["exit"]:
-            if self.game.input.states["select"]:
-                self.game.input.states["select"] = False
-
-                self.game.change_scene(SceneType.OVERWORLD)
 
         # view troupe, this is universally accessible
         if self.game.input.states["view_troupe"]:
@@ -62,9 +63,9 @@ class TrainingUI(UI):
     def render(self, surface: pygame.surface):
 
         # TESTING
-        # self.set_instruction_text(f"Selected row: {self.selected_row}, Selected col: {self.selected_col}"
-        #                           f"; Max row: {self.max_rows}, Max col: {self.max_cols} ; "
-        #                           f"Last row: {self.last_row}, Last col: {self.last_col}")
+        self.set_instruction_text(f"Selected row: {self.selected_row}, Selected col: {self.selected_col}"
+                                  f"; Max row: {self.max_rows}, Max col: {self.max_cols} ; "
+                                  f"Last row: {self.last_row}, Last col: {self.last_col}")
 
         # show core info
         self.draw_gold(surface)
@@ -80,6 +81,7 @@ class TrainingUI(UI):
 
     def rebuild_ui(self):
         self.rebuild_element_array(10, 10)
+        self.column_descriptors = {}
 
         default_font = self.default_font
         scene = self.game.training
@@ -158,7 +160,7 @@ class TrainingUI(UI):
         confirm_width = self.default_font.width(confirm_text)
         current_x = window_width - (confirm_width + GAP_SIZE)
         current_y = window_height - (font_height + GAP_SIZE)
-        self.element_array[2][0] = Frame(
+        self.element_array[col_number][0] = Frame(
             (current_x, current_y),
             text_and_font=(confirm_text, default_font)
         )
@@ -201,8 +203,15 @@ class TrainingUI(UI):
         if self.game.input.states["cancel"]:
             self.game.input.states["cancel"] = False
 
-            #self.decrement_selected_col()
-            #self.selected_col = self.column_descriptors["exit"]
+            # unselect current
+            try:
+                self.element_array[self.selected_col][self.selected_row].is_selected = False
+            except AttributeError:
+                # in case element no longer exists
+                pass
+
+            self.selected_col = self.column_descriptors["exit"]
+            self.element_array[self.selected_col][self.selected_row].is_selected = True
             # FIXME - this doesnt handle highlighting
 
     def handle_choose_unit_input(self):

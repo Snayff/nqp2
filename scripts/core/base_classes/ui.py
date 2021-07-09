@@ -193,7 +193,6 @@ class UI(ABC):
         else:
             self.selected_row = self.last_row
 
-
     def increment_selected_row(self):
         found = False
         count = 0
@@ -230,7 +229,6 @@ class UI(ABC):
         else:
             self.selected_row = self.last_row + 1  # to force being set to first in list
 
-
     def decrement_selected_col(self):
         found = False
         count = 0
@@ -266,7 +264,6 @@ class UI(ABC):
             self.selected_col = count
         else:
             self.selected_col = self.last_col
-
 
     def increment_selected_col(self):
         found = False
