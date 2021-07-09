@@ -157,6 +157,14 @@ class UI(ABC):
             for y in range(height):
                 self.element_array[x].append(None)
 
+
+    # def add_element_to_array(self, col: int, row: int, element):
+    #     # do we need a new col?
+    #     if len(self.element_array) < col:
+    #         self.element_array.append([])
+    #
+    #     if len(self.element_array[col]) < row
+
     def decrement_selected_row(self):
         found = False
         count = 0

@@ -46,6 +46,9 @@ class TrainingUI(UI):
             if self.game.input.states["select"]:
                 self.game.input.states["select"] = False
 
+                self.selected_unit = None
+                self.selected_upgrade = None
+
                 self.game.change_scene(SceneType.OVERWORLD)
 
         # handle selection based on selector position
@@ -78,6 +81,24 @@ class TrainingUI(UI):
 
         if self.stat_frame is not None:
             self.stat_frame.render(surface)
+
+    def refresh_active_elements(self):
+        """
+        Update elements to active or not based on state.
+        """
+        # determine whether unit col should be active or not
+        if self.game.training.state == TrainingState.CHOOSE_TARGET_UNIT:
+            make_active = False
+        else:
+            make_active = True
+
+        # update unit col's activity
+        col = self.column_descriptors["units"]
+        for row in self.element_array[col]:
+            for element in row:
+                if element is not None:
+                    element.set_active(make_active)
+
 
     def rebuild_ui(self):
         self.rebuild_element_array(10, 10)
@@ -121,38 +142,37 @@ class TrainingUI(UI):
             current_y += icon_height + GAP_SIZE
 
         # draw unit selection
-        if scene.state == TrainingState.CHOOSE_TARGET_UNIT:
-            col_number += 1
-            self.column_descriptors["units"] = col_number
+        col_number += 1
+        self.column_descriptors["units"] = col_number
 
-            # draw list of units
-            current_x = start_x + 100
-            current_y = start_y + 20  # add an offset
-            for selection_counter, unit in enumerate(self.game.memory.player_troupe.units.values()):
-                unit_icon = self.game.assets.unit_animations[unit.type]["icon"][0]
-                frame = Frame(
-                    (current_x, current_y),
-                    image=unit_icon,
-                    text_and_font=(f"{unit.type}", default_font),
-                    is_selectable=True
-                )
-                self.element_array[col_number][selection_counter] = frame
+        # draw list of units
+        current_x = start_x + 100
+        current_y = start_y + 20  # add an offset
+        for selection_counter, unit in enumerate(self.game.memory.player_troupe.units.values()):
+            unit_icon = self.game.assets.unit_animations[unit.type]["icon"][0]
+            frame = Frame(
+                (current_x, current_y),
+                image=unit_icon,
+                text_and_font=(f"{unit.type}", default_font),
+                is_selectable=True
+            )
+            self.element_array[col_number][selection_counter] = frame
 
-                # highlight selected unit
-                if self.selected_unit is None:
-                    self.selected_unit = unit
-                if unit.type == self.selected_unit:
-                    frame.is_selected = True
+            # highlight selected unit
+            if self.selected_unit is None:
+                self.selected_unit = unit
+            if unit.type == self.selected_unit:
+                frame.is_selected = True
 
-                # increment
-                current_y += icon_height + GAP_SIZE
+            # increment
+            current_y += icon_height + GAP_SIZE
 
-            # draw stat frame
-            col_number += 1
-            self.column_descriptors["stat_frame"] = col_number
-            current_x += 100
-            self.stat_frame_pos = (current_x, start_y + 20)
-            self._rebuild_stat_frame()
+        # draw stat frame
+        col_number += 1
+        self.column_descriptors["stat_frame"] = col_number
+        current_x += 100
+        self.stat_frame_pos = (current_x, start_y + 20)
+        self._rebuild_stat_frame()
 
         col_number += 1
         self.column_descriptors["exit"] = col_number
@@ -173,8 +193,7 @@ class TrainingUI(UI):
             self.selected_upgrade = self.game.training.upgrades_sold[self.selected_row]
 
             # change state then rebuild to include updated ui
-            self.game.training.state = TrainingState.CHOOSE_TARGET_UNIT
-            self.rebuild_ui()
+            self.change_state(TrainingState.CHOOSE_TARGET_UNIT)
 
             # move to selecting unit
             self.selected_row = 0
@@ -212,7 +231,6 @@ class TrainingUI(UI):
 
             self.selected_col = self.column_descriptors["exit"]
             self.element_array[self.selected_col][self.selected_row].is_selected = True
-            # FIXME - this doesnt handle highlighting
 
     def handle_choose_unit_input(self):
         # return to upgrade select
@@ -223,8 +241,7 @@ class TrainingUI(UI):
             self._rebuild_stat_frame()
 
             # change state then rebuild to include updated ui
-            self.game.training.state = TrainingState.CHOOSE_UPGRADE
-            self.rebuild_ui()
+            self.change_state(TrainingState.CHOOSE_UPGRADE)
 
             # move to select upgrade
             self.selected_row = self.game.training.upgrades_sold.index(self.selected_upgrade)
@@ -246,8 +263,7 @@ class TrainingUI(UI):
                     self.set_instruction_text(f"{self.selected_unit.type} upgraded with {upgrade['type']}.", True)
 
                     # change state then rebuild to include updated ui
-                    self.game.training.state = TrainingState.CHOOSE_UPGRADE
-                    self.rebuild_ui()
+                    self.change_state(TrainingState.CHOOSE_UPGRADE)
 
                     # reset values to choose another upgrade
                     self.selected_unit = None
@@ -305,8 +321,16 @@ class TrainingUI(UI):
 
     def _rebuild_stat_frame(self):
         if self.selected_unit is not None:
-            print(f"created new stat frame for {self.selected_unit.id}")
             frame = UnitStatsFrame(self.game, self.stat_frame_pos, self.selected_unit)
             self.stat_frame = frame
         else:
             self.stat_frame = None
+
+    def change_state(self, state: TrainingState):
+        """
+        Change state then rebuild and refresh UI
+        """
+        self.game.training.state = state
+
+        self.rebuild_ui()
+        self.refresh_active_elements()
