@@ -92,12 +92,11 @@ class Troupe:
 
         logging.info(f"All units removed from {self.team}'s troupe.")
 
-    def generate_units(
-        self, number_of_units: int, tiers_allowed: List[int] = None, unit_types: List[str] = None
-    ) -> List[int]:
+    def generate_units(self, number_of_units: int, tiers_allowed: List[int] = None, unit_types: List[str] = None,
+            duplicates: bool = False) -> List[int]:
         """
         Generate units for the Troupe, based on parameters given. If no unit types are given then any unit type can
-        be chosen from home and ally. Returns list of created ids.
+        be chosen from any ally. Returns list of created ids.
 
         unit_types is expressed as [unit.type, ...]
         """
@@ -114,7 +113,21 @@ class Troupe:
                 unit_occur_rate.append(occur_rate)
 
             # choose units
-            chosen_types = self.game.rng.choices(unit_types_, unit_occur_rate, k=number_of_units)
+            if duplicates:
+                chosen_types = self.game.rng.choices(unit_types_, unit_occur_rate, k=number_of_units)
+
+            else:
+                chosen_types = []
+
+                for i in range(number_of_units):
+                    # choose unit
+                    unit = self.game.rng.choices(unit_types_, unit_occur_rate)[0]
+                    chosen_types.append(unit)
+
+                    # remove unit and occur rate from option pool
+                    unit_index = unit_types_.index(unit)
+                    unit_types_.remove(unit)
+                    del unit_occur_rate[unit_index]
 
             # identify which are upgrades
             for chosen_type in chosen_types:

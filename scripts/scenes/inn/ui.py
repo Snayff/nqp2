@@ -83,7 +83,10 @@ class InnUI(UI):
         # draw unit info
         current_x = start_x
         panel_list = []
+        count = -1
         for unit in units_for_sale:
+            count += 1
+            print(f"UnitsForSale: {count}: {unit.type}")
 
             # check can purchase
             can_afford = unit.gold_cost <= self.game.memory.gold
