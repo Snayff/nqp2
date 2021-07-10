@@ -31,12 +31,12 @@ class UnitStatsFrame(UIElement):
         self.positive_font: Font = self.game.assets.fonts["positive"]
         self.instruction_font: Font = self.game.assets.fonts["instruction"]
 
-        self.rebuild_surface()
+        self._rebuild_surface()
 
     def update(self, delta_time: float):
         pass
 
-    def rebuild_surface(self):
+    def _rebuild_surface(self):
         # resize surface
         self.surface = pygame.Surface((100, 400))
 

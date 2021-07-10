@@ -35,7 +35,7 @@ class UIElement(ABC):
                 self._draw_selector(surface)
 
     @abstractmethod
-    def rebuild_surface(self):
+    def _rebuild_surface(self):
         pass
 
     @property

@@ -3,8 +3,7 @@ from __future__ import annotations
 import logging
 import time
 
-import pygame
-
+import pygame as pygame
 from scripts.core import debug, utility
 from scripts.core.assets import Assets
 from scripts.core.constants import GameState, SceneType

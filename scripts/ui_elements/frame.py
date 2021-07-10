@@ -5,17 +5,15 @@ from typing import TYPE_CHECKING
 import pygame
 
 from scripts.core.base_classes.ui_element import UIElement
-from scripts.core.constants import DEFAULT_IMAGE_SIZE, GAP_SIZE, StatModifiedStatus
-from scripts.scenes.combat.elements.unit import Unit
+from scripts.core.constants import DEFAULT_IMAGE_SIZE, GAP_SIZE
 from scripts.ui_elements.font import Font
 
 if TYPE_CHECKING:
     from typing import List, Tuple, Optional
 
-    from scripts.core.game import Game
-
 
 __all__ = ["Frame"]
+
 
 
 class Frame(UIElement):
@@ -27,7 +25,7 @@ class Frame(UIElement):
         self.text: Optional[str] = str(text_and_font[0])
         self.font: Optional[Font] = text_and_font[1]
 
-        self.rebuild_surface()
+        self._rebuild_surface()
 
     def update(self, delta_time: float):
         pass
@@ -51,7 +49,7 @@ class Frame(UIElement):
         self.size = (width, height)
         self.surface = pygame.Surface(self.size)
 
-    def rebuild_surface(self):
+    def _rebuild_surface(self):
         self._recalculate_size()
 
         surface = self.surface
@@ -76,5 +74,10 @@ class Frame(UIElement):
                 start_x = 0
 
             font.render(text, surface, (start_x, font_height // 2))
+
+    def set_text(self, text: str):
+        self.text = str(text)
+
+        self._rebuild_surface()
 
 
