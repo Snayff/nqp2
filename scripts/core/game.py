@@ -110,6 +110,7 @@ class Game:
             self.active_scene = self.inn
 
         elif scene_type == SceneType.EVENT:
+            self.event.ui.rebuild_ui()
             self.active_scene = self.event
 
         elif scene_type == SceneType.OVERWORLD:
