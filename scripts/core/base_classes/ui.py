@@ -54,7 +54,7 @@ class UI(ABC):
 
 
     def rebuild_ui(self):
-        pass
+        self.elements = {}
 
 
     def refresh_info(self):

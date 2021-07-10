@@ -29,9 +29,12 @@ class Panel:
             element.update(delta_time)
 
     def set_active(self, is_active: bool):
-
         for element in self.elements:
             element.set_active(is_active)
+
+    def set_selectable(self, is_selectable: bool):
+        for element in self.elements:
+            element.is_selectable = is_selectable
 
     def render(self, surface: pygame.surface):
         for element in self.elements:

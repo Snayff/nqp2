@@ -55,8 +55,6 @@ class RunSetupUI(UI):
         elif self.current_panel == self.panels["exit"]:
             self.handle_exit_input()
 
-
-
     def render(self, surface: pygame.surface):
 
         self.draw_instruction(surface)
@@ -64,7 +62,8 @@ class RunSetupUI(UI):
             element.render(surface)
 
     def rebuild_ui(self):
-        self.elements = {}
+        super().rebuild_ui()
+
         commanders = self.game.data.commanders
         selected_commander = self.game.run_setup.selected_commander
         default_font = self.default_font

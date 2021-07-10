@@ -70,7 +70,8 @@ class TrainingUI(UI):
         self.draw_elements(surface)
 
     def rebuild_ui(self):
-        self.elements = {}
+        super().rebuild_ui()
+
         default_font = self.default_font
         scene = self.game.training
 

@@ -120,6 +120,7 @@ class Game:
 
         elif scene_type == SceneType.VIEW_TROUPE:
             self.troupe.previous_scene_type = utility.scene_to_scene_type(self.active_scene)
+            self.troupe.ui.rebuild_ui()
             self.active_scene = self.troupe
 
         elif scene_type == SceneType.REWARD:
