@@ -6,7 +6,9 @@ from typing import TYPE_CHECKING
 import pygame
 
 from scripts.core.base_classes.ui import UI
-from scripts.core.constants import SceneType
+from scripts.core.constants import GAP_SIZE, SceneType
+from scripts.ui_elements.frame import Frame
+from scripts.ui_elements.panel import Panel
 
 if TYPE_CHECKING:
     from scripts.core.game import Game
@@ -27,64 +29,81 @@ class EventUI(UI):
     def update(self, delta_time: float):
         super().update(delta_time)
 
-        options = self.game.event.active_event["options"]
+        # generic input
+        # selection in panel
+        if self.game.input.states["down"]:
+            self.game.input.states["down"] = False
 
-        self.set_selection_dimensions(len(options), 1)
-        self.handle_directional_input_for_selection()
-        self.handle_selected_index_looping()
+            self.current_panel.select_next_element()
 
-        # select option and trigger result
-        if self.game.input.states["select"]:
-            self.game.input.states["select"] = False
+        if self.game.input.states["up"]:
+            self.game.input.states["up"] = False
 
-            logging.info(
-                f"Selected option {self.selected_row},"
-                f" {self.game.event.active_event['options'][self.selected_row]}."
-            )
+            self.current_panel.select_previous_element()
 
-            self.game.event.trigger_result(self.selected_row)
-
-            # return to overworld
-            self.game.change_scene(SceneType.OVERWORLD)
-
+        # view troupe
         if self.game.input.states["view_troupe"]:
             self.game.input.states["view_troupe"] = False
             self.game.change_scene(SceneType.VIEW_TROUPE)
 
+        # panel specific input
+        if self.current_panel == self.panels["options"]:
+            self.handle_options_input()
+
     def render(self, surface: pygame.surface):
-        event = self.game.event.active_event
-        default_font = self.default_font
-
-        # positions
-        option_x = 20
-        option_start_y = self.game.window.height // 2
-        gap = 10
-        font_height = 12  # FIXME - get actual font height
-
-        # draw description
-        default_font.render(event["description"], surface, (10, 0 + 20))
-
-        # draw options
-        count = 0
-        for option in event["options"]:
-
-            # draw option
-            option_y = option_start_y + ((font_height + gap) * count)
-            default_font.render(option["text"], surface, (option_x, option_y))
-
-            # draw selector
-            if count == self.selected_row:
-                pygame.draw.line(
-                    surface,
-                    (255, 255, 255),
-                    (option_x, option_y + font_height),
-                    (option_x + default_font.width(option["text"]), option_y + font_height),
-                )
-
-            count += 1
-
         # show core info
         self.draw_gold(surface)
         self.draw_charisma(surface)
         self.draw_leadership(surface)
         self.draw_instruction(surface)
+
+        # draw elements
+        self.draw_elements(surface)
+
+    def rebuild_ui(self):
+        super().rebuild_ui()
+
+        event = self.game.event.active_event
+        default_font = self.default_font
+
+        # positions
+        start_x = 20
+        start_y = 20
+        font_height = 12  # FIXME - get actual font height
+
+        # draw description
+        current_x = start_x
+        current_y = start_y
+        frame = Frame((current_x, current_y), text_and_font=(event["description"], default_font))
+        self.elements["description"] = frame
+
+        # draw options
+        current_y = self.game.window.height // 2
+        panel_list = []
+        for counter, option in enumerate(event["options"]):
+
+            frame = Frame((current_x, current_y), text_and_font=(option["text"], default_font), is_selectable=True)
+            self.elements[f"option_{counter}"] = frame
+            panel_list.append(frame)
+
+            # increment position
+            current_y += frame.height + GAP_SIZE
+
+        # create panel
+        panel = Panel(panel_list, True)
+        self.add_panel(panel, "options")
+
+    def handle_options_input(self):
+        options = self.game.event.active_event["options"]
+
+        # select option and trigger result
+        if self.game.input.states["select"]:
+            self.game.input.states["select"] = False
+
+            index = self.current_panel.selected_index
+            logging.info(f"Selected option {index}, {self.game.event.active_event['options'][index]}.")
+
+            self.game.event.trigger_result(index)
+
+            # return to overworld
+            self.game.change_scene(SceneType.OVERWORLD)

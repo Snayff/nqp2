@@ -12,8 +12,6 @@
     "weight": 2,
     "gold_cost": 500,
     "default_behaviour": "swarm",
-    "upgrade_cost": 60,
-    "upgrades_to":"zealot",
     "home": "castle",
     "tier": 4
 }

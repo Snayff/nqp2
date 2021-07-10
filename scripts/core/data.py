@@ -38,6 +38,7 @@ class Data:
         self.tiles = self._load_tile_info()
         self.homes: List[str] = self._create_homes_list()
         self.events: Dict[str, Any] = self._load_events()
+        self.upgrades: Dict[str, Any] = self._load_upgrades()
 
         self.config: Dict[str, Any] = self._load_config()
 
@@ -66,7 +67,7 @@ class Data:
     def _load_unit_info() -> Dict:
         units = {}
         for unit in os.listdir("data/units"):
-            f = f = open(str(DATA_PATH / "units" / unit), "r")
+            f = open(str(DATA_PATH / "units" / unit), "r")
             units[unit.split(".")[0]] = json.load(f)
             f.close()
 
@@ -82,6 +83,18 @@ class Data:
                 homes.append(unit["home"])
 
         return homes
+
+    @staticmethod
+    def _load_upgrades() -> Dict:
+        upgrades = {}
+        for upgrade in os.listdir("data/upgrades"):
+            f = open(str(DATA_PATH / "upgrades" / upgrade), "r")
+            upgrades[upgrade.split(".")[0]] = json.load(f)
+            f.close()
+
+        logging.info(f"Data: All upgrade data loaded.")
+
+        return upgrades
 
     @staticmethod
     def _load_events() -> Dict:

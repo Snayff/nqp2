@@ -6,7 +6,9 @@ from typing import TYPE_CHECKING
 import pygame
 
 from scripts.core.base_classes.ui import UI
-from scripts.core.constants import DEFAULT_IMAGE_SIZE, SceneType
+from scripts.core.constants import DEFAULT_IMAGE_SIZE, GAP_SIZE, SceneType
+from scripts.ui_elements.frame import Frame
+from scripts.ui_elements.unit_stats_frame import UnitStatsFrame
 
 if TYPE_CHECKING:
     from scripts.core.game import Game
@@ -27,11 +29,16 @@ class ViewTroupeUI(UI):
     def update(self, delta_time: float):
         super().update(delta_time)
 
-        units = self.game.memory.player_troupe.units
+        # generic input
+        if self.game.input.states["down"]:
+            self.game.input.states["down"] = False
 
-        self.set_selection_dimensions(len(units), 1)
-        self.handle_directional_input_for_selection()
-        self.handle_selected_index_looping()
+            self.current_panel.select_next_element()
+
+        if self.game.input.states["up"]:
+            self.game.input.states["up"] = False
+
+            self.current_panel.select_previous_element()
 
         if self.game.input.states["cancel"]:
             self.game.input.states["cancel"] = False
@@ -40,56 +47,31 @@ class ViewTroupeUI(UI):
             self.game.change_scene(self.game.troupe.previous_scene_type)
 
     def render(self, surface: pygame.surface):
-        units = self.game.memory.player_troupe.units
-        default_font = self.default_font
-
-        # positions
-        start_x = 20
-        start_y = 20
-        unit_width = DEFAULT_IMAGE_SIZE * 2
-        unit_height = DEFAULT_IMAGE_SIZE * 2
-        unit_size = (unit_width, unit_height)
-        section_width = unit_width * 3
-        stat_width = DEFAULT_IMAGE_SIZE
-        stat_height = DEFAULT_IMAGE_SIZE
-        stat_icon_size = (stat_width, stat_height)
-        gap = 2
-        font_height = 12  # FIXME - get actual font height
-
-        # draw options
-        unit_count = 0
-        for unit in units.values():
-
-            # draw icon
-            unit_icon_x = start_x + (unit_width // 2) + (section_width * unit_count)
-            unit_icon_pos = (unit_icon_x, start_y)
-            unit_icon = self.game.assets.unit_animations[unit.type]["icon"][0]
-            surface.blit(unit_icon, unit_icon_pos)
-
-            # draw unit type
-            info_x = start_x + ((section_width * unit_count) + gap)
-            unit_type_y = start_y + unit_height + gap
-            default_font.render(unit.type, surface, (info_x, unit_type_y))
-
-            # draw stats
-            stats = ["health", "attack", "defence", "range", "attack_speed", "move_speed", "ammo", "count", "size"]
-            stat_count = 0
-            for stat in stats:
-                info_y = unit_type_y + font_height + ((stat_height + gap) * stat_count) + gap
-                stat_icon_x = info_x + (stat_width // 2)
-                stat_info_x = stat_icon_x + stat_width + 2
-
-                stat_icon = self.game.assets.get_image("stats", stat, stat_icon_size)
-                surface.blit(stat_icon, (stat_icon_x, info_y))
-                # + half font height to vertical centre it
-                default_font.render(str(getattr(unit, stat)), surface, (stat_info_x, info_y + (font_height // 2)))
-
-                stat_count += 1
-
-            unit_count += 1
-
         # show core info
         self.draw_gold(surface)
         self.draw_charisma(surface)
         self.draw_leadership(surface)
         self.draw_instruction(surface)
+
+        # draw elements
+        self.draw_elements(surface)
+
+    def rebuild_ui(self):
+        super().rebuild_ui()
+
+        units = self.game.memory.player_troupe.units
+
+        # positions
+        start_x = 20
+        start_y = 20
+
+        # draw options
+        current_x = start_x
+        current_y = start_y
+        for count, unit in enumerate(units.values()):
+
+            frame = UnitStatsFrame(self.game, (current_x, current_y), unit, False)
+            self.elements[f"{unit.type}_{count}"] = frame
+            # if we need to refer back to this we will need to change key
+
+            current_x += 70

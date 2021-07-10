@@ -3,12 +3,16 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 
-from scripts.ui_elements.text import Font
-
 if TYPE_CHECKING:
+    from typing import Dict, List, Optional, Type, Union
+
     import pygame
 
     from scripts.core.game import Game
+    from scripts.ui_elements.font import Font
+    from scripts.ui_elements.frame import Frame
+    from scripts.ui_elements.panel import Panel
+    from scripts.ui_elements.unit_stats_frame import UnitStatsFrame
 
 
 __all__ = ["UI"]
@@ -31,10 +35,9 @@ class UI(ABC):
         self.positive_font: Font = self.game.assets.fonts["positive"]
         self.instruction_font: Font = self.game.assets.fonts["instruction"]
 
-        self.selected_row: int = 0
-        self.selected_col: int = 0
-        self.max_rows: int = 0
-        self.max_cols: int = 0
+        self.elements: Dict[str, Union[Frame, UnitStatsFrame]] = {}
+        self.panels: Dict[str, Panel] = {}
+        self.current_panel: Optional[Panel] = None
 
         self.temporary_instruction_text: str = ""
         self.temporary_instruction_timer: float = 0.0
@@ -50,17 +53,12 @@ class UI(ABC):
     def render(self, surface: pygame.surface):
         pass
 
-    def set_selection_dimensions(self, max_rows: int, max_cols: int):
-        self.max_rows = max_rows
-        self.max_cols = max_cols
+    def rebuild_ui(self):
+        self.elements = {}
+        self.panels = {}
 
-        # ensure we're on a valid column
-        if self.selected_col >= max_cols:
-            self.selected_col = max_cols
-
-        # ensure we're on a valid row
-        if self.selected_row >= max_rows:
-            self.selected_row = max_rows
+    def refresh_info(self):
+        pass
 
     def set_instruction_text(self, text: str, temporary: bool = False):
         if temporary:
@@ -68,42 +66,6 @@ class UI(ABC):
             self.temporary_instruction_timer = 2
         else:
             self.instruction_text = text
-
-    def handle_selected_index_looping(self):
-        """
-        Manage the looping of the selection index
-        """
-        # row
-        if self.selected_row < 0:
-            self.selected_row = self.max_rows - 1
-        elif self.selected_row >= self.max_rows:
-            self.selected_row = 0
-
-        # col
-        if self.selected_col < 0:
-            self.selected_col = self.max_cols - 1
-        elif self.selected_col >= self.max_cols:
-            self.selected_col = 0
-
-    def handle_directional_input_for_selection(self):
-        """
-        Handle amending the selected row and column with input
-        """
-        if self.game.input.states["up"]:
-            self.game.input.states["up"] = False
-            self.selected_row -= 1
-
-        if self.game.input.states["down"]:
-            self.game.input.states["down"] = False
-            self.selected_row += 1
-
-        if self.game.input.states["left"]:
-            self.game.input.states["left"] = False
-            self.selected_col -= 1
-
-        if self.game.input.states["right"]:
-            self.game.input.states["right"] = False
-            self.selected_col += 1
 
     def draw_gold(self, surface: pygame.surface):
         self.disabled_font.render(f"Gold: {self.game.memory.gold}", surface, (2, 2))
@@ -125,3 +87,18 @@ class UI(ABC):
         x = self.game.window.width - font.width(text) - 2
         y = 2
         font.render(text, surface, (x, y))
+
+    def draw_elements(self, surface: pygame.surface):
+        for element in self.elements.values():
+            element.render(surface)
+
+    def add_panel(self, panel: Panel, name: str):
+        """
+        Adds panel to the panel dict. If it is the first panel then also sets it to the current panel and selects the
+         first element.
+        """
+        self.panels[name] = panel
+
+        if len(self.panels) == 1:
+            self.current_panel = self.panels[name]
+            self.current_panel.select_first_element()

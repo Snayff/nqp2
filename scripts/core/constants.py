@@ -18,11 +18,15 @@ PROFILING_PATH = DEBUGGING_PATH / "profiling"
 
 # sizes
 DEFAULT_IMAGE_SIZE = 16
+GAP_SIZE = 10
 
 # algorithm/formula constants
 WEIGHT_SCALE = 5
 DEFENSE_SCALE = 10
 PUSH_FORCE = 14
+
+UPGRADE_TIER_MULTIPLIER = 1.2
+UPGRADE_COST = 25
 
 
 # states
@@ -42,6 +46,11 @@ class CombatState(IntEnum):
 class MapState(IntEnum):
     LOADING = auto()
     READY = auto()
+
+
+class TrainingState(IntEnum):
+    CHOOSE_UPGRADE = auto()
+    CHOOSE_TARGET_UNIT = auto()
 
 
 class NodeState(IntEnum):
@@ -77,3 +86,10 @@ class RewardType(IntEnum):
     ACTION = auto()
     UPGRADE = auto()
     RESOURCE = auto()
+
+
+class StatModifiedStatus(IntEnum):
+    NONE = auto()
+    POSITIVE = auto()
+    NEGATIVE = auto()
+    POSITIVE_AND_NEGATIVE = auto()

@@ -9,7 +9,7 @@ from typing import TYPE_CHECKING
 import pygame
 
 from scripts.core.constants import ASSET_PATH, DEFAULT_IMAGE_SIZE
-from scripts.ui_elements.text import Font
+from scripts.ui_elements.font import Font
 
 if TYPE_CHECKING:
     from typing import Dict, Tuple

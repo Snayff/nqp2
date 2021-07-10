@@ -1,5 +1,5 @@
 {
-    "name": "isla",
+    "type": "isla",
     "backstory": "Overthrowing the patriarchy is her only desire.",
     "charisma": 7,
     "leadership": 6,
@@ -7,5 +7,5 @@
         "castle",
         "dungeon"
     ],
-    "starting_gold": 100
+    "starting_gold": 1000
 }

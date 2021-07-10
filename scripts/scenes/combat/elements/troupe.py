@@ -75,15 +75,11 @@ class Troupe:
 
     def remove_unit(self, id_: int):
         try:
-            print(f"_units (pre-pop): {self._units}")
             unit = self._units.pop(id_)
-            print(f"_units (post-pop): {self._units}")
-
-            print(f"_unit_ids (pre-pop): {self._unit_ids}")
             self._unit_ids.remove(id_)
-            print(f"_unit_ids (post-pop): {self._unit_ids}")
 
             logging.info(f"Unit {unit.type}({unit.id}) removed from {unit.team}'s troupe.")
+
         except KeyError:
             logging.warning(f"remove_unit: {id_} not found in {self.units}. No unit removed.")
 
@@ -97,11 +93,15 @@ class Troupe:
         logging.info(f"All units removed from {self.team}'s troupe.")
 
     def generate_units(
-        self, number_of_units: int, tiers_allowed: List[int] = None, unit_types: List[str] = None
+        self,
+        number_of_units: int,
+        tiers_allowed: List[int] = None,
+        unit_types: List[str] = None,
+        duplicates: bool = False,
     ) -> List[int]:
         """
         Generate units for the Troupe, based on parameters given. If no unit types are given then any unit type can
-        be chosen from home and ally. Returns list of created ids.
+        be chosen from any ally. Returns list of created ids.
 
         unit_types is expressed as [unit.type, ...]
         """
@@ -118,7 +118,21 @@ class Troupe:
                 unit_occur_rate.append(occur_rate)
 
             # choose units
-            chosen_types = self.game.rng.choices(unit_types_, unit_occur_rate, k=number_of_units)
+            if duplicates:
+                chosen_types = self.game.rng.choices(unit_types_, unit_occur_rate, k=number_of_units)
+
+            else:
+                chosen_types = []
+
+                for i in range(number_of_units):
+                    # choose unit
+                    unit = self.game.rng.choices(unit_types_, unit_occur_rate)[0]
+                    chosen_types.append(unit)
+
+                    # remove unit and occur rate from option pool
+                    unit_index = unit_types_.index(unit)
+                    unit_types_.remove(unit)
+                    del unit_occur_rate[unit_index]
 
             # identify which are upgrades
             for chosen_type in chosen_types:
@@ -132,25 +146,16 @@ class Troupe:
 
         return ids
 
-    def upgrade_unit(self, id_: int):
+    def upgrade_unit(self, id_: int, upgrade_type: str):
         """
-        Upgrade a unit, if it has an upgrade.
+        Upgrade a unit with a given upgrade.
         """
         # get unit
         unit = self.units[id_]
 
-        # confirm there is an upgrade
-        if not unit.upgrades_to:
-            logging.warning(f"Tried to upgrade {unit.type} but it cannot be upgraded further.")
-            return
+        try:
+            data = self.game.data.upgrades[upgrade_type]
+            unit.add_modifier(data["stat"], data["mod_amount"])
 
-        # create upgraded unit. Not using add methods so that we can set position
-        new_id = self.game.memory.generate_id()
-        upgraded_unit = Unit(self.game, new_id, unit.upgrades_to, self.team)
-        self._units[new_id] = upgraded_unit
-
-        # insert after the existing unit
-        self._unit_ids.insert(self._unit_ids.index(id_) + 1, new_id)
-
-        # remove non upgraded unit
-        self.remove_unit(id_)
+        except KeyError:
+            logging.warning(f"Tried to upgrade {unit.id} with {upgrade_type} but upgrade not found. No action taken.")

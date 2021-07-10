@@ -12,8 +12,6 @@
     "weight": 3,
     "gold_cost": 25,
     "default_behaviour": "swarm",
-    "upgrade_cost": 10,
-    "upgrades_to":"pikeman",
     "home": "castle",
     "tier": 1
 }

@@ -16,6 +16,10 @@ if TYPE_CHECKING:
 __all__ = ["OverworldUI"]
 
 
+############# TO DO LIST ##################
+# FIXME - update to align to selection approach of UI
+
+
 class OverworldUI(UI):
     """
     Represents the overworld UI.
@@ -30,8 +34,6 @@ class OverworldUI(UI):
 
     def update(self, delta_time: float):
         super().update(delta_time)
-
-        # FIXME - update to align to selection approach of UI
 
         if self.game.overworld.map.state == MapState.READY:
             row_nodes = self.game.overworld.map.nodes[self.game.overworld.map.active_row]

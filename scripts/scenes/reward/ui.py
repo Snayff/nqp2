@@ -6,13 +6,17 @@ from typing import Optional, TYPE_CHECKING
 import pygame
 
 from scripts.core.base_classes.ui import UI
-from scripts.core.constants import DEFAULT_IMAGE_SIZE, RewardType, SceneType
+from scripts.core.constants import DEFAULT_IMAGE_SIZE, GAP_SIZE, RewardType, SceneType
 from scripts.scenes.combat.elements.unit import Unit
 
 if TYPE_CHECKING:
     from scripts.core.game import Game
 
 __all__ = ["RewardUI"]
+
+
+################ TO DO LIST ##################
+# FIXME - bring in line with ui approach
 
 
 class RewardUI(UI):
@@ -43,9 +47,9 @@ class RewardUI(UI):
             # reward_type == RewardType.RESOURCE
             index_size = 0
 
-        self.set_selection_dimensions(index_size, 1)
+        self.set_element_array_dimensions(1, index_size)
         self.handle_directional_input_for_selection()
-        self.handle_selected_index_looping()
+        self.handle_selector_index_looping()
 
         # select option and trigger result
         if self.game.input.states["select"]:
@@ -99,7 +103,6 @@ class RewardUI(UI):
         # positions
         start_x = 20
         start_y = 60
-        gap = 10
         font_height = 12
         window_width = self.game.window.width
         window_height = self.game.window.height
@@ -131,7 +134,7 @@ class RewardUI(UI):
         for unit in reward_units:
             active_font = default_font
 
-            option_y = current_y + ((font_height + gap) * (row_count + 1))  # + 1 due to headers
+            option_y = current_y + ((font_height + GAP_SIZE) * (row_count + 1))  # + 1 due to headers
 
             # draw stats
             col_count = 0

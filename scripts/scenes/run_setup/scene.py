@@ -57,8 +57,8 @@ class RunSetupScene(Scene):
         # register commander values
         commander = self.game.data.commanders[self.selected_commander]
         self.game.memory.player_troupe.allies = commander["allies"]
-        self.game.memory.commander = Commander(self.game, commander["name"])
-        self.game.memory.game = commander["starting_gold"]
+        self.game.memory.commander = Commander(self.game, commander["type"])
+        self.game.memory.amend_gold(commander["starting_gold"])
 
         logging.info(f"Player chose {self.selected_commander} as their commander.")
 
@@ -67,7 +67,7 @@ class RunSetupScene(Scene):
         if self.game.debug.debug_mode:
             player_troupe.debug_init_units()
         else:
-            player_troupe.generate_units(3, [1])
+            player_troupe.generate_units(3, [1], duplicates=True)
 
         logging.info(f"Run starting now!")
 

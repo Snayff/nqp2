@@ -3,7 +3,7 @@ from __future__ import annotations
 import logging
 import time
 
-import pygame
+import pygame as pygame
 
 from scripts.core import debug, utility
 from scripts.core.assets import Assets
@@ -62,6 +62,7 @@ class Game:
 
         # point this to whatever scene is active
         self.active_scene = self.run_setup
+        self.run_setup.ui.rebuild_ui()
 
         self.state: GameState = GameState.PLAYING
 
@@ -101,13 +102,16 @@ class Game:
             self.active_scene = self.combat
 
         elif scene_type == SceneType.TRAINING:
+            self.training.ui.rebuild_ui()
             self.active_scene = self.training
 
         elif scene_type == SceneType.INN:
             self.inn.generate_sale_options()
+            self.inn.ui.rebuild_ui()
             self.active_scene = self.inn
 
         elif scene_type == SceneType.EVENT:
+            self.event.ui.rebuild_ui()
             self.active_scene = self.event
 
         elif scene_type == SceneType.OVERWORLD:
@@ -119,6 +123,7 @@ class Game:
 
         elif scene_type == SceneType.VIEW_TROUPE:
             self.troupe.previous_scene_type = utility.scene_to_scene_type(self.active_scene)
+            self.troupe.ui.rebuild_ui()
             self.active_scene = self.troupe
 
         elif scene_type == SceneType.REWARD:
