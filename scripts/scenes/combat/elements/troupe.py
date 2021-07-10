@@ -92,8 +92,13 @@ class Troupe:
 
         logging.info(f"All units removed from {self.team}'s troupe.")
 
-    def generate_units(self, number_of_units: int, tiers_allowed: List[int] = None, unit_types: List[str] = None,
-            duplicates: bool = False) -> List[int]:
+    def generate_units(
+        self,
+        number_of_units: int,
+        tiers_allowed: List[int] = None,
+        unit_types: List[str] = None,
+        duplicates: bool = False,
+    ) -> List[int]:
         """
         Generate units for the Troupe, based on parameters given. If no unit types are given then any unit type can
         be chosen from any ally. Returns list of created ids.
@@ -154,4 +159,3 @@ class Troupe:
 
         except KeyError:
             logging.warning(f"Tried to upgrade {unit.id} with {upgrade_type} but upgrade not found. No action taken.")
-

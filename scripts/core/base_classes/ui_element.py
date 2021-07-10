@@ -7,6 +7,7 @@ import pygame
 
 if TYPE_CHECKING:
     from typing import Tuple
+
     from scripts.core.game import Game
 
 __all__ = ["UIElement"]

@@ -101,12 +101,9 @@ class EventUI(UI):
             self.game.input.states["select"] = False
 
             index = self.current_panel.selected_index
-            logging.info(
-                f"Selected option {index}, {self.game.event.active_event['options'][index]}."
-            )
+            logging.info(f"Selected option {index}, {self.game.event.active_event['options'][index]}.")
 
             self.game.event.trigger_result(index)
 
             # return to overworld
             self.game.change_scene(SceneType.OVERWORLD)
-

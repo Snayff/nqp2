@@ -12,7 +12,8 @@ from scripts.ui_elements.panel import Panel
 from scripts.ui_elements.unit_stats_frame import UnitStatsFrame
 
 if TYPE_CHECKING:
-    from typing import List, Tuple, Dict
+    from typing import Dict, List, Tuple
+
     from scripts.core.game import Game
 
 __all__ = ["TrainingUI"]
@@ -95,8 +96,8 @@ class TrainingUI(UI):
                 (current_x, current_y),
                 image=stat_icon,
                 text_and_font=(f"{upgrade['stat']} +{upgrade['mod_amount']}", default_font),
-                is_selectable=True
-                )
+                is_selectable=True,
+            )
             # capture frame
             self.elements[upgrade["type"] + str(selection_counter)] = frame
             panel_list.append(frame)
@@ -123,7 +124,7 @@ class TrainingUI(UI):
                 (current_x, current_y),
                 image=unit_icon,
                 text_and_font=(f"{unit.type}", default_font),
-                is_selectable=True
+                is_selectable=True,
             )
 
             # register frame
@@ -152,10 +153,7 @@ class TrainingUI(UI):
         confirm_width = self.default_font.width(confirm_text)
         current_x = window_width - (confirm_width + GAP_SIZE)
         current_y = window_height - (font_height + GAP_SIZE)
-        frame = Frame(
-            (current_x, current_y),
-            text_and_font=(confirm_text, default_font)
-        )
+        frame = Frame((current_x, current_y), text_and_font=(confirm_text, default_font))
         self.elements["exit"] = frame
 
         panel = Panel([frame], True)
@@ -238,10 +236,9 @@ class TrainingUI(UI):
 
                 else:
                     upgrade_cost = self.game.training.calculate_upgrade_cost(upgrade["tier"])
-                    self.set_instruction_text(f"You can't afford the {upgrade_cost} gold to purchase "
-                                              f"  {upgrade['type']}.",
-                                              True
-                                              )
+                    self.set_instruction_text(
+                        f"You can't afford the {upgrade_cost} gold to purchase " f"  {upgrade['type']}.", True
+                    )
 
         # return to upgrade select
         if self.game.input.states["cancel"]:
@@ -300,6 +297,4 @@ class TrainingUI(UI):
         else:
             success = False
 
-
         return success
-

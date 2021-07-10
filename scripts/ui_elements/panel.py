@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 import pygame
 
 if TYPE_CHECKING:
-    from typing import List, Tuple, Optional
+    from typing import List, Optional, Tuple
 
 __all__ = ["Panel"]
 
@@ -15,6 +15,7 @@ class Panel:
     """
     A container class for ui elements. Offers better support for selection management.
     """
+
     def __init__(self, elements: List, is_active: bool = False):
 
         self.elements: List = elements
@@ -22,7 +23,6 @@ class Panel:
         self.is_active: bool = is_active
 
         self.set_active(is_active)
-
 
     def update(self, delta_time: float):
         for element in self.elements:
@@ -99,4 +99,3 @@ class Panel:
                     logging.debug(f"Panel: Looped all the way back to the starting index. No others selectable.")
 
                 break
-

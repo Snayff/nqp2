@@ -4,13 +4,14 @@ from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from typing import Dict, List, Optional, Type, Union
+
     import pygame
 
     from scripts.core.game import Game
-    from typing import List, Optional, Dict, Type, Union
-    from scripts.ui_elements.panel import Panel
     from scripts.ui_elements.font import Font
     from scripts.ui_elements.frame import Frame
+    from scripts.ui_elements.panel import Panel
     from scripts.ui_elements.unit_stats_frame import UnitStatsFrame
 
 
@@ -52,11 +53,9 @@ class UI(ABC):
     def render(self, surface: pygame.surface):
         pass
 
-
     def rebuild_ui(self):
         self.elements = {}
         self.panels = {}
-
 
     def refresh_info(self):
         pass

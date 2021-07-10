@@ -9,7 +9,7 @@ from scripts.core.utility import itr
 from scripts.scenes.combat.elements.entity import Entity
 
 if TYPE_CHECKING:
-    from typing import List, Dict, Tuple
+    from typing import Dict, List, Tuple
 
     from scripts.core.game import Game
 

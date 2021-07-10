@@ -75,4 +75,3 @@ class ViewTroupeUI(UI):
             # if we need to refer back to this we will need to change key
 
             current_x += 70
-

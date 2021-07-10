@@ -82,12 +82,7 @@ class RunSetupUI(UI):
             icon = self.game.assets.commander_animations[commander["type"]]["icon"][0]
             icon_width = icon.get_width()
             icon_height = icon.get_height()
-            frame = Frame(
-
-                (current_x, current_y),
-                icon,
-                is_selectable=True
-            )
+            frame = Frame((current_x, current_y), icon, is_selectable=True)
             self.elements[commander["type"]] = frame
 
             # highlight selected commander
@@ -110,57 +105,36 @@ class RunSetupUI(UI):
         row_counter = 1
 
         # name
-        frame = Frame(
-            (header_x, current_y),
-            text_and_font=("Name", default_font)
-        )
+        frame = Frame((header_x, current_y), text_and_font=("Name", default_font))
         self.elements["name"] = frame
 
-        frame = Frame(
-            (info_x, current_y),
-            text_and_font=(commander["type"], default_font)
-        )
+        frame = Frame((info_x, current_y), text_and_font=(commander["type"], default_font))
         self.elements["type"] = frame
 
         current_y += font_height + GAP_SIZE
         row_counter += 1
 
         # backstory - N.B. no header and needs wider frame
-        frame = Frame(
-            (header_x, current_y),
-            text_and_font=(commander["backstory"], default_font)
-        )
+        frame = Frame((header_x, current_y), text_and_font=(commander["backstory"], default_font))
         self.elements["backstory"] = frame
 
         current_y += font_height + GAP_SIZE
         row_counter += 1
 
         # limits
-        frame = Frame(
-            (header_x, current_y),
-            text_and_font=("Charisma", default_font)
-        )
+        frame = Frame((header_x, current_y), text_and_font=("Charisma", default_font))
         self.elements["charisma_header"] = frame
 
-        frame = Frame(
-            (info_x, current_y),
-            text_and_font=(commander["charisma"], default_font)
-        )
+        frame = Frame((info_x, current_y), text_and_font=(commander["charisma"], default_font))
         self.elements["charisma"] = frame
 
         current_y += font_height
         row_counter += 1
 
-        frame = Frame(
-            (header_x, current_y),
-            text_and_font=("Leadership", default_font)
-        )
+        frame = Frame((header_x, current_y), text_and_font=("Leadership", default_font))
         self.elements["leadership_header"] = frame
 
-        frame = Frame(
-            (info_x, current_y),
-            text_and_font=(commander["leadership"], default_font)
-        )
+        frame = Frame((info_x, current_y), text_and_font=(commander["leadership"], default_font))
         self.elements["leadership"] = frame
 
         current_y += font_height + GAP_SIZE
@@ -174,32 +148,20 @@ class RunSetupUI(UI):
                 allies += ally
             else:
                 allies += ", " + ally
-        frame = Frame(
-            (header_x, current_y),
-            text_and_font=("Allies", default_font)
-        )
+        frame = Frame((header_x, current_y), text_and_font=("Allies", default_font))
         self.elements["allies_header"] = frame
 
-        frame = Frame(
-            (info_x, current_y),
-            text_and_font=(allies, default_font)
-        )
+        frame = Frame((info_x, current_y), text_and_font=(allies, default_font))
         self.elements["allies"] = frame
 
         current_y += font_height + GAP_SIZE
         row_counter += 1
 
         # gold
-        frame = Frame(
-            (header_x, current_y),
-            text_and_font=("Gold", default_font)
-        )
+        frame = Frame((header_x, current_y), text_and_font=("Gold", default_font))
         self.elements["gold_header"] = frame
 
-        frame = Frame(
-            (info_x, current_y),
-            text_and_font=(commander["starting_gold"], default_font)
-        )
+        frame = Frame((info_x, current_y), text_and_font=(commander["starting_gold"], default_font))
         self.elements["gold"] = frame
 
         row_counter += 1
@@ -209,11 +171,7 @@ class RunSetupUI(UI):
         confirm_width = self.default_font.width(confirm_text)
         current_x = window_width - (confirm_width + GAP_SIZE)
         current_y = window_height - (font_height + GAP_SIZE)
-        frame = Frame(
-            (current_x, current_y),
-            text_and_font=(confirm_text, default_font),
-            is_selectable=True
-        )
+        frame = Frame((current_x, current_y), text_and_font=(confirm_text, default_font), is_selectable=True)
         self.elements["exit"] = frame
         panel_elements.append(frame)
         panel = Panel(panel_elements, True)
@@ -228,7 +186,6 @@ class RunSetupUI(UI):
         elements["charisma"].set_text(commander["charisma"])
         elements["backstory"].set_text(commander["backstory"])
         elements["name"].set_text(commander["type"])
-
 
         allies = ""
         for ally in commander["allies"]:
@@ -265,4 +222,3 @@ class RunSetupUI(UI):
 
             # change to commanders
             self.current_panel = self.panels["commanders"]
-

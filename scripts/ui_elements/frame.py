@@ -9,16 +9,20 @@ from scripts.core.constants import DEFAULT_IMAGE_SIZE, GAP_SIZE
 from scripts.ui_elements.font import Font
 
 if TYPE_CHECKING:
-    from typing import List, Tuple, Optional
+    from typing import List, Optional, Tuple
 
 
 __all__ = ["Frame"]
 
 
-
 class Frame(UIElement):
-    def __init__(self, pos: Tuple[int, int], image: Optional[pygame.surface] = None,
-            text_and_font: Optional[Tuple[str, Font]] = (None, None), is_selectable: bool = False):
+    def __init__(
+        self,
+        pos: Tuple[int, int],
+        image: Optional[pygame.surface] = None,
+        text_and_font: Optional[Tuple[str, Font]] = (None, None),
+        is_selectable: bool = False,
+    ):
         super().__init__(pos, is_selectable)
 
         self.image: Optional[pygame.surface] = image
@@ -44,7 +48,6 @@ class Frame(UIElement):
             # N.B. doesnt amend height as is drawn next to image
             if height == 0:
                 height += 12  # FIXME - get font height
-
 
         self.size = (width, height)
         self.surface = pygame.Surface(self.size)
@@ -79,5 +82,3 @@ class Frame(UIElement):
         self.text = str(text)
 
         self._rebuild_surface()
-
-

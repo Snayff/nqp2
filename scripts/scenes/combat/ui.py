@@ -152,7 +152,6 @@ class CombatUI(UI):
             self.game.input.states["view_troupe"] = False
             self.game.change_scene(SceneType.VIEW_TROUPE)
 
-
     def render(self, surface: pygame.Surface):
 
         self.draw_instruction(surface)
@@ -160,8 +159,7 @@ class CombatUI(UI):
 
         # draw selector
         if self.game.combat.state in [CombatState.UNIT_SELECT_TARGET, CombatState.ACTION_SELECT_TARGET_FREE]:
-            pygame.draw.circle(surface, (255, 255, 255),
-                               self.game.combat.camera.render_offset(self.place_target), 8, 1)
+            pygame.draw.circle(surface, (255, 255, 255), self.game.combat.camera.render_offset(self.place_target), 8, 1)
 
         cards = self.game.combat.hand.cards
 
@@ -194,4 +192,3 @@ class CombatUI(UI):
         elif self.game.combat.state == CombatState.WATCH:
             status = "press X to use an action"
         self.set_instruction_text(status)
-
