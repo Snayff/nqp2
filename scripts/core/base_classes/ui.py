@@ -55,6 +55,7 @@ class UI(ABC):
 
     def rebuild_ui(self):
         self.elements = {}
+        self.panels = {}
 
 
     def refresh_info(self):
@@ -92,3 +93,13 @@ class UI(ABC):
         for element in self.elements.values():
             element.render(surface)
 
+    def add_panel(self, panel: Panel, name: str):
+        """
+        Adds panel to the panel dict. If it is the first panel then also sets it to the current panel and selects the
+         first element.
+        """
+        self.panels[name] = panel
+
+        if len(self.panels) == 1:
+            self.current_panel = self.panels[name]
+            self.current_panel.select_first_element()

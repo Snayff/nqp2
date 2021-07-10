@@ -15,6 +15,9 @@ if TYPE_CHECKING:
 __all__ = ["RewardUI"]
 
 
+################ TO DO LIST ##################
+# FIXME - bring in line with ui approach
+
 class RewardUI(UI):
     """
     Represent the UI of the RewardScene.

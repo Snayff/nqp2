@@ -111,8 +111,8 @@ class TrainingUI(UI):
             # increment
             current_y += icon_height + GAP_SIZE
 
-        self.panels["upgrades"] = Panel(panel_list, True)
-        self.current_panel = self.panels["upgrades"]
+        panel = Panel(panel_list, True)
+        self.add_panel(panel, "upgrades")
 
         # draw unit selection
         col_number += 1
@@ -143,7 +143,8 @@ class TrainingUI(UI):
             # increment
             current_y += icon_height + GAP_SIZE
 
-        self.panels["units"] = Panel(panel_list, False)
+        panel = Panel(panel_list, False)
+        self.add_panel(panel, "units")
 
         # draw stat frame
         col_number += 1
@@ -162,6 +163,9 @@ class TrainingUI(UI):
             text_and_font=(confirm_text, default_font)
         )
         self.elements["exit"] = frame
+
+        panel = Panel([frame], True)
+        self.add_panel(panel, "exit")
 
     def refresh_info(self):
         elements = self.elements

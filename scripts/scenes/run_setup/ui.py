@@ -100,8 +100,8 @@ class RunSetupUI(UI):
             # increment draw pos and counter
             current_x += icon_width + GAP_SIZE
 
-        self.panels["commanders"] = Panel(panel_elements, True)
-        self.current_panel = self.panels["commanders"]
+        panel = Panel(panel_elements, True)
+        self.add_panel(panel, "commanders")
 
         # draw info
         commander = commanders[selected_commander]
@@ -217,7 +217,8 @@ class RunSetupUI(UI):
         )
         self.elements["exit"] = frame
         panel_elements.append(frame)
-        self.panels["exit"] = Panel(panel_elements, True)
+        panel = Panel(panel_elements, True)
+        self.add_panel(panel, "exit")
 
     def refresh_info(self):
         elements = self.elements

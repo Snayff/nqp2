@@ -106,6 +106,7 @@ class Game:
 
         elif scene_type == SceneType.INN:
             self.inn.generate_sale_options()
+            self.inn.ui.rebuild_ui()
             self.active_scene = self.inn
 
         elif scene_type == SceneType.EVENT:
