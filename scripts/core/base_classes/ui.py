@@ -1,16 +1,17 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from typing import TYPE_CHECKING, Type
-
-from scripts.core.base_classes.ui_element import UIElement
-from scripts.ui_elements.font import Font
+from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     import pygame
 
     from scripts.core.game import Game
-    from typing import List, Optional
+    from typing import List, Optional, Dict, Type, Union
+    from scripts.ui_elements.panel import Panel
+    from scripts.ui_elements.font import Font
+    from scripts.ui_elements.frame import Frame
+    from scripts.ui_elements.unit_stats_frame import UnitStatsFrame
 
 
 __all__ = ["UI"]
@@ -33,12 +34,9 @@ class UI(ABC):
         self.positive_font: Font = self.game.assets.fonts["positive"]
         self.instruction_font: Font = self.game.assets.fonts["instruction"]
 
-        self.selected_row: int = 0
-        self.selected_col: int = 0
-        self.element_array: List[List] = []
-
-        self.max_rows: int = 0
-        self.max_cols: int = 0
+        self.elements: Dict[str, Union[Frame, UnitStatsFrame]] = {}
+        self.panels: Dict[str, Panel] = {}
+        self.current_panel: Optional[Panel] = None
 
         self.temporary_instruction_text: str = ""
         self.temporary_instruction_timer: float = 0.0
@@ -54,37 +52,13 @@ class UI(ABC):
     def render(self, surface: pygame.surface):
         pass
 
-    @property
-    def last_row(self) -> int:
-        """
-        Returns last row in current column.
-        """
-        last_row_ = 0
-        try:
-            for count, val in enumerate(self.element_array[self.selected_col]):
-                if val is not None:
-                    if val.is_selectable:
-                        last_row_ = count
-        except IndexError:
-            pass
 
-        return last_row_
+    def rebuild_ui(self):
+        pass
 
-    @property
-    def last_col(self) -> int:
-        """
-        Returns last column in current row.
-        """
-        last_col_ = 0
-        try:
-            for count, val in enumerate(self.element_array):
-                if val[self.selected_row] is not None:
-                    if val[self.selected_row].is_selectable:
-                        last_col_ = count
-        except IndexError:
-            pass
 
-        return last_col_
+    def refresh_info(self):
+        pass
 
     def set_instruction_text(self, text: str, temporary: bool = False):
         if temporary:
@@ -92,27 +66,6 @@ class UI(ABC):
             self.temporary_instruction_timer = 2
         else:
             self.instruction_text = text
-
-    def handle_directional_input_for_selection(self):
-        """
-        Handle amending the selected row and column with input
-        """
-
-        if self.game.input.states["up"]:
-            self.game.input.states["up"] = False
-            self.decrement_selected_row()
-
-        if self.game.input.states["down"]:
-            self.game.input.states["down"] = False
-            self.increment_selected_row()
-
-        if self.game.input.states["left"]:
-            self.game.input.states["left"] = False
-            self.decrement_selected_col()
-
-        if self.game.input.states["right"]:
-            self.game.input.states["right"] = False
-            self.increment_selected_col()
 
     def draw_gold(self, surface: pygame.surface):
         self.disabled_font.render(f"Gold: {self.game.memory.gold}", surface, (2, 2))
@@ -135,177 +88,7 @@ class UI(ABC):
         y = 2
         font.render(text, surface, (x, y))
 
-    def draw_element_array(self, surface: pygame.surface):
-        for col in self.element_array:
-            for element in col:
-                if element is not None:
-                    element.render(surface)
-
-    def rebuild_element_array(self, max_cols: int, max_rows: int):
-        """
-        Rebuild the element array.
-        """
-        self.element_array = []
-
-        self.max_cols = max_cols
-        self.max_rows = max_rows
-        width = self.max_cols
-        height = self.max_rows
-
-        for x in range(width):
-            self.element_array.append([])  # create new list for every col
-            for y in range(height):
-                self.element_array[x].append(None)
-
-
-    # def add_element_to_array(self, col: int, row: int, element):
-    #     # do we need a new col?
-    #     if len(self.element_array) < col:
-    #         self.element_array.append([])
-    #
-    #     if len(self.element_array[col]) < row
-
-    def decrement_selected_row(self):
-        found = False
-        count = 0
-
-        # find next selectable element
-        for count in range(self.selected_row - 1, -1, -1):
-            element = self.element_array[self.selected_col][count]
-            if element is not None:
-                if element.is_selectable:
-                    element.is_selected = True
-                    found = True
-                    break
-
-        if not found:
-            # find next selectable element, after looping
-            for count in range(self.last_row + 1, -1, -1):
-                element = self.element_array[self.selected_col][count]
-                if element is not None:
-                    if element.is_selectable:
-                        element.is_selected = True
-                        found = True
-                        break
-
-        if found:
-            # unselect current
-            try:
-                self.element_array[self.selected_col][self.selected_row].is_selected = False
-            except AttributeError:
-                # in case element no longer exists
-                pass
-
-            # set new
-            self.selected_row = count
-        else:
-            self.selected_row = self.last_row
-
-    def increment_selected_row(self):
-        found = False
-        count = 0
-
-        # find next selectable element
-        for count in range(self.selected_row + 1, self.last_row + 1):
-            element = self.element_array[self.selected_col][count]
-            if element is not None:
-                if element.is_selectable:
-                    element.is_selected = True
-                    found = True
-                    break
-
-        if not found:
-            # find next selectable element, after looping
-            for count in range(0, self.last_row + 1):
-                element = self.element_array[self.selected_col][count]
-                if element is not None:
-                    if element.is_selectable:
-                        element.is_selected = True
-                        found = True
-                        break
-
-        if found:
-            # unselect current
-            try:
-                self.element_array[self.selected_col][self.selected_row].is_selected = False
-            except AttributeError:
-                # in case element no longer exists
-                pass
-
-            # set new
-            self.selected_row = count
-        else:
-            self.selected_row = self.last_row + 1  # to force being set to first in list
-
-    def decrement_selected_col(self):
-        found = False
-        count = 0
-
-        # find next selectable element
-        for count in range(self.selected_col - 1, -1, -1):
-            element = self.element_array[count][self.selected_row]
-            if element is not None:
-                if element.is_selectable:
-                    element.is_selected = True
-                    found = True
-                    break
-
-        if not found:
-            # find next selectable element, after looping
-            for count in range(self.last_col + 1, -1, -1):
-                element = self.element_array[count][self.selected_row]
-                if element is not None:
-                    if element.is_selectable:
-                        element.is_selected = True
-                        found = True
-                        break
-
-        if found:
-            try:
-                # unselect current
-                self.element_array[self.selected_col][self.selected_row].is_selected = False
-            except AttributeError:
-                # in case element no longer exists
-                pass
-
-            # set new
-            self.selected_col = count
-        else:
-            self.selected_col = self.last_col
-
-    def increment_selected_col(self):
-        found = False
-        count = 0
-
-        # find next selectable element
-        for count in range(self.selected_col + 1, self.last_col + 1):
-            element = self.element_array[count][self.selected_row]
-            if element is not None:
-                if element.is_selectable:
-                    element.is_selected = True
-                    found = True
-                    break
-
-        if not found:
-            # find next selectable element, after looping
-            for count in range(0, self.last_col + 1):
-                element = self.element_array[count][self.selected_row]
-                if element is not None:
-                    if element.is_selectable:
-                        element.is_selected = True
-                        found = True
-                        break
-
-        if found:
-            try:
-                # unselect current
-                self.element_array[self.selected_col][self.selected_row].is_selected = False
-            except AttributeError:
-                # in case element no longer exists
-                pass
-
-            # set new
-            self.selected_col = count
-        else:
-            self.selected_col = self.last_col + 1  # to force being set to first in list
+    def draw_elements(self, surface: pygame.surface):
+        for element in self.elements.values():
+            element.render(surface)
 

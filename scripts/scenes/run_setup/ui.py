@@ -24,18 +24,13 @@ class RunSetupUI(UI):
     def __init__(self, game: Game):
         super().__init__(game)
 
-        self.panels = {}
-        self.current_panel = None
-        self.elements = {}
-
-        self.rebuild_element_array(len(self.game.data.commanders), 10)
-
         self.set_instruction_text("Choose who will lead the rebellion.")
 
     def update(self, delta_time: float):
         super().update(delta_time)
 
         # generic input
+        # selections within panel
         if self.game.input.states["left"]:
             self.game.input.states["left"] = False
 
@@ -46,53 +41,30 @@ class RunSetupUI(UI):
 
             self.current_panel.select_previous_element()
 
-
+        # data editor
         if self.game.input.states["toggle_data_editor"]:
             self.game.input.states["toggle_data_editor"] = False
 
             self.game.change_scene(SceneType.DEV_UNIT_DATA)
 
-
         # panel specific input
         if self.current_panel == self.panels["commanders"]:
-
-            # select option and trigger result
-            if self.game.input.states["select"]:
-                self.game.input.states["select"] = False
-
-                selected_commander = list(self.game.data.commanders)[self.current_panel.current_selected_index]
-
-                # if selecting same commander then go to begin, else select
-                if self.game.run_setup.selected_commander == selected_commander:
-                    self.selected_col = 0  # set to first col
-                    self.current_panel = self.panels["exit"]
-
-                else:
-                    self.game.run_setup.selected_commander = selected_commander
-                    self.refresh_info()
-
-
+            self.handle_select_commander_input()
 
         # exit panel
         elif self.current_panel == self.panels["exit"]:
-            if self.game.input.states["select"]:
-                self.game.run_setup.start_run()
-
-            if self.game.input.states["cancel"]:
-                # unselect current option
-                self.current_panel.unselect_all_elements()
-
-                # change to commanders
-                self.current_panel = self.panels["commanders"]
+            self.handle_exit_input()
 
 
 
     def render(self, surface: pygame.surface):
 
         self.draw_instruction(surface)
-        self.draw_element_array(surface)
+        for element in self.elements.values():
+            element.render(surface)
 
     def rebuild_ui(self):
+        self.elements = {}
         commanders = self.game.data.commanders
         selected_commander = self.game.run_setup.selected_commander
         default_font = self.default_font
@@ -103,7 +75,6 @@ class RunSetupUI(UI):
         font_height = 12  # FIXME - get actual font height
         window_width = self.game.window.width
         window_height = self.game.window.height
-        frame_width = 75
 
         # draw commanders
         current_x = start_x
@@ -119,7 +90,6 @@ class RunSetupUI(UI):
                 icon,
                 is_selectable=True
             )
-            self.element_array[selection_counter][0] = frame
             self.elements[commander["type"]] = frame
 
             # highlight selected commander
@@ -146,14 +116,12 @@ class RunSetupUI(UI):
             (header_x, current_y),
             text_and_font=("Name", default_font)
         )
-        self.element_array[0][row_counter] = frame
         self.elements["name"] = frame
 
         frame = Frame(
             (info_x, current_y),
             text_and_font=(commander["type"], default_font)
         )
-        self.element_array[1][row_counter] = frame
         self.elements["type"] = frame
 
         current_y += font_height + GAP_SIZE
@@ -164,7 +132,6 @@ class RunSetupUI(UI):
             (header_x, current_y),
             text_and_font=(commander["backstory"], default_font)
         )
-        self.element_array[1][row_counter] = frame
         self.elements["backstory"] = frame
 
         current_y += font_height + GAP_SIZE
@@ -175,14 +142,12 @@ class RunSetupUI(UI):
             (header_x, current_y),
             text_and_font=("Charisma", default_font)
         )
-        self.element_array[0][row_counter] = frame
         self.elements["charisma_header"] = frame
 
         frame = Frame(
             (info_x, current_y),
             text_and_font=(commander["charisma"], default_font)
         )
-        self.element_array[1][row_counter] = frame
         self.elements["charisma"] = frame
 
         current_y += font_height
@@ -192,14 +157,12 @@ class RunSetupUI(UI):
             (header_x, current_y),
             text_and_font=("Leadership", default_font)
         )
-        self.element_array[0][row_counter] = frame
         self.elements["leadership_header"] = frame
 
         frame = Frame(
             (info_x, current_y),
             text_and_font=(commander["leadership"], default_font)
         )
-        self.element_array[1][row_counter] = frame
         self.elements["leadership"] = frame
 
         current_y += font_height + GAP_SIZE
@@ -217,14 +180,12 @@ class RunSetupUI(UI):
             (header_x, current_y),
             text_and_font=("Allies", default_font)
         )
-        self.element_array[0][row_counter] = frame
         self.elements["allies_header"] = frame
 
         frame = Frame(
             (info_x, current_y),
             text_and_font=(allies, default_font)
         )
-        self.element_array[1][row_counter] = frame
         self.elements["allies"] = frame
 
         current_y += font_height + GAP_SIZE
@@ -235,14 +196,12 @@ class RunSetupUI(UI):
             (header_x, current_y),
             text_and_font=("Gold", default_font)
         )
-        self.element_array[0][row_counter] = frame
         self.elements["gold_header"] = frame
 
         frame = Frame(
             (info_x, current_y),
             text_and_font=(commander["starting_gold"], default_font)
         )
-        self.element_array[1][row_counter] = frame
         self.elements["gold"] = frame
 
         row_counter += 1
@@ -257,11 +216,9 @@ class RunSetupUI(UI):
             text_and_font=(confirm_text, default_font),
             is_selectable=True
         )
-        self.element_array[0][row_counter] = frame
         self.elements["exit"] = frame
         panel_elements.append(frame)
         self.panels["exit"] = Panel(panel_elements, True)
-
 
     def refresh_info(self):
         elements = self.elements
@@ -283,5 +240,30 @@ class RunSetupUI(UI):
                 allies += ", " + ally
         elements["allies"].set_text(allies)
 
+    def handle_select_commander_input(self):
+        # select option and trigger result
+        if self.game.input.states["select"]:
+            self.game.input.states["select"] = False
 
+            selected_commander = list(self.game.data.commanders)[self.current_panel.selected_index]
+
+            # if selecting same commander then go to begin, else select
+            if self.game.run_setup.selected_commander == selected_commander:
+                self.current_panel = self.panels["exit"]
+                self.current_panel.select_first_element()
+
+            else:
+                self.game.run_setup.selected_commander = selected_commander
+                self.refresh_info()
+
+    def handle_exit_input(self):
+        if self.game.input.states["select"]:
+            self.game.run_setup.start_run()
+
+        if self.game.input.states["cancel"]:
+            # unselect current option
+            self.current_panel.unselect_all_elements()
+
+            # change to commanders
+            self.current_panel = self.panels["commanders"]
 

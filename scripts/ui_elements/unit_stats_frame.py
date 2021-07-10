@@ -17,6 +17,9 @@ if TYPE_CHECKING:
 
 __all__ = ["UnitStatsFrame"]
 
+########## TO DO LIST ########
+# TODO - can this inherit from Frame?
+
 
 class UnitStatsFrame(UIElement):
     def __init__(self, game: Game, pos: Tuple[int, int], unit: Unit, is_selectable: bool = False):
@@ -92,3 +95,7 @@ class UnitStatsFrame(UIElement):
             # increment y
             current_y += stat_icon_size[1] + GAP_SIZE
 
+    def set_unit(self, unit: Unit):
+        self.unit = unit
+
+        self._rebuild_surface()
