@@ -48,6 +48,7 @@ class UIElement(ABC):
 
     @property
     def width(self) -> int:
+        # FIXME - this isnt calculating properly
         return self.size[0]
 
     @property
@@ -58,9 +59,9 @@ class UIElement(ABC):
         pygame.draw.line(
             surface,
             (255, 255, 255),
-            (self.x, self.y + self.height),
-            (self.x + self.width, self.y + self.height),
-        )
+            (self.x + int(self.width * 0.1), self.y + self.height),
+            (self.x + self.width + int(self.width * 0.1), self.y + self.height),
+        )  # drawn with x offset
 
     def set_active(self, is_active: bool):
         if is_active:
