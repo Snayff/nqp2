@@ -87,7 +87,6 @@ class TrainingUI(UI):
         # draw upgrades
         current_x = start_x
         current_y = start_y
-        col_number = 0
         panel_list = []
         for selection_counter, upgrade in enumerate(scene.upgrades_sold):
             # TODO - draw gold cost
@@ -99,7 +98,7 @@ class TrainingUI(UI):
                 is_selectable=True
                 )
             # capture frame
-            self.elements[upgrade["type"]] = frame
+            self.elements[upgrade["type"] + str(selection_counter)] = frame
             panel_list.append(frame)
 
             # highlight selected upgrade
@@ -113,9 +112,6 @@ class TrainingUI(UI):
 
         panel = Panel(panel_list, True)
         self.add_panel(panel, "upgrades")
-
-        # draw unit selection
-        col_number += 1
 
         # draw list of units
         current_x = start_x + 100
@@ -147,13 +143,11 @@ class TrainingUI(UI):
         self.add_panel(panel, "units")
 
         # draw stat frame
-        col_number += 1
         current_x += 100
         frame = UnitStatsFrame(self.game, (current_x, start_y + 20), self.selected_unit)
         self.elements["stat_frame"] = frame
         frame.is_active = False
 
-        col_number += 1
         confirm_text = "Onwards"
         confirm_width = self.default_font.width(confirm_text)
         current_x = window_width - (confirm_width + GAP_SIZE)

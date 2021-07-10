@@ -58,8 +58,7 @@ class RunSetupUI(UI):
     def render(self, surface: pygame.surface):
 
         self.draw_instruction(surface)
-        for element in self.elements.values():
-            element.render(surface)
+        self.draw_elements(surface)
 
     def rebuild_ui(self):
         super().rebuild_ui()
