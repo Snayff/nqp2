@@ -1,6 +1,7 @@
 {
     "id": "test",
     "description": "this is what will show and will describe what is happening.",
+    "level_available": 1,
     "tier": 1,
     "options": [
         {
