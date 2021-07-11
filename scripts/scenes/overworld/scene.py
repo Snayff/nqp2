@@ -12,9 +12,9 @@ from scripts.scenes.overworld.elements.node import Node
 from scripts.scenes.overworld.ui import OverworldUI
 
 if TYPE_CHECKING:
-    from scripts.core.game import Game
-
     from typing import List
+
+    from scripts.core.game import Game
 
 __all__ = ["OverworldScene"]
 
@@ -65,7 +65,6 @@ class OverworldScene(Scene):
         for row in self.nodes:
             for node in row:
                 node.render(self.game.window.display)
-
 
         self.ui.render(self.game.window.display)
 
@@ -191,5 +190,3 @@ class OverworldScene(Scene):
         self.state = OverworldState.LOADING
 
         self.generate_map()
-
-

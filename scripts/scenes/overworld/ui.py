@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING
 import pygame
 
 from scripts.core.base_classes.ui import UI
-from scripts.core.constants import OverworldState, NodeType, SceneType
+from scripts.core.constants import NodeType, OverworldState, SceneType
 
 if TYPE_CHECKING:
     from scripts.core.game import Game
@@ -121,4 +121,3 @@ class OverworldUI(UI):
             self.draw_charisma(surface)
             self.draw_leadership(surface)
             self.draw_instruction(surface)
-
