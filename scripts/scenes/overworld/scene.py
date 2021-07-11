@@ -44,7 +44,7 @@ class OverworldScene(Scene):
 
         self.nodes: List[List[Node]] = []
         self.current_node_row: int = 0
-        self.level: int = 0
+        self.level: int = 1
         self.state: OverworldState = OverworldState.LOADING
         self.has_generated_map: bool = False
 
@@ -113,7 +113,7 @@ class OverworldScene(Scene):
                 node_type = self.game.rng.choices(node_types, node_weights, k=1)[0]
 
                 # get node icon
-                node_icon = self.get_node_icon(node_type)
+                node_icon = self._get_node_icon(node_type)
 
                 # init  node
                 node = Node(node_type, [x, y], node_icon)
@@ -155,7 +155,7 @@ class OverworldScene(Scene):
 
         return node_type
 
-    def get_node_icon(self, node_type: NodeType) -> pygame.Surface:
+    def _get_node_icon(self, node_type: NodeType) -> pygame.Surface:
         """
         Get the node icon from the node type
         """
