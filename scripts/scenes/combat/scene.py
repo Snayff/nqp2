@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import logging
 import time
-from typing import List, TYPE_CHECKING
+from typing import Any, Dict, List, TYPE_CHECKING
 
 from scripts.core.base_classes.scene import Scene
 from scripts.core.constants import CombatState, SceneType
@@ -129,3 +129,12 @@ class CombatScene(Scene):
         self.terrain.render(self.game.window.display, self.camera.render_offset())
         self.units.render(self.game.window.display, self.camera.render_offset())
         self.ui.render(self.game.window.display)
+
+    def _get_random_combat(self) -> Dict[str, Any]:
+        if len(self.game.data.combats) > 0:
+
+            # convert dict items to list, get a random choice from list
+            combat = self.game.rng.choice(list(self.game.data.combats.values()))
+        else:
+            combat = {}
+        return combat
