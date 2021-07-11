@@ -113,7 +113,7 @@ class OverworldScene(Scene):
                 node_type = self.game.rng.choices(node_types, node_weights, k=1)[0]
 
                 # get node icon
-                node_icon = self.get_node_icon(node_type)
+                node_icon = self._get_node_icon(node_type)
 
                 # init  node
                 node = Node(node_type, [x, y], node_icon)
@@ -155,12 +155,12 @@ class OverworldScene(Scene):
 
         return node_type
 
-    def get_node_icon(self, node_type: NodeType) -> pygame.Surface:
+    def _get_node_icon(self, node_type: NodeType) -> pygame.Surface:
         """
         Get the node icon from the node type
         """
         if node_type == NodeType.COMBAT:
-            node_icon = self.game.assets.get_image("nodes", "combats")
+            node_icon = self.game.assets.get_image("nodes", "combat")
         elif node_type == NodeType.EVENT:
             node_icon = self.game.assets.get_image("nodes", "event")
         elif node_type == NodeType.INN:
