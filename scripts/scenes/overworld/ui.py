@@ -36,7 +36,7 @@ class OverworldUI(UI):
         super().update(delta_time)
 
         if self.game.overworld.state == OverworldState.READY:
-            row_nodes = self.game.overworld.nodes[self.game.overworld.active_row]
+            row_nodes = self.game.overworld.nodes[self.game.overworld.current_node_row]
 
             if self.game.input.states["left"]:
                 self.game.input.states["left"] = False
@@ -53,7 +53,7 @@ class OverworldUI(UI):
             if self.game.input.states["select"]:
                 self.game.input.states["select"] = False
 
-                selected_node = self.game.overworld.nodes[self.game.overworld.active_row][self.selected_node]
+                selected_node = self.game.overworld.nodes[self.game.overworld.current_node_row][self.selected_node]
                 selected_node_type = selected_node.type
 
                 logging.info(f"Next node, {selected_node_type.name}, selected.")
@@ -73,7 +73,7 @@ class OverworldUI(UI):
 
                 self.game.change_scene(scene)
 
-                self.game.overworld.active_row += 1
+                self.game.overworld.increment_row()
 
             if self.game.input.states["view_troupe"]:
                 self.game.input.states["view_troupe"] = False
@@ -112,7 +112,7 @@ class OverworldUI(UI):
                         )
 
             # draw selection
-            selected_node = overworld_map.nodes[overworld_map.active_row][self.selected_node]
+            selected_node = overworld_map.nodes[overworld_map.current_node_row][self.selected_node]
             selected_node_centre_x = selected_node.pos[0] + (node_width / 2)
             selected_node_centre_y = selected_node.pos[1] + (node_height / 2)
             pygame.draw.circle(surface, (255, 0, 0), (selected_node_centre_x, selected_node_centre_y), node_width, 2)

@@ -26,6 +26,7 @@ __all__ = ["OverworldScene"]
 # TODO - generate a tilemap and place nodes on that, so it actually looks like a world.
 # FIXME - able to select across unconnected nodes
 # TODO - generate a boss fight (troupe containing commander) as the only node on the final row
+# TODO - externalise config
 
 
 class OverworldScene(Scene):
@@ -42,7 +43,7 @@ class OverworldScene(Scene):
         self.ui: OverworldUI = OverworldUI(game)
 
         self.nodes: List[List[Node]] = []
-        self.active_row: int = 0
+        self.current_node_row: int = 0
         self.level: int = 0
         self.state: OverworldState = OverworldState.LOADING
         self.has_generated_map: bool = False
@@ -86,8 +87,7 @@ class OverworldScene(Scene):
         min_nodes_per_row = 2
         max_nodes_per_row = 4
         depth = 5
-        # node_types = [NodeType.TRAINING]
-        # node_weights = [1]
+
         node_types = [NodeType.COMBAT, NodeType.EVENT, NodeType.INN, NodeType.TRAINING, NodeType.UNKNOWN]
         node_weights = [0.5, 0.2, 0.1, 0.1, 0.2]
 
@@ -143,6 +143,7 @@ class OverworldScene(Scene):
         self.nodes = nodes
         self.state = OverworldState.READY
         self.has_generated_map = True
+        self.current_node_row = 0
 
     def pick_unknown_node(self) -> NodeType:
         """
@@ -172,3 +173,23 @@ class OverworldScene(Scene):
             node_icon = self.game.assets.get_image("nodes", "unknown")
 
         return node_icon
+
+    def increment_row(self):
+        """
+        Increment the row, create a new level if all rows completed.
+        """
+        self.current_node_row += 1
+
+        # check if we reached the end of the rows
+        if self.current_node_row >= len(self.nodes):
+            self.increment_level()
+
+    def increment_level(self):
+        """
+        Increment the level, renewing the map.
+        """
+        self.state = OverworldState.LOADING
+
+        self.generate_map()
+
+
