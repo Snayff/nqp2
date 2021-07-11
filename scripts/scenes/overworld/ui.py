@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING
 import pygame
 
 from scripts.core.base_classes.ui import UI
-from scripts.core.constants import MapState, NodeType, SceneType
+from scripts.core.constants import NodeType, OverworldState, SceneType
 
 if TYPE_CHECKING:
     from scripts.core.game import Game
@@ -35,8 +35,8 @@ class OverworldUI(UI):
     def update(self, delta_time: float):
         super().update(delta_time)
 
-        if self.game.overworld.map.state == MapState.READY:
-            row_nodes = self.game.overworld.map.nodes[self.game.overworld.map.active_row]
+        if self.game.overworld.state == OverworldState.READY:
+            row_nodes = self.game.overworld.nodes[self.game.overworld.current_node_row]
 
             if self.game.input.states["left"]:
                 self.game.input.states["left"] = False
@@ -53,8 +53,10 @@ class OverworldUI(UI):
             if self.game.input.states["select"]:
                 self.game.input.states["select"] = False
 
-                selected_node = self.game.overworld.map.nodes[self.game.overworld.map.active_row][self.selected_node]
+                selected_node = self.game.overworld.nodes[self.game.overworld.current_node_row][self.selected_node]
                 selected_node_type = selected_node.type
+
+                logging.info(f"Next node, {selected_node_type.name}, selected.")
 
                 # change active scene
                 if selected_node_type == NodeType.COMBAT:
@@ -67,25 +69,25 @@ class OverworldUI(UI):
                     scene = SceneType.EVENT
                 else:
                     # selected_node_type == NodeType.UNKNOWN:
-                    scene = self.pick_unknown_node()
+                    scene = self.game.overworld.pick_unknown_node()
 
                 self.game.change_scene(scene)
 
-                self.game.overworld.map.active_row += 1
+                self.game.overworld.increment_row()
 
             if self.game.input.states["view_troupe"]:
                 self.game.input.states["view_troupe"] = False
                 self.game.change_scene(SceneType.VIEW_TROUPE)
 
     def render(self, surface: pygame.surface):
-        overworld_map = self.game.overworld.map
+        overworld_map = self.game.overworld
 
-        if overworld_map.state == MapState.LOADING:
+        if overworld_map.state == OverworldState.LOADING:
             # draw loading screen
             window_height = self.game.window.height
             self.game.assets.fonts["warning"].render("Loading...", surface, (10, window_height - 20))
 
-        elif overworld_map.state == MapState.READY:
+        elif overworld_map.state == OverworldState.READY:
             # get node icon details
             node_width = overworld_map.nodes[0][0].icon.get_width()
             node_height = overworld_map.nodes[0][0].icon.get_height()
@@ -110,7 +112,7 @@ class OverworldUI(UI):
                         )
 
             # draw selection
-            selected_node = overworld_map.nodes[overworld_map.active_row][self.selected_node]
+            selected_node = overworld_map.nodes[overworld_map.current_node_row][self.selected_node]
             selected_node_centre_x = selected_node.pos[0] + (node_width / 2)
             selected_node_centre_y = selected_node.pos[1] + (node_height / 2)
             pygame.draw.circle(surface, (255, 0, 0), (selected_node_centre_x, selected_node_centre_y), node_width, 2)
@@ -119,14 +121,3 @@ class OverworldUI(UI):
             self.draw_charisma(surface)
             self.draw_leadership(surface)
             self.draw_instruction(surface)
-
-    def pick_unknown_node(self) -> NodeType:
-        """
-        Randomly pick a node type that isnt Unknown.
-        """
-        node_types = [NodeType.COMBAT, NodeType.EVENT, NodeType.INN, NodeType.TRAINING]
-        node_weights = [0.2, 0.4, 0.1, 0.1]
-
-        node_type = self.game.rng.choices(node_types, node_weights, k=1)[0]
-
-        return node_type

@@ -115,6 +115,9 @@ class Game:
             self.active_scene = self.event
 
         elif scene_type == SceneType.OVERWORLD:
+            if not self.overworld.has_generated_map:
+                self.overworld.generate_map()
+
             self.active_scene = self.overworld
 
         elif scene_type == SceneType.MAIN_MENU:
