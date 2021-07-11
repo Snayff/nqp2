@@ -43,7 +43,7 @@ class CombatState(IntEnum):
     WATCH = auto()
 
 
-class MapState(IntEnum):
+class OverworldState(IntEnum):
     LOADING = auto()
     READY = auto()
 
