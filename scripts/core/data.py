@@ -69,7 +69,8 @@ class Data:
         units = {}
         for unit in os.listdir("data/units"):
             f = open(str(DATA_PATH / "units" / unit), "r")
-            units[unit.split(".")[0]] = json.load(f)
+            data = json.load(f)
+            units[data["type"]] = data
             f.close()
 
         logging.info(f"Data: All unit data loaded.")
@@ -90,7 +91,8 @@ class Data:
         upgrades = {}
         for upgrade in os.listdir("data/upgrades"):
             f = open(str(DATA_PATH / "upgrades" / upgrade), "r")
-            upgrades[upgrade.split(".")[0]] = json.load(f)
+            data = json.load(f)
+            upgrades[data["type"]] = data
             f.close()
 
         logging.info(f"Data: All upgrade data loaded.")
@@ -102,7 +104,8 @@ class Data:
         events = {}
         for event in os.listdir("data/events"):
             f = open(str(DATA_PATH / "events" / event), "r")
-            events[event.split(".")[0]] = json.load(f)
+            data = json.load(f)
+            events[data["id"]] = data
             f.close()
 
         logging.info(f"Data: All event data loaded.")
@@ -124,7 +127,8 @@ class Data:
         commanders = {}
         for commander in os.listdir("data/commanders"):
             f = open(str(DATA_PATH / "commanders" / commander), "r")
-            commanders[commander.split(".")[0]] = json.load(f)
+            data = json.load(f)
+            commanders[data["type"]] = data
             f.close()
 
         logging.info(f"Data: All commanders data loaded.")
