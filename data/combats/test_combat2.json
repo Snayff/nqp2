@@ -1,6 +1,6 @@
 {
     "id": "test2",
-    "combatants": [
+    "units": [
         "spearman",
         "spearman",
         "archer"

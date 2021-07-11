@@ -42,6 +42,42 @@ class CombatScene(Scene):
         end_time = time.time()
         logging.info(f"CombatScene: initialised in {format(end_time - start_time, '.2f')}s.")
 
+    def update(self, delta_time: float):
+        super().update(delta_time)
+
+        self.dt = self.combat_speed * self.game.window.dt
+
+        # call once per frame instead of once per entity to save processing power
+        self.all_entities = self.get_all_entities()
+
+        # end combat when either side is empty
+        if self.game.combat.state not in [CombatState.UNIT_CHOOSE_CARD, CombatState.UNIT_SELECT_TARGET]:
+            player_entities = [e for e in self.all_entities if e.team == "player"]
+            if len(player_entities) == 0:
+                self.game.change_scene(SceneType.DEFEAT)
+            if len(player_entities) == len(self.all_entities):
+                self.game.change_scene(SceneType.REWARD)
+
+        self.ui.update(delta_time)
+        self.units.update(delta_time)
+
+        # run at normal speed during watch phase
+        if self.game.combat.state == CombatState.WATCH:
+            self.combat_speed = 1
+
+        # pause combat during unit placement
+        elif self.game.combat.state in [CombatState.UNIT_CHOOSE_CARD, CombatState.UNIT_SELECT_TARGET]:
+            self.combat_speed = 0
+
+        # slow down combat when playing actions
+        else:
+            self.combat_speed = 0.3
+
+    def render(self):
+        self.terrain.render(self.game.window.display, self.camera.render_offset())
+        self.units.render(self.game.window.display, self.camera.render_offset())
+        self.ui.render(self.game.window.display)
+
     def begin_combat(self):
         self.camera: Camera = Camera()
         self.camera.pos = [0, 100]
@@ -93,42 +129,6 @@ class CombatScene(Scene):
     def start_action_phase(self):
         self.deck: CardCollection = self.game.memory.action_deck.copy()
         self.hand = self.deck.draw(5)
-
-    def update(self, delta_time: float):
-        super().update(delta_time)
-
-        self.dt = self.combat_speed * self.game.window.dt
-
-        # call once per frame instead of once per entity to save processing power
-        self.all_entities = self.get_all_entities()
-
-        # end combat when either side is empty
-        if self.game.combat.state not in [CombatState.UNIT_CHOOSE_CARD, CombatState.UNIT_SELECT_TARGET]:
-            player_entities = [e for e in self.all_entities if e.team == "player"]
-            if len(player_entities) == 0:
-                self.game.change_scene(SceneType.DEFEAT)
-            if len(player_entities) == len(self.all_entities):
-                self.game.change_scene(SceneType.REWARD)
-
-        self.ui.update(delta_time)
-        self.units.update(delta_time)
-
-        # run at normal speed during watch phase
-        if self.game.combat.state == CombatState.WATCH:
-            self.combat_speed = 1
-
-        # pause combat during unit placement
-        elif self.game.combat.state in [CombatState.UNIT_CHOOSE_CARD, CombatState.UNIT_SELECT_TARGET]:
-            self.combat_speed = 0
-
-        # slow down combat when playing actions
-        else:
-            self.combat_speed = 0.3
-
-    def render(self):
-        self.terrain.render(self.game.window.display, self.camera.render_offset())
-        self.units.render(self.game.window.display, self.camera.render_offset())
-        self.ui.render(self.game.window.display)
 
     def _get_random_combat(self) -> Dict[str, Any]:
         if len(self.game.data.combats) > 0:

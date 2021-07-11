@@ -1,6 +1,6 @@
 {
     "id": "test",
-    "combatants": [
+    "units": [
         "archer",
         "archer",
         "crossbowman"
