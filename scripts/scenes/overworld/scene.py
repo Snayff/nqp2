@@ -44,7 +44,7 @@ class OverworldScene(Scene):
 
         self.nodes: List[List[Node]] = []
         self.current_node_row: int = 0
-        self.level: int = 0
+        self.level: int = 1
         self.state: OverworldState = OverworldState.LOADING
         self.has_generated_map: bool = False
 
@@ -160,7 +160,7 @@ class OverworldScene(Scene):
         Get the node icon from the node type
         """
         if node_type == NodeType.COMBAT:
-            node_icon = self.game.assets.get_image("nodes", "combat")
+            node_icon = self.game.assets.get_image("nodes", "combats")
         elif node_type == NodeType.EVENT:
             node_icon = self.game.assets.get_image("nodes", "event")
         elif node_type == NodeType.INN:

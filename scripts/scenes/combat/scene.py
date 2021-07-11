@@ -21,10 +21,6 @@ __all__ = ["CombatScene"]
 
 
 ########### To Do List #############
-# FIXME - Combat clean start. when visiting a second combat node, combat isnt refreshed and resumes previous state,
-#  though with new enemies.
-# TODO - Combat defeat condition; send to DefeatScene (just stub, I'll fill the details in). Currently always getting
-#  victory.
 # TODO - Convert actions to cooldown based, instead of cards.
 # TODO - Injury/healing (health persistence outside of combat. See Design Doc for info.)
 # TODO - add combat with multiple participants, not just player vs enemy; team vs team or free for all.

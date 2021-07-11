@@ -39,6 +39,7 @@ class Data:
         self.homes: List[str] = self._create_homes_list()
         self.events: Dict[str, Any] = self._load_events()
         self.upgrades: Dict[str, Any] = self._load_upgrades()
+        self.combats: Dict[str, Any] = self._load_combats()
 
         self.config: Dict[str, Any] = self._load_config()
 
@@ -130,6 +131,18 @@ class Data:
 
         return commanders
 
+    @staticmethod
+    def _load_combats():
+        combats = {}
+        for combat in os.listdir("data/combats"):
+            f = open(str(DATA_PATH / "combats" / combat), "r")
+            combats[combat.split(".")[0]] = json.load(f)
+            f.close()
+
+        logging.info(f"Data: All combats data loaded.")
+
+        return combats
+
     def get_units_by_category(self, homes: List[str], tiers: List[int] = None) -> List[str]:
         """
         Return list of unit types for all units with a matching home and tier.
@@ -175,3 +188,16 @@ class Data:
         occur_rate = tier_occur_rates[str(event_tier)]  # str as json keys are strs
 
         return occur_rate
+
+    def get_combat_occur_rate(self, id_: str) -> int:
+        """
+        Get the combat occur rate based on the tier. Lower means less often.
+        """
+        tier_occur_rates = self.config["combat_tier_occur_rates"]
+        combat = self.combats[id_]
+        combat_tier = combat["tier"]
+
+        occur_rate = tier_occur_rates[str(combat_tier)]  # str as json keys are strs
+
+        return occur_rate
+

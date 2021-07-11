@@ -1,0 +1,14 @@
+{
+    "id": "test",
+    "combatants": [
+        "archer",
+        "archer",
+        "crossbowman"
+    ],
+    "level_available": 1,
+    "tier": 1,
+    "gold_reward": [
+        50,
+        110
+    ]
+}
