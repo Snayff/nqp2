@@ -144,9 +144,7 @@ class CombatScene(Scene):
                     occur_rate = self.game.data.get_combat_occur_rate(combat["id"])
                     possible_combats_occur_rates.append(occur_rate)
 
-            # convert dict items to list, get a random choice from list
             combat_ = self.game.rng.choices(possible_combats, possible_combats_occur_rates)[0]
-            # combat = self.game.rng.choice(list(self.game.data.combats.values()))
         else:
             combat_ = {}
         return combat_
