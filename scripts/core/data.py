@@ -136,7 +136,8 @@ class Data:
         combats = {}
         for combat in os.listdir("data/combats"):
             f = open(str(DATA_PATH / "combats" / combat), "r")
-            combats[combat.split(".")[0]] = json.load(f)
+            data = json.load(f)
+            combats[data["id"]] = data
             f.close()
 
         logging.info(f"Data: All combats data loaded.")

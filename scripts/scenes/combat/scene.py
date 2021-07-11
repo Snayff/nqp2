@@ -132,9 +132,21 @@ class CombatScene(Scene):
 
     def _get_random_combat(self) -> Dict[str, Any]:
         if len(self.game.data.combats) > 0:
+            level = self.game.overworld.level
+            combats = self.game.data.combats.values()
+
+            # ensure only combat for this level or lower
+            possible_combats = []
+            possible_combats_occur_rates = []
+            for combat in combats:
+                if combat["level_available"] <= level:
+                    possible_combats.append(combat)
+                    occur_rate = self.game.data.get_combat_occur_rate(combat["id"])
+                    possible_combats_occur_rates.append(occur_rate)
 
             # convert dict items to list, get a random choice from list
-            combat = self.game.rng.choice(list(self.game.data.combats.values()))
+            combat_ = self.game.rng.choices(possible_combats, possible_combats_occur_rates)[0]
+            # combat = self.game.rng.choice(list(self.game.data.combats.values()))
         else:
-            combat = {}
-        return combat
+            combat_ = {}
+        return combat_
