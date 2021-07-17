@@ -138,6 +138,7 @@ class Game:
             self.active_scene = self.troupe
 
         elif scene_type == SceneType.RUN_SETUP:
+            self.run_setup.ui.rebuild_ui()
             self.active_scene = self.run_setup
 
         elif scene_type == SceneType.DEV_UNIT_DATA:
