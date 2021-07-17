@@ -73,3 +73,11 @@ class RunSetupScene(Scene):
 
         # change scene
         self.game.change_scene(SceneType.OVERWORLD)
+
+    def reset(self):
+        """
+        Reset to clean state.
+        """
+        self.ui = RunSetupUI(self.game)
+        self.selected_commander: str = list(self.game.data.commanders)[0]  # set to first commander
+        self.selected_seed: int = int(datetime.now().strftime("%Y%m%d%H%M%S"))

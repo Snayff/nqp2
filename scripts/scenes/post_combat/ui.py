@@ -145,7 +145,6 @@ class PostCombatUI(UI):
 
         self.set_instruction_text("Return to the main menu")
 
-
         # draw header
         header_text = "Defeat"
         current_x = window_width // 2 - (default_font.width(header_text))
@@ -253,5 +252,6 @@ class PostCombatUI(UI):
             self.game.input.states["select"] = False
 
             # there's only 1 thing to select so we know it is the exit button
+            self.game.run_setup.reset()
             self.game.change_scene(SceneType.RUN_SETUP)
 

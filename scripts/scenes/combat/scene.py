@@ -56,10 +56,10 @@ class CombatScene(Scene):
             if len(player_entities) == 0:
                 self.game.post_combat.state = PostCombatState.DEFEAT
                 self.game.change_scene(SceneType.POST_COMBAT)
+
             elif len(player_entities) == len(self.all_entities):
-                pass
-            self.game.post_combat.state = PostCombatState.DEFEAT
-            self.game.change_scene(SceneType.POST_COMBAT)
+                self.game.post_combat.state = PostCombatState.DEFEAT
+                self.game.change_scene(SceneType.POST_COMBAT)
 
         self.ui.update(delta_time)
         self.units.update(delta_time)
