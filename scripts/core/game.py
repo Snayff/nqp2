@@ -24,7 +24,6 @@ from scripts.scenes.training.scene import TrainingScene
 from scripts.scenes.unit_data.scene import UnitDataScene
 from scripts.scenes.view_troupe.scene import ViewTroupeScene
 
-
 __all__ = ["Game"]
 
 

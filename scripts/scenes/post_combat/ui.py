@@ -91,7 +91,6 @@ class PostCombatUI(UI):
         window_width = self.game.window.width
         window_height = self.game.window.height
 
-
         # draw header
         header_text = "Victory"
         current_x = window_width // 2 - (default_font.width(header_text))
@@ -121,10 +120,7 @@ class PostCombatUI(UI):
         confirm_width = self.default_font.width(confirm_text)
         current_x = window_width - (confirm_width + GAP_SIZE)
         current_y = window_height - (font_height + GAP_SIZE)
-        frame = Frame(
-            (current_x, current_y),
-            text_and_font=(confirm_text, default_font)
-        )
+        frame = Frame((current_x, current_y), text_and_font=(confirm_text, default_font))
         self.elements["exit"] = frame
 
         panel = Panel([frame], True)
@@ -156,16 +152,12 @@ class PostCombatUI(UI):
         )
         self.elements["header"] = frame
 
-
         # draw exit button
         confirm_text = "Exit"
         confirm_width = self.default_font.width(confirm_text)
         current_x = window_width - (confirm_width + GAP_SIZE)
         current_y = window_height - (font_height + GAP_SIZE)
-        frame = Frame(
-            (current_x, current_y),
-            text_and_font=(confirm_text, default_font)
-        )
+        frame = Frame((current_x, current_y), text_and_font=(confirm_text, default_font))
         self.elements["exit"] = frame
 
         panel = Panel([frame], True)
@@ -254,4 +246,3 @@ class PostCombatUI(UI):
             # there's only 1 thing to select so we know it is the exit button
             self.game.run_setup.reset()
             self.game.change_scene(SceneType.RUN_SETUP)
-
