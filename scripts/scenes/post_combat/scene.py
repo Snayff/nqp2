@@ -6,20 +6,20 @@ import time
 from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.scene import Scene
-from scripts.core.constants import RewardType
+from scripts.core.constants import PostCombatState, RewardType
 from scripts.scenes.combat.elements.troupe import Troupe
 from scripts.scenes.combat.elements.unit import Unit
-from scripts.scenes.reward.ui import RewardUI
+from scripts.scenes.post_combat.ui import PostCombatUI
 
 if TYPE_CHECKING:
     from typing import Any, List
 
     from scripts.core.game import Game
 
-__all__ = ["RewardScene"]
+__all__ = ["PostCombatScene"]
 
 
-class RewardScene(Scene):
+class PostCombatScene(Scene):
     """
     Handles RewardScene interactions and consolidates the rendering. RewardScene is used to provide a choice of
     rewards for the player to pick from.
@@ -31,7 +31,9 @@ class RewardScene(Scene):
 
         super().__init__(game)
 
-        self.ui: RewardUI = RewardUI(game)
+        self.ui: PostCombatUI = PostCombatUI(game)
+
+        self.state: PostCombatState = PostCombatState.VICTORY
 
         # reward management
         self.current_rewards = None  # holds the current rewards, e.g. troupe_rewards
@@ -56,6 +58,14 @@ class RewardScene(Scene):
 
     def render(self):
         self.ui.render(self.game.window.display)
+
+    def change_state(self, state: PostCombatState):
+        """
+        Sets a new state and refreshes the screen.
+        """
+        self.state = state
+
+        self.ui.rebuild_ui()
 
     def generate_reward(self):
         """

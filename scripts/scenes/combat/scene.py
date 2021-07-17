@@ -5,7 +5,7 @@ import time
 from typing import Any, Dict, List, TYPE_CHECKING
 
 from scripts.core.base_classes.scene import Scene
-from scripts.core.constants import CombatState, SceneType
+from scripts.core.constants import CombatState, PostCombatState, SceneType
 from scripts.scenes.combat.elements.actions import actions
 from scripts.scenes.combat.elements.camera import Camera
 from scripts.scenes.combat.elements.card_collection import CardCollection
@@ -54,9 +54,12 @@ class CombatScene(Scene):
         if self.game.combat.state not in [CombatState.UNIT_CHOOSE_CARD, CombatState.UNIT_SELECT_TARGET]:
             player_entities = [e for e in self.all_entities if e.team == "player"]
             if len(player_entities) == 0:
-                self.game.change_scene(SceneType.DEFEAT)
-            if len(player_entities) == len(self.all_entities):
-                self.game.change_scene(SceneType.REWARD)
+                self.game.post_combat.state = PostCombatState.DEFEAT
+                self.game.change_scene(SceneType.POST_COMBAT)
+            elif len(player_entities) == len(self.all_entities):
+                pass
+            self.game.post_combat.state = PostCombatState.DEFEAT
+            self.game.change_scene(SceneType.POST_COMBAT)
 
         self.ui.update(delta_time)
         self.units.update(delta_time)
