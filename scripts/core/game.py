@@ -15,18 +15,21 @@ from scripts.core.memory import Memory
 from scripts.core.rng import RNG
 from scripts.core.window import Window
 from scripts.scenes.combat.scene import CombatScene
-from scripts.scenes.defeat.scene import DefeatScene
 from scripts.scenes.event.scene import EventScene
 from scripts.scenes.inn.scene import InnScene
 from scripts.scenes.overworld.scene import OverworldScene
-from scripts.scenes.reward.scene import RewardScene
+from scripts.scenes.post_combat.scene import PostCombatScene
 from scripts.scenes.run_setup.scene import RunSetupScene
 from scripts.scenes.training.scene import TrainingScene
 from scripts.scenes.unit_data.scene import UnitDataScene
+from scripts.scenes.view_troupe.scene import ViewTroupeScene
 
 __all__ = ["Game"]
 
-from scripts.scenes.view_troupe.scene import ViewTroupeScene
+
+############ TO DO LIST ############
+# TODO - standardise use of id / id_
+# TODO - add data checking to ensure ids are unique and values are as expected
 
 
 class Game:
@@ -48,8 +51,7 @@ class Game:
 
         # scenes
         self.combat: CombatScene = CombatScene(self)
-        self.reward: RewardScene = RewardScene(self)
-        self.defeat: DefeatScene = DefeatScene(self)
+        self.post_combat: PostCombatScene = PostCombatScene(self)
         self.overworld: OverworldScene = OverworldScene(self)
         self.event: EventScene = EventScene(self)
         self.training: TrainingScene = TrainingScene(self)
@@ -101,6 +103,11 @@ class Game:
             self.combat.begin_combat()
             self.active_scene = self.combat
 
+        elif scene_type == SceneType.POST_COMBAT:
+            self.post_combat.generate_reward()
+            self.post_combat.ui.rebuild_ui()
+            self.active_scene = self.post_combat
+
         elif scene_type == SceneType.TRAINING:
             self.training.ui.rebuild_ui()
             self.active_scene = self.training
@@ -129,14 +136,8 @@ class Game:
             self.troupe.ui.rebuild_ui()
             self.active_scene = self.troupe
 
-        elif scene_type == SceneType.REWARD:
-            self.reward.generate_reward()
-            self.active_scene = self.reward
-
-        elif scene_type == SceneType.DEFEAT:
-            self.active_scene = self.defeat
-
         elif scene_type == SceneType.RUN_SETUP:
+            self.run_setup.ui.rebuild_ui()
             self.active_scene = self.run_setup
 
         elif scene_type == SceneType.DEV_UNIT_DATA:

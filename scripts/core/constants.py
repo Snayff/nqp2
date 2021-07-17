@@ -59,6 +59,11 @@ class NodeState(IntEnum):
     NOT_REACHABLE = auto()  # could never reach the node
 
 
+class PostCombatState(IntEnum):
+    DEFEAT = auto()
+    VICTORY = auto()
+
+
 class NodeType(IntEnum):
     COMBAT = auto()
     EVENT = auto()
@@ -69,8 +74,7 @@ class NodeType(IntEnum):
 
 class SceneType(IntEnum):
     COMBAT = auto()
-    REWARD = auto()
-    DEFEAT = auto()
+    POST_COMBAT = auto()
     EVENT = auto()
     INN = auto()
     TRAINING = auto()

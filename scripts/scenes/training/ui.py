@@ -149,6 +149,7 @@ class TrainingUI(UI):
         self.elements["stat_frame"] = frame
         frame.is_active = False
 
+        # draw exit button
         confirm_text = "Onwards"
         confirm_width = self.default_font.width(confirm_text)
         current_x = window_width - (confirm_width + GAP_SIZE)
