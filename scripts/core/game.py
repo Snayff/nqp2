@@ -23,10 +23,15 @@ from scripts.scenes.reward.scene import RewardScene
 from scripts.scenes.run_setup.scene import RunSetupScene
 from scripts.scenes.training.scene import TrainingScene
 from scripts.scenes.unit_data.scene import UnitDataScene
+from scripts.scenes.view_troupe.scene import ViewTroupeScene
+
 
 __all__ = ["Game"]
 
-from scripts.scenes.view_troupe.scene import ViewTroupeScene
+
+############ TO DO LIST ############
+# TODO - standardise use of id / id_
+# TODO - add data checking to ensure ids are unique and values are as expected
 
 
 class Game:
