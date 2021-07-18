@@ -6,5 +6,10 @@
     "allies": [
         "castle"
     ],
-    "starting_gold": 200
+    "starting_gold": 200,
+    "starting_units": [
+        "spearman",
+        "spearman",
+        "pikeman"
+    ]
 }

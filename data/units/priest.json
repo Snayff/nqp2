@@ -12,6 +12,6 @@
     "weight": 10,
     "gold_cost": 55,
     "default_behaviour": "swarm",
-    "home": "dungeon",
+    "home": "fortress",
     "tier": 2
 }

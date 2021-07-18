@@ -1,5 +1,5 @@
 {
-    "type": "guerilla_fighter",
+    "type": "guerrilla_fighter",
     "health": 7,
     "defence": 1,
     "attack": 2,
@@ -12,6 +12,6 @@
     "weight": 2,
     "gold_cost": 60,
     "default_behaviour": "swarm",
-    "home": "dungeon",
+    "home": "fortress",
     "tier": 1
 }
