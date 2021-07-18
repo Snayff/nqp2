@@ -9,8 +9,9 @@ from scripts.core.constants import TrainingState, UPGRADE_COST, UPGRADE_TIER_MUL
 from scripts.scenes.training.ui import TrainingUI
 
 if TYPE_CHECKING:
-    from scripts.core.game import Game
     from typing import List
+
+    from scripts.core.game import Game
 
 
 __all__ = ["TrainingScene"]

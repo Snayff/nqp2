@@ -6,7 +6,7 @@ from typing import Dict, TYPE_CHECKING
 import pygame
 
 from scripts.core.base_classes.ui import UI
-from scripts.core.constants import DEFAULT_IMAGE_SIZE, GAP_SIZE, GameState, SceneType
+from scripts.core.constants import DEFAULT_IMAGE_SIZE, GameState, GAP_SIZE, SceneType
 from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.panel import Panel
 
@@ -48,7 +48,6 @@ class MainMenuUI(UI):
             elif selected_element == self.elements["exit"]:
                 self.game.state = GameState.EXITING
 
-
     def render(self, surface: pygame.surface):
         # N.B. dont draw instruction
 
@@ -70,7 +69,6 @@ class MainMenuUI(UI):
         background = self.game.assets.get_image("ui", "town", (window_width, window_height))
         frame = Frame((0, 0), background)
         self.elements["background"] = frame
-
 
         # draw options
         current_x = start_x

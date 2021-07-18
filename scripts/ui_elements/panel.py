@@ -44,8 +44,6 @@ class Panel:
         for element in self.elements:
             element.is_selectable = is_selectable
 
-
-
     def select_first_element(self):
         """
         Selects the first element and sets the rest to unselected.
@@ -105,4 +103,3 @@ class Panel:
                     logging.debug(f"Panel: Looped all the way back to the starting index. No others selectable.")
 
                 break
-

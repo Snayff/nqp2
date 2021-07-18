@@ -49,7 +49,6 @@ class InnScene(Scene):
 
         self.sale_troupe = None
 
-
     def purchase_unit(self, unit: Unit):
         """
         Purchase the unit

@@ -21,7 +21,6 @@ __all__ = ["MainMenuScene"]
 ######### TO DO LIST ###############
 
 
-
 class MainMenuScene(Scene):
     """
     Handles MainMenuScene interactions and consolidates the rendering.
@@ -56,5 +55,3 @@ class MainMenuScene(Scene):
         self.game.overworld.reset()
         self.game.overworld.generate_map()
         self.game.change_scene(SceneType.RUN_SETUP)
-
-

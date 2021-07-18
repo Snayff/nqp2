@@ -21,7 +21,6 @@ class EventScene(Scene):
     Handles EventScene interactions and consolidates the rendering. EventScene is used to give players a text choice.
     """
 
-
     def __init__(self, game: Game):
         # start timer
         start_time = time.time()
