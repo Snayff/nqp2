@@ -244,4 +244,4 @@ class PostCombatUI(UI):
 
             # there's only 1 thing to select so we know it is the exit button
             self.game.run_setup.reset()
-            self.game.change_scene(SceneType.RUN_SETUP)
+            self.game.change_scene(SceneType.MAIN_MENU)

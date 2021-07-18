@@ -42,3 +42,7 @@ class ViewTroupeScene(Scene):
 
     def render(self):
         self.ui.render(self.game.window.display)
+
+    def reset(self):
+        self.ui = ViewTroupeUI(self.game)
+        self.previous_scene_type = SceneType.VIEW_TROUPE

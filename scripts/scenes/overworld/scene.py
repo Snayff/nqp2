@@ -46,7 +46,6 @@ class OverworldScene(Scene):
         self.current_node_row: int = 0
         self.level: int = 1
         self.state: OverworldState = OverworldState.LOADING
-        self.has_generated_map: bool = False
 
         # record duration
         end_time = time.time()
@@ -141,7 +140,6 @@ class OverworldScene(Scene):
 
         self.nodes = nodes
         self.state = OverworldState.READY
-        self.has_generated_map = True
         self.current_node_row = 0
 
     def pick_unknown_node(self) -> NodeType:
@@ -190,3 +188,11 @@ class OverworldScene(Scene):
         self.state = OverworldState.LOADING
 
         self.generate_map()
+
+    def reset(self):
+        self.ui = OverworldUI(self.game)
+
+        self.nodes = []
+        self.current_node_row = 0
+        self.level = 1
+        self.state = OverworldState.LOADING

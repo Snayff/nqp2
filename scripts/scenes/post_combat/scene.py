@@ -59,13 +59,23 @@ class PostCombatScene(Scene):
     def render(self):
         self.ui.render(self.game.window.display)
 
-    def change_state(self, state: PostCombatState):
-        """
-        Sets a new state and refreshes the screen.
-        """
-        self.state = state
+    def reset(self):
+        self.ui = PostCombatUI(self.game)
 
-        self.ui.rebuild_ui()
+        self.state = PostCombatState.VICTORY
+
+        # reward management
+        self.current_rewards = None  # holds the current rewards, e.g. troupe_rewards
+        self.reward_type = RewardType.UNIT
+        self.num_rewards = 3
+
+        # reward options
+        self.gold_reward = 0
+        player_troupe = self.game.memory.player_troupe
+        self.troupe_rewards = Troupe(self.game, "reward", player_troupe.allies)
+        self.resource_rewards = None
+        self.upgrade_rewards = None
+        self.action_rewards = None
 
     def generate_reward(self):
         """

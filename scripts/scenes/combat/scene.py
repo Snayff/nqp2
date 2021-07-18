@@ -38,6 +38,27 @@ class CombatScene(Scene):
 
         super().__init__(game)
 
+        self.camera: Camera = Camera()
+        self.terrain: Terrain = Terrain(self.game)
+        self.units: UnitManager = UnitManager(self.game)
+
+        self.enemy_generator = EnemyCombatantsGenerator(self.game)
+
+        self.ui: CombatUI = CombatUI(self.game)
+
+        self.actions = actions
+
+        self.state: CombatState = CombatState.UNIT_CHOOSE_CARD
+
+        self.combat_speed = 1
+        self.dt = 0
+
+        self.all_entities = None
+        self.deck = None
+        self.hand = None
+
+        self.leadership_points_spent: int = 0  # points spent to place units
+
         # record duration
         end_time = time.time()
         logging.info(f"CombatScene: initialised in {format(end_time - start_time, '.2f')}s.")
@@ -81,10 +102,16 @@ class CombatScene(Scene):
         self.units.render(self.game.window.display, self.camera.render_offset())
         self.ui.render(self.game.window.display)
 
-    def begin_combat(self):
-        self.camera: Camera = Camera()
+    def reset(self):
+        self.camera = Camera()
         self.camera.pos = [0, 100]
 
+        self.combat_speed = 1
+        self.dt = 0
+
+        self.state: CombatState = CombatState.UNIT_CHOOSE_CARD
+
+    def generate_combat(self):
         self.terrain: Terrain = Terrain(self.game)
         self.terrain.generate(self.game.assets.maps["plains_1"])
 
@@ -95,11 +122,6 @@ class CombatScene(Scene):
         self.ui: CombatUI = CombatUI(self.game)
 
         self.actions = actions
-
-        self.state: CombatState = CombatState.UNIT_CHOOSE_CARD
-
-        self.combat_speed = 1
-        self.dt = 0
 
         self.all_entities = self.get_all_entities()
 

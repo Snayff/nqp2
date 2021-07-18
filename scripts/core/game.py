@@ -17,6 +17,7 @@ from scripts.core.window import Window
 from scripts.scenes.combat.scene import CombatScene
 from scripts.scenes.event.scene import EventScene
 from scripts.scenes.inn.scene import InnScene
+from scripts.scenes.main_menu.scene import MainMenuScene
 from scripts.scenes.overworld.scene import OverworldScene
 from scripts.scenes.post_combat.scene import PostCombatScene
 from scripts.scenes.run_setup.scene import RunSetupScene
@@ -50,21 +51,22 @@ class Game:
         self.rng: RNG = RNG(self)
 
         # scenes
+        self.main_menu: MainMenuScene = MainMenuScene(self)
+        self.run_setup: RunSetupScene = RunSetupScene(self)
+        self.overworld: OverworldScene = OverworldScene(self)
         self.combat: CombatScene = CombatScene(self)
         self.post_combat: PostCombatScene = PostCombatScene(self)
-        self.overworld: OverworldScene = OverworldScene(self)
         self.event: EventScene = EventScene(self)
         self.training: TrainingScene = TrainingScene(self)
         self.inn: InnScene = InnScene(self)
         self.troupe: ViewTroupeScene = ViewTroupeScene(self)
-        self.run_setup: RunSetupScene = RunSetupScene(self)
 
         # dev scenes
         self.dev_unit_data: UnitDataScene = UnitDataScene(self)
 
         # point this to whatever scene is active
-        self.active_scene = self.run_setup
-        self.run_setup.ui.rebuild_ui()
+        self.active_scene = self.main_menu
+        self.active_scene.ui.rebuild_ui()
 
         self.state: GameState = GameState.PLAYING
 
@@ -99,49 +101,52 @@ class Game:
         """
         Change the active scene
         """
-        if scene_type == SceneType.COMBAT:
-            self.combat.begin_combat()
+        # reset exiting scene if not overworld
+        if self.active_scene is not self.overworld:
+            if hasattr(self.active_scene, "reset"):
+                self.active_scene.reset()
+
+        # change scene and take scene specific action
+        if scene_type == SceneType.MAIN_MENU:
+            self.active_scene = self.main_menu
+
+        elif scene_type == SceneType.RUN_SETUP:
+            self.active_scene = self.run_setup
+
+        elif scene_type == SceneType.OVERWORLD:
+            self.active_scene = self.overworld
+
+        elif scene_type == SceneType.COMBAT:
+            self.combat.generate_combat()
             self.active_scene = self.combat
 
         elif scene_type == SceneType.POST_COMBAT:
             self.post_combat.generate_reward()
-            self.post_combat.ui.rebuild_ui()
             self.active_scene = self.post_combat
 
         elif scene_type == SceneType.TRAINING:
-            self.training.ui.rebuild_ui()
+            self.training.generate_upgrades()
             self.active_scene = self.training
 
         elif scene_type == SceneType.INN:
             self.inn.generate_sale_options()
-            self.inn.ui.rebuild_ui()
             self.active_scene = self.inn
 
         elif scene_type == SceneType.EVENT:
-            self.event.ui.rebuild_ui()
+            self.event.load_random_event()
             self.active_scene = self.event
-
-        elif scene_type == SceneType.OVERWORLD:
-            if not self.overworld.has_generated_map:
-                self.overworld.generate_map()
-
-            self.active_scene = self.overworld
-
-        elif scene_type == SceneType.MAIN_MENU:
-            # TODO - add main menu
-            pass
 
         elif scene_type == SceneType.VIEW_TROUPE:
             self.troupe.previous_scene_type = utility.scene_to_scene_type(self.active_scene)
-            self.troupe.ui.rebuild_ui()
             self.active_scene = self.troupe
-
-        elif scene_type == SceneType.RUN_SETUP:
-            self.run_setup.ui.rebuild_ui()
-            self.active_scene = self.run_setup
 
         elif scene_type == SceneType.DEV_UNIT_DATA:
             self.dev_unit_data.previous_scene_type = utility.scene_to_scene_type(self.active_scene)
             self.active_scene = self.dev_unit_data
+
+        # rebuild ui
+        if hasattr(self.active_scene, "ui"):
+            if hasattr(self.active_scene.ui, "rebuild_ui"):
+                self.active_scene.ui.rebuild_ui()
 
         logging.info(f"Active scene changed to {scene_type.name}.")
