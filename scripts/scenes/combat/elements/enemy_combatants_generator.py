@@ -30,7 +30,7 @@ class EnemyCombatantsGenerator:
             ids = ids[:num_units]
         else:
 
-            ids = self.enemy_troupe.generate_units(num_units, unit_types=combat["units"])
+            ids = self.enemy_troupe.generate_specific_units(unit_types=combat["units"])
 
         # assign positions and add to combat
         for id_ in ids:
