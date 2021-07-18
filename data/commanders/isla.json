@@ -5,7 +5,13 @@
     "leadership": 6,
     "allies": [
         "castle",
-        "dungeon"
+        "fortress"
     ],
-    "starting_gold": 1000
+    "starting_gold": 300,
+    "starting_units": [
+        "spearman",
+        "spearman",
+        "guerrilla_fighter",
+        "skirmisher"
+    ]
 }

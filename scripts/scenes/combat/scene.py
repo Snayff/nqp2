@@ -58,7 +58,7 @@ class CombatScene(Scene):
                 self.game.change_scene(SceneType.POST_COMBAT)
 
             elif len(player_entities) == len(self.all_entities):
-                self.game.post_combat.state = PostCombatState.DEFEAT
+                self.game.post_combat.state = PostCombatState.VICTORY
                 self.game.change_scene(SceneType.POST_COMBAT)
 
         self.ui.update(delta_time)

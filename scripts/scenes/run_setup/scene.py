@@ -67,7 +67,7 @@ class RunSetupScene(Scene):
         if self.game.debug.debug_mode:
             player_troupe.debug_init_units()
         else:
-            player_troupe.generate_units(3, [1], duplicates=True)
+            player_troupe.generate_specific_units(commander["starting_units"])
 
         logging.info(f"Run starting now!")
 

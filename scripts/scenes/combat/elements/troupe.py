@@ -46,7 +46,7 @@ class Troupe:
 
         unit_types = self.game.data.get_units_by_category(self.allies)
         for unit_type in unit_types:
-            id_ = self.add_unit_from_type(unit_type)
+            id_ = self._add_unit_from_type(unit_type)
             ids.append(id_)
 
         return ids
@@ -60,7 +60,7 @@ class Troupe:
 
         logging.info(f"Unit {unit.type}({unit.id}) added to {self.team}'s troupe.")
 
-    def add_unit_from_type(self, unit_type: str) -> int:
+    def _add_unit_from_type(self, unit_type: str) -> int:
         """
         Create a unit based on the unit type and add the unit to the troupe. Return id.
         """
@@ -96,7 +96,6 @@ class Troupe:
         self,
         number_of_units: int,
         tiers_allowed: List[int] = None,
-        unit_types: List[str] = None,
         duplicates: bool = False,
     ) -> List[int]:
         """
@@ -105,43 +104,57 @@ class Troupe:
 
         unit_types is expressed as [unit.type, ...]
         """
-        # handle default mutable
-        if unit_types is None:
-            unit_types = []
 
-            # get unit info
-            unit_types_ = []
-            unit_occur_rate = []
-            for unit_type in self.game.data.get_units_by_category(self.allies, tiers_allowed):
-                unit_types_.append(unit_type)
-                occur_rate = self.game.data.get_unit_occur_rate(unit_type)
-                unit_occur_rate.append(occur_rate)
+        unit_types = []
 
-            # choose units
-            if duplicates:
-                chosen_types = self.game.rng.choices(unit_types_, unit_occur_rate, k=number_of_units)
+        # get unit info
+        unit_types_ = []
+        unit_occur_rate = []
+        for unit_type in self.game.data.get_units_by_category(self.allies, tiers_allowed):
+            unit_types_.append(unit_type)
+            occur_rate = self.game.data.get_unit_occur_rate(unit_type)
+            unit_occur_rate.append(occur_rate)
 
-            else:
-                chosen_types = []
+        # choose units
+        if duplicates:
+            chosen_types = self.game.rng.choices(unit_types_, unit_occur_rate, k=number_of_units)
 
-                for i in range(number_of_units):
-                    # choose unit
-                    unit = self.game.rng.choices(unit_types_, unit_occur_rate)[0]
-                    chosen_types.append(unit)
+        else:
+            chosen_types = []
 
-                    # remove unit and occur rate from option pool
-                    unit_index = unit_types_.index(unit)
-                    unit_types_.remove(unit)
-                    del unit_occur_rate[unit_index]
+            for i in range(number_of_units):
+                # choose unit
+                unit = self.game.rng.choices(unit_types_, unit_occur_rate)[0]
+                chosen_types.append(unit)
 
-            # identify which are upgrades
-            for chosen_type in chosen_types:
-                unit_types.append(chosen_type)
+                # remove unit and occur rate from option pool
+                unit_index = unit_types_.index(unit)
+                unit_types_.remove(unit)
+                del unit_occur_rate[unit_index]
+
+        # add to list
+        for chosen_type in chosen_types:
+            unit_types.append(chosen_type)
 
         # create units
         ids = []
         for unit_type in unit_types:
-            id_ = self.add_unit_from_type(unit_type)
+            id_ = self._add_unit_from_type(unit_type)
+            ids.append(id_)
+
+        return ids
+
+    def generate_specific_units(self, unit_types: List[str]) -> List[int]:
+        """
+        Generate units for the Troupe, based on parameters given. If no unit types are given then any unit type can
+        be chosen from any ally. Returns list of created ids.
+
+        unit_types is expressed as [unit.type, ...]
+        """
+        # create units
+        ids = []
+        for unit_type in unit_types:
+            id_ = self._add_unit_from_type(unit_type)
             ids.append(id_)
 
         return ids

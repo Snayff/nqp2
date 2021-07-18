@@ -103,14 +103,13 @@ class PostCombatUI(UI):
         self.elements["header"] = frame
 
         # draw gold reward
-        current_x = start_x
         current_y += 50
         gold_icon = self.game.assets.get_image("stats", "gold", icon_size)
         gold_reward = self.game.post_combat.gold_reward
         frame = Frame(
             (current_x, current_y),
             image=gold_icon,
-            text_and_font=(str(gold_reward), positive_font),
+            text_and_font=(str(gold_reward), default_font),
             is_selectable=False,
         )
         self.elements["gold_reward"] = frame
