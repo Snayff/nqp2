@@ -81,7 +81,7 @@ class CombatScene(Scene):
         self.units.render(self.game.window.display, self.camera.render_offset())
         self.ui.render(self.game.window.display)
 
-    def begin_combat(self):
+    def reset(self):
         self.camera: Camera = Camera()
         self.camera.pos = [0, 100]
 

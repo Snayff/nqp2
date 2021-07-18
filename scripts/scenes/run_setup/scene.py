@@ -79,5 +79,5 @@ class RunSetupScene(Scene):
         Reset to clean state.
         """
         self.ui = RunSetupUI(self.game)
-        self.selected_commander: str = list(self.game.data.commanders)[0]  # set to first commander
-        self.selected_seed: int = int(datetime.now().strftime("%Y%m%d%H%M%S"))
+        self.selected_commander = list(self.game.data.commanders)[0]  # set to first commander
+        self.selected_seed = int(datetime.now().strftime("%Y%m%d%H%M%S"))

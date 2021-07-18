@@ -190,3 +190,13 @@ class OverworldScene(Scene):
         self.state = OverworldState.LOADING
 
         self.generate_map()
+
+    def reset(self):
+        self.ui = OverworldUI(self.game)
+
+        self.nodes = []
+        self.current_node_row = 0
+        self.level = 1
+        self.state = OverworldState.LOADING
+        self.has_generated_map = False
+

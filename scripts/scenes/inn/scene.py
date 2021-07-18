@@ -11,7 +11,7 @@ from scripts.scenes.combat.elements.unit import Unit
 from scripts.scenes.inn.ui import InnUI
 
 if TYPE_CHECKING:
-    from typing import Dict
+    from typing import Dict, Optional
 
     from scripts.core.game import Game
 
@@ -31,8 +31,7 @@ class InnScene(Scene):
 
         self.ui: InnUI = InnUI(game)
 
-        player_troupe = self.game.memory.player_troupe
-        self.sale_troupe: Troupe = Troupe(self.game, "inn", player_troupe.allies)
+        self.sale_troupe: Optional[Troupe] = None
 
         # record duration
         end_time = time.time()
@@ -44,6 +43,12 @@ class InnScene(Scene):
 
     def render(self):
         self.ui.render(self.game.window.display)
+
+    def reset(self):
+        self.ui = InnUI(self.game)
+
+        self.sale_troupe = None
+
 
     def purchase_unit(self, unit: Unit):
         """
@@ -65,7 +70,6 @@ class InnScene(Scene):
         """
         # update troupe to match players
         player_troupe = self.game.memory.player_troupe
-        self.sale_troupe.allies = player_troupe.allies
+        self.sale_troupe = Troupe(self.game, "inn", player_troupe.allies)
 
-        self.sale_troupe.remove_all_units()
         self.sale_troupe.generate_units(5)

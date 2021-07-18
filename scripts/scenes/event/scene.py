@@ -21,6 +21,7 @@ class EventScene(Scene):
     Handles EventScene interactions and consolidates the rendering. EventScene is used to give players a text choice.
     """
 
+
     def __init__(self, game: Game):
         # start timer
         start_time = time.time()
@@ -29,7 +30,7 @@ class EventScene(Scene):
 
         self.ui: EventUI = EventUI(game)
 
-        self.active_event: Dict = self._get_random_event()
+        self.active_event: Dict = {}
 
         # record duration
         end_time = time.time()
@@ -42,7 +43,12 @@ class EventScene(Scene):
     def render(self):
         self.ui.render(self.game.window.display)
 
-    def _get_random_event(self) -> Dict:
+    def reset(self):
+        self.ui = EventUI(self.game)
+
+        self.active_event = {}
+
+    def load_random_event(self) -> Dict:
         if len(self.game.data.events) > 0:
             level = self.game.overworld.level
             events = self.game.data.events.values()
@@ -56,10 +62,10 @@ class EventScene(Scene):
                     occur_rate = self.game.data.get_combat_occur_rate(event["id"])
                     possible_events_occur_rates.append(occur_rate)
 
-            combat_ = self.game.rng.choices(possible_events, possible_events_occur_rates)[0]
+            event_ = self.game.rng.choices(possible_events, possible_events_occur_rates)[0]
         else:
-            combat_ = {}
-        return combat_
+            event_ = {}
+        return event_
 
     def trigger_result(self, option_index: int):
         """

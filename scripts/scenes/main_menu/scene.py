@@ -50,6 +50,9 @@ class MainMenuScene(Scene):
         """
         Reset all scenes and start game
         """
-        self.game.change_scene(SceneType.OVERWORLD)
+        # self.game.run_setup.reset()
+        # self.game.overworld.reset()
+
+        self.game.change_scene(SceneType.RUN_SETUP)
 
 
