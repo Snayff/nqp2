@@ -48,7 +48,7 @@ class EventScene(Scene):
 
         self.active_event = {}
 
-    def load_random_event(self) -> Dict:
+    def load_random_event(self):
         if len(self.game.data.events) > 0:
             level = self.game.overworld.level
             events = self.game.data.events.values()
@@ -65,7 +65,7 @@ class EventScene(Scene):
             event_ = self.game.rng.choices(possible_events, possible_events_occur_rates)[0]
         else:
             event_ = {}
-        return event_
+        self.active_event = event_
 
     def trigger_result(self, option_index: int):
         """

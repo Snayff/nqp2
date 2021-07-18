@@ -35,3 +35,6 @@ class UnitDataScene(Scene):
 
     def render(self):
         self.ui.render(self.game.window.display)
+
+    def reset(self):
+        self.ui = UnitDataUI(self.game)

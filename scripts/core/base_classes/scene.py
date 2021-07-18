@@ -28,3 +28,7 @@ class Scene(ABC):
     @abstractmethod
     def render(self):
         pass
+
+    @abstractmethod
+    def reset(self):
+        pass

@@ -46,13 +46,14 @@ class MainMenuScene(Scene):
     def render(self):
         self.ui.render(self.game.window.display)
 
+    def reset(self):
+        self.ui = MainMenuUI(self.game)
+
     def new_game(self):
         """
         Reset all scenes and start game
         """
-        # self.game.run_setup.reset()
-        # self.game.overworld.reset()
-
+        self.game.overworld.generate_map()
         self.game.change_scene(SceneType.RUN_SETUP)
 
 

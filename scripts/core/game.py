@@ -101,9 +101,10 @@ class Game:
         """
         Change the active scene
         """
-        # reset exiting scene
-        if hasattr(self.active_scene, "reset"):
-            self.active_scene.reset()
+        # reset exiting scene if not overworld
+        if self.active_scene is not self.overworld:
+            if hasattr(self.active_scene, "reset"):
+                self.active_scene.reset()
 
         # change scene and take scene specific action
         if scene_type == SceneType.MAIN_MENU:
@@ -113,12 +114,10 @@ class Game:
             self.active_scene = self.run_setup
 
         elif scene_type == SceneType.OVERWORLD:
-            if not self.overworld.has_generated_map:
-                self.overworld.generate_map()
-
             self.active_scene = self.overworld
 
         elif scene_type == SceneType.COMBAT:
+            self.combat.generate_combat()
             self.active_scene = self.combat
 
         elif scene_type == SceneType.POST_COMBAT:
