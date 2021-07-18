@@ -17,6 +17,7 @@ from scripts.core.window import Window
 from scripts.scenes.combat.scene import CombatScene
 from scripts.scenes.event.scene import EventScene
 from scripts.scenes.inn.scene import InnScene
+from scripts.scenes.main_menu.scene import MainMenuScene
 from scripts.scenes.overworld.scene import OverworldScene
 from scripts.scenes.post_combat.scene import PostCombatScene
 from scripts.scenes.run_setup.scene import RunSetupScene
@@ -50,6 +51,7 @@ class Game:
         self.rng: RNG = RNG(self)
 
         # scenes
+        self.main_menu: MainMenuScene = MainMenuScene(self)
         self.combat: CombatScene = CombatScene(self)
         self.post_combat: PostCombatScene = PostCombatScene(self)
         self.overworld: OverworldScene = OverworldScene(self)
@@ -63,8 +65,8 @@ class Game:
         self.dev_unit_data: UnitDataScene = UnitDataScene(self)
 
         # point this to whatever scene is active
-        self.active_scene = self.run_setup
-        self.run_setup.ui.rebuild_ui()
+        self.active_scene = self.main_menu
+        self.active_scene.ui.rebuild_ui()
 
         self.state: GameState = GameState.PLAYING
 
@@ -128,8 +130,8 @@ class Game:
             self.active_scene = self.overworld
 
         elif scene_type == SceneType.MAIN_MENU:
-            # TODO - add main menu
-            pass
+            self.main_menu.ui.rebuild_ui()
+            self.active_scene = self.main_menu
 
         elif scene_type == SceneType.VIEW_TROUPE:
             self.troupe.previous_scene_type = utility.scene_to_scene_type(self.active_scene)

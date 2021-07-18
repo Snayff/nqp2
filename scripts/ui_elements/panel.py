@@ -28,6 +28,14 @@ class Panel:
         for element in self.elements:
             element.update(delta_time)
 
+    def render(self, surface: pygame.surface):
+        for element in self.elements:
+            element.render(surface)
+
+    @property
+    def selected_element(self):
+        return self.elements[self.selected_index]
+
     def set_active(self, is_active: bool):
         for element in self.elements:
             element.set_active(is_active)
@@ -36,9 +44,7 @@ class Panel:
         for element in self.elements:
             element.is_selectable = is_selectable
 
-    def render(self, surface: pygame.surface):
-        for element in self.elements:
-            element.render(surface)
+
 
     def select_first_element(self):
         """
@@ -99,3 +105,4 @@ class Panel:
                     logging.debug(f"Panel: Looped all the way back to the starting index. No others selectable.")
 
                 break
+
