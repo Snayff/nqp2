@@ -1,0 +1,14 @@
+{
+    "id": "test",
+    "units": [
+        "archer",
+        "archer",
+        "spearman"
+    ],
+    "level_available": 2,
+    "tier": 2,
+    "gold_reward": [
+        50,
+        110
+    ]
+}
