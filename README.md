@@ -19,9 +19,9 @@ A world exploring, army recruiting, auto-battling adventure to take over the kin
 
 ![image](https://i.imgur.com/0sx7YAQ.png)
 
-![image](https://i.imgur.com/dbONlHf.gifv)
+![image](https://i.imgur.com/dbONlHf.gif)
 
-![image](https://i.imgur.com/gDGcRKo.gifv)
+![image](https://i.imgur.com/gDGcRKo.gif)
 
 
 
