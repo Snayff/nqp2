@@ -19,7 +19,6 @@ __all__ = ["Unit"]
 ########### TO DO LIST #############
 # TODO - random generation of name, based on home, e.g. 3rd legion of Name
 # TODO - option to set unit name manually
-# TODO - remove upgrade cost and standardise cost by tier
 
 
 class Unit:
