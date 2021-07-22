@@ -9,7 +9,7 @@ from scripts.core.constants import TrainingState, UPGRADE_COST, UPGRADE_TIER_MUL
 from scripts.scenes.training.ui import TrainingUI
 
 if TYPE_CHECKING:
-    from typing import List, Dict
+    from typing import Dict, List
 
     from scripts.core.game import Game
 
@@ -60,10 +60,7 @@ class TrainingScene(Scene):
         Generate upgrades to sell. NOTE: currently hard coded.
         """
         self.upgrades_offered = [self.game.data.upgrades["minor_attack"], self.game.data.upgrades["minor_defence"]]
-        self.upgrades_available = {
-            "minor_attack": True,
-            "minor_defence": True
-        }
+        self.upgrades_available = {"minor_attack": True, "minor_defence": True}
 
     @staticmethod
     def calculate_upgrade_cost(tier: int):

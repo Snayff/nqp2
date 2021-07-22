@@ -12,7 +12,7 @@ from scripts.ui_elements.panel import Panel
 from scripts.ui_elements.unit_stats_frame import UnitStatsFrame
 
 if TYPE_CHECKING:
-    from typing import Dict, List, Tuple, Optional
+    from typing import Dict, List, Optional, Tuple
 
     from scripts.core.game import Game
 
@@ -34,7 +34,6 @@ class InnUI(UI):
         self.selected_unit: Optional[Unit] = None
         self.stat_frame: Optional[UnitStatsFrame] = None
         self.stat_frame_pos: Tuple[int, int] = (0, 0)
-
 
         self.set_instruction_text("Choose your newest recruits.")
 
@@ -153,11 +152,7 @@ class InnUI(UI):
         confirm_width = self.default_font.width(confirm_text)
         current_x = window_width - (confirm_width + GAP_SIZE)
         current_y = window_height - (font_height + GAP_SIZE)
-        frame = Frame(
-            (current_x, current_y),
-            text_and_font=(confirm_text, default_font),
-            is_selectable=True
-        )
+        frame = Frame((current_x, current_y), text_and_font=(confirm_text, default_font), is_selectable=True)
         self.elements["exit"] = frame
         panel = Panel([frame], True)
         self.add_panel(panel, "exit")

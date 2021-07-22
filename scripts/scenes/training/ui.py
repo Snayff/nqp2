@@ -12,7 +12,7 @@ from scripts.ui_elements.panel import Panel
 from scripts.ui_elements.unit_stats_frame import UnitStatsFrame
 
 if TYPE_CHECKING:
-    from typing import Dict, List, Tuple, Optional
+    from typing import Dict, List, Optional, Tuple
 
     from scripts.core.game import Game
 
