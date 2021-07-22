@@ -75,6 +75,7 @@ class TrainingUI(UI):
 
         default_font = self.default_font
         disabled_font = self.disabled_font
+        warning_font = self.warning_font
         scene = self.game.training
 
         start_x = 20
@@ -96,15 +97,35 @@ class TrainingUI(UI):
                 text = f"{upgrade['stat']} +{upgrade['mod_amount']}"
                 font = default_font
                 is_selectable = True
+
+                # check can afford
+                upgrade_cost = self.game.training.calculate_upgrade_cost(upgrade["tier"])
+                can_afford = self.game.memory.gold > upgrade_cost
+                if can_afford:
+                    font = default_font
+                else:
+                    font = warning_font
+
+                # draw gold cost
+                gold_icon = self.game.assets.get_image("stats", "gold", icon_size)
+                frame = Frame(
+                    (current_x, current_y),
+                    image=gold_icon,
+                    text_and_font=(str(upgrade_cost), font),
+                    is_selectable=False,
+                )
+                self.elements["cost" + str(selection_counter)] = frame
+
             else:
                 text = f"Sold out"
                 font = disabled_font
                 is_selectable = False
 
-            # TODO - draw gold cost
+            # draw upgrade icon and details
+            upgrade_x = current_x + 50
             stat_icon = self.game.assets.get_image("stats", upgrade["stat"], icon_size)
             frame = Frame(
-                (current_x, current_y),
+                (upgrade_x, current_y),
                 image=stat_icon,
                 text_and_font=(text, font),
                 is_selectable=is_selectable,
@@ -126,7 +147,7 @@ class TrainingUI(UI):
         self.add_panel(panel, "upgrades")
 
         # draw list of units
-        current_x = start_x + 100
+        current_x += 150
         current_y = start_y + 20  # add an offset
         panel_list = []
         for selection_counter, unit in enumerate(self.game.memory.player_troupe.units.values()):
