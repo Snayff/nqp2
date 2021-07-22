@@ -162,89 +162,6 @@ class InnUI(UI):
         panel = Panel([frame], True)
         self.add_panel(panel, "exit")
 
-
-
-
-        #
-        #
-        #
-        #
-        #
-        # # draw unit info
-        # current_x = start_x
-        # current_y = start_y
-        # panel_list = []
-        # count = 0
-        # for unit in units_for_sale:
-        #
-        #     # check if available
-        #     if scene.units_available[unit.id]:
-        #         text = f"Buy"
-        #         font = default_font
-        #         is_selectable = True
-        #
-        #         # check can purchase
-        #         can_afford = unit.gold_cost <= self.game.memory.gold
-        #         has_enough_charisma = self.game.memory.commander.charisma_remaining > 0
-        #         if can_afford and has_enough_charisma:
-        #             gold_font = default_font
-        #         else:
-        #             gold_font = warning_font
-        #
-        #         # draw gold cost
-        #         gold_icon = self.game.assets.get_image("stats", "gold", icon_size)
-        #         frame = Frame(
-        #             (current_x, current_y),
-        #             image=gold_icon,
-        #             text_and_font=(str(unit.gold_cost), gold_font),
-        #             is_selectable=False,
-        #         )
-        #         self.elements["cost" + str(unit.id)] = frame
-        #
-        #     else:
-        #         text = f"Sold out"
-        #         font = disabled_font
-        #         is_selectable = False
-        #
-        #     # draw buy option
-        #     unit_x = current_x + 50
-        #     current_y = start_y
-        #     frame = Frame(
-        #         (unit_x, current_y),
-        #         text_and_font=(text, font),
-        #         is_selectable=is_selectable
-        #     )
-        #     self.elements[f"{unit.id}"] = frame
-        #     panel_list.append(frame)
-        #
-        #     # draw unit
-        #     current_y += 30
-        #     frame = UnitStatsFrame(
-        #         self.game,
-        #         (current_x, current_y),
-        #         unit,
-        #     )
-        #     self.elements[f"{unit.id}_stats"] = frame
-        #
-        #     # increment pos
-        #     current_x += 70
-        #
-        #     count += 1
-        #
-        # # store panel info
-        # self.panels["buy"] = Panel(panel_list, True)
-        # self.current_panel = self.panels["buy"]
-        # self.current_panel.select_first_element()
-        #
-        # confirm_text = "Onwards"
-        # confirm_width = self.default_font.width(confirm_text)
-        # current_x = window_width - (confirm_width + GAP_SIZE)
-        # current_y = window_height - (font_height + GAP_SIZE)
-        # frame = Frame((current_x, current_y), text_and_font=(confirm_text, default_font), is_selectable=True)
-        # self.elements["exit"] = frame
-        # panel = Panel([frame], True)
-        # self.add_panel(panel, "exit")
-
     def refresh_info(self):
         elements = self.elements
 
@@ -288,7 +205,7 @@ class InnUI(UI):
                     self.set_instruction_text(f"{unit.id} recruited!", True)
 
                     # check if anything left available
-                    if True in self.game.training.upgrades_available.values():
+                    if True in self.game.inn.units_available.values():
                         self.set_instruction_text("Choose an upgrade to buy.")
                     else:
                         self.set_instruction_text("All sold out. Time to move on.")
