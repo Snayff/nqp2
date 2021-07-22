@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import pygame
 
 from scripts.core.base_classes.ui import UI
-from scripts.core.constants import GAP_SIZE, SceneType
+from scripts.core.constants import DEFAULT_IMAGE_SIZE, GAP_SIZE, SceneType
 from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.panel import Panel
 from scripts.ui_elements.unit_stats_frame import UnitStatsFrame
@@ -69,12 +69,17 @@ class InnUI(UI):
     def rebuild_ui(self):
         super().rebuild_ui()
 
-        units_for_sale = list(self.game.inn.sale_troupe.units.values())
+        scene = self.game.inn
+        units_for_sale = list(scene.sale_troupe.units.values())
         default_font = self.default_font
         warning_font = self.warning_font
+        disabled_font = self.disabled_font
         font_height = 12  # FIXME - get actual font height
         window_width = self.game.window.width
         window_height = self.game.window.height
+        icon_width = DEFAULT_IMAGE_SIZE
+        icon_height = DEFAULT_IMAGE_SIZE
+        icon_size = (icon_width, icon_height)
 
         # positions
         start_x = 20
@@ -82,21 +87,48 @@ class InnUI(UI):
 
         # draw unit info
         current_x = start_x
+        current_y = start_y
         panel_list = []
         count = 0
         for unit in units_for_sale:
 
-            # check can purchase
-            can_afford = unit.gold_cost <= self.game.memory.gold
-            has_enough_charisma = self.game.memory.commander.charisma_remaining > 0
-            if can_afford and has_enough_charisma:
-                active_font = default_font
+            # check if available
+            if scene.units_available[unit.id]:
+                text = f"Buy"
+                font = default_font
+                is_selectable = True
+
+                # check can purchase
+                can_afford = unit.gold_cost <= self.game.memory.gold
+                has_enough_charisma = self.game.memory.commander.charisma_remaining > 0
+                if can_afford and has_enough_charisma:
+                    gold_font = default_font
+                else:
+                    gold_font = warning_font
+
+                # draw gold cost
+                gold_icon = self.game.assets.get_image("stats", "gold", icon_size)
+                frame = Frame(
+                    (current_x, current_y),
+                    image=gold_icon,
+                    text_and_font=(str(unit.gold_cost), gold_font),
+                    is_selectable=False,
+                )
+                self.elements["cost" + str(unit.id)] = frame
+
             else:
-                active_font = warning_font
+                text = f"Sold out"
+                font = disabled_font
+                is_selectable = False
 
             # draw buy option
+            unit_x = current_x + 50
             current_y = start_y
-            frame = Frame((current_x, current_y), text_and_font=("Buy", active_font), is_selectable=True)
+            frame = Frame(
+                (unit_x, current_y),
+                text_and_font=(text, font),
+                is_selectable=is_selectable
+            )
             self.elements[f"{unit.id}"] = frame
             panel_list.append(frame)
 
@@ -137,22 +169,25 @@ class InnUI(UI):
             units = list(self.game.inn.sale_troupe.units.values())
             unit = units[self.current_panel.selected_index]
 
-            # can we purchase
-            can_afford = unit.gold_cost <= self.game.memory.gold
-            has_enough_charisma = self.game.memory.commander.charisma_remaining > 0
-            if can_afford and has_enough_charisma:
-                self.game.inn.purchase_unit(unit)
+            # is available
+            if self.game.inn.units_available[unit.id]:
 
-                self.rebuild_ui()
+                # can we purchase
+                can_afford = unit.gold_cost <= self.game.memory.gold
+                has_enough_charisma = self.game.memory.commander.charisma_remaining > 0
+                if can_afford and has_enough_charisma:
+                    self.game.inn.purchase_unit(unit)
 
-                self.set_instruction_text(f"{unit.id} recruited!", True)
+                    self.rebuild_ui()
 
-            else:
-                # inform player of fail states
-                if not can_afford:
-                    self.set_instruction_text(f"You can't afford the {unit.type}.", True)
+                    self.set_instruction_text(f"{unit.id} recruited!", True)
+
                 else:
-                    self.set_instruction_text(f"You don't have enough charisma to recruit them.", True)
+                    # inform player of fail states
+                    if not can_afford:
+                        self.set_instruction_text(f"You can't afford the {unit.type}.", True)
+                    else:
+                        self.set_instruction_text(f"You don't have enough charisma to recruit them.", True)
 
         # exit
         if self.game.input.states["cancel"]:

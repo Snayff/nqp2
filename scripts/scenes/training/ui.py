@@ -102,16 +102,16 @@ class TrainingUI(UI):
                 upgrade_cost = self.game.training.calculate_upgrade_cost(upgrade["tier"])
                 can_afford = self.game.memory.gold > upgrade_cost
                 if can_afford:
-                    font = default_font
+                    gold_font = default_font
                 else:
-                    font = warning_font
+                    gold_font = warning_font
 
                 # draw gold cost
                 gold_icon = self.game.assets.get_image("stats", "gold", icon_size)
                 frame = Frame(
                     (current_x, current_y),
                     image=gold_icon,
-                    text_and_font=(str(upgrade_cost), font),
+                    text_and_font=(str(upgrade_cost), gold_font),
                     is_selectable=False,
                 )
                 self.elements["cost" + str(selection_counter)] = frame

@@ -32,6 +32,7 @@ class InnScene(Scene):
         self.ui: InnUI = InnUI(game)
 
         self.sale_troupe: Optional[Troupe] = None
+        self.units_available: Dict[int, bool] = {}  # unit.id : is available
 
         # record duration
         end_time = time.time()
@@ -60,8 +61,8 @@ class InnScene(Scene):
         # add unit
         self.game.memory.player_troupe.add_unit(unit)
 
-        # remove option from list
-        self.sale_troupe.remove_unit(unit.id)
+        # update unit availability
+        self.units_available[unit.id] = False
 
     def generate_sale_options(self):
         """
@@ -72,3 +73,7 @@ class InnScene(Scene):
         self.sale_troupe = Troupe(self.game, "inn", player_troupe.allies)
 
         self.sale_troupe.generate_units(5)
+
+        # add to available
+        for unit in self.sale_troupe.units.values():
+            self.units_available[unit.id] = True
