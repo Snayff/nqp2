@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Optional, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 import pygame
 
@@ -12,7 +12,7 @@ from scripts.ui_elements.panel import Panel
 from scripts.ui_elements.unit_stats_frame import UnitStatsFrame
 
 if TYPE_CHECKING:
-    from typing import Dict, List, Tuple
+    from typing import Dict, List, Tuple, Optional
 
     from scripts.core.game import Game
 
