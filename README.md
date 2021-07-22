@@ -19,7 +19,7 @@ A world exploring, army recruiting, auto-battling adventure to take over the kin
 
 ![commander_select](https://i.imgur.com/0sx7YAQ.png)
 
-![combat_gif](https://i.imgur.com/dbONlHf.gif)
+![combat_gif](https://i.imgur.com/xBtSSPf.gif)
 
 ![recruiting_gif](https://i.imgur.com/gDGcRKo.gif)
 
