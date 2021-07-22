@@ -71,7 +71,7 @@ class ViewTroupeUI(UI):
         for count, unit in enumerate(units.values()):
 
             frame = UnitStatsFrame(self.game, (current_x, current_y), unit, False)
-            self.elements[f"{unit.type}_{count}"] = frame
+            self.elements[f"{unit.id}"] = frame
             # if we need to refer back to this we will need to change key
 
             current_x += 70

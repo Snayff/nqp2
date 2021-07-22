@@ -105,7 +105,7 @@ class Data:
         for event in os.listdir("data/events"):
             f = open(str(DATA_PATH / "events" / event), "r")
             data = json.load(f)
-            events[data["id"]] = data
+            events[data["type"]] = data
             f.close()
 
         logging.info(f"Data: All event data loaded.")
@@ -141,7 +141,7 @@ class Data:
         for combat in os.listdir("data/combats"):
             f = open(str(DATA_PATH / "combats" / combat), "r")
             data = json.load(f)
-            combats[data["id"]] = data
+            combats[data["type"]] = data
             f.close()
 
         logging.info(f"Data: All combats data loaded.")

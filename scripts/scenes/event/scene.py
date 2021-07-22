@@ -58,7 +58,7 @@ class EventScene(Scene):
             for event in events:
                 if event["level_available"] <= level:
                     possible_events.append(event)
-                    occur_rate = self.game.data.get_combat_occur_rate(event["id"])
+                    occur_rate = self.game.data.get_combat_occur_rate(event["type"])
                     possible_events_occur_rates.append(occur_rate)
 
             event_ = self.game.rng.choices(possible_events, possible_events_occur_rates)[0]

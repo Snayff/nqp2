@@ -83,10 +83,8 @@ class InnUI(UI):
         # draw unit info
         current_x = start_x
         panel_list = []
-        count = -1
+        count = 0
         for unit in units_for_sale:
-            count += 1
-            print(f"UnitsForSale: {count}: {unit.type}")
 
             # check can purchase
             can_afford = unit.gold_cost <= self.game.memory.gold
@@ -99,7 +97,7 @@ class InnUI(UI):
             # draw buy option
             current_y = start_y
             frame = Frame((current_x, current_y), text_and_font=("Buy", active_font), is_selectable=True)
-            self.elements[f"{unit.type}"] = frame
+            self.elements[f"{unit.id}"] = frame
             panel_list.append(frame)
 
             # draw unit
@@ -109,10 +107,12 @@ class InnUI(UI):
                 (current_x, current_y),
                 unit,
             )
-            self.elements[f"{unit.type}_stats"] = frame
+            self.elements[f"{unit.id}_stats"] = frame
 
             # increment pos
             current_x += 70
+
+            count += 1
 
         # store panel info
         self.panels["buy"] = Panel(panel_list, True)
@@ -145,7 +145,7 @@ class InnUI(UI):
 
                 self.rebuild_ui()
 
-                self.set_instruction_text(f"{unit.type} recruited!", True)
+                self.set_instruction_text(f"{unit.id} recruited!", True)
 
             else:
                 # inform player of fail states
