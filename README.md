@@ -15,13 +15,13 @@ Art by [Aleksander Makarov].
 ## What is it?
 A world exploring, army recruiting, auto-battling adventure to take over the kingdom. 
 
-![image](https://i.imgur.com/rw9sDZW.png)
+![title_screen](https://i.imgur.com/rw9sDZW.png)
 
-![image](https://i.imgur.com/0sx7YAQ.png)
+![commander_select](https://i.imgur.com/0sx7YAQ.png)
 
-![image](https://i.imgur.com/dbONlHf.gif)
+![combat_gif](https://i.imgur.com/dbONlHf.gif)
 
-![image](https://i.imgur.com/gDGcRKo.gif)
+![recruiting_gif](https://i.imgur.com/gDGcRKo.gif)
 
 
 
