@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Optional, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 import pygame
 
@@ -12,7 +12,7 @@ from scripts.ui_elements.panel import Panel
 from scripts.ui_elements.unit_stats_frame import UnitStatsFrame
 
 if TYPE_CHECKING:
-    from typing import Dict, List, Tuple
+    from typing import Dict, List, Optional, Tuple
 
     from scripts.core.game import Game
 
@@ -74,6 +74,8 @@ class TrainingUI(UI):
         super().rebuild_ui()
 
         default_font = self.default_font
+        disabled_font = self.disabled_font
+        warning_font = self.warning_font
         scene = self.game.training
 
         start_x = 20
@@ -89,14 +91,44 @@ class TrainingUI(UI):
         current_x = start_x
         current_y = start_y
         panel_list = []
-        for selection_counter, upgrade in enumerate(scene.upgrades_sold):
-            # TODO - draw gold cost
+        for selection_counter, upgrade in enumerate(scene.upgrades_offered):
+            # check if available
+            if scene.upgrades_available[upgrade["type"]]:
+                text = f"{upgrade['stat']} +{upgrade['mod_amount']}"
+                font = default_font
+                is_selectable = True
+
+                # check can afford
+                upgrade_cost = self.game.training.calculate_upgrade_cost(upgrade["tier"])
+                can_afford = self.game.memory.gold > upgrade_cost
+                if can_afford:
+                    gold_font = default_font
+                else:
+                    gold_font = warning_font
+
+                # draw gold cost
+                gold_icon = self.game.assets.get_image("stats", "gold", icon_size)
+                frame = Frame(
+                    (current_x, current_y),
+                    image=gold_icon,
+                    text_and_font=(str(upgrade_cost), gold_font),
+                    is_selectable=False,
+                )
+                self.elements["cost" + str(selection_counter)] = frame
+
+            else:
+                text = f"Sold out"
+                font = disabled_font
+                is_selectable = False
+
+            # draw upgrade icon and details
+            upgrade_x = current_x + 50
             stat_icon = self.game.assets.get_image("stats", upgrade["stat"], icon_size)
             frame = Frame(
-                (current_x, current_y),
+                (upgrade_x, current_y),
                 image=stat_icon,
-                text_and_font=(f"{upgrade['stat']} +{upgrade['mod_amount']}", default_font),
-                is_selectable=True,
+                text_and_font=(text, font),
+                is_selectable=is_selectable,
             )
             # capture frame
             self.elements[upgrade["type"] + str(selection_counter)] = frame
@@ -115,7 +147,7 @@ class TrainingUI(UI):
         self.add_panel(panel, "upgrades")
 
         # draw list of units
-        current_x = start_x + 100
+        current_x += 150
         current_y = start_y + 20  # add an offset
         panel_list = []
         for selection_counter, unit in enumerate(self.game.memory.player_troupe.units.values()):
@@ -128,7 +160,7 @@ class TrainingUI(UI):
             )
 
             # register frame
-            self.elements[unit.type] = frame
+            self.elements[f"{unit.id}"] = frame
             panel_list.append(frame)
 
             # highlight selected unit
@@ -170,26 +202,32 @@ class TrainingUI(UI):
         if self.game.input.states["select"]:
             self.game.input.states["select"] = False
 
-            # select the upgrade
-            self.selected_upgrade = self.game.training.upgrades_sold[self.current_panel.selected_index]
+            selected_index = self.current_panel.selected_index
+            upgrade = self.game.training.upgrades_offered[selected_index]
 
-            # move to next panel
-            self.current_panel = self.panels["units"]
-            self.current_panel.select_first_element()
-            self.current_panel.set_active(True)
+            # check upgrade is available - this is a defensive check; you shouldnt be able to select a sold upgrade
+            if self.game.training.upgrades_available[upgrade["type"]]:
 
-            # show unit stat frame
-            self.elements["stat_frame"].is_active = True
+                # select the upgrade
+                self.selected_upgrade = upgrade
 
-            # update state
-            self.game.training.state = TrainingState.CHOOSE_TARGET_UNIT
+                # move to next panel
+                self.current_panel = self.panels["units"]
+                self.current_panel.select_first_element()
+                self.current_panel.set_active(True)
 
-            # update info
-            self.selected_unit = list(self.game.memory.player_troupe.units.values())[self.current_panel.selected_index]
-            self.refresh_info()
+                # show unit stat frame
+                self.elements["stat_frame"].is_active = True
 
-            # update instruction
-            self.set_instruction_text(f"Choose a unit to apply {self.selected_upgrade['type']} to.")
+                # update state
+                self.game.training.state = TrainingState.CHOOSE_TARGET_UNIT
+
+                # update info
+                self.selected_unit = list(self.game.memory.player_troupe.units.values())[selected_index]
+                self.refresh_info()
+
+                # update instruction
+                self.set_instruction_text(f"Choose a unit to apply {self.selected_upgrade['type']} to.")
 
         # go to exit
         if self.game.input.states["cancel"]:
@@ -233,7 +271,18 @@ class TrainingUI(UI):
                     self.selected_unit = None
                     self.rebuild_ui()
 
-                    self.set_instruction_text("Choose an upgrade to buy.")
+                    # check if anything left available
+                    if True in self.game.training.upgrades_available.values():
+                        self.set_instruction_text("Choose an upgrade to buy.")
+                    else:
+                        self.set_instruction_text("All sold out. Time to move on.")
+
+                        # unselect current panel
+                        self.current_panel.unselect_all_elements()
+
+                        # change to exit panel
+                        self.current_panel = self.panels["exit"]
+                        self.current_panel.select_first_element()
 
                 else:
                     upgrade_cost = self.game.training.calculate_upgrade_cost(upgrade["tier"])
@@ -254,7 +303,7 @@ class TrainingUI(UI):
             # hide stat panel
             self.elements["stat_frame"].is_active = False
 
-            # change panel=
+            # change panel
             self.current_panel = self.panels["upgrades"]
             self.refresh_info()
 
@@ -291,8 +340,8 @@ class TrainingUI(UI):
             self.game.memory.amend_gold(-upgrade_cost)  # remove gold cost
             self.game.memory.player_troupe.upgrade_unit(id_, upgrade["type"])
 
-            # remove upgrade from choices and refresh UI
-            self.game.training.upgrades_sold.pop(self.current_panel.selected_index)
+            #  update upgrade availability and refresh UI
+            self.game.training.upgrades_available[upgrade["type"]] = False
 
             success = True
         else:
