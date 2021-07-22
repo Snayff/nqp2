@@ -17,8 +17,8 @@
         "3": 50,
         "4": 25
     },
-    "base_values": {
-        "unit_stats_tier_1": {
+    "unit_base_values": {
+        "tier_1": {
             "health": 1,
             "defence": 1,
             "attack": 1,
@@ -31,7 +31,7 @@
             "weight": 1,
             "gold_cost": 1
         },
-        "unit_stats_tier_2": {
+        "tier_2": {
             "health": 2,
             "defence": 2,
             "attack": 2,
@@ -44,7 +44,7 @@
             "weight": 2,
             "gold_cost": 2
         },
-        "unit_stats_tier_3": {
+        "tier_3": {
             "health": 3,
             "defence": 3,
             "attack": 3,
@@ -57,7 +57,7 @@
             "weight": 3,
             "gold_cost": 3
         },
-        "unit_stats_tier_4": {
+        "tier_4": {
             "health": 4,
             "defence": 4,
             "attack": 4,

@@ -32,20 +32,29 @@ class Unit:
         self.type: str = unit_type
         self.team: str = team  # this is derived from the Troupe but can be overridden in combat
 
+        # stats that dont use base values
         self.type: str = unit_data["type"]
-        self.default_behaviour: str = unit_data["default_behaviour"]
-        self._health: int = unit_data["health"]
-        self._attack: int = unit_data["attack"]
-        self._defence: int = unit_data["defence"]
-        self._range: int = unit_data["range"]
-        self._attack_speed: float = unit_data["attack_speed"]
-        self._move_speed: int = unit_data["move_speed"]
-        self._ammo: int = unit_data["ammo"]
-        self.count: int = unit_data["count"]  # number of entities spawned
-        self.size: int = unit_data["size"]  # size of the hitbox
-        self.weight: int = unit_data["weight"]
-        self.gold_cost: int = unit_data["gold_cost"]
         self.tier: int = unit_data["tier"]
+        self.default_behaviour: str = unit_data["default_behaviour"]
+
+        # stats that include
+        base_values = self.game.data.config["unit_base_values"][f"tier_{unit_data['tier']}"]
+        self._health: int = unit_data["health"] + base_values["health"]
+        self._attack: int = unit_data["attack"] + base_values["attack"]
+        self._defence: int = unit_data["defence"] + base_values["defence"]
+        self._range: int = unit_data["range"] + base_values["range"]
+        self._attack_speed: float = unit_data["attack_speed"] + base_values["attack_speed"]
+        self._move_speed: int = unit_data["move_speed"] + base_values["move_speed"]
+        # ensure faux-null value is respected
+        if unit_data["ammo"] == -1:
+            ammo_ = -1
+        else:
+            ammo_ = unit_data["ammo"] + base_values["ammo"]
+        self._ammo: int = ammo_  # number of ranged shots
+        self.count: int = unit_data["count"] + base_values["count"]  # number of entities spawned
+        self.size: int = unit_data["size"] + base_values["size"]  # size of the hitbox
+        self.weight: int = unit_data["weight"] + base_values["weight"]
+        self.gold_cost: int = unit_data["gold_cost"] + base_values["gold_cost"]
 
         self.modifiers: Dict[str, List[int]] = {}
 
