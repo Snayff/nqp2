@@ -16,5 +16,59 @@
         "2": 75,
         "3": 50,
         "4": 25
+    },
+    "base_values": {
+        "unit_stats_tier_1": {
+            "health": 1,
+            "defence": 1,
+            "attack": 1,
+            "range": 1,
+            "attack_speed": 1,
+            "move_speed": 1,
+            "ammo": 1,
+            "count": 1,
+            "size": 1,
+            "weight": 1,
+            "gold_cost": 1
+        },
+        "unit_stats_tier_2": {
+            "health": 2,
+            "defence": 2,
+            "attack": 2,
+            "range": 2,
+            "attack_speed": 2,
+            "move_speed": 2,
+            "ammo": 2,
+            "count": 2,
+            "size": 2,
+            "weight": 2,
+            "gold_cost": 2
+        },
+        "unit_stats_tier_3": {
+            "health": 3,
+            "defence": 3,
+            "attack": 3,
+            "range": 3,
+            "attack_speed": 3,
+            "move_speed": 3,
+            "ammo": 3,
+            "count": 3,
+            "size": 3,
+            "weight": 3,
+            "gold_cost": 3
+        },
+        "unit_stats_tier_4": {
+            "health": 4,
+            "defence": 4,
+            "attack": 4,
+            "range": 4,
+            "attack_speed": 4,
+            "move_speed": 4,
+            "ammo": 4,
+            "count": 4,
+            "size": 4,
+            "weight": 4,
+            "gold_cost": 4
+        }
     }
 }
