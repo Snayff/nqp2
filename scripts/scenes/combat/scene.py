@@ -166,7 +166,7 @@ class CombatScene(Scene):
             for combat in combats:
                 if combat["level_available"] <= level:
                     possible_combats.append(combat)
-                    occur_rate = self.game.data.get_combat_occur_rate(combat["id"])
+                    occur_rate = self.game.data.get_combat_occur_rate(combat["type"])
                     possible_combats_occur_rates.append(occur_rate)
 
             combat_ = self.game.rng.choices(possible_combats, possible_combats_occur_rates)[0]
