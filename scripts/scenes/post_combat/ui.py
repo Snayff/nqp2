@@ -163,73 +163,74 @@ class PostCombatUI(UI):
         self.add_panel(panel, "exit")
 
     def _render_unit_rewards(self, surface: pygame.surface):
-        # FIXME - this no longer works
-        reward_units = list(self.game.reward.troupe_rewards.units.values())
-        default_font = self.default_font
-        disabled_font = self.disabled_font
-        warning_font = self.warning_font
-        positive_font = self.positive_font
-        stats = ["type", "health", "defence", "attack", "range", "attack_speed", "move_speed", "ammo", "count"]
-
-        # positions
-        start_x = 20
-        start_y = 60
-        font_height = 12
-        window_width = self.game.window.width
-        window_height = self.game.window.height
-        col_width = int((window_width - (start_x * 2)) / len(stats))
-
-        # victory message
-        positive_font.render("Victory!", surface, (start_x, start_y))
-
-        # gold reward
-        current_y = start_y + (font_height * 2)
-        gold_reward = self.game.reward.gold_reward
-        default_font.render(f"{gold_reward} gold scavenged from the dead.", surface, (start_x, current_y))
-
-        # instruction
-        current_y = window_height // 2
-        warning_font.render(f"Choose one of the following rewards.", surface, (start_x, current_y))
-
-        # draw headers
-        current_y = current_y + (font_height * 2)
-        col_count = 0
-        for stat in stats:
-            col_x = start_x + (col_width * col_count)
-            default_font.render(stat, surface, (col_x, current_y))
-
-            col_count += 1
-
-        # draw unit info
-        row_count = 0
-        for unit in reward_units:
-            active_font = default_font
-
-            option_y = current_y + ((font_height + GAP_SIZE) * (row_count + 1))  # + 1 due to headers
-
-            # draw stats
-            col_count = 0
-            for stat in stats:
-                col_x = start_x + (col_width * col_count)
-
-                text = str(getattr(unit, stat))
-                active_font.render(text, surface, (col_x, option_y))
-
-                col_count += 1
-
-            # draw selector
-            if row_count == self.selected_row:
-                # note the selected unit
-                self.selected_reward = unit
-
-                pygame.draw.line(
-                    surface,
-                    (255, 255, 255),
-                    (start_x, option_y + font_height),
-                    (start_x + active_font.width(unit.type), option_y + font_height),
-                )
-
-            row_count += 1
+        pass
+        # # FIXME - this no longer works
+        # reward_units = list(self.game.reward.troupe_rewards.units.values())
+        # default_font = self.default_font
+        # disabled_font = self.disabled_font
+        # warning_font = self.warning_font
+        # positive_font = self.positive_font
+        # stats = ["type", "health", "defence", "attack", "range", "attack_speed", "move_speed", "ammo", "count"]
+        #
+        # # positions
+        # start_x = 20
+        # start_y = 60
+        # font_height = 12
+        # window_width = self.game.window.width
+        # window_height = self.game.window.height
+        # col_width = int((window_width - (start_x * 2)) / len(stats))
+        #
+        # # victory message
+        # positive_font.render("Victory!", surface, (start_x, start_y))
+        #
+        # # gold reward
+        # current_y = start_y + (font_height * 2)
+        # gold_reward = self.game.reward.gold_reward
+        # default_font.render(f"{gold_reward} gold scavenged from the dead.", surface, (start_x, current_y))
+        #
+        # # instruction
+        # current_y = window_height // 2
+        # warning_font.render(f"Choose one of the following rewards.", surface, (start_x, current_y))
+        #
+        # # draw headers
+        # current_y = current_y + (font_height * 2)
+        # col_count = 0
+        # for stat in stats:
+        #     col_x = start_x + (col_width * col_count)
+        #     default_font.render(stat, surface, (col_x, current_y))
+        #
+        #     col_count += 1
+        #
+        # # draw unit info
+        # row_count = 0
+        # for unit in reward_units:
+        #     active_font = default_font
+        #
+        #     option_y = current_y + ((font_height + GAP_SIZE) * (row_count + 1))  # + 1 due to headers
+        #
+        #     # draw stats
+        #     col_count = 0
+        #     for stat in stats:
+        #         col_x = start_x + (col_width * col_count)
+        #
+        #         text = str(getattr(unit, stat))
+        #         active_font.render(text, surface, (col_x, option_y))
+        #
+        #         col_count += 1
+        #
+        #     # draw selector
+        #     if row_count == self.selected_row:
+        #         # note the selected unit
+        #         self.selected_reward = unit
+        #
+        #         pygame.draw.line(
+        #             surface,
+        #             (255, 255, 255),
+        #             (start_x, option_y + font_height),
+        #             (start_x + active_font.width(unit.type), option_y + font_height),
+        #         )
+        #
+        #     row_count += 1
 
     def handle_victory_input(self):
         if self.game.input.states["select"]:
