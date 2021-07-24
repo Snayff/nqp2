@@ -67,14 +67,15 @@ class UI(ABC):
         else:
             self.instruction_text = text
 
-    def draw_gold(self, surface: pygame.surface):
+    def draw_resources(self, surface: pygame.surface):
+        """
+        Draw key resources on screen. Gold, Rations, Charisma, Leadership.
+        """
         self.disabled_font.render(f"Gold: {self.game.memory.gold}", surface, (2, 2))
+        self.disabled_font.render(f"Rations: {self.game.memory.rations}", surface, (62, 2))
+        self.disabled_font.render(f"Charisma: {self.game.memory.commander.charisma_remaining}", surface, (122, 2))
+        self.disabled_font.render(f"Leadership: {self.game.memory.commander.leadership}", surface, (182, 2))
 
-    def draw_charisma(self, surface: pygame.surface):
-        self.disabled_font.render(f"Charisma: {self.game.memory.commander.charisma_remaining}", surface, (62, 2))
-
-    def draw_leadership(self, surface: pygame.surface):
-        self.disabled_font.render(f"Leadership: {self.game.memory.commander.leadership}", surface, (122, 2))
 
     def draw_instruction(self, surface: pygame.surface):
         if self.temporary_instruction_text:

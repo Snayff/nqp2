@@ -54,9 +54,7 @@ class InnUI(UI):
 
     def render(self, surface: pygame.surface):
         # show core info
-        self.draw_gold(surface)
-        self.draw_charisma(surface)
-        self.draw_leadership(surface)
+        self.draw_resources(surface)
         self.draw_instruction(surface)
 
         # draw elements
