@@ -41,6 +41,7 @@ class Memory:
 
         # general
         self.gold = 0
+        self.rations = 0
 
         # record duration
         end_time = time.time()
@@ -51,6 +52,12 @@ class Memory:
         Amend the current gold value by the given amount.
         """
         self.gold = max(0, self.gold + amount)
+
+    def amend_rations(self, amount: int):
+        """
+        Amend the current rations value by the given amount.
+        """
+        self.rations = max(0, self.rations + amount)
 
     def generate_id(self) -> int:
         """
