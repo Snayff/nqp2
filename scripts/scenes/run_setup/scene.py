@@ -56,9 +56,11 @@ class RunSetupScene(Scene):
 
         # register commander values
         commander = self.game.data.commanders[self.selected_commander]
+        starting_values = self.game.data.config["starting_values"]
         self.game.memory.player_troupe.allies = commander["allies"]
         self.game.memory.commander = Commander(self.game, commander["type"])
-        self.game.memory.amend_gold(commander["starting_gold"])
+        self.game.memory.amend_gold(starting_values["gold"] + commander["starting_gold"])
+        self.game.memory.amend_rations(starting_values["rations"] + commander["starting_rations"])
 
         logging.info(f"Player chose {self.selected_commander} as their commander.")
 
