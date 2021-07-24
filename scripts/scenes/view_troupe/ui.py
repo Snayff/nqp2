@@ -48,9 +48,6 @@ class ViewTroupeUI(UI):
 
     def render(self, surface: pygame.surface):
         # show core info
-        self.draw_gold(surface)
-        self.draw_charisma(surface)
-        self.draw_leadership(surface)
         self.draw_instruction(surface)
 
         # draw elements
@@ -63,7 +60,7 @@ class ViewTroupeUI(UI):
 
         # positions
         start_x = 20
-        start_y = 20
+        start_y = 40
 
         # draw options
         current_x = start_x
@@ -75,3 +72,5 @@ class ViewTroupeUI(UI):
             # if we need to refer back to this we will need to change key
 
             current_x += 70
+
+        self.rebuild_resource_elements()

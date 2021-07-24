@@ -54,9 +54,6 @@ class InnUI(UI):
 
     def render(self, surface: pygame.surface):
         # show core info
-        self.draw_gold(surface)
-        self.draw_charisma(surface)
-        self.draw_leadership(surface)
         self.draw_instruction(surface)
 
         # draw elements
@@ -72,7 +69,7 @@ class InnUI(UI):
         disabled_font = self.disabled_font
 
         start_x = 20
-        start_y = 20
+        start_y = 40
         font_height = 12  # FIXME - get actual font height
         window_width = self.game.window.width
         window_height = self.game.window.height
@@ -156,6 +153,8 @@ class InnUI(UI):
         self.elements["exit"] = frame
         panel = Panel([frame], True)
         self.add_panel(panel, "exit")
+
+        self.rebuild_resource_elements()
 
     def refresh_info(self):
         elements = self.elements

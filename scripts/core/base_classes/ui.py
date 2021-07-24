@@ -3,6 +3,10 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 
+from scripts.core.constants import DEFAULT_IMAGE_SIZE, GAP_SIZE
+from scripts.ui_elements.frame import Frame
+from scripts.ui_elements.panel import Panel
+
 if TYPE_CHECKING:
     from typing import Dict, List, Optional, Type, Union
 
@@ -10,8 +14,6 @@ if TYPE_CHECKING:
 
     from scripts.core.game import Game
     from scripts.ui_elements.font import Font
-    from scripts.ui_elements.frame import Frame
-    from scripts.ui_elements.panel import Panel
     from scripts.ui_elements.unit_stats_frame import UnitStatsFrame
 
 
@@ -67,14 +69,55 @@ class UI(ABC):
         else:
             self.instruction_text = text
 
-    def draw_gold(self, surface: pygame.surface):
-        self.disabled_font.render(f"Gold: {self.game.memory.gold}", surface, (2, 2))
+    def rebuild_resource_elements(self):
+        """
+        Build Panel and Frames for key resources on screen. Gold, Rations, Charisma, Leadership.
+        """
+        icon_size = (DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE)
 
-    def draw_charisma(self, surface: pygame.surface):
-        self.disabled_font.render(f"Charisma: {self.game.memory.commander.charisma_remaining}", surface, (62, 2))
+        # specify resources
+        # key : [value, icon]
+        resources = {
+            "gold": [
+                self.game.assets.get_image("stats", "gold", icon_size),
+                str(self.game.memory.gold),
+            ],
+            "rations": [
+                self.game.assets.get_image("stats", "ration", icon_size),
+                str(self.game.memory.rations),
+            ],
+            "charisma": [
+                self.game.assets.get_image("stats", "charisma", icon_size),
+                str(self.game.memory.commander.charisma_remaining),
+            ],
+            "leadership": [
+                self.game.assets.get_image("stats", "leadership", icon_size),
+                str(self.game.memory.commander.leadership),
+            ],
+        }
 
-    def draw_leadership(self, surface: pygame.surface):
-        self.disabled_font.render(f"Leadership: {self.game.memory.commander.leadership}", surface, (122, 2))
+        panel_elements = []
+        disabled_font = self.disabled_font
+
+        # positions
+        start_x = 2
+        start_y = 2
+        current_x = start_x
+        current_y = start_y
+
+        # crate frames
+        for key, value in resources.items():
+            frame = Frame((current_x, current_y), value[0], (value[1], disabled_font), False)
+            self.elements[f"resource_{key}"] = frame
+            panel_elements.append(frame)
+
+            # increment position
+            current_x += frame.width + GAP_SIZE
+
+        # create panel
+        panel = Panel(panel_elements, True)
+        panel.unselect_all_elements()
+        self.panels["resources"] = panel
 
     def draw_instruction(self, surface: pygame.surface):
         if self.temporary_instruction_text:

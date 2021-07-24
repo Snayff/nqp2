@@ -70,5 +70,9 @@
             "weight": 0,
             "gold_cost": 0
         }
+    },
+    "starting_values": {
+        "gold": 0,
+        "rations": 0
     }
 }

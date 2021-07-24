@@ -8,6 +8,7 @@
         "fortress"
     ],
     "starting_gold": 300,
+    "starting_rations": 1,
     "starting_units": [
         "spearman",
         "spearman",

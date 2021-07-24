@@ -52,9 +52,6 @@ class EventUI(UI):
 
     def render(self, surface: pygame.surface):
         # show core info
-        self.draw_gold(surface)
-        self.draw_charisma(surface)
-        self.draw_leadership(surface)
         self.draw_instruction(surface)
 
         # draw elements
@@ -68,7 +65,7 @@ class EventUI(UI):
 
         # positions
         start_x = 20
-        start_y = 20
+        start_y = 50
         font_height = 12  # FIXME - get actual font height
 
         # draw description
@@ -92,6 +89,8 @@ class EventUI(UI):
         # create panel
         panel = Panel(panel_list, True)
         self.add_panel(panel, "options")
+
+        self.rebuild_resource_elements()
 
     def handle_options_input(self):
         options = self.game.event.active_event["options"]
