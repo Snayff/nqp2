@@ -62,7 +62,6 @@ class TrainingUI(UI):
     def render(self, surface: pygame.surface):
 
         # show core info
-        self.draw_resources(surface)
         self.draw_instruction(surface)
 
         # draw elements
@@ -189,6 +188,8 @@ class TrainingUI(UI):
 
         panel = Panel([frame], True)
         self.add_panel(panel, "exit")
+
+        self.rebuild_resource_elements()
 
     def refresh_info(self):
         elements = self.elements

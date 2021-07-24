@@ -117,5 +117,4 @@ class OverworldUI(UI):
             selected_node_centre_y = selected_node.pos[1] + (node_height / 2)
             pygame.draw.circle(surface, (255, 0, 0), (selected_node_centre_x, selected_node_centre_y), node_width, 2)
 
-            self.draw_resources(surface)
             self.draw_instruction(surface)

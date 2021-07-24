@@ -52,7 +52,6 @@ class EventUI(UI):
 
     def render(self, surface: pygame.surface):
         # show core info
-        self.draw_resources(surface)
         self.draw_instruction(surface)
 
         # draw elements
@@ -90,6 +89,8 @@ class EventUI(UI):
         # create panel
         panel = Panel(panel_list, True)
         self.add_panel(panel, "options")
+
+        self.rebuild_resource_elements()
 
     def handle_options_input(self):
         options = self.game.event.active_event["options"]

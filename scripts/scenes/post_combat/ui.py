@@ -59,7 +59,6 @@ class PostCombatUI(UI):
                 pass
 
             # show core info
-            self.draw_resources(surface)
             self.draw_instruction(surface)
 
         elif self.game.post_combat.state == PostCombatState.DEFEAT:
@@ -75,6 +74,8 @@ class PostCombatUI(UI):
             self._rebuild_victory_ui()
         elif self.game.post_combat.state == PostCombatState.DEFEAT:
             self._rebuild_defeat_ui()
+
+        self.rebuild_resource_elements()
 
     def _rebuild_victory_ui(self):
         default_font = self.default_font
