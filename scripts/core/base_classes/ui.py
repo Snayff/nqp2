@@ -107,12 +107,7 @@ class UI(ABC):
 
         # crate frames
         for key, value in resources.items():
-            frame = Frame(
-                (current_x, current_y),
-                value[0],
-                (value[1], disabled_font),
-                False
-            )
+            frame = Frame((current_x, current_y), value[0], (value[1], disabled_font), False)
             self.elements[f"resource_{key}"] = frame
             panel_elements.append(frame)
 
@@ -123,7 +118,6 @@ class UI(ABC):
         panel = Panel(panel_elements, True)
         panel.unselect_all_elements()
         self.panels["resources"] = panel
-
 
     def draw_instruction(self, surface: pygame.surface):
         if self.temporary_instruction_text:
