@@ -60,7 +60,7 @@ class ViewTroupeUI(UI):
 
         # positions
         start_x = 20
-        start_y = 20
+        start_y = 40
 
         # draw options
         current_x = start_x

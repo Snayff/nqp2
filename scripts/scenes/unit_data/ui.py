@@ -165,7 +165,7 @@ class UnitDataUI(UI):
 
         # set positions
         start_x = window_width - (window_width // 2.8)
-        start_y = 20
+        start_y = 40
 
         # draw headers
         current_x = start_x + metric_col_width

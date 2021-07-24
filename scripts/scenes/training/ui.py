@@ -76,7 +76,7 @@ class TrainingUI(UI):
         scene = self.game.training
 
         start_x = 20
-        start_y = 20
+        start_y = 40
         icon_width = DEFAULT_IMAGE_SIZE
         icon_height = DEFAULT_IMAGE_SIZE
         icon_size = (icon_width, icon_height)

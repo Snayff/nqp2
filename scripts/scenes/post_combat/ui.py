@@ -82,7 +82,7 @@ class PostCombatUI(UI):
         positive_font = self.positive_font
 
         start_x = 20
-        start_y = 20
+        start_y = 40
         icon_width = DEFAULT_IMAGE_SIZE
         icon_height = DEFAULT_IMAGE_SIZE
         icon_size = (icon_width, icon_height)
@@ -129,7 +129,7 @@ class PostCombatUI(UI):
         negative_font = self.warning_font
 
         start_x = 20
-        start_y = 20
+        start_y = 40
         icon_width = DEFAULT_IMAGE_SIZE
         icon_height = DEFAULT_IMAGE_SIZE
         icon_size = (icon_width, icon_height)
@@ -173,7 +173,7 @@ class PostCombatUI(UI):
         #
         # # positions
         # start_x = 20
-        # start_y = 60
+        # start_y = 40
         # font_height = 12
         # window_width = self.game.window.width
         # window_height = self.game.window.height

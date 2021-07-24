@@ -69,7 +69,7 @@ class InnUI(UI):
         disabled_font = self.disabled_font
 
         start_x = 20
-        start_y = 20
+        start_y = 40
         font_height = 12  # FIXME - get actual font height
         window_width = self.game.window.width
         window_height = self.game.window.height

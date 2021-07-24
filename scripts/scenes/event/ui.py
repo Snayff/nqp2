@@ -65,7 +65,7 @@ class EventUI(UI):
 
         # positions
         start_x = 20
-        start_y = 20
+        start_y = 50
         font_height = 12  # FIXME - get actual font height
 
         # draw description
