@@ -92,7 +92,7 @@ class UI(ABC):
             ],
             "leadership": [
                 self.game.assets.get_image("stats", "leadership", icon_size),
-                str(self.game.memory.commander.leadership),
+                str(self.game.memory.leadership),
             ],
         }
 

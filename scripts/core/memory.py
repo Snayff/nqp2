@@ -41,16 +41,10 @@ class Memory:
 
         # events
         self.event_deck: Dict[Dict] = {}
-        events = self.game.data.events.values()
+        events = self.game.data.events
         # add events, broken down by tiers
-        for event in events:
-            tier = event["tier"]
-
-            # ensure tier is added as dict
-            if tier not in self.event_deck:
-                self.event_deck[tier] = {}
-
-            self.event_deck[tier][event["type"]] = event
+        for event in events.values():
+            self.event_deck[event["type"]] = event
 
         # resources
         self.gold: int = 0
@@ -116,7 +110,7 @@ class Memory:
 
         possible_events = []
         possible_events_occur_rates = []
-        for event in events:
+        for event in events.values():
             if event["level_available"] <= self.level and event["tier"] in tiers:
                 possible_events.append(event)
                 occur_rate = self.game.data.get_event_occur_rate(event["type"])

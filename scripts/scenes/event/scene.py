@@ -73,3 +73,23 @@ class EventScene(Scene):
             original_value = self.game.memory.gold
             self.game.memory.amend_gold(int(result_value))
             logging.info(f"Gold changed by {result_value};  {original_value} -> {self.game.memory.gold}.")
+
+        elif result_key == "rations":
+            original_value = self.game.memory.rations
+            self.game.memory.amend_rations(int(result_value))
+            logging.info(f"Rations changed by {result_value};  {original_value} -> {self.game.memory.rations}.")
+
+        elif result_key == "morale":
+            original_value = self.game.memory.morale
+            self.game.memory.amend_morale(int(result_value))
+            logging.info(f"Morale changed by {result_value};  {original_value} -> {self.game.memory.morale}.")
+
+        elif result_key == "charisma":
+            original_value = self.game.memory.charisma
+            self.game.memory.amend_charisma(int(result_value))
+            logging.info(f"Charisma changed by {result_value};  {original_value} -> {self.game.memory.charisma}.")
+
+        elif result_key == "leadership":
+            original_value = self.game.memory.leadership
+            self.game.memory.amend_leadership(int(result_value))
+            logging.info(f"Leadership changed by {result_value};  {original_value} -> {self.game.memory.leadership}.")
