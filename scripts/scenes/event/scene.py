@@ -48,23 +48,7 @@ class EventScene(Scene):
         self.active_event = {}
 
     def load_random_event(self):
-        if len(self.game.data.events) > 0:
-            level = self.game.overworld.level
-            events = self.game.data.events.values()
-
-            # ensure only events for this level or lower
-            possible_events = []
-            possible_events_occur_rates = []
-            for event in events:
-                if event["level_available"] <= level:
-                    possible_events.append(event)
-                    occur_rate = self.game.data.get_combat_occur_rate(event["type"])
-                    possible_events_occur_rates.append(occur_rate)
-
-            event_ = self.game.rng.choices(possible_events, possible_events_occur_rates)[0]
-        else:
-            event_ = {}
-        self.active_event = event_
+        self.active_event = self.game.memory.get_random_event([self.game.memory.level])
 
     def trigger_result(self, option_index: int):
         """

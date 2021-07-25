@@ -44,7 +44,6 @@ class OverworldScene(Scene):
 
         self.nodes: List[List[Node]] = []
         self.current_node_row: int = 0
-        self.level: int = 1
         self.state: OverworldState = OverworldState.LOADING
 
         # record duration
@@ -189,10 +188,12 @@ class OverworldScene(Scene):
 
         self.generate_map()
 
+        self.game.memory.level += 1
+
     def reset(self):
         self.ui = OverworldUI(self.game)
 
         self.nodes = []
         self.current_node_row = 0
-        self.level = 1
         self.state = OverworldState.LOADING
+        self.game.memory.level = 1

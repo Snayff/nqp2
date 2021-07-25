@@ -157,7 +157,7 @@ class CombatScene(Scene):
 
     def _get_random_combat(self) -> Dict[str, Any]:
         if len(self.game.data.combats) > 0:
-            level = self.game.overworld.level
+            level = self.game.memory.level
             combats = self.game.data.combats.values()
 
             # ensure only combat for this level or lower
