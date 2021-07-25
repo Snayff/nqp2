@@ -1,0 +1,18 @@
+{
+    "type": "thrack",
+    "name": "Thrack",
+    "backstory": "The Ruthless Leader. He is strong, merciless, and fearless; but he clearly wasn't hugged much as a child. Thrack seeks to claim an empire for himself using brute force, and will spit on the corpse of any that dare to oppose him. (Trait) He pushes his forces to their limit, increasing unit attack bonus the effectiveness of training.",
+    "charisma": 6,
+    "leadership": 8,
+    "allies": [
+        "castle",
+        "fortress"
+    ],
+    "starting_gold": 350,
+    "starting_rations": 1,
+    "starting_units": [
+        "spearman",
+        "pikeman",
+        "skirmisher"
+    ]
+}

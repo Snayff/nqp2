@@ -1,0 +1,19 @@
+{
+    "type": "sildreth",
+    "name": "Sildreth",
+    "backstory": "The Tactician. Sildreth is a master in the art of war, and many commanders across the land would love to get their hands on his play book. He is cowardly and remains as far away from the battle as possible while his army execute his tactical orders. Surprisingly, he's terrible at chess, and very sensitive about it. (Trait) All units gain bonuses based on their proximity to other friendly units.",
+    "charisma": 7,
+    "leadership": 8,
+    "allies": [
+        "castle",
+        "fortress"
+    ],
+    "starting_gold": 300,
+    "starting_rations": 1,
+    "starting_units": [
+        "crossbowman",
+        "archer",
+        "cavalier",
+        "pikeman"
+    ]
+}
