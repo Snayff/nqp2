@@ -172,3 +172,13 @@ class Troupe:
 
         except KeyError:
             logging.warning(f"Tried to upgrade {unit.id} with {upgrade_type} but upgrade not found. No action taken.")
+
+
+    def get_random_unit(self) -> Unit:
+        """
+        Return a random unit from the Troupe.
+        """
+        id_ = self.game.rng.choice(self.units)
+        return self.units[id_]
+
+
