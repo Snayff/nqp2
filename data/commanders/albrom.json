@@ -4,12 +4,13 @@
     "backstory": "The Engineer. To distract him and keep him quiet, Albrom's parents used to give him odds and widgets to play with. At an early age he was inventing sophisticated, some might say deadly, 'tools'. His parents died in a tragic, inexplicable accident, but it led to the invention of the safety lock, so that's neat. (Trait) All ranged units gain a significant attack increase.",
     "charisma": 8,
     "leadership": 7,
+    "gold": 400,
+    "rations": 1,
+    "morale": 1,
     "allies": [
         "castle",
         "fortress"
     ],
-    "starting_gold": 400,
-    "starting_rations": 1,
     "starting_units": [
         "archer",
         "crossbowman",

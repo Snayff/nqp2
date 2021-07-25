@@ -34,12 +34,12 @@ class RunSetupUI(UI):
         if self.game.input.states["left"]:
             self.game.input.states["left"] = False
 
-            self.current_panel.select_next_element()
+            self.current_panel.select_previous_element()
 
         if self.game.input.states["right"]:
             self.game.input.states["right"] = False
 
-            self.current_panel.select_previous_element()
+            self.current_panel.select_next_element()
 
         # data editor
         if self.game.input.states["toggle_data_editor"]:

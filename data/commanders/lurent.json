@@ -4,12 +4,13 @@
     "backstory": "The Inspiring Leader. Lurent is compassionate, respected, and often refers to herself as an 'influencer' which is met with much eye rolling. Despite this faux pas, her soldiers are ready and willing to die to do her bidding, and will often fight to their very last breath. (Trait) Her inspiring presence grants more morale, and all units have increased health.",
     "charisma": 10,
     "leadership": 12,
+    "gold": 250,
+    "rations": 1,
+    "morale": 1,
     "allies": [
         "castle",
         "fortress"
     ],
-    "starting_gold": 250,
-    "starting_rations": 1,
     "starting_units": [
         "knight",
         "archer",

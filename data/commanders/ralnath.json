@@ -4,12 +4,13 @@
     "backstory": "The Wild Card. Ralnath claims she was expelled from the demon plane for being TOO mischievous. Utterly unpredictable, she simply goes with the flow and thrives in the chaos. However, her skull collection is extremely well organised, so don't touch! (Trait) Random events will occur more frequently.",
     "charisma": 4,
     "leadership": 9,
+    "gold": 200,
+    "rations": 1,
+    "morale": 1,
     "allies": [
         "castle",
         "fortress"
     ],
-    "starting_gold": 200,
-    "starting_rations": 1,
     "starting_units": [
         "enraged_raptor",
         "horned_wurm",
