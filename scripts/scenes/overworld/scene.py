@@ -87,7 +87,7 @@ class OverworldScene(Scene):
         depth = 5
 
         node_types = [NodeType.COMBAT, NodeType.EVENT, NodeType.INN, NodeType.TRAINING, NodeType.UNKNOWN]
-        node_weights = [0.5, 0.2, 0.1, 0.1, 0.2]
+        node_weights = [0.5, 10.2, 0.1, 0.1, 0.2]
 
         nodes = []
         previous_row = []

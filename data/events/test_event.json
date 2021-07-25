@@ -1,20 +1,24 @@
 {
     "type": "test",
     "description": "this is what will show and will describe what is happening.",
+    "conditions": null,
     "level_available": 1,
     "tier": 1,
     "options": [
         {
             "text": "this is the first choice",
-            "result": "gold:10"
+            "result": "gold:10",
+            "displayed_result": "+gold"
         },
         {
             "text": "this is the second choice",
-            "result": "gold:-10"
+            "result": "gold:-10",
+            "displayed_result": "-gold"
         },
         {
             "text": "this is the third choice",
-            "result": "gold:100"
+            "result": "gold:100",
+            "displayed_result": "+gold"
         }
     ]
 }
