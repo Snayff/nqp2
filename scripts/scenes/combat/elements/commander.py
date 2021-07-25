@@ -18,6 +18,10 @@ class Commander:
         self.type = type_
         # N.B. allies not stored here as they are held in the Troupe
 
+        data = self.game.data.commanders[type_]
+        self.name = data
+
+
     @property
     def charisma_remaining(self) -> int:
         num_units = len(self.game.memory.player_troupe.units)

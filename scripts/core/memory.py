@@ -44,7 +44,13 @@ class Memory:
         events = self.game.data.events.values()
         # add events, broken down by tiers
         for event in events:
-            self.event_deck[event["tier"]][event["type"]] = event
+            tier = event["tier"]
+
+            # ensure tier is added as dict
+            if tier not in self.event_deck:
+                self.event_deck[tier] = {}
+
+            self.event_deck[tier][event["type"]] = event
 
         # resources
         self.gold: int = 0
