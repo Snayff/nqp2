@@ -106,10 +106,10 @@ class RunSetupUI(UI):
 
         # name
         frame = Frame((header_x, current_y), text_and_font=("Name", default_font))
-        self.elements["name"] = frame
+        self.elements["name_header"] = frame
 
-        frame = Frame((info_x, current_y), text_and_font=(commander["type"], default_font))
-        self.elements["type"] = frame
+        frame = Frame((info_x, current_y), text_and_font=(commander["name"], default_font))
+        self.elements["name"] = frame
 
         current_y += font_height + GAP_SIZE
         row_counter += 1
@@ -161,7 +161,7 @@ class RunSetupUI(UI):
         frame = Frame((header_x, current_y), text_and_font=("Gold", default_font))
         self.elements["gold_header"] = frame
 
-        frame = Frame((info_x, current_y), text_and_font=(commander["starting_gold"], default_font))
+        frame = Frame((info_x, current_y), text_and_font=(commander["gold"], default_font))
         self.elements["gold"] = frame
 
         row_counter += 1
@@ -181,11 +181,11 @@ class RunSetupUI(UI):
         elements = self.elements
         commander = self.game.data.commanders[self.game.run_setup.selected_commander]
 
-        elements["gold"].set_text(commander["starting_gold"])
+        elements["gold"].set_text(commander["gold"])
         elements["leadership"].set_text(commander["leadership"])
         elements["charisma"].set_text(commander["charisma"])
         elements["backstory"].set_text(commander["backstory"])
-        elements["name"].set_text(commander["type"])
+        elements["name"].set_text(commander["name"])
 
         allies = ""
         for ally in commander["allies"]:

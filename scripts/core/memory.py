@@ -27,7 +27,7 @@ class Memory:
 
         self.game: Game = game
 
-        # combat
+        # units
         self._last_id = 0
 
         # empty values will be overwritten in run_start
@@ -39,9 +39,22 @@ class Memory:
         self.action_deck: CardCollection = CardCollection(game)
         self.action_deck.generate_actions(20)
 
+        # events
+        self.event_deck: Dict[Dict] = {}
+        events = self.game.data.events
+        # add events, broken down by tiers
+        for event in events.values():
+            self.event_deck[event["type"]] = event
+
+        # resources
+        self.gold: int = 0
+        self.rations: int = 0
+        self.charisma: int = 0
+        self.leadership: int = 0
+        self.morale: int = 0
+
         # general
-        self.gold = 0
-        self.rations = 0
+        self.level: int = 0
 
         # record duration
         end_time = time.time()
@@ -59,9 +72,52 @@ class Memory:
         """
         self.rations = max(0, self.rations + amount)
 
+    def amend_charisma(self, amount: int):
+        """
+        Amend the current charisma value by the given amount.
+        """
+        self.charisma = max(0, self.charisma + amount)
+
+    def amend_leadership(self, amount: int):
+        """
+        Amend the current leadership value by the given amount.
+        """
+        self.leadership = max(0, self.leadership + amount)
+
+    def amend_morale(self, amount: int):
+        """
+        Amend the current morale value by the given amount.
+        """
+        self.morale = max(0, self.morale + amount)
+
     def generate_id(self) -> int:
         """
         Create unique ID for an instance, such as a unit.
         """
         self._last_id += 1
         return self._last_id
+
+    def get_random_event(self, tiers: List[int] = None) -> Dict:
+        """
+        Get a random event from the tiers specified. If no tiers specified then all are included. This event is then
+        removed from the list of possible events.
+        """
+        events = self.event_deck
+
+        # handle mutable default
+        if tiers is None:
+            tiers = [1, 2, 3, 4]  # all tiers
+
+        possible_events = []
+        possible_events_occur_rates = []
+        for event in events.values():
+            if event["level_available"] <= self.level and event["tier"] in tiers:
+                possible_events.append(event)
+                occur_rate = self.game.data.get_event_occur_rate(event["type"])
+                possible_events_occur_rates.append(occur_rate)
+
+        event_ = self.game.rng.choices(possible_events, possible_events_occur_rates)[0]
+
+        events.pop(event_["type"])
+
+        return event_
