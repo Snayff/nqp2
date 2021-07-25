@@ -25,7 +25,7 @@ def load_font_img(path, font_color):
 class Font:
     def __init__(self, path, colour):
         self.letters, self.letter_spacing, self.line_height = load_font_img(path, colour)
-        self.height = self.letters[0].get_height()  # FIXME - returns too short a value
+        self.height = self.letters[0].get_height()  # FIXME - returns too short a value and doesnt include new lines
         self.font_order = [
             "A",
             "B",
@@ -119,7 +119,7 @@ class Font:
     def width(self, text):
         text_width = 0
         for char in text:
-            if char == " ":
+            if char in ["\n", " "]:
                 text_width += self.space_width + self.base_spacing
             else:
                 text_width += self.letter_spacing[self.font_order.index(char)] + self.base_spacing

@@ -1,14 +1,16 @@
 {
     "type": "isla",
+    "name": "Isla",
     "backstory": "Overthrowing the patriarchy is her only desire.",
     "charisma": 7,
     "leadership": 6,
+    "morale": 1,
+    "gold": 300,
+    "rations": 1,
     "allies": [
         "castle",
         "fortress"
     ],
-    "starting_gold": 300,
-    "starting_rations": 1,
     "starting_units": [
         "spearman",
         "spearman",
