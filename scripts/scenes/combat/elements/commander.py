@@ -21,7 +21,6 @@ class Commander:
         data = self.game.data.commanders[type_]
         self.name = data
 
-
     @property
     def charisma_remaining(self) -> int:
         num_units = len(self.game.memory.player_troupe.units)

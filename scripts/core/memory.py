@@ -121,4 +121,3 @@ class Memory:
         events.pop(event_["type"])
 
         return event_
-

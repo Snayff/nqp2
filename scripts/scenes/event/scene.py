@@ -11,7 +11,7 @@ from scripts.scenes.combat.elements.unit import Unit
 from scripts.scenes.event.ui import EventUI
 
 if TYPE_CHECKING:
-    from typing import Dict, Any
+    from typing import Any, Dict
 
     from scripts.core.game import Game
 
@@ -135,12 +135,16 @@ class EventScene(Scene):
                     # TODO - add injury allocation
                     pass
 
-                logging.warning(f"Injuries don't yet exist, but {resource.type}:{resource.id} should have been "
-                                f"given {result_value} of them just now.")
+                logging.warning(
+                    f"Injuries don't yet exist, but {resource.type}:{resource.id} should have been "
+                    f"given {result_value} of them just now."
+                )
 
             except KeyError:
-                logging.critical(f"Target specified ({target}) is not found in resources ({self.event_resources})"
-                                 f" and was ignored.")
+                logging.critical(
+                    f"Target specified ({target}) is not found in resources ({self.event_resources})"
+                    f" and was ignored."
+                )
 
         else:
             logging.critical(f"Result key specified ({result_key}) is not known and was ignored.")

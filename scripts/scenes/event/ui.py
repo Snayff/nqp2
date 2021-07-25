@@ -71,11 +71,7 @@ class EventUI(UI):
         # draw description
         current_x = start_x
         current_y = start_y
-        frame = Frame(
-            (current_x, current_y),
-            text_and_font=(event["description"],
-            default_font)
-        )
+        frame = Frame((current_x, current_y), text_and_font=(event["description"], default_font))
         self.elements["description"] = frame
 
         # draw options
@@ -83,11 +79,7 @@ class EventUI(UI):
         panel_list = []
         for counter, option in enumerate(event["options"]):
             option_text = option["text"] + " [" + option["displayed_result"] + "]"
-            frame = Frame(
-                (current_x, current_y),
-                text_and_font=(option_text, default_font),
-                is_selectable=True
-            )
+            frame = Frame((current_x, current_y), text_and_font=(option_text, default_font), is_selectable=True)
             self.elements[f"option_{counter}"] = frame
             panel_list.append(frame)
 
