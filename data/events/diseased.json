@@ -11,7 +11,7 @@
         {
             "text": "Stop and treat the infected",
             "result": [
-                "ration:-1",
+                "rations:-1",
                 "charisma:1"
             ],
             "displayed_result": "-ration, +charisma"

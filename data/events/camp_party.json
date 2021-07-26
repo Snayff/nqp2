@@ -20,7 +20,7 @@
             "text": "Grab a tankard and get partying",
             "result": [
                 "morale:1",
-                "ration:-1",
+                "rations:-1",
                 "injury:1@random1"
             ],
             "displayed_result": "+morale, +injury, -ration"
