@@ -8,7 +8,6 @@ from scripts.ui_elements.input_box import InputBox
 __all__ = ["DevConsole"]
 
 
-
 class DevConsole(InputBox):
     def __init__(self, game):
         size = (100, 30)
@@ -42,6 +41,3 @@ class DevConsole(InputBox):
 
             else:
                 logging.warning(f"DevConsole: {event_id} not found.")
-
-
-

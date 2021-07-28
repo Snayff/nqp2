@@ -35,7 +35,7 @@ class Input:
             "shift": False,
             "backspace": False,
             "toggle_dev_console": False,
-            "typing_enter": False
+            "typing_enter": False,
         }
 
         self.mouse_state = {"left": False}
