@@ -40,9 +40,9 @@ class Memory:
         self.action_deck.generate_actions(20)
 
         # events
-        self.event_deck: Dict[Dict] = {}
+        self.event_deck: Dict = {}
         events = self.game.data.events
-        # add events, broken down by tiers
+        # add events
         for event in events.values():
             self.event_deck[event["type"]] = event
 
