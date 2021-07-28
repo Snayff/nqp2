@@ -98,7 +98,7 @@ class UnitDataUI(UI):
 
         # update text fields
         for field in self.current_unit_data:
-            self.fields[field].update()
+            self.fields[field].update(delta_time)
             if self.fields[field].should_focus:
                 self.fields[field].focus()
             else:

@@ -34,7 +34,8 @@ class Input:
             "view_troupe": False,
             "shift": False,
             "backspace": False,
-            "toggle_data_editor": False,
+            "toggle_dev_console": False,
+            "typing_enter": False
         }
 
         self.mouse_state = {"left": False}
@@ -140,6 +141,13 @@ class Input:
                 if event.key == K_BACKSPACE:
                     self.states["backspace"] = True
 
+                if event.key == K_BACKQUOTE:
+                    self.states["toggle_dev_console"] = True
+
+                if self.mode == "typing":
+                    if event.key == K_RETURN:
+                        self.states["typing_enter"] = True
+
             if event.type == KEYUP:
                 if event.key in [K_LSHIFT, K_RSHIFT]:
                     self.states["shift"] = False
@@ -147,6 +155,7 @@ class Input:
                 if event.key == K_BACKSPACE:
                     self.states["backspace"] = False
 
+            # input outside of typing
             if self.mode == "default":
                 if event.type == KEYDOWN:
                     if event.key == K_x:
@@ -173,9 +182,6 @@ class Input:
 
                     if event.key == K_v:
                         self.states["view_troupe"] = True
-
-                    if event.key == K_BACKQUOTE:
-                        self.states["toggle_data_editor"] = True
 
                 if event.type == KEYUP:
                     if event.key == K_RIGHT:

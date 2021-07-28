@@ -52,6 +52,21 @@ class EventScene(Scene):
 
     def load_random_event(self):
         self.active_event = self.game.memory.get_random_event([self.game.memory.level])
+        self._load_event_resources()
+
+    def load_event(self, event_id: str, remove_from_pool: bool = False):
+        """
+        Load a specific event.
+        """
+        if remove_from_pool:
+            event = self.game.memory.event_deck.pop(event_id)
+        else:
+            event = self.game.memory.event_deck[event_id]
+
+        self.active_event = event
+        self._load_event_resources()
+
+    def _load_event_resources(self):
         self.event_resources = {}
 
         for resource in self.active_event["resources"]:

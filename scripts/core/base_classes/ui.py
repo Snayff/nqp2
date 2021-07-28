@@ -51,6 +51,11 @@ class UI(ABC):
         if self.temporary_instruction_timer <= 0:
             self.temporary_instruction_text = ""
 
+        if self.game.input.states["toggle_dev_console"]:
+            self.game.input.states["toggle_dev_console"] = False
+
+            self.game.debug.toggle_dev_console_visibility()
+
     @abstractmethod
     def render(self, surface: pygame.surface):
         pass

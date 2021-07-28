@@ -12,6 +12,7 @@ import timeit
 from typing import TYPE_CHECKING
 
 from scripts.core.constants import DEBUGGING_PATH, INFINITE, LOGGING_PATH, PROFILING_PATH, VERSION
+from scripts.ui_elements.dev_console import DevConsole
 
 if TYPE_CHECKING:
     from typing import Callable, List, Optional, Tuple, TYPE_CHECKING, Union
@@ -30,6 +31,7 @@ class Debugger:
 
         # objects
         self.profiler: Optional[cProfile.Profile] = None
+        self._dev_console: Optional[DevConsole] = None
 
         # counters
         self.current_fps: int = 0
@@ -70,6 +72,9 @@ class Debugger:
             frames_to_count = self._frames
         self.recent_average_fps += (self.current_fps - self.average_fps) / frames_to_count
 
+        if self._dev_console is not None:
+            self._dev_console.update(delta_time)
+
     def render(self):
         """
         Draw debug info
@@ -96,6 +101,9 @@ class Debugger:
             current_y += font_height
             font.render(avg_fps, surface, (start_x, current_y))
 
+        if self._dev_console is not None:
+            self._dev_console.render(surface)
+
     @staticmethod
     def _create_folders():
         #  create folders and prevent FileNotFoundError
@@ -110,6 +118,15 @@ class Debugger:
         logging_path = str(LOGGING_PATH)
         if not os.path.isdir(logging_path):
             os.mkdir(logging_path + "/")
+
+    def toggle_dev_console_visibility(self):
+        if self._dev_console is None:
+            self._dev_console = DevConsole(self.game)
+            self._dev_console.focus()
+            self.game.input.mode = "typing"
+        else:
+            self._dev_console = None
+            self.game.input.mode = "default"
 
     def initialise_logging(self):
         """

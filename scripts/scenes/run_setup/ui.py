@@ -42,8 +42,8 @@ class RunSetupUI(UI):
             self.current_panel.select_next_element()
 
         # data editor
-        if self.game.input.states["toggle_data_editor"]:
-            self.game.input.states["toggle_data_editor"] = False
+        if self.game.input.states["toggle_dev_console"]:
+            self.game.input.states["toggle_dev_console"] = False
 
             self.game.change_scene(SceneType.DEV_UNIT_DATA)
 
