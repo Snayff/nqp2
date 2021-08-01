@@ -50,9 +50,10 @@ jobs:
       - name: Lint Code Base
         uses: github/super-linter@v4
         env:
-          PYTHON_BLACK_CONFIG_FILE: /pyproject.toml
-          PYTHON_ISORT_CONFIG_FILE: /pyproject.toml
+          PYTHON_BLACK_CONFIG_FILE: pyproject.toml
+          PYTHON_ISORT_CONFIG_FILE: pyproject.toml
           # PYTHON_MYPY_CONFIG_FILE: mypy.ini
+          LINTER_RULES_PATH: /
           VALIDATE_GITHUB_ACTIONS: true
           VALIDATE_JSON: true
           VALIDATE_MARKDOWN: true
