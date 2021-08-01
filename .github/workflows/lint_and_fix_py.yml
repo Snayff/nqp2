@@ -1,4 +1,4 @@
-name: NQP2 - PR Review Snayff
+name: Lint and Fix Py
 
 on:
   pull_request:

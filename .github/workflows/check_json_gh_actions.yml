@@ -4,7 +4,8 @@
 ## Linter GitHub Actions ##
 ###########################
 ###########################
-name: Lint Code Base
+name: Check and Report on JSON and GH Actions Linting
+# N.B. this doesnt fix any issues, only warns.
 
 #
 # Documentation:
@@ -50,15 +51,15 @@ jobs:
       - name: Lint Code Base
         uses: github/super-linter@v4
         env:
-          PYTHON_BLACK_CONFIG_FILE: pyproject.toml
-          PYTHON_ISORT_CONFIG_FILE: pyproject.toml
+          #PYTHON_BLACK_CONFIG_FILE: pyproject.toml
+          #PYTHON_ISORT_CONFIG_FILE: pyproject.toml
           # PYTHON_MYPY_CONFIG_FILE: mypy.ini
           LINTER_RULES_PATH: /
           VALIDATE_GITHUB_ACTIONS: true
           VALIDATE_JSON: true
-          VALIDATE_PYTHON_BLACK: true
-          VALIDATE_PYTHON_ISORT: true
+          #VALIDATE_PYTHON_BLACK: true
+          #VALIDATE_PYTHON_ISORT: true
           # VALIDATE_PYTHON_MYPY: true
-          VALIDATE_ALL_CODEBASE: false
+          VALIDATE_ALL_CODEBASE: true
           DEFAULT_BRANCH: develop
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
