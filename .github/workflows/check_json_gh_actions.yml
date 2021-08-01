@@ -4,7 +4,7 @@
 ## Linter GitHub Actions ##
 ###########################
 ###########################
-name: Check and Report on JSON and GH Actions Linting
+name: Check JSON and GH Actions
 # N.B. this doesnt fix any issues, only warns.
 
 #

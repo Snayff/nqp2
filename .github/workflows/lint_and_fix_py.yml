@@ -1,4 +1,4 @@
-name: Lint and Fix Py
+name: Lint Python
 
 on:
   pull_request:
