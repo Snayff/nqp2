@@ -33,18 +33,26 @@ UPGRADE_COST = 25
 class GameState(IntEnum):
     PLAYING = auto()
     EXITING = auto()
+
+
 class CombatState(IntEnum):
     UNIT_CHOOSE_CARD = auto()
     UNIT_SELECT_TARGET = auto()
     ACTION_CHOOSE_CARD = auto()
     ACTION_SELECT_TARGET_FREE = auto()
     WATCH = auto()
+
+
 class OverworldState(IntEnum):
     LOADING = auto()
     READY = auto()
+
+
 class TrainingState(IntEnum):
     CHOOSE_UPGRADE = auto()
     CHOOSE_TARGET_UNIT = auto()
+
+
 class NodeState(IntEnum):
     REACHABLE = auto()  # could reach the node
     SELECTABLE = auto()  # can select the node
