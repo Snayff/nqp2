@@ -72,9 +72,9 @@ class EventUI(UI):
         current_x = start_x
         current_y = start_y
         frame_line_width = self.game.window.width - (current_x * 2)
-        frame = Frame((current_x, current_y), text_and_font=(event["description"], default_font),
-                      max_line_width=frame_line_width
-                      )
+        frame = Frame(
+            (current_x, current_y), text_and_font=(event["description"], default_font), max_line_width=frame_line_width
+        )
         self.elements["description"] = frame
 
         # draw options

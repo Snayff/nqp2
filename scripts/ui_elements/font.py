@@ -145,7 +145,7 @@ class Font:
                 if (space[0] - line_offset) > line_width:
                     line_offset += spaces[i - 1][0] - line_offset
                     if i != 0:
-                        text = text[: spaces[i - 1][1]] + "\n" + text[spaces[i - 1][1] + 1:]
+                        text = text[: spaces[i - 1][1]] + "\n" + text[spaces[i - 1][1] + 1 :]
                         num_lines += 1
 
         return num_lines
