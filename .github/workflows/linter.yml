@@ -16,7 +16,7 @@ name: Lint Code Base
 #############################
 on:
   push:
-    branches-ignore: [master]
+    branches-ignore: [master, develop]
     # Remove the line above to run when pushing to master
   pull_request:
     branches: [develop]
@@ -50,8 +50,8 @@ jobs:
       - name: Lint Code Base
         uses: github/super-linter@v4
         env:
-          PYTHON_BLACK_CONFIG_FILE: pyproject.toml
-          PYTHON_ISORT_CONFIG_FILE: pyproject.toml
+          PYTHON_BLACK_CONFIG_FILE: /pyproject.toml
+          PYTHON_ISORT_CONFIG_FILE: /pyproject.toml
           # PYTHON_MYPY_CONFIG_FILE: mypy.ini
           VALIDATE_GITHUB_ACTIONS: true
           VALIDATE_JSON: true
