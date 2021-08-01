@@ -125,6 +125,31 @@ class Font:
                 text_width += self.letter_spacing[self.font_order.index(char)] + self.base_spacing
         return text_width
 
+    def calculate_number_of_lines(self, text, line_width) -> int:
+        """
+        Calculate the number of lines the given text will take up, based on the line width.
+        """
+        num_lines = 1
+
+        if line_width != 0:
+            spaces = []
+            x = 0
+            for i, char in enumerate(text):
+                if char == " ":
+                    spaces.append((x, i))
+                    x += self.space_width + self.base_spacing
+                else:
+                    x += self.letter_spacing[self.font_order.index(char)] + self.base_spacing
+            line_offset = 0
+            for i, space in enumerate(spaces):
+                if (space[0] - line_offset) > line_width:
+                    line_offset += spaces[i - 1][0] - line_offset
+                    if i != 0:
+                        text = text[: spaces[i - 1][1]] + "\n" + text[spaces[i - 1][1] + 1:]
+                        num_lines += 1
+
+        return num_lines
+
     def render(self, text, surface, pos, line_width=0):
         if not isinstance(text, str):
             text = str(text)

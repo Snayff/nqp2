@@ -23,13 +23,14 @@ class Frame(UIElement):
         image: Optional[pygame.surface] = None,
         text_and_font: Optional[Tuple[str, Font]] = (None, None),
         is_selectable: bool = False,
+        max_line_width: int = 0,
     ):
         super().__init__(pos, is_selectable)
 
         self.image: Optional[pygame.surface] = image
         self.text: Optional[str] = str(text_and_font[0])
         self.font: Optional[Font] = text_and_font[1]
-        self.line_width = 0
+        self.line_width = max_line_width
 
         self._rebuild_surface()
 
@@ -49,8 +50,8 @@ class Frame(UIElement):
 
             # N.B. doesnt amend height as is drawn next to image
             if height == 0:
-                height += 100 #12  # FIXME - get font height
-
+                font_height = 12  # FIXME - get font height
+                height += (font_height * self.font.calculate_number_of_lines(self.text, self.line_width))
         self.size = (width, height)
         self.surface = pygame.Surface(self.size, SRCALPHA)
 
