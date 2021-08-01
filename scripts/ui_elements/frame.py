@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 import pygame
+from pygame import SRCALPHA
 
 from scripts.core.base_classes.ui_element import UIElement
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, GAP_SIZE
@@ -28,6 +29,7 @@ class Frame(UIElement):
         self.image: Optional[pygame.surface] = image
         self.text: Optional[str] = str(text_and_font[0])
         self.font: Optional[Font] = text_and_font[1]
+        self.line_width = 0
 
         self._rebuild_surface()
 
@@ -47,10 +49,10 @@ class Frame(UIElement):
 
             # N.B. doesnt amend height as is drawn next to image
             if height == 0:
-                height += 12  # FIXME - get font height
+                height += 100 #12  # FIXME - get font height
 
         self.size = (width, height)
-        self.surface = pygame.Surface(self.size)
+        self.surface = pygame.Surface(self.size, SRCALPHA)
 
     def _rebuild_surface(self):
         self._recalculate_size()
@@ -76,7 +78,7 @@ class Frame(UIElement):
             else:
                 start_x = 0
 
-            font.render(text, surface, (start_x, font_height // 2))
+            font.render(text, surface, (start_x, font_height // 2), self.line_width)
 
     def set_text(self, text: str):
         self.text = str(text)
