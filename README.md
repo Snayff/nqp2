@@ -29,7 +29,7 @@ A world exploring, army recruiting, auto-battling adventure to take over the kin
 
 ![title_screen](https://i.imgur.com/fbr0IS4.png)
 
-![commander_select](https://i.imgur.com/0sx7YAQ.png)
+![commander_select](https://i.imgur.com/ujApfOI.png)
 
 ![combat_gif](https://i.imgur.com/xBtSSPf.gif)
 
