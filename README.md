@@ -3,13 +3,22 @@
 (no relation to [NQP], I just like the name enough to want to keep it.)
 
 ## Badges!
-[![GitHub Super-Linter](https://github.com/<Snayff>/<nqp2>/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter)
+Current position:
+
+![GitHub tag (latest by date
+)](https://img.shields.io/github/v/tag/Snayff/nqp2?label=version)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
+Quality of last commit:
+
+[![Check JSON and GH Actions](https://github.com/Snayff/nqp2/actions/workflows/check_json_gh_actions.yml/badge.svg)](https://github.com/Snayff/nqp2/actions/workflows/check_json_gh_actions.yml)
+[![Lint Python](https://github.com/Snayff/nqp2/actions/workflows/lint_and_fix_py.yml/badge.svg)](https://github.com/Snayff/nqp2/actions/workflows/lint_and_fix_py.yml)
 
 ## Who dunnit? 
 
 Design, writing and code by [Snayff].
 
-Design and writing collaboration with Rich K. 
+Design and writing by [PuddingChef]. 
 
 Additional code by [DaFluffyPotato].
 
@@ -38,6 +47,7 @@ See the [Design Document] for wants planned, or the [wiki] for details on the wo
 
 [NQP]: https://github.com/Snayff/notquiteparadise
 [Snayff]: https://github.com/Snayff
+[PuddingChef]: https://github.com/PuddingChef
 [DaFluffyPotato]: http://dafluffypotato.com
 [Aleksander Makarov]: https://iknowkingrabbit.itch.io/
 [Design Document]: https://docs.google.com/document/d/1J6PRu0flNJGRrUqQwEJYH1CG7n4FQ4PSB_9IyDORwR4/edit#
