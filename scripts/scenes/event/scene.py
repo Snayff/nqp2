@@ -161,5 +161,8 @@ class EventScene(Scene):
                     f" and was ignored."
                 )
 
+        elif result_key == "add_flag":
+            self.game.memory.flags.append(result_value)
+
         else:
             logging.critical(f"Result key specified ({result_key}) is not known and was ignored.")
