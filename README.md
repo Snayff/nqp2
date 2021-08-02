@@ -2,6 +2,9 @@
 
 (no relation to [NQP], I just like the name enough to want to keep it.)
 
+## Badges!
+[![GitHub Super-Linter](https://github.com/<Snayff>/<nqp2>/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter)
+
 ## Who dunnit? 
 
 Design, writing and code by [Snayff].

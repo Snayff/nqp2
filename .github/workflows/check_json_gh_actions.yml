@@ -1,0 +1,62 @@
+---
+###########################
+###########################
+## Linter GitHub Actions ##
+###########################
+###########################
+name: Check JSON and GH Actions
+# N.B. this doesnt fix any issues, only warns.
+
+#
+# Documentation:
+# https://help.github.com/en/articles/workflow-syntax-for-github-actions
+#
+
+#############################
+# Start the job on all push #
+#############################
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
+
+###############
+# Set the Job #
+###############
+jobs:
+  build:
+    # Name the Job
+    name: Lint Code Base
+    # Set the agent to run on
+    runs-on: ubuntu-latest
+
+    ##################
+    # Load all steps #
+    ##################
+    steps:
+      ##########################
+      # Checkout the code base #
+      ##########################
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          # Full git history is needed to get a proper list of changed files within `super-linter`
+          fetch-depth: 0
+
+      ################################
+      # Run Linter against code base #
+      ################################
+      - name: Lint Code Base
+        uses: github/super-linter@v4
+        env:
+          #PYTHON_BLACK_CONFIG_FILE: pyproject.toml
+          #PYTHON_ISORT_CONFIG_FILE: pyproject.toml
+          # PYTHON_MYPY_CONFIG_FILE: mypy.ini
+          LINTER_RULES_PATH: /
+          VALIDATE_GITHUB_ACTIONS: true
+          VALIDATE_JSON: true
+          #VALIDATE_PYTHON_BLACK: true
+          #VALIDATE_PYTHON_ISORT: true
+          # VALIDATE_PYTHON_MYPY: true
+          VALIDATE_ALL_CODEBASE: true
+          DEFAULT_BRANCH: develop
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
