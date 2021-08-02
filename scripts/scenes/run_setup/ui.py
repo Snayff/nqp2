@@ -115,10 +115,13 @@ class RunSetupUI(UI):
         row_counter += 1
 
         # backstory - N.B. no header and needs wider frame
-        frame = Frame((header_x, current_y), text_and_font=(commander["backstory"], default_font))
+        line_width = window_width - (current_x * 2)
+        frame = Frame(
+            (header_x, current_y), text_and_font=(commander["backstory"], default_font), max_line_width=line_width
+        )
         self.elements["backstory"] = frame
 
-        current_y += font_height + GAP_SIZE
+        current_y += frame.height + GAP_SIZE
         row_counter += 1
 
         # limits

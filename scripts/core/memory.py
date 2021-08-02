@@ -40,11 +40,9 @@ class Memory:
         self.action_deck.generate_actions(20)
 
         # events
-        self.event_deck: Dict = {}
-        events = self.game.data.events
-        # add events
-        for event in events.values():
-            self.event_deck[event["type"]] = event
+        self.event_deck: Dict = self._load_events([1])  # all available events
+        self.priority_events: Dict = {}  # events to be prioritised
+        self.turns_since_priority_event: int = 0
 
         # resources
         self.gold: int = 0
@@ -55,6 +53,7 @@ class Memory:
 
         # general
         self.level: int = 0
+        self.flags: List[str] = []
 
         # record duration
         end_time = time.time()
@@ -97,27 +96,100 @@ class Memory:
         self._last_id += 1
         return self._last_id
 
-    def get_random_event(self, tiers: List[int] = None) -> Dict:
+    def get_random_event(self) -> Dict:
         """
-        Get a random event from the tiers specified. If no tiers specified then all are included. This event is then
-        removed from the list of possible events.
+        Get a random event from those available. This event is then removed from the list of possible events.
         """
-        events = self.event_deck
-
-        # handle mutable default
-        if tiers is None:
-            tiers = [1, 2, 3, 4]  # all tiers
-
         possible_events = []
         possible_events_occur_rates = []
+
+        # priority or non-priority
+        if len(self.priority_events) >= 1:
+            chance_of_priority = 33 * self.turns_since_priority_event
+            if self.game.rng.roll() < chance_of_priority:
+                events = self.priority_events
+                self.turns_since_priority_event = 0  # reset count
+            else:
+                events = self.event_deck
+                self.turns_since_priority_event += 1  # increment count
+        else:
+            events = self.event_deck
+
+        # grab events and occur rate
         for event in events.values():
-            if event["level_available"] <= self.level and event["tier"] in tiers:
+            if self._check_event_conditions(event):
                 possible_events.append(event)
                 occur_rate = self.game.data.get_event_occur_rate(event["type"])
                 possible_events_occur_rates.append(occur_rate)
 
+        # choose an event
         event_ = self.game.rng.choices(possible_events, possible_events_occur_rates)[0]
 
         events.pop(event_["type"])
 
         return event_
+
+    def _load_events(self, levels: Optional[List[int]] = None) -> Dict:
+        # handle mutable default
+        if levels is None:
+            levels = [1, 2, 3, 4]  # all levels
+
+        event_deck = {}
+        events = self.game.data.events
+
+        # add events
+        for event in events.values():
+            if event["level_available"] in levels:
+                event_deck[event["type"]] = event
+
+        return event_deck
+
+    def _check_event_conditions(self, event: Dict) -> bool:
+        """
+        Return true if all an event's conditions are met.
+        """
+        conditions = event["conditions"]
+        results = []
+
+        for condition in conditions:
+            key, condition_remainder = condition.split(":", 1)
+            if "@" in condition_remainder:
+                value, target = condition_remainder.split("@", 1)
+            else:
+                value = condition_remainder
+                target = None
+            results.append(self._check_event_condition(key, value, target))
+
+        if all(results):
+            outcome = True
+        else:
+            outcome = False
+        return outcome
+
+    def _check_event_condition(self, condition_key: str, condition_value: str, target: str) -> bool:
+        """
+        Check the condition given. Not all conditions use a target and in those cases the target is ignored.
+        """
+        outcome = False
+
+        if condition_key == "flag":
+            if condition_value in self.flags:
+                outcome = True
+            else:
+                outcome = False
+
+        else:
+            logging.critical(f"Condition key specified ({condition_key}) is not known and was ignored.")
+
+        return outcome
+
+    def prioritise_event(self, event_type: str):
+        """
+        Move an event from the event_deck to the priority events.
+        """
+        try:
+            event = self.event_deck.pop(event_type)
+            self.priority_events[event_type] = event
+
+        except KeyError:
+            logging.critical(f"Event ({event_type}) specified not found in Memory.event_deck and was ignored.")

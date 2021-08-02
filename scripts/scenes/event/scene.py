@@ -51,7 +51,7 @@ class EventScene(Scene):
         self.active_event = {}
 
     def load_random_event(self):
-        self.active_event = self.game.memory.get_random_event([self.game.memory.level])
+        self.active_event = self.game.memory.get_random_event()
         self._load_event_resources()
 
     def load_event(self, event_id: str, remove_from_pool: bool = False):
@@ -160,6 +160,12 @@ class EventScene(Scene):
                     f"Target specified ({target}) is not found in resources ({self.event_resources})"
                     f" and was ignored."
                 )
+
+        elif result_key == "unlock_event":
+            # add flag to show unlocked
+            self.game.memory.flags.append(result_value + "_unlocked")
+
+            self.game.memory.prioritise_event(result_value)
 
         else:
             logging.critical(f"Result key specified ({result_key}) is not known and was ignored.")
