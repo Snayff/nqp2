@@ -62,7 +62,8 @@ jobs:
       run: |
         git config --global user.name 'nqp2'
         git config --global user.email 'snayff@users.noreply.github.com'
-        git commit -am "ci lint and test"
+        git diff --exit-code || git commit -am "ci lint and test"
+      # git commit -am "ci lint and test"
 
     - name: Git Status Check
       if: github.repository == 'Snayff/nqp2'
