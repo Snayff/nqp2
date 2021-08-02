@@ -44,6 +44,7 @@ class Memory:
         # events
         self.event_deck: Dict = self._load_events([1])  # all available events
         self.priority_events: Dict = {}  # events to be prioritised
+        self.turns_since_priority_event: int = 0
 
         # resources
         self.gold: int = 0
@@ -105,15 +106,20 @@ class Memory:
         possible_events_occur_rates = []
 
         # priority or non-priority
-        chance_of_priority = 33
-        if self.game.rng.roll() < chance_of_priority:
-            events = self.priority_events
+        if len(self.priority_events) >= 1:
+            chance_of_priority = 33 * self.turns_since_priority_event
+            if self.game.rng.roll() < chance_of_priority:
+                events = self.priority_events
+                self.turns_since_priority_event = 0  # reset count
+            else:
+                events = self.event_deck
+                self.turns_since_priority_event += 1  # increment count
         else:
             events = self.event_deck
 
         # grab events and occur rate
         for event in events.values():
-            if event["level_available"] <= self.level and event["tier"] in tiers:
+            if self._check_event_conditions(event["conditions"]):
                 possible_events.append(event)
                 occur_rate = self.game.data.get_event_occur_rate(event["type"])
                 possible_events_occur_rates.append(occur_rate)
@@ -179,3 +185,17 @@ class Memory:
             logging.critical(f"Condition key specified ({condition_key}) is not known and was ignored.")
 
         return outcome
+
+    def prioritise_event(self, event_type: str):
+        """
+        Move an event from the event_deck to the priority events.
+        """
+        try:
+            event = self.event_deck.pop(event_type)
+            self.priority_events[event_type] = event
+
+        except KeyError:
+            logging.critical(f"Event ({event_type}) specified not found in Memory.event_deck and was ignored.")
+
+
+

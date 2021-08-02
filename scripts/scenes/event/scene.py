@@ -161,8 +161,11 @@ class EventScene(Scene):
                     f" and was ignored."
                 )
 
-        elif result_key == "add_flag":
-            self.game.memory.flags.append(result_value)
+        elif result_key == "unlock_event":
+            # add flag to show unlocked
+            self.game.memory.flags.append(result_value + "_unlocked")
+
+            self.game.memory.prioritise_event(result_value)
 
         else:
             logging.critical(f"Result key specified ({result_key}) is not known and was ignored.")
