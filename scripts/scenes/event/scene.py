@@ -51,7 +51,7 @@ class EventScene(Scene):
         self.active_event = {}
 
     def load_random_event(self):
-        self.active_event = self.game.memory.get_random_event([self.game.memory.level])
+        self.active_event = self.game.memory.get_random_event()
         self._load_event_resources()
 
     def load_event(self, event_id: str, remove_from_pool: bool = False):
