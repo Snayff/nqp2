@@ -166,7 +166,6 @@ class Memory:
             outcome = False
         return outcome
 
-
     def _check_event_condition(self, condition_key: str, condition_value: str, target: str) -> bool:
         """
         Check the condition given. Not all conditions use a target and in those cases the target is ignored.
@@ -194,6 +193,3 @@ class Memory:
 
         except KeyError:
             logging.critical(f"Event ({event_type}) specified not found in Memory.event_deck and was ignored.")
-
-
-
