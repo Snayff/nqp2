@@ -27,7 +27,7 @@ Art by [Aleksander Makarov].
 ## What is it?
 A world exploring, army recruiting, auto-battling adventure to take over the kingdom. 
 
-![title_screen](https://i.imgur.com/rw9sDZW.png)
+![title_screen](https://i.imgur.com/fbr0IS4.png)
 
 ![commander_select](https://i.imgur.com/0sx7YAQ.png)
 
