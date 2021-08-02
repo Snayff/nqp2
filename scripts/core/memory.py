@@ -4,8 +4,6 @@ import logging
 import time
 from typing import TYPE_CHECKING
 
-import conditions as conditions
-
 from scripts.scenes.combat.elements.card_collection import CardCollection
 from scripts.scenes.combat.elements.commander import Commander
 from scripts.scenes.combat.elements.troupe import Troupe
