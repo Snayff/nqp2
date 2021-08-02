@@ -117,7 +117,7 @@ class Memory:
 
         # grab events and occur rate
         for event in events.values():
-            if self._check_event_conditions(event["conditions"]):
+            if self._check_event_conditions(event):
                 possible_events.append(event)
                 occur_rate = self.game.data.get_event_occur_rate(event["type"])
                 possible_events_occur_rates.append(occur_rate)

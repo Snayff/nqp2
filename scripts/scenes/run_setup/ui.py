@@ -120,7 +120,7 @@ class RunSetupUI(UI):
                       max_line_width=line_width)
         self.elements["backstory"] = frame
 
-        current_y += font_height + GAP_SIZE
+        current_y += frame.height + GAP_SIZE
         row_counter += 1
 
         # limits
