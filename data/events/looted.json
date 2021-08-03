@@ -1,0 +1,21 @@
+{
+    "type": "looted",
+    "description": "After a long days' walk your troupe has settled down for the night. After setting up a compact camp under cover of a small outcrop, some reserved merriment and a healthy meal, the watch schedule is set and your men get some rest. The night is surprisingly warm and your second watch has had a little too much to drink. Sleep soon takes them and your camp becomes unprotected. Almost immediately, a well-known local group of bandits takes the opportunity to strike. They have been watching your troupe from afar most of the day. They creep into your camp silently and loot what they can before swiftly taking off. In the morning you realise some gold and rations have been taken during the night. You draft a letter to the Adventurer's Insurance Treasury and law enforcement of the nearest town, but you don't expect much more than a bunch of paperwork and a case number destined to remain open...",
+    "conditions": [
+    ],
+    "level_available": 1,
+    "tier": 1,
+    "resources": [
+        "existing_unit:random1"
+        ],
+    "options": [
+        {
+            "text": "Continue",
+            "result": [
+                "gold:-100",
+                "rations:-1"
+            ],
+            "displayed_result": "-gold, -rations"
+        }
+    ]
+}
