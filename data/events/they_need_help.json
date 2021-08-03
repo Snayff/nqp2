@@ -1,0 +1,27 @@
+{
+    "type": "they_need_help",
+    "description": "As you and your troupe march into the dusk, the golden light of the sun begins to fail at your backs. You're beginning to consider where would be a good place to stop and make camp when you hear a racket up ahead. Amidst clanging and clattering you hear shouting and wailing. It is getting louder as you march on and your troupe picks up pace aware that people on the road are in need of help. As you reach the crest of a short, steep incline you see what appears to be the remains of a small battlefield. Amongst the upturned ruins of a modest sized wagon lies weapons, clothing, armour, and gold scattered amongst the road. Some men, seemingly soldiers, are standing and sitting near the wagon looking bewildered and frustrated. Some are clearly injured and you now notice lifeless bodies lie nearby, some are adorned similarly to the men nearby, and some look like common bandits. You shout ahead to make your presence known and check if the soldiers are okay. 'Yeah, we're doing just fine, pal!' is spat back at you, clearly sarcastically. An eerie silence follows as you and your troupe approach the injured, clearly agreeable men. 'Well,' the gentleman adds, rubbing his head, 'are you guys going to help us, or what?!' You order your troops to tend to the injured and check for other survivors. Some of them begin to pocket some loose change when they think you aren't watching. 'Try tending to the injured, not the dead,' says another delightful chap, to no one in particular. You're starting to guess what personality trait held this group of noble warriors together. After an hour or so of lending your aid, the soldiers approach you. 'So, what are you going to do with us, oh mighty saviour?' What is their problem...",
+    "conditions": [
+    ],
+    "level_available": 1,
+    "tier": 1,
+    "resources": [
+        "existing_unit:random1"
+        ],
+    "options": [
+        {
+            "text": "Take them in and add them to your ranks",
+            "result": [
+                "pikeman:1"
+            ],
+            "displayed_result": "+unit"
+        },
+        {
+            "text": "These guys are the worst, rob them again",
+            "result": [
+                "gold:200"
+            ],
+            "displayed_result": "+gold"
+        }
+    ]
+}
