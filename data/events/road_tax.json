@@ -12,13 +12,15 @@
         {
             "text": "Pay the road tax and be on your way",
             "result": [
-                "gold:-100"
+                "gold:-100",
+                "unlock_event:toad_tax"
             ],
             "displayed_result": "-100 gold"
         },
         {
             "text": "A dead taxman is a good taxman. Kill him",
             "result": [
+                "unlock_event:toad_tax"
             ],
             "displayed_result": "unknown"
         }
