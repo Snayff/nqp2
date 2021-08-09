@@ -84,11 +84,17 @@ class PostCombatScene(Scene):
         gold_min = self.game.data.config["post_combat"]["gold_min"]
         gold_max = self.game.data.config["post_combat"]["gold_max"]
         gold_level_multiplier = self.game.data.config["post_combat"]["gold_level_multiplier"]
+        level = self.game.memory.level
+
+        # only apply multiplier after level 1
+        if level > 1:
+            mod = level * gold_level_multiplier
+        else:
+            mod = 1
 
         # roll gold
         self.gold_reward = int(
-            self.game.rng.randint(gold_min, gold_max) * (self.game.memory.level * gold_level_multiplier)
-        )
+            self.game.rng.randint(gold_min, gold_max) * mod)
 
         # generate required rewards
         reward_type = self.reward_type

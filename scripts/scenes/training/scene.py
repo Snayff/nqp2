@@ -68,6 +68,13 @@ class TrainingScene(Scene):
         """
         tier_multiplier = self.game.data.config["upgrade"]["tier_cost_multiplier"]
         upgrade_cost = self.game.data.config["upgrade"]["cost"]
-        cost = int(((tier_multiplier * tier) * upgrade_cost))
+
+        # only apply multiplier post tier 1
+        if tier > 1:
+            mod = tier_multiplier * tier
+        else:
+            mod = 1
+
+        cost = int(mod * upgrade_cost)
 
         return cost
