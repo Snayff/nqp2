@@ -42,6 +42,7 @@ class Data:
         self.combats: Dict[str, Any] = self._load_combats()
 
         self.config: Dict[str, Any] = self._load_config()
+        self.options: Dict[str, Any] = self._load_options()
 
         # record duration
         end_time = time.time()
@@ -148,6 +149,16 @@ class Data:
 
         return combats
 
+    @staticmethod
+    def _load_options():
+        f = open(str(DATA_PATH / "options.json"), "r")
+        config = json.load(f)
+        f.close()
+
+        logging.info(f"Data: Options data loaded.")
+
+        return config
+
     def get_units_by_category(self, homes: List[str], tiers: List[int] = None) -> List[str]:
         """
         Return list of unit types for all units with a matching home and tier.
@@ -205,3 +216,5 @@ class Data:
         occur_rate = tier_occur_rates[str(combat_tier)]  # str as json keys are strs
 
         return occur_rate
+
+
