@@ -81,5 +81,14 @@
     "upgrade": {
         "tier_cost_multiplier": 1.2,
         "cost":25
+    },
+    "overworld": {
+        "node_weights": {
+            "combat": 0.5,
+            "event": 0.2,
+            "inn": 0.1,
+            "training": 0.1,
+            "unknown": 0.2
+        }
     }
 }
