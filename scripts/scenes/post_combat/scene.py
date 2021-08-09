@@ -86,8 +86,9 @@ class PostCombatScene(Scene):
         gold_level_multiplier = self.game.data.config["post_combat"]["gold_level_multiplier"]
 
         # roll gold
-        self.gold_reward = int(self.game.rng.randint(gold_min, gold_max) * (self.game.memory.level *
-                                                                            gold_level_multiplier))
+        self.gold_reward = int(
+            self.game.rng.randint(gold_min, gold_max) * (self.game.memory.level * gold_level_multiplier)
+        )
 
         # generate required rewards
         reward_type = self.reward_type
