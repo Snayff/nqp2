@@ -162,7 +162,7 @@ class PostCombatScene(Scene):
             if has_enough_charisma:
                 self.game.memory.player_troupe.add_unit(reward)
         else:
-            logging.warning(
+            logging.error(
                 f"Chose {reward} as a unit reward. As it isnt a unit, something has "
                 f"seriously gone wrong! No reward added."
             )
