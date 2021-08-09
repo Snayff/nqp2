@@ -62,6 +62,7 @@ class EventUI(UI):
 
         event = self.game.event.active_event
         default_font = self.default_font
+        show_event_result = self.game.data.options["show_event_option_result"]
 
         # positions
         start_x = 20
@@ -81,7 +82,13 @@ class EventUI(UI):
         current_y = self.game.window.height // 2
         panel_list = []
         for counter, option in enumerate(event["options"]):
-            option_text = option["text"] + " [" + option["displayed_result"] + "]"
+            # get option text
+            if show_event_result:
+                option_text = option["text"] + " [" + option["displayed_result"] + "]"
+            else:
+                option_text = option["text"]
+
+            # build frame
             frame = Frame((current_x, current_y), text_and_font=(option_text, default_font), is_selectable=True)
             self.elements[f"option_{counter}"] = frame
             panel_list.append(frame)

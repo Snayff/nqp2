@@ -42,6 +42,7 @@ class Data:
         self.combats: Dict[str, Any] = self._load_combats()
 
         self.config: Dict[str, Any] = self._load_config()
+        self.options: Dict[str, Any] = self._load_options()
 
         # record duration
         end_time = time.time()
@@ -147,6 +148,16 @@ class Data:
         logging.info(f"Data: All combats data loaded.")
 
         return combats
+
+    @staticmethod
+    def _load_options():
+        f = open(str(DATA_PATH / "options.json"), "r")
+        config = json.load(f)
+        f.close()
+
+        logging.info(f"Data: Options data loaded.")
+
+        return config
 
     def get_units_by_category(self, homes: List[str], tiers: List[int] = None) -> List[str]:
         """
