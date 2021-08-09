@@ -216,5 +216,3 @@ class Data:
         occur_rate = tier_occur_rates[str(combat_tier)]  # str as json keys are strs
 
         return occur_rate
-
-

@@ -93,8 +93,7 @@ class PostCombatScene(Scene):
             mod = 1
 
         # roll gold
-        self.gold_reward = int(
-            self.game.rng.randint(gold_min, gold_max) * mod)
+        self.gold_reward = int(self.game.rng.randint(gold_min, gold_max) * mod)
 
         # generate required rewards
         reward_type = self.reward_type
