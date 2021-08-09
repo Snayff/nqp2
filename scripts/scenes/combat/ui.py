@@ -83,7 +83,7 @@ class CombatUI(UI):
                 if self.game.combat.state == CombatState.UNIT_CHOOSE_CARD:
                     # can only use a card if there are cards in your hand and point limit not hit
                     unit = cards[self.selected_col].unit
-                    leadership = self.game.memory.commander.leadership
+                    leadership = self.game.memory.leadership
                     leadership_remaining = leadership - self.game.combat.leadership_points_spent
                     if len(cards) and leadership_remaining >= unit.tier:
                         self.game.combat.state = CombatState.UNIT_SELECT_TARGET
