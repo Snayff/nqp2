@@ -81,11 +81,14 @@ class PostCombatScene(Scene):
         """
         Generate reward to offer. Overwrites existing rewards.
         """
-        gold_min = 10
-        gold_max = 50
+        gold_min = self.game.data.config["post_combat"]["gold_min"]
+        gold_max = self.game.data.config["post_combat"]["gold_max"]
+        gold_level_multiplier = self.game.data.config["post_combat"]["gold_level_multiplier"]
 
         # roll gold
-        self.gold_reward = self.game.rng.randint(gold_min, gold_max)
+        self.gold_reward = int(
+            self.game.rng.randint(gold_min, gold_max) * (self.game.memory.level * gold_level_multiplier)
+        )
 
         # generate required rewards
         reward_type = self.reward_type
@@ -160,7 +163,7 @@ class PostCombatScene(Scene):
             if has_enough_charisma:
                 self.game.memory.player_troupe.add_unit(reward)
         else:
-            logging.warning(
+            logging.error(
                 f"Chose {reward} as a unit reward. As it isnt a unit, something has "
                 f"seriously gone wrong! No reward added."
             )

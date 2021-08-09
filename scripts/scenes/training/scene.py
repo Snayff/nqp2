@@ -5,7 +5,7 @@ import time
 from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.scene import Scene
-from scripts.core.constants import TrainingState, UPGRADE_COST, UPGRADE_TIER_MULTIPLIER
+from scripts.core.constants import TrainingState
 from scripts.scenes.training.ui import TrainingUI
 
 if TYPE_CHECKING:
@@ -62,11 +62,12 @@ class TrainingScene(Scene):
         self.upgrades_offered = [self.game.data.upgrades["minor_attack"], self.game.data.upgrades["minor_defence"]]
         self.upgrades_available = {"minor_attack": True, "minor_defence": True}
 
-    @staticmethod
-    def calculate_upgrade_cost(tier: int):
+    def calculate_upgrade_cost(self, tier: int):
         """
         Calculate the cost of the upgrade based on the tier of the upgrade.
         """
-        cost = int(((UPGRADE_TIER_MULTIPLIER * tier) * UPGRADE_COST))
+        tier_multiplier = self.game.data.config["upgrade"]["tier_cost_multiplier"]
+        upgrade_cost = self.game.data.config["upgrade"]["cost"]
+        cost = int(((tier_multiplier * tier) * upgrade_cost))
 
         return cost

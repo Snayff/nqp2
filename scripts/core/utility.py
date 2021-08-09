@@ -5,7 +5,7 @@ from typing import List, TypeVar
 
 import pygame
 
-from scripts.core.constants import SceneType
+from scripts.core.constants import NodeType, SceneType
 
 _V = TypeVar("_V", int, float)  # to represent where we don't know which type is being used
 
@@ -97,3 +97,19 @@ def scene_to_scene_type(scene) -> SceneType:
         return SceneType.DEV_UNIT_DATA
     else:
         logging.error(f"scene_to_scene_type: Scene ({scene}) not found.")
+
+
+def node_type_to_scene_type(node_type: NodeType) -> SceneType:
+    if node_type == NodeType.COMBAT:
+        scene = SceneType.COMBAT
+    elif node_type == NodeType.INN:
+        scene = SceneType.INN
+    elif node_type == NodeType.TRAINING:
+        scene = SceneType.TRAINING
+    elif node_type == NodeType.EVENT:
+        scene = SceneType.EVENT
+    else:
+        logging.error(f"node_type_to_scene_type: Node type ({node_type} not found. Default to Combat.")
+        scene = SceneType.COMBAT
+
+    return scene

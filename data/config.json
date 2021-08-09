@@ -77,5 +77,23 @@
         "morale": 0,
         "charisma": 0,
         "leadership": 0
+    },
+    "upgrade": {
+        "tier_cost_multiplier": 1.2,
+        "cost":25
+    },
+    "overworld": {
+        "node_weights": {
+            "combat": 0.5,
+            "event": 0.2,
+            "inn": 0.1,
+            "training": 0.1,
+            "unknown": 0.2
+        }
+    },
+    "post_combat": {
+        "gold_min": 10,
+        "gold_max": 50,
+        "gold_level_multiplier": 1.1
     }
 }

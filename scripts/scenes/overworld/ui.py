@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING
 
 import pygame
 
+from scripts.core import utility
 from scripts.core.base_classes.ui import UI
 from scripts.core.constants import NodeType, OverworldState, SceneType
 
@@ -69,7 +70,8 @@ class OverworldUI(UI):
                     scene = SceneType.EVENT
                 else:
                     # selected_node_type == NodeType.UNKNOWN:
-                    scene = self.game.overworld.pick_unknown_node()
+                    node_type = self.game.overworld.get_random_node_type(False)
+                    scene = utility.node_type_to_scene_type(node_type)
 
                 self.game.change_scene(scene)
 

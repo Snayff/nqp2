@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 
 import pygame
 
-from scripts.core.constants import StatModifiedStatus, UPGRADE_COST, UPGRADE_TIER_MULTIPLIER
+from scripts.core.constants import StatModifiedStatus
 from scripts.core.utility import itr
 from scripts.scenes.combat.elements.entity import Entity
 
@@ -215,6 +215,7 @@ class Unit:
         """
         if stat in self.modifiers:
             self.modifiers[stat].append(amount)
+
         else:
             self.modifiers[stat] = [amount]
 

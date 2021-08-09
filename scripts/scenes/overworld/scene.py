@@ -26,7 +26,6 @@ __all__ = ["OverworldScene"]
 # TODO - generate a tilemap and place nodes on that, so it actually looks like a world.
 # FIXME - able to select across unconnected nodes
 # TODO - generate a boss fight (troupe containing commander) as the only node on the final row
-# TODO - externalise config
 
 
 class OverworldScene(Scene):
@@ -70,24 +69,10 @@ class OverworldScene(Scene):
         """
         Create a map of nodes
         """
-
-        # example implementations:
-        # https://github.com/yurkth/stsmapgen
-        # https://github.com/a327ex/blog/issues/47
-
-        # implementation notes:
-        # 1. every route must have the same number of nodes.
-        # 2. all nodes must be accessible to at least 1 node above and below.
-        # 3. connections between nodes must not cross.
-
         # config
         min_nodes_per_row = 2
         max_nodes_per_row = 4
         depth = 5
-
-        node_types = [NodeType.COMBAT, NodeType.EVENT, NodeType.INN, NodeType.TRAINING, NodeType.UNKNOWN]
-        node_weights = [0.5, 0.2, 0.1, 0.1, 0.2]
-
         nodes = []
         previous_row = []
 
@@ -108,7 +93,7 @@ class OverworldScene(Scene):
 
             for node_num in range(0, num_nodes):
                 # generate node type
-                node_type = self.game.rng.choices(node_types, node_weights, k=1)[0]
+                node_type = self.get_random_node_type()
 
                 # get node icon
                 node_icon = self._get_node_icon(node_type)
@@ -141,12 +126,29 @@ class OverworldScene(Scene):
         self.state = OverworldState.READY
         self.current_node_row = 0
 
-    def pick_unknown_node(self) -> NodeType:
+    def get_random_node_type(self, allow_unknown: bool = True) -> NodeType:
         """
-        Randomly pick a node type that isnt Unknown.
+        Return a random node type
         """
+        node_weights_dict = self.game.data.config["overworld"]["node_weights"]
         node_types = [NodeType.COMBAT, NodeType.EVENT, NodeType.INN, NodeType.TRAINING]
-        node_weights = [0.2, 0.4, 0.1, 0.1]
+
+        if allow_unknown:
+            node_types.append(NodeType.UNKNOWN)
+
+        node_weights = []
+        try:
+            for enum_ in node_types:
+                name = enum_.name.lower()
+                node_weights.append(node_weights_dict[name])
+
+        except KeyError as key_error:
+            logging.warning(f"generate_map: Node key not found in config file. Defaults used. err:{key_error}")
+
+            # overwrite with default
+            node_weights = []
+            for enum_ in node_types:
+                node_weights.append(0.1)
 
         node_type = self.game.rng.choices(node_types, node_weights, k=1)[0]
 
