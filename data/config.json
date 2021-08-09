@@ -77,5 +77,9 @@
         "morale": 0,
         "charisma": 0,
         "leadership": 0
+    },
+    "upgrade": {
+        "tier_cost_multiplier": 1.2,
+        "cost":25
     }
 }
