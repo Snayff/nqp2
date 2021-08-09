@@ -26,7 +26,6 @@ __all__ = ["OverworldScene"]
 # TODO - generate a tilemap and place nodes on that, so it actually looks like a world.
 # FIXME - able to select across unconnected nodes
 # TODO - generate a boss fight (troupe containing commander) as the only node on the final row
-# TODO - externalise config
 
 
 class OverworldScene(Scene):

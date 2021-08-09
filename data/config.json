@@ -90,5 +90,10 @@
             "training": 0.1,
             "unknown": 0.2
         }
+    },
+    "post_combat": {
+        "gold_min": 10,
+        "gold_max": 50,
+        "gold_level_multiplier": 1.1
     }
 }
