@@ -40,18 +40,22 @@ class OverworldUI(UI):
             if self.game.input.states["left"]:
                 self.game.input.states["left"] = False
                 node_container.select_next_node(Direction.LEFT)
+                node_container.roll_for_event()
 
             if self.game.input.states["right"]:
                 self.game.input.states["right"] = False
                 node_container.select_next_node(Direction.RIGHT)
+                node_container.roll_for_event()
 
             if self.game.input.states["up"]:
                 self.game.input.states["up"] = False
                 node_container.select_next_node(Direction.UP)
+                node_container.roll_for_event()
 
             if self.game.input.states["down"]:
                 self.game.input.states["down"] = False
                 node_container.select_next_node(Direction.DOWN)
+                node_container.roll_for_event()
 
             if self.game.input.states["view_troupe"]:
                 self.game.input.states["view_troupe"] = False

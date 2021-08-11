@@ -115,6 +115,7 @@ class Game:
 
         elif scene_type == SceneType.OVERWORLD:
             self.active_scene = self.overworld
+            self.overworld.node_container.is_travel_paused = False
 
         elif scene_type == SceneType.COMBAT:
             self.combat.generate_combat()

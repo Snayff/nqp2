@@ -9,7 +9,7 @@ import pytweening
 
 from scripts.core import utility
 from scripts.core.base_classes.node_container import NodeContainer
-from scripts.core.constants import Direction
+from scripts.core.constants import Direction, SceneType
 from scripts.scenes.overworld.elements.node2 import Node2
 
 if TYPE_CHECKING:
@@ -34,6 +34,9 @@ class Rings(NodeContainer):
 
         self.max_travel_time: float = 0.5
         self.current_travel_time: float = 0.0
+        self.is_travel_paused: bool = False
+        self.is_due_event: bool = False  # true if waiting for an event to trigger
+        self.events_triggered: int = 0  # number of events triggered so far
 
     def update(self, delta_time: float):
         for nodes in self.rings.values():
@@ -41,7 +44,7 @@ class Rings(NodeContainer):
                 node.update(delta_time)
 
         # process change between nodes
-        if self.target_node is not None:
+        if self.target_node is not None and not self.is_travel_paused:
             self._transition_to_new_node(delta_time)
 
     def render(self, surface: pygame.surface):
@@ -178,6 +181,17 @@ class Rings(NodeContainer):
                     self.target_node = self.selected_node.connected_outer_node
                     self.current_ring += 1
 
+    def roll_for_event(self):
+        """
+        Roll to see if an event will be triggered when transitioning between nodes.
+        """
+        # check if we have hit the limit of events
+        if self.events_triggered >= self.game.data.config["overworld"]["max_events_per_level"]:
+            return
+
+        if self.game.rng.roll() < self.game.data.config["overworld"]["chance_of_event"]:
+            self.is_due_event = True
+
     def _transition_to_new_node(self, delta_time: float):
         """
         Move the selection pos from the selected node to the target node. Update selected node when complete.
@@ -193,17 +207,15 @@ class Rings(NodeContainer):
         lerp_amount = pytweening.easeInQuad(percent_time_complete)
         x = utility.lerp(selected.pos[0], target.pos[0], lerp_amount)
         y = utility.lerp(selected.pos[1], target.pos[1], lerp_amount)
-        print(f"lerp from ({selected.pos[0]}, {selected.pos[1]}) towards ({target.pos[0]}, {target.pos[1]}). New pos "
-              f"is ({x},{y})")
         self.selection_pos = (x, y)
 
-        current_x = self.selection_pos[0]
-        current_y = self.selection_pos[1]
-        target_x = target.pos[0]
-        target_y = target.pos[1]
+        if percent_time_complete >= 0.5 and self.is_due_event:
+            self.is_travel_paused = True
+            self.is_due_event = False
+            self.game.change_scene(SceneType.EVENT)
 
         # check if at target pos
-        if (target_x - 1 <= current_x <= target_x + 1) and (target_y - 1 <= current_y <= target_y + 1):
+        elif percent_time_complete >= 1.0:
             self.selected_node = self.target_node
             self.target_node = None
             self.current_travel_time = 0

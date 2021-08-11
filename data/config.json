@@ -89,7 +89,9 @@
             "inn": 0.1,
             "training": 0.1,
             "unknown": 0.2
-        }
+        },
+        "chance_of_event": 100,
+        "max_events_per_level": 3
     },
     "post_combat": {
         "gold_min": 10,
