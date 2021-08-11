@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import logging
-from typing import Optional, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 import pygame
 
@@ -13,6 +13,7 @@ from scripts.ui_elements.panel import Panel
 
 if TYPE_CHECKING:
     from scripts.core.game import Game
+    from typing import Optional
 
 __all__ = ["PostCombatUI"]
 

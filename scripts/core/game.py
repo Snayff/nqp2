@@ -5,7 +5,7 @@ import time
 
 import pygame as pygame
 
-from scripts.core import debug, utility
+from scripts.core import utility
 from scripts.core.assets import Assets
 from scripts.core.constants import GameState, SceneType
 from scripts.core.data import Data

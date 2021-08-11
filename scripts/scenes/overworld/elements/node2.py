@@ -7,22 +7,21 @@ import pygame
 from scripts.core.constants import NodeState, NodeType
 
 if TYPE_CHECKING:
-    from typing import List
+    from typing import List, Tuple, Union
 
 
-__all__ = ["Node"]
+__all__ = ["Node2"]
 
 
-class Node:
+class Node2:
     """
     Represents a possible interaction on the map
     """
 
-    def __init__(self, node_type: NodeType, pos: List[int], icon: pygame.Surface):
+    def __init__(self, node_type: NodeType, pos: Tuple[Union[int, float], Union[int, float]], icon: pygame.Surface):
         self.type: NodeType = node_type
         self.state: NodeState = NodeState.REACHABLE
-        self.connected_previous_row_nodes: List[Node] = []
-        self.pos: List[int] = pos
+        self.pos: Tuple[Union[int, float], Union[int, float]] = pos
         self.icon: pygame.Surface = icon
 
     def update(self, delta_time: float):

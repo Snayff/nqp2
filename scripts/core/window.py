@@ -8,6 +8,7 @@ import pygame
 
 if TYPE_CHECKING:
     from scripts.core.game import Game
+    from typing import List, Tuple, Union
 
 __all__ = ["Window"]
 
@@ -49,3 +50,10 @@ class Window:
     @property
     def width(self) -> int:
         return self.base_resolution[0]
+
+    @property
+    def centre(self) -> Tuple[Union[int, float], Union[int, float]]:
+        x = self.base_resolution[0] / 2
+        y = self.base_resolution[1] / 2
+
+        return x, y
