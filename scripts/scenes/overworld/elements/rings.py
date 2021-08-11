@@ -69,8 +69,10 @@ class Rings(NodeContainer):
                 node.render(surface)
 
     def generate_nodes(self):
+        logging.info(f"Generating overworld:")
         gap_between_rings = self.outer_radius / self.num_rings
         base_num_nodes = 2  # starting number of nodes
+        total_nodes = 0  # for logging
 
         # generate rings
         num_nodes = base_num_nodes
@@ -78,10 +80,13 @@ class Rings(NodeContainer):
             # add random number of nodes
             num_nodes += self.game.rng.randint(1, ring_count)
 
+            logging_message = f"-> Ring {ring_count} has {num_nodes} nodes; "
+
             self.rings[ring_count] = []
             angle_between_nodes = 360 / num_nodes
             current_radius = gap_between_rings * ring_count
             current_angle = 0
+            logging_node_types = []
 
             # generate nodes for each ring
             for node_count in range(num_nodes):
@@ -103,6 +108,7 @@ class Rings(NodeContainer):
 
                 # generate node type
                 node_type = self._get_random_node_type()
+                logging_node_types.append(node_type.name)
 
                 # get node icon
                 node_icon = self._get_node_icon(node_type)
@@ -110,10 +116,16 @@ class Rings(NodeContainer):
                 # init node and save
                 node = Node2(node_type, (x, y), node_icon)
                 self.rings[ring_count].append(node)
+                total_nodes += 1  # for logging
+
+            logging_message += f"{logging_node_types}."
+            logging.debug(logging_message)
+
+        base_num_connections = 2
+        total_connections = 0  # for logging
+        num_connections = base_num_connections
 
         # generate connections between nodes
-        base_num_connections = 2
-        num_connections = base_num_connections
         for ring_num, ring in self.rings.items():
             num_connections += self.game.rng.randint(0, ring_num)
 
@@ -137,9 +149,10 @@ class Rings(NodeContainer):
                             nearest_node = outer_node
 
                     # connect nodes
-                    if nearest_node is not None:
+                    if nearest_node is not None and nearest_node.connected_inner_node is None:
                         node.connected_outer_node = nearest_node
                         nearest_node.connected_inner_node = node
+                        total_connections += 1  # for logging
 
                 except KeyError:
                     pass
@@ -152,6 +165,10 @@ class Rings(NodeContainer):
 
         # set current ring
         self.current_ring = len(self.rings)
+
+        # log summary
+        logging.info(f"-> Map generated! Rings: {len(self.rings)} | Nodes: {total_nodes} | Connections:"
+                     f" {total_connections}")
 
     def select_next_node(self, direction: Direction):
         nodes = self.rings[self.current_ring]
