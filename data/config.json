@@ -89,8 +89,8 @@
             "training": 0.1,
             "unknown": 0.2
         },
-        "chance_of_event": 0,
-        "max_events_per_level": 3
+        "chance_of_event": 30,
+        "max_events_per_level": 5
     },
     "post_combat": {
         "gold_min": 10,

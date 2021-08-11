@@ -139,7 +139,7 @@ class NodeContainer(ABC):
 
             # trigger if not already completed
             if not self.selected_node.is_complete:
-                #self._trigger_current_node()
+                self._trigger_current_node()
                 pass
 
             # update to allow input again
