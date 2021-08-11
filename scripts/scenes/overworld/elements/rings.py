@@ -38,6 +38,9 @@ class Rings(NodeContainer):
         # process change between nodes
         if self.target_node is not None and not self.is_travel_paused:
             self._transition_to_new_node(delta_time)
+        else:
+            # update to allow input again - this is a failsafe in case something is missed elsewhere
+            self.game.overworld.state = OverworldState.READY
 
     def render(self, surface: pygame.surface):
         # draw selection

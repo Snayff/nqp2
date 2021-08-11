@@ -169,4 +169,7 @@ class NodeContainer(ABC):
             node_type = self._get_random_node_type(False)
             scene = utility.node_type_to_scene_type(node_type)
 
+        # update node
+        selected_node.is_complete = True
+
         self.game.change_scene(scene)
