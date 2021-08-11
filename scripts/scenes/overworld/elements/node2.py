@@ -32,9 +32,5 @@ class Node2:
         pass
 
     def render(self, surface: pygame.Surface):
-        if self.is_selected:
-            radius = (self.icon.get_width() / 2) + 2
-            pygame.draw.circle(surface, (255, 255, 255), self.pos, radius)
-
         surface.blit(self.icon, self.pos)
 

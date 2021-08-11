@@ -18,8 +18,6 @@ __all__ = ["OverworldUI"]
 
 
 ############# TO DO LIST ##################
-# FIXME - update to align to selection approach of UI
-
 
 class OverworldUI(UI):
     """

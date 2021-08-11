@@ -24,6 +24,7 @@ class Rings(NodeContainer):
         self.num_rings: int = num_rings
 
         self.rings: Dict[int, List[Node2]] = {}
+        self.selected_node: Optional[Node2] = None
 
     def update(self, delta_time: float):
         pass
@@ -31,6 +32,12 @@ class Rings(NodeContainer):
     def render(self, surface: pygame.surface):
         # DEBUG - draw centre
         pygame.draw.rect(surface, (255, 0, 0), ((self.centre[0] - 1, self.centre[1] - 1), (2, 2)))
+
+        # draw selection
+        if self.selected_node is not None:
+            node = self.selected_node
+            radius = (node.icon.get_width() / 2) + 2
+            pygame.draw.circle(surface, (255, 255, 255), node.pos, radius)
 
         # draw the nodes on top of the ring
         gap_between_rings = self.outer_radius / self.num_rings
@@ -111,4 +118,4 @@ class Rings(NodeContainer):
         # pick a random node in outer ring as starting position
         nodes = self.rings[len(self.rings)]
         node = self.game.rng.choice(nodes)
-        node.is_selected = True
+        self.selected_node = node
