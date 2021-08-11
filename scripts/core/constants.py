@@ -94,3 +94,10 @@ class StatModifiedStatus(IntEnum):
     POSITIVE = auto()
     NEGATIVE = auto()
     POSITIVE_AND_NEGATIVE = auto()
+
+
+class Direction(IntEnum):
+    UP = auto()
+    DOWN = auto()
+    LEFT = auto()
+    RIGHT = auto()

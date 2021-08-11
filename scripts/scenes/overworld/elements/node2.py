@@ -26,7 +26,7 @@ class Node2:
         self.connected_outer_node: Optional[Node2] = None
         self.connected_inner_node: Optional[Node2] = None
 
-        self.is_selected: bool = False
+        self.is_complete: bool = False  # if the player has already completed
 
     def update(self, delta_time: float):
         pass

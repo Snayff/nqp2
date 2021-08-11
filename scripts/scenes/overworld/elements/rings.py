@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING
 import pygame
 
 from scripts.core.base_classes.node_container import NodeContainer
+from scripts.core.constants import Direction
 from scripts.scenes.overworld.elements.node2 import Node2
 
 if TYPE_CHECKING:
@@ -25,9 +26,12 @@ class Rings(NodeContainer):
 
         self.rings: Dict[int, List[Node2]] = {}
         self.selected_node: Optional[Node2] = None
+        self.current_ring: int = 0
 
     def update(self, delta_time: float):
-        pass
+        for nodes in self.rings.values():
+            for node in nodes:
+                node.update(delta_time)
 
     def render(self, surface: pygame.surface):
         # DEBUG - draw centre
@@ -119,3 +123,48 @@ class Rings(NodeContainer):
         nodes = self.rings[len(self.rings)]
         node = self.game.rng.choice(nodes)
         self.selected_node = node
+
+        # set current ring
+        self.current_ring = len(self.rings)
+
+    def select_next_node(self, direction: Direction):
+        nodes = self.rings[self.current_ring]
+        current_index = nodes.index(self.selected_node)
+
+        # handle in ring movement
+        if direction in (Direction.LEFT, Direction.RIGHT):
+            # move clockwise
+            if direction == Direction.LEFT:
+                # handle index looping
+                if current_index + 1 >= len(nodes):
+                    current_index = 0
+                else:
+                    current_index += 1
+
+            # move counter clockwise
+            elif direction == Direction.RIGHT:
+                # handle index looping
+                if current_index - 1 < 0:
+                    current_index = len(nodes) - 1
+                else:
+                    current_index -= 1
+
+            # update selected node
+            print(f"current_index: {current_index}")
+            self.selected_node = nodes[current_index]
+
+        # handle cross ring movement
+        elif direction in (Direction.UP, Direction.DOWN):
+            # move inwards
+            if direction == Direction.DOWN:
+                # check for an inner connection
+                if self.selected_node.connected_inner_node is not None:
+                    self.selected_node = self.selected_node.connected_inner_node
+                    self.current_ring -= 1
+
+            elif direction == Direction.UP:
+                # check for an outer connection
+                if self.selected_node.connected_outer_node is not None:
+                    self.selected_node = self.selected_node.connected_outer_node
+                    self.current_ring += 1
+

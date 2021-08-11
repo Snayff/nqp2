@@ -4,10 +4,10 @@ from typing import TYPE_CHECKING
 
 import pygame
 
-from scripts.core.constants import NodeType
+from scripts.core.constants import Direction, NodeType
 
 
-from abc import ABC
+from abc import ABC, abstractmethod
 
 if TYPE_CHECKING:
     from scripts.core.game import Game
@@ -19,6 +19,22 @@ __all__ = ["NodeContainer"]
 class NodeContainer(ABC):
     def __init__(self, game: Game):
         self.game: Game = game
+
+    @abstractmethod
+    def render(self, surface: pygame.Surface):
+        pass
+
+    @abstractmethod
+    def update(self, delta_time: float):
+        pass
+
+    @abstractmethod
+    def select_next_node(self, direction: Direction):
+        pass
+
+    @abstractmethod
+    def generate_nodes(self):
+        pass
 
     def _get_node_icon(self, node_type: NodeType) -> pygame.Surface:
         """
@@ -65,4 +81,5 @@ class NodeContainer(ABC):
         node_type = self.game.rng.choices(node_types, node_weights, k=1)[0]
 
         return node_type
+
 
