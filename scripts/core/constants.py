@@ -43,6 +43,7 @@ class CombatState(IntEnum):
 class OverworldState(IntEnum):
     LOADING = auto()
     READY = auto()
+    TRAVELLING = auto()
 
 
 class TrainingState(IntEnum):
@@ -94,3 +95,10 @@ class StatModifiedStatus(IntEnum):
     POSITIVE = auto()
     NEGATIVE = auto()
     POSITIVE_AND_NEGATIVE = auto()
+
+
+class Direction(IntEnum):
+    UP = auto()
+    DOWN = auto()
+    LEFT = auto()
+    RIGHT = auto()

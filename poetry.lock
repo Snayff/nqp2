@@ -102,6 +102,14 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "pytweening"
+version = "1.0.3"
+description = "A collection of tweening / easing functions."
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "regex"
 version = "2021.7.6"
 description = "Alternative regular expression module, to replace re."
@@ -136,7 +144,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "9baf03c200f17045f7334a6687bff28aaab00bad48e13c8cbd9e389aef1f11da"
+content-hash = "6db57be9da944f005e2619827372d222a8aaff10a49a8894fab97104a8fd017d"
 
 [metadata.files]
 appdirs = [
@@ -232,6 +240,9 @@ pygame = [
     {file = "pygame-2.0.1-pp37-pypy37_pp73-manylinux2010_i686.whl", hash = "sha256:a4e35d89b6754941e82df1ce980a1c370943d3c076938d94ed1e48165dd6a11b"},
     {file = "pygame-2.0.1-pp37-pypy37_pp73-manylinux2010_x86_64.whl", hash = "sha256:b812285d23b5644c643a6ae30553a772f935f47f61826660b108b8727936384b"},
     {file = "pygame-2.0.1.tar.gz", hash = "sha256:8b1e7b63f47aafcdd8849933b206778747ef1802bd3d526aca45ed77141e4001"},
+]
+pytweening = [
+    {file = "PyTweening-1.0.3.zip", hash = "sha256:4b608a570f4dccf2201e898f643c2a12372eb1d71a3dbc7e778771b603ca248b"},
 ]
 regex = [
     {file = "regex-2021.7.6-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:e6a1e5ca97d411a461041d057348e578dc344ecd2add3555aedba3b408c9f874"},

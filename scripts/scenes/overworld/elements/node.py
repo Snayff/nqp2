@@ -1,10 +1,14 @@
 from __future__ import annotations
 
-from typing import List
+from typing import TYPE_CHECKING
 
 import pygame
 
 from scripts.core.constants import NodeState, NodeType
+
+if TYPE_CHECKING:
+    from typing import List
+
 
 __all__ = ["Node"]
 

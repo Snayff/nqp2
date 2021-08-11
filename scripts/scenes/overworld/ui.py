@@ -1,14 +1,13 @@
 from __future__ import annotations
 
 import logging
-import random
 from typing import TYPE_CHECKING
 
 import pygame
 
-from scripts.core import utility
 from scripts.core.base_classes.ui import UI
-from scripts.core.constants import NodeType, OverworldState, SceneType
+from scripts.core.constants import Direction, NodeType, OverworldState, SceneType
+from scripts.ui_elements.frame import Frame
 
 if TYPE_CHECKING:
     from scripts.core.game import Game
@@ -18,7 +17,6 @@ __all__ = ["OverworldUI"]
 
 
 ############# TO DO LIST ##################
-# FIXME - update to align to selection approach of UI
 
 
 class OverworldUI(UI):
@@ -29,94 +27,66 @@ class OverworldUI(UI):
     def __init__(self, game: Game):
         super().__init__(game)
 
-        self.selected_node = 0  # node index
+        # N.B. Doesnt use Panels to handle input.
 
-        self.set_instruction_text("Choose where you will go next.")
+        self.set_instruction_text(
+            "Choose where you will go next. Up/Down for moving to outer or inner rings and left right for clockwise and anti-clockwise."
+        )
 
     def update(self, delta_time: float):
         super().update(delta_time)
 
         if self.game.overworld.state == OverworldState.READY:
-            row_nodes = self.game.overworld.nodes[self.game.overworld.current_node_row]
+
+            node_container = self.game.overworld.node_container
 
             if self.game.input.states["left"]:
                 self.game.input.states["left"] = False
-                self.selected_node -= 1
-                if self.selected_node < 0:
-                    self.selected_node = len(row_nodes) - 1
+                node_container.select_next_node(Direction.LEFT)
+                node_container.roll_for_event()
 
             if self.game.input.states["right"]:
                 self.game.input.states["right"] = False
-                self.selected_node += 1
-                if self.selected_node >= len(row_nodes):
-                    self.selected_node = 0
+                node_container.select_next_node(Direction.RIGHT)
+                node_container.roll_for_event()
 
-            if self.game.input.states["select"]:
-                self.game.input.states["select"] = False
+            if self.game.input.states["up"]:
+                self.game.input.states["up"] = False
+                node_container.select_next_node(Direction.UP)
+                node_container.roll_for_event()
 
-                selected_node = self.game.overworld.nodes[self.game.overworld.current_node_row][self.selected_node]
-                selected_node_type = selected_node.type
-
-                logging.info(f"Next node, {selected_node_type.name}, selected.")
-
-                # change active scene
-                if selected_node_type == NodeType.COMBAT:
-                    scene = SceneType.COMBAT
-                elif selected_node_type == NodeType.INN:
-                    scene = SceneType.INN
-                elif selected_node_type == NodeType.TRAINING:
-                    scene = SceneType.TRAINING
-                elif selected_node_type == NodeType.EVENT:
-                    scene = SceneType.EVENT
-                else:
-                    # selected_node_type == NodeType.UNKNOWN:
-                    node_type = self.game.overworld.get_random_node_type(False)
-                    scene = utility.node_type_to_scene_type(node_type)
-
-                self.game.change_scene(scene)
-
-                self.game.overworld.increment_row()
+            if self.game.input.states["down"]:
+                self.game.input.states["down"] = False
+                node_container.select_next_node(Direction.DOWN)
+                node_container.roll_for_event()
 
             if self.game.input.states["view_troupe"]:
                 self.game.input.states["view_troupe"] = False
                 self.game.change_scene(SceneType.VIEW_TROUPE)
 
     def render(self, surface: pygame.surface):
+        # show core info
+        self.draw_instruction(surface)
+
+        # draw elements
+        self.draw_elements(surface)
+
+    def rebuild_ui(self):
+        super().rebuild_ui()
+
         overworld_map = self.game.overworld
+        warning_font = self.warning_font
 
         if overworld_map.state == OverworldState.LOADING:
             # draw loading screen
-            window_height = self.game.window.height
-            self.game.assets.fonts["warning"].render("Loading...", surface, (10, window_height - 20))
+            current_x = 10
+            current_y = self.game.window.height - 20
+            frame = Frame(
+                (current_x, current_y),
+                text_and_font=("Loading...", warning_font),
+                is_selectable=False,
+            )
+            self.elements["loading_message"] = frame
 
-        elif overworld_map.state == OverworldState.READY:
-            # get node icon details
-            node_width = overworld_map.nodes[0][0].icon.get_width()
-            node_height = overworld_map.nodes[0][0].icon.get_height()
-            line_offset = 2
-
-            # draw node connections
-            for row in overworld_map.nodes:
-                for node in row:
-                    for connected_node in node.connected_previous_row_nodes:
-                        # get positions
-                        node_centre_x = node.pos[0] + (node_width / 2)
-                        node_top = node.pos[1] - line_offset
-                        connected_node_centre = connected_node.pos[0] + (node_width / 2)
-                        connected_node_bottom = connected_node.pos[1] + node_height + line_offset
-                        # FIXME - are these nodes the wrong way round?
-
-                        pygame.draw.line(
-                            surface,
-                            (255, 255, 255),
-                            (node_centre_x, node_top),
-                            (connected_node_centre, connected_node_bottom),
-                        )
-
-            # draw selection
-            selected_node = overworld_map.nodes[overworld_map.current_node_row][self.selected_node]
-            selected_node_centre_x = selected_node.pos[0] + (node_width / 2)
-            selected_node_centre_y = selected_node.pos[1] + (node_height / 2)
-            pygame.draw.circle(surface, (255, 0, 0), (selected_node_centre_x, selected_node_centre_y), node_width, 2)
-
-            self.draw_instruction(surface)
+        else:
+            self.rebuild_resource_elements()

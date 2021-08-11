@@ -36,6 +36,6 @@ class RNG(random.Random):
 
     def roll(self, min_value: int = 0, max_value: int = 99) -> int:
         """
-        Roll for a number between min and max
+        Roll for a number between min and max. Can handle negative numbers.
         """
         return self.randint(min_value, max_value)

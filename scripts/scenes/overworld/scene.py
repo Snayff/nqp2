@@ -6,13 +6,15 @@ from typing import TYPE_CHECKING
 
 import pygame
 
+from scripts.core.base_classes.node_container import NodeContainer
 from scripts.core.base_classes.scene import Scene
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, NodeState, NodeType, OverworldState
 from scripts.scenes.overworld.elements.node import Node
+from scripts.scenes.overworld.elements.rings import Rings
 from scripts.scenes.overworld.ui import OverworldUI
 
 if TYPE_CHECKING:
-    from typing import List
+    from typing import List, Optional
 
     from scripts.core.game import Game
 
@@ -41,8 +43,7 @@ class OverworldScene(Scene):
 
         self.ui: OverworldUI = OverworldUI(game)
 
-        self.nodes: List[List[Node]] = []
-        self.current_node_row: int = 0
+        self.node_container: Optional[NodeContainer] = None
         self.state: OverworldState = OverworldState.LOADING
 
         # record duration
@@ -52,135 +53,23 @@ class OverworldScene(Scene):
     def update(self, delta_time: float):
         super().update(delta_time)
 
-        for row in self.nodes:
-            for node in row:
-                node.update(delta_time)
+        self.node_container.update(delta_time)
 
         self.ui.update(delta_time)
 
     def render(self):
-        for row in self.nodes:
-            for node in row:
-                node.render(self.game.window.display)
-
+        self.node_container.render(self.game.window.display)
         self.ui.render(self.game.window.display)
 
     def generate_map(self):
         """
         Create a map of nodes
         """
-        # config
-        min_nodes_per_row = 2
-        max_nodes_per_row = 4
-        depth = 5
-        nodes = []
-        previous_row = []
+        centre = self.game.window.centre
+        self.node_container = Rings(self.game, centre, 160, 5)
+        self.node_container.generate_nodes()
 
-        # positions
-        base_x = 10
-        x = base_x
-        y = 10
-
-        # generate first row
-        # proc number of nodes
-        num_nodes = self.game.rng.randint(min_nodes_per_row, max_nodes_per_row)
-
-        # TODO - replace with procedural generation
-        # init nodes
-        for row_num in range(0, depth):
-            row = []
-            y = y + DEFAULT_IMAGE_SIZE * 2
-
-            for node_num in range(0, num_nodes):
-                # generate node type
-                node_type = self.get_random_node_type()
-
-                # get node icon
-                node_icon = self._get_node_icon(node_type)
-
-                # init  node
-                node = Node(node_type, [x, y], node_icon)
-
-                # change state as we're in first row
-                if row_num == 0:
-                    node.state = NodeState.SELECTABLE
-                else:
-                    # connect to previous row
-                    node.connected_previous_row_nodes.append(previous_row[node_num])
-
-                # increment position
-                x += DEFAULT_IMAGE_SIZE * 3
-
-                row.append(node)
-
-            # store row
-            nodes.append(row)
-
-            # reset x
-            x = base_x
-
-            # retain row info
-            previous_row = row
-
-        self.nodes = nodes
         self.state = OverworldState.READY
-        self.current_node_row = 0
-
-    def get_random_node_type(self, allow_unknown: bool = True) -> NodeType:
-        """
-        Return a random node type
-        """
-        node_weights_dict = self.game.data.config["overworld"]["node_weights"]
-        node_types = [NodeType.COMBAT, NodeType.EVENT, NodeType.INN, NodeType.TRAINING]
-
-        if allow_unknown:
-            node_types.append(NodeType.UNKNOWN)
-
-        node_weights = []
-        try:
-            for enum_ in node_types:
-                name = enum_.name.lower()
-                node_weights.append(node_weights_dict[name])
-
-        except KeyError as key_error:
-            logging.warning(f"generate_map: Node key not found in config file. Defaults used. err:{key_error}")
-
-            # overwrite with default
-            node_weights = []
-            for enum_ in node_types:
-                node_weights.append(0.1)
-
-        node_type = self.game.rng.choices(node_types, node_weights, k=1)[0]
-
-        return node_type
-
-    def _get_node_icon(self, node_type: NodeType) -> pygame.Surface:
-        """
-        Get the node icon from the node type
-        """
-        if node_type == NodeType.COMBAT:
-            node_icon = self.game.assets.get_image("nodes", "combat")
-        elif node_type == NodeType.EVENT:
-            node_icon = self.game.assets.get_image("nodes", "event")
-        elif node_type == NodeType.INN:
-            node_icon = self.game.assets.get_image("nodes", "inn")
-        elif node_type == NodeType.TRAINING:
-            node_icon = self.game.assets.get_image("nodes", "training")
-        else:
-            # node_type == NodeType.UNKNOWN
-            node_icon = self.game.assets.get_image("nodes", "unknown")
-
-        return node_icon
-
-    def increment_row(self):
-        """
-        Increment the row, create a new level if all rows completed.
-        """
-        self.current_node_row += 1
-
-        # check if we reached the end of the rows
-        if self.current_node_row >= len(self.nodes):
-            self.increment_level()
 
     def increment_level(self):
         """
@@ -195,7 +84,5 @@ class OverworldScene(Scene):
     def reset(self):
         self.ui = OverworldUI(self.game)
 
-        self.nodes = []
-        self.current_node_row = 0
         self.state = OverworldState.LOADING
         self.game.memory.level = 1

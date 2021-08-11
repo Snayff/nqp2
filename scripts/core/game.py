@@ -5,7 +5,7 @@ import time
 
 import pygame as pygame
 
-from scripts.core import debug, utility
+from scripts.core import utility
 from scripts.core.assets import Assets
 from scripts.core.constants import GameState, SceneType
 from scripts.core.data import Data
@@ -115,6 +115,7 @@ class Game:
 
         elif scene_type == SceneType.OVERWORLD:
             self.active_scene = self.overworld
+            self.overworld.node_container.is_travel_paused = False
 
         elif scene_type == SceneType.COMBAT:
             self.combat.generate_combat()
