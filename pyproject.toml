@@ -7,6 +7,7 @@ authors = ["Snayff <snaith2@gmail.com>"]
 [tool.poetry.dependencies]
 python = "^3.8"
 pygame = "^2.0.1"
+PyTweening = "^1.0.3"
 
 [tool.poetry.dev-dependencies]
 mypy = "^0.812"

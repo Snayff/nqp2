@@ -1,14 +1,13 @@
 from __future__ import annotations
 
 import logging
-import random
 from typing import TYPE_CHECKING
 
 import pygame
 
-from scripts.core import utility
 from scripts.core.base_classes.ui import UI
 from scripts.core.constants import Direction, NodeType, OverworldState, SceneType
+from scripts.ui_elements.frame import Frame
 
 if TYPE_CHECKING:
     from scripts.core.game import Game
@@ -27,7 +26,9 @@ class OverworldUI(UI):
     def __init__(self, game: Game):
         super().__init__(game)
 
-        self.set_instruction_text("Choose where you will go next.")
+        # N.B. Doesnt use Panels to handle input.
+
+        self.set_instruction_text("Choose where you will go next. Up/Down for moving to outer or inner rings and left right for clockwise and anti-clockwise.")
 
     def update(self, delta_time: float):
         super().update(delta_time)
@@ -52,43 +53,34 @@ class OverworldUI(UI):
                 self.game.input.states["down"] = False
                 node_container.select_next_node(Direction.DOWN)
 
-            # if self.game.input.states["select"]:
-            #     self.game.input.states["select"] = False
-            #
-            #     selected_node = self.game.overworld.nodes[self.game.overworld.current_node_row][self.selected_node]
-            #     selected_node_type = selected_node.type
-            #
-            #     logging.info(f"Next node, {selected_node_type.name}, selected.")
-            #
-            #     # change active scene
-            #     if selected_node_type == NodeType.COMBAT:
-            #         scene = SceneType.COMBAT
-            #     elif selected_node_type == NodeType.INN:
-            #         scene = SceneType.INN
-            #     elif selected_node_type == NodeType.TRAINING:
-            #         scene = SceneType.TRAINING
-            #     elif selected_node_type == NodeType.EVENT:
-            #         scene = SceneType.EVENT
-            #     else:
-            #         # selected_node_type == NodeType.UNKNOWN:
-            #         node_type = self.game.overworld.get_random_node_type(False)
-            #         scene = utility.node_type_to_scene_type(node_type)
-            #
-            #     self.game.change_scene(scene)
-            #
-            #     self.game.overworld.increment_row()
-
             if self.game.input.states["view_troupe"]:
                 self.game.input.states["view_troupe"] = False
                 self.game.change_scene(SceneType.VIEW_TROUPE)
 
     def render(self, surface: pygame.surface):
+        # show core info
+        self.draw_instruction(surface)
+
+        # draw elements
+        self.draw_elements(surface)
+
+
+    def rebuild_ui(self):
+        super().rebuild_ui()
+
         overworld_map = self.game.overworld
+        warning_font = self.warning_font
 
         if overworld_map.state == OverworldState.LOADING:
             # draw loading screen
-            window_height = self.game.window.height
-            self.warning_font.render("Loading...", surface, (10, window_height - 20))
+            current_x = 10
+            current_y = self.game.window.height - 20
+            frame = Frame(
+                (current_x, current_y),
+                text_and_font=("Loading...", warning_font),
+                is_selectable=False,
+            )
+            self.elements["loading_message"] = frame
 
-        elif overworld_map.state == OverworldState.READY:
-            self.draw_instruction(surface)
+        else:
+            self.rebuild_resource_elements()
