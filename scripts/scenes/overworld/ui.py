@@ -18,6 +18,7 @@ __all__ = ["OverworldUI"]
 
 ############# TO DO LIST ##################
 
+
 class OverworldUI(UI):
     """
     Represents the overworld UI.
@@ -28,7 +29,9 @@ class OverworldUI(UI):
 
         # N.B. Doesnt use Panels to handle input.
 
-        self.set_instruction_text("Choose where you will go next. Up/Down for moving to outer or inner rings and left right for clockwise and anti-clockwise.")
+        self.set_instruction_text(
+            "Choose where you will go next. Up/Down for moving to outer or inner rings and left right for clockwise and anti-clockwise."
+        )
 
     def update(self, delta_time: float):
         super().update(delta_time)
@@ -67,7 +70,6 @@ class OverworldUI(UI):
 
         # draw elements
         self.draw_elements(surface)
-
 
     def rebuild_ui(self):
         super().rebuild_ui()

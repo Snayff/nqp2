@@ -1,5 +1,7 @@
 from __future__ import annotations
+
 import logging
+from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 
 import pygame
@@ -7,14 +9,12 @@ import pytweening
 
 from scripts.core import utility
 from scripts.core.constants import Direction, NodeType, OverworldState, SceneType
-
-from abc import ABC, abstractmethod
-
 from scripts.scenes.overworld.elements.node2 import Node2
 
 if TYPE_CHECKING:
+    from typing import Dict, List, Optional, Tuple
+
     from scripts.core.game import Game
-    from typing import List, Tuple, Dict, Optional
 
 __all__ = ["NodeContainer"]
 

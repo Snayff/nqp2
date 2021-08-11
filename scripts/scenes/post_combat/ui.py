@@ -12,8 +12,9 @@ from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.panel import Panel
 
 if TYPE_CHECKING:
-    from scripts.core.game import Game
     from typing import Optional
+
+    from scripts.core.game import Game
 
 __all__ = ["PostCombatUI"]
 

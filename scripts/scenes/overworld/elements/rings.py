@@ -13,8 +13,9 @@ from scripts.core.constants import DEFAULT_IMAGE_SIZE, Direction, NodeType, Over
 from scripts.scenes.overworld.elements.node2 import Node2
 
 if TYPE_CHECKING:
+    from typing import Dict, List, Optional, Tuple
+
     from scripts.core.game import Game
-    from typing import List, Tuple, Dict, Optional
 
 __all__ = ["Rings"]
 
@@ -28,7 +29,6 @@ class Rings(NodeContainer):
 
         self.rings: Dict[int, List[Node2]] = {}  # N.B. the key starts from 1
         self.current_ring: int = 0
-
 
     def update(self, delta_time: float):
         for nodes in self.rings.values():
@@ -62,8 +62,9 @@ class Rings(NodeContainer):
                     # adjust to align with centre of node images
                     outer_node_pos = node.connected_outer_node.pos
                     adjusted_node_pos = node.pos[0] + (DEFAULT_IMAGE_SIZE / 2), node.pos[1] + (DEFAULT_IMAGE_SIZE / 2)
-                    adjusted_outer_node_pos = outer_node_pos[0] + (DEFAULT_IMAGE_SIZE / 2), \
-                        outer_node_pos[1] + (DEFAULT_IMAGE_SIZE / 2)
+                    adjusted_outer_node_pos = outer_node_pos[0] + (DEFAULT_IMAGE_SIZE / 2), outer_node_pos[1] + (
+                        DEFAULT_IMAGE_SIZE / 2
+                    )
                     pygame.draw.line(surface, (255, 255, 255), adjusted_node_pos, adjusted_outer_node_pos)
 
                 node.render(surface)
@@ -95,7 +96,7 @@ class Rings(NodeContainer):
                 angle_offset = self.game.rng.randint(-5, 5)
 
                 # get new position on circle
-                current_angle += (angle_offset + angle_between_nodes)
+                current_angle += angle_offset + angle_between_nodes
 
                 # exit if we've looped the circle
                 if current_angle >= 360:
@@ -167,8 +168,9 @@ class Rings(NodeContainer):
         self.current_ring = len(self.rings)
 
         # log summary
-        logging.info(f"-> Map generated! Rings: {len(self.rings)} | Nodes: {total_nodes} | Connections:"
-                     f" {total_connections}")
+        logging.info(
+            f"-> Map generated! Rings: {len(self.rings)} | Nodes: {total_nodes} | Connections:" f" {total_connections}"
+        )
 
     def select_next_node(self, direction: Direction):
         nodes = self.rings[self.current_ring]
@@ -212,4 +214,3 @@ class Rings(NodeContainer):
                 if self.selected_node.connected_outer_node is not None:
                     self.target_node = self.selected_node.connected_outer_node
                     self.current_ring += 1
-

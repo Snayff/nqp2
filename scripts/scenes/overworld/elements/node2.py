@@ -7,7 +7,7 @@ import pygame
 from scripts.core.constants import NodeState, NodeType
 
 if TYPE_CHECKING:
-    from typing import List, Tuple, Union, Optional
+    from typing import List, Optional, Tuple, Union
 
 
 __all__ = ["Node2"]
@@ -33,4 +33,3 @@ class Node2:
 
     def render(self, surface: pygame.Surface):
         surface.blit(self.icon, self.pos)
-

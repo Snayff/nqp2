@@ -7,8 +7,9 @@ from typing import TYPE_CHECKING
 import pygame
 
 if TYPE_CHECKING:
-    from scripts.core.game import Game
     from typing import List, Tuple, Union
+
+    from scripts.core.game import Game
 
 __all__ = ["Window"]
 
