@@ -85,12 +85,11 @@
     "overworld": {
         "node_weights": {
             "combat": 0.5,
-            "event": 0.2,
             "inn": 0.1,
             "training": 0.1,
             "unknown": 0.2
         },
-        "chance_of_event": 100,
+        "chance_of_event": 0,
         "max_events_per_level": 3
     },
     "post_combat": {

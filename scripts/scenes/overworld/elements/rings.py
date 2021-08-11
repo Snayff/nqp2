@@ -9,7 +9,7 @@ import pytweening
 
 from scripts.core import utility
 from scripts.core.base_classes.node_container import NodeContainer
-from scripts.core.constants import DEFAULT_IMAGE_SIZE, Direction, NodeType, SceneType
+from scripts.core.constants import DEFAULT_IMAGE_SIZE, Direction, NodeType, OverworldState, SceneType
 from scripts.scenes.overworld.elements.node2 import Node2
 
 if TYPE_CHECKING:
@@ -70,18 +70,34 @@ class Rings(NodeContainer):
 
     def generate_nodes(self):
         gap_between_rings = self.outer_radius / self.num_rings
-        num_nodes = 4  # starting number of nodes
+        base_num_nodes = 2  # starting number of nodes
 
         # generate rings
+        num_nodes = base_num_nodes
         for ring_count in range(1, self.num_rings + 1):
-            num_nodes += ring_count
+            # add random number of nodes
+            num_nodes += self.game.rng.randint(1, ring_count)
+
             self.rings[ring_count] = []
             angle_between_nodes = 360 / num_nodes
             current_radius = gap_between_rings * ring_count
+            current_angle = 0
 
             # generate nodes for each ring
             for node_count in range(num_nodes):
-                vec = pygame.math.Vector2(0, -current_radius).rotate(angle_between_nodes * node_count)
+
+                # randomise angle to make positions uneven
+                angle_offset = self.game.rng.randint(-5, 5)
+
+                # get new position on circle
+                current_angle += (angle_offset + angle_between_nodes)
+
+                # exit if we've looped the circle
+                if current_angle >= 360:
+                    break
+
+                # rotate to new angle
+                vec = pygame.math.Vector2(0, -current_radius).rotate(current_angle)
                 x = self.centre[0] + vec.x - (DEFAULT_IMAGE_SIZE / 2)  # adjust to align with centre of node images
                 y = self.centre[1] + vec.y - (DEFAULT_IMAGE_SIZE / 2)
 
@@ -96,9 +112,10 @@ class Rings(NodeContainer):
                 self.rings[ring_count].append(node)
 
         # generate connections between nodes
-        num_connections = 2
+        base_num_connections = 2
+        num_connections = base_num_connections
         for ring_num, ring in self.rings.items():
-            num_connections += ring_num
+            num_connections += self.game.rng.randint(0, ring_num)
 
             # choose random nodes
             nodes_to_connect = self.game.rng.choices(ring, k=num_connections)
@@ -139,6 +156,9 @@ class Rings(NodeContainer):
     def select_next_node(self, direction: Direction):
         nodes = self.rings[self.current_ring]
         current_index = nodes.index(self.selected_node)
+
+        # change state to limit input
+        self.game.overworld.state = OverworldState.TRAVELLING
 
         # handle in ring movement
         if direction in (Direction.LEFT, Direction.RIGHT):

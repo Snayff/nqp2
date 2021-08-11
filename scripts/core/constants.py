@@ -43,6 +43,7 @@ class CombatState(IntEnum):
 class OverworldState(IntEnum):
     LOADING = auto()
     READY = auto()
+    TRAVELLING = auto()
 
 
 class TrainingState(IntEnum):

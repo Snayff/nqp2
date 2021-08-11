@@ -6,7 +6,7 @@ import pygame
 import pytweening
 
 from scripts.core import utility
-from scripts.core.constants import Direction, NodeType, SceneType
+from scripts.core.constants import Direction, NodeType, OverworldState, SceneType
 
 from abc import ABC, abstractmethod
 
@@ -83,7 +83,7 @@ class NodeContainer(ABC):
         Return a random node type
         """
         node_weights_dict = self.game.data.config["overworld"]["node_weights"]
-        node_types = [NodeType.COMBAT, NodeType.EVENT, NodeType.INN, NodeType.TRAINING]
+        node_types = [NodeType.COMBAT, NodeType.INN, NodeType.TRAINING]
 
         if allow_unknown:
             node_types.append(NodeType.UNKNOWN)
@@ -139,7 +139,11 @@ class NodeContainer(ABC):
 
             # trigger if not already completed
             if not self.selected_node.is_complete:
-                self._trigger_current_node()
+                #self._trigger_current_node()
+                pass
+
+            # update to allow input again
+            self.game.overworld.state = OverworldState.READY
 
     def _trigger_current_node(self):
         """
