@@ -48,14 +48,12 @@ class Rings(NodeContainer):
             self._transition_to_new_node(delta_time)
 
     def render(self, surface: pygame.surface):
-        # DEBUG - draw centre
-        pygame.draw.rect(surface, (255, 0, 0), ((self.centre[0] - 1, self.centre[1] - 1), (2, 2)))
-
         # draw selection
-
         node = self.selected_node
         radius = (node.icon.get_width() / 2) + 2
-        pygame.draw.circle(surface, (255, 255, 255), self.selection_pos, radius)
+        selection_x = self.selection_pos[0] + (DEFAULT_IMAGE_SIZE / 2)
+        selection_y = self.selection_pos[1] + (DEFAULT_IMAGE_SIZE / 2)
+        pygame.draw.circle(surface, (255, 255, 255), (selection_x, selection_y), radius)
 
         # draw the nodes on top of the ring
         gap_between_rings = self.outer_radius / self.num_rings
@@ -69,7 +67,12 @@ class Rings(NodeContainer):
 
                 # draw connections
                 if node.connected_outer_node is not None:
-                    pygame.draw.line(surface, (255, 255, 255), node.pos, node.connected_outer_node.pos)
+                    # adjust to align with centre of node images
+                    outer_node_pos = node.connected_outer_node.pos
+                    adjusted_node_pos = node.pos[0] + (DEFAULT_IMAGE_SIZE / 2), node.pos[1] + (DEFAULT_IMAGE_SIZE / 2)
+                    adjusted_outer_node_pos = outer_node_pos[0] + (DEFAULT_IMAGE_SIZE / 2), \
+                        outer_node_pos[1] + (DEFAULT_IMAGE_SIZE / 2)
+                    pygame.draw.line(surface, (255, 255, 255), adjusted_node_pos, adjusted_outer_node_pos)
 
                 node.render(surface)
 
@@ -87,7 +90,7 @@ class Rings(NodeContainer):
             # generate nodes for each ring
             for node_count in range(num_nodes):
                 vec = pygame.math.Vector2(0, -current_radius).rotate(angle_between_nodes * node_count)
-                x = self.centre[0] + vec.x - (DEFAULT_IMAGE_SIZE / 2)
+                x = self.centre[0] + vec.x - (DEFAULT_IMAGE_SIZE / 2)  # adjust to align with centre of node images
                 y = self.centre[1] + vec.y - (DEFAULT_IMAGE_SIZE / 2)
 
                 # generate node type
