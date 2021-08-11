@@ -9,7 +9,7 @@ import pytweening
 
 from scripts.core import utility
 from scripts.core.base_classes.node_container import NodeContainer
-from scripts.core.constants import Direction, SceneType
+from scripts.core.constants import DEFAULT_IMAGE_SIZE, Direction, SceneType
 from scripts.scenes.overworld.elements.node2 import Node2
 
 if TYPE_CHECKING:
@@ -87,8 +87,8 @@ class Rings(NodeContainer):
             # generate nodes for each ring
             for node_count in range(num_nodes):
                 vec = pygame.math.Vector2(0, -current_radius).rotate(angle_between_nodes * node_count)
-                x = self.centre[0] + vec.x
-                y = self.centre[1] + vec.y
+                x = self.centre[0] + vec.x - (DEFAULT_IMAGE_SIZE / 2)
+                y = self.centre[1] + vec.y - (DEFAULT_IMAGE_SIZE / 2)
 
                 # generate node type
                 node_type = self._get_random_node_type()
@@ -212,6 +212,7 @@ class Rings(NodeContainer):
         if percent_time_complete >= 0.5 and self.is_due_event:
             self.is_travel_paused = True
             self.is_due_event = False
+            self.events_triggered += 1
             self.game.change_scene(SceneType.EVENT)
 
         # check if at target pos
