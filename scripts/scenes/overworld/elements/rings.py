@@ -9,7 +9,7 @@ import pytweening
 
 from scripts.core import utility
 from scripts.core.base_classes.node_container import NodeContainer
-from scripts.core.constants import DEFAULT_IMAGE_SIZE, Direction, SceneType
+from scripts.core.constants import DEFAULT_IMAGE_SIZE, Direction, NodeType, SceneType
 from scripts.scenes.overworld.elements.node2 import Node2
 
 if TYPE_CHECKING:
@@ -27,16 +27,8 @@ class Rings(NodeContainer):
         self.num_rings: int = num_rings
 
         self.rings: Dict[int, List[Node2]] = {}  # N.B. the key starts from 1
-        self.selected_node: Optional[Node2] = None
-        self.target_node: Optional[Node2] = None
         self.current_ring: int = 0
-        self.selection_pos: Tuple[float, float] = (0, 0)  # where the selection is drawn
 
-        self.max_travel_time: float = 0.5
-        self.current_travel_time: float = 0.0
-        self.is_travel_paused: bool = False
-        self.is_due_event: bool = False  # true if waiting for an event to trigger
-        self.events_triggered: int = 0  # number of events triggered so far
 
     def update(self, delta_time: float):
         for nodes in self.rings.values():
@@ -184,66 +176,3 @@ class Rings(NodeContainer):
                     self.target_node = self.selected_node.connected_outer_node
                     self.current_ring += 1
 
-    def roll_for_event(self):
-        """
-        Roll to see if an event will be triggered when transitioning between nodes.
-        """
-        # check if we have hit the limit of events
-        if self.events_triggered >= self.game.data.config["overworld"]["max_events_per_level"]:
-            return
-
-        if self.game.rng.roll() < self.game.data.config["overworld"]["chance_of_event"]:
-            self.is_due_event = True
-
-    def _transition_to_new_node(self, delta_time: float):
-        """
-        Move the selection pos from the selected node to the target node. Update selected node when complete.
-        """
-        target = self.target_node
-        selected = self.selected_node
-
-        # update timer
-        self.current_travel_time += delta_time
-        percent_time_complete = min(1.0, self.current_travel_time / self.max_travel_time)
-
-        # update selection position
-        lerp_amount = pytweening.easeInQuad(percent_time_complete)
-        x = utility.lerp(selected.pos[0], target.pos[0], lerp_amount)
-        y = utility.lerp(selected.pos[1], target.pos[1], lerp_amount)
-        self.selection_pos = (x, y)
-
-        if percent_time_complete >= 0.5 and self.is_due_event:
-            self.is_travel_paused = True
-            self.is_due_event = False
-            self.events_triggered += 1
-            self.game.change_scene(SceneType.EVENT)
-
-        # check if at target pos
-        elif percent_time_complete >= 1.0:
-            self.selected_node = self.target_node
-            self.target_node = None
-            self.current_travel_time = 0
-            self.selection_pos = self.selected_node.pos
-
-
-    def _trigger_current_node(self):
-        selected_node = self.game.overworld.nodes[self.game.overworld.current_node_row][self.selected_node]
-        selected_node_type = selected_node.type
-
-        logging.info(f"Next node, {selected_node_type.name}, selected.")
-
-        # change active scene
-        if selected_node_type == NodeType.COMBAT:
-            scene = SceneType.COMBAT
-        elif selected_node_type == NodeType.INN:
-            scene = SceneType.INN
-        elif selected_node_type == NodeType.TRAINING:
-            scene = SceneType.TRAINING
-        elif selected_node_type == NodeType.EVENT:
-            scene = SceneType.EVENT
-        else:
-            # selected_node_type == NodeType.UNKNOWN:
-            node_type = self.game.overworld.get_random_node_type(False)
-            scene = utility.node_type_to_scene_type(node_type)
-
-        self.game.change_scene(scene)
