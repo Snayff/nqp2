@@ -11,7 +11,7 @@ from scripts.scenes.overworld.elements.node2 import Node2
 
 if TYPE_CHECKING:
     from scripts.core.game import Game
-    from typing import List, Tuple, Dict
+    from typing import List, Tuple, Dict, Optional
 
 __all__ = ["Rings"]
 
@@ -71,7 +71,7 @@ class Rings(NodeContainer):
                 # get node icon
                 node_icon = self._get_node_icon(node_type)
 
-                # init  node and save
+                # init node and save
                 node = Node2(node_type, (x, y), node_icon)
                 self.rings[ring_count].append(node)
 
@@ -106,3 +106,9 @@ class Rings(NodeContainer):
 
                 except KeyError:
                     pass
+
+
+        # pick a random node in outer ring as starting position
+        nodes = self.rings[len(self.rings)]
+        node = self.game.rng.choice(nodes)
+        node.is_selected = True

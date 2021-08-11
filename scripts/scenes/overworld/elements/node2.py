@@ -26,8 +26,15 @@ class Node2:
         self.connected_outer_node: Optional[Node2] = None
         self.connected_inner_node: Optional[Node2] = None
 
+        self.is_selected: bool = False
+
     def update(self, delta_time: float):
         pass
 
     def render(self, surface: pygame.Surface):
+        if self.is_selected:
+            radius = (self.icon.get_width() / 2) + 2
+            pygame.draw.circle(surface, (255, 255, 255), self.pos, radius)
+
         surface.blit(self.icon, self.pos)
+
