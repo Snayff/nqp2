@@ -75,8 +75,8 @@ class OverworldScene(Scene):
         Create a map of nodes
         """
         centre = self.game.window.centre
-        self.node_container = Ring(self.game, centre, 100)
-        self.node_container.generate_nodes(8)
+        self.node_container = Ring(self.game, centre, 160, 5)
+        self.node_container.generate_nodes()
 
         # # config
         # min_nodes_per_row = 2

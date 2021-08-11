@@ -7,7 +7,7 @@ import pygame
 from scripts.core.constants import NodeState, NodeType
 
 if TYPE_CHECKING:
-    from typing import List, Tuple, Union
+    from typing import List, Tuple, Union, Optional
 
 
 __all__ = ["Node2"]
@@ -20,9 +20,11 @@ class Node2:
 
     def __init__(self, node_type: NodeType, pos: Tuple[Union[int, float], Union[int, float]], icon: pygame.Surface):
         self.type: NodeType = node_type
-        self.state: NodeState = NodeState.REACHABLE
         self.pos: Tuple[Union[int, float], Union[int, float]] = pos
         self.icon: pygame.Surface = icon
+
+        self.connected_outer_node: Optional[Node2] = None
+        self.connected_inner_node: Optional[Node2] = None
 
     def update(self, delta_time: float):
         pass
