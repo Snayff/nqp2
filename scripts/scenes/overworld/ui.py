@@ -65,7 +65,6 @@ class OverworldUI(UI):
                 self.game.input.states["view_troupe"] = False
                 self.game.change_scene(SceneType.VIEW_TROUPE)
 
-
             # trigger event notification message
             node_container = self.game.overworld.node_container
             if node_container.show_event_notification:
@@ -78,14 +77,12 @@ class OverworldUI(UI):
 
                     self.game.change_scene(SceneType.EVENT)
 
-
     def render(self, surface: pygame.surface):
         # show core info
         self.draw_instruction(surface)
 
         # draw elements
         self.draw_elements(surface)
-
 
     def rebuild_ui(self):
         super().rebuild_ui()
@@ -122,6 +119,3 @@ class OverworldUI(UI):
             )
             frame.is_active = False
             self.elements["event_notification"] = frame
-
-
-
