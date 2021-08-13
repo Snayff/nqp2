@@ -22,11 +22,6 @@ __all__ = ["OverworldScene"]
 
 
 ## TO DO LIST ##
-# TODO - allow number of nodes per row to vary
-# TODO - connect nodes between rows randomly
-# TODO - output to log results of generation
-# TODO - generate a tilemap and place nodes on that, so it actually looks like a world.
-# FIXME - able to select across unconnected nodes
 # TODO - generate a boss fight (troupe containing commander) as the only node on the final row
 
 

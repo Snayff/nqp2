@@ -30,7 +30,8 @@ class OverworldUI(UI):
         # N.B. Doesnt use Panels to handle input.
 
         self.set_instruction_text(
-            "Choose where you will go next. Up/Down for moving to outer or inner rings and left right for clockwise and anti-clockwise."
+            "Choose where you will go next. Up/Down for moving to outer or inner rings and left right for clockwise "
+            "and anti-clockwise."
         )
 
     def update(self, delta_time: float):
@@ -64,12 +65,27 @@ class OverworldUI(UI):
                 self.game.input.states["view_troupe"] = False
                 self.game.change_scene(SceneType.VIEW_TROUPE)
 
+
+            # trigger event notification message
+            node_container = self.game.overworld.node_container
+            if node_container.show_event_notification:
+                if node_container.event_notification_timer > 0:
+                    self.elements["event_notification"].is_active = True
+                    node_container.event_notification_timer -= delta_time
+                else:
+                    self.elements["event_notification"].is_active = False
+                    node_container.show_event_notification = False
+
+                    self.game.change_scene(SceneType.EVENT)
+
+
     def render(self, surface: pygame.surface):
         # show core info
         self.draw_instruction(surface)
 
         # draw elements
         self.draw_elements(surface)
+
 
     def rebuild_ui(self):
         super().rebuild_ui()
@@ -89,4 +105,23 @@ class OverworldUI(UI):
             self.elements["loading_message"] = frame
 
         else:
+            # N.B.  most drawing happens in the node_container
+
+            # draw resources
             self.rebuild_resource_elements()
+
+            # draw event notification
+            notification = "Something is afoot!"
+            font_width = warning_font.width(notification)
+            current_x = int((self.game.window.width / 2) - (font_width / 2))
+            current_y = int(self.game.window.height / 2)
+            frame = Frame(
+                (current_x, current_y),
+                text_and_font=(notification, warning_font),
+                is_selectable=False,
+            )
+            frame.is_active = False
+            self.elements["event_notification"] = frame
+
+
+
