@@ -81,7 +81,7 @@ class Debugger:
         """
         surface = self.game.window.display
         font = self.game.assets.fonts["disabled"]
-        font_height = 12  # FIXME - get actual font height
+        font_height = font.height
 
         # draw fps
         if self.is_fps_visible:

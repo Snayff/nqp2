@@ -36,6 +36,7 @@ class UI(ABC):
         self.warning_font: Font = self.game.assets.fonts["warning"]
         self.positive_font: Font = self.game.assets.fonts["positive"]
         self.instruction_font: Font = self.game.assets.fonts["instruction"]
+        self.notification_font: Font = self.game.assets.fonts["notification"]
 
         self.elements: Dict[str, Union[Frame, UnitStatsFrame]] = {}
         self.panels: Dict[str, Panel] = {}

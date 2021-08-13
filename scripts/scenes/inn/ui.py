@@ -70,7 +70,7 @@ class InnUI(UI):
 
         start_x = 20
         start_y = 40
-        font_height = 12  # FIXME - get actual font height
+        font_height = default_font.height
         window_width = self.game.window.width
         window_height = self.game.window.height
         icon_width = DEFAULT_IMAGE_SIZE

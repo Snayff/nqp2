@@ -32,6 +32,8 @@ class NodeContainer(ABC):
         self.is_travel_paused: bool = False
         self.is_due_event: bool = False  # true if waiting for an event to trigger
         self.events_triggered: int = 0  # number of events triggered so far
+        self.event_notification_timer: float = 0.0
+        self.show_event_notification: bool = False
 
     @abstractmethod
     def render(self, surface: pygame.Surface):
@@ -108,7 +110,8 @@ class NodeContainer(ABC):
 
     def _transition_to_new_node(self, delta_time: float):
         """
-        Move the selection pos from the selected node to the target node. Update selected node when complete.
+        Move the selection pos from the selected node to the target node. Will trigger event if one is due. Update
+        selected node when complete.
         """
         target = self.target_node
         selected = self.selected_node
@@ -127,7 +130,8 @@ class NodeContainer(ABC):
             self.is_travel_paused = True
             self.is_due_event = False
             self.events_triggered += 1
-            self.game.change_scene(SceneType.EVENT)
+            self.event_notification_timer = self.game.data.config["overworld"]["event_notification_duration"]
+            self.show_event_notification = True
 
         # check if at target pos
         elif percent_time_complete >= 1.0:
