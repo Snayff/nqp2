@@ -70,7 +70,7 @@ class RunSetupUI(UI):
         # positions
         start_x = 20
         start_y = 20
-        font_height = 12  # FIXME - get actual font height
+        font_height = default_font.height
         window_width = self.game.window.width
         window_height = self.game.window.height
 

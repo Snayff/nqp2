@@ -63,7 +63,7 @@ class MainMenuUI(UI):
         window_height = self.game.window.height
         start_x = 10
         start_y = window_height - 100
-        font_height = 12  # FIXME - get actual font height
+        font_height = default_font.height
 
         # draw background
         background = self.game.assets.get_image("ui", "town", (window_width, window_height))

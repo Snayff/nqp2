@@ -92,6 +92,7 @@ class OverworldUI(UI):
 
         overworld_map = self.game.overworld
         warning_font = self.warning_font
+        notification_font = self.notification_font
 
         if overworld_map.state == OverworldState.LOADING:
             # draw loading screen
@@ -112,12 +113,11 @@ class OverworldUI(UI):
 
             # draw event notification
             notification = "Something is afoot!"
-            font_width = warning_font.width(notification)
-            current_x = int((self.game.window.width / 2) - (font_width / 2))
+            current_x = 10
             current_y = int(self.game.window.height / 2)
             frame = Frame(
                 (current_x, current_y),
-                text_and_font=(notification, warning_font),
+                text_and_font=(notification, notification_font),
                 is_selectable=False,
             )
             frame.is_active = False

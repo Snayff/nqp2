@@ -25,7 +25,7 @@ def load_font_img(path, font_color):
 class Font:
     def __init__(self, path, colour):
         self.letters, self.letter_spacing, self.line_height = load_font_img(path, colour)
-        self.height = self.letters[0].get_height()  # FIXME - returns too short a value and doesnt include new lines
+        self.height = self.letters[0].get_height()
         self.font_order = [
             "A",
             "B",
