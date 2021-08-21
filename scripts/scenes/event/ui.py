@@ -11,8 +11,9 @@ from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.panel import Panel
 
 if TYPE_CHECKING:
-    from scripts.core.game import Game
     from typing import List
+
+    from scripts.core.game import Game
 
 __all__ = ["EventUI"]
 
@@ -93,7 +94,7 @@ class EventUI(UI):
             (current_x, current_y),
             text_and_font=(event["description"], default_font),
             max_line_width=frame_line_width,
-            max_height=max_height
+            max_height=max_height,
         )
         self.elements["description"] = frame
 
@@ -102,7 +103,7 @@ class EventUI(UI):
 
         # draw separator
         offset = 80
-        line_width = (window_width - (offset * 2))
+        line_width = window_width - (offset * 2)
         surface = pygame.Surface((line_width, 1))
         pygame.draw.line(surface, (117, 50, 168), (0, 0), (line_width, 0))
         frame = Frame((offset, current_y), surface)
@@ -141,7 +142,7 @@ class EventUI(UI):
             panel_state = True
 
             # indent x
-            current_x = (window_width // 4)
+            current_x = window_width // 4
 
             # draw option chosen
             frame = Frame((current_x, current_y), text_and_font=(self.selected_option, default_font))
@@ -180,10 +181,13 @@ class EventUI(UI):
                         font = warning_font
 
                 frame = Frame(
-                    (current_x, current_y,),
+                    (
+                        current_x,
+                        current_y,
+                    ),
                     result_image,
                     text_and_font=(value, font),
-                    is_selectable=False
+                    is_selectable=False,
                 )
                 self.elements[f"result_{counter}"] = frame
                 panel_list.append(frame)

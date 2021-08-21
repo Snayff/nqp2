@@ -24,7 +24,7 @@ class Frame(UIElement):
         text_and_font: Optional[Tuple[str, Font]] = (None, None),
         is_selectable: bool = False,
         max_line_width: int = 0,
-        max_height: Optional[int] = None
+        max_height: Optional[int] = None,
     ):
         super().__init__(pos, is_selectable)
 

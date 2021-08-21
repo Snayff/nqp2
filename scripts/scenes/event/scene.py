@@ -12,7 +12,7 @@ from scripts.scenes.combat.elements.unit import Unit
 from scripts.scenes.event.ui import EventUI
 
 if TYPE_CHECKING:
-    from typing import Any, Dict, Tuple, List
+    from typing import Any, Dict, List, Tuple
 
     from scripts.core.game import Game
 
