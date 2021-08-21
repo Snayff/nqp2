@@ -213,8 +213,7 @@ class RunSetupUI(UI):
         if self.game.input.states["select"]:
             self.game.input.states["select"] = False
 
-            self.current_panel = self.panels["exit"]
-            self.current_panel.select_first_element()
+            self.select_panel("exit")
 
     def handle_exit_input(self):
         if self.game.input.states["select"]:

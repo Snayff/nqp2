@@ -174,6 +174,8 @@ class EventUI(UI):
             self.game.event.state = EventState.RESULT
             self.rebuild_ui()
 
+            self.select_panel("exit")
+
     def _get_result_image(self, result_key: str) -> pygame.Surface:
         """
         Get an image for the result key given.

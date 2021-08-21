@@ -165,3 +165,18 @@ class UI(ABC):
         self.elements["exit"] = frame
         panel = Panel([frame], True)
         self.add_panel(panel, "exit")
+
+    def select_panel(self, panel_name: str, hide_old_panel: bool = False):
+        """
+        Unselect the current panel and move the selection to the specified panel.
+        """
+        # unselect current
+        self.current_panel.unselect_all_elements()
+
+        if hide_old_panel:
+            self.current_panel.is_active = False
+
+        # select new
+        self.current_panel = self.panels[panel_name]
+        self.current_panel.select_first_element()
+        self.current_panel.is_active = True

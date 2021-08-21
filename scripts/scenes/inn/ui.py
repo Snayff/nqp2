@@ -192,12 +192,7 @@ class InnUI(UI):
                     else:
                         self.set_instruction_text("All sold out. Time to move on.")
 
-                        # unselect current panel
-                        self.current_panel.unselect_all_elements()
-
-                        # change to exit panel
-                        self.current_panel = self.panels["exit"]
-                        self.current_panel.select_first_element()
+                        self.select_panel("exit")
 
                 else:
                     # inform player of fail states
@@ -210,12 +205,7 @@ class InnUI(UI):
         if self.game.input.states["cancel"]:
             self.game.input.states["cancel"] = False
 
-            # unselect current panel
-            self.current_panel.unselect_all_elements()
-
-            # change to exit panel
-            self.current_panel = self.panels["exit"]
-            self.current_panel.select_first_element()
+            self.select_panel("exit")
 
     def handle_exit_input(self):
         # exit
@@ -229,9 +219,4 @@ class InnUI(UI):
         if self.game.input.states["cancel"]:
             self.game.input.states["cancel"] = False
 
-            # unselect current panel
-            self.current_panel.unselect_all_elements()
-
-            # change to buy panel
-            self.current_panel = self.panels["buy"]
-            self.current_panel.select_first_element()
+            self.select_panel("buy")
