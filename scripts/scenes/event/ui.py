@@ -6,12 +6,13 @@ from typing import TYPE_CHECKING
 import pygame
 
 from scripts.core.base_classes.ui import UI
-from scripts.core.constants import GAP_SIZE, SceneType
+from scripts.core.constants import DEFAULT_IMAGE_SIZE, EventState, GAP_SIZE, SceneType
 from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.panel import Panel
 
 if TYPE_CHECKING:
     from scripts.core.game import Game
+    from typing import List
 
 __all__ = ["EventUI"]
 
@@ -62,7 +63,10 @@ class EventUI(UI):
 
         event = self.game.event.active_event
         default_font = self.default_font
+        positive_font = self.positive_font
+        warning_font = self.warning_font
         show_event_result = self.game.data.options["show_event_option_result"]
+        state = self.game.event.state
 
         # positions
         start_x = 20
@@ -78,27 +82,73 @@ class EventUI(UI):
         )
         self.elements["description"] = frame
 
-        # draw options
-        current_y = self.game.window.height // 2
         panel_list = []
-        for counter, option in enumerate(event["options"]):
-            # get option text
-            if show_event_result:
-                option_text = option["text"] + " [" + option["displayed_result"] + "]"
-            else:
-                option_text = option["text"]
+        panel_state = False
+        if state == EventState.MAKE_DECISION:
+            panel_state = True
 
-            # build frame
-            frame = Frame((current_x, current_y), text_and_font=(option_text, default_font), is_selectable=True)
-            self.elements[f"option_{counter}"] = frame
-            panel_list.append(frame)
+            # draw options
+            current_y = self.game.window.height // 2
+            for counter, option in enumerate(event["options"]):
+                # get option text
+                if show_event_result:
+                    option_text = option["text"] + " [" + option["displayed_result"] + "]"
+                else:
+                    option_text = option["text"]
 
-            # increment position
-            current_y += frame.height + GAP_SIZE
+                # build frame
+                frame = Frame((current_x, current_y), text_and_font=(option_text, default_font), is_selectable=True)
+                self.elements[f"option_{counter}"] = frame
+                panel_list.append(frame)
+
+                # increment position
+                current_y += frame.height + GAP_SIZE
 
         # create panel
-        panel = Panel(panel_list, True)
+        panel = Panel(panel_list, panel_state)
         self.add_panel(panel, "options")
+
+        panel_list = []
+        panel_state = False
+        if state == EventState.RESULT:
+            panel_state = True
+
+            results = self.game.event.triggered_results
+            for counter, result in enumerate(results):
+                key, value, target = self.game.event.parse_result(result)
+
+                # get image
+                result_image = self._get_result_image(key)
+
+                # get font
+                if int(value) > 0:
+                    # more injuries is bad, unlike other resources
+                    if key not in ["injury"]:
+                        font = positive_font
+                    else:
+                        font = warning_font
+                else:
+                    # less injuries is good, unlike other resources
+                    if key in ["injury"]:
+                        font = positive_font
+                    else:
+                        font = warning_font
+
+                frame = Frame(
+                    (current_x, current_y,),
+                    result_image,
+                    text_and_font=(value, font),
+                    is_selectable=False
+                )
+                self.elements[f"result_{counter}"] = frame
+                panel_list.append(frame)
+
+                # increment position
+                current_y += frame.height + GAP_SIZE
+
+        # create panel
+        panel = Panel(panel_list, panel_state)
+        self.add_panel(panel, "results")
 
         self.rebuild_resource_elements()
 
@@ -110,9 +160,42 @@ class EventUI(UI):
             self.game.input.states["select"] = False
 
             index = self.current_panel.selected_index
-            logging.info(f"Selected option {index}, {self.game.event.active_event['options'][index]}.")
+            logging.info(f"Selected option {index}, {options[index]}.")
 
-            self.game.event.trigger_result(index)
+            # save results for use in rebuild ui
+            self.game.event.triggered_results = options[index]["result"]
 
-            # return to overworld
-            self.game.change_scene(SceneType.OVERWORLD)
+            # trigger results and update display
+            self.game.event.trigger_result()
+            self.game.event.state = EventState.RESULT
+            self.rebuild_ui()
+
+    def _get_result_image(self, result_key: str) -> pygame.Surface:
+        """
+        Get an image for the result key given.
+        """
+        icon_size = (DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE)
+
+        if result_key == "gold":
+            image = self.game.assets.get_image("stats", "gold", icon_size)
+
+        elif result_key == "rations":
+            image = self.game.assets.get_image("stats", "gold", icon_size)
+
+        elif result_key == "morale":
+            image = self.game.assets.get_image("stats", "gold", icon_size)
+
+        elif result_key == "charisma":
+            image = self.game.assets.get_image("stats", "gold", icon_size)
+
+        elif result_key == "leadership":
+            image = self.game.assets.get_image("stats", "gold", icon_size)
+
+        elif result_key == "injury":
+            image = self.game.assets.get_image("stats", "gold", icon_size)
+
+        else:
+            logging.warning(f"Result key not recognised. Image not found used.")
+            image = self.game.assets.get_image("debug", "not_found", icon_size)
+
+        return image

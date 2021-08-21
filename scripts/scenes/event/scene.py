@@ -12,7 +12,7 @@ from scripts.scenes.combat.elements.unit import Unit
 from scripts.scenes.event.ui import EventUI
 
 if TYPE_CHECKING:
-    from typing import Any, Dict
+    from typing import Any, Dict, Tuple, List
 
     from scripts.core.game import Game
 
@@ -36,6 +36,7 @@ class EventScene(Scene):
 
         self.active_event: Dict = {}
         self.event_resources = {}  # resources needed for the event
+        self.triggered_results: List[str] = []  # the list of result strings from the selected option
 
         # record duration
         end_time = time.time()
@@ -96,25 +97,32 @@ class EventScene(Scene):
 
             return unit
 
-    def trigger_result(self, option_index: int):
+    def trigger_result(self):
         """
-        Trigger the result for the indicated option.
+        Trigger the result for the previously selected option.
 
         Results are a list of key value target strings. "result_action : result_value @ target"
 
         Example:
             ["Gold:10","Gold:10"] - would add 10 gold twice.
         """
-        results = self.active_event["options"][option_index]["result"]
-
-        for result in results:
-            key, result_remainder = result.split(":", 1)
-            if "@" in result_remainder:
-                value, target = result_remainder.split("@", 1)
-            else:
-                value = result_remainder
-                target = None
+        for result in self.triggered_results:
+            key, value, target = self.parse_result(result)
             self._action_result(key, value, target)
+
+    @staticmethod
+    def parse_result(result: str) -> Tuple[str, str, str]:
+        """
+        Break result string into component parts. Returns a tuple of key, value, target.
+        """
+        key, result_remainder = result.split(":", 1)
+        if "@" in result_remainder:
+            value, target = result_remainder.split("@", 1)
+        else:
+            value = result_remainder
+            target = None
+
+        return key, value, target
 
     def _action_result(self, result_key: str, result_value: str, target: str):
         """
