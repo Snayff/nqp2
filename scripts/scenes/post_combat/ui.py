@@ -116,15 +116,7 @@ class PostCombatUI(UI):
         self.elements["gold_reward"] = frame
 
         # draw exit button
-        confirm_text = "Onwards"
-        confirm_width = self.default_font.width(confirm_text)
-        current_x = window_width - (confirm_width + GAP_SIZE)
-        current_y = window_height - (font_height + GAP_SIZE)
-        frame = Frame((current_x, current_y), text_and_font=(confirm_text, default_font))
-        self.elements["exit"] = frame
-
-        panel = Panel([frame], True)
-        self.add_panel(panel, "exit")
+        self.add_exit_button()
 
     def _rebuild_defeat_ui(self):
         default_font = self.default_font
@@ -153,15 +145,7 @@ class PostCombatUI(UI):
         self.elements["header"] = frame
 
         # draw exit button
-        confirm_text = "Exit"
-        confirm_width = self.default_font.width(confirm_text)
-        current_x = window_width - (confirm_width + GAP_SIZE)
-        current_y = window_height - (font_height + GAP_SIZE)
-        frame = Frame((current_x, current_y), text_and_font=(confirm_text, default_font))
-        self.elements["exit"] = frame
-
-        panel = Panel([frame], True)
-        self.add_panel(panel, "exit")
+        self.add_exit_button()
 
     def _render_unit_rewards(self, surface: pygame.surface):
         pass
