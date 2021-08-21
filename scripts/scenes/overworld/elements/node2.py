@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 
 import pygame
 
-from scripts.core.constants import NodeState, NodeType
+from scripts.core.constants import NodeType
 
 if TYPE_CHECKING:
     from typing import List, Optional, Tuple, Union

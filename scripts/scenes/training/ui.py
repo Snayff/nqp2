@@ -179,15 +179,7 @@ class TrainingUI(UI):
         frame.is_active = False
 
         # draw exit button
-        confirm_text = "Onwards"
-        confirm_width = self.default_font.width(confirm_text)
-        current_x = window_width - (confirm_width + GAP_SIZE)
-        current_y = window_height - (font_height + GAP_SIZE)
-        frame = Frame((current_x, current_y), text_and_font=(confirm_text, default_font))
-        self.elements["exit"] = frame
-
-        panel = Panel([frame], True)
-        self.add_panel(panel, "exit")
+        self.add_exit_button()
 
         self.rebuild_resource_elements()
 
@@ -211,9 +203,7 @@ class TrainingUI(UI):
                 self.selected_upgrade = upgrade
 
                 # move to next panel
-                self.current_panel = self.panels["units"]
-                self.current_panel.select_first_element()
-                self.current_panel.set_active(True)
+                self.select_panel("units")
 
                 # show unit stat frame
                 self.elements["stat_frame"].is_active = True
@@ -232,11 +222,7 @@ class TrainingUI(UI):
         if self.game.input.states["cancel"]:
             self.game.input.states["cancel"] = False
 
-            # unselect current
-            self.current_panel.unselect_all_elements()
-
-            self.current_panel = self.panels["exit"]
-            self.current_panel.select_first_element()
+            self.select_panel("exit")
 
         if self.game.input.states["down"]:
             self.game.input.states["down"] = False
@@ -276,12 +262,7 @@ class TrainingUI(UI):
                     else:
                         self.set_instruction_text("All sold out. Time to move on.")
 
-                        # unselect current panel
-                        self.current_panel.unselect_all_elements()
-
-                        # change to exit panel
-                        self.current_panel = self.panels["exit"]
-                        self.current_panel.select_first_element()
+                        self.select_panel("exit")
 
                 else:
                     upgrade_cost = self.game.training.calculate_upgrade_cost(upgrade["tier"])
@@ -295,15 +276,12 @@ class TrainingUI(UI):
 
             self.selected_unit = None
 
-            # deactivate current panel
-            self.current_panel.unselect_all_elements()
-            self.current_panel.set_active(False)
+            # change panel
+            self.select_panel("upgrades")
 
             # hide stat panel
             self.elements["stat_frame"].is_active = False
 
-            # change panel
-            self.current_panel = self.panels["upgrades"]
             self.refresh_info()
 
             # change state

@@ -8,8 +8,7 @@ import pygame
 
 from scripts.core.base_classes.node_container import NodeContainer
 from scripts.core.base_classes.scene import Scene
-from scripts.core.constants import DEFAULT_IMAGE_SIZE, NodeState, NodeType, OverworldState
-from scripts.scenes.overworld.elements.node import Node
+from scripts.core.constants import OverworldState
 from scripts.scenes.overworld.elements.rings import Rings
 from scripts.scenes.overworld.ui import OverworldUI
 

@@ -51,15 +51,14 @@ class TrainingState(IntEnum):
     CHOOSE_TARGET_UNIT = auto()
 
 
-class NodeState(IntEnum):
-    REACHABLE = auto()  # could reach the node
-    SELECTABLE = auto()  # can select the node
-    NOT_REACHABLE = auto()  # could never reach the node
-
-
 class PostCombatState(IntEnum):
     DEFEAT = auto()
     VICTORY = auto()
+
+
+class EventState(IntEnum):
+    MAKE_DECISION = auto()
+    RESULT = auto()
 
 
 class NodeType(IntEnum):

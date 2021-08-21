@@ -49,7 +49,10 @@ class Panel:
         Selects the first element and sets the rest to unselected.
         """
         self.unselect_all_elements()
-        self.elements[0].is_selected = True
+        if len(self.elements) > 0:
+            self.elements[0].is_selected = True
+        else:
+            logging.warning(f"Tried to select first element but no element to select in panel.")
 
     def unselect_all_elements(self):
         """

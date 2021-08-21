@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 
@@ -89,7 +90,7 @@ class UI(ABC):
                 str(self.game.memory.gold),
             ],
             "rations": [
-                self.game.assets.get_image("stats", "ration", icon_size),
+                self.game.assets.get_image("stats", "rations", icon_size),
                 str(self.game.memory.rations),
             ],
             "charisma": [
@@ -151,3 +152,40 @@ class UI(ABC):
         if len(self.panels) == 1:
             self.current_panel = self.panels[name]
             self.current_panel.select_first_element()
+
+    def add_exit_button(self):
+        window_width = self.game.window.width
+        window_height = self.game.window.height
+
+        confirm_text = "Onwards"
+        confirm_width = self.default_font.width(confirm_text)
+        current_x = window_width - (confirm_width + GAP_SIZE)
+        current_y = window_height - (self.default_font.height + GAP_SIZE)
+
+        frame = Frame((current_x, current_y), text_and_font=(confirm_text, self.default_font), is_selectable=True)
+        self.elements["exit"] = frame
+        panel = Panel([frame], True)
+        self.add_panel(panel, "exit")
+
+    def select_panel(self, panel_name: str, hide_old_panel: bool = False):
+        """
+        Unselect the current panel and move the selection to the specified panel.
+        """
+        # unselect current
+        self.current_panel.unselect_all_elements()
+
+        if hide_old_panel:
+            self.current_panel.is_active = False
+
+        # select new
+        try:
+            self.current_panel = self.panels[panel_name]
+
+        except KeyError:
+            logging.critical(
+                f"Tried to change to {panel_name} panel, but does not exist. Selected first panel " f"instead."
+            )
+            self.current_panel = list(self.panels)[0]
+
+        self.current_panel.select_first_element()
+        self.current_panel.is_active = True

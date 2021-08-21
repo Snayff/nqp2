@@ -6,12 +6,13 @@ import time
 from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.scene import Scene
+from scripts.core.constants import EventState
 from scripts.scenes.combat.elements.troupe import Troupe
 from scripts.scenes.combat.elements.unit import Unit
 from scripts.scenes.event.ui import EventUI
 
 if TYPE_CHECKING:
-    from typing import Any, Dict
+    from typing import Any, Dict, List, Tuple
 
     from scripts.core.game import Game
 
@@ -31,8 +32,11 @@ class EventScene(Scene):
 
         self.ui: EventUI = EventUI(game)
 
+        self.state: EventState = EventState.MAKE_DECISION
+
         self.active_event: Dict = {}
         self.event_resources = {}  # resources needed for the event
+        self.triggered_results: List[str] = []  # the list of result strings from the selected option
 
         # record duration
         end_time = time.time()
@@ -52,6 +56,9 @@ class EventScene(Scene):
 
     def load_random_event(self):
         self.active_event = self.game.memory.get_random_event()
+
+        logging.info(f"Event {self.active_event['type']} loaded.")
+
         self._load_event_resources()
 
     def load_event(self, event_id: str, remove_from_pool: bool = False):
@@ -64,6 +71,7 @@ class EventScene(Scene):
             event = self.game.memory.event_deck[event_id]
 
         self.active_event = event
+        logging.info(f"Event {self.active_event['type']} loaded.")
         self._load_event_resources()
 
     def _load_event_resources(self):
@@ -93,25 +101,32 @@ class EventScene(Scene):
 
             return unit
 
-    def trigger_result(self, option_index: int):
+    def trigger_result(self):
         """
-        Trigger the result for the indicated option.
+        Trigger the result for the previously selected option.
 
         Results are a list of key value target strings. "result_action : result_value @ target"
 
         Example:
             ["Gold:10","Gold:10"] - would add 10 gold twice.
         """
-        results = self.active_event["options"][option_index]["result"]
-
-        for result in results:
-            key, result_remainder = result.split(":", 1)
-            if "@" in result_remainder:
-                value, target = result_remainder.split("@", 1)
-            else:
-                value = result_remainder
-                target = None
+        for result in self.triggered_results:
+            key, value, target = self.parse_result(result)
             self._action_result(key, value, target)
+
+    @staticmethod
+    def parse_result(result: str) -> Tuple[str, str, str]:
+        """
+        Break result string into component parts. Returns a tuple of key, value, target.
+        """
+        key, result_remainder = result.split(":", 1)
+        if "@" in result_remainder:
+            value, target = result_remainder.split("@", 1)
+        else:
+            value = result_remainder
+            target = None
+
+        return key, value, target
 
     def _action_result(self, result_key: str, result_value: str, target: str):
         """
