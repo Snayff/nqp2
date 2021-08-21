@@ -91,7 +91,7 @@
         },
         "chance_of_event": 20,
         "max_events_per_level": 5,
-        "event_notification_duration": 4.0
+        "event_notification_duration": 3.0
     },
     "post_combat": {
         "gold_min": 10,

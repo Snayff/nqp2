@@ -76,6 +76,8 @@ class EventUI(UI):
         warning_font = self.warning_font
         show_event_result = self.game.data.options["show_event_option_result"]
         state = self.game.event.state
+        window_width = self.game.window.width
+        window_height = self.game.window.height
 
         # positions
         start_x = 20
@@ -84,15 +86,30 @@ class EventUI(UI):
         # draw description
         current_x = start_x
         current_y = start_y
-        frame_line_width = self.game.window.width - (current_x * 2)
+        frame_line_width = window_width - (current_x * 2)
+        font_height = default_font.height
+        max_height = ((window_height // 2) - current_y) - font_height
         frame = Frame(
-            (current_x, current_y), text_and_font=(event["description"], default_font),
-            max_line_width=frame_line_width
+            (current_x, current_y),
+            text_and_font=(event["description"], default_font),
+            max_line_width=frame_line_width,
+            max_height=max_height
         )
         self.elements["description"] = frame
 
-        # split screen in half
-        current_y = self.game.window.height // 2
+        # move to half way down screen
+        current_y = window_height // 2
+
+        # draw separator
+        offset = 80
+        line_width = (window_width - (offset * 2))
+        surface = pygame.Surface((line_width, 1))
+        pygame.draw.line(surface, (117, 50, 168), (0, 0), (line_width, 0))
+        frame = Frame((offset, current_y), surface)
+        self.elements["separator"] = frame
+
+        # increment position
+        current_y += 10
 
         panel_list = []
         panel_state = False
@@ -123,12 +140,18 @@ class EventUI(UI):
         if state == EventState.RESULT:
             panel_state = True
 
+            # indent x
+            current_x = (window_width // 4)
+
             # draw option chosen
             frame = Frame((current_x, current_y), text_and_font=(self.selected_option, default_font))
             self.elements["selected_option"] = frame
 
             # increment position
             current_y += frame.height + (GAP_SIZE * 2)
+
+            # centre results
+            current_x = (window_width // 2) - (DEFAULT_IMAGE_SIZE // 2)
 
             # draw results
             results = self.game.event.triggered_results
