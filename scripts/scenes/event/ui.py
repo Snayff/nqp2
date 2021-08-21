@@ -25,6 +25,8 @@ class EventUI(UI):
     def __init__(self, game: Game):
         super().__init__(game)
 
+        self.selected_option: str = ""  # the option selected
+
         self.set_instruction_text("Choose what to do next.")
 
     def update(self, delta_time: float):
@@ -121,9 +123,21 @@ class EventUI(UI):
         if state == EventState.RESULT:
             panel_state = True
 
+            # draw option chosen
+            frame = Frame((current_x, current_y), text_and_font=(self.selected_option, default_font))
+            self.elements["selected_option"] = frame
+
+            # increment position
+            current_y += frame.height + (GAP_SIZE * 2)
+
+            # draw results
             results = self.game.event.triggered_results
             for counter, result in enumerate(results):
                 key, value, target = self.game.event.parse_result(result)
+
+                # only show results we want the player to be aware of
+                if key in ["unlock_event"]:
+                    continue
 
                 # get image
                 result_image = self._get_result_image(key)
@@ -173,8 +187,9 @@ class EventUI(UI):
             index = self.current_panel.selected_index
             logging.info(f"Selected option {index}, {options[index]}.")
 
-            # save results for use in rebuild ui
+            # save results for later
             self.game.event.triggered_results = options[index]["result"]
+            self.selected_option = options[index]["text"]
 
             # trigger results and update display
             self.game.event.trigger_result()
