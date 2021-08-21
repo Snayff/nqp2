@@ -29,18 +29,6 @@ class RunSetupUI(UI):
     def update(self, delta_time: float):
         super().update(delta_time)
 
-        # generic input
-        # selections within panel
-        if self.game.input.states["left"]:
-            self.game.input.states["left"] = False
-
-            self.current_panel.select_previous_element()
-
-        if self.game.input.states["right"]:
-            self.game.input.states["right"] = False
-
-            self.current_panel.select_next_element()
-
         # data editor
         if self.game.input.states["toggle_dev_console"]:
             self.game.input.states["toggle_dev_console"] = False
@@ -200,20 +188,33 @@ class RunSetupUI(UI):
         elements["allies"].set_text(allies)
 
     def handle_select_commander_input(self):
-        # select option and trigger result
+        # selections within panel
+        if self.game.input.states["left"]:
+            self.game.input.states["left"] = False
+
+            self.current_panel.select_previous_element()
+
+            # update selected commander and shown info
+            selected_commander = list(self.game.data.commanders)[self.current_panel.selected_index]
+            self.game.run_setup.selected_commander = selected_commander
+            self.refresh_info()
+
+        if self.game.input.states["right"]:
+            self.game.input.states["right"] = False
+
+            self.current_panel.select_next_element()
+
+            # update selected commander and shown info
+            selected_commander = list(self.game.data.commanders)[self.current_panel.selected_index]
+            self.game.run_setup.selected_commander = selected_commander
+            self.refresh_info()
+
+        # select option and move to exit
         if self.game.input.states["select"]:
             self.game.input.states["select"] = False
 
-            selected_commander = list(self.game.data.commanders)[self.current_panel.selected_index]
-
-            # if selecting same commander then go to begin, else select
-            if self.game.run_setup.selected_commander == selected_commander:
-                self.current_panel = self.panels["exit"]
-                self.current_panel.select_first_element()
-
-            else:
-                self.game.run_setup.selected_commander = selected_commander
-                self.refresh_info()
+            self.current_panel = self.panels["exit"]
+            self.current_panel.select_first_element()
 
     def handle_exit_input(self):
         if self.game.input.states["select"]:
