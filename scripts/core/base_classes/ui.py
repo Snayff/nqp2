@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 
@@ -89,7 +90,7 @@ class UI(ABC):
                 str(self.game.memory.gold),
             ],
             "rations": [
-                self.game.assets.get_image("stats", "ration", icon_size),
+                self.game.assets.get_image("stats", "rations", icon_size),
                 str(self.game.memory.rations),
             ],
             "charisma": [
@@ -177,6 +178,13 @@ class UI(ABC):
             self.current_panel.is_active = False
 
         # select new
-        self.current_panel = self.panels[panel_name]
+        try:
+            self.current_panel = self.panels[panel_name]
+
+        except KeyError:
+            logging.critical(f"Tried to change to {panel_name} panel, but does not exist. Selected first panel "
+                             f"instead.")
+            self.current_panel = list(self.panels)[0]
+
         self.current_panel.select_first_element()
         self.current_panel.is_active = True

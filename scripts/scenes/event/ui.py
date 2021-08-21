@@ -51,6 +51,13 @@ class EventUI(UI):
         if self.current_panel == self.panels["options"]:
             self.handle_options_input()
 
+        elif self.current_panel == self.panels["exit"]:
+
+            if self.game.input.states["select"]:
+                self.game.input.states["select"] = False
+
+                self.game.change_scene(SceneType.OVERWORLD)
+
     def render(self, surface: pygame.surface):
         # show core info
         self.draw_instruction(surface)
@@ -186,19 +193,19 @@ class EventUI(UI):
             image = self.game.assets.get_image("stats", "gold", icon_size)
 
         elif result_key == "rations":
-            image = self.game.assets.get_image("stats", "gold", icon_size)
+            image = self.game.assets.get_image("stats", "rations", icon_size)
 
         elif result_key == "morale":
-            image = self.game.assets.get_image("stats", "gold", icon_size)
+            image = self.game.assets.get_image("stats", "morale", icon_size)
 
         elif result_key == "charisma":
-            image = self.game.assets.get_image("stats", "gold", icon_size)
+            image = self.game.assets.get_image("stats", "charisma", icon_size)
 
         elif result_key == "leadership":
-            image = self.game.assets.get_image("stats", "gold", icon_size)
+            image = self.game.assets.get_image("stats", "leadership", icon_size)
 
         elif result_key == "injury":
-            image = self.game.assets.get_image("stats", "gold", icon_size)
+            image = self.game.assets.get_image("stats", "injury", icon_size)
 
         else:
             logging.warning(f"Result key not recognised. Image not found used.")
