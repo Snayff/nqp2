@@ -89,7 +89,7 @@
             "training": 0.1,
             "unknown": 0.2
         },
-        "chance_of_event": 100,
+        "chance_of_event": 20,
         "max_events_per_level": 5,
         "event_notification_duration": 4.0
     },
