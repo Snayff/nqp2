@@ -56,6 +56,11 @@ class PostCombatState(IntEnum):
     VICTORY = auto()
 
 
+class EventState(IntEnum):
+    MAKE_DECISION = auto()
+    RESULT = auto()
+
+
 class NodeType(IntEnum):
     COMBAT = auto()
     EVENT = auto()

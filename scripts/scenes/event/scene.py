@@ -6,6 +6,7 @@ import time
 from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.scene import Scene
+from scripts.core.constants import EventState
 from scripts.scenes.combat.elements.troupe import Troupe
 from scripts.scenes.combat.elements.unit import Unit
 from scripts.scenes.event.ui import EventUI
@@ -30,6 +31,8 @@ class EventScene(Scene):
         super().__init__(game)
 
         self.ui: EventUI = EventUI(game)
+
+        self.state: EventState = EventState.MAKE_DECISION
 
         self.active_event: Dict = {}
         self.event_resources = {}  # resources needed for the event
