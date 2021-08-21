@@ -70,9 +70,6 @@ class InnUI(UI):
 
         start_x = 20
         start_y = 40
-        font_height = default_font.height
-        window_width = self.game.window.width
-        window_height = self.game.window.height
         icon_width = DEFAULT_IMAGE_SIZE
         icon_height = DEFAULT_IMAGE_SIZE
         icon_size = (icon_width, icon_height)
@@ -144,16 +141,7 @@ class InnUI(UI):
         frame = UnitStatsFrame(self.game, (current_x, unit_stat_y), self.selected_unit)
         self.elements["stat_frame"] = frame
 
-        # exit button
-        confirm_text = "Onwards"
-        confirm_width = self.default_font.width(confirm_text)
-        current_x = window_width - (confirm_width + GAP_SIZE)
-        current_y = window_height - (font_height + GAP_SIZE)
-        frame = Frame((current_x, current_y), text_and_font=(confirm_text, default_font), is_selectable=True)
-        self.elements["exit"] = frame
-        panel = Panel([frame], True)
-        self.add_panel(panel, "exit")
-
+        self.add_exit_button()
         self.rebuild_resource_elements()
 
     def refresh_info(self):

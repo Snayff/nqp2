@@ -82,13 +82,14 @@ class EventUI(UI):
         )
         self.elements["description"] = frame
 
+        # split screen in half
+        current_y = self.game.window.height // 2
+
         panel_list = []
         panel_state = False
         if state == EventState.MAKE_DECISION:
             panel_state = True
 
-            # draw options
-            current_y = self.game.window.height // 2
             for counter, option in enumerate(event["options"]):
                 # get option text
                 if show_event_result:
@@ -145,6 +146,9 @@ class EventUI(UI):
 
                 # increment position
                 current_y += frame.height + GAP_SIZE
+
+            # only draw exit button once decision made
+            self.add_exit_button()
 
         # create panel
         panel = Panel(panel_list, panel_state)
