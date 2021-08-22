@@ -155,6 +155,7 @@ class TrainingUI(UI):
                 text_and_font=(f"{unit.type}", default_font),
                 is_selectable=True,
             )
+            frame.add_tier_background(unit.tier)
 
             # register frame
             self.elements[f"{unit.id}"] = frame

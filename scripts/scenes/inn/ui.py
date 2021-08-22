@@ -117,6 +117,7 @@ class InnUI(UI):
                 text_and_font=(text, font),
                 is_selectable=is_selectable,
             )
+            frame.add_tier_background(unit.tier)
             # capture frame
             self.elements[f"{unit.id}_{selection_counter}"] = frame
             panel_list.append(frame)
