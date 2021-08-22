@@ -7,6 +7,7 @@ from pygame import SRCALPHA
 
 from scripts.core.base_classes.ui_element import UIElement
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, GAP_SIZE
+from scripts.core.utility import clamp
 from scripts.ui_elements.font import Font
 
 if TYPE_CHECKING:
@@ -40,20 +41,24 @@ class Frame(UIElement):
         pass
 
     def _recalculate_size(self):
+        image = self.image
+        text = self.text
+        font = self.font
+
         width = 0
         height = 0
 
-        if self.image:
-            width += self.image.get_width()
-            height += self.image.get_height()
+        if image is not None:
+            width += image.get_width()
+            height += image.get_height()
 
-        if self.text and self.font:
-            width += self.font.width(self.text) + GAP_SIZE
+        if text is not None and font is not None:
+            width += font.width(self.text) + GAP_SIZE
 
             # N.B. doesnt amend height as is drawn next to image
             if height == 0:
                 font_height = self.font.height * 2
-                height += font_height * self.font.calculate_number_of_lines(self.text, self.line_width)
+                height += font_height * font.calculate_number_of_lines(text, self.line_width)
 
         # respect max height
         if self.max_height is not None:
@@ -72,11 +77,6 @@ class Frame(UIElement):
         text = self.text
         font = self.font
 
-        if font:
-            font_height = font.height
-        else:
-            font_height = 12
-
         # draw image
         if image:
             surface.blit(image, (0, 0))
@@ -88,9 +88,31 @@ class Frame(UIElement):
             else:
                 start_x = 0
 
-            font.render(text, surface, (start_x, font_height // 2), self.line_width)
+            font.render(text, surface, (start_x, font.height // 2), self.line_width)
 
     def set_text(self, text: str):
         self.text = str(text)
+
+        self._rebuild_surface()
+
+    def add_tier_background(self, tier: int):
+        """
+        Add a background to the frame, based on the tier given. Tiers can be 1-4.
+        """
+        tier_colours = {
+            1: (141, 148, 150),
+            2: (30, 117, 54),
+            3: (30, 63, 117),
+            4: (85, 30, 117),
+        }
+
+        # normalise value
+        tier = clamp(tier, 1, 4)
+
+        # create background and blit image onto it
+        bg = pygame.Surface(self.image.get_size())
+        bg.fill(tier_colours[tier])
+        bg.blit(self.image, (0, 0))
+        self.image = bg
 
         self._rebuild_surface()
