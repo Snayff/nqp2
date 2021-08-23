@@ -171,7 +171,7 @@ class EventScene(Scene):
                 )
 
             except KeyError:
-                logging.critical(
+                logging.warning(
                     f"Target specified ({target}) is not found in resources ({self.event_resources})"
                     f" and was ignored."
                 )
@@ -182,5 +182,29 @@ class EventScene(Scene):
 
             self.game.memory.prioritise_event(result_value)
 
+        elif result_key == "random_unit":
+            try:
+                unit = self.event_resources[result_value]
+
+                # check doesnt already exist
+                if unit not in self.game.memory.player_troupe.units:
+                    self.game.memory.player_troupe.add_unit(unit)
+                else:
+                    logging.warning(f"Target specified ({target}) is an existing unit and was therefore ignored.")
+
+            except KeyError:
+                logging.warning(
+                    f"Target specified ({target}) is not found in resources ({self.event_resources})"
+                    f" and was ignored."
+                )
+
+
+        elif result_key == "specific_unit":
+            if result_value in self.game.data.units:
+                self.game.memory.player_troupe.generate_specific_units([result_value])
+
+            else:
+                logging.warning(f"Unit type ({result_value}) specified does not exist. No unit was added.")
+
         else:
-            logging.critical(f"Result key specified ({result_key}) is not known and was ignored.")
+            logging.warning(f"Result key specified ({result_key}) is not known and was ignored.")

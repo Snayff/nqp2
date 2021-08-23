@@ -64,6 +64,7 @@ class Troupe:
         """
         Create a unit based on the unit type and add the unit to the troupe. Return id.
         """
+
         id_ = self.game.memory.generate_id()
         unit = Unit(self.game, id_, unit_type, self.team)
         self._units[id_] = unit
