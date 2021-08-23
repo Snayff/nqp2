@@ -113,8 +113,9 @@ class EventScene(Scene):
                 resource = troupe.units[unit_id]
 
             else:
-                logging.warning(f"Unit type ({resource_target}) specified does not exist. No resource was  "
-                                f"created.")
+                logging.warning(
+                    f"Unit type ({resource_target}) specified does not exist. No resource was  " f"created."
+                )
 
         elif resource_key == "new_random_unit":
             if resource_target is None:
@@ -227,7 +228,6 @@ class EventScene(Scene):
                     f"Target specified ({target}) is not found in resources ({self.event_resources})"
                     f" and was ignored."
                 )
-
 
         elif result_key == "add_specific_unit":
             if result_value in self.game.data.units:
