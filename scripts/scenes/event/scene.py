@@ -77,16 +77,21 @@ class EventScene(Scene):
     def _load_event_resources(self):
         self.event_resources = {}
 
-        for resource in self.active_event["resources"]:
-            key, identifier = resource.split(":", 1)
-            resource_ = self._generate_event_resource(key)
-            if resource_ is not None:
-                self.event_resources[identifier] = resource_
+        for resource_str in self.active_event["resources"]:
+            key, value, target = self.parse_event_string(resource_str)
+            resource = self._generate_event_resource(key, target)
+            if resource is not None:
+                self.event_resources[value] = resource
             else:
                 event_type = self.active_event["type"]
                 logging.critical(f"Event resources ({event_type}:{key}) returned none and was ignored.")
 
-    def _generate_event_resource(self, resource_key: str) -> Any:
+    def _generate_event_resource(self, resource_key: str, resource_target: str) -> Any:
+        """
+        Create a resource based on the given key.
+        """
+        resource = None
+
         if resource_key == "existing_unit":
             unit = None
             units = list(self.game.memory.player_troupe.units.values())
@@ -99,7 +104,30 @@ class EventScene(Scene):
                 if unit not in self.event_resources:
                     break
 
-            return unit
+            resource = unit
+
+        elif resource_key == "new_specific_unit":
+            if resource_target in self.game.data.units:
+                troupe = Troupe(self.game, "player", self.game.memory.player_troupe.allies)
+                unit_id = troupe.generate_specific_units([resource_target])[0]
+                resource = troupe.units[unit_id]
+
+            else:
+                logging.warning(
+                    f"Unit type ({resource_target}) specified does not exist. No resource was  " f"created."
+                )
+
+        elif resource_key == "new_random_unit":
+            if resource_target is None:
+                tiers = None
+            else:
+                tiers = [int(resource_target)]
+
+            troupe = Troupe(self.game, "player", self.game.memory.player_troupe.allies)
+            unit_id = troupe.generate_units(1, tiers)[0]
+            resource = troupe.units[unit_id]
+
+        return resource
 
     def trigger_result(self):
         """
@@ -111,13 +139,16 @@ class EventScene(Scene):
             ["Gold:10","Gold:10"] - would add 10 gold twice.
         """
         for result in self.triggered_results:
-            key, value, target = self.parse_result(result)
+            key, value, target = self.parse_event_string(result)
             self._action_result(key, value, target)
 
     @staticmethod
-    def parse_result(result: str) -> Tuple[str, str, str]:
+    def parse_event_string(result: str) -> Tuple[str, str, str]:
         """
-        Break result string into component parts. Returns a tuple of key, value, target.
+        Break event string into component parts. Applicable for Conditions, Resources and Results. (or anything that
+        has a syntax of key:value@target.
+
+        Returns a tuple of key, value, target.
         """
         key, result_remainder = result.split(":", 1)
         if "@" in result_remainder:
@@ -171,7 +202,7 @@ class EventScene(Scene):
                 )
 
             except KeyError:
-                logging.critical(
+                logging.warning(
                     f"Target specified ({target}) is not found in resources ({self.event_resources})"
                     f" and was ignored."
                 )
@@ -182,5 +213,28 @@ class EventScene(Scene):
 
             self.game.memory.prioritise_event(result_value)
 
+        elif result_key == "add_unit_resource":
+            try:
+                unit = self.event_resources[result_value]
+
+                # check doesnt already exist
+                if unit not in self.game.memory.player_troupe.units:
+                    self.game.memory.player_troupe.add_unit(unit)
+                else:
+                    logging.warning(f"Target specified ({target}) is an existing unit and was therefore ignored.")
+
+            except KeyError:
+                logging.warning(
+                    f"Target specified ({target}) is not found in resources ({self.event_resources})"
+                    f" and was ignored."
+                )
+
+        elif result_key == "add_specific_unit":
+            if result_value in self.game.data.units:
+                self.game.memory.player_troupe.generate_specific_units([result_value])
+
+            else:
+                logging.warning(f"Unit type ({result_value}) specified does not exist. No unit was added.")
+
         else:
-            logging.critical(f"Result key specified ({result_key}) is not known and was ignored.")
+            logging.warning(f"Result key specified ({result_key}) is not known and was ignored.")

@@ -64,6 +64,7 @@ class Troupe:
         """
         Create a unit based on the unit type and add the unit to the troupe. Return id.
         """
+
         id_ = self.game.memory.generate_id()
         unit = Unit(self.game, id_, unit_type, self.team)
         self._units[id_] = unit
@@ -146,8 +147,7 @@ class Troupe:
 
     def generate_specific_units(self, unit_types: List[str]) -> List[int]:
         """
-        Generate units for the Troupe, based on parameters given. If no unit types are given then any unit type can
-        be chosen from any ally. Returns list of created ids.
+        Generate units for the Troupe, based on parameters given. Returns list of created ids.
 
         unit_types is expressed as [unit.type, ...]
         """

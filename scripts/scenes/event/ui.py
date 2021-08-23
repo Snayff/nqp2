@@ -61,6 +61,8 @@ class EventUI(UI):
 
                 self.game.change_scene(SceneType.OVERWORLD)
 
+                self.game.state = EventState.MAKE_DECISION
+
     def render(self, surface: pygame.surface):
         # show core info
         self.draw_instruction(surface)
@@ -157,28 +159,38 @@ class EventUI(UI):
             # draw results
             results = self.game.event.triggered_results
             for counter, result in enumerate(results):
-                key, value, target = self.game.event.parse_result(result)
+                key, value, target = self.game.event.parse_event_string(result)
 
                 # only show results we want the player to be aware of
                 if key in ["unlock_event"]:
                     continue
 
                 # get image
-                result_image = self._get_result_image(key)
+                result_image = self._get_result_image(key, value, target)
 
                 # get font
-                if int(value) > 0:
-                    # more injuries is bad, unlike other resources
-                    if key not in ["injury"]:
-                        font = positive_font
+                try:
+                    if int(value) > 0:
+                        # more injuries is bad, unlike other resources
+                        if key not in ["injury"]:
+                            font = positive_font
+                        else:
+                            font = warning_font
                     else:
-                        font = warning_font
-                else:
-                    # less injuries is good, unlike other resources
-                    if key in ["injury"]:
-                        font = positive_font
-                    else:
-                        font = warning_font
+                        # less injuries is good, unlike other resources
+                        if key in ["injury"]:
+                            font = positive_font
+                        else:
+                            font = warning_font
+
+                    # we know its a number, so take as value
+                    text = value
+                except ValueError:
+                    # string could not be converted to int
+                    font = positive_font
+
+                    # generic message to handle adding units
+                    text = "recruited."
 
                 frame = Frame(
                     (
@@ -186,7 +198,7 @@ class EventUI(UI):
                         current_y,
                     ),
                     result_image,
-                    text_and_font=(value, font),
+                    text_and_font=(text, font),
                     is_selectable=False,
                 )
                 self.elements[f"result_{counter}"] = frame
@@ -225,7 +237,7 @@ class EventUI(UI):
 
             self.select_panel("exit")
 
-    def _get_result_image(self, result_key: str) -> pygame.Surface:
+    def _get_result_image(self, result_key: str, result_value: str, result_target: str) -> pygame.Surface:
         """
         Get an image for the result key given.
         """
@@ -248,6 +260,14 @@ class EventUI(UI):
 
         elif result_key == "injury":
             image = self.game.assets.get_image("stats", "injury", icon_size)
+
+        elif result_key == "add_unit_resource":
+            unit = self.game.event.event_resources[result_value]
+            unit_type = unit.type
+            image = self.game.assets.unit_animations[unit_type]["icon"][0]
+
+        elif result_key == "add_specific_unit":
+            image = self.game.assets.unit_animations[result_value]["icon"][0]
 
         else:
             logging.warning(f"Result key not recognised. Image not found used.")
