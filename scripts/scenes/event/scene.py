@@ -117,8 +117,13 @@ class EventScene(Scene):
                                 f"created.")
 
         elif resource_key == "new_random_unit":
+            if resource_target is None:
+                tiers = None
+            else:
+                tiers = [int(resource_target)]
+
             troupe = Troupe(self.game, "player", self.game.memory.player_troupe.allies)
-            unit_id = troupe.generate_units(1, [int(resource_target)])[0]
+            unit_id = troupe.generate_units(1, tiers)[0]
             resource = troupe.units[unit_id]
 
         return resource
@@ -207,7 +212,7 @@ class EventScene(Scene):
 
             self.game.memory.prioritise_event(result_value)
 
-        elif result_key == "random_unit":
+        elif result_key == "add_unit_resource":
             try:
                 unit = self.event_resources[result_value]
 
@@ -224,7 +229,7 @@ class EventScene(Scene):
                 )
 
 
-        elif result_key == "specific_unit":
+        elif result_key == "add_specific_unit":
             if result_value in self.game.data.units:
                 self.game.memory.player_troupe.generate_specific_units([result_value])
 

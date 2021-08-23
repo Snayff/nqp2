@@ -167,18 +167,22 @@ class EventUI(UI):
                 result_image = self._get_result_image(key)
 
                 # get font
-                if int(value) > 0:
-                    # more injuries is bad, unlike other resources
-                    if key not in ["injury"]:
-                        font = positive_font
+                try:
+                    if int(value) > 0:
+                        # more injuries is bad, unlike other resources
+                        if key not in ["injury"]:
+                            font = positive_font
+                        else:
+                            font = warning_font
                     else:
-                        font = warning_font
-                else:
-                    # less injuries is good, unlike other resources
-                    if key in ["injury"]:
-                        font = positive_font
-                    else:
-                        font = warning_font
+                        # less injuries is good, unlike other resources
+                        if key in ["injury"]:
+                            font = positive_font
+                        else:
+                            font = warning_font
+                except ValueError:
+                    # string could not be converted to int
+                    font = default_font
 
                 frame = Frame(
                     (
