@@ -147,8 +147,7 @@ class Troupe:
 
     def generate_specific_units(self, unit_types: List[str]) -> List[int]:
         """
-        Generate units for the Troupe, based on parameters given. If no unit types are given then any unit type can
-        be chosen from any ally. Returns list of created ids.
+        Generate units for the Troupe, based on parameters given. Returns list of created ids.
 
         unit_types is expressed as [unit.type, ...]
         """

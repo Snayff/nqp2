@@ -157,7 +157,7 @@ class EventUI(UI):
             # draw results
             results = self.game.event.triggered_results
             for counter, result in enumerate(results):
-                key, value, target = self.game.event.parse_result(result)
+                key, value, target = self.game.event.parse_event_string(result)
 
                 # only show results we want the player to be aware of
                 if key in ["unlock_event"]:
