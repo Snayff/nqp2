@@ -21,6 +21,8 @@ class DevConsole(InputBox):
 
             # pressed enter
             if self.game.input.states["typing_enter"]:
+                self.game.input.states["typing_enter"] = False
+
                 self.handle_dev_command()
 
     def handle_dev_command(self):
