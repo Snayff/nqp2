@@ -57,7 +57,7 @@ class DevConsole(InputBox):
 
         elif command[:17] == "create_unit_jsons":
             # check active scene
-            if self.game.active_scene.type in (SceneType.MAIN_MENU, ):
+            if self.game.active_scene.type in (SceneType.MAIN_MENU,):
                 confirmation_message = self._add_unit_json_for_each_asset_folder()
 
         # update result
@@ -137,5 +137,3 @@ class DevConsole(InputBox):
 
         else:
             logging.warning(f"DevConsole: {event_id} not found.")
-
-
