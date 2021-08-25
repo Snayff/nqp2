@@ -71,6 +71,8 @@ class DevConsole(InputBox):
         count = 0
         unit_dict = list(self.game.data.units.values())[0]
 
+        logging.debug(f"Creating unit jsons...")
+
         for unit_name in os.listdir(ASSET_PATH / "units"):
             unit_data_path = DATA_PATH / "units" / unit_name
 
@@ -86,7 +88,7 @@ class DevConsole(InputBox):
             unit_dict["type"] = unit_name
             with open(f"{unit_data_path}.json", "w") as file:
                 json.dump(unit_dict, file, indent=4)
-                logging.debug(f"Created {unit_name} json.")
+                logging.debug(f">> Created {unit_name} json.")
 
             count += 1
 
@@ -94,6 +96,8 @@ class DevConsole(InputBox):
             confirmation_message = f"{count} unit jsons created."
         else:
             confirmation_message = ""
+
+        logging.debug(f"All required unit jsons created. {count} created.")
 
         return confirmation_message
 
