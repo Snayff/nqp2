@@ -5,7 +5,7 @@ import time
 from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.scene import Scene
-from scripts.core.constants import TrainingState
+from scripts.core.constants import SceneType, TrainingState
 from scripts.scenes.training.ui import TrainingUI
 
 if TYPE_CHECKING:
@@ -30,7 +30,7 @@ class TrainingScene(Scene):
         # start timer
         start_time = time.time()
 
-        super().__init__(game)
+        super().__init__(game, SceneType.TRAINING)
 
         self.ui: TrainingUI = TrainingUI(game)
         self.state: TrainingState = TrainingState.CHOOSE_UPGRADE

@@ -36,7 +36,7 @@ class CombatScene(Scene):
         # start timer
         start_time = time.time()
 
-        super().__init__(game)
+        super().__init__(game, SceneType.COMBAT)
 
         self.camera: Camera = Camera()
         self.terrain: Terrain = Terrain(self.game)

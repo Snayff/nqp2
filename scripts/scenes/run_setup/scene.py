@@ -33,7 +33,7 @@ class RunSetupScene(Scene):
         # start timer
         start_time = time.time()
 
-        super().__init__(game)
+        super().__init__(game, SceneType.RUN_SETUP)
 
         self.ui: RunSetupUI = RunSetupUI(game)
 

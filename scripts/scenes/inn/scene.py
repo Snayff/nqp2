@@ -6,6 +6,7 @@ import time
 from typing import List, TYPE_CHECKING
 
 from scripts.core.base_classes.scene import Scene
+from scripts.core.constants import SceneType
 from scripts.scenes.combat.elements.troupe import Troupe
 from scripts.scenes.combat.elements.unit import Unit
 from scripts.scenes.inn.ui import InnUI
@@ -27,7 +28,7 @@ class InnScene(Scene):
         # start timer
         start_time = time.time()
 
-        super().__init__(game)
+        super().__init__(game, SceneType.TRAINING)
 
         self.ui: InnUI = InnUI(game)
 

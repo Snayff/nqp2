@@ -30,7 +30,7 @@ class MainMenuScene(Scene):
         # start timer
         start_time = time.time()
 
-        super().__init__(game)
+        super().__init__(game, SceneType.MainMenuScene)
 
         self.ui: MainMenuUI = MainMenuUI(game)
 

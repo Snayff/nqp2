@@ -26,7 +26,7 @@ class ViewTroupeScene(Scene):
         # start timer
         start_time = time.time()
 
-        super().__init__(game)
+        super().__init__(game, SceneType.VIEW_TROUPE)
 
         self.ui: ViewTroupeUI = ViewTroupeUI(game)
 

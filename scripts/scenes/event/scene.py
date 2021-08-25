@@ -6,7 +6,7 @@ import time
 from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.scene import Scene
-from scripts.core.constants import EventState
+from scripts.core.constants import EventState, SceneType
 from scripts.scenes.combat.elements.troupe import Troupe
 from scripts.scenes.combat.elements.unit import Unit
 from scripts.scenes.event.ui import EventUI
@@ -28,7 +28,7 @@ class EventScene(Scene):
         # start timer
         start_time = time.time()
 
-        super().__init__(game)
+        super().__init__(game, SceneType.EVENT)
 
         self.ui: EventUI = EventUI(game)
 

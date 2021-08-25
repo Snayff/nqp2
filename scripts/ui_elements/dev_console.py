@@ -42,6 +42,9 @@ class DevConsole(InputBox):
         if command[:5] == "event":
             event_id = command[6:]  # +1 position to account for space
 
+            # check active scene
+            if not self.game.active_scene
+
             # validate event
             if event_id in self.game.memory.event_deck.keys():
                 # load event
