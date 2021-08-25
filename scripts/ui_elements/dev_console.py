@@ -43,3 +43,15 @@ class DevConsole(InputBox):
 
             else:
                 logging.warning(f"DevConsole: {event_id} not found.")
+
+        elif command[:8] == "god_mode":
+            state = command[9:]  # +1 position to account for space
+
+            if state == "on":
+                self.game.memory.flags.append("god_mode")
+
+                # add cheat flag
+                if "cheated" not in self.game.memory.flags:
+                    self.game.memory.flags.append("cheated")
+            elif state == "off":
+                self.game.memory.flags.remove("god_mode")
