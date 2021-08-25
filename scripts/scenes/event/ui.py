@@ -61,7 +61,7 @@ class EventUI(UI):
 
                 self.game.change_scene(SceneType.OVERWORLD)
 
-                self.game.state = EventState.MAKE_DECISION
+                self.game.event.state = EventState.MAKE_DECISION
 
     def render(self, surface: pygame.surface):
         # show core info
