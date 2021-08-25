@@ -10,7 +10,7 @@ import pytweening
 from scripts.core import utility
 from scripts.core.base_classes.node_container import NodeContainer
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, Direction, NodeType, OverworldState, SceneType
-from scripts.scenes.overworld.elements.node2 import Node2
+from scripts.scenes.overworld.elements.node import Node
 
 if TYPE_CHECKING:
     from typing import Dict, List, Optional, Tuple
@@ -27,7 +27,7 @@ class Rings(NodeContainer):
         self.centre: Tuple[int, int] = centre
         self.num_rings: int = num_rings
 
-        self.rings: Dict[int, List[Node2]] = {}  # N.B. the key starts from 1
+        self.rings: Dict[int, List[Node]] = {}  # N.B. the key starts from 1
         self.current_ring: int = 0
 
     def update(self, delta_time: float):
@@ -118,7 +118,7 @@ class Rings(NodeContainer):
                 node_icon = self._get_node_icon(node_type)
 
                 # init node and save
-                node = Node2(node_type, (x, y), node_icon)
+                node = Node(node_type, (x, y), node_icon)
                 self.rings[ring_count].append(node)
                 total_nodes += 1  # for logging
 

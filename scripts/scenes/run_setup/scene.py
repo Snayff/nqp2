@@ -8,6 +8,7 @@ from typing import TYPE_CHECKING
 from scripts.core.base_classes.scene import Scene
 from scripts.core.constants import SceneType
 from scripts.scenes.combat.elements.commander import Commander
+from scripts.scenes.combat.elements.troupe import Troupe
 from scripts.scenes.run_setup.ui import RunSetupUI
 
 if TYPE_CHECKING:
@@ -54,11 +55,15 @@ class RunSetupScene(Scene):
         # set the seed
         self.game.rng.set_seed(self.selected_seed)
 
-        # register commander values
+        # create commander
         commander = self.game.data.commanders[self.selected_commander]
-        starting_values = self.game.data.config["starting_values"]
-        self.game.memory.player_troupe.allies = commander["allies"]
         self.game.memory.commander = Commander(self.game, commander["type"])
+
+        # create player troupe
+        self.game.memory.player_troupe = Troupe(self.game, "player", commander["allies"])
+
+        # register commander values
+        starting_values = self.game.data.config["starting_values"]
         self.game.memory.amend_gold(starting_values["gold"] + commander["gold"])
         self.game.memory.amend_rations(starting_values["rations"] + commander["rations"])
         self.game.memory.amend_morale(starting_values["morale"] + commander["morale"])
