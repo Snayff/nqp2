@@ -71,7 +71,7 @@ class UnitStatsFrame(UIElement):
         # draw stats
         icon_x = current_x
         info_x = current_x + unit_icon.get_width() + GAP_SIZE
-        stats = ["health", "attack", "defence", "range", "attack_speed", "move_speed", "ammo", "count", "size"]
+        stats = ["health", "attack", "defence", "range", "attack_speed", "move_speed", "projectiles", "count", "size"]
         for stat in stats:
 
             # draw stat icon

@@ -148,7 +148,7 @@ class Unit:
         value = self._ammo
 
         try:
-            for mod in self.modifiers["ammo"]:
+            for mod in self.modifiers["projectiles"]:
                 value += mod
 
         except KeyError:
