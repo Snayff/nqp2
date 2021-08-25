@@ -1,10 +1,12 @@
 from __future__ import annotations
 
+import json
 import logging
+import os
 
 import pygame
 
-from scripts.core.constants import SceneType
+from scripts.core.constants import ASSET_PATH, DATA_PATH, SceneType
 from scripts.ui_elements.input_box import InputBox
 
 __all__ = ["DevConsole"]
@@ -63,11 +65,28 @@ class DevConsole(InputBox):
             self.game.active_scene.ui.set_instruction_text(confirmation_message, True)
 
     def _add_unit_json_for_each_asset_folder(self) -> str:
-        pass
+        """
+        Add a placeholder unit_json for every unit asset folder.
+        """
+        unit_dict = list(self.game.data.units)[0]
+
+        for unit_name in os.listdir(ASSET_PATH / "units"):
+            unit_data_path = DATA_PATH / "units" / unit_name
+
+            # check if json already exists
+            if os.path.isfile(unit_data_path):
+                continue
+
+            # it doesnt exist, create the json
+            unit_dict["type"] = unit_name
+            with open(f"{unit_data_path}.json", "w") as file:
+                json.dump(unit_dict, file, indent=4)
+                logging.debug(f"Created {unit_name} json.")
+
 
     def _toggle_god_mode(self, state: str) -> str:
         """
-        Expects 'on' or 'off'.
+        Turns god_mode on or off. State expects 'on' or 'off'.
         """
         if state == "on":
             self.game.memory.flags.append("god_mode")

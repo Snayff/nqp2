@@ -19,7 +19,7 @@ class UnitDataScene(Scene):
         # start timer
         start_time = time.time()
 
-        super().__init__(game)
+        super().__init__(game, SceneType.DEV_UNIT_DATA)
 
         self.ui: UnitDataUI = UnitDataUI(game)
 
