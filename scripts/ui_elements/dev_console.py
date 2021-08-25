@@ -55,9 +55,9 @@ class DevConsole(InputBox):
             if self.game.active_scene.type not in (SceneType.MAIN_MENU, SceneType.RUN_SETUP):
                 confirmation_message = self._toggle_god_mode(state)
 
-        elif command[39:] == "create_unit_json_for_each_asset_folders":
+        elif command[:17] == "create_unit_jsons":
             # check active scene
-            if self.game.active_scene.type in (SceneType.MAIN_MENU):
+            if self.game.active_scene.type in (SceneType.MAIN_MENU, ):
                 confirmation_message = self._add_unit_json_for_each_asset_folder()
 
         # update result
@@ -68,7 +68,7 @@ class DevConsole(InputBox):
         """
         Add a placeholder unit_json for every unit asset folder.
         """
-        unit_dict = list(self.game.data.units)[0]
+        unit_dict = list(self.game.data.units.values())[0]
 
         for unit_name in os.listdir(ASSET_PATH / "units"):
             unit_data_path = DATA_PATH / "units" / unit_name
