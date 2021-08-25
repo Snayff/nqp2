@@ -25,6 +25,8 @@ class DevConsole(InputBox):
 
                 self.handle_dev_command()
 
+                self.game.debug.toggle_dev_console_visibility()
+
     def handle_dev_command(self):
         """
         Handle the command in the dev console. Expected format is "[command] [value]".
