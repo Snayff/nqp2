@@ -68,6 +68,7 @@ class DevConsole(InputBox):
         """
         Add a placeholder unit_json for every unit asset folder.
         """
+        count = 0
         unit_dict = list(self.game.data.units.values())[0]
 
         for unit_name in os.listdir(ASSET_PATH / "units"):
@@ -87,6 +88,14 @@ class DevConsole(InputBox):
                 json.dump(unit_dict, file, indent=4)
                 logging.debug(f"Created {unit_name} json.")
 
+            count += 1
+
+        if count > 0:
+            confirmation_message = f"{count} unit jsons created."
+        else:
+            confirmation_message = ""
+
+        return confirmation_message
 
     def _toggle_god_mode(self, state: str) -> str:
         """
