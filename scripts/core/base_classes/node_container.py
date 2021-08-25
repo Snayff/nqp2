@@ -9,7 +9,7 @@ import pytweening
 
 from scripts.core import utility
 from scripts.core.constants import Direction, NodeType, OverworldState, SceneType
-from scripts.scenes.overworld.elements.node2 import Node2
+from scripts.scenes.overworld.elements.node import Node
 
 if TYPE_CHECKING:
     from typing import Dict, List, Optional, Tuple
@@ -23,8 +23,8 @@ class NodeContainer(ABC):
     def __init__(self, game: Game):
         self.game: Game = game
 
-        self.selected_node: Optional[Node2] = None
-        self.target_node: Optional[Node2] = None
+        self.selected_node: Optional[Node] = None
+        self.target_node: Optional[Node] = None
         self.selection_pos: Tuple[float, float] = (0, 0)  # where the selection is drawn
 
         self.max_travel_time: float = 0.5
