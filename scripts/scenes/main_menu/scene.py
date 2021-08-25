@@ -30,13 +30,13 @@ class MainMenuScene(Scene):
         # start timer
         start_time = time.time()
 
-        super().__init__(game)
+        super().__init__(game, SceneType.MAIN_MENU)
 
         self.ui: MainMenuUI = MainMenuUI(game)
 
         # record duration
         end_time = time.time()
-        logging.info(f"RunSetupScene: initialised in {format(end_time - start_time, '.2f')}s.")
+        logging.info(f"MainMenuScene: initialised in {format(end_time - start_time, '.2f')}s.")
 
     def update(self, delta_time: float):
         super().update(delta_time)

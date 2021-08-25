@@ -6,7 +6,7 @@ import time
 from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.scene import Scene
-from scripts.core.constants import PostCombatState, RewardType
+from scripts.core.constants import PostCombatState, RewardType, SceneType
 from scripts.scenes.combat.elements.troupe import Troupe
 from scripts.scenes.combat.elements.unit import Unit
 from scripts.scenes.post_combat.ui import PostCombatUI
@@ -29,7 +29,7 @@ class PostCombatScene(Scene):
         # start timer
         start_time = time.time()
 
-        super().__init__(game)
+        super().__init__(game, SceneType.POST_COMBAT)
 
         self.ui: PostCombatUI = PostCombatUI(game)
 

@@ -8,7 +8,7 @@ import pygame
 
 from scripts.core.base_classes.node_container import NodeContainer
 from scripts.core.base_classes.scene import Scene
-from scripts.core.constants import OverworldState
+from scripts.core.constants import OverworldState, SceneType
 from scripts.scenes.overworld.elements.rings import Rings
 from scripts.scenes.overworld.ui import OverworldUI
 
@@ -33,7 +33,7 @@ class OverworldScene(Scene):
         # start timer
         start_time = time.time()
 
-        super().__init__(game)
+        super().__init__(game, SceneType.OVERWORLD)
 
         self.ui: OverworldUI = OverworldUI(game)
 
