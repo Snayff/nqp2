@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import logging
 
+import pygame
+
 from scripts.core.constants import SceneType
 from scripts.ui_elements.input_box import InputBox
 
@@ -23,15 +25,19 @@ class DevConsole(InputBox):
             if self.game.input.states["typing_enter"]:
                 self.game.input.states["typing_enter"] = False
 
-                self.handle_dev_command()
+                self._handle_dev_command()
 
                 self.game.debug.toggle_dev_console_visibility()
 
-    def handle_dev_command(self):
+    def render(self, surface: pygame.surface, offset=(0, 0)):
+        super().render(surface)
+
+    def _handle_dev_command(self):
         """
         Handle the command in the dev console. Expected format is "[command] [value]".
         """
         command = self.text
+        confirmation_message = ""
 
         if command[:5] == "event":
             event_id = command[6:]  # +1 position to account for space
@@ -42,6 +48,8 @@ class DevConsole(InputBox):
                 self.game.event.load_event(event_id)
                 self.game.event.ui.rebuild_ui()
                 self.game.active_scene = self.game.event
+
+                confirmation_message = f"Loaded event {event_id}."
 
             else:
                 logging.warning(f"DevConsole: {event_id} not found.")
@@ -57,3 +65,11 @@ class DevConsole(InputBox):
                     self.game.memory.flags.append("cheated")
             elif state == "off":
                 self.game.memory.flags.remove("god_mode")
+
+            else:
+                return  # exit early
+
+            confirmation_message = f"God mode turned {state}."
+
+        if confirmation_message != "":
+            self.game.active_scene.ui.set_instruction_text(confirmation_message, True)
