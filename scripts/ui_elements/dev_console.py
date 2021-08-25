@@ -73,8 +73,12 @@ class DevConsole(InputBox):
         for unit_name in os.listdir(ASSET_PATH / "units"):
             unit_data_path = DATA_PATH / "units" / unit_name
 
+            # skip system files and templates
+            if unit_name[1:] == "_":
+                continue
+
             # check if json already exists
-            if os.path.isfile(unit_data_path):
+            if os.path.isfile(f"{unit_data_path}.json"):
                 continue
 
             # it doesnt exist, create the json

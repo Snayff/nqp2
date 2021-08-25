@@ -1,0 +1,17 @@
+{
+    "type": "warg_rider",
+    "health": 1,
+    "defence": 1,
+    "attack": 2,
+    "range": 200,
+    "attack_speed": 1,
+    "move_speed": 15,
+    "ammo": 10,
+    "count": 5,
+    "size": 7,
+    "weight": 2,
+    "gold_cost": 10,
+    "default_behaviour": "swarm",
+    "home": "castle",
+    "tier": 1
+}
