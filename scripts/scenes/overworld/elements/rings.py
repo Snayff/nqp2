@@ -44,7 +44,6 @@ class Rings(NodeContainer):
             # update to allow input again - this is a failsafe in case something is missed elsewhere
             self.game.overworld.state = OverworldState.READY
 
-
         # tick frame
         self._frame_timer += delta_time
         # FIXME - temporary looping frame logic
@@ -95,7 +94,7 @@ class Rings(NodeContainer):
         gap_between_rings = self.outer_radius / self.num_rings
         base_num_nodes = 2  # starting number of nodes
         total_nodes = 0  # for logging
-        blank_nodes = 0 # for logging
+        blank_nodes = 0  # for logging
 
         # generate rings
         num_nodes = base_num_nodes
