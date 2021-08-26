@@ -19,10 +19,6 @@ if TYPE_CHECKING:
 __all__ = ["RunSetupScene"]
 
 
-######### TO DO LIST ###############
-# TODO - add option to create a custom commander. Allow reuse of previous custom commander.
-
-
 class RunSetupScene(Scene):
     """
     Handles RunSetupScene interactions and consolidates the rendering. RunSetupScene is used to allow the player to

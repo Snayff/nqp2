@@ -21,9 +21,7 @@ __all__ = ["CombatScene"]
 
 
 ########### To Do List #############
-# TODO - Convert actions to cooldown based, instead of cards.
-# TODO - Injury/healing (health persistence outside of combat. See Design Doc for info.)
-# TODO - add combat with multiple participants, not just player vs enemy; team vs team or free for all.
+
 # FIXME - ensure all attributes are created in __init__.
 
 
