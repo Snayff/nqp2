@@ -59,15 +59,6 @@ class Rings(NodeContainer):
         selection_y = self.selection_pos[1] + (DEFAULT_IMAGE_SIZE / 2)
         pygame.draw.circle(surface, (230, 180, 16), (selection_x, selection_y), radius, width=1)
 
-        # draw commander
-        commander_type = self.game.memory.commander.type
-        if self.target_node is None:
-            frame = 0
-        else:
-            frame = int(self._frame_timer * 6)
-        commander_image = self.game.assets.commander_animations[commander_type]["move"][frame]
-        surface.blit(commander_image, (selection_x, selection_y))
-
         # draw the nodes on top of the ring
         gap_between_rings = self.outer_radius / self.num_rings
         for ring_count, ring in enumerate(self.rings.values()):
@@ -89,6 +80,15 @@ class Rings(NodeContainer):
                     pygame.draw.line(surface, (255, 255, 255), adjusted_node_pos, adjusted_outer_node_pos)
 
                 node.render(surface)
+
+        # draw commander
+        commander_type = self.game.memory.commander.type
+        if self.target_node is None:
+            frame = 0
+        else:
+            frame = int(self._frame_timer * 6)
+        commander_image = self.game.assets.commander_animations[commander_type]["move"][frame]
+        surface.blit(commander_image, (self.selection_pos[0], self.selection_pos[1]))
 
     def generate_nodes(self):
         logging.info(f"Generating overworld...")
