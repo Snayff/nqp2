@@ -67,6 +67,7 @@ class NodeType(IntEnum):
     INN = auto()
     TRAINING = auto()
     UNKNOWN = auto()
+    BLANK = auto()
 
 
 class SceneType(IntEnum):

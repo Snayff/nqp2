@@ -88,7 +88,7 @@ class DevConsole(InputBox):
             unit_dict["type"] = unit_name
             with open(f"{unit_data_path}.json", "w") as file:
                 json.dump(unit_dict, file, indent=4)
-                logging.debug(f">> Created {unit_name} json.")
+                logging.debug(f"-> Created {unit_name} json.")
 
             count += 1
 

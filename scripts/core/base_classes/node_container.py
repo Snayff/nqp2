@@ -74,6 +74,8 @@ class NodeContainer(ABC):
             node_icon = self.game.assets.get_image("nodes", "inn")
         elif node_type == NodeType.TRAINING:
             node_icon = self.game.assets.get_image("nodes", "training")
+        elif node_type == NodeType.BLANK:
+            node_icon = self.game.assets.get_image("nodes", "blank")
         else:
             # node_type == NodeType.UNKNOWN
             node_icon = self.game.assets.get_image("nodes", "unknown")
@@ -85,7 +87,7 @@ class NodeContainer(ABC):
         Return a random node type
         """
         node_weights_dict = self.game.data.config["overworld"]["node_weights"]
-        node_types = [NodeType.COMBAT, NodeType.INN, NodeType.TRAINING]
+        node_types = [NodeType.COMBAT, NodeType.INN, NodeType.TRAINING, NodeType.BLANK]
 
         if allow_unknown:
             node_types.append(NodeType.UNKNOWN)
