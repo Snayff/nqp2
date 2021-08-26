@@ -177,6 +177,8 @@ class NodeContainer(ABC):
             scene = SceneType.TRAINING
         elif selected_node_type == NodeType.EVENT:
             scene = SceneType.EVENT
+        elif selected_node_type == NodeType.BLANK:
+            scene = SceneType.OVERWORLD
         else:
             # selected_node_type == NodeType.UNKNOWN:
 

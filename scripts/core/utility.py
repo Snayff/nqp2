@@ -108,6 +108,9 @@ def node_type_to_scene_type(node_type: NodeType) -> SceneType:
         scene = SceneType.TRAINING
     elif node_type == NodeType.EVENT:
         scene = SceneType.EVENT
+    elif node_type == NodeType.BLANK:
+        scene = SceneType.OVERWORLD
+
     else:
         logging.error(f"node_type_to_scene_type: Node type ({node_type} not found. Default to Combat.")
         scene = SceneType.COMBAT
