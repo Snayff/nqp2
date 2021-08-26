@@ -27,8 +27,10 @@ class NodeContainer(ABC):
         self.target_node: Optional[Node] = None
         self.selection_pos: Tuple[float, float] = (0, 0)  # where the selection is drawn
 
-        self.max_travel_time: float = 0.5
+        self.max_travel_time: float = 1.75
         self.current_travel_time: float = 0.0
+        self._wait_time_after_arrival: float = 1.0
+        self._current_wait_time: float = 0.0
         self.is_travel_paused: bool = False
         self.is_due_event: bool = False  # true if waiting for an event to trigger
         self.events_triggered: int = 0  # number of events triggered so far
@@ -74,6 +76,8 @@ class NodeContainer(ABC):
             node_icon = self.game.assets.get_image("nodes", "inn")
         elif node_type == NodeType.TRAINING:
             node_icon = self.game.assets.get_image("nodes", "training")
+        elif node_type == NodeType.BLANK:
+            node_icon = self.game.assets.get_image("nodes", "blank")
         else:
             # node_type == NodeType.UNKNOWN
             node_icon = self.game.assets.get_image("nodes", "unknown")
@@ -85,7 +89,7 @@ class NodeContainer(ABC):
         Return a random node type
         """
         node_weights_dict = self.game.data.config["overworld"]["node_weights"]
-        node_types = [NodeType.COMBAT, NodeType.INN, NodeType.TRAINING]
+        node_types = [NodeType.COMBAT, NodeType.INN, NodeType.TRAINING, NodeType.BLANK]
 
         if allow_unknown:
             node_types.append(NodeType.UNKNOWN)
@@ -135,19 +139,25 @@ class NodeContainer(ABC):
 
         # check if at target pos
         elif percent_time_complete >= 1.0:
-            # update flags
-            self.selected_node = self.target_node
-            self.target_node = None
-            self.current_travel_time = 0
-            self.selection_pos = self.selected_node.pos
 
-            # trigger if not already completed
-            if not self.selected_node.is_complete:
-                self._trigger_current_node()
-                pass
+            # handle wait time
+            self._current_wait_time += delta_time
+            if self._current_wait_time >= self._wait_time_after_arrival:
+                # update flags
+                self.is_travel_paused = True
+                self.selected_node = self.target_node
+                self.target_node = None
+                self.selection_pos = self.selected_node.pos
+                self.current_travel_time = 0
+                self._current_wait_time = 0
 
-            # update to allow input again
-            self.game.overworld.state = OverworldState.READY
+                # trigger if not already completed
+                if not self.selected_node.is_complete:
+                    self._trigger_current_node()
+                    pass
+
+                # update to allow input again
+                self.game.overworld.state = OverworldState.READY
 
     def _trigger_current_node(self):
         """

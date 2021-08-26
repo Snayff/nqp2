@@ -17,10 +17,6 @@ if TYPE_CHECKING:
 __all__ = ["Data"]
 
 
-########### TO DO LIST #############
-# TODO - add modifier to increase likelihood of rare things generating in line with player progression
-
-
 class Data:
     """
     Raw data that doesnt change. Usually pulled from external files.

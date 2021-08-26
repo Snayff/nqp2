@@ -16,11 +16,6 @@ if TYPE_CHECKING:
 __all__ = ["Unit"]
 
 
-########### TO DO LIST #############
-# TODO - random generation of name, based on home, e.g. 3rd legion of Name
-# TODO - option to set unit name manually
-
-
 class Unit:
     def __init__(self, game: Game, id_: int, unit_type: str, team: str):
         self.game: Game = game
@@ -148,7 +143,7 @@ class Unit:
         value = self._ammo
 
         try:
-            for mod in self.modifiers["projectiles"]:
+            for mod in self.modifiers["ammo"]:
                 value += mod
 
         except KeyError:

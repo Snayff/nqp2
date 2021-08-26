@@ -20,10 +20,6 @@ if TYPE_CHECKING:
 __all__ = ["OverworldScene"]
 
 
-## TO DO LIST ##
-# TODO - generate a boss fight (troupe containing commander) as the only node on the final row
-
-
 class OverworldScene(Scene):
     """
     Handles OverworldScene interactions and consolidates the rendering.

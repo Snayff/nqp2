@@ -30,6 +30,8 @@ class Rings(NodeContainer):
         self.rings: Dict[int, List[Node]] = {}  # N.B. the key starts from 1
         self.current_ring: int = 0
 
+        self._frame_timer = 0
+
     def update(self, delta_time: float):
         for nodes in self.rings.values():
             for node in nodes:
@@ -42,13 +44,19 @@ class Rings(NodeContainer):
             # update to allow input again - this is a failsafe in case something is missed elsewhere
             self.game.overworld.state = OverworldState.READY
 
+        # tick frame
+        self._frame_timer += delta_time
+        # FIXME - temporary looping frame logic
+        while self._frame_timer > 0.66:
+            self._frame_timer -= 0.66
+
     def render(self, surface: pygame.surface):
         # draw selection
         node = self.selected_node
         radius = (node.icon.get_width() / 2) + 2
         selection_x = self.selection_pos[0] + (DEFAULT_IMAGE_SIZE / 2)
         selection_y = self.selection_pos[1] + (DEFAULT_IMAGE_SIZE / 2)
-        pygame.draw.circle(surface, (255, 255, 255), (selection_x, selection_y), radius)
+        pygame.draw.circle(surface, (230, 180, 16), (selection_x, selection_y), radius, width=1)
 
         # draw the nodes on top of the ring
         gap_between_rings = self.outer_radius / self.num_rings
@@ -72,11 +80,21 @@ class Rings(NodeContainer):
 
                 node.render(surface)
 
+        # draw commander
+        commander_type = self.game.memory.commander.type
+        if self.target_node is None:
+            frame = 0
+        else:
+            frame = int(self._frame_timer * 6)
+        commander_image = self.game.assets.commander_animations[commander_type]["move"][frame]
+        surface.blit(commander_image, (self.selection_pos[0], self.selection_pos[1]))
+
     def generate_nodes(self):
-        logging.info(f"Generating overworld:")
+        logging.info(f"Generating overworld...")
         gap_between_rings = self.outer_radius / self.num_rings
         base_num_nodes = 2  # starting number of nodes
         total_nodes = 0  # for logging
+        blank_nodes = 0  # for logging
 
         # generate rings
         num_nodes = base_num_nodes
@@ -120,7 +138,11 @@ class Rings(NodeContainer):
                 # init node and save
                 node = Node(node_type, (x, y), node_icon)
                 self.rings[ring_count].append(node)
-                total_nodes += 1  # for logging
+
+                # for logging
+                total_nodes += 1
+                if node_type == NodeType.BLANK:
+                    blank_nodes += 1
 
             logging_message += f"{logging_node_types}."
             logging.debug(logging_message)
@@ -167,12 +189,17 @@ class Rings(NodeContainer):
         self.selected_node = node
         self.selection_pos = node.pos
 
+        # make blank
+        self.selected_node.type = NodeType.BLANK
+        self.selected_node.icon = self._get_node_icon(NodeType.BLANK)
+
         # set current ring
         self.current_ring = len(self.rings)
 
         # log summary
         logging.info(
-            f"-> Map generated! Rings: {len(self.rings)} | Nodes: {total_nodes} | Connections:" f" {total_connections}"
+            f"-> Map generated! Rings: {len(self.rings)} | Nodes: filled:{total_nodes}, blank:{blank_nodes}"
+            f" | Connections: {total_connections}"
         )
 
     def select_next_node(self, direction: Direction):
