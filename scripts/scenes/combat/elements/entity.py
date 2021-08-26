@@ -129,7 +129,7 @@ class Entity:
 
     def update(self, dt):
         self.frame_timer += dt
-        # temporary looping frame logic
+        # FIXME - temporary looping frame logic
         while self.frame_timer > 0.66:
             self.frame_timer -= 0.66
 

@@ -27,7 +27,7 @@ class NodeContainer(ABC):
         self.target_node: Optional[Node] = None
         self.selection_pos: Tuple[float, float] = (0, 0)  # where the selection is drawn
 
-        self.max_travel_time: float = 0.5
+        self.max_travel_time: float = 1.75
         self.current_travel_time: float = 0.0
         self.is_travel_paused: bool = False
         self.is_due_event: bool = False  # true if waiting for an event to trigger
@@ -138,6 +138,7 @@ class NodeContainer(ABC):
         # check if at target pos
         elif percent_time_complete >= 1.0:
             # update flags
+            self.is_travel_paused = True
             self.selected_node = self.target_node
             self.target_node = None
             self.current_travel_time = 0
@@ -150,6 +151,9 @@ class NodeContainer(ABC):
 
             # update to allow input again
             self.game.overworld.state = OverworldState.READY
+
+        else:
+            self.is_travel_paused = False
 
     def _trigger_current_node(self):
         """

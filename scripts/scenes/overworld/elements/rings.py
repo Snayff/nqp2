@@ -30,6 +30,8 @@ class Rings(NodeContainer):
         self.rings: Dict[int, List[Node]] = {}  # N.B. the key starts from 1
         self.current_ring: int = 0
 
+        self._frame_timer = 0
+
     def update(self, delta_time: float):
         for nodes in self.rings.values():
             for node in nodes:
@@ -42,6 +44,13 @@ class Rings(NodeContainer):
             # update to allow input again - this is a failsafe in case something is missed elsewhere
             self.game.overworld.state = OverworldState.READY
 
+
+        # tick frame
+        self._frame_timer += delta_time
+        # FIXME - temporary looping frame logic
+        while self._frame_timer > 0.66:
+            self._frame_timer -= 0.66
+
     def render(self, surface: pygame.surface):
         # draw selection
         node = self.selected_node
@@ -49,6 +58,15 @@ class Rings(NodeContainer):
         selection_x = self.selection_pos[0] + (DEFAULT_IMAGE_SIZE / 2)
         selection_y = self.selection_pos[1] + (DEFAULT_IMAGE_SIZE / 2)
         pygame.draw.circle(surface, (230, 180, 16), (selection_x, selection_y), radius, width=1)
+
+        # draw commander
+        commander_type = self.game.memory.commander.type
+        if self.target_node is None:
+            frame = 0
+        else:
+            frame = int(self._frame_timer * 6)
+        commander_image = self.game.assets.commander_animations[commander_type]["move"][frame]
+        surface.blit(commander_image, (selection_x, selection_y))
 
         # draw the nodes on top of the ring
         gap_between_rings = self.outer_radius / self.num_rings
