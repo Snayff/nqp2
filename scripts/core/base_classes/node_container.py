@@ -29,6 +29,8 @@ class NodeContainer(ABC):
 
         self.max_travel_time: float = 1.75
         self.current_travel_time: float = 0.0
+        self._wait_time_after_arrival: float = 1.0
+        self._current_wait_time: float = 0.0
         self.is_travel_paused: bool = False
         self.is_due_event: bool = False  # true if waiting for an event to trigger
         self.events_triggered: int = 0  # number of events triggered so far
@@ -137,23 +139,25 @@ class NodeContainer(ABC):
 
         # check if at target pos
         elif percent_time_complete >= 1.0:
-            # update flags
-            self.is_travel_paused = True
-            self.selected_node = self.target_node
-            self.target_node = None
-            self.current_travel_time = 0
-            self.selection_pos = self.selected_node.pos
 
-            # trigger if not already completed
-            if not self.selected_node.is_complete:
-                self._trigger_current_node()
-                pass
+            # handle wait time
+            self._current_wait_time += delta_time
+            if self._current_wait_time >= self._wait_time_after_arrival:
+                # update flags
+                self.is_travel_paused = True
+                self.selected_node = self.target_node
+                self.target_node = None
+                self.selection_pos = self.selected_node.pos
+                self.current_travel_time = 0
+                self._current_wait_time = 0
 
-            # update to allow input again
-            self.game.overworld.state = OverworldState.READY
+                # trigger if not already completed
+                if not self.selected_node.is_complete:
+                    self._trigger_current_node()
+                    pass
 
-        else:
-            self.is_travel_paused = False
+                # update to allow input again
+                self.game.overworld.state = OverworldState.READY
 
     def _trigger_current_node(self):
         """
