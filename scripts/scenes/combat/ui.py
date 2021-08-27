@@ -110,7 +110,7 @@ class CombatUI(UI):
                     self.game.combat.leadership_points_spent += unit.tier
                     self.game.combat.units.add_unit_to_combat(unit)
 
-                    logging.info(f"Placed {unit.type}({unit.id}) at {unit.pos}.")
+                    logging.debug(f"Placed {unit.type}({unit.id}) at {unit.pos}.")
                 else:
                     action = self.game.combat.actions[cards[self.selected_col].type](self.game)
                     action.use(self.place_target.copy())

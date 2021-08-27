@@ -38,13 +38,13 @@ class Rings(NodeContainer):
                 node.update(delta_time)
 
         # process change between nodes
-        if self.target_node is not None and not self.is_travel_paused:
-            self._transition_to_new_node(delta_time)
-        else:
+        if self.is_travel_paused:
             # update to allow input again - this is a failsafe in case something is missed elsewhere
             self.game.overworld.state = OverworldState.READY
+        else:
+            self._transition_to_new_node(delta_time)
 
-        # tick frame
+            # tick frame
         self._frame_timer += delta_time
         # FIXME - temporary looping frame logic
         while self._frame_timer > 0.66:
@@ -208,6 +208,9 @@ class Rings(NodeContainer):
 
         # change state to limit input
         self.game.overworld.state = OverworldState.TRAVELLING
+
+        # start animations and movement
+        self.is_travel_paused = False
 
         # handle in ring movement
         if direction in (Direction.LEFT, Direction.RIGHT):
