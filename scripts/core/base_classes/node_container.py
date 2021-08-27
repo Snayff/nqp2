@@ -120,6 +120,16 @@ class NodeContainer(ABC):
         target = self.target_node
         selected = self.selected_node
 
+        # ensure we have a target, if not reset everything.
+        if target is None:
+            # update flags
+            self.is_travel_paused = True
+            self.current_travel_time = 0
+            self._current_wait_time = 0
+            self.game.overworld.state = OverworldState.READY
+
+            return
+
         # update timer
         self.current_travel_time += delta_time
         percent_time_complete = min(1.0, self.current_travel_time / self.max_travel_time)
