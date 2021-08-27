@@ -33,3 +33,21 @@ class Node:
 
     def render(self, surface: pygame.Surface):
         surface.blit(self.icon, self.pos)
+
+    def complete(self):
+        """
+        Set the node to complete and update the icon.
+        """
+        self.is_complete = True
+
+        # create shade
+        fill_image = pygame.Surface((self.icon.get_width(), self.icon.get_height()))
+        fill_image.fill((134, 135, 138, 100))
+
+        # create copy of sprite
+        icon = self.icon.copy()
+
+        # add shade and icon
+        icon.blit(fill_image, (0, 0), special_flags=pygame.BLEND_RGB_MAX)
+
+        self.icon = icon
