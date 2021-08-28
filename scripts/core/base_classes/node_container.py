@@ -76,23 +76,18 @@ class NodeContainer(ABC):
             node_icon = self.game.assets.get_image("nodes", "inn")
         elif node_type == NodeType.TRAINING:
             node_icon = self.game.assets.get_image("nodes", "training")
-        elif node_type == NodeType.BLANK:
-            node_icon = self.game.assets.get_image("nodes", "blank")
         else:
-            # node_type == NodeType.UNKNOWN
-            node_icon = self.game.assets.get_image("nodes", "unknown")
+            # node_type == NodeType.BLANK:
+            node_icon = self.game.assets.get_image("nodes", "blank")
 
         return node_icon
 
-    def _get_random_node_type(self, allow_unknown: bool = True) -> NodeType:
+    def _get_random_node_type(self) -> NodeType:
         """
         Return a random node type
         """
         node_weights_dict = self.game.data.config["overworld"]["node_weights"]
         node_types = [NodeType.COMBAT, NodeType.INN, NodeType.TRAINING, NodeType.BLANK]
-
-        if allow_unknown:
-            node_types.append(NodeType.UNKNOWN)
 
         node_weights = []
         try:
@@ -161,15 +156,17 @@ class NodeContainer(ABC):
                 self.current_travel_time = 0
                 self._current_wait_time = 0
 
-                # trigger if not already completed
-                if not self.selected_node.is_complete:
-                    self._trigger_current_node()
+                # trigger if not already completed and is an auto-triggering type
+                if not self.selected_node.is_complete and (
+                    self.selected_node.type in (NodeType.COMBAT,) or self.selected_node.is_type_hidden
+                ):
+                    self.trigger_current_node()
                     pass
 
                 # update to allow input again
                 self.game.overworld.state = OverworldState.READY
 
-    def _trigger_current_node(self):
+    def trigger_current_node(self):
         """
         Activate the current node and trigger the scene change.
         """
@@ -179,6 +176,7 @@ class NodeContainer(ABC):
         logging.info(f"Next node, {selected_node_type.name}, selected.")
 
         # change active scene
+        scene = None
         if selected_node_type == NodeType.COMBAT:
             scene = SceneType.COMBAT
         elif selected_node_type == NodeType.INN:
@@ -190,12 +188,12 @@ class NodeContainer(ABC):
         elif selected_node_type == NodeType.BLANK:
             scene = SceneType.OVERWORLD
         else:
-            # selected_node_type == NodeType.UNKNOWN:
+            logging.warning(f"Node type ({selected_node_type}) of current node not recognised. No action taken.")
 
-            node_type = self._get_random_node_type(False)
-            scene = utility.node_type_to_scene_type(node_type)
+        if scene is not None:
+            selected_node.complete()
 
-        # update node
-        selected_node.is_complete = True
+            # reveal node type
+            selected_node.reveal_type()
 
-        self.game.change_scene(scene)
+            self.game.change_scene(scene)

@@ -51,13 +51,6 @@ class Rings(NodeContainer):
             self._frame_timer -= 0.66
 
     def render(self, surface: pygame.surface):
-        # draw selection
-        node = self.selected_node
-        radius = (node.icon.get_width() / 2) + 2
-        selection_x = self.selection_pos[0] + (DEFAULT_IMAGE_SIZE / 2)
-        selection_y = self.selection_pos[1] + (DEFAULT_IMAGE_SIZE / 2)
-        pygame.draw.circle(surface, (230, 180, 16), (selection_x, selection_y), radius, width=1)
-
         # draw the nodes on top of the ring
         gap_between_rings = self.outer_radius / self.num_rings
         for ring_count, ring in enumerate(self.rings.values()):
@@ -78,7 +71,19 @@ class Rings(NodeContainer):
                     )
                     pygame.draw.line(surface, (255, 255, 255), adjusted_node_pos, adjusted_outer_node_pos)
 
-                node.render(surface)
+                # handle hidden type
+                if node.is_type_hidden:
+                    hidden_image = self.game.assets.get_image("nodes", "unknown")
+                    surface.blit(hidden_image, node.pos)
+                else:
+                    node.render(surface)
+
+        # draw selection
+        node = self.selected_node
+        radius = (node.icon.get_width() / 2) + 2
+        selection_x = self.selection_pos[0] + (DEFAULT_IMAGE_SIZE / 2)
+        selection_y = self.selection_pos[1] + (DEFAULT_IMAGE_SIZE / 2)
+        pygame.draw.circle(surface, (230, 180, 16), (selection_x, selection_y), radius, width=1)
 
         # draw commander
         commander_type = self.game.memory.commander.type
@@ -95,6 +100,7 @@ class Rings(NodeContainer):
         base_num_nodes = 2  # starting number of nodes
         total_nodes = 0  # for logging
         blank_nodes = 0  # for logging
+        chance_node_type_hidden = self.game.data.config["overworld"]["chance_node_type_hidden"]
 
         # generate rings
         num_nodes = base_num_nodes
@@ -132,11 +138,17 @@ class Rings(NodeContainer):
                 node_type = self._get_random_node_type()
                 logging_node_types.append(node_type.name)
 
+                # roll to see if we should hide the type
+                if self.game.rng.roll() < chance_node_type_hidden:
+                    is_type_hidden = True
+                else:
+                    is_type_hidden = False
+
                 # get node icon
                 node_icon = self._get_node_icon(node_type)
 
                 # init node and save
-                node = Node(node_type, (x, y), node_icon)
+                node = Node(node_type, is_type_hidden, (x, y), node_icon)
                 self.rings[ring_count].append(node)
 
                 # for logging

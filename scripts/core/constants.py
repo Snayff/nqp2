@@ -66,7 +66,6 @@ class NodeType(IntEnum):
     EVENT = auto()
     INN = auto()
     TRAINING = auto()
-    UNKNOWN = auto()
     BLANK = auto()
 
 
