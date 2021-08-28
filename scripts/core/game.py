@@ -106,6 +106,9 @@ class Game:
             if hasattr(self.active_scene, "reset"):
                 self.active_scene.reset()
 
+        # reset input to ensure no input carries over between scenes
+        self.input.reset()
+
         # change scene and take scene specific action
         if scene_type == SceneType.MAIN_MENU:
             self.active_scene = self.main_menu

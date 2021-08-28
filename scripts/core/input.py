@@ -60,6 +60,13 @@ class Input:
         self.states["cancel"] = False
         self.mouse_state["left"] = False
 
+    def reset(self):
+        """
+        Set all input to false.
+        """
+        for key in self.states.keys():
+            self.states[key] = False
+
     def unload_chars(self):
         chars = self.char_buffer
         self.char_buffer = []
