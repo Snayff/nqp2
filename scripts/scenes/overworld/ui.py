@@ -65,6 +65,11 @@ class OverworldUI(UI):
                 self.game.input.states["view_troupe"] = False
                 self.game.change_scene(SceneType.VIEW_TROUPE)
 
+            if self.game.input.states["select"]:
+                self.game.input.states["select"] = False
+                if not node_container.selected_node.is_complete:
+                    node_container.trigger_current_node()
+
             # trigger event notification message
             node_container = self.game.overworld.node_container
             if node_container.show_event_notification:

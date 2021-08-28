@@ -156,15 +156,15 @@ class NodeContainer(ABC):
                 self.current_travel_time = 0
                 self._current_wait_time = 0
 
-                # trigger if not already completed
-                if not self.selected_node.is_complete:
-                    self._trigger_current_node()
+                # trigger if not already completed and is an auto-triggering type
+                if not self.selected_node.is_complete and self.selected_node.type in (NodeType.COMBAT, ):
+                    self.trigger_current_node()
                     pass
 
                 # update to allow input again
                 self.game.overworld.state = OverworldState.READY
 
-    def _trigger_current_node(self):
+    def trigger_current_node(self):
         """
         Activate the current node and trigger the scene change.
         """
@@ -189,9 +189,7 @@ class NodeContainer(ABC):
             logging.warning(f"Node type ({selected_node_type}) of current node not recognised. No action taken.")
 
         if scene is not None:
-            # complete nodes that dont repeat
-            if scene in (SceneType.COMBAT, ):
-                selected_node.complete()
+            selected_node.complete()
 
             # reveal node type
             selected_node.reveal_type()
