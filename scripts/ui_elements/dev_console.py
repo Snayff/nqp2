@@ -60,7 +60,12 @@ class DevConsole(InputBox):
             if self.game.active_scene.type in (SceneType.MAIN_MENU,):
                 confirmation_message = self._add_unit_json_for_each_asset_folder()
 
-        # update result
+        elif command[:] == "gallery":
+            # check active scene
+            if self.game.active_scene.type in (SceneType.MAIN_MENU,):
+                confirmation_message = self._switch_to_gallery()
+
+                # update result
         if confirmation_message != "":
             self.game.active_scene.ui.set_instruction_text(confirmation_message, True)
 
@@ -137,3 +142,10 @@ class DevConsole(InputBox):
 
         else:
             logging.warning(f"DevConsole: {event_id} not found.")
+
+    def _switch_to_gallery(self) -> str:
+        self.game.active_scene = self.game.dev_gallery
+
+        confirmation_message = f"Loaded gallery."
+        return confirmation_message
+

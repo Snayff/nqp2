@@ -30,7 +30,7 @@ class Rings(NodeContainer):
         self.rings: Dict[int, List[Node]] = {}  # N.B. the key starts from 1
         self.current_ring: int = 0
 
-        self._frame_timer = 0
+        self._frame_timer: float = 0
 
     def update(self, delta_time: float):
         for nodes in self.rings.values():
@@ -44,7 +44,7 @@ class Rings(NodeContainer):
         else:
             self._transition_to_new_node(delta_time)
 
-            # tick frame
+        # tick frame
         self._frame_timer += delta_time
         # FIXME - temporary looping frame logic
         while self._frame_timer > 0.66:
