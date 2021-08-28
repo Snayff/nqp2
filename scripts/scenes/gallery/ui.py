@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.ui import UI
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, GAP_SIZE
+from scripts.core.utility import next_number_in_loop, previous_number_in_loop
 from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.panel import Panel
 
@@ -32,9 +33,26 @@ class GalleryUI(UI):
         super().__init__(game)
 
         self._frame_timer: float = 0
+        self._start_index: int = 0
+        self._end_index: int = 47
+        self._amount_per_page: int = 16
 
     def update(self, delta_time: float):
         super().update(delta_time)
+
+        max_units = len(self.game.assets.unit_animations)
+
+        if self.game.input.states["left"]:
+            self.game.input.states["left"] = False
+            # TODO keep start index and end index 47 apart (47 is how many we can show on screen)
+            self._start_index = max(self._start_index - 16, 0)
+            self._end_index = max(self._end_index - 16, 0)
+
+        if self.game.input.states["right"]:
+            self.game.input.states["right"] = False
+            self._start_index = min(self._start_index + 16, max_units - 16)
+            self._end_index = min(self._end_index + 16, max_units)
+
 
         # tick frame
         self._frame_timer += delta_time
@@ -47,6 +65,8 @@ class GalleryUI(UI):
         positive_font = self.positive_font
         units = self.game.data.units
         animations = self.game.assets.unit_animations
+        start_index = self._start_index
+        end_index = self._end_index
 
         start_x = 10
         start_y = 10
@@ -76,7 +96,15 @@ class GalleryUI(UI):
         current_y += row_height
 
         # draw name and sprites
-        for name in units.keys():
+        j = 0
+        for i, name in enumerate(units.keys()):
+            if not (start_index <= i <= end_index):
+                continue
+
+            current_x = start_x + (j // self._amount_per_page) * 200
+            current_y = start_y + row_height + (j % self._amount_per_page) * 20
+
+
             positive_font.render(name, surface, (current_x, current_y))
             current_x += name_col_width
 
@@ -91,6 +119,4 @@ class GalleryUI(UI):
 
                 current_x += sprite_col_width
 
-            current_y += row_height
-            current_x = start_x
-
+            j += 1

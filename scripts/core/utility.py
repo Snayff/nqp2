@@ -116,3 +116,24 @@ def node_type_to_scene_type(node_type: NodeType) -> SceneType:
         scene = SceneType.COMBAT
 
     return scene
+
+
+def next_number_in_loop(start: int, loop_size: int) -> int:
+    if start + 1 >= loop_size:
+        result = 0
+    else:
+        result = start + 1
+
+    return result
+
+
+def previous_number_in_loop(start: int, loop_size: int) -> int:
+    """
+    If at max loop size, returns loop size -1.
+    """
+    if start - 1 < 0:
+        result = loop_size - 1
+    else:
+        result = start - 1
+
+    return result
