@@ -18,8 +18,10 @@ class Node:
     Represents a possible interaction on the map
     """
 
-    def __init__(self, node_type: NodeType, pos: Tuple[Union[int, float], Union[int, float]], icon: pygame.Surface):
+    def __init__(self, node_type: NodeType, is_type_hidden: bool, pos: Tuple[Union[int, float], Union[int, float]],
+    icon: pygame.Surface):
         self.type: NodeType = node_type
+        self.is_type_hidden: bool = is_type_hidden
         self.pos: Tuple[Union[int, float], Union[int, float]] = pos
         self.icon: pygame.Surface = icon
 
@@ -50,4 +52,12 @@ class Node:
         # add shade and icon
         icon.blit(fill_image, (0, 0), special_flags=pygame.BLEND_RGB_MAX)
 
+        # update icon
         self.icon = icon
+
+    def reveal_type(self):
+        """
+        if node type was hidden, reveal it
+        """
+        if self.is_type_hidden:
+            self.is_type_hidden = False

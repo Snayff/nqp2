@@ -76,23 +76,18 @@ class NodeContainer(ABC):
             node_icon = self.game.assets.get_image("nodes", "inn")
         elif node_type == NodeType.TRAINING:
             node_icon = self.game.assets.get_image("nodes", "training")
-        elif node_type == NodeType.BLANK:
-            node_icon = self.game.assets.get_image("nodes", "blank")
         else:
-            # node_type == NodeType.UNKNOWN
-            node_icon = self.game.assets.get_image("nodes", "unknown")
+            # node_type == NodeType.BLANK:
+            node_icon = self.game.assets.get_image("nodes", "blank")
 
         return node_icon
 
-    def _get_random_node_type(self, allow_unknown: bool = True) -> NodeType:
+    def _get_random_node_type(self) -> NodeType:
         """
         Return a random node type
         """
         node_weights_dict = self.game.data.config["overworld"]["node_weights"]
         node_types = [NodeType.COMBAT, NodeType.INN, NodeType.TRAINING, NodeType.BLANK]
-
-        if allow_unknown:
-            node_types.append(NodeType.UNKNOWN)
 
         node_weights = []
         try:
@@ -179,6 +174,7 @@ class NodeContainer(ABC):
         logging.info(f"Next node, {selected_node_type.name}, selected.")
 
         # change active scene
+        scene = None
         if selected_node_type == NodeType.COMBAT:
             scene = SceneType.COMBAT
         elif selected_node_type == NodeType.INN:
@@ -190,13 +186,14 @@ class NodeContainer(ABC):
         elif selected_node_type == NodeType.BLANK:
             scene = SceneType.OVERWORLD
         else:
-            # selected_node_type == NodeType.UNKNOWN:
+            logging.warning(f"Node type ({selected_node_type}) of current node not recognised. No action taken.")
 
-            node_type = self._get_random_node_type(False)
-            scene = utility.node_type_to_scene_type(node_type)
+        if scene is not None:
+            # complete nodes that dont repeat
+            if scene in (SceneType.COMBAT, ):
+                selected_node.complete()
 
-        # complete nodes that dont repeat
-        if scene in (SceneType.COMBAT, ):
-            selected_node.complete()
+            # reveal node type
+            selected_node.reveal_type()
 
-        self.game.change_scene(scene)
+            self.game.change_scene(scene)

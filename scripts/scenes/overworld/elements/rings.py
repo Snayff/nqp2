@@ -71,7 +71,12 @@ class Rings(NodeContainer):
                     )
                     pygame.draw.line(surface, (255, 255, 255), adjusted_node_pos, adjusted_outer_node_pos)
 
-                node.render(surface)
+                # handle hidden type
+                if node.is_type_hidden:
+                    hidden_image = self.game.assets.get_image("nodes", "unknown")
+                    surface.blit(hidden_image, node.pos)
+                else:
+                    node.render(surface)
 
         # draw selection
         node = self.selected_node
@@ -95,6 +100,7 @@ class Rings(NodeContainer):
         base_num_nodes = 2  # starting number of nodes
         total_nodes = 0  # for logging
         blank_nodes = 0  # for logging
+        chance_node_type_hidden = self.game.data.config["overworld"]["chance_node_type_hidden"]
 
         # generate rings
         num_nodes = base_num_nodes
@@ -132,11 +138,17 @@ class Rings(NodeContainer):
                 node_type = self._get_random_node_type()
                 logging_node_types.append(node_type.name)
 
+                # roll to see if we should hide the type
+                if self.game.rng.roll() < chance_node_type_hidden:
+                    is_type_hidden = True
+                else:
+                    is_type_hidden = False
+
                 # get node icon
                 node_icon = self._get_node_icon(node_type)
 
                 # init node and save
-                node = Node(node_type, (x, y), node_icon)
+                node = Node(node_type, is_type_hidden, (x, y), node_icon)
                 self.rings[ring_count].append(node)
 
                 # for logging
