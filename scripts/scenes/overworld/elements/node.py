@@ -18,8 +18,13 @@ class Node:
     Represents a possible interaction on the map
     """
 
-    def __init__(self, node_type: NodeType, is_type_hidden: bool, pos: Tuple[Union[int, float], Union[int, float]],
-    icon: pygame.Surface):
+    def __init__(
+        self,
+        node_type: NodeType,
+        is_type_hidden: bool,
+        pos: Tuple[Union[int, float], Union[int, float]],
+        icon: pygame.Surface,
+    ):
         self.type: NodeType = node_type
         self.is_type_hidden: bool = is_type_hidden
         self.pos: Tuple[Union[int, float], Union[int, float]] = pos
