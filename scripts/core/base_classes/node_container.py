@@ -157,8 +157,9 @@ class NodeContainer(ABC):
                 self._current_wait_time = 0
 
                 # trigger if not already completed and is an auto-triggering type
-                if not self.selected_node.is_complete and (self.selected_node.type in (NodeType.COMBAT,
-                ) or self.selected_node.is_type_hidden):
+                if not self.selected_node.is_complete and (
+                    self.selected_node.type in (NodeType.COMBAT,) or self.selected_node.is_type_hidden
+                ):
                     self.trigger_current_node()
                     pass
 
