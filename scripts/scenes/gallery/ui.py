@@ -59,7 +59,7 @@ class GalleryUI(UI):
             self.game.input.states["tab"] = False
 
             current_filter_index = self._filters.index(self._current_filter)
-            next_index = next_number_in_loop(current_filter_index, len(self._current_filter))
+            next_index = next_number_in_loop(current_filter_index, len(self._filters))
             self._current_filter = self._filters[next_index]
 
         # exit

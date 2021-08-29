@@ -1,5 +1,5 @@
 {
-    "type": "woodland_hunter",
+    "type": "woodland_rogue",
     "health": 1,
     "defence": 1,
     "attack": 2,
@@ -12,6 +12,6 @@
     "weight": 2,
     "gold_cost": 10,
     "default_behaviour": "swarm",
-    "home": "other",
+    "home": "chivalric_order",
     "tier": 1
 }

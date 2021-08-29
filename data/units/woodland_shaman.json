@@ -1,5 +1,5 @@
 {
-    "type": "troll_shaman",
+    "type": "woodland_shaman",
     "health": 1,
     "defence": 1,
     "attack": 2,
@@ -12,6 +12,6 @@
     "weight": 2,
     "gold_cost": 10,
     "default_behaviour": "swarm",
-    "home": "wasters",
+    "home": "cabalists",
     "tier": 1
 }
