@@ -12,6 +12,6 @@
     "weight": 2,
     "gold_cost": 500,
     "default_behaviour": "swarm",
-    "home": "members_of_the_court",
+    "faction": "members_of_the_court",
     "tier": 4
 }

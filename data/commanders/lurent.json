@@ -8,8 +8,7 @@
     "rations": 1,
     "morale": 1,
     "allies": [
-        "castle",
-        "fortress"
+        "members_of_the_court"
     ],
     "starting_units": [
         "knight",

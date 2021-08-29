@@ -12,6 +12,6 @@
     "weight": 2,
     "gold_cost": 25,
     "default_behaviour": "swarm",
-    "home": "minions_of_ztar",
+    "faction": "minions_of_ztar",
     "tier": 1
 }

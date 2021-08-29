@@ -34,7 +34,7 @@ class GalleryUI(UI):
         self._end_index: int = 47  # 47 is max that can be shown on screen, -1 for index
         self._amount_per_col: int = 16
         self._filters = ["all"]
-        for faction in self.game.data.homes:
+        for faction in self.game.data.factions:
             self._filters.append(faction)
         self._current_filter = "all"
 
@@ -116,7 +116,7 @@ class GalleryUI(UI):
             is_start_ok = i >= start_index
             is_less_than_end = j < (self._amount_per_col * 3)  # 3 cols
             is_all = self._current_filter == "all"
-            is_in_current_filter = data["home"] == self._current_filter
+            is_in_current_filter = data["faction"] == self._current_filter
 
             if not (is_start_ok and is_less_than_end and (is_all or is_in_current_filter)):
                 continue
@@ -146,7 +146,7 @@ class GalleryUI(UI):
             num_in_filter = len(units)
         else:
             for data in units.values():
-                if data["home"] == self._current_filter:
+                if data["faction"] == self._current_filter:
                     num_in_filter += 1
 
         # draw filter and result number

@@ -32,7 +32,7 @@ class Data:
         self.units: Dict[str, Any] = self._load_unit_info()
         self.behaviours = BehaviourManager()
         self.tiles = self._load_tile_info()
-        self.homes: List[str] = self._create_homes_list()
+        self.factions: List[str] = self._create_homes_list()
         self.events: Dict[str, Any] = self._load_events()
         self.upgrades: Dict[str, Any] = self._load_upgrades()
         self.combats: Dict[str, Any] = self._load_combats()
@@ -75,13 +75,13 @@ class Data:
         return units
 
     def _create_homes_list(self) -> List[str]:
-        homes = []
+        factions = []
 
         for unit in self.units.values():
-            if unit["home"] not in homes:
-                homes.append(unit["home"])
+            if unit["faction"] not in factions:
+                factions.append(unit["faction"])
 
-        return homes
+        return factions
 
     @staticmethod
     def _load_upgrades() -> Dict:
@@ -155,24 +155,24 @@ class Data:
 
         return config
 
-    def get_units_by_category(self, homes: List[str], tiers: List[int] = None) -> List[str]:
+    def get_units_by_category(self, factions: List[str], tiers: List[int] = None) -> List[str]:
         """
-        Return list of unit types for all units with a matching home and tier.
+        Return list of unit types for all units with a matching faction and tier.
         """
         # handle mutable default
         if tiers is None:
             tiers = [1, 2, 3, 4]
         units = []
 
-        for home in homes:
-            # check home is valid
-            if home not in self.homes:
-                logging.warning(f"get_units_by_category: {home} not found in {self.homes}. Value skipped.")
+        for faction in factions:
+            # check faction is valid
+            if faction not in self.factions:
+                logging.warning(f"get_units_by_category: {faction} not found in {self.factions}. Value skipped.")
                 continue
 
             # get units as specified
             for unit in self.units.values():
-                if unit["home"] == home and unit["tier"] in tiers:
+                if unit["faction"] == faction and unit["tier"] in tiers:
                     units.append(unit["type"])
 
         return units

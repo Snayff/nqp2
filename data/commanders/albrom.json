@@ -8,8 +8,8 @@
     "rations": 1,
     "morale": 1,
     "allies": [
-        "castle",
-        "fortress"
+        "hammerites",
+        "aberrations_of_nature"
     ],
     "starting_units": [
         "archer",

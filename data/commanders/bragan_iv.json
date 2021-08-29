@@ -8,8 +8,7 @@
     "rations": 1,
     "morale": 1,
     "allies": [
-        "castle",
-        "fortress"
+        "imperial_forces"
     ],
     "starting_units": [
         "archer",

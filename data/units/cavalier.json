@@ -12,6 +12,6 @@
     "weight": 15,
     "gold_cost": 220,
     "default_behaviour": "swarm",
-    "home": "chivalric_order",
+    "faction": "chivalric_order",
     "tier": 3
 }
