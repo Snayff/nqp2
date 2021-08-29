@@ -12,6 +12,6 @@
     "weight": 15,
     "gold_cost": 220,
     "default_behaviour": "swarm",
-    "home": "castle",
+    "home": "chivalric_order",
     "tier": 3
 }

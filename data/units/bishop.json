@@ -12,6 +12,6 @@
     "weight": 10,
     "gold_cost": 90,
     "default_behaviour": "swarm",
-    "home": "fortress",
+    "home": "cabalists",
     "tier": 2
 }

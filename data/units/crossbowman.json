@@ -12,6 +12,6 @@
     "weight": 4,
     "gold_cost": 40,
     "default_behaviour": "swarm",
-    "home": "castle",
+    "home": "members_of_the_court",
     "tier": 1
 }

@@ -12,6 +12,6 @@
     "weight": 2,
     "gold_cost": 25,
     "default_behaviour": "swarm",
-    "home": "fortress",
+    "home": "other",
     "tier": 1
 }
