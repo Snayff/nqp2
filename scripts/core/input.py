@@ -36,6 +36,7 @@ class Input:
             "backspace": False,
             "toggle_dev_console": False,
             "typing_enter": False,
+            "tab": False
         }
 
         self.mouse_state = {"left": False}
@@ -150,6 +151,9 @@ class Input:
 
                 if event.key == K_BACKQUOTE:
                     self.states["toggle_dev_console"] = True
+
+                if event.key == K_TAB:
+                    self.states["tab"] = True
 
                 if self.mode == "typing":
                     if event.key == K_RETURN:

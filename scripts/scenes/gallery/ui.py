@@ -5,9 +5,7 @@ from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.ui import UI
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, GAP_SIZE, SceneType
-from scripts.core.utility import next_number_in_loop, previous_number_in_loop
-from scripts.ui_elements.frame import Frame
-from scripts.ui_elements.panel import Panel
+from scripts.core.utility import next_number_in_loop
 
 if TYPE_CHECKING:
     from typing import Dict, List, Optional, Type, Union
@@ -35,6 +33,12 @@ class GalleryUI(UI):
         self._start_index: int = 0
         self._end_index: int = 47  # 47 is max that can be shown on screen, -1 for index
         self._amount_per_page: int = 16
+        self._filters = ["all"]
+        for faction in self.game.data.homes:
+            self._filters.append(faction)
+        self._current_filter = "all"
+
+        self.set_instruction_text("Press tab to change filter.")
 
     def update(self, delta_time: float):
         super().update(delta_time)
@@ -50,6 +54,13 @@ class GalleryUI(UI):
             self.game.input.states["right"] = False
             self._start_index = min(self._start_index + 16, max_units - 47)
             self._end_index = min(self._end_index + 16, max_units)
+
+        if self.game.input.states["tab"]:
+            self.game.input.states["tab"] = False
+
+            current_filter_index = self._filters.index(self._current_filter)
+            next_index = next_number_in_loop(current_filter_index, len(self._current_filter))
+            self._current_filter = self._filters[next_index]
 
         # exit
         if self.current_panel == self.panels["exit"]:
@@ -72,6 +83,7 @@ class GalleryUI(UI):
         animations = self.game.assets.unit_animations
         start_index = self._start_index
         end_index = self._end_index
+        window_width = self.game.window.width
 
         start_x = 10
         start_y = 10
@@ -85,8 +97,11 @@ class GalleryUI(UI):
 
         frame = int(self._frame_timer * 6)
 
-        #       |header| header |header  (etc.)
-        # name | icon | idle | move | attack | hit | death
+        # draw filter and result number
+        num_in_filter = sum(value == self._current_filter for value in units.values())
+        num_shown = min(num_in_filter, self._amount_per_page)
+        positive_font.render(f"{self._current_filter}. {num_shown}/{num_in_filter}", surface,
+                             (window_width - 200, current_y))
 
         # draw headers
         anim_states = ["icon", "idle", "walk", "attack", "hit", "death"]
@@ -96,20 +111,24 @@ class GalleryUI(UI):
             default_font.render(header, surface, (current_x, current_y))
             current_x += sprite_col_width
 
-        # reset x and increment y
-        current_x = start_x
+        # increment y
         current_y += row_height
 
         # draw name and sprites
         j = 0
-        for i, name in enumerate(units.keys()):
+        for i, (name, data) in enumerate(units.items()):
+            # only draw units within index range
             if not (start_index <= i <= end_index):
+                continue
+
+            # only draw units for whom the filter applies
+            if self._current_filter != "all" and data["home"] != self._current_filter:
                 continue
 
             current_x = start_x + (j // self._amount_per_page) * 200
             current_y = start_y + row_height + (j % self._amount_per_page) * 20
 
-            positive_font.render(name, surface, (current_x, current_y))
+            default_font.render(name, surface, (current_x, current_y))
             current_x += name_col_width
 
             for animation in anim_states:
