@@ -32,7 +32,7 @@ class GalleryUI(UI):
         self._frame_timer: float = 0
         self._start_index: int = 0
         self._end_index: int = 47  # 47 is max that can be shown on screen, -1 for index
-        self._amount_per_page: int = 16
+        self._amount_per_col: int = 16
         self._filters = ["all"]
         for faction in self.game.data.homes:
             self._filters.append(faction)
@@ -79,6 +79,7 @@ class GalleryUI(UI):
     def render(self, surface: pygame.surface):
         default_font = self.default_font
         positive_font = self.positive_font
+        disabled_font = self.disabled_font
         units = self.game.data.units
         animations = self.game.assets.unit_animations
         start_index = self._start_index
@@ -97,18 +98,12 @@ class GalleryUI(UI):
 
         frame = int(self._frame_timer * 6)
 
-        # draw filter and result number
-        num_in_filter = sum(value == self._current_filter for value in units.values())
-        num_shown = min(num_in_filter, self._amount_per_page)
-        positive_font.render(f"{self._current_filter}. {num_shown}/{num_in_filter}", surface,
-                             (window_width - 200, current_y))
-
         # draw headers
         anim_states = ["icon", "idle", "walk", "attack", "hit", "death"]
-        default_font.render("name", surface, (current_x, current_y))
+        disabled_font.render("name", surface, (current_x, current_y))
         current_x += name_col_width
         for header in anim_states:
-            default_font.render(header, surface, (current_x, current_y))
+            disabled_font.render(header, surface, (current_x, current_y))
             current_x += sprite_col_width
 
         # increment y
@@ -117,16 +112,17 @@ class GalleryUI(UI):
         # draw name and sprites
         j = 0
         for i, (name, data) in enumerate(units.items()):
-            # only draw units within index range
-            if not (start_index <= i <= end_index):
+            # only draw units within index range or for whom the filter applies
+            is_start_ok = i >= start_index
+            is_less_than_end = j < (self._amount_per_col * 3)  # 3 cols
+            is_all = self._current_filter == "all"
+            is_in_current_filter = data["home"] == self._current_filter
+
+            if not (is_start_ok and is_less_than_end and (is_all or is_in_current_filter)):
                 continue
 
-            # only draw units for whom the filter applies
-            if self._current_filter != "all" and data["home"] != self._current_filter:
-                continue
-
-            current_x = start_x + (j // self._amount_per_page) * 200
-            current_y = start_y + row_height + (j % self._amount_per_page) * 20
+            current_x = start_x + (j // self._amount_per_col) * 200
+            current_y = start_y + row_height + (j % self._amount_per_col) * 20
 
             default_font.render(name, surface, (current_x, current_y))
             current_x += name_col_width
@@ -143,6 +139,21 @@ class GalleryUI(UI):
                 current_x += sprite_col_width
 
             j += 1
+
+        # count num in filter
+        num_in_filter = 0
+        if self._current_filter == "all":
+            num_in_filter = len(units)
+        else:
+            for data in units.values():
+                if data["home"] == self._current_filter:
+                    num_in_filter += 1
+
+        # draw filter and result number
+        num_shown = j
+        positive_font.render(f"{self._current_filter}. {num_shown}/{num_in_filter}", surface,
+                             (window_width - 200, start_y))
+
 
         self.draw_elements(surface)
 
