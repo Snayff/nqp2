@@ -46,11 +46,11 @@ class GalleryUI(UI):
             self.game.input.states["left"] = False
             # TODO keep start index and end index 47 apart (47 is how many we can show on screen)
             self._start_index = max(self._start_index - 16, 0)
-            self._end_index = max(self._end_index - 16, 0)
+            self._end_index = max(self._end_index - 16, 47)
 
         if self.game.input.states["right"]:
             self.game.input.states["right"] = False
-            self._start_index = min(self._start_index + 16, max_units - 16)
+            self._start_index = min(self._start_index + 16, max_units - 47)
             self._end_index = min(self._end_index + 16, max_units)
 
 
