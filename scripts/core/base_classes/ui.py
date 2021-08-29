@@ -153,11 +153,11 @@ class UI(ABC):
             self.current_panel = self.panels[name]
             self.current_panel.select_first_element()
 
-    def add_exit_button(self):
+    def add_exit_button(self, button_text: str = "Onwards"):
         window_width = self.game.window.width
         window_height = self.game.window.height
 
-        confirm_text = "Onwards"
+        confirm_text = button_text
         confirm_width = self.default_font.width(confirm_text)
         current_x = window_width - (confirm_width + GAP_SIZE)
         current_y = window_height - (self.default_font.height + GAP_SIZE)

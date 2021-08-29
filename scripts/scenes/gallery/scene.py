@@ -29,7 +29,7 @@ class GalleryScene(Scene):
 
         self.ui: GalleryUI = GalleryUI(game)
 
-        self.previous_scene_type: SceneType = SceneType.DEV_UNIT_DATA
+        self.previous_scene_type: SceneType = SceneType.DEV_GALLERY
 
         # record duration
         end_time = time.time()

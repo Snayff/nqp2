@@ -7,6 +7,7 @@ import os
 import pygame
 
 from scripts.core.constants import ASSET_PATH, DATA_PATH, SceneType
+from scripts.core.utility import scene_to_scene_type
 from scripts.ui_elements.input_box import InputBox
 
 __all__ = ["DevConsole"]
@@ -144,6 +145,8 @@ class DevConsole(InputBox):
             logging.warning(f"DevConsole: {event_id} not found.")
 
     def _switch_to_gallery(self) -> str:
+        self.game.dev_gallery.previous_scene_type = scene_to_scene_type(self.game.active_scene)
+        self.game.dev_gallery.ui.rebuild_ui()
         self.game.active_scene = self.game.dev_gallery
 
         confirmation_message = f"Loaded gallery."

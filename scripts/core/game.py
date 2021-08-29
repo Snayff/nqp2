@@ -151,6 +151,7 @@ class Game:
             self.active_scene = self.dev_unit_data
 
         elif scene_type == SceneType.DEV_GALLERY:
+            self.dev_gallery.previous_scene_type = utility.scene_to_scene_type(self.active_scene)
             self.active_scene = self.dev_gallery
 
         # rebuild ui

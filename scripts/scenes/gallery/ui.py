@@ -4,7 +4,7 @@ import logging
 from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.ui import UI
-from scripts.core.constants import DEFAULT_IMAGE_SIZE, GAP_SIZE
+from scripts.core.constants import DEFAULT_IMAGE_SIZE, GAP_SIZE, SceneType
 from scripts.core.utility import next_number_in_loop, previous_number_in_loop
 from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.panel import Panel
@@ -51,6 +51,14 @@ class GalleryUI(UI):
             self.game.input.states["right"] = False
             self._start_index = min(self._start_index + 16, max_units - 47)
             self._end_index = min(self._end_index + 16, max_units)
+
+        # exit
+        if self.current_panel == self.panels["exit"]:
+            if self.game.input.states["select"]:
+                self.game.input.states["select"] = False
+
+                # return to previous scene
+                self.game.change_scene(self.game.dev_gallery.previous_scene_type)
 
 
         # tick frame
@@ -119,3 +127,11 @@ class GalleryUI(UI):
                 current_x += sprite_col_width
 
             j += 1
+
+        self.draw_elements(surface)
+
+    def rebuild_ui(self):
+        super().rebuild_ui()
+
+        self.add_exit_button("Exit")
+
