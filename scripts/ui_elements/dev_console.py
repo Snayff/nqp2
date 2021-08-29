@@ -48,12 +48,10 @@ class DevConsole(InputBox):
             if self.game.active_scene.type not in (SceneType.MAIN_MENU, SceneType.RUN_SETUP):
                 confirmation_message = self._switch_to_event(event_id)
 
-        elif command[:8] == "god_mode":
-            state = command[9:]  # +1 position to account for space
-
+        elif command[:7] == "godmode":
             # check active scene
             if self.game.active_scene.type not in (SceneType.MAIN_MENU, SceneType.RUN_SETUP):
-                confirmation_message = self._toggle_god_mode(state)
+                confirmation_message = self._toggle_god_mode()
 
         elif command[:17] == "create_unit_jsons":
             # check active scene
@@ -106,21 +104,23 @@ class DevConsole(InputBox):
 
         return confirmation_message
 
-    def _toggle_god_mode(self, state: str) -> str:
+    def _toggle_god_mode(self) -> str:
         """
-        Turns god_mode on or off. State expects 'on' or 'off'.
+        Turns god_mode on or off.
         """
-        if state == "on":
-            self.game.memory.flags.append("god_mode")
+        if "godmode" in self.game.memory.flags:
+            self.game.memory.flags.remove("godmode")
+            state = "off"
+
+        else:
+            self.game.memory.flags.append("godmode")
+
+            state = "on"
 
             # add cheat flag
             if "cheated" not in self.game.memory.flags:
                 self.game.memory.flags.append("cheated")
-        elif state == "off":
-            self.game.memory.flags.remove("god_mode")
 
-        else:
-            return ""  # exit early
 
         confirmation_message = f"God mode turned {state}."
 

@@ -34,7 +34,7 @@ class GalleryUI(UI):
 
         self._frame_timer: float = 0
         self._start_index: int = 0
-        self._end_index: int = 47
+        self._end_index: int = 47  # 47 is max that can be shown on screen, -1 for index
         self._amount_per_page: int = 16
 
     def update(self, delta_time: float):
@@ -44,7 +44,6 @@ class GalleryUI(UI):
 
         if self.game.input.states["left"]:
             self.game.input.states["left"] = False
-            # TODO keep start index and end index 47 apart (47 is how many we can show on screen)
             self._start_index = max(self._start_index - 16, 0)
             self._end_index = max(self._end_index - 16, 47)
 
