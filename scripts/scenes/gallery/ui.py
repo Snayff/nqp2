@@ -17,7 +17,6 @@ if TYPE_CHECKING:
     from scripts.core.game import Game
 
 
-
 __all__ = ["GalleryUI"]
 
 
@@ -59,7 +58,6 @@ class GalleryUI(UI):
 
                 # return to previous scene
                 self.game.change_scene(self.game.dev_gallery.previous_scene_type)
-
 
         # tick frame
         self._frame_timer += delta_time
@@ -111,7 +109,6 @@ class GalleryUI(UI):
             current_x = start_x + (j // self._amount_per_page) * 200
             current_y = start_y + row_height + (j % self._amount_per_page) * 20
 
-
             positive_font.render(name, surface, (current_x, current_y))
             current_x += name_col_width
 
@@ -134,4 +131,3 @@ class GalleryUI(UI):
         super().rebuild_ui()
 
         self.add_exit_button("Exit")
-

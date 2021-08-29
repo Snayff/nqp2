@@ -127,7 +127,6 @@ class DevConsole(InputBox):
             if "cheated" not in self.game.memory.flags:
                 self.game.memory.flags.append("cheated")
 
-
         confirmation_message = f"God mode turned {state}."
 
         return confirmation_message
@@ -156,7 +155,6 @@ class DevConsole(InputBox):
 
         confirmation_message = f"Loaded gallery."
         return confirmation_message
-
 
     def _switch_to_data_editor(self):
         self.game.dev_unit_data.previous_scene_type = scene_to_scene_type(self.game.active_scene)

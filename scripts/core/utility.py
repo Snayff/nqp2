@@ -69,15 +69,15 @@ def scene_to_scene_type(scene) -> SceneType:
     """
     from scripts.scenes.combat.scene import CombatScene
     from scripts.scenes.event.scene import EventScene
+    from scripts.scenes.gallery.scene import GalleryScene
     from scripts.scenes.inn.scene import InnScene
+    from scripts.scenes.main_menu.scene import MainMenuScene
     from scripts.scenes.overworld.scene import OverworldScene
     from scripts.scenes.post_combat.scene import PostCombatScene
     from scripts.scenes.run_setup.scene import RunSetupScene
     from scripts.scenes.training.scene import TrainingScene
     from scripts.scenes.unit_data.scene import UnitDataScene
     from scripts.scenes.view_troupe.scene import ViewTroupeScene
-    from scripts.scenes.main_menu.scene import MainMenuScene
-    from scripts.scenes.gallery.scene import GalleryScene
 
     if type(scene) is CombatScene:
         scene = SceneType.COMBAT
