@@ -59,12 +59,17 @@ class DevConsole(InputBox):
             if self.game.active_scene.type in (SceneType.MAIN_MENU,):
                 confirmation_message = self._add_unit_json_for_each_asset_folder()
 
-        elif command[:] == "gallery":
+        elif command[:7] == "gallery":
             # check active scene
             if self.game.active_scene.type in (SceneType.MAIN_MENU,):
                 confirmation_message = self._switch_to_gallery()
 
-                # update result
+        elif command[:11] == "data_editor":
+            # check active scene
+            if self.game.active_scene.type in (SceneType.MAIN_MENU,):
+                confirmation_message = self._switch_to_data_editor()
+
+        # update result
         if confirmation_message != "":
             self.game.active_scene.ui.set_instruction_text(confirmation_message, True)
 
@@ -152,3 +157,11 @@ class DevConsole(InputBox):
         confirmation_message = f"Loaded gallery."
         return confirmation_message
 
+
+    def _switch_to_data_editor(self):
+        self.game.dev_unit_data.previous_scene_type = scene_to_scene_type(self.game.active_scene)
+        self.game.dev_unit_data.ui.rebuild_ui()
+        self.game.active_scene = self.game.dev_unit_data
+
+        confirmation_message = f"Loaded data editor."
+        return confirmation_message

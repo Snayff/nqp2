@@ -96,7 +96,7 @@ def scene_to_scene_type(scene) -> SceneType:
     elif type(scene) is RunSetupScene:
         scene = SceneType.RUN_SETUP
     elif type(scene) is UnitDataScene:
-        scene = SceneType.DEV_UNIT_DATA
+        scene = SceneType.DEV_DATA_EDITOR
     elif type(scene) is MainMenuScene:
         scene = SceneType.MAIN_MENU
     elif type(scene) is GalleryScene:

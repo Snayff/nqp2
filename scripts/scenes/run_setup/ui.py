@@ -33,7 +33,7 @@ class RunSetupUI(UI):
         if self.game.input.states["toggle_dev_console"]:
             self.game.input.states["toggle_dev_console"] = False
 
-            self.game.change_scene(SceneType.DEV_UNIT_DATA)
+            self.game.change_scene(SceneType.DEV_DATA_EDITOR)
 
         # panel specific input
         if self.current_panel == self.panels["commanders"]:

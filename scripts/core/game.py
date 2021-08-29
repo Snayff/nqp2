@@ -101,7 +101,7 @@ class Game:
 
     def change_scene(self, scene_type: SceneType):
         """
-        Change the active scene
+        Change the active scene. N.B. not used for switching to dev scenes.
         """
         # reset exiting scene if not overworld
         if self.active_scene is not self.overworld:
@@ -145,14 +145,6 @@ class Game:
         elif scene_type == SceneType.VIEW_TROUPE:
             self.troupe.previous_scene_type = utility.scene_to_scene_type(self.active_scene)
             self.active_scene = self.troupe
-
-        elif scene_type == SceneType.DEV_UNIT_DATA:
-            self.dev_unit_data.previous_scene_type = utility.scene_to_scene_type(self.active_scene)
-            self.active_scene = self.dev_unit_data
-
-        elif scene_type == SceneType.DEV_GALLERY:
-            self.dev_gallery.previous_scene_type = utility.scene_to_scene_type(self.active_scene)
-            self.active_scene = self.dev_gallery
 
         # rebuild ui
         if hasattr(self.active_scene, "ui"):
