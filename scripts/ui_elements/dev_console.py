@@ -7,6 +7,7 @@ import os
 import pygame
 
 from scripts.core.constants import ASSET_PATH, DATA_PATH, SceneType
+from scripts.core.utility import scene_to_scene_type
 from scripts.ui_elements.input_box import InputBox
 
 __all__ = ["DevConsole"]
@@ -48,17 +49,25 @@ class DevConsole(InputBox):
             if self.game.active_scene.type not in (SceneType.MAIN_MENU, SceneType.RUN_SETUP):
                 confirmation_message = self._switch_to_event(event_id)
 
-        elif command[:8] == "god_mode":
-            state = command[9:]  # +1 position to account for space
-
+        elif command[:7] == "godmode":
             # check active scene
             if self.game.active_scene.type not in (SceneType.MAIN_MENU, SceneType.RUN_SETUP):
-                confirmation_message = self._toggle_god_mode(state)
+                confirmation_message = self._toggle_god_mode()
 
         elif command[:17] == "create_unit_jsons":
             # check active scene
             if self.game.active_scene.type in (SceneType.MAIN_MENU,):
                 confirmation_message = self._add_unit_json_for_each_asset_folder()
+
+        elif command[:7] == "gallery":
+            # check active scene
+            if self.game.active_scene.type in (SceneType.MAIN_MENU,):
+                confirmation_message = self._switch_to_gallery()
+
+        elif command[:11] == "data_editor":
+            # check active scene
+            if self.game.active_scene.type in (SceneType.MAIN_MENU,):
+                confirmation_message = self._switch_to_data_editor()
 
         # update result
         if confirmation_message != "":
@@ -101,21 +110,22 @@ class DevConsole(InputBox):
 
         return confirmation_message
 
-    def _toggle_god_mode(self, state: str) -> str:
+    def _toggle_god_mode(self) -> str:
         """
-        Turns god_mode on or off. State expects 'on' or 'off'.
+        Turns god_mode on or off.
         """
-        if state == "on":
-            self.game.memory.flags.append("god_mode")
+        if "godmode" in self.game.memory.flags:
+            self.game.memory.flags.remove("godmode")
+            state = "off"
+
+        else:
+            self.game.memory.flags.append("godmode")
+
+            state = "on"
 
             # add cheat flag
             if "cheated" not in self.game.memory.flags:
                 self.game.memory.flags.append("cheated")
-        elif state == "off":
-            self.game.memory.flags.remove("god_mode")
-
-        else:
-            return ""  # exit early
 
         confirmation_message = f"God mode turned {state}."
 
@@ -137,3 +147,19 @@ class DevConsole(InputBox):
 
         else:
             logging.warning(f"DevConsole: {event_id} not found.")
+
+    def _switch_to_gallery(self) -> str:
+        self.game.dev_gallery.previous_scene_type = scene_to_scene_type(self.game.active_scene)
+        self.game.dev_gallery.ui.rebuild_ui()
+        self.game.active_scene = self.game.dev_gallery
+
+        confirmation_message = f"Loaded gallery."
+        return confirmation_message
+
+    def _switch_to_data_editor(self):
+        self.game.dev_unit_data.previous_scene_type = scene_to_scene_type(self.game.active_scene)
+        self.game.dev_unit_data.ui.rebuild_ui()
+        self.game.active_scene = self.game.dev_unit_data
+
+        confirmation_message = f"Loaded data editor."
+        return confirmation_message

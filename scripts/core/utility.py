@@ -69,7 +69,9 @@ def scene_to_scene_type(scene) -> SceneType:
     """
     from scripts.scenes.combat.scene import CombatScene
     from scripts.scenes.event.scene import EventScene
+    from scripts.scenes.gallery.scene import GalleryScene
     from scripts.scenes.inn.scene import InnScene
+    from scripts.scenes.main_menu.scene import MainMenuScene
     from scripts.scenes.overworld.scene import OverworldScene
     from scripts.scenes.post_combat.scene import PostCombatScene
     from scripts.scenes.run_setup.scene import RunSetupScene
@@ -78,25 +80,31 @@ def scene_to_scene_type(scene) -> SceneType:
     from scripts.scenes.view_troupe.scene import ViewTroupeScene
 
     if type(scene) is CombatScene:
-        return SceneType.COMBAT
+        scene = SceneType.COMBAT
     elif type(scene) is ViewTroupeScene:
-        return SceneType.VIEW_TROUPE
+        scene = SceneType.VIEW_TROUPE
     elif type(scene) is TrainingScene:
-        return SceneType.TRAINING
+        scene = SceneType.TRAINING
     elif type(scene) is InnScene:
-        return SceneType.INN
+        scene = SceneType.INN
     elif type(scene) is OverworldScene:
-        return SceneType.OVERWORLD
+        scene = SceneType.OVERWORLD
     elif type(scene) is EventScene:
-        return SceneType.EVENT
+        scene = SceneType.EVENT
     elif type(scene) is PostCombatScene:
-        return SceneType.REWARD
+        scene = SceneType.REWARD
     elif type(scene) is RunSetupScene:
-        return SceneType.RUN_SETUP
+        scene = SceneType.RUN_SETUP
     elif type(scene) is UnitDataScene:
-        return SceneType.DEV_UNIT_DATA
+        scene = SceneType.DEV_DATA_EDITOR
+    elif type(scene) is MainMenuScene:
+        scene = SceneType.MAIN_MENU
+    elif type(scene) is GalleryScene:
+        scene = SceneType.DEV_GALLERY
     else:
         logging.error(f"scene_to_scene_type: Scene ({scene}) not found.")
+
+    return scene
 
 
 def node_type_to_scene_type(node_type: NodeType) -> SceneType:
@@ -116,3 +124,24 @@ def node_type_to_scene_type(node_type: NodeType) -> SceneType:
         scene = SceneType.COMBAT
 
     return scene
+
+
+def next_number_in_loop(start: int, loop_size: int) -> int:
+    if start + 1 >= loop_size:
+        result = 0
+    else:
+        result = start + 1
+
+    return result
+
+
+def previous_number_in_loop(start: int, loop_size: int) -> int:
+    """
+    If at max loop size, returns loop size -1.
+    """
+    if start - 1 < 0:
+        result = loop_size - 1
+    else:
+        result = start - 1
+
+    return result

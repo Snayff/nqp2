@@ -79,7 +79,8 @@ class SceneType(IntEnum):
     MAIN_MENU = auto()
     VIEW_TROUPE = auto()
     RUN_SETUP = auto()
-    DEV_UNIT_DATA = auto()
+    DEV_DATA_EDITOR = auto()
+    DEV_GALLERY = auto()
 
 
 class RewardType(IntEnum):

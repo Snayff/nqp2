@@ -16,6 +16,7 @@ from scripts.core.rng import RNG
 from scripts.core.window import Window
 from scripts.scenes.combat.scene import CombatScene
 from scripts.scenes.event.scene import EventScene
+from scripts.scenes.gallery.scene import GalleryScene
 from scripts.scenes.inn.scene import InnScene
 from scripts.scenes.main_menu.scene import MainMenuScene
 from scripts.scenes.overworld.scene import OverworldScene
@@ -63,6 +64,7 @@ class Game:
 
         # dev scenes
         self.dev_unit_data: UnitDataScene = UnitDataScene(self)
+        self.dev_gallery: GalleryScene = GalleryScene(self)
 
         # point this to whatever scene is active
         self.active_scene = self.main_menu
@@ -99,7 +101,7 @@ class Game:
 
     def change_scene(self, scene_type: SceneType):
         """
-        Change the active scene
+        Change the active scene. N.B. not used for switching to dev scenes.
         """
         # reset exiting scene if not overworld
         if self.active_scene is not self.overworld:
@@ -143,10 +145,6 @@ class Game:
         elif scene_type == SceneType.VIEW_TROUPE:
             self.troupe.previous_scene_type = utility.scene_to_scene_type(self.active_scene)
             self.active_scene = self.troupe
-
-        elif scene_type == SceneType.DEV_UNIT_DATA:
-            self.dev_unit_data.previous_scene_type = utility.scene_to_scene_type(self.active_scene)
-            self.active_scene = self.dev_unit_data
 
         # rebuild ui
         if hasattr(self.active_scene, "ui"):
