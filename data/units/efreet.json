@@ -12,6 +12,6 @@
     "weight": 2,
     "gold_cost": 10,
     "default_behaviour": "swarm",
-    "home": "castle",
+    "faction": "aberrations_of_nature",
     "tier": 1
 }

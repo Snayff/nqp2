@@ -40,7 +40,7 @@ class Troupe:
 
     def debug_init_units(self) -> List[int]:
         """
-        Initialise all units for Troupe home. Returns list of created ids.
+        Initialise all units for Troupe faction. Returns list of created ids.
         """
         ids = []
 

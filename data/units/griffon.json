@@ -12,6 +12,6 @@
     "weight": 7,
     "gold_cost": 180,
     "default_behaviour": "swarm",
-    "home": "castle",
+    "faction": "imperial_forces",
     "tier": 3
 }

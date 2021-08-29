@@ -8,8 +8,7 @@
     "rations": 1,
     "morale": 1,
     "allies": [
-        "castle",
-        "fortress"
+        "chivalric_order"
     ],
     "starting_units": [
         "crossbowman",

@@ -1,5 +1,5 @@
 {
-    "type": "pride_cub",
+    "type": "woodland_bandit",
     "health": 1,
     "defence": 1,
     "attack": 2,
@@ -12,6 +12,6 @@
     "weight": 2,
     "gold_cost": 10,
     "default_behaviour": "swarm",
-    "home": "castle",
+    "faction": "chivalric_order",
     "tier": 1
 }

@@ -5,9 +5,7 @@ from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.ui import UI
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, GAP_SIZE, SceneType
-from scripts.core.utility import next_number_in_loop, previous_number_in_loop
-from scripts.ui_elements.frame import Frame
-from scripts.ui_elements.panel import Panel
+from scripts.core.utility import next_number_in_loop
 
 if TYPE_CHECKING:
     from typing import Dict, List, Optional, Type, Union
@@ -34,7 +32,13 @@ class GalleryUI(UI):
         self._frame_timer: float = 0
         self._start_index: int = 0
         self._end_index: int = 47  # 47 is max that can be shown on screen, -1 for index
-        self._amount_per_page: int = 16
+        self._amount_per_col: int = 16
+        self._filters = ["all"]
+        for faction in self.game.data.factions:
+            self._filters.append(faction)
+        self._current_filter = "all"
+
+        self.set_instruction_text("Press tab to change filter.")
 
     def update(self, delta_time: float):
         super().update(delta_time)
@@ -50,6 +54,13 @@ class GalleryUI(UI):
             self.game.input.states["right"] = False
             self._start_index = min(self._start_index + 16, max_units - 47)
             self._end_index = min(self._end_index + 16, max_units)
+
+        if self.game.input.states["tab"]:
+            self.game.input.states["tab"] = False
+
+            current_filter_index = self._filters.index(self._current_filter)
+            next_index = next_number_in_loop(current_filter_index, len(self._filters))
+            self._current_filter = self._filters[next_index]
 
         # exit
         if self.current_panel == self.panels["exit"]:
@@ -68,10 +79,12 @@ class GalleryUI(UI):
     def render(self, surface: pygame.surface):
         default_font = self.default_font
         positive_font = self.positive_font
+        disabled_font = self.disabled_font
         units = self.game.data.units
         animations = self.game.assets.unit_animations
         start_index = self._start_index
         end_index = self._end_index
+        window_width = self.game.window.width
 
         start_x = 10
         start_y = 10
@@ -85,31 +98,33 @@ class GalleryUI(UI):
 
         frame = int(self._frame_timer * 6)
 
-        #       |header| header |header  (etc.)
-        # name | icon | idle | move | attack | hit | death
-
         # draw headers
         anim_states = ["icon", "idle", "walk", "attack", "hit", "death"]
-        default_font.render("name", surface, (current_x, current_y))
+        disabled_font.render("name", surface, (current_x, current_y))
         current_x += name_col_width
         for header in anim_states:
-            default_font.render(header, surface, (current_x, current_y))
+            disabled_font.render(header, surface, (current_x, current_y))
             current_x += sprite_col_width
 
-        # reset x and increment y
-        current_x = start_x
+        # increment y
         current_y += row_height
 
         # draw name and sprites
         j = 0
-        for i, name in enumerate(units.keys()):
-            if not (start_index <= i <= end_index):
+        for i, (name, data) in enumerate(units.items()):
+            # only draw units within index range or for whom the filter applies
+            is_start_ok = i >= start_index
+            is_less_than_end = j < (self._amount_per_col * 3)  # 3 cols
+            is_all = self._current_filter == "all"
+            is_in_current_filter = data["faction"] == self._current_filter
+
+            if not (is_start_ok and is_less_than_end and (is_all or is_in_current_filter)):
                 continue
 
-            current_x = start_x + (j // self._amount_per_page) * 200
-            current_y = start_y + row_height + (j % self._amount_per_page) * 20
+            current_x = start_x + (j // self._amount_per_col) * 200
+            current_y = start_y + row_height + (j % self._amount_per_col) * 20
 
-            positive_font.render(name, surface, (current_x, current_y))
+            default_font.render(name, surface, (current_x, current_y))
             current_x += name_col_width
 
             for animation in anim_states:
@@ -124,6 +139,21 @@ class GalleryUI(UI):
                 current_x += sprite_col_width
 
             j += 1
+
+        # count num in filter
+        num_in_filter = 0
+        if self._current_filter == "all":
+            num_in_filter = len(units)
+        else:
+            for data in units.values():
+                if data["faction"] == self._current_filter:
+                    num_in_filter += 1
+
+        # draw filter and result number
+        num_shown = j
+        positive_font.render(
+            f"{self._current_filter}. {num_shown}/{num_in_filter}", surface, (window_width - 200, start_y)
+        )
 
         self.draw_elements(surface)
 
