@@ -11,8 +11,10 @@
         "swarm"
     ],
     "starting_units": [
-        "spearman",
-        "pikeman",
-        "skirmisher"
+        "goblin",
+        "goblin",
+        "gremlin",
+        "gremlin",
+        "imp"
     ]
 }

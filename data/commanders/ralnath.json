@@ -11,8 +11,7 @@
         "wasters"
     ],
     "starting_units": [
-        "enraged_raptor",
-        "horned_wurm",
-        "salamander"
+        "harpy",
+        "caveborn"
     ]
 }

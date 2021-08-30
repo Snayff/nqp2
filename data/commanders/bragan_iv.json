@@ -11,8 +11,8 @@
         "imperial_forces"
     ],
     "starting_units": [
-        "archer",
-        "pikeman",
-        "guerrilla_fighter"
+        "skirmisher",
+        "infantryman",
+        "infantryman"
     ]
 }
