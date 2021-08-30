@@ -11,9 +11,9 @@
         "members_of_the_court"
     ],
     "starting_units": [
-        "knight",
-        "archer",
-        "pikeman",
-        "skirmisher"
+        "peasant_spearman",
+        "peasant_spearman",
+        "peasant_spearman",
+        "conscript_bowman"
     ]
 }

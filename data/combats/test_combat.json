@@ -1,9 +1,8 @@
 {
     "type": "test",
     "units": [
-        "archer",
-        "archer",
-        "crossbowman"
+        "goblin",
+        "gremlin"
     ],
     "level_available": 1,
     "tier": 1,

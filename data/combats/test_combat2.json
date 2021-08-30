@@ -1,9 +1,9 @@
 {
     "type": "test2",
     "units": [
-        "spearman",
-        "spearman",
-        "archer"
+        "peasant_spearman",
+        "peasant_spearman",
+        "conscript_bowman"
     ],
     "level_available": 1,
     "tier": 1,

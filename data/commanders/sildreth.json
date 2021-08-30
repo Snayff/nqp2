@@ -11,9 +11,8 @@
         "chivalric_order"
     ],
     "starting_units": [
-        "crossbowman",
-        "archer",
-        "cavalier",
-        "pikeman"
+        "bandit",
+        "thug",
+        "cavalier_of_the_gleaming_dawn"
     ]
 }
