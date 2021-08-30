@@ -1,0 +1,17 @@
+{
+    "type": "peasant_spearman",
+    "health": 5,
+    "defence": 1,
+    "attack": 2,
+    "range": 50,
+    "attack_speed": 1.2,
+    "move_speed": 30,
+    "ammo": -1,
+    "count": 12,
+    "size": 7,
+    "weight": 3,
+    "gold_cost": 25,
+    "default_behaviour": "swarm",
+    "faction": "members_of_the_court",
+    "tier": 1
+}
