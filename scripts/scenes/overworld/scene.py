@@ -86,5 +86,3 @@ class OverworldScene(Scene):
         if rations <= 0:
             # TODO - add injury allocation
             pass
-
-

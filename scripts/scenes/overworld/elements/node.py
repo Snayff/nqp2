@@ -69,7 +69,7 @@ class Node:
 
     @property
     def is_trigger_on_touch(self) -> bool:
-        if not self.is_complete and (self.type in (NodeType.COMBAT, ) or self.is_type_hidden):
+        if not self.is_complete and (self.type in (NodeType.COMBAT,) or self.is_type_hidden):
             result = True
         else:
             result = False
