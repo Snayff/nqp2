@@ -79,7 +79,6 @@ class PostCombatUI(UI):
 
         self.rebuild_resource_elements()
 
-
     def _rebuild_victory_ui(self):
         default_font = self.default_font
         positive_font = self.positive_font
@@ -122,7 +121,7 @@ class PostCombatUI(UI):
     def _rebuild_defeat_ui(self):
         default_font = self.default_font
         negative_font = self.warning_font
-        disabled_font=self.disabled_font
+        disabled_font = self.disabled_font
 
         start_x = 20
         start_y = 40
@@ -165,19 +164,11 @@ class PostCombatUI(UI):
         else:
             # lose morale
             morale_image = self.game.assets.get_image("stats", "morale")
-            frame = Frame(
-                (current_x, current_y),
-                image=morale_image,
-                text_and_font=(str("-1"), negative_font)
-            )
+            frame = Frame((current_x, current_y), image=morale_image, text_and_font=(str("-1"), negative_font))
             self.elements["morale"] = frame
 
             # draw exit button
             self.add_exit_button()
-
-
-
-
 
     def _render_unit_rewards(self, surface: pygame.surface):
         pass
