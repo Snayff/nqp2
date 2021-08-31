@@ -74,6 +74,7 @@ class CombatScene(Scene):
             player_entities = [e for e in self.all_entities if e.team == "player"]
             if len(player_entities) == 0:
                 self.game.post_combat.state = PostCombatState.DEFEAT
+                self.game.combat.process_defeat()
                 self.game.change_scene(SceneType.POST_COMBAT)
 
             elif len(player_entities) == len(self.all_entities):
@@ -171,3 +172,9 @@ class CombatScene(Scene):
         else:
             combat_ = {}
         return combat_
+
+    def process_defeat(self):
+        """
+        Remove morale.
+        """
+        self.game.memory.amend_morale(-1)

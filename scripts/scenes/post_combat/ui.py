@@ -121,6 +121,7 @@ class PostCombatUI(UI):
     def _rebuild_defeat_ui(self):
         default_font = self.default_font
         negative_font = self.warning_font
+        disabled_font=self.disabled_font
 
         start_x = 20
         start_y = 40
@@ -144,8 +145,38 @@ class PostCombatUI(UI):
         )
         self.elements["header"] = frame
 
-        # draw exit button
-        self.add_exit_button()
+        # draw lost morale
+        current_y = window_height // 2
+        morale = self.game.memory.morale
+
+        if morale <= 0:
+            # game over
+            text = "Your forces, like your ambitions, lie in ruin."
+            current_x = (window_width // 2) - (disabled_font.width(text) // 2)
+            frame = Frame(
+                (current_x, current_y),
+                text_and_font=(text, disabled_font),
+            )
+            self.elements["morale"] = frame
+
+            # draw exit button
+            self.add_exit_button("Abandon hope")
+        else:
+            # lose morale
+            morale_image = self.game.assets.get_image("resources", "morale")
+            frame = Frame(
+                (current_x, current_y),
+                image=morale_image,
+                text_and_font=(str(morale), negative_font)
+            )
+            self.elements["morale"] = frame
+
+            # draw exit button
+            self.add_exit_button()
+
+
+
+
 
     def _render_unit_rewards(self, surface: pygame.surface):
         pass
@@ -228,6 +259,12 @@ class PostCombatUI(UI):
         if self.game.input.states["select"]:
             self.game.input.states["select"] = False
 
-            # there's only 1 thing to select so we know it is the exit button
-            self.game.run_setup.reset()
-            self.game.change_scene(SceneType.MAIN_MENU)
+            # there's only 1 thing to select so we know it is the exit button - but exit to what?
+            morale = self.game.memory.morale
+            if morale <= 0:
+                # game over
+                self.game.run_setup.reset()
+                self.game.change_scene(SceneType.MAIN_MENU)
+            else:
+                # bakc to overworld
+                self.game.change_scene(SceneType.OVERWORLD)
