@@ -164,11 +164,11 @@ class PostCombatUI(UI):
             self.add_exit_button("Abandon hope")
         else:
             # lose morale
-            morale_image = self.game.assets.get_image("resources", "morale")
+            morale_image = self.game.assets.get_image("stats", "morale")
             frame = Frame(
                 (current_x, current_y),
                 image=morale_image,
-                text_and_font=(str(morale), negative_font)
+                text_and_font=(str("-1"), negative_font)
             )
             self.elements["morale"] = frame
 

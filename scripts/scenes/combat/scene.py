@@ -175,6 +175,8 @@ class CombatScene(Scene):
 
     def process_defeat(self):
         """
-        Remove morale.
+        Remove morale and apply injuries.
         """
         self.game.memory.amend_morale(-1)
+
+        # TODO - add injury allocation
