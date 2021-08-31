@@ -79,6 +79,7 @@ class PostCombatUI(UI):
 
         self.rebuild_resource_elements()
 
+
     def _rebuild_victory_ui(self):
         default_font = self.default_font
         positive_font = self.positive_font
