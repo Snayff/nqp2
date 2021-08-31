@@ -93,6 +93,10 @@ class UI(ABC):
                 self.game.assets.get_image("stats", "rations", icon_size),
                 str(self.game.memory.rations),
             ],
+            "morale": [
+                self.game.assets.get_image("stats", "morale", icon_size),
+                str(self.game.memory.morale),
+            ],
             "charisma": [
                 self.game.assets.get_image("stats", "charisma", icon_size),
                 str(self.game.memory.commander.charisma_remaining),

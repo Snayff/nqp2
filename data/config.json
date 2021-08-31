@@ -74,7 +74,7 @@
     "starting_values": {
         "gold": 0,
         "rations": 0,
-        "morale": 0,
+        "morale": 2,
         "charisma": 0,
         "leadership": 0
     },
