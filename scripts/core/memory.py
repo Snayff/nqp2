@@ -59,35 +59,40 @@ class Memory:
         end_time = time.time()
         logging.info(f"Memory: initialised in {format(end_time - start_time, '.2f')}s.")
 
-    def amend_gold(self, amount: int):
+    def amend_gold(self, amount: int) -> int:
         """
-        Amend the current gold value by the given amount.
+        Amend the current gold value by the given amount. Return remaining amount.
         """
         self.gold = max(0, self.gold + amount)
+        return self.gold
 
-    def amend_rations(self, amount: int):
+    def amend_rations(self, amount: int) -> int:
         """
-        Amend the current rations value by the given amount.
+        Amend the current rations value by the given amount. Return remaining amount.
         """
         self.rations = max(0, self.rations + amount)
+        return self.rations
 
-    def amend_charisma(self, amount: int):
+    def amend_charisma(self, amount: int) -> int:
         """
-        Amend the current charisma value by the given amount.
+        Amend the current charisma value by the given amount. Return remaining amount.
         """
         self.charisma = max(0, self.charisma + amount)
+        return self.charisma
 
-    def amend_leadership(self, amount: int):
+    def amend_leadership(self, amount: int) -> int:
         """
-        Amend the current leadership value by the given amount.
+        Amend the current leadership value by the given amount. Return remaining amount.
         """
         self.leadership = max(0, self.leadership + amount)
+        return self.leadership
 
-    def amend_morale(self, amount: int):
+    def amend_morale(self, amount: int) -> int:
         """
-        Amend the current morale value by the given amount.
+        Amend the current morale value by the given amount. Return remaining amount.
         """
         self.morale = max(0, self.morale + amount)
+        return self.morale
 
     def generate_id(self) -> int:
         """

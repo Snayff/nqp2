@@ -76,3 +76,13 @@ class OverworldScene(Scene):
 
         self.state = OverworldState.LOADING
         self.game.memory.level = 1
+
+    def pay_move_cost(self):
+        """
+        Reduce rations to move. Apply injuries if not enough rations.
+        """
+        rations = self.game.memory.amend_rations(-1)
+
+        if rations <= 0:
+            # TODO - add injury allocation
+            pass

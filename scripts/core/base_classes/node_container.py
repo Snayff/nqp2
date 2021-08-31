@@ -109,7 +109,7 @@ class NodeContainer(ABC):
 
     def _transition_to_new_node(self, delta_time: float):
         """
-        Move the selection pos from the selected node to the target node. Will trigger event if one is due. Update
+        Move the selection pos from the selected node to the target node. Will trigger event if one is due. Updates
         selected node when complete.
         """
         target = self.target_node
@@ -145,6 +145,10 @@ class NodeContainer(ABC):
         # check if at target pos
         elif percent_time_complete >= 1.0:
 
+            # if not trigger on touch then skip wait time
+            if not self.target_node.is_trigger_on_touch:
+                self._current_wait_time = self._wait_time_after_arrival
+
             # handle wait time
             self._current_wait_time += delta_time
             if self._current_wait_time >= self._wait_time_after_arrival:
@@ -156,12 +160,12 @@ class NodeContainer(ABC):
                 self.current_travel_time = 0
                 self._current_wait_time = 0
 
+                # pay travel cost
+                self.game.overworld.pay_move_cost()
+
                 # trigger if not already completed and is an auto-triggering type
-                if not self.selected_node.is_complete and (
-                    self.selected_node.type in (NodeType.COMBAT,) or self.selected_node.is_type_hidden
-                ):
+                if self.selected_node.is_trigger_on_touch:
                     self.trigger_current_node()
-                    pass
 
                 # update to allow input again
                 self.game.overworld.state = OverworldState.READY

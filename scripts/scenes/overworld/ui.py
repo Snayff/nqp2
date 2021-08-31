@@ -30,7 +30,7 @@ class OverworldUI(UI):
         # N.B. Doesnt use Panels to handle input.
 
         self.set_instruction_text(
-            "Choose where you will go next. Up/Down for moving to outer or inner rings and left right for clockwise "
+            "Choose where you will go next. Up/Down for moving between rings and Left/Right for clockwise "
             "and anti-clockwise."
         )
 
