@@ -19,7 +19,7 @@
     },
     "unit_base_values": {
         "tier_1": {
-            "health": 0,
+            "health": 100,
             "defence": 0,
             "attack": 0,
             "range": 0,
@@ -29,10 +29,10 @@
             "count": 0,
             "size": 0,
             "weight": 0,
-            "gold_cost": 0
+            "gold_cost": 10
         },
         "tier_2": {
-            "health": 0,
+            "health": 100,
             "defence": 0,
             "attack": 0,
             "range": 0,
@@ -42,10 +42,10 @@
             "count": 0,
             "size": 0,
             "weight": 0,
-            "gold_cost": 0
+            "gold_cost": 30
         },
         "tier_3": {
-            "health": 0,
+            "health": 100,
             "defence": 0,
             "attack": 0,
             "range": 0,
@@ -55,10 +55,10 @@
             "count": 0,
             "size": 0,
             "weight": 0,
-            "gold_cost": 0
+            "gold_cost": 70
         },
         "tier_4": {
-            "health": 0,
+            "health": 100,
             "defence": 0,
             "attack": 0,
             "range": 0,
@@ -68,7 +68,7 @@
             "count": 0,
             "size": 0,
             "weight": 0,
-            "gold_cost": 0
+            "gold_cost": 150
         }
     },
     "starting_values": {

@@ -76,4 +76,15 @@ data/saves/
 docs/_build/**
 
 # profiling
+<<<<<<< Updated upstream
 .debug/profiling/*
+=======
+.debug/profiling/*
+
+# excel tools
+.xlsx
+.xls
+*.xlsx
+>>>>>>> Stashed changes
+
+*.csv

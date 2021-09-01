@@ -10,7 +10,7 @@
     "count": 5,
     "size": 7,
     "weight": 2,
-    "gold_cost": 10,
+    "gold_cost": 0,
     "default_behaviour": "swarm",
     "faction": "imperial_forces",
     "tier": 1

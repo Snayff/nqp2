@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import csv
 import json
 import logging
 import os
@@ -58,6 +59,11 @@ class DevConsole(InputBox):
             # check active scene
             if self.game.active_scene.type in (SceneType.MAIN_MENU,):
                 confirmation_message = self._add_unit_json_for_each_asset_folder()
+
+        elif command[:13] == "load_unit_csv":
+            # check active scene
+            if self.game.active_scene.type in (SceneType.MAIN_MENU,):
+                confirmation_message = self._load_unit_csv()
 
         elif command[:7] == "gallery":
             # check active scene
@@ -162,4 +168,66 @@ class DevConsole(InputBox):
         self.game.active_scene = self.game.dev_unit_data
 
         confirmation_message = f"Loaded data editor."
+        return confirmation_message
+
+    def _load_unit_csv(self):
+        """
+        Load the unit csv into the unit json files.
+        """
+        existing_units = list(self.game.data.units.keys())
+        num_updated = 0
+        num_created = 0
+
+        # load the data
+        with open("units.csv", "r") as csv_file:
+            csv_reader = csv.DictReader(csv_file)
+
+            for row in csv_reader:
+                str_path = str(DATA_PATH / "units" / f"{row['type']}.json")
+
+                # check if unit file already exists
+                if row["type"] in existing_units:
+
+                    # open existing json
+                    with open(str_path, "r") as unit_json:
+                        data = json.load(unit_json)
+
+                        # update data
+                        data["health"] = int(row["health"])
+                        data["defence"] = int(row["defence"])
+                        data["attack"] = int(row["attack"])
+                        data["range"] = int(row["range"])
+                        data["attack_speed"] = float(row["attack_speed"])
+                        data["move_speed"] = int(row["move_speed"])
+                        data["ammo"] = int(row["ammo"])
+                        data["count"] = int(row["count"])
+                        data["tier"] = int(row["tier"])
+                        data["faction"] = row["faction"]
+
+                    # delete previous file
+                    os.remove(str_path)
+
+                    # create new file
+                    with open(str_path, "w") as unit_json:
+                        json.dump(data, unit_json, indent=4)
+
+                    num_updated += 1
+
+                else:
+                    data = row.copy()
+
+                    # add needed values not held in csv
+                    data["default_behaviour"] = "swarm"
+                    data["size"] = 1
+                    data["weight"] = 2
+                    data["gold_cost"] = 0
+
+                    # create new file
+                    with open(str_path, "w") as unit_json:
+                        json.dump(data, unit_json, indent=4)
+
+                    num_created += 1
+
+        confirmation_message = f"Updated {num_updated} unit details and created {num_created} units."
+
         return confirmation_message
