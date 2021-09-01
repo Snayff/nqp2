@@ -197,12 +197,12 @@ class DevConsole(InputBox):
                         data["defence"] = int(row["defence"])
                         data["attack"] = int(row["attack"])
                         data["range"] = int(row["range"])
-                        data["attack_speed"] = int(row["attack_speed"])
+                        data["attack_speed"] = float(row["attack_speed"])
                         data["move_speed"] = int(row["move_speed"])
                         data["ammo"] = int(row["ammo"])
                         data["count"] = int(row["count"])
                         data["tier"] = int(row["tier"])
-                        data["faction"] = int(row["faction"])
+                        data["faction"] = row["faction"]
 
                     # delete previous file
                     os.remove(str_path)
