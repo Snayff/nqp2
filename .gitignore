@@ -86,3 +86,5 @@ docs/_build/**
 .xls
 *.xlsx
 >>>>>>> Stashed changes
+
+*.csv
