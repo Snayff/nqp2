@@ -2,7 +2,7 @@
     "type": "earth_elemental",
     "health": 25,
     "defence": 5,
-    "attack": 10,
+    "attack": 8,
     "range": 0,
     "attack_speed": 0.5,
     "move_speed": 15,

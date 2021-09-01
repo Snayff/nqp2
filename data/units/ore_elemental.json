@@ -1,8 +1,8 @@
 {
     "type": "ore_elemental",
-    "health": 75,
-    "defence": 20,
-    "attack": 20,
+    "health": 200,
+    "defence": 10,
+    "attack": 15,
     "range": 0,
     "attack_speed": 0.9,
     "move_speed": 15,

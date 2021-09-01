@@ -4,7 +4,7 @@
     "defence": 5,
     "attack": 20,
     "range": 0,
-    "attack_speed": 2,
+    "attack_speed": 2.0,
     "move_speed": 40,
     "ammo": 0,
     "count": 2,
