@@ -1,5 +1,6 @@
 {
-    "type": "test",
+    "type": "test_combat",
+    "category": "basic",
     "units": [
         "goblin",
         "gremlin"

@@ -1,5 +1,6 @@
 {
-    "type": "test2",
+    "type": "test_combat2",
+    "category": "basic",
     "units": [
         "peasant_spearman",
         "peasant_spearman",
