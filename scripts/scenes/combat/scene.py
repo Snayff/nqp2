@@ -56,6 +56,7 @@ class CombatScene(Scene):
         self.hand = None
 
         self.leadership_points_spent: int = 0  # points spent to place units
+        self.combat_category: str = "basic"
 
         # record duration
         end_time = time.time()
@@ -158,12 +159,13 @@ class CombatScene(Scene):
         if len(self.game.data.combats) > 0:
             level = self.game.memory.level
             combats = self.game.data.combats.values()
-
-            # ensure only combat for this level or lower
+            
+            # get possible combats
             possible_combats = []
             possible_combats_occur_rates = []
             for combat in combats:
-                if combat["level_available"] <= level:
+                # ensure only combat for this level or lower and of desired type
+                if combat["level_available"] <= level and combat["category"] == self.combat_category:
                     possible_combats.append(combat)
                     occur_rate = self.game.data.get_combat_occur_rate(combat["type"])
                     possible_combats_occur_rates.append(occur_rate)
