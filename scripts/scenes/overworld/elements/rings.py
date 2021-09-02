@@ -55,7 +55,7 @@ class Rings(NodeContainer):
         gap_between_rings = self.outer_radius / self.num_rings
         for ring_count, ring in enumerate(self.rings.values()):
             # draw ring
-            pygame.draw.circle(surface, (255, 255, 255), self.centre, gap_between_rings * (ring_count ), 1)
+            pygame.draw.circle(surface, (255, 255, 255), self.centre, gap_between_rings * ring_count, 1)
 
             # draw nodes
             for node in ring:

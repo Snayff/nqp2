@@ -25,6 +25,9 @@ WEIGHT_SCALE = 5
 DEFENSE_SCALE = 10
 PUSH_FORCE = 14
 
+# other
+DAYS_UNTIL_BOSS = 35
+
 
 # states
 class GameState(IntEnum):

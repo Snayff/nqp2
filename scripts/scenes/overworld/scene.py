@@ -8,7 +8,7 @@ import pygame
 
 from scripts.core.base_classes.node_container import NodeContainer
 from scripts.core.base_classes.scene import Scene
-from scripts.core.constants import OverworldState, SceneType
+from scripts.core.constants import DAYS_UNTIL_BOSS, OverworldState, SceneType
 from scripts.scenes.overworld.elements.rings import Rings
 from scripts.scenes.overworld.ui import OverworldUI
 
@@ -76,13 +76,17 @@ class OverworldScene(Scene):
 
         self.state = OverworldState.LOADING
         self.game.memory.level = 1
+        self.game.memory.days_until_boss = DAYS_UNTIL_BOSS
 
     def pay_move_cost(self):
         """
-        Reduce rations to move. Apply injuries if not enough rations.
+        Reduce rations to move. Apply injuries if not enough rations. Countdown boss timer.
         """
         rations = self.game.memory.amend_rations(-1)
 
         if rations <= 0:
             # TODO - add injury allocation
             pass
+
+        # count down boss timer
+        self.game.memory.days_until_boss -= 1
