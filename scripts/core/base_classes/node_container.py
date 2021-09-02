@@ -76,6 +76,8 @@ class NodeContainer(ABC):
             node_icon = self.game.assets.get_image("nodes", "inn")
         elif node_type == NodeType.TRAINING:
             node_icon = self.game.assets.get_image("nodes", "training")
+        elif node_type == NodeType.BOSS_COMBAT:
+            node_icon = self.game.assets.get_image("nodes", "boss_combat")
         else:
             # node_type == NodeType.BLANK:
             node_icon = self.game.assets.get_image("nodes", "blank")
@@ -191,6 +193,8 @@ class NodeContainer(ABC):
             scene = SceneType.EVENT
         elif selected_node_type == NodeType.BLANK:
             scene = SceneType.OVERWORLD
+        elif selected_node_type == NodeType.BOSS_COMBAT:
+            scene = SceneType.BOSS_COMBAT
         else:
             logging.warning(f"Node type ({selected_node_type}) of current node not recognised. No action taken.")
 

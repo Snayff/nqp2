@@ -55,8 +55,7 @@ class Rings(NodeContainer):
         gap_between_rings = self.outer_radius / self.num_rings
         for ring_count, ring in enumerate(self.rings.values()):
             # draw ring
-            pygame.draw.circle(surface, (255, 255, 255), self.centre, gap_between_rings * (ring_count + 1), 1)
-            # ring count + 1 as it starts at 0
+            pygame.draw.circle(surface, (255, 255, 255), self.centre, gap_between_rings * (ring_count ), 1)
 
             # draw nodes
             for node in ring:
@@ -101,10 +100,22 @@ class Rings(NodeContainer):
         total_nodes = 0  # for logging
         blank_nodes = 0  # for logging
         chance_node_type_hidden = self.game.data.config["overworld"]["chance_node_type_hidden"]
+        window_width = self.game.window.width
+        window_height = self.game.window.height
 
         # generate rings
         num_nodes = base_num_nodes
-        for ring_count in range(1, self.num_rings + 1):
+        for ring_count in range(0, self.num_rings + 1):
+
+            # add boss fight as innermost ring
+            if ring_count == 0:
+                boss_x = (window_width // 2) - (DEFAULT_IMAGE_SIZE // 2)
+                boss_y = (window_height // 2) - (DEFAULT_IMAGE_SIZE // 2)
+                node_icon = self._get_node_icon(NodeType.BOSS_COMBAT)
+                node = Node(NodeType.BOSS_COMBAT, False, (boss_x, boss_y), node_icon)
+                self.rings[ring_count] = [node]
+                continue
+
             # add random number of nodes
             num_nodes += self.game.rng.randint(1, ring_count)
 
@@ -171,6 +182,7 @@ class Rings(NodeContainer):
             nodes_to_connect = self.game.rng.choices(ring, k=num_connections)
             for node in nodes_to_connect:
 
+
                 # find nearest node in next ring
                 try:
                     smallest_distance = 999
@@ -196,7 +208,7 @@ class Rings(NodeContainer):
                     pass
 
         # pick a random node in outer ring as starting position
-        nodes = self.rings[len(self.rings)]
+        nodes = self.rings[len(self.rings) - 1]
         node = self.game.rng.choice(nodes)
         self.selected_node = node
         self.selection_pos = node.pos
@@ -204,6 +216,7 @@ class Rings(NodeContainer):
         # make blank
         self.selected_node.type = NodeType.BLANK
         self.selected_node.icon = self._get_node_icon(NodeType.BLANK)
+        total_nodes -= 1
 
         # set current ring
         self.current_ring = len(self.rings)

@@ -67,10 +67,12 @@ class NodeType(IntEnum):
     INN = auto()
     TRAINING = auto()
     BLANK = auto()
+    BOSS_COMBAT = auto()
 
 
 class SceneType(IntEnum):
     COMBAT = auto()
+    BOSS_COMBAT = auto()
     POST_COMBAT = auto()
     EVENT = auto()
     INN = auto()

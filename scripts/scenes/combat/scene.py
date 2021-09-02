@@ -159,7 +159,7 @@ class CombatScene(Scene):
         if len(self.game.data.combats) > 0:
             level = self.game.memory.level
             combats = self.game.data.combats.values()
-            
+
             # get possible combats
             possible_combats = []
             possible_combats_occur_rates = []
