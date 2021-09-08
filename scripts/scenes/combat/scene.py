@@ -71,15 +71,13 @@ class CombatScene(Scene):
         self.all_entities = self.get_all_entities()
 
         # end combat when either side is empty
-        if self.game.combat.state not in [CombatState.UNIT_CHOOSE_CARD, CombatState.UNIT_SELECT_TARGET]:
+        if self.state not in [CombatState.UNIT_CHOOSE_CARD, CombatState.UNIT_SELECT_TARGET]:
             player_entities = [e for e in self.all_entities if e.team == "player"]
             if len(player_entities) == 0:
-                self.game.combat.process_defeat()
-
+                self.process_defeat()
 
             elif len(player_entities) == len(self.all_entities):
-                self.game.post_combat.state = PostCombatState.VICTORY
-                self.game.change_scene(SceneType.POST_COMBAT)
+                self.process_victory()
 
         self.ui.update(delta_time)
         self.units.update(delta_time)
@@ -178,14 +176,25 @@ class CombatScene(Scene):
         """
         Remove morale and apply injuries.
         """
-        if self.combat_category == "boss":
-            morale_removed = -999
-        else:
+        if self.combat_category == "basic":
             morale_removed = -1
+        else:
+            # self.combat_category == "basic":
+            morale_removed = -999
 
         self.game.memory.amend_morale(morale_removed)
 
         # TODO - add injury allocation
 
+        # transition to post-combat
         self.game.post_combat.state = PostCombatState.DEFEAT
+        self.game.change_scene(SceneType.POST_COMBAT)
+
+    def process_victory(self):
+        if self.combat_category == "basic":
+            new_state = PostCombatState.VICTORY
+        else:
+            # self.combat_category == "boss":
+            new_state = PostCombatState.BOSS_VICTORY
+        self.game.post_combat.state = new_state
         self.game.change_scene(SceneType.POST_COMBAT)

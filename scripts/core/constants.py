@@ -26,7 +26,7 @@ DEFENSE_SCALE = 10
 PUSH_FORCE = 14
 
 # other
-DAYS_UNTIL_BOSS = 1
+DAYS_UNTIL_BOSS = 30
 
 
 # states
@@ -58,6 +58,7 @@ class TrainingState(IntEnum):
 class PostCombatState(IntEnum):
     DEFEAT = auto()
     VICTORY = auto()
+    BOSS_VICTORY = auto()
 
 
 class EventState(IntEnum):

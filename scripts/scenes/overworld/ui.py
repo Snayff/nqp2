@@ -30,13 +30,14 @@ class OverworldUI(UI):
         super().__init__(game)
 
         self._wait_time_before_move: float = 0.5
-        self.max_travel_time: float = 1.75
+        self.max_travel_time: float = 2.2
         self.current_travel_time: float = 0.0
         self._wait_time_after_arrival: float = 1.0
         self._current_wait_time: float = 0.0
-        self._total_travel_time: float = 0.0
 
+        self._total_travel_time: float = 0.0
         self._frame_timer: float = 0
+
         self._boss_x: int = 0
         self._boss_y: int = 0
 
@@ -105,10 +106,12 @@ class OverworldUI(UI):
 
         # get boss draw pos
         if state == OverworldState.BOSS_APPROACHING:
-            # move boss to start position
+            # init boss approaching
             if self._boss_x == 0 and self._boss_y == 0:
                 self._boss_x = self.game.overworld.node_container.boss_pos[0]
                 self._boss_y = self.game.overworld.node_container.boss_pos[1]
+
+                self.elements["boss_notification"].is_active = True
 
             # update timer
             self._total_travel_time += delta_time
@@ -153,7 +156,6 @@ class OverworldUI(UI):
                 # make boss wait after spawn
                 pass
 
-
         else:
             # reset timers
             self.current_travel_time = 0
@@ -180,6 +182,8 @@ class OverworldUI(UI):
 
             # draw boss
             surface.blit(image, (self._boss_x, self._boss_y))
+
+
 
     def rebuild_ui(self):
         super().rebuild_ui()
@@ -216,3 +220,15 @@ class OverworldUI(UI):
             )
             frame.is_active = False
             self.elements["event_notification"] = frame
+
+            # draw boss notification
+            notification = "The enemy approaches!"
+            current_x = 10
+            current_y = int(self.game.window.height / 2)
+            frame = Frame(
+                (current_x, current_y),
+                text_and_font=(notification, notification_font),
+                is_selectable=False,
+            )
+            frame.is_active = False
+            self.elements["boss_notification"] = frame
