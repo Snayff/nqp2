@@ -80,7 +80,7 @@ class OverworldScene(Scene):
 
     def pay_move_cost(self):
         """
-        Reduce rations to move. Apply injuries if not enough rations. Countdown boss timer.
+        Reduce rations to move. Apply injuries if not enough rations.
         """
         rations = self.game.memory.amend_rations(-1)
 
@@ -88,5 +88,3 @@ class OverworldScene(Scene):
             # TODO - add injury allocation
             pass
 
-        # count down boss timer
-        self.game.memory.days_until_boss -= 1

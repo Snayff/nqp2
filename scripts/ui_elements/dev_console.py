@@ -53,7 +53,7 @@ class DevConsole(InputBox):
         elif command[:7] == "godmode":
             # check active scene
             if self.game.active_scene.type not in (SceneType.MAIN_MENU, SceneType.RUN_SETUP):
-                confirmation_message = self._toggle_god_mode()
+                confirmation_message = self._toggle_godmode()
 
         elif command[:17] == "create_unit_jsons":
             # check active scene
@@ -116,9 +116,9 @@ class DevConsole(InputBox):
 
         return confirmation_message
 
-    def _toggle_god_mode(self) -> str:
+    def _toggle_godmode(self) -> str:
         """
-        Turns god_mode on or off.
+        Turns godmode on or off.
         """
         if "godmode" in self.game.memory.flags:
             self.game.memory.flags.remove("godmode")

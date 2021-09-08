@@ -26,7 +26,7 @@ DEFENSE_SCALE = 10
 PUSH_FORCE = 14
 
 # other
-DAYS_UNTIL_BOSS = 35
+DAYS_UNTIL_BOSS = 1
 
 
 # states
@@ -47,6 +47,7 @@ class OverworldState(IntEnum):
     LOADING = auto()
     READY = auto()
     TRAVELLING = auto()
+    BOSS_APPROACHING = auto()
 
 
 class TrainingState(IntEnum):

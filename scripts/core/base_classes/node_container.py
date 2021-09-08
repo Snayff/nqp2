@@ -165,12 +165,12 @@ class NodeContainer(ABC):
                 # pay travel cost
                 self.game.overworld.pay_move_cost()
 
+                # count down boss timer
+                self.game.memory.days_until_boss -= 1
+
                 # trigger if not already completed and is an auto-triggering type
                 if self.selected_node.is_trigger_on_touch:
                     self.trigger_current_node()
-
-                # update to allow input again
-                self.game.overworld.state = OverworldState.READY
 
     def trigger_current_node(self):
         """

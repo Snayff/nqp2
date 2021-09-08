@@ -39,8 +39,13 @@ class Rings(NodeContainer):
 
         # process change between nodes
         if self.is_travel_paused:
-            # update to allow input again - this is a failsafe in case something is missed elsewhere
-            self.game.overworld.state = OverworldState.READY
+            # transition to next state
+            if self.game.memory.days_until_boss <= 0:
+
+                self.game.overworld.state = OverworldState.BOSS_APPROACHING
+            else:
+                # update to allow input again
+                self.game.overworld.state = OverworldState.READY
         else:
             self._transition_to_new_node(delta_time)
 
@@ -219,7 +224,7 @@ class Rings(NodeContainer):
         total_nodes -= 1
 
         # set current ring
-        self.current_ring = len(self.rings)
+        self.current_ring = len(self.rings) - 1
 
         # log summary
         logging.info(
