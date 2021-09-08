@@ -74,9 +74,8 @@ class CombatScene(Scene):
         if self.game.combat.state not in [CombatState.UNIT_CHOOSE_CARD, CombatState.UNIT_SELECT_TARGET]:
             player_entities = [e for e in self.all_entities if e.team == "player"]
             if len(player_entities) == 0:
-                self.game.post_combat.state = PostCombatState.DEFEAT
                 self.game.combat.process_defeat()
-                self.game.change_scene(SceneType.POST_COMBAT)
+
 
             elif len(player_entities) == len(self.all_entities):
                 self.game.post_combat.state = PostCombatState.VICTORY
@@ -179,6 +178,14 @@ class CombatScene(Scene):
         """
         Remove morale and apply injuries.
         """
-        self.game.memory.amend_morale(-1)
+        if self.combat_category == "boss":
+            morale_removed = -999
+        else:
+            morale_removed = -1
+
+        self.game.memory.amend_morale(morale_removed)
 
         # TODO - add injury allocation
+
+        self.game.post_combat.state = PostCombatState.DEFEAT
+        self.game.change_scene(SceneType.POST_COMBAT)
