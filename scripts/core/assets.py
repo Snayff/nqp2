@@ -81,6 +81,14 @@ class Assets:
             for commander in os.listdir(ASSET_PATH / "commanders/")
         }
 
+        self.boss_animations = {
+            commander: {
+                action: self.load_image_dir(ASSET_PATH / "bosses/" / commander / action)
+                for action in os.listdir(ASSET_PATH / "bosses/" / commander)
+            }
+            for commander in os.listdir(ASSET_PATH / "bosses/")
+        }
+
         self.tilesets = {
             tileset.split(".")[0]: self.load_tileset(ASSET_PATH / "tiles" / tileset)
             for tileset in os.listdir(ASSET_PATH / "tiles")

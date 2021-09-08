@@ -126,6 +126,11 @@ class Game:
             self.combat.generate_combat()
             self.active_scene = self.combat
 
+        elif scene_type == SceneType.BOSS_COMBAT:
+            self.combat.combat_category = "boss"
+            self.combat.generate_combat()
+            self.active_scene = self.combat
+
         elif scene_type == SceneType.POST_COMBAT:
             self.post_combat.generate_reward()
             self.active_scene = self.post_combat

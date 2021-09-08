@@ -56,6 +56,7 @@ class CombatScene(Scene):
         self.hand = None
 
         self.leadership_points_spent: int = 0  # points spent to place units
+        self.combat_category: str = "basic"
 
         # record duration
         end_time = time.time()
@@ -70,16 +71,13 @@ class CombatScene(Scene):
         self.all_entities = self.get_all_entities()
 
         # end combat when either side is empty
-        if self.game.combat.state not in [CombatState.UNIT_CHOOSE_CARD, CombatState.UNIT_SELECT_TARGET]:
+        if self.state not in [CombatState.UNIT_CHOOSE_CARD, CombatState.UNIT_SELECT_TARGET]:
             player_entities = [e for e in self.all_entities if e.team == "player"]
             if len(player_entities) == 0:
-                self.game.post_combat.state = PostCombatState.DEFEAT
-                self.game.combat.process_defeat()
-                self.game.change_scene(SceneType.POST_COMBAT)
+                self.process_defeat()
 
             elif len(player_entities) == len(self.all_entities):
-                self.game.post_combat.state = PostCombatState.VICTORY
-                self.game.change_scene(SceneType.POST_COMBAT)
+                self.process_victory()
 
         self.ui.update(delta_time)
         self.units.update(delta_time)
@@ -159,11 +157,12 @@ class CombatScene(Scene):
             level = self.game.memory.level
             combats = self.game.data.combats.values()
 
-            # ensure only combat for this level or lower
+            # get possible combats
             possible_combats = []
             possible_combats_occur_rates = []
             for combat in combats:
-                if combat["level_available"] <= level:
+                # ensure only combat for this level or lower and of desired type
+                if combat["level_available"] <= level and combat["category"] == self.combat_category:
                     possible_combats.append(combat)
                     occur_rate = self.game.data.get_combat_occur_rate(combat["type"])
                     possible_combats_occur_rates.append(occur_rate)
@@ -177,6 +176,25 @@ class CombatScene(Scene):
         """
         Remove morale and apply injuries.
         """
-        self.game.memory.amend_morale(-1)
+        if self.combat_category == "basic":
+            morale_removed = -1
+        else:
+            # self.combat_category == "basic":
+            morale_removed = -999
+
+        self.game.memory.amend_morale(morale_removed)
 
         # TODO - add injury allocation
+
+        # transition to post-combat
+        self.game.post_combat.state = PostCombatState.DEFEAT
+        self.game.change_scene(SceneType.POST_COMBAT)
+
+    def process_victory(self):
+        if self.combat_category == "basic":
+            new_state = PostCombatState.VICTORY
+        else:
+            # self.combat_category == "boss":
+            new_state = PostCombatState.BOSS_VICTORY
+        self.game.post_combat.state = new_state
+        self.game.change_scene(SceneType.POST_COMBAT)

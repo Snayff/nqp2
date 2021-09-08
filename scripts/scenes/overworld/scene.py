@@ -8,7 +8,7 @@ import pygame
 
 from scripts.core.base_classes.node_container import NodeContainer
 from scripts.core.base_classes.scene import Scene
-from scripts.core.constants import OverworldState, SceneType
+from scripts.core.constants import DAYS_UNTIL_BOSS, OverworldState, SceneType
 from scripts.scenes.overworld.elements.rings import Rings
 from scripts.scenes.overworld.ui import OverworldUI
 
@@ -70,12 +70,17 @@ class OverworldScene(Scene):
         self.generate_map()
 
         self.game.memory.level += 1
+        self.game.memory.generate_level_boss()
 
     def reset(self):
         self.ui = OverworldUI(self.game)
 
         self.state = OverworldState.LOADING
         self.game.memory.level = 1
+        self.game.memory.generate_level_boss()
+        self.game.memory.days_until_boss = DAYS_UNTIL_BOSS
+
+        self.generate_map()
 
     def pay_move_cost(self):
         """

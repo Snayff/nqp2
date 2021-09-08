@@ -103,8 +103,8 @@ class Entity:
         self.move(movement)
 
     def deal_damage(self, amount, owner=None):
-        # prevent damage if in god_mode
-        if not (self.team == "player" and "god_mode" in self.game.memory.flags):
+        # prevent damage if in godmode
+        if not (self.team == "player" and "godmode" in self.game.memory.flags):
             self.health -= amount * (DEFENSE_SCALE / (DEFENSE_SCALE + self.defence))
             if self.health <= 0:
                 self.health = 0
@@ -117,8 +117,8 @@ class Entity:
             self.attack_timer = 1 / self.attack_speed
             if self.dis(entity) - (entity.size + self.size) < self.range:
 
-                # increase damage if in god_mode
-                if self.team == "player" and "god_mode" in self.game.memory.flags:
+                # increase damage if in godmode
+                if self.team == "player" and "godmode" in self.game.memory.flags:
                     mod = 9999
                 else:
                     mod = 0

@@ -1,0 +1,20 @@
+{
+    "type": "test_boss_combat",
+    "category": "boss",
+    "units": [
+        "peasant_spearman",
+        "peasant_spearman",
+        "conscript_bowman"
+    ],
+    "level_available": 1,
+    "tier": 1,
+    "gold_reward": [
+        700,
+        900
+    ],
+    "upgrades_for_scaling": [
+        "minor_attack",
+        "minor_defence"
+    ],
+    "boss_type": "test_boss"
+}

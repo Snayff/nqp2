@@ -4,6 +4,7 @@ import logging
 import time
 from typing import TYPE_CHECKING
 
+from scripts.core.constants import DAYS_UNTIL_BOSS
 from scripts.scenes.combat.elements.card_collection import CardCollection
 from scripts.scenes.combat.elements.commander import Commander
 from scripts.scenes.combat.elements.troupe import Troupe
@@ -54,6 +55,13 @@ class Memory:
         # general
         self.level: int = 0
         self.flags: List[str] = []
+        self.days_until_boss: int = DAYS_UNTIL_BOSS
+
+        # generated values for later user
+        self.level_boss: str = ""
+
+        # history
+        self.seen_bosses: List[str] = []
 
         # record duration
         end_time = time.time()
@@ -198,3 +206,18 @@ class Memory:
 
         except KeyError:
             logging.critical(f"Event ({event_type}) specified not found in Memory.event_deck and was ignored.")
+
+    def generate_level_boss(self):
+        """
+        Generate the boss for the current level.
+        """
+        available_bosses = []
+
+        for boss in self.game.data.bosses.values():
+            if boss["level_available"] <= self.level and boss["type"] not in self.seen_bosses:
+                available_bosses.append(boss["type"])
+
+        chosen_boss = self.game.rng.choice(available_bosses)
+        self.level_boss = chosen_boss
+
+        self.seen_bosses.append(chosen_boss)

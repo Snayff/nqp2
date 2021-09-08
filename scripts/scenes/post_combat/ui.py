@@ -41,6 +41,8 @@ class PostCombatUI(UI):
             self.handle_victory_input()
         elif self.game.post_combat.state == PostCombatState.DEFEAT:
             self.handle_defeat_input()
+        elif self.game.post_combat.state == PostCombatState.BOSS_VICTORY:
+            self.handle_boss_victory_input()
 
     def render(self, surface: pygame.surface):
         if self.game.post_combat.state == PostCombatState.VICTORY:
@@ -71,11 +73,14 @@ class PostCombatUI(UI):
 
     def rebuild_ui(self):
         super().rebuild_ui()
+        state = self.game.post_combat.state
 
-        if self.game.post_combat.state == PostCombatState.VICTORY:
+        if state == PostCombatState.VICTORY:
             self._rebuild_victory_ui()
-        elif self.game.post_combat.state == PostCombatState.DEFEAT:
+        elif state == PostCombatState.DEFEAT:
             self._rebuild_defeat_ui()
+        elif state == PostCombatState.BOSS_VICTORY:
+            self._rebuild_boss_victory_ui()
 
         self.rebuild_resource_elements()
 
@@ -260,3 +265,41 @@ class PostCombatUI(UI):
             else:
                 # bakc to overworld
                 self.game.change_scene(SceneType.OVERWORLD)
+
+    def handle_boss_victory_input(self):
+        if self.game.input.states["select"]:
+            self.game.input.states["select"] = False
+
+            # there's only 1 thing to select so we know it is the exit button
+            self.game.change_scene(SceneType.MAIN_MENU)
+
+    def _rebuild_boss_victory_ui(self):
+        default_font = self.default_font
+        positive_font = self.positive_font
+
+        start_y = 40
+        window_width = self.game.window.width
+
+        # draw header
+        header_text = "Victory"
+        current_x = window_width // 2 - (default_font.width(header_text))
+        current_y = start_y
+        frame = Frame(
+            (current_x, current_y),
+            text_and_font=(header_text, positive_font),
+            is_selectable=False,
+        )
+        self.elements["header"] = frame
+
+        # draw gold reward
+        current_y += 50
+        text = "That's all there is. You've beaten the boss, so why not try another commander?"
+        frame = Frame(
+            (current_x, current_y),
+            text_and_font=(text, default_font),
+            is_selectable=False,
+        )
+        self.elements["info"] = frame
+
+        # draw exit button
+        self.add_exit_button()

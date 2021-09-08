@@ -26,6 +26,7 @@ class NodeContainer(ABC):
         self.selected_node: Optional[Node] = None
         self.target_node: Optional[Node] = None
         self.selection_pos: Tuple[float, float] = (0, 0)  # where the selection is drawn
+        self.boss_pos: Tuple[float, float] = (0, 0)
 
         self.max_travel_time: float = 1.75
         self.current_travel_time: float = 0.0
@@ -76,6 +77,8 @@ class NodeContainer(ABC):
             node_icon = self.game.assets.get_image("nodes", "inn")
         elif node_type == NodeType.TRAINING:
             node_icon = self.game.assets.get_image("nodes", "training")
+        elif node_type == NodeType.BOSS_COMBAT:
+            node_icon = self.game.assets.get_image("nodes", "boss_combat")
         else:
             # node_type == NodeType.BLANK:
             node_icon = self.game.assets.get_image("nodes", "blank")
@@ -163,12 +166,12 @@ class NodeContainer(ABC):
                 # pay travel cost
                 self.game.overworld.pay_move_cost()
 
+                # count down boss timer
+                self.game.memory.days_until_boss -= 1
+
                 # trigger if not already completed and is an auto-triggering type
                 if self.selected_node.is_trigger_on_touch:
                     self.trigger_current_node()
-
-                # update to allow input again
-                self.game.overworld.state = OverworldState.READY
 
     def trigger_current_node(self):
         """
@@ -191,6 +194,8 @@ class NodeContainer(ABC):
             scene = SceneType.EVENT
         elif selected_node_type == NodeType.BLANK:
             scene = SceneType.OVERWORLD
+        elif selected_node_type == NodeType.BOSS_COMBAT:
+            scene = SceneType.BOSS_COMBAT
         else:
             logging.warning(f"Node type ({selected_node_type}) of current node not recognised. No action taken.")
 

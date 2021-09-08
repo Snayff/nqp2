@@ -25,6 +25,9 @@ WEIGHT_SCALE = 5
 DEFENSE_SCALE = 10
 PUSH_FORCE = 14
 
+# other
+DAYS_UNTIL_BOSS = 30
+
 
 # states
 class GameState(IntEnum):
@@ -44,6 +47,7 @@ class OverworldState(IntEnum):
     LOADING = auto()
     READY = auto()
     TRAVELLING = auto()
+    BOSS_APPROACHING = auto()
 
 
 class TrainingState(IntEnum):
@@ -54,6 +58,7 @@ class TrainingState(IntEnum):
 class PostCombatState(IntEnum):
     DEFEAT = auto()
     VICTORY = auto()
+    BOSS_VICTORY = auto()
 
 
 class EventState(IntEnum):
@@ -67,10 +72,12 @@ class NodeType(IntEnum):
     INN = auto()
     TRAINING = auto()
     BLANK = auto()
+    BOSS_COMBAT = auto()
 
 
 class SceneType(IntEnum):
     COMBAT = auto()
+    BOSS_COMBAT = auto()
     POST_COMBAT = auto()
     EVENT = auto()
     INN = auto()
