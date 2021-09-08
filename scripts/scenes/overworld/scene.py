@@ -59,6 +59,7 @@ class OverworldScene(Scene):
         self.node_container = Rings(self.game, centre, 160, 5)
         self.node_container.generate_nodes()
 
+
         self.state = OverworldState.READY
 
     def increment_level(self):
@@ -70,13 +71,17 @@ class OverworldScene(Scene):
         self.generate_map()
 
         self.game.memory.level += 1
+        self.game.memory.generate_level_boss()
 
     def reset(self):
         self.ui = OverworldUI(self.game)
 
         self.state = OverworldState.LOADING
         self.game.memory.level = 1
+        self.game.memory.generate_level_boss()
         self.game.memory.days_until_boss = DAYS_UNTIL_BOSS
+
+        self.generate_map()
 
     def pay_move_cost(self):
         """

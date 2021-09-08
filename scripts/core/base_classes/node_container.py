@@ -26,6 +26,7 @@ class NodeContainer(ABC):
         self.selected_node: Optional[Node] = None
         self.target_node: Optional[Node] = None
         self.selection_pos: Tuple[float, float] = (0, 0)  # where the selection is drawn
+        self.boss_pos: Tuple[float, float] = (0, 0)
 
         self.max_travel_time: float = 1.75
         self.current_travel_time: float = 0.0

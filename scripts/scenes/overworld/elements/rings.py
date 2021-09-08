@@ -119,6 +119,9 @@ class Rings(NodeContainer):
                 node_icon = self._get_node_icon(NodeType.BOSS_COMBAT)
                 node = Node(NodeType.BOSS_COMBAT, False, (boss_x, boss_y), node_icon)
                 self.rings[ring_count] = [node]
+
+                self.boss_pos = (boss_x, boss_y)
+
                 continue
 
             # add random number of nodes

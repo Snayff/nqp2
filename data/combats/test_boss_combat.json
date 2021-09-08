@@ -16,8 +16,5 @@
         "minor_attack",
         "minor_defence"
     ],
-    "boss_type": "test_boss",
-    "boss_actions": [
-    
-    ]
+    "boss_type": "test_boss"
 }

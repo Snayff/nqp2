@@ -107,8 +107,8 @@ class OverworldUI(UI):
         if state == OverworldState.BOSS_APPROACHING:
             # move boss to start position
             if self._boss_x == 0 and self._boss_y == 0:
-                self._boss_x = self.game.overworld.node_container.centre[0]
-                self._boss_y = self.game.overworld.node_container.centre[1]
+                self._boss_x = self.game.overworld.node_container.boss_pos[0]
+                self._boss_y = self.game.overworld.node_container.boss_pos[1]
 
             # update timer
             self._total_travel_time += delta_time
@@ -175,7 +175,8 @@ class OverworldUI(UI):
             frame = int(self._frame_timer * 6)
 
             # get boss animation
-            image = self.game.assets.commander_animations["albrom"]["move"][frame]
+            boss = self.game.memory.level_boss
+            image = self.game.assets.boss_animations[boss]["move"][frame]
 
             # draw boss
             surface.blit(image, (self._boss_x, self._boss_y))

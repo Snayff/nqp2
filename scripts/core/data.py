@@ -36,6 +36,7 @@ class Data:
         self.events: Dict[str, Any] = self._load_events()
         self.upgrades: Dict[str, Any] = self._load_upgrades()
         self.combats: Dict[str, Any] = self._load_combats()
+        self.bosses: Dict[str, Any] = self._load_bosses()
 
         self.config: Dict[str, Any] = self._load_config()
         self.options: Dict[str, Any] = self._load_options()
@@ -131,6 +132,19 @@ class Data:
         logging.info(f"Data: All commanders data loaded.")
 
         return commanders
+
+    @staticmethod
+    def _load_bosses() -> Dict:
+        bosses = {}
+        for commander in os.listdir("data/bosses"):
+            f = open(str(DATA_PATH / "bosses" / commander), "r")
+            data = json.load(f)
+            bosses[data["type"]] = data
+            f.close()
+
+        logging.info(f"Data: All bosses data loaded.")
+
+        return bosses
 
     @staticmethod
     def _load_combats():
