@@ -59,7 +59,6 @@ class OverworldScene(Scene):
         self.node_container = Rings(self.game, centre, 160, 5)
         self.node_container.generate_nodes()
 
-
         self.state = OverworldState.READY
 
     def increment_level(self):
@@ -92,4 +91,3 @@ class OverworldScene(Scene):
         if rations <= 0:
             # TODO - add injury allocation
             pass
-

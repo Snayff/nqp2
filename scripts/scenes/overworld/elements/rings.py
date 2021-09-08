@@ -190,7 +190,6 @@ class Rings(NodeContainer):
             nodes_to_connect = self.game.rng.choices(ring, k=num_connections)
             for node in nodes_to_connect:
 
-
                 # find nearest node in next ring
                 try:
                     smallest_distance = 999

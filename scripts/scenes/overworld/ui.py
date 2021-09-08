@@ -128,7 +128,6 @@ class OverworldUI(UI):
 
                 self.game.overworld.state = OverworldState.READY
 
-
             elif total_time > (wait_before + max_duration):
                 # make boss wait by player
                 selected_node = self.game.overworld.node_container.selected_node
@@ -182,8 +181,6 @@ class OverworldUI(UI):
 
             # draw boss
             surface.blit(image, (self._boss_x, self._boss_y))
-
-
 
     def rebuild_ui(self):
         super().rebuild_ui()
