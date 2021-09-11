@@ -33,6 +33,7 @@ class Memory:
 
         # empty values will be overwritten in run_start
         self.player_troupe: Troupe = Troupe(self.game, "player", [])
+        self.player_actions = ['fireball']
         self.commander: Optional[Commander] = None
 
         self.unit_deck: CardCollection = CardCollection(game)

@@ -1,0 +1,13 @@
+PyInstaller is used to package NQP2 for Windows/Linux.
+
+The command should be the following:
+<whatever your python command is> -m PyInstaller nqp2.py --noconsole
+
+This should create a dist and build folder. Inside dist/nqp2, there should be a nqp2.exe.
+
+Run the executable from the command line to see errors if the executable crashes. Running the packaging command on Windows will create a Windows executable while running it on Linux will create a Linux executable. PyInstaller is known to be finnicky on MacOS, so you may want to use other packaging software to package for MacOS.
+
+Please note that nqp2.py may need to be updated to import libraries that PyInstaller misses.
+
+Note from Fluffy:
+I don't have any devices with MacOS, so I cannot test packaging for MacOS.

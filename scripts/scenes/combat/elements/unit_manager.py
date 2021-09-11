@@ -29,7 +29,7 @@ class UnitManager:
         # organize entities for layered rendering
         entity_list = []
         for unit in self.units:
-            for entity in unit.entities:
+            for entity in unit.entities + unit.dead_entities:
                 entity_list.append((entity.pos[1] + entity.img.get_height() // 2, len(entity_list), entity))
 
         entity_list.sort()

@@ -39,24 +39,30 @@ class Unit:
         self._range: int = unit_data["range"] + base_values["range"]
         self._attack_speed: float = unit_data["attack_speed"] + base_values["attack_speed"]
         self._move_speed: int = unit_data["move_speed"] + base_values["move_speed"]
+
         # ensure faux-null value is respected
-        if unit_data["ammo"] == -1:
+        if unit_data["ammo"] in [-1, 0]:
             ammo_ = -1
         else:
             ammo_ = unit_data["ammo"] + base_values["ammo"]
         self._ammo: int = ammo_  # number of ranged shots
+
         self.count: int = unit_data["count"] + base_values["count"]  # number of entities spawned
         self.size: int = unit_data["size"] + base_values["size"]  # size of the hitbox
         self.weight: int = unit_data["weight"] + base_values["weight"]
         self.gold_cost: int = unit_data["gold_cost"] + base_values["gold_cost"]
+        self.projectile_data = unit_data["projectile_data"] if "projectile_data" in unit_data else {'img': 'arrow', 'speed': 100}
 
         self.modifiers: Dict[str, List[int]] = {}
+
+        self.injuries: int = 0
 
         # during combat
         self.behaviour = self.game.data.behaviours.unit_behaviours[self.default_behaviour](self)
         self.alive: bool = True
         self.colour = (0, 0, 255)
         self.entities: List[Entity] = []
+        self.dead_entities: List[Entity] = []
         self.pos: List[int, int] = [0, 0]
         self.placed: bool = False
 
@@ -157,7 +163,11 @@ class Unit:
         # a unit is alive if all of its entities are alive
         self.alive = bool(len(self.entities))
 
-        self.behaviour.process(dt)
+        if self.game.combat.force_idle == False:
+            self.behaviour.process(dt)
+
+        for i, entity in enumerate(self.dead_entities):
+            entity.update(dt)
 
         for i, entity in itr(self.entities):
             entity.update(dt)
@@ -165,9 +175,10 @@ class Unit:
             # remove if dead
             if not entity.alive:
                 self.entities.pop(i)
+                self.dead_entities.append(entity)
 
     def render(self, surface: pygame.Surface, shift=(0, 0)):
-        for entity in self.entities:
+        for entity in self.entities + self.dead_entities:
             entity.render(surface, shift=shift)
 
     def reset_for_combat(self):
@@ -184,6 +195,7 @@ class Unit:
             self.colour = (255, 0, 0)
 
         self.entities = []
+        self.dead_entities = []
 
     def spawn_entities(self):
         """

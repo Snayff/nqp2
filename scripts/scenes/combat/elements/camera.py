@@ -4,6 +4,7 @@ from typing import List
 class Camera:
     def __init__(self):
         self.pos = [0, 0]
+        self.zoom = 1
 
     def render_offset(self, pos: List = None):
         # handle mutable arg
