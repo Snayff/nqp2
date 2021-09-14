@@ -11,6 +11,10 @@ class Projectile:
         self.img = owner.projectile_data['img']
         self.speed = owner.projectile_data['speed']
         self.pos = self.owner.pos.copy()
+        
+        # move base firing position towards center of entity
+        self.pos[1] -= 5
+
         self.damage = self.owner.attack
 
     def update(self, dt):
@@ -22,6 +26,9 @@ class Projectile:
             self.pos[0] += math.cos(self.angle) * dis
             self.pos[1] += math.sin(self.angle) * dis
             r = pygame.Rect(self.pos[0] - 4, self.pos[1] - 4, 8, 8)
+
+            if not self.game.combat.terrain.check_tile_hoverable(self.pos):
+                return False
 
             for entity in self.game.combat.all_entities:
                 if entity.team != self.owner.team:

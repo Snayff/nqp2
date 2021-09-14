@@ -97,6 +97,9 @@ class Entity:
         """
         return math.sqrt((self.pos[0] - entity.pos[0]) ** 2 + (self.pos[1] - entity.pos[1]) ** 2)
 
+    def raw_dis(self, pos):
+        return math.sqrt((self.pos[0] - pos[0]) ** 2 + (self.pos[1] - pos[1]) ** 2)
+
     def angle(self, entity):
         """
         Find the angle to another entity or other object with a position.
@@ -108,9 +111,11 @@ class Entity:
         self.move(movement)
 
     def deal_damage(self, amount, owner=None):
-        # prevent damage if in godmode
-        if not (self.team == "player" and "godmode" in self.game.memory.flags):
-            self.health -= amount * (DEFENSE_SCALE / (DEFENSE_SCALE + self.defence))
+        # prevent damage if in god_mode
+        if not (self.team == "player" and "god_mode" in self.game.memory.flags):
+            dmg_amt = amount * (DEFENSE_SCALE / (DEFENSE_SCALE + self.defence))
+            self.health -= dmg_amt
+            self.unit.damage_received += dmg_amt
             if self.health <= 0:
                 self.health = 0
                 if self.alive:
@@ -123,7 +128,11 @@ class Entity:
                 self.action = 'hit'
                 self.frame_timer = 0
 
+            self.game.combat.particles.create_particle_burst(self.pos.copy(), (255, 50, 100), random.randint(10, 16))
+
             self.damaged_by_log = (self.damaged_by_log + [owner])[-30:]
+
+        return (self.alive, dmg_amt)
 
     def attempt_attack(self, entity):
         if (not self.use_ammo) or (self.ammo > 0):
@@ -138,8 +147,6 @@ class Entity:
                 else:
                     mod = 0
 
-                    entity.deal_damage(self.attack + mod, self)
-
                     if self.use_ammo:
                         self.ammo -= 1
                         self.game.combat.projectiles.add_projectile(self, entity)
@@ -149,7 +156,10 @@ class Entity:
                             self.range = 0
 
                     else:
-                        pass
+                        dmg_status = entity.deal_damage(self.attack + mod, self)
+                        if not dmg_status[0]:
+                            self.unit.kills += 1
+                        self.unit.damage_dealt += dmg_status[1]
 
                     self.attack_timer = 1 / self.attack_speed
 
@@ -249,7 +259,7 @@ class Entity:
                 pygame.transform.flip(self.img, flip, False),
                 (
                     self.pos[0] + shift[0] - self.img.get_width() // 2,
-                    self.pos[1] + shift[1] - self.img.get_height() // 2,
+                    self.pos[1] + shift[1] - self.img.get_height(),
                 ),
             )
         else:

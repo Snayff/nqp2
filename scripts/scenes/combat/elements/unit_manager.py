@@ -26,6 +26,9 @@ class UnitManager:
             unit.update(self.game.combat.dt)
 
     def render(self, surface: pygame.Surface, offset=(0, 0)):
+        for unit in self.units:
+            unit.render(surface, shift=offset)
+
         # organize entities for layered rendering
         entity_list = []
         for unit in self.units:
@@ -36,3 +39,6 @@ class UnitManager:
 
         for entity in entity_list:
             entity[2].render(surface, shift=offset)
+
+        for unit in self.units:
+            unit.post_render(surface, shift=offset)

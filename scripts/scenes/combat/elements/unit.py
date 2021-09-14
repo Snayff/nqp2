@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
+import math
+import random
 
 import pygame
 
@@ -47,15 +49,21 @@ class Unit:
             ammo_ = unit_data["ammo"] + base_values["ammo"]
         self._ammo: int = ammo_  # number of ranged shots
 
+        self.use_ammo = self._ammo > 0
         self.count: int = unit_data["count"] + base_values["count"]  # number of entities spawned
         self.size: int = unit_data["size"] + base_values["size"]  # size of the hitbox
         self.weight: int = unit_data["weight"] + base_values["weight"]
         self.gold_cost: int = unit_data["gold_cost"] + base_values["gold_cost"]
         self.projectile_data = unit_data["projectile_data"] if "projectile_data" in unit_data else {'img': 'arrow', 'speed': 100}
+        self.entity_spread_max = unit_data["entity_spread"] if "entity_spread" in unit_data else 48
 
         self.modifiers: Dict[str, List[int]] = {}
 
         self.injuries: int = 0
+
+        self.damage_dealt: int = 0
+        self.damage_received: int = 0
+        self.kills: int = 0
 
         # during combat
         self.behaviour = self.game.data.behaviours.unit_behaviours[self.default_behaviour](self)
@@ -157,8 +165,57 @@ class Unit:
 
         return value
 
+    def gen_border_surface(self):
+        if len(self.entities):
+            surf_padding = 20
+            outline_padding = 10
+            self.border_surface = None
+            all_positions = [entity.pos for entity in self.entities]
+            all_x = [p[0] for p in all_positions]
+            all_y = [p[1] for p in all_positions]
+            min_x = min(all_x)
+            min_y = min(all_y)
+            self.border_surface = pygame.Surface((max(all_x) - min_x + surf_padding * 2, max(all_y) - min_y + surf_padding * 2))
+            self.border_surface_offset = (self.pos[0] - min_x + surf_padding, self.pos[1] - min_y + surf_padding)
+            self.border_surface.set_colorkey((0, 0, 0))
+
+            points = [
+                (self.pos[0] - outline_padding, self.pos[1]),
+                (self.pos[0], self.pos[1] - outline_padding),
+                (self.pos[0] + outline_padding, self.pos[1]),
+                (self.pos[0], self.pos[1] + outline_padding)
+            ]
+
+            placed_points = []
+
+            for pos in all_positions + points:
+                new_pos = (pos[0] - min_x + surf_padding, pos[1] - min_y + surf_padding)
+                angle = math.atan2(pos[1] - self.pos[1], pos[0] - self.pos[0])
+                new_pos = (new_pos[0] + outline_padding * math.cos(angle), new_pos[1] + outline_padding * math.sin(angle))
+                for p in placed_points:
+                    pygame.draw.line(self.border_surface, (255, 255, 255), new_pos, p)
+                placed_points.append(new_pos)
+
+            mask_surf = pygame.mask.from_surface(self.border_surface)
+
+            self.border_surface.fill((0, 0, 0))
+            self.border_surface_outline = self.border_surface.copy()
+            self.border_surface_outline_black = self.border_surface.copy()
+
+            outline = mask_surf.outline(2)
+            pygame.draw.lines(self.border_surface_outline, (255, 255, 255), False, outline)
+            pygame.draw.lines(self.border_surface_outline_black, (0, 0, 1), False, outline)
+            pygame.draw.polygon(self.border_surface, (0, 0, 255), outline)
+            self.border_surface.set_alpha(80)
+
     def update(self, dt):
         self.update_pos()
+
+        if self.team == 'player':
+            self.border_surface_timer += dt
+            if self.border_surface_timer > 0.5:
+                self.border_surface_timer -= 0.5
+                self.gen_border_surface()
 
         # a unit is alive if all of its entities are alive
         self.alive = bool(len(self.entities))
@@ -178,8 +235,17 @@ class Unit:
                 self.dead_entities.append(entity)
 
     def render(self, surface: pygame.Surface, shift=(0, 0)):
-        for entity in self.entities + self.dead_entities:
-            entity.render(surface, shift=shift)
+        if self.team == "player":
+            for d in [(-1, 0), (1, 0), (0, 1), (0, -1)]:
+                surface.blit(self.border_surface_outline_black, (self.pos[0] + shift[0] - self.border_surface_offset[0] + d[0], self.pos[1] + shift[1] - self.border_surface_offset[1] + d[1]))
+            surface.blit(self.border_surface, (self.pos[0] + shift[0] - self.border_surface_offset[0], self.pos[1] + shift[1] - self.border_surface_offset[1]))
+            surface.blit(self.border_surface_outline, (self.pos[0] + shift[0] - self.border_surface_offset[0], self.pos[1] + shift[1] - self.border_surface_offset[1]))
+
+    def post_render(self, surface: pygame.Surface, shift=(0, 0)):
+        if self.team == "player":
+            # should be swapped when banner assets are added
+            banner_img = self.game.assets.ui['banner']
+            surface.blit(banner_img, (self.pos[0] + shift[0] - banner_img.get_width() // 2, self.pos[1] + shift[1] - 20 - banner_img.get_height()))
 
     def reset_for_combat(self):
         """
@@ -188,6 +254,10 @@ class Unit:
         self.behaviour = self.game.data.behaviours.unit_behaviours[self.default_behaviour](self)
         self.alive = True
         self.placed = False
+
+        self.damage_dealt = 0
+        self.damage_received = 0
+        self.kills = 0
 
         if self.team == "player":
             self.colour = (0, 0, 255)
@@ -201,8 +271,16 @@ class Unit:
         """
         Spawn the unit's entities.
         """
+
         for i in range(self.count):
             self.entities.append(Entity(self))
+
+        self.update_pos()
+
+        # stuff for the border surface (updates every 0.5s)
+        if self.team == 'player':
+            self.border_surface_timer = random.random() * 0.5
+            self.gen_border_surface()
 
     def update_pos(self):
         """

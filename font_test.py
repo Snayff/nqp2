@@ -22,6 +22,8 @@ j = 0
 while True:
 
     screen.fill((0,0,0))
+    mx, my = pygame.mouse.get_pos()
+    draw_line((mx, my), (100, 100))
     pygame.draw.rect(screen, (255, 0, 0), pygame.Rect(100, 100, 204, 800), width=1)
     my_text.render(screen, (102, 100))
     my_text.visible_range = [int(i), j]

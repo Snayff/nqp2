@@ -83,6 +83,11 @@ class Assets:
             for unit in os.listdir(ASSET_PATH / "units/")
         }
 
+        self.trap_animations = {
+            trap: self.load_image_dir(ASSET_PATH / "traps/" / trap)
+            for trap in os.listdir(ASSET_PATH / "traps/")
+        }
+
         self.commander_animations = {
             commander: {
                 action: self.load_image_dir(ASSET_PATH / "commanders/" / commander / action)

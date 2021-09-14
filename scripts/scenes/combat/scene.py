@@ -15,6 +15,7 @@ from scripts.scenes.combat.elements.enemy_combatants_generator import EnemyComba
 from scripts.scenes.combat.elements.terrain import Terrain
 from scripts.scenes.combat.elements.unit_manager import UnitManager
 from scripts.scenes.combat.elements.projectile_manager import ProjectileManager
+from scripts.scenes.combat.elements.particles import ParticleManager
 from scripts.scenes.combat.ui import CombatUI
 
 if TYPE_CHECKING:
@@ -43,6 +44,7 @@ class CombatScene(Scene):
         self.terrain: Terrain = Terrain(self.game)
         self.units: UnitManager = UnitManager(self.game)
         self.projectiles: ProjectileManager = ProjectileManager(self.game)
+        self.particles: ParticleManager = ParticleManager()
 
         self.enemy_generator = EnemyCombatantsGenerator(self.game)
 
@@ -59,11 +61,14 @@ class CombatScene(Scene):
         self.combat_ending_timer = -1
 
         self.last_unit_death = None
+        self.end_data = None
 
         self.all_entities = None
 
         self.leadership_points_spent: int = 0  # points spent to place units
         self.combat_category: str = "basic"
+
+        self.debug_pathfinding = False
 
         # record duration
         end_time = time.time()
@@ -80,6 +85,11 @@ class CombatScene(Scene):
         super().update(delta_time)
 
         self.dt = self.combat_speed * self.game.window.dt
+
+        if not self.force_idle:
+            self.terrain.update(self.dt)
+
+        self.particles.update(self.dt)
 
         if self.combat_ending_timer != -1:
             self.combat_ending_timer += self.game.window.dt
@@ -140,10 +150,20 @@ class CombatScene(Scene):
             self.force_idle = False
 
     def render(self):
+        self.camera.bind(self.terrain.boundaries)
         combat_surf = pygame.Surface(self.game.window.display.get_size())
         self.terrain.render(combat_surf, self.camera.render_offset())
+
+        if self.debug_pathfinding:
+            for entity in self.get_all_entities():
+                if entity.unit.default_behaviour != 'swarm':
+                    if entity.behaviour.current_path and len(entity.behaviour.current_path):
+                        points = [(p[0] + self.camera.render_offset()[0], p[1] + self.camera.render_offset()[1]) for p in ([entity.pos] + entity.behaviour.current_path)]
+                        pygame.draw.lines(combat_surf, (255, 0, 0), False, points)
+
         self.units.render(combat_surf, self.camera.render_offset())
         self.projectiles.render(combat_surf, self.camera.render_offset())
+        self.particles.render(combat_surf, self.camera.render_offset())
         if self.camera.zoom != 1:
             combat_surf = pygame.transform.scale(combat_surf, (int(combat_surf.get_width() * self.camera.zoom), int(combat_surf.get_height() * self.camera.zoom)))
         self.game.window.display.blit(combat_surf, (-(combat_surf.get_width() - self.game.window.display.get_width()) // 2, -(combat_surf.get_height() - self.game.window.display.get_height()) // 2))
@@ -159,9 +179,9 @@ class CombatScene(Scene):
 
         self.state: CombatState = CombatState.UNIT_CHOOSE_CARD
 
-    def generate_combat(self):
+    def generate_combat(self, biome='plains'):
         self.terrain: Terrain = Terrain(self.game)
-        self.terrain.generate(self.game.assets.maps["plains_1"])
+        self.terrain.generate(biome)
 
         self.units: UnitManager = UnitManager(self.game)
 
@@ -175,6 +195,8 @@ class CombatScene(Scene):
 
         self.enemy_generator.generate()
 
+        self.combat_ending_timer = -1
+
         self.placeable_units = self.game.memory.player_troupe._unit_ids.copy()
         self.units_are_available = [True] * len(self.placeable_units)
         self.skill_cooldowns = [0] * len(self.game.memory.player_actions)
@@ -182,9 +204,14 @@ class CombatScene(Scene):
         self.leadership_points_spent = 0  # points spent to place units
 
     def end_combat(self):
+        combat_end_data = []
+        for unit in self.game.memory.player_troupe._units.values():
+            new_data = [unit.type, int(unit.damage_dealt), unit.kills, int(unit.damage_received)]
+            combat_end_data.append(new_data)
+
         # process injuries
         remove_units = []
-        for unit in self.game.memory.player_troupe._units.values():
+        for i, unit in enumerate(self.game.memory.player_troupe._units.values()):
             if unit in self.units.units:
                 # do an update to ensure unit.alive is updated
                 unit.update(0.0001)
@@ -195,13 +222,25 @@ class CombatScene(Scene):
                     # remove unit from troupe if the unit took too many injuries
                     if unit.injuries >= 3:
                         remove_units.append(unit.id)
+                        combat_end_data[i].append(unit.injuries)
+                        combat_end_data[i].append('Died')
+                    else:
+                        combat_end_data[i].append(unit.injuries)
+                        combat_end_data[i].append('Injured')
+                else:
+                    combat_end_data[i].append(unit.injuries)
+                    combat_end_data[i].append('')
             else:
                 # remove injury for units not used in combat
                 unit.injuries = max(0, unit.injuries - 1)
+                combat_end_data[i].append(unit.injuries)
+                combat_end_data[i].append('Rested')
 
         # remove units after since they can't be removed during iteration
         for unit in remove_units:
             self.game.memory.player_troupe.remove_unit(unit)
+
+        self.end_data = combat_end_data
 
     def get_all_entities(self):
         entities = []

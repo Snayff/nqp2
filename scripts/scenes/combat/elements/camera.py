@@ -17,3 +17,7 @@ class Camera:
         pos[0] -= self.pos[0]
         pos[1] -= self.pos[1]
         return pos
+
+    def bind(self, rect):
+        self.pos[0] = max(rect.left, min(rect.right, self.pos[0]))
+        self.pos[1] = max(rect.top, min(rect.bottom, self.pos[1]))
