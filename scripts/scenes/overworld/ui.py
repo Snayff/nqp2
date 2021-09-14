@@ -88,25 +88,6 @@ class OverworldUI(UI):
                 if key[1]:
                     key_assignments[dirs[i][0]] = key[0]
 
-            '''
-            while bordering_nodes != []:
-                best_match = (None, None, 190, 0, 0)
-                for i, node in enumerate(bordering_nodes):
-                    for j, dir in enumerate(dirs):
-                        a = node[1]
-                        while abs(a - dir[1]) > 180:
-                            if a > dir[1]:
-                                a -= 360
-                            else:
-                                a += 360
-                        dif = abs(a - dir[1])
-                        if dif < best_match[2]:
-                            best_match = (dir[0], node[0], dif, i, j)
-                bordering_nodes.pop(best_match[3])
-                dirs.pop(best_match[4])
-                key_assignments[best_match[0]] = best_match[1]
-            '''
-
             for dir in ["left", "right", "up", "down"]:
                 if self.game.input.states[dir]:
                     self.game.input.states[dir] = False
