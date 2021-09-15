@@ -11,7 +11,7 @@
     "size": 7,
     "weight": 4,
     "gold_cost": 40,
-    "default_behaviour": "swarm",
+    "default_behaviour": "light",
     "faction": "members_of_the_court",
     "tier": 1
 }

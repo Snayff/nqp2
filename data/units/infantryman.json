@@ -4,14 +4,14 @@
     "defence": 1,
     "attack": 2,
     "range": 200,
-    "attack_speed": 1,
+    "attack_speed": 1.0,
     "move_speed": 50,
     "ammo": 10,
     "count": 7,
     "size": 7,
     "weight": 2,
     "gold_cost": 25,
-    "default_behaviour": "swarm",
+    "default_behaviour": "light",
     "faction": "imperial_forces",
     "tier": 1
 }
