@@ -75,6 +75,13 @@ class DevConsole(InputBox):
             if self.game.active_scene.type in (SceneType.MAIN_MENU,):
                 confirmation_message = self._switch_to_data_editor()
 
+        elif command[:13] == "combat_result":
+            result = command[14:]  # +1 position to account for space
+
+            # check active scene
+            if self.game.active_scene.type == SceneType.COMBAT:
+                confirmation_message = self._process_combat_result(result)
+
         # update result
         if confirmation_message != "":
             self.game.active_scene.ui.set_instruction_text(confirmation_message, True)
@@ -231,3 +238,24 @@ class DevConsole(InputBox):
         confirmation_message = f"Updated {num_updated} unit details and created {num_created} units."
 
         return confirmation_message
+
+    def _process_combat_result(self, result: str) -> str:
+        """
+        Set the result of the current combat. Result should be 'win' or 'lose'.
+        """
+        if result == "win":
+            self.game.combat.end_combat()
+            self.game.combat.process_victory()
+            confirmation_message = "Combat won."
+
+        elif result == "lose":
+            self.game.combat.end_combat()
+            self.game.combat.process_defeat()
+            confirmation_message = "Combat lost."
+
+        else:
+            confirmation_message = f"Result type ({result}) not recognised."
+
+        return confirmation_message
+
+
