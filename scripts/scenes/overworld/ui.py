@@ -20,9 +20,6 @@ if TYPE_CHECKING:
 __all__ = ["OverworldUI"]
 
 
-############# TO DO LIST ##################
-
-
 class OverworldUI(UI):
     """
     Represents the overworld UI.
@@ -39,7 +36,6 @@ class OverworldUI(UI):
 
         self._total_travel_time: float = 0.0
         self._frame_timer: float = 0
-
         self._boss_x: int = 0
         self._boss_y: int = 0
 
@@ -197,6 +193,8 @@ class OverworldUI(UI):
             self._total_travel_time = 0
 
     def render(self, surface: pygame.surface):
+        state = self.game.overworld.state
+
         # show core info
         self.draw_instruction(surface)
 
@@ -207,7 +205,7 @@ class OverworldUI(UI):
         self.disabled_font.render(f"Days remaining:{days}", surface, (0, 20))
 
         # show boss
-        if self.game.overworld.state == OverworldState.BOSS_APPROACHING:
+        if state == OverworldState.BOSS_APPROACHING:
             # determine animation frame
             frame = int(self._frame_timer * 6)
 

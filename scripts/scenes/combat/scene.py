@@ -133,13 +133,9 @@ class CombatScene(Scene):
         ):
             player_entities = [e for e in self.all_entities if e.team == "player"]
             if len(player_entities) == 0:
-                self.combat_ending_timer = 0
-                self.game.post_combat.state = PostCombatState.DEFEAT
                 self.process_defeat()
 
             elif len(player_entities) == len(self.all_entities):
-                self.combat_ending_timer = 0
-                self.game.post_combat.state = PostCombatState.VICTORY
                 self.process_victory()
 
         self.ui.update(delta_time)
@@ -311,23 +307,28 @@ class CombatScene(Scene):
 
     def process_defeat(self):
         """
-        Remove morale.
+        Process the defeat, such as removing morale.
         """
+        self.combat_ending_timer = 0
+
         if self.combat_category == "basic":
             morale_removed = -1
         else:
-            # self.combat_category == "basic":
+            # self.combat_category == "boss":
             morale_removed = -999
 
         self.game.memory.amend_morale(morale_removed)
-
-        # TODO - add injury allocation
 
         # transition to post-combat
         self.game.post_combat.state = PostCombatState.DEFEAT
         self.game.change_scene(SceneType.POST_COMBAT)
 
     def process_victory(self):
+        """
+        Process victory, such as preparing to move to a new level.
+        """
+        self.combat_ending_timer = 0
+
         if self.combat_category == "basic":
             new_state = PostCombatState.VICTORY
         else:
