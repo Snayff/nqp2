@@ -11,7 +11,7 @@
     "size": 7,
     "weight": 2,
     "gold_cost": 0,
-    "default_behaviour": "swarm",
+    "default_behaviour": "heavy",
     "faction": "hammerites",
     "tier": 4
 }

@@ -4,14 +4,14 @@
     "defence": 1,
     "attack": 3,
     "range": 20,
-    "attack_speed": 3,
+    "attack_speed": 3.0,
     "move_speed": 30,
     "ammo": -1,
     "count": 15,
     "size": 4,
     "weight": 2,
     "gold_cost": 85,
-    "default_behaviour": "swarm",
+    "default_behaviour": "light",
     "faction": "minions_of_ztar",
     "tier": 2
 }
