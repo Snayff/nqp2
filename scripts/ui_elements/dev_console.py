@@ -257,5 +257,3 @@ class DevConsole(InputBox):
             confirmation_message = f"Result type ({result}) not recognised."
 
         return confirmation_message
-
-
