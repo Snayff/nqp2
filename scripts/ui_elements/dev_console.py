@@ -210,6 +210,7 @@ class DevConsole(InputBox):
                         data["count"] = int(row["count"])
                         data["tier"] = int(row["tier"])
                         data["faction"] = row["faction"]
+                        data["default_behaviour"] = row["default_behaviour"]
 
                     # delete previous file
                     os.remove(str_path)
@@ -224,7 +225,6 @@ class DevConsole(InputBox):
                     data = row.copy()
 
                     # add needed values not held in csv
-                    data["default_behaviour"] = "swarm"
                     data["size"] = 1
                     data["weight"] = 2
                     data["gold_cost"] = 0

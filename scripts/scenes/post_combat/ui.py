@@ -48,7 +48,12 @@ class PostCombatUI(UI):
                 self.selected_ui_col -= 1
             self.game.input.states["left"] = False
 
-        self.selected_ui_col = self.selected_ui_col % len(self.game.combat.end_data)
+        if not self.game.combat.end_data:
+            end_data_length = 1
+        else:
+            end_data_length = len(self.game.combat.end_data)
+
+        self.selected_ui_col = self.selected_ui_col % end_data_length
         if self.selected_ui_col < self.stats_scroll:
             self.stats_scroll = self.selected_ui_col
         if self.selected_ui_col >= self.stats_scroll + self.stats_max_width:
@@ -73,35 +78,36 @@ class PostCombatUI(UI):
         combat_data = self.game.combat.end_data
 
         unit_width = 120
-        for i, unit in enumerate(combat_data):
-            x = unit_width * (i - self.stats_scroll) + unit_width // 2
-            if (i < self.stats_scroll) or (i >= self.stats_scroll + self.stats_max_width):
-                continue
-            y = self.game.window.base_resolution[1] // 2 + 40
-            if self.selected_ui_row == 0:
-                if self.selected_ui_col == i:
-                    surface.blit(self.game.assets.ui["select_arrow"], (x - 6, y - 14))
-            unit_img = self.game.assets.unit_animations[unit[0]]["icon"][0]
-            surface.blit(unit_img, (x - unit_img.get_width() // 2, y))
-            y += unit_img.get_height() + 4
-            self.game.assets.fonts["default"].render(
-                unit[0], surface, (x - self.game.assets.fonts["default"].width(unit[0]) // 2, y)
-            )
-            y += 13
-            for i, v in enumerate([unit[1], unit[2], unit[3], unit[5]]):
-                v = str(v)
-                if i != 3:
-                    self.game.assets.fonts["default"].render(v, surface, (x, y + 4))
-                    img = self.game.assets.images["stats"][("dmg_dealt@16x16", "kills@16x16", "defence@16x16")[i]]
-                    surface.blit(img, (x - img.get_width() - 2, y))
-                else:
-                    self.game.assets.fonts["default"].render(
-                        v, surface, (x - self.game.assets.fonts["default"].width(v) // 2, y)
-                    )
-                y += 18
-            for i in range(unit[4]):
-                x_offset = -unit[4] * 10 + i * 20
-                surface.blit(self.game.assets.images["stats"]["health@16x16"], (x + x_offset, y))
+        if combat_data is not None:
+            for i, unit in enumerate(combat_data):
+                x = unit_width * (i - self.stats_scroll) + unit_width // 2
+                if (i < self.stats_scroll) or (i >= self.stats_scroll + self.stats_max_width):
+                    continue
+                y = self.game.window.base_resolution[1] // 2 + 40
+                if self.selected_ui_row == 0:
+                    if self.selected_ui_col == i:
+                        surface.blit(self.game.assets.ui["select_arrow"], (x - 6, y - 14))
+                unit_img = self.game.assets.unit_animations[unit[0]]["icon"][0]
+                surface.blit(unit_img, (x - unit_img.get_width() // 2, y))
+                y += unit_img.get_height() + 4
+                self.game.assets.fonts["default"].render(
+                    unit[0], surface, (x - self.game.assets.fonts["default"].width(unit[0]) // 2, y)
+                )
+                y += 13
+                for i, v in enumerate([unit[1], unit[2], unit[3], unit[5]]):
+                    v = str(v)
+                    if i != 3:
+                        self.game.assets.fonts["default"].render(v, surface, (x, y + 4))
+                        img = self.game.assets.images["stats"][("dmg_dealt@16x16", "kills@16x16", "defence@16x16")[i]]
+                        surface.blit(img, (x - img.get_width() - 2, y))
+                    else:
+                        self.game.assets.fonts["default"].render(
+                            v, surface, (x - self.game.assets.fonts["default"].width(v) // 2, y)
+                        )
+                    y += 18
+                for i in range(unit[4]):
+                    x_offset = -unit[4] * 10 + i * 20
+                    surface.blit(self.game.assets.images["stats"]["health@16x16"], (x + x_offset, y))
 
         if self.selected_ui_row == 1:
             surface.blit(

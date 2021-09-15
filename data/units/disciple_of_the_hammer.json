@@ -11,7 +11,7 @@
     "size": 7,
     "weight": 2,
     "gold_cost": 0,
-    "default_behaviour": "heavy",
+    "default_behaviour": "light",
     "faction": "hammerites",
     "tier": 1
 }

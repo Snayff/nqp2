@@ -11,7 +11,7 @@
     "size": 13,
     "weight": 10,
     "gold_cost": 55,
-    "default_behaviour": "swarm",
+    "default_behaviour": "light",
     "faction": "cabalists",
     "tier": 2
 }
