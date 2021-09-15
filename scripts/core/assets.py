@@ -10,6 +10,7 @@ import pygame
 
 from scripts.core.constants import ASSET_PATH, DEFAULT_IMAGE_SIZE
 from scripts.ui_elements.font import Font
+from scripts.ui_elements.font_enhanced import Font as FontEnhanced
 
 if TYPE_CHECKING:
     from typing import Dict, Tuple
@@ -58,6 +59,15 @@ class Assets:
             "notification": Font(str(ASSET_PATH / "fonts/large_font.png"), (117, 50, 168)),
         }
 
+        self.enhanced_fonts = {
+            "warning": FontEnhanced(str(ASSET_PATH / "fonts/small_font.png"), (255, 0, 0)),
+            "disabled": FontEnhanced(str(ASSET_PATH / "fonts/small_font.png"), (128, 128, 128)),
+            "default": FontEnhanced(str(ASSET_PATH / "fonts/small_font.png"), (255, 255, 255)),
+            "positive": FontEnhanced(str(ASSET_PATH / "fonts/small_font.png"), (0, 255, 0)),
+            "instruction": FontEnhanced(str(ASSET_PATH / "fonts/small_font.png"), (240, 205, 48)),
+            "notification": FontEnhanced(str(ASSET_PATH / "fonts/large_font.png"), (117, 50, 168)),
+        }
+
         # used to hold images so only one copy per dimension ever exists.
         self.images: Dict[str, Dict[str, pygame.Surface]] = self._load_images()
 
@@ -71,6 +81,10 @@ class Assets:
                 for action in os.listdir(ASSET_PATH / "units/" / unit)
             }
             for unit in os.listdir(ASSET_PATH / "units/")
+        }
+
+        self.trap_animations = {
+            trap: self.load_image_dir(ASSET_PATH / "traps/" / trap) for trap in os.listdir(ASSET_PATH / "traps/")
         }
 
         self.commander_animations = {
@@ -92,6 +106,24 @@ class Assets:
         self.tilesets = {
             tileset.split(".")[0]: self.load_tileset(ASSET_PATH / "tiles" / tileset)
             for tileset in os.listdir(ASSET_PATH / "tiles")
+        }
+
+        self.ui = {
+            ui_image.split(".")[0]: pygame.image.load(str(ASSET_PATH / "ui" / ui_image)).convert_alpha()
+            for ui_image in os.listdir(ASSET_PATH / "ui")
+        }
+
+        self.actions = {
+            action_image.split(".")[0]: pygame.image.load(str(ASSET_PATH / "actions" / action_image)).convert_alpha()
+            for action_image in os.listdir(ASSET_PATH / "actions")
+        }
+
+        self.projectiles = {
+            projectiles_image.split(".")[0]: pygame.image.load(
+                str(ASSET_PATH / "projectiles" / projectiles_image)
+            ).convert_alpha()
+            for projectiles_image in os.listdir(ASSET_PATH / "projectiles")
+            if projectiles_image.split(".")[-1] == "png"
         }
 
         self.maps = {map.split(".")[0]: json_read("data/maps/" + map) for map in os.listdir("data/maps")}

@@ -32,10 +32,35 @@ class PostCombatUI(UI):
 
         self.selected_reward: Optional[Unit] = None
 
+        self.stats_max_width = 5
+
         self.set_instruction_text("Choose your rewards.")
 
     def update(self, delta_time: float):
         super().update(delta_time)
+
+        if self.game.input.states["right"]:
+            if self.selected_ui_row == 0:
+                self.selected_ui_col += 1
+            self.game.input.states["right"] = False
+        if self.game.input.states["left"]:
+            if self.selected_ui_row == 0:
+                self.selected_ui_col -= 1
+            self.game.input.states["left"] = False
+
+        self.selected_ui_col = self.selected_ui_col % len(self.game.combat.end_data)
+        if self.selected_ui_col < self.stats_scroll:
+            self.stats_scroll = self.selected_ui_col
+        if self.selected_ui_col >= self.stats_scroll + self.stats_max_width:
+            self.stats_scroll = self.selected_ui_col - self.stats_max_width + 1
+
+        if self.game.input.states["up"]:
+            self.game.input.states["up"] = False
+            self.selected_ui_row -= 1
+        if self.game.input.states["down"]:
+            self.game.input.states["down"] = False
+            self.selected_ui_row += 1
+        self.selected_ui_row = self.selected_ui_row % 2
 
         if self.game.post_combat.state == PostCombatState.VICTORY:
             self.handle_victory_input()
@@ -45,6 +70,45 @@ class PostCombatUI(UI):
             self.handle_boss_victory_input()
 
     def render(self, surface: pygame.surface):
+        combat_data = self.game.combat.end_data
+
+        unit_width = 120
+        for i, unit in enumerate(combat_data):
+            x = unit_width * (i - self.stats_scroll) + unit_width // 2
+            if (i < self.stats_scroll) or (i >= self.stats_scroll + self.stats_max_width):
+                continue
+            y = self.game.window.base_resolution[1] // 2 + 40
+            if self.selected_ui_row == 0:
+                if self.selected_ui_col == i:
+                    surface.blit(self.game.assets.ui["select_arrow"], (x - 6, y - 14))
+            unit_img = self.game.assets.unit_animations[unit[0]]["icon"][0]
+            surface.blit(unit_img, (x - unit_img.get_width() // 2, y))
+            y += unit_img.get_height() + 4
+            self.game.assets.fonts["default"].render(
+                unit[0], surface, (x - self.game.assets.fonts["default"].width(unit[0]) // 2, y)
+            )
+            y += 13
+            for i, v in enumerate([unit[1], unit[2], unit[3], unit[5]]):
+                v = str(v)
+                if i != 3:
+                    self.game.assets.fonts["default"].render(v, surface, (x, y + 4))
+                    img = self.game.assets.images["stats"][("dmg_dealt@16x16", "kills@16x16", "defence@16x16")[i]]
+                    surface.blit(img, (x - img.get_width() - 2, y))
+                else:
+                    self.game.assets.fonts["default"].render(
+                        v, surface, (x - self.game.assets.fonts["default"].width(v) // 2, y)
+                    )
+                y += 18
+            for i in range(unit[4]):
+                x_offset = -unit[4] * 10 + i * 20
+                surface.blit(self.game.assets.images["stats"]["health@16x16"], (x + x_offset, y))
+
+        if self.selected_ui_row == 1:
+            surface.blit(
+                self.game.assets.ui["select_arrow"],
+                (self.game.window.base_resolution[0] - 20, self.game.window.base_resolution[1] - 30),
+            )
+
         if self.game.post_combat.state == PostCombatState.VICTORY:
 
             reward_type = self.game.post_combat.reward_type
@@ -75,7 +139,11 @@ class PostCombatUI(UI):
         super().rebuild_ui()
         state = self.game.post_combat.state
 
-        if state == PostCombatState.VICTORY:
+        self.selected_ui_row = 0
+        self.selected_ui_col = 0
+        self.stats_scroll = 0
+
+        if self.game.post_combat.state == PostCombatState.VICTORY:
             self._rebuild_victory_ui()
         elif state == PostCombatState.DEFEAT:
             self._rebuild_defeat_ui()
@@ -246,25 +314,27 @@ class PostCombatUI(UI):
         #     row_count += 1
 
     def handle_victory_input(self):
-        if self.game.input.states["select"]:
-            self.game.input.states["select"] = False
+        if self.selected_ui_row == 1:
+            if self.game.input.states["select"]:
+                self.game.input.states["select"] = False
 
-            # there's only 1 thing to select so we know it is the exit button
-            self.game.change_scene(SceneType.OVERWORLD)
+                # there's only 1 thing to select so we know it is the exit button
+                self.game.change_scene(SceneType.OVERWORLD)
 
     def handle_defeat_input(self):
-        if self.game.input.states["select"]:
-            self.game.input.states["select"] = False
+        if self.selected_ui_row == 1:
+            if self.game.input.states["select"]:
+                self.game.input.states["select"] = False
 
-            # there's only 1 thing to select so we know it is the exit button - but exit to what?
-            morale = self.game.memory.morale
-            if morale <= 0:
-                # game over
-                self.game.run_setup.reset()
-                self.game.change_scene(SceneType.MAIN_MENU)
-            else:
-                # bakc to overworld
-                self.game.change_scene(SceneType.OVERWORLD)
+                # there's only 1 thing to select so we know it is the exit button - but exit to what?
+                morale = self.game.memory.morale
+                if morale <= 0:
+                    # game over
+                    self.game.run_setup.reset()
+                    self.game.change_scene(SceneType.MAIN_MENU)
+                else:
+                    # bakc to overworld
+                    self.game.change_scene(SceneType.OVERWORLD)
 
     def handle_boss_victory_input(self):
         if self.game.input.states["select"]:

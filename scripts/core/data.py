@@ -37,6 +37,7 @@ class Data:
         self.upgrades: Dict[str, Any] = self._load_upgrades()
         self.combats: Dict[str, Any] = self._load_combats()
         self.bosses: Dict[str, Any] = self._load_bosses()
+        self.skills: Dict[str, Any] = self._load_skills()
 
         self.config: Dict[str, Any] = self._load_config()
         self.options: Dict[str, Any] = self._load_options()
@@ -158,6 +159,19 @@ class Data:
         logging.info(f"Data: All combats data loaded.")
 
         return combats
+
+    @staticmethod
+    def _load_skills():
+        skills = {}
+        for skill in os.listdir("data/skills"):
+            f = open(str(DATA_PATH / "skills" / skill), "r")
+            data = json.load(f)
+            skills[skill.split(".")[0]] = data
+            f.close()
+
+        logging.info(f"Data: All skills data loaded.")
+
+        return skills
 
     @staticmethod
     def _load_options():

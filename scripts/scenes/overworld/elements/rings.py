@@ -234,6 +234,23 @@ class Rings(NodeContainer):
             f" | Connections: {total_connections}"
         )
 
+    def lr_node(self, direction: Direction):
+        nodes = self.rings[self.current_ring]
+        current_index = nodes.index(self.selected_node)
+        if direction == Direction.LEFT:
+            # handle index looping
+            if current_index + 1 >= len(nodes):
+                current_index = 0
+            else:
+                current_index += 1
+        if direction == Direction.RIGHT:
+            # handle index looping
+            if current_index - 1 < 0:
+                current_index = len(nodes) - 1
+            else:
+                current_index -= 1
+        return nodes[current_index]
+
     def select_next_node(self, direction: Direction):
         nodes = self.rings[self.current_ring]
         current_index = nodes.index(self.selected_node)
