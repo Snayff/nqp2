@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import itertools
 import logging
+import math
 from typing import TYPE_CHECKING
 
 import pygame
@@ -57,25 +59,59 @@ class OverworldUI(UI):
 
             node_container = self.game.overworld.node_container
 
-            if self.game.input.states["left"]:
-                self.game.input.states["left"] = False
-                node_container.select_next_node(Direction.LEFT)
-                node_container.roll_for_event()
+            # match the nodes with the most accurate combination of directions possible
+            bordering_nodes = [
+                (Direction.DOWN, node_container.selected_node.connected_inner_node),
+                (Direction.UP, node_container.selected_node.connected_outer_node),
+                (Direction.LEFT, node_container.lr_node(Direction.LEFT)),
+                (Direction.RIGHT, node_container.lr_node(Direction.RIGHT)),
+            ]
+            bordering_nodes = [
+                (
+                    n[0],
+                    math.degrees(
+                        math.atan2(
+                            n[1].pos[1] - node_container.selected_node.pos[1],
+                            -(n[1].pos[0] - node_container.selected_node.pos[0]),
+                        )
+                    ),
+                )
+                if n[1]
+                else (n[0], None)
+                for n in bordering_nodes
+            ]
+            dirs = [("left", 0), ("right", 180), ("up", -90), ("down", 90)]
 
-            if self.game.input.states["right"]:
-                self.game.input.states["right"] = False
-                node_container.select_next_node(Direction.RIGHT)
-                node_container.roll_for_event()
+            best_combo = [0, 999999]
+            permutations = list(itertools.permutations(bordering_nodes))
+            for j, perm in enumerate(permutations):
+                perm_total = 0
+                for i, d in enumerate(dirs):
+                    if perm[i][1] == None:
+                        continue
+                    else:
+                        a = perm[i][1]
+                        while abs(a - d[1]) > 180:
+                            if a > d[1]:
+                                a -= 360
+                            else:
+                                a += 360
+                        dif = abs(a - d[1])
+                        perm_total += dif
+                if perm_total < best_combo[1]:
+                    best_combo = [j, perm_total]
 
-            if self.game.input.states["up"]:
-                self.game.input.states["up"] = False
-                node_container.select_next_node(Direction.UP)
-                node_container.roll_for_event()
+            key_assignments = {}
+            for i, key in enumerate(permutations[best_combo[0]]):
+                if key[1]:
+                    key_assignments[dirs[i][0]] = key[0]
 
-            if self.game.input.states["down"]:
-                self.game.input.states["down"] = False
-                node_container.select_next_node(Direction.DOWN)
-                node_container.roll_for_event()
+            for dir in ["left", "right", "up", "down"]:
+                if self.game.input.states[dir]:
+                    self.game.input.states[dir] = False
+                    if dir in key_assignments:
+                        node_container.select_next_node(key_assignments[dir])
+                        node_container.roll_for_event()
 
             if self.game.input.states["view_troupe"]:
                 self.game.input.states["view_troupe"] = False

@@ -13,6 +13,7 @@ class Action:
 class Fireball(Action):
     def __init__(self, *args):
         super().__init__(*args)
+        self.type = "fireball"
         self.target_type = "free"
         self.damage = 50
         self.radius = 30
