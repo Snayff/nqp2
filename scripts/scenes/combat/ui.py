@@ -8,7 +8,6 @@ import pygame
 from scripts.core.base_classes.ui import UI
 from scripts.core.constants import CombatState, SceneType
 from scripts.core.utility import offset
-
 from scripts.ui_elements.tooltip import Tooltip
 
 if TYPE_CHECKING:
@@ -34,7 +33,7 @@ class CombatUI(UI):
         super().update(delta_time)
 
         # don't move camera until all units are placed (also skip if the ending animation is playing)
-        if (self.game.combat.general_state == 'actions') and (self.game.combat.combat_ending_timer == -1):
+        if (self.game.combat.general_state == "actions") and (self.game.combat.combat_ending_timer == -1):
             target_pos = self.game.combat.get_team_center("player")
             if not target_pos:
                 target_pos = [0, 0]
@@ -77,7 +76,9 @@ class CombatUI(UI):
                 if self.game.combat.state == CombatState.UNIT_CHOOSE_CARD:
                     # can only use a card if there are cards in your hand and point limit not hit
                     if self.game.combat.units_are_available[self.selected_col]:
-                        unit = self.game.memory.player_troupe._units[self.game.combat.placeable_units[self.selected_col]]
+                        unit = self.game.memory.player_troupe._units[
+                            self.game.combat.placeable_units[self.selected_col]
+                        ]
                         leadership = self.game.memory.leadership
                         leadership_remaining = leadership - self.game.combat.leadership_points_spent
                         if self.button_count and leadership_remaining >= unit.tier:
@@ -85,7 +86,9 @@ class CombatUI(UI):
                 else:
                     if not self.game.combat.skill_cooldowns[self.selected_col]:
                         # determine action target mode
-                        target_type = action = self.game.combat.actions[self.game.memory.player_actions[self.selected_col]](self.game).target_type
+                        target_type = action = self.game.combat.actions[
+                            self.game.memory.player_actions[self.selected_col]
+                        ](self.game).target_type
                         if target_type == "free":
                             self.game.combat.state = CombatState.ACTION_SELECT_TARGET_FREE
 
@@ -113,7 +116,7 @@ class CombatUI(UI):
             self.place_target = offset(self.place_target, move_amount)
 
             # constrain placements for units
-            if self.game.combat.general_state == 'units':
+            if self.game.combat.general_state == "units":
                 self.place_target[0] = min(self.game.window.base_resolution[0] // 4, max(0, self.place_target[0]))
                 self.place_target[1] = min(self.game.window.base_resolution[1], max(0, self.place_target[1]))
 
@@ -129,7 +132,7 @@ class CombatUI(UI):
                     logging.debug(f"Placed {unit.type}({unit.id}) at {unit.pos}.")
                 else:
                     action = self.game.combat.actions[self.game.memory.player_actions[self.selected_col]](self.game)
-                    self.game.combat.skill_cooldowns[self.selected_col] = self.game.data.skills[action.type]['cooldown']
+                    self.game.combat.skill_cooldowns[self.selected_col] = self.game.data.skills[action.type]["cooldown"]
                     action.use(self.place_target.copy())
 
             if self.game.input.states["cancel"] or self.game.input.states["select"]:
@@ -150,21 +153,21 @@ class CombatUI(UI):
 
     @property
     def button_count(self):
-        if self.game.combat.general_state == 'units':
+        if self.game.combat.general_state == "units":
             return len(self.game.combat.placeable_units)
-        elif self.game.combat.general_state == 'actions':
+        elif self.game.combat.general_state == "actions":
             return len(self.game.memory.player_actions)
 
     def render_buttons(self, surface: pygame.Surface):
-        background_surf = pygame.transform.scale(self.game.assets.ui['rounded_box'].copy(), (40, 40))
+        background_surf = pygame.transform.scale(self.game.assets.ui["rounded_box"].copy(), (40, 40))
         background_surf.set_alpha(180)
-        selected_surf = pygame.transform.scale(self.game.assets.ui['rounded_box_outline'], (40, 40))
-        red_selected_surf = pygame.transform.scale(self.game.assets.ui['rounded_box_outline_red'], (40, 40))
+        selected_surf = pygame.transform.scale(self.game.assets.ui["rounded_box_outline"], (40, 40))
+        red_selected_surf = pygame.transform.scale(self.game.assets.ui["rounded_box_outline_red"], (40, 40))
         margin = 4
 
-        if self.game.combat.general_state == 'units':
+        if self.game.combat.general_state == "units":
             id_list = self.game.combat.placeable_units
-        elif self.game.combat.general_state == 'actions':
+        elif self.game.combat.general_state == "actions":
             id_list = self.game.memory.player_actions
         else:
             return None
@@ -172,15 +175,23 @@ class CombatUI(UI):
         for i, obj_id in enumerate(id_list):
             if self.button_scroll <= i < self.button_scroll + self.shown_buttons:
                 x = i - self.button_scroll
-                button_pos = (margin + x * (background_surf.get_width() + margin), surface.get_height() - margin - background_surf.get_height())
+                button_pos = (
+                    margin + x * (background_surf.get_width() + margin),
+                    surface.get_height() - margin - background_surf.get_height(),
+                )
                 can_use = True
 
-                if self.game.combat.general_state == 'units':
-                    obj_img = pygame.transform.scale(self.game.assets.unit_animations[self.game.memory.player_troupe._units[obj_id].type]['icon'][0].copy(), (32, 32))
+                if self.game.combat.general_state == "units":
+                    obj_img = pygame.transform.scale(
+                        self.game.assets.unit_animations[self.game.memory.player_troupe._units[obj_id].type]["icon"][
+                            0
+                        ].copy(),
+                        (32, 32),
+                    )
                     if not self.game.combat.units_are_available[i]:
                         obj_img.set_alpha(100)
                         can_use = False
-                elif self.game.combat.general_state == 'actions':
+                elif self.game.combat.general_state == "actions":
                     obj_img = pygame.transform.scale(self.game.assets.actions[obj_id].copy(), (32, 32))
                     if self.game.combat.skill_cooldowns[i]:
                         obj_img.set_alpha(100)
@@ -190,13 +201,22 @@ class CombatUI(UI):
                 surface.blit(obj_img, (button_pos[0] + 4, button_pos[1] + 4))
 
                 # cooldown overlay
-                if (not can_use) and (self.game.combat.general_state == 'actions'):
+                if (not can_use) and (self.game.combat.general_state == "actions"):
                     cooldown_img = background_surf.copy()
                     cooldown_img.set_alpha(200)
-                    cooldown = self.game.combat.skill_cooldowns[i] / self.game.data.skills[self.game.memory.player_actions[i]]['cooldown']
+                    cooldown = (
+                        self.game.combat.skill_cooldowns[i]
+                        / self.game.data.skills[self.game.memory.player_actions[i]]["cooldown"]
+                    )
                     cooldown_offset = int(cooldown_img.get_height() * cooldown)
-                    cooldown_img = cooldown_img.subsurface(pygame.Rect(0, cooldown_img.get_height() - cooldown_offset, cooldown_img.get_width(), cooldown_offset))
-                    surface.blit(cooldown_img, (button_pos[0], button_pos[1] + background_surf.get_height() - cooldown_offset))
+                    cooldown_img = cooldown_img.subsurface(
+                        pygame.Rect(
+                            0, cooldown_img.get_height() - cooldown_offset, cooldown_img.get_width(), cooldown_offset
+                        )
+                    )
+                    surface.blit(
+                        cooldown_img, (button_pos[0], button_pos[1] + background_surf.get_height() - cooldown_offset)
+                    )
 
                 if self.game.combat.state != CombatState.WATCH:
                     if i == self.selected_col:
@@ -206,7 +226,7 @@ class CombatUI(UI):
                             surface.blit(red_selected_surf, button_pos)
 
     def render(self, surface: pygame.Surface):
-        if self.game.combat.general_state == 'units':
+        if self.game.combat.general_state == "units":
             # render friendly/enemy spawn areas
             friendly_surf = pygame.Surface((int(surface.get_width() * 0.25), surface.get_height()))
             enemy_surf = friendly_surf.copy()
@@ -225,14 +245,19 @@ class CombatUI(UI):
             placement_img = None
             if self.game.combat.state == CombatState.UNIT_SELECT_TARGET:
                 obj_id = self.game.combat.placeable_units[self.selected_col]
-                placement_img = self.game.assets.unit_animations[self.game.memory.player_troupe._units[obj_id].type]['idle'][0]
+                placement_img = self.game.assets.unit_animations[self.game.memory.player_troupe._units[obj_id].type][
+                    "idle"
+                ][0]
             if self.game.combat.state == CombatState.ACTION_SELECT_TARGET_FREE:
                 # needs some assets to indicate placement of the action
                 pass
 
             if placement_img:
                 render_base = self.game.combat.camera.render_offset(self.place_target)
-                surface.blit(placement_img, (render_base[0] - placement_img.get_width() // 2, render_base[1] - placement_img.get_height() // 2))
+                surface.blit(
+                    placement_img,
+                    (render_base[0] - placement_img.get_width() // 2, render_base[1] - placement_img.get_height() // 2),
+                )
             pygame.draw.circle(surface, (255, 255, 255), self.game.combat.camera.render_offset(self.place_target), 8, 1)
 
         self.render_buttons(surface)

@@ -4,6 +4,7 @@ import random
 from . import traps
 from .tile import Tile
 
+
 def gen_blob(start_pos, count, tile_type, terrain, floor_filter=None):
     blob_points = [tuple(start_pos)]
     directions = [(-1, 0), (1, 0), (0, 1), (0, -1)]
@@ -30,8 +31,10 @@ def gen_blob(start_pos, count, tile_type, terrain, floor_filter=None):
 
             terrain.terrain[point].append(Tile(tile_type, point, terrain.game.data.tiles))
 
+
 def random_foliage():
     return [random.randint(0, 1), random.randint(2, 13)]
+
 
 def generate(game, terrain, biome):
     screen_size = game.window.base_resolution.copy()
@@ -42,26 +45,38 @@ def generate(game, terrain, biome):
         for y in range(combat_area_size[1] + terrain.barrier_size * 2):
             loc = (x - terrain.barrier_size - 1, y - terrain.barrier_size - 1)
             terrain.terrain[loc] = [Tile([biome, 0, 1], loc, game.data.tiles)]
-            if (terrain.barrier_size < x <= (combat_area_size[0] + terrain.barrier_size)) and (terrain.barrier_size < y <= (combat_area_size[1] + terrain.barrier_size)):
+            if (terrain.barrier_size < x <= (combat_area_size[0] + terrain.barrier_size)) and (
+                terrain.barrier_size < y <= (combat_area_size[1] + terrain.barrier_size)
+            ):
                 if random.random() < 0.3:
                     terrain.terrain[loc].append(Tile([biome, *random_foliage()], loc, game.data.tiles))
                 if random.random() < 0.025:
                     tree_bases.append(loc)
                 elif random.random() < terrain.trap_density:
                     trap_type = random.choice(terrain.trap_types)
-                    terrain.traps.append(traps.trap_types[trap_type](game, (loc[0] * terrain.tile_size, loc[1] * terrain.tile_size)))
+                    terrain.traps.append(
+                        traps.trap_types[trap_type](game, (loc[0] * terrain.tile_size, loc[1] * terrain.tile_size))
+                    )
             else:
-                terrain.terrain[loc].append(Tile(['trees', 0, 1], loc, game.data.tiles))
+                terrain.terrain[loc].append(Tile(["trees", 0, 1], loc, game.data.tiles))
 
     for base in tree_bases:
-        gen_blob(base, random.randint(3, 24), ['trees', 0, 1], terrain, floor_filter=lambda x: (not x.config['solid']) and (x.group != 'trees') and (placement_width < x.loc[0] < combat_area_size[0] - placement_width))
+        gen_blob(
+            base,
+            random.randint(3, 24),
+            ["trees", 0, 1],
+            terrain,
+            floor_filter=lambda x: (not x.config["solid"])
+            and (x.group != "trees")
+            and (placement_width < x.loc[0] < combat_area_size[0] - placement_width),
+        )
 
     for x in range(combat_area_size[0]):
         loc = (x, int(combat_area_size[1] // 2))
         if loc in terrain.terrain:
             loc_copy = terrain.terrain[loc].copy()
             for tile in loc_copy:
-                if tile.config['solid']:
+                if tile.config["solid"]:
                     terrain.terrain[loc].remove(tile)
 
     terrain.boundaries.x = -terrain.barrier_size * terrain.tile_size

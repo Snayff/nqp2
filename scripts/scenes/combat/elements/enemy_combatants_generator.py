@@ -19,7 +19,11 @@ class EnemyCombatantsGenerator:
         for i in range(num_units):
             # choose a random spot on the right side of the map
             while True:
-                pos = [self.game.window.base_resolution[0] // 4 * 3 + rng.random() * (self.game.window.base_resolution[0] // 4), rng.random() * self.game.window.base_resolution[1]]
+                pos = [
+                    self.game.window.base_resolution[0] // 4 * 3
+                    + rng.random() * (self.game.window.base_resolution[0] // 4),
+                    rng.random() * self.game.window.base_resolution[1],
+                ]
                 if not self.game.combat.terrain.check_tile_solid(pos):
                     break
             positions.append(pos)

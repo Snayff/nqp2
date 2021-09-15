@@ -3,7 +3,7 @@ import pygame
 # use font_enhanced.formatted_text_gen if you want colors
 from scripts.ui_elements.font_enhanced import TextBlock
 
-'''
+"""
 Tooltips will pop up after <rect_reference> has been hovered for <visible_delay> seconds and will show <text>.
 They are bound by the display size and will adjust their placement automatically.
 <rect_reference> should be a reference to a Rect that should be used to trigger the tooltip (likely the Rect attribute of another UIElement).
@@ -11,7 +11,8 @@ They are bound by the display size and will adjust their placement automatically
 Please note that Rects can be resized and moved without creating a new instance. This will be necessary when binding to moving elements.
 In the event that an element is in world space rather than an absolute space, the element should have an alternative rect attribute that
 gets updated to the absolute rect position.
-'''
+"""
+
 
 class Tooltip:
     def __init__(self, game, text, font_id, rect_reference, width=200, padding=2, margin=2, alpha=100, visible_delay=1):
@@ -33,8 +34,12 @@ class Tooltip:
         self.generate_text_surf()
 
     def generate_text_surf(self):
-        text_block = TextBlock(self.text, self.game.assets.enhanced_fonts[self.font_id], max_width=self.width - self.padding * 2)
-        self.text_surf = pygame.Surface((text_block.used_width + self.padding * 2, text_block.height + self.padding * 2))
+        text_block = TextBlock(
+            self.text, self.game.assets.enhanced_fonts[self.font_id], max_width=self.width - self.padding * 2
+        )
+        self.text_surf = pygame.Surface(
+            (text_block.used_width + self.padding * 2, text_block.height + self.padding * 2)
+        )
         self.text_surf.fill((0, 0, 2))
         self.text_surf.set_colorkey((0, 0, 2))
         text_block.render(self.text_surf, (self.padding, self.padding))
@@ -52,7 +57,10 @@ class Tooltip:
             display_size = self.game.window.base_resolution
 
             # prioritize placing the tooltip centered above the mouse
-            base_pos = [mouse_pos[0] - self.text_surf.get_width() // 2, mouse_pos[1] - self.text_surf.get_height() - self.margin]
+            base_pos = [
+                mouse_pos[0] - self.text_surf.get_width() // 2,
+                mouse_pos[1] - self.text_surf.get_height() - self.margin,
+            ]
 
             # correct position on X axis if showing off of the screen
             base_pos[0] = max(base_pos[0], self.margin)

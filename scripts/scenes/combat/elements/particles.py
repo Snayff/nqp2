@@ -1,6 +1,7 @@
 import math
 import random
 
+
 class Particle:
     def __init__(self, loc, vel, dur, color):
         self.loc = list(loc)
@@ -19,6 +20,7 @@ class Particle:
 
     def render(self, surf, offset=(0, 0)):
         surf.set_at((int(self.loc[0] + offset[0]), int(self.loc[1] + offset[1])), self.color)
+
 
 class ParticleManager:
     def __init__(self):

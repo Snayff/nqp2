@@ -5,6 +5,7 @@ from .behaviour import Behaviour
 REGROUP_RANGE = 32
 RETREAT_AMT = 16
 
+
 class Base(Behaviour):
     def complete_init(self):
         # these are pointers. be careful with modifying them.
@@ -90,9 +91,12 @@ class Base(Behaviour):
                             self.regrouping = True
                         if self.force_retreat:
                             self.retreating = True
-                            self.retreat_target = (self.position_log[-RETREAT_AMT][0] * self.game.combat.terrain.tile_size, self.position_log[-RETREAT_AMT][1] * self.game.combat.terrain.tile_size)
+                            self.retreat_target = (
+                                self.position_log[-RETREAT_AMT][0] * self.game.combat.terrain.tile_size,
+                                self.position_log[-RETREAT_AMT][1] * self.game.combat.terrain.tile_size,
+                            )
                         for entity in self.unit.entities:
-                            entity.behaviour.state = 'path'
+                            entity.behaviour.state = "path"
                             entity.behaviour.target_entity = None
 
         self.update_valid_targets()

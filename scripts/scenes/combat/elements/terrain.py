@@ -2,18 +2,18 @@ import random
 
 import pygame
 
-from . import map_generator
-from . import traps
+from . import map_generator, traps
 from .pathfinder import Pathfinder
 from .tile import Tile
 
 TILE_SIZE = 16
 BARRIER_SIZE = 10
 
+
 def grid_walk(start, end):
     start = list(start)
-    dx = (end[0] - start[0])
-    dy = (end[1] - start[1])
+    dx = end[0] - start[0]
+    dy = end[1] - start[1]
     nx = abs(dx)
     ny = abs(dy)
     sign_x = 1 if dx > 0 else -1
@@ -42,6 +42,7 @@ def grid_walk(start, end):
 
     return points
 
+
 class Terrain:
     def __init__(self, game):
         self.game = game
@@ -54,10 +55,17 @@ class Terrain:
         self.pathfinder = Pathfinder(self)
         self.traps = []
         self.trap_density = 0.02
-        self.trap_types = ['spinning_blades', 'spinning_blades', 'pit']
+        self.trap_types = ["spinning_blades", "spinning_blades", "pit"]
 
     def debug_map(self, overlay_data=[]):
-        return '\n'.join([''.join([('=' if v else '%') if (x, y) in overlay_data else ('-' if v else '/') for x, v in enumerate(row)]) for y, row in enumerate(self.pathfinding_array)])
+        return "\n".join(
+            [
+                "".join(
+                    [("=" if v else "%") if (x, y) in overlay_data else ("-" if v else "/") for x, v in enumerate(row)]
+                )
+                for y, row in enumerate(self.pathfinding_array)
+            ]
+        )
 
     def gen_pathfinding_map(self):
         x_coords = [t[0] for t in self.terrain]

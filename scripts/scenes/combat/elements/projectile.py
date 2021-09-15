@@ -2,16 +2,17 @@ import math
 
 import pygame
 
+
 class Projectile:
     def __init__(self, game, owner, target):
         self.game = game
         self.owner = owner
         self.target = target
         self.angle = self.owner.angle(target)
-        self.img = owner.projectile_data['img']
-        self.speed = owner.projectile_data['speed']
+        self.img = owner.projectile_data["img"]
+        self.speed = owner.projectile_data["speed"]
         self.pos = self.owner.pos.copy()
-        
+
         # move base firing position towards center of entity
         self.pos[1] -= 5
 
@@ -41,4 +42,10 @@ class Projectile:
     def render(self, surf, offset=(0, 0)):
         img = self.game.assets.projectiles[self.img]
         rotated_img = pygame.transform.rotate(img, -math.degrees(self.angle))
-        surf.blit(rotated_img, (self.pos[0] - rotated_img.get_width() // 2 + offset[0], self.pos[1] - rotated_img.get_height() // 2 + offset[1]))
+        surf.blit(
+            rotated_img,
+            (
+                self.pos[0] - rotated_img.get_width() // 2 + offset[0],
+                self.pos[1] - rotated_img.get_height() // 2 + offset[1],
+            ),
+        )

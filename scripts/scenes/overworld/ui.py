@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-import logging
-from typing import TYPE_CHECKING
-import math
 import itertools
+import logging
+import math
+from typing import TYPE_CHECKING
 
 import pygame
 import pytweening
@@ -60,8 +60,26 @@ class OverworldUI(UI):
             node_container = self.game.overworld.node_container
 
             # match the nodes with the most accurate combination of directions possible
-            bordering_nodes = [(Direction.DOWN, node_container.selected_node.connected_inner_node), (Direction.UP, node_container.selected_node.connected_outer_node), (Direction.LEFT, node_container.lr_node(Direction.LEFT)), (Direction.RIGHT, node_container.lr_node(Direction.RIGHT))]
-            bordering_nodes = [(n[0], math.degrees(math.atan2(n[1].pos[1] - node_container.selected_node.pos[1], -(n[1].pos[0] - node_container.selected_node.pos[0])))) if n[1] else (n[0], None) for n in bordering_nodes]
+            bordering_nodes = [
+                (Direction.DOWN, node_container.selected_node.connected_inner_node),
+                (Direction.UP, node_container.selected_node.connected_outer_node),
+                (Direction.LEFT, node_container.lr_node(Direction.LEFT)),
+                (Direction.RIGHT, node_container.lr_node(Direction.RIGHT)),
+            ]
+            bordering_nodes = [
+                (
+                    n[0],
+                    math.degrees(
+                        math.atan2(
+                            n[1].pos[1] - node_container.selected_node.pos[1],
+                            -(n[1].pos[0] - node_container.selected_node.pos[0]),
+                        )
+                    ),
+                )
+                if n[1]
+                else (n[0], None)
+                for n in bordering_nodes
+            ]
             dirs = [("left", 0), ("right", 180), ("up", -90), ("down", 90)]
 
             best_combo = [0, 999999]

@@ -80,27 +80,34 @@ class PostCombatUI(UI):
             y = self.game.window.base_resolution[1] // 2 + 40
             if self.selected_ui_row == 0:
                 if self.selected_ui_col == i:
-                    surface.blit(self.game.assets.ui['select_arrow'], (x - 6, y - 14))
-            unit_img = self.game.assets.unit_animations[unit[0]]['icon'][0]
+                    surface.blit(self.game.assets.ui["select_arrow"], (x - 6, y - 14))
+            unit_img = self.game.assets.unit_animations[unit[0]]["icon"][0]
             surface.blit(unit_img, (x - unit_img.get_width() // 2, y))
             y += unit_img.get_height() + 4
-            self.game.assets.fonts['default'].render(unit[0], surface, (x - self.game.assets.fonts['default'].width(unit[0]) // 2, y))
+            self.game.assets.fonts["default"].render(
+                unit[0], surface, (x - self.game.assets.fonts["default"].width(unit[0]) // 2, y)
+            )
             y += 13
             for i, v in enumerate([unit[1], unit[2], unit[3], unit[5]]):
                 v = str(v)
                 if i != 3:
-                    self.game.assets.fonts['default'].render(v, surface, (x, y + 4))
-                    img = self.game.assets.images['stats'][('dmg_dealt@16x16', 'kills@16x16', 'defence@16x16')[i]]
+                    self.game.assets.fonts["default"].render(v, surface, (x, y + 4))
+                    img = self.game.assets.images["stats"][("dmg_dealt@16x16", "kills@16x16", "defence@16x16")[i]]
                     surface.blit(img, (x - img.get_width() - 2, y))
                 else:
-                    self.game.assets.fonts['default'].render(v, surface, (x - self.game.assets.fonts['default'].width(v) // 2, y))
+                    self.game.assets.fonts["default"].render(
+                        v, surface, (x - self.game.assets.fonts["default"].width(v) // 2, y)
+                    )
                 y += 18
             for i in range(unit[4]):
                 x_offset = -unit[4] * 10 + i * 20
-                surface.blit(self.game.assets.images['stats']['health@16x16'], (x + x_offset, y))
+                surface.blit(self.game.assets.images["stats"]["health@16x16"], (x + x_offset, y))
 
         if self.selected_ui_row == 1:
-            surface.blit(self.game.assets.ui['select_arrow'], (self.game.window.base_resolution[0] - 20, self.game.window.base_resolution[1] - 30))
+            surface.blit(
+                self.game.assets.ui["select_arrow"],
+                (self.game.window.base_resolution[0] - 20, self.game.window.base_resolution[1] - 30),
+            )
 
         if self.game.post_combat.state == PostCombatState.VICTORY:
 

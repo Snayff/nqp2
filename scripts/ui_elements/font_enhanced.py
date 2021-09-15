@@ -21,6 +21,7 @@ def load_font_img(path, font_color):
         letter.set_colorkey(bg_color)
     return letters, letter_spacing, font_img.get_height()
 
+
 class Character:
     def __init__(self, character, font, owning_block, index=-1):
         self.index = index
@@ -35,13 +36,13 @@ class Character:
         self.width = self.get_width()
 
     def __str__(self):
-        return '<char: ' + self.character + '>'
+        return "<char: " + self.character + ">"
 
     def __repr__(self):
-        return '<char: ' + self.character + '>'
+        return "<char: " + self.character + ">"
 
     def render(self, surf, offset=(0, 0)):
-        if self.character not in ['\n', ' ']:
+        if self.character not in ["\n", " "]:
             img = self.font.letters[self.font.font_order.index(self.character)]
             if self.alpha != 255:
                 img = img.copy()
@@ -55,33 +56,37 @@ class Character:
             surf.blit(img, (offset[0], offset[1] - vertical_shift))
 
     def get_width(self):
-        if self.character == '\n':
+        if self.character == "\n":
             return 1
-        if self.character != ' ':
-            return int((self.font.letter_spacing[self.font.font_order.index(self.character)] + self.owning_block.character_gap) * self.scale)
+        if self.character != " ":
+            return int(
+                (self.font.letter_spacing[self.font.font_order.index(self.character)] + self.owning_block.character_gap)
+                * self.scale
+            )
         else:
             return int(self.owning_block.space_gap * self.scale)
+
 
 # generates a TextBlock from formatted text. <!2> would swap the text following the tag with the 2nd font given. The first font is the default.
 def formatted_text_gen(text, *fonts, max_width=0):
     font_swap_markers = []
-    tag = ''
+    tag = ""
     last_start = 0
     text_copy = text
     for i, char in enumerate(text_copy):
-        if (tag == '') and (char == '<'):
-            last_start = text.find('<!')
-            tag = '<'
-        if (tag == '<') and (char == '!'):
-            tag = '<!'
+        if (tag == "") and (char == "<"):
+            last_start = text.find("<!")
+            tag = "<"
+        if (tag == "<") and (char == "!"):
+            tag = "<!"
         elif len(tag) > 1:
             tag += char
-            if char == '>':
+            if char == ">":
                 tag_value = tag[2:-1]
                 font_swap_markers.append((last_start, fonts[int(tag_value)]))
                 pos = text.find(tag)
-                text = text[:pos] + text[pos + len(tag):]
-                tag = ''
+                text = text[:pos] + text[pos + len(tag) :]
+                tag = ""
 
     tb = TextBlock(text, fonts[0], max_width=max_width)
     for i in range(len(font_swap_markers)):
@@ -94,11 +99,12 @@ def formatted_text_gen(text, *fonts, max_width=0):
 
     return tb
 
+
 class TextBlock:
     def __init__(self, text, font, max_width=0):
         self.text = text
         self.font = font
-        self.line_gap = 1 # relative to base font height
+        self.line_gap = 1  # relative to base font height
         self.character_gap = 1
         self.space_gap = int(font.letter_spacing[0] // 3 + 1)
         self.max_width = max_width
@@ -145,11 +151,11 @@ class TextBlock:
         current_line_width = 0
         for char in self.base_characters:
             add_space = False
-            if char.character != '\n':
+            if char.character != "\n":
                 word.append(char)
-            if char.character in [' ', '\n']:
+            if char.character in [" ", "\n"]:
                 width = self.char_width(word)
-                if self.max_width and (current_line_width + width > self.max_width): # new line
+                if self.max_width and (current_line_width + width > self.max_width):  # new line
                     self.characters.append([])
                     self.used_width = max(self.used_width, current_line_width)
                     current_line_width = 0
@@ -161,11 +167,11 @@ class TextBlock:
                     font = self.font
                     if len(self.characters[-1]):
                         font = self.characters[-1][-1].font
-                    new_space = Character(' ', font, self)
+                    new_space = Character(" ", font, self)
                     self.characters[-1].append(new_space)
                     current_line_width += new_space.width
                 word = []
-            if char.character == '\n': # new line
+            if char.character == "\n":  # new line
                 self.characters[-1] += word
                 word = []
                 self.characters.append([])
@@ -188,6 +194,7 @@ class TextBlock:
                 x_offset += char.width
             y_offset += self.font.height + self.line_gap
             x_offset = 0
+
 
 class Font:
     def __init__(self, path, colour):

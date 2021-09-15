@@ -84,8 +84,7 @@ class Assets:
         }
 
         self.trap_animations = {
-            trap: self.load_image_dir(ASSET_PATH / "traps/" / trap)
-            for trap in os.listdir(ASSET_PATH / "traps/")
+            trap: self.load_image_dir(ASSET_PATH / "traps/" / trap) for trap in os.listdir(ASSET_PATH / "traps/")
         }
 
         self.commander_animations = {
@@ -120,8 +119,11 @@ class Assets:
         }
 
         self.projectiles = {
-            projectiles_image.split(".")[0]: pygame.image.load(str(ASSET_PATH / "projectiles" / projectiles_image)).convert_alpha()
-            for projectiles_image in os.listdir(ASSET_PATH / "projectiles") if projectiles_image.split(".")[-1] == "png"
+            projectiles_image.split(".")[0]: pygame.image.load(
+                str(ASSET_PATH / "projectiles" / projectiles_image)
+            ).convert_alpha()
+            for projectiles_image in os.listdir(ASSET_PATH / "projectiles")
+            if projectiles_image.split(".")[-1] == "png"
         }
 
         self.maps = {map.split(".")[0]: json_read("data/maps/" + map) for map in os.listdir("data/maps")}

@@ -12,10 +12,10 @@ from scripts.scenes.combat.elements.actions import actions
 from scripts.scenes.combat.elements.camera import Camera
 from scripts.scenes.combat.elements.card_collection import CardCollection
 from scripts.scenes.combat.elements.enemy_combatants_generator import EnemyCombatantsGenerator
+from scripts.scenes.combat.elements.particles import ParticleManager
+from scripts.scenes.combat.elements.projectile_manager import ProjectileManager
 from scripts.scenes.combat.elements.terrain import Terrain
 from scripts.scenes.combat.elements.unit_manager import UnitManager
-from scripts.scenes.combat.elements.projectile_manager import ProjectileManager
-from scripts.scenes.combat.elements.particles import ParticleManager
 from scripts.scenes.combat.ui import CombatUI
 
 if TYPE_CHECKING:
@@ -77,9 +77,9 @@ class CombatScene(Scene):
     @property
     def general_state(self):
         if self.state in [CombatState.UNIT_SELECT_TARGET, CombatState.UNIT_CHOOSE_CARD]:
-            return 'units'
+            return "units"
         else:
-            return 'actions'
+            return "actions"
 
     def update(self, delta_time: float):
         super().update(delta_time)
@@ -99,10 +99,21 @@ class CombatScene(Scene):
             self.game.combat.state == CombatState.WATCH
             if self.last_unit_death:
                 # average the last positions of the last entity to die and the killer of that entity
-                focus_point = ((self.last_unit_death[0].pos[0] + self.last_unit_death[1].pos[0]) / 2, (self.last_unit_death[0].pos[1] + self.last_unit_death[1].pos[1]) / 2)
+                focus_point = (
+                    (self.last_unit_death[0].pos[0] + self.last_unit_death[1].pos[0]) / 2,
+                    (self.last_unit_death[0].pos[1] + self.last_unit_death[1].pos[1]) / 2,
+                )
                 # gradually move camera
-                self.camera.pos[0] += ((focus_point[0] - self.game.window.display.get_width() // 2) - self.camera.pos[0]) / 10 * (self.game.window.dt * 60)
-                self.camera.pos[1] += ((focus_point[1] - self.game.window.display.get_height() // 2) - self.camera.pos[1]) / 10 * (self.game.window.dt * 60)
+                self.camera.pos[0] += (
+                    ((focus_point[0] - self.game.window.display.get_width() // 2) - self.camera.pos[0])
+                    / 10
+                    * (self.game.window.dt * 60)
+                )
+                self.camera.pos[1] += (
+                    ((focus_point[1] - self.game.window.display.get_height() // 2) - self.camera.pos[1])
+                    / 10
+                    * (self.game.window.dt * 60)
+                )
             if self.combat_ending_timer > 4:
                 self.end_combat()
                 if self.game.post_combat.state == PostCombatState.DEFEAT:
@@ -117,7 +128,9 @@ class CombatScene(Scene):
         self.all_entities = self.get_all_entities()
 
         # end combat when either side is empty
-        if (self.game.combat.state not in [CombatState.UNIT_CHOOSE_CARD, CombatState.UNIT_SELECT_TARGET]) and (self.combat_ending_timer == -1):
+        if (self.game.combat.state not in [CombatState.UNIT_CHOOSE_CARD, CombatState.UNIT_SELECT_TARGET]) and (
+            self.combat_ending_timer == -1
+        ):
             player_entities = [e for e in self.all_entities if e.team == "player"]
             if len(player_entities) == 0:
                 self.combat_ending_timer = 0
@@ -156,17 +169,29 @@ class CombatScene(Scene):
 
         if self.debug_pathfinding:
             for entity in self.get_all_entities():
-                if entity.unit.default_behaviour != 'swarm':
+                if entity.unit.default_behaviour != "swarm":
                     if entity.behaviour.current_path and len(entity.behaviour.current_path):
-                        points = [(p[0] + self.camera.render_offset()[0], p[1] + self.camera.render_offset()[1]) for p in ([entity.pos] + entity.behaviour.current_path)]
+                        points = [
+                            (p[0] + self.camera.render_offset()[0], p[1] + self.camera.render_offset()[1])
+                            for p in ([entity.pos] + entity.behaviour.current_path)
+                        ]
                         pygame.draw.lines(combat_surf, (255, 0, 0), False, points)
 
         self.units.render(combat_surf, self.camera.render_offset())
         self.projectiles.render(combat_surf, self.camera.render_offset())
         self.particles.render(combat_surf, self.camera.render_offset())
         if self.camera.zoom != 1:
-            combat_surf = pygame.transform.scale(combat_surf, (int(combat_surf.get_width() * self.camera.zoom), int(combat_surf.get_height() * self.camera.zoom)))
-        self.game.window.display.blit(combat_surf, (-(combat_surf.get_width() - self.game.window.display.get_width()) // 2, -(combat_surf.get_height() - self.game.window.display.get_height()) // 2))
+            combat_surf = pygame.transform.scale(
+                combat_surf,
+                (int(combat_surf.get_width() * self.camera.zoom), int(combat_surf.get_height() * self.camera.zoom)),
+            )
+        self.game.window.display.blit(
+            combat_surf,
+            (
+                -(combat_surf.get_width() - self.game.window.display.get_width()) // 2,
+                -(combat_surf.get_height() - self.game.window.display.get_height()) // 2,
+            ),
+        )
 
         self.ui.render(self.game.window.display)
 
@@ -179,7 +204,7 @@ class CombatScene(Scene):
 
         self.state: CombatState = CombatState.UNIT_CHOOSE_CARD
 
-    def generate_combat(self, biome='plains'):
+    def generate_combat(self, biome="plains"):
         self.terrain: Terrain = Terrain(self.game)
         self.terrain.generate(biome)
 
@@ -223,18 +248,18 @@ class CombatScene(Scene):
                     if unit.injuries >= 3:
                         remove_units.append(unit.id)
                         combat_end_data[i].append(unit.injuries)
-                        combat_end_data[i].append('Died')
+                        combat_end_data[i].append("Died")
                     else:
                         combat_end_data[i].append(unit.injuries)
-                        combat_end_data[i].append('Injured')
+                        combat_end_data[i].append("Injured")
                 else:
                     combat_end_data[i].append(unit.injuries)
-                    combat_end_data[i].append('')
+                    combat_end_data[i].append("")
             else:
                 # remove injury for units not used in combat
                 unit.injuries = max(0, unit.injuries - 1)
                 combat_end_data[i].append(unit.injuries)
-                combat_end_data[i].append('Rested')
+                combat_end_data[i].append("Rested")
 
         # remove units after since they can't be removed during iteration
         for unit in remove_units:

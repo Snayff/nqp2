@@ -1,5 +1,6 @@
 from scripts.scenes.combat.elements.projectile import Projectile
 
+
 class ProjectileManager:
     def __init__(self, game):
         self.game = game

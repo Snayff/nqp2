@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
 import math
 import random
+from typing import TYPE_CHECKING
 
 import pygame
 
@@ -54,7 +54,9 @@ class Unit:
         self.size: int = unit_data["size"] + base_values["size"]  # size of the hitbox
         self.weight: int = unit_data["weight"] + base_values["weight"]
         self.gold_cost: int = unit_data["gold_cost"] + base_values["gold_cost"]
-        self.projectile_data = unit_data["projectile_data"] if "projectile_data" in unit_data else {'img': 'arrow', 'speed': 100}
+        self.projectile_data = (
+            unit_data["projectile_data"] if "projectile_data" in unit_data else {"img": "arrow", "speed": 100}
+        )
         self.entity_spread_max = unit_data["entity_spread"] if "entity_spread" in unit_data else 48
 
         self.modifiers: Dict[str, List[int]] = {}
@@ -175,7 +177,9 @@ class Unit:
             all_y = [p[1] for p in all_positions]
             min_x = min(all_x)
             min_y = min(all_y)
-            self.border_surface = pygame.Surface((max(all_x) - min_x + surf_padding * 2, max(all_y) - min_y + surf_padding * 2))
+            self.border_surface = pygame.Surface(
+                (max(all_x) - min_x + surf_padding * 2, max(all_y) - min_y + surf_padding * 2)
+            )
             self.border_surface_offset = (self.pos[0] - min_x + surf_padding, self.pos[1] - min_y + surf_padding)
             self.border_surface.set_colorkey((0, 0, 0))
 
@@ -183,7 +187,7 @@ class Unit:
                 (self.pos[0] - outline_padding, self.pos[1]),
                 (self.pos[0], self.pos[1] - outline_padding),
                 (self.pos[0] + outline_padding, self.pos[1]),
-                (self.pos[0], self.pos[1] + outline_padding)
+                (self.pos[0], self.pos[1] + outline_padding),
             ]
 
             placed_points = []
@@ -191,7 +195,10 @@ class Unit:
             for pos in all_positions + points:
                 new_pos = (pos[0] - min_x + surf_padding, pos[1] - min_y + surf_padding)
                 angle = math.atan2(pos[1] - self.pos[1], pos[0] - self.pos[0])
-                new_pos = (new_pos[0] + outline_padding * math.cos(angle), new_pos[1] + outline_padding * math.sin(angle))
+                new_pos = (
+                    new_pos[0] + outline_padding * math.cos(angle),
+                    new_pos[1] + outline_padding * math.sin(angle),
+                )
                 for p in placed_points:
                     pygame.draw.line(self.border_surface, (255, 255, 255), new_pos, p)
                 placed_points.append(new_pos)
@@ -211,7 +218,7 @@ class Unit:
     def update(self, dt):
         self.update_pos()
 
-        if self.team == 'player':
+        if self.team == "player":
             self.border_surface_timer += dt
             if self.border_surface_timer > 0.5:
                 self.border_surface_timer -= 0.5
@@ -237,15 +244,39 @@ class Unit:
     def render(self, surface: pygame.Surface, shift=(0, 0)):
         if self.team == "player":
             for d in [(-1, 0), (1, 0), (0, 1), (0, -1)]:
-                surface.blit(self.border_surface_outline_black, (self.pos[0] + shift[0] - self.border_surface_offset[0] + d[0], self.pos[1] + shift[1] - self.border_surface_offset[1] + d[1]))
-            surface.blit(self.border_surface, (self.pos[0] + shift[0] - self.border_surface_offset[0], self.pos[1] + shift[1] - self.border_surface_offset[1]))
-            surface.blit(self.border_surface_outline, (self.pos[0] + shift[0] - self.border_surface_offset[0], self.pos[1] + shift[1] - self.border_surface_offset[1]))
+                surface.blit(
+                    self.border_surface_outline_black,
+                    (
+                        self.pos[0] + shift[0] - self.border_surface_offset[0] + d[0],
+                        self.pos[1] + shift[1] - self.border_surface_offset[1] + d[1],
+                    ),
+                )
+            surface.blit(
+                self.border_surface,
+                (
+                    self.pos[0] + shift[0] - self.border_surface_offset[0],
+                    self.pos[1] + shift[1] - self.border_surface_offset[1],
+                ),
+            )
+            surface.blit(
+                self.border_surface_outline,
+                (
+                    self.pos[0] + shift[0] - self.border_surface_offset[0],
+                    self.pos[1] + shift[1] - self.border_surface_offset[1],
+                ),
+            )
 
     def post_render(self, surface: pygame.Surface, shift=(0, 0)):
         if self.team == "player":
             # should be swapped when banner assets are added
-            banner_img = self.game.assets.ui['banner']
-            surface.blit(banner_img, (self.pos[0] + shift[0] - banner_img.get_width() // 2, self.pos[1] + shift[1] - 20 - banner_img.get_height()))
+            banner_img = self.game.assets.ui["banner"]
+            surface.blit(
+                banner_img,
+                (
+                    self.pos[0] + shift[0] - banner_img.get_width() // 2,
+                    self.pos[1] + shift[1] - 20 - banner_img.get_height(),
+                ),
+            )
 
     def reset_for_combat(self):
         """
@@ -278,7 +309,7 @@ class Unit:
         self.update_pos()
 
         # stuff for the border surface (updates every 0.5s)
-        if self.team == 'player':
+        if self.team == "player":
             self.border_surface_timer = random.random() * 0.5
             self.gen_border_surface()
 

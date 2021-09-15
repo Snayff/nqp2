@@ -17,6 +17,7 @@ Don't try to enforce typing with some of the functions here. They're meant to ta
 This can be adjusted to have valid typing, but it'd make a lot of stuff unnecessarily complicated.
 """
 
+
 class Entity:
     def __init__(self, parent_unit):
         injury_deduction = 1 - 0.1 * parent_unit.injuries
@@ -124,8 +125,8 @@ class Entity:
                 self.alive = False
 
             # comment me out to remove the hit animation
-            if self.action != 'death':
-                self.action = 'hit'
+            if self.action != "death":
+                self.action = "hit"
                 self.frame_timer = 0
 
             self.game.combat.particles.create_particle_burst(self.pos.copy(), (255, 50, 100), random.randint(10, 16))
@@ -176,23 +177,23 @@ class Entity:
             self.behaviour.process(dt)
 
         if not self.alive:
-            self.action = 'death'
+            self.action = "death"
             self.frame_timer = min(self.frame_timer, self.cycle_length - 0.001)
-        elif self.action == 'hit':
+        elif self.action == "hit":
             if self.frame_timer >= self.cycle_length:
                 self.frame_timer = 0
-                self.action = 'idle'
+                self.action = "idle"
         else:
             self.frame_timer = self.frame_timer % self.cycle_length
 
         self.pos_change = [self.pos[0] - start_pos[0], self.pos[1] - start_pos[1]]
-        if self.action not in ['hit', 'death']:
+        if self.action not in ["hit", "death"]:
             if sum(self.pos_change) == 0:
-                self.action = 'idle'
+                self.action = "idle"
             else:
-                self.action = 'walk'
+                self.action = "walk"
             if self.is_attacking:
-                self.action = 'attack'
+                self.action = "attack"
 
         # handle collision
         if self.alive:
@@ -211,24 +212,32 @@ class Entity:
                                 force = 1 - dis / combined_size
                                 entity.advance(
                                     angle,
-                                    (self.weight + WEIGHT_SCALE) / (entity.weight + WEIGHT_SCALE) * dt * PUSH_FORCE * force,
+                                    (self.weight + WEIGHT_SCALE)
+                                    / (entity.weight + WEIGHT_SCALE)
+                                    * dt
+                                    * PUSH_FORCE
+                                    * force,
                                 )
                                 self.advance(
                                     angle + math.pi,
-                                    (entity.weight + WEIGHT_SCALE) / (self.weight + WEIGHT_SCALE) * dt * PUSH_FORCE * force,
+                                    (entity.weight + WEIGHT_SCALE)
+                                    / (self.weight + WEIGHT_SCALE)
+                                    * dt
+                                    * PUSH_FORCE
+                                    * force,
                                 )
                                 entity.pushed_by_log = (entity.pushed_by_log + [self])[-30:]
                                 self.pushed_log = (self.pushed_log + [entity])[-30:]
 
     @property
     def cycle_length(self):
-        if self.action == 'walk':
+        if self.action == "walk":
             cycle_length = self.move_speed / 70
-        elif self.action == 'attack':
+        elif self.action == "attack":
             cycle_length = self.attack_speed
-        elif self.action == 'hit':
+        elif self.action == "hit":
             cycle_length = 0.3
-        elif self.action == 'death':
+        elif self.action == "death":
             cycle_length = 1.5
         else:
             cycle_length = 0.7
