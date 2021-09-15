@@ -113,6 +113,7 @@ class Entity:
 
     def deal_damage(self, amount, owner=None):
         # prevent damage if in godmode
+        dmg_amt = 0
         if not (self.team == "player" and "godmode" in self.game.memory.flags):
             dmg_amt = amount * (DEFENSE_SCALE / (DEFENSE_SCALE + self.defence))
             self.health -= dmg_amt
@@ -148,21 +149,21 @@ class Entity:
                 else:
                     mod = 0
 
-                    if self.use_ammo:
-                        self.ammo -= 1
-                        self.game.combat.projectiles.add_projectile(self, entity)
-                        if self.ammo <= 0:
-                            # switch to melee when out of ammo
-                            self.use_ammo = False
-                            self.range = 0
+                if self.use_ammo:
+                    self.ammo -= 1
+                    self.game.combat.projectiles.add_projectile(self, entity)
+                    if self.ammo <= 0:
+                        # switch to melee when out of ammo
+                        self.use_ammo = False
+                        self.range = 0
 
-                    else:
-                        dmg_status = entity.deal_damage(self.attack + mod, self)
-                        if not dmg_status[0]:
-                            self.unit.kills += 1
-                        self.unit.damage_dealt += dmg_status[1]
+                else:
+                    dmg_status = entity.deal_damage(self.attack + mod, self)
+                    if not dmg_status[0]:
+                        self.unit.kills += 1
+                    self.unit.damage_dealt += dmg_status[1]
 
-                    self.attack_timer = 1 / self.attack_speed
+                self.attack_timer = 1 / self.attack_speed
 
     def update(self, dt):
         self.frame_timer += dt
