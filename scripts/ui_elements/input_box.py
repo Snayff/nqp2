@@ -122,7 +122,7 @@ class InputBox:
         border_r = pygame.Rect(*base_pos, *self.size)
         pygame.draw.rect(surf, self.color, border_r, width=1)
         self.font.render(
-            self.text, surf, (base_pos[0] + self.padding, base_pos[1] + (self.size[1] - self.font.height) // 2)
+            self.text, surf, (base_pos[0] + self.padding, base_pos[1] + (self.size[1] - self.font.line_height) // 2)
         )
         text_width = self.font.width(self.text)
         if self.focused and (self.game.master_clock % 1 > 0.2):

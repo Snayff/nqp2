@@ -146,6 +146,10 @@ class UI(ABC):
         for element in self.elements.values():
             element.render(surface)
 
+    def update_elements(self, delta_time: float):
+        for element in self.elements.values():
+            element.update(delta_time)
+
     def add_panel(self, panel: Panel, name: str):
         """
         Adds panel to the panel dict. If it is the first panel then also sets it to the current panel and selects the
@@ -164,7 +168,7 @@ class UI(ABC):
         confirm_text = button_text
         confirm_width = self.default_font.width(confirm_text)
         current_x = window_width - (confirm_width + GAP_SIZE)
-        current_y = window_height - (self.default_font.height + GAP_SIZE)
+        current_y = window_height - (self.default_font.line_height + GAP_SIZE)
 
         frame = Frame((current_x, current_y), text_and_font=(confirm_text, self.default_font), is_selectable=True)
         self.elements["exit"] = frame

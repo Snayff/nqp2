@@ -167,7 +167,7 @@ class PostCombatUI(UI):
         icon_width = DEFAULT_IMAGE_SIZE
         icon_height = DEFAULT_IMAGE_SIZE
         icon_size = (icon_width, icon_height)
-        font_height = default_font.height
+        font_height = default_font.line_height
         window_width = self.game.window.width
         window_height = self.game.window.height
 
@@ -207,7 +207,7 @@ class PostCombatUI(UI):
         icon_width = DEFAULT_IMAGE_SIZE
         icon_height = DEFAULT_IMAGE_SIZE
         icon_size = (icon_width, icon_height)
-        font_height = default_font.height
+        font_height = default_font.line_height
         window_width = self.game.window.width
         window_height = self.game.window.height
 

@@ -52,7 +52,7 @@ class UnitStatsFrame(UIElement):
         positive_font = self.positive_font
         instruction_font = self.instruction_font
 
-        font_height = default_font.height
+        font_height = default_font.line_height
         stat_icon_size = (DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE)
 
         # draw icon

@@ -24,10 +24,11 @@ class MainMenuUI(UI):
     def __init__(self, game: Game):
         super().__init__(game)
 
-        self.fancy_font = None
 
     def update(self, delta_time: float):
         super().update(delta_time)
+
+        self.update_elements(delta_time)
 
         # generic input
         if self.game.input.states["down"]:
@@ -50,15 +51,12 @@ class MainMenuUI(UI):
             elif selected_element == self.elements["exit"]:
                 self.game.state = GameState.EXITING
 
-        if self.fancy_font is not None:
-            self.fancy_font.update(delta_time)
+
 
     def render(self, surface: pygame.surface):
         # N.B. dont draw instruction
 
-        #self.draw_elements(surface)
-
-        self.fancy_font.render(surface)
+        self.draw_elements(surface)
 
     def rebuild_ui(self):
         super().rebuild_ui()
@@ -70,7 +68,7 @@ class MainMenuUI(UI):
         window_height = self.game.window.height
         start_x = 10
         start_y = window_height - 100
-        font_height = default_font.height
+        font_height = default_font.line_height
 
         # draw background
         background = self.game.assets.get_image("ui", "town", (window_width, window_height))
@@ -111,11 +109,8 @@ class MainMenuUI(UI):
 
         # TEST
         from scripts.ui_elements.fancy_font import FancyFont
-        from scripts.ui_elements.font import Font
-        my_font = Font('assets/fonts/small_font.png', (255, 255, 255))
-        my_big_font = Font('assets/fonts/large_font.png', (255, 255, 255))
-        my_red_font = Font('assets/fonts/small_font.png', (255, 0, 0))
         my_str = "small font, now <!big>a big font and finally <!red> a red one."
-        font = FancyFont(my_str, max_width=200)
-        self.fancy_font = font
+        font = FancyFont(my_str)
+        frame = Frame((0, 0), text_and_font=("", font))
+        self.elements["f"] = frame
 

@@ -120,7 +120,7 @@ class UnitDataUI(UI):
 
         window_width = self.game.window.width
         window_height = self.game.window.height
-        font_height = default_font.height
+        font_height = default_font.line_height
         metric_col_width = 80
         metric_second_row_start_y = window_height // 2
 

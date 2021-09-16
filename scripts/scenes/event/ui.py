@@ -90,7 +90,7 @@ class EventUI(UI):
         current_x = start_x
         current_y = start_y
         frame_line_width = window_width - (current_x * 2)
-        font_height = default_font.height
+        font_height = default_font.line_height
         max_height = ((window_height // 2) - current_y) - font_height
         frame = Frame(
             (current_x, current_y),

@@ -131,7 +131,7 @@ class GalleryUI(UI):
                 try:
                     frame_ = min(frame, len(animations[name][animation]) - 1)
                     image = animations[name][animation][frame_]
-                    surface.blit(image, (current_x, current_y - (default_font.height // 2)))
+                    surface.blit(image, (current_x, current_y - (default_font.line_height // 2)))
 
                 except IndexError:
                     pass

@@ -43,6 +43,6 @@ class Button:
                     self.pos[0]
                     + offset[0]
                     + (self.size[0] - self.game.assets.fonts["default"].width(self.content)) // 2,
-                    self.pos[1] + offset[1] + (self.size[1] - self.game.assets.fonts["default"].height) // 2,
+                    self.pos[1] + offset[1] + (self.size[1] - self.game.assets.fonts["default"].line_height) // 2,
                 ),
             )

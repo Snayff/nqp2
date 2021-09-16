@@ -82,4 +82,4 @@ def generate(game, terrain, biome):
     terrain.boundaries.x = -terrain.barrier_size * terrain.tile_size
     terrain.boundaries.y = -terrain.barrier_size * terrain.tile_size
     terrain.boundaries.width = (terrain.barrier_size * 2 + combat_area_size[0]) * terrain.tile_size
-    terrain.boundaries.height = (terrain.barrier_size * 2 + combat_area_size[1]) * terrain.tile_size
+    terrain.boundaries.line_height = (terrain.barrier_size * 2 + combat_area_size[1]) * terrain.tile_size

@@ -8,6 +8,13 @@ from scripts.ui_elements.font import Font
 
 
 class FancyFont:
+    """
+    A font with effects.
+    Use '<![font_name]>' in the text to indicate which font to use for the following characters. Fonts names are
+    'small', 'big' or 'red'. e.g. text='this is <!red> red'.
+    New lines are indicated with '\\n'.
+    """
+
     def __init__(self, text: str, max_width: int = 0):
 
         # load fonts
@@ -106,15 +113,15 @@ class FancyFont:
         else:
             self.end_char_index = self.length
 
-    def render(self, surf, offset=(0, 0)):
+    def render(self, surface: pygame.Surface, offset=(0, 0)):
         x_offset = 0
         y_offset = 0
         for line in self.characters:
             for char in line:
                 if (self.visible_range[0] <= char.index < self.visible_range[1]) or (char.index == -1):
-                    char.render(surf, (offset[0] + x_offset, offset[1] + y_offset))
+                    char.render(surface, (offset[0] + x_offset, offset[1] + y_offset))
                 x_offset += char.width
-            y_offset += self.font.height + self.line_gap
+            y_offset += self.font.line_height + self.line_gap
             x_offset = 0
 
     def _adjust_font(self, start_index: int, end_index: int, new_font: Font):
@@ -153,9 +160,9 @@ class FancyFont:
 
     @property
     def height(self) -> int:
-        return len(self.characters) * (self.font.height + self.line_gap) - self.line_gap
+        return len(self.characters) * (self.font.line_height + self.line_gap) - self.line_gap
 
-    def get_char_width(self, characters) -> int:
+    def width(self, characters) -> int:
         return sum([char.width for char in characters])
 
     def _generate_characters(self):
@@ -172,7 +179,7 @@ class FancyFont:
             if char.character != "\n":
                 word.append(char)
             if char.character in [" ", "\n"]:
-                width = self.get_char_width(word)
+                width = self.width(word)
                 if self.max_width and (current_line_width + width > self.max_width):  # new line
                     self.characters.append([])
                     self.used_width = max(self.used_width, current_line_width)
@@ -197,7 +204,7 @@ class FancyFont:
 
         if word:
             self.characters[-1] += word
-            width = self.get_char_width(word)
+            width = self.width(word)
             current_line_width += width
 
         self.used_width = max(self.used_width, current_line_width)
@@ -233,7 +240,7 @@ class Character:
                 if not (dimensions[0] and dimensions[1]):
                     return
                 img = pygame.transform.scale(img, dimensions)
-            vertical_shift = int((img.get_height() - self.owning_block.font.height) / 2)
+            vertical_shift = int((img.get_height() - self.owning_block.font.line_height) / 2)
             surf.blit(img, (offset[0], offset[1] - vertical_shift))
 
     def get_width(self):

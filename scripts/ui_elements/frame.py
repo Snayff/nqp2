@@ -8,10 +8,11 @@ from pygame import SRCALPHA
 from scripts.core.base_classes.ui_element import UIElement
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, GAP_SIZE
 from scripts.core.utility import clamp
+from scripts.ui_elements.fancy_font import FancyFont
 from scripts.ui_elements.font import Font
 
 if TYPE_CHECKING:
-    from typing import List, Optional, Tuple
+    from typing import List, Optional, Tuple, Union
 
 
 __all__ = ["Frame"]
@@ -22,7 +23,7 @@ class Frame(UIElement):
         self,
         pos: Tuple[int, int],
         image: Optional[pygame.surface] = None,
-        text_and_font: Optional[Tuple[str, Font]] = (None, None),
+        text_and_font: Optional[Tuple[str, Union[Font, FancyFont]]] = (None, None),
         is_selectable: bool = False,
         max_line_width: int = 0,
         max_height: Optional[int] = None,
@@ -31,14 +32,27 @@ class Frame(UIElement):
 
         self.image: Optional[pygame.surface] = image
         self.text: Optional[str] = str(text_and_font[0])
-        self.font: Optional[Font] = text_and_font[1]
+        self.font: Optional[Union[Font, FancyFont]] = text_and_font[1]
         self.line_width = max_line_width
         self.max_height = max_height
 
         self._rebuild_surface()
 
     def update(self, delta_time: float):
-        pass
+        super().update(delta_time)
+
+        if self.is_active:
+            # FancyFont changes each frame so needs redrawing
+            if isinstance(self.font, FancyFont):
+                self.font.update(delta_time)
+
+    def render(self, surface: pygame.Surface):
+        super().render(surface)
+
+        if self.is_active:
+            # FancyFont changes each frame so needs redrawing
+            if isinstance(self.font, FancyFont):
+                self.font.render(surface)
 
     def _recalculate_size(self):
         image = self.image
@@ -57,8 +71,7 @@ class Frame(UIElement):
 
             # N.B. doesnt amend height as is drawn next to image
             if height == 0:
-                font_height = self.font.height * 2
-                height += font_height * font.calculate_number_of_lines(text, self.line_width)
+                height += self.font.height
 
         # respect max height
         if self.max_height is not None:
@@ -88,7 +101,7 @@ class Frame(UIElement):
             else:
                 start_x = 0
 
-            font.render(text, surface, (start_x, font.height // 2), self.line_width)
+            font.render(text, surface, (start_x, font.line_height // 2), self.line_width)
 
     def set_text(self, text: str):
         self.text = str(text)

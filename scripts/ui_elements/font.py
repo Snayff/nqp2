@@ -1,5 +1,6 @@
 import pygame
 
+from scripts.core.constants import GAP_SIZE
 from scripts.core.utility import clip, swap_color
 
 
@@ -25,7 +26,7 @@ def load_font_img(path, font_color):
 class Font:
     def __init__(self, path, colour):
         self.letters, self.letter_spacing, self.line_height = load_font_img(path, colour)
-        self.height = self.letters[0].get_height()
+        self.line_height = self.letters[0].get_height()
         self.font_order = [
             "A",
             "B",
@@ -116,7 +117,7 @@ class Font:
         self.base_spacing = 1
         self.line_spacing = 2
 
-    def width(self, text):
+    def width(self, text) -> int:
         text_width = 0
         for char in text:
             if char in ["\n", " "]:
@@ -124,6 +125,10 @@ class Font:
             else:
                 text_width += self.letter_spacing[self.font_order.index(char)] + self.base_spacing
         return text_width
+
+    @property
+    def height(self) -> int:
+        return len(self.letters) * (self.line_height + GAP_SIZE) - GAP_SIZE
 
     def calculate_number_of_lines(self, text, line_width) -> int:
         """
