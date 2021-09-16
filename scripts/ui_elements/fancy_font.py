@@ -1,10 +1,16 @@
 from __future__ import annotations
 import pygame
 
-__all__ = ["FancyFont"]
+from typing import TYPE_CHECKING
 
-from scripts.core.constants import ASSET_PATH
+from scripts.core.constants import ASSET_PATH, FontEffects
 from scripts.ui_elements.font import Font
+
+if TYPE_CHECKING:
+    from typing import Dict, Tuple, List, Optional
+
+
+__all__ = ["FancyFont"]
 
 
 class FancyFont:
@@ -15,45 +21,20 @@ class FancyFont:
     New lines are indicated with '\\n'.
     """
 
-    def __init__(self, text: str, max_width: int = 0):
+    def __init__(self, text: str, pos: Tuple[int, int], max_width: int = 0,
+            font_effects: Optional[List[FontEffects]] = None):
 
-        # load fonts
-        default_font = Font(str(ASSET_PATH / "fonts/small_font.png"), (255, 255, 255))
-        big_font = Font(str(ASSET_PATH / "fonts/large_font.png"), (255, 255, 255))
-        red_font = Font(str(ASSET_PATH / "fonts/small_font.png"), (255, 0, 0))
-        fonts = [default_font, big_font, red_font]
+        # handle mutable default
+        if font_effects is None:
+            font_effects = []
 
-        # parse the text, pulling out tags and assigning fonts as required
-        font_swap_markers = []
-        tag = ""
-        last_start = 0
-        text_copy = text
-        for i, char in enumerate(text_copy):
-            if (tag == "") and (char == "<"):
-                last_start = text.find("<!")
-                tag = "<"
-            if (tag == "<") and (char == "!"):
-                tag = "<!"
-            elif len(tag) > 1:
-                tag += char
-                if char == ">":
-                    tag_value = tag[2:-1]
+        self.fonts: List[Font] = self._create_fonts()
 
-                    if tag_value == "red":
-                        tag_index = 2
-                    elif tag_value == "big":
-                        tag_index = 1
-                    else:
-                        # if tag_value == "small"
-                        tag_index = 0
-
-                    font_swap_markers.append((last_start, fonts[tag_index]))
-                    pos = text.find(tag)
-                    text = text[:pos] + text[pos + len(tag):]
-                    tag = ""
+        # transform text and identify where to swap fonts.
+        text, font_swap_markers = self._parse_text(text)
 
         self.text = text
-        self.font = fonts[0]
+        self.font = self.fonts[0]
 
         self.line_gap = 1  # relative to base font height
         self.character_gap = 1
@@ -208,6 +189,51 @@ class FancyFont:
             current_line_width += width
 
         self.used_width = max(self.used_width, current_line_width)
+
+    @staticmethod
+    def _create_fonts() -> List[Font]:
+        default_font = Font(str(ASSET_PATH / "fonts/small_font.png"), (255, 255, 255))
+        big_font = Font(str(ASSET_PATH / "fonts/large_font.png"), (255, 255, 255))
+        red_font = Font(str(ASSET_PATH / "fonts/small_font.png"), (255, 0, 0))
+
+        fonts = [default_font, big_font, red_font]
+        return fonts
+
+    def _parse_text(self, text: str) -> Tuple[str, List[Tuple[int, Font]]]:
+        """
+        Parse the text, extracting values from tags, and returns a transformed text and the font swap markers.
+        Returns as (updated_text, ([font_swap_markers], Font). font_swap_markers are the indices of where the font
+        changes.
+        """
+        font_swap_markers = []
+        tag = ""
+        last_start = 0
+        text_copy = text
+        for i, char in enumerate(text_copy):
+            if (tag == "") and (char == "<"):
+                last_start = text.find("<!")
+                tag = "<"
+            if (tag == "<") and (char == "!"):
+                tag = "<!"
+            elif len(tag) > 1:
+                tag += char
+                if char == ">":
+                    tag_value = tag[2:-1]
+
+                    if tag_value == "red":
+                        tag_index = 2
+                    elif tag_value == "big":
+                        tag_index = 1
+                    else:
+                        # if tag_value == "small"
+                        tag_index = 0
+
+                    font_swap_markers.append((last_start, self.fonts[tag_index]))
+                    pos = text.find(tag)
+                    text = text[:pos] + text[pos + len(tag):]
+                    tag = ""
+
+        return text, font_swap_markers
 
 
 class Character:

@@ -110,7 +110,7 @@ class MainMenuUI(UI):
         # TEST
         from scripts.ui_elements.fancy_font import FancyFont
         my_str = "small font, now <!big>a big font and finally <!red> a red one."
-        font = FancyFont(my_str)
+        font = FancyFont(my_str, (0, 0))
         frame = Frame((0, 0), text_and_font=("", font))
         self.elements["f"] = frame
 

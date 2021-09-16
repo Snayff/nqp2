@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from enum import auto, IntEnum
+from enum import Enum, auto, IntEnum
 from pathlib import Path
 
 VERSION: str = "0.0.1"
@@ -109,3 +109,17 @@ class Direction(IntEnum):
     DOWN = auto()
     LEFT = auto()
     RIGHT = auto()
+
+
+class FontType(Enum):
+    DEFAULT = "default"
+    WARNING = "warning"
+    DISABLED = "disabled"
+    POSITIVE = "positive"
+    INSTRUCTION = "instruction"
+    NOTIFICATION = "notification"
+
+
+class FontEffects(IntEnum):
+    FADE_IN = auto()
+    FADE_OUT = auto()

@@ -8,12 +8,14 @@ from typing import TYPE_CHECKING
 
 import pygame
 
-from scripts.core.constants import ASSET_PATH, DEFAULT_IMAGE_SIZE
+from scripts.core.constants import ASSET_PATH, DEFAULT_IMAGE_SIZE, FontEffects, FontType
+from scripts.core.utility import clamp
+from scripts.ui_elements.fancy_font import FancyFont
 from scripts.ui_elements.font import Font
 from scripts.ui_elements.font_enhanced import Font as FontEnhanced
 
 if TYPE_CHECKING:
-    from typing import Dict, Tuple
+    from typing import Dict, Tuple, List, Optional
 
     from scripts.core.game import Game
 
@@ -189,6 +191,28 @@ class Assets:
             return image.copy()
         else:
             return image
+
+    def create_font(self, font_type: FontType) -> Font:
+        """
+        Create a font instance.
+        """
+        font = self.fonts[font_type]
+        return font
+
+    def create_fancy_font(self, text: str, pos: Tuple[int, int], line_width: int = 0,
+            font_effects: Optional[List[FontEffects]] = None):
+        """
+        Create a FancyFont instance. If line_width isnt given then will default to full screen.
+        """
+        line_width = clamp(line_width, 0, self.game.window.width)
+
+        # handle mutable default
+        if font_effects is None:
+            font_effects = []
+
+        font = FancyFont(text, pos, line_width, font_effects)
+        return font
+
 
     def load_tileset(self, path):
         """
