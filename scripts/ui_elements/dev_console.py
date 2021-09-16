@@ -131,10 +131,14 @@ class DevConsole(InputBox):
             self.game.memory.flags.remove("godmode")
             state = "off"
 
+            logging.debug(f"Turned godmode off.")
+
         else:
             self.game.memory.flags.append("godmode")
 
             state = "on"
+
+            logging.debug(f"Turned godmode on.")
 
             # add cheat flag
             if "cheated" not in self.game.memory.flags:
@@ -184,6 +188,8 @@ class DevConsole(InputBox):
         existing_units = list(self.game.data.units.keys())
         num_updated = 0
         num_created = 0
+
+        logging.debug(f"Loading unit csv...")
 
         # load the data
         with open("units.csv", "r") as csv_file:
@@ -237,6 +243,8 @@ class DevConsole(InputBox):
 
         confirmation_message = f"Updated {num_updated} unit details and created {num_created} units."
 
+        logging.debug(f"->{confirmation_message})")
+
         return confirmation_message
 
     def _process_combat_result(self, result: str) -> str:
@@ -248,10 +256,14 @@ class DevConsole(InputBox):
             self.game.combat.process_victory()
             confirmation_message = "Combat won."
 
+            logging.debug(f"Skipped to combat victory.")
+
         elif result == "lose":
             self.game.combat.end_combat()
             self.game.combat.process_defeat()
             confirmation_message = "Combat lost."
+
+            logging.debug(f"Skipped to combat defeat.")
 
         else:
             confirmation_message = f"Result type ({result}) not recognised."
