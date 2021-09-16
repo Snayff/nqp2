@@ -115,7 +115,7 @@ class MainMenuUI(UI):
         my_font = Font('assets/fonts/small_font.png', (255, 255, 255))
         my_big_font = Font('assets/fonts/large_font.png', (255, 255, 255))
         my_red_font = Font('assets/fonts/small_font.png', (255, 0, 0))
-        my_str = 'abcdef<!1>gh<!0>i<!1>j<!0>klmnop qrstuvwxyz<!2>ABCDEF Hello W<!0>orld!\n\nbapjs odhao<!1>ishdoi ahoidhaoin aisdiahs asdio<!0>haph adsiahspahd aisohdoiahd\n\ndhaihdaiuhdw adhoaihdhaioiohasdiaoh'
-        my_str += '\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. <!1>Ut enim<!0> ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-        font = FancyFont(my_str, my_font, my_red_font, my_big_font, max_width=200)
-        self.fancy_font =font
+        my_str = "small font, now <!big>a big font and finally <!red> a red one."
+        font = FancyFont(my_str, max_width=200)
+        self.fancy_font = font
+
