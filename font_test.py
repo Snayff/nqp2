@@ -27,7 +27,7 @@ while True:
     #draw_line((mx, my), (100, 100))
     pygame.draw.rect(screen, (255, 0, 0), pygame.Rect(100, 100, 204, 800), width=1)
     my_text.render(screen, (102, 100))
-    my_text.visible_range = [int(i), j]
+    my_text._visible_range = [int(i), j]
     i += 0.5
     j += 1
     if i > my_text.length + 30:

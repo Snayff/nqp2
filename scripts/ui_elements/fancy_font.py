@@ -33,32 +33,32 @@ class FancyFont:
         if not isinstance(text, str):
             text = str(text)
 
-        self._raw_text = text
+        self.raw_text: str = text
 
-        self.fonts: List[NewFont] = self._create_fonts()
+        self._fonts: List[NewFont] = self._create_fonts()
 
         # transform text and identify where to swap fonts.
         parsed_text, font_swap_markers = self._parse_text(text)
 
-        self.parsed_text = parsed_text
+        self._parsed_text: str = parsed_text
         self.pos: Tuple[int, int] = pos
-        self.font = self.fonts[0]
+        self.font: NewFont = self._fonts[0]
 
-        self.line_height = self.font.line_height
-        self.line_gap = 1  # relative to base font height
-        self.character_gap = 1
-        self.space_gap = int(self.font.letter_spacing[0] // 3 + 1)
-        self.line_width = line_width
-        self.used_width = 0
+        self.line_height: int = self.font.line_height
+        self._line_gap: int = 1  # relative to base font height
+        self.character_gap: int = 1
+        self.space_gap: int = int(self.font.letter_spacing[0] // 3 + 1)
+        self.line_width: int = line_width
+        self._used_width: int = 0
 
-        self.characters: List[List[Character]] = [[]]
-        self.base_characters = self._create_base_characters()
+        self._characters: List[List[Character]] = [[]]
+        self._base_characters: List[Character] = self._create_base_characters()
         self._generate_characters()
 
-        self.visible_range = [0, self.length]
+        self._visible_range = [0, self.length]
         self._initial_start_char_index = 0  # can be set to negative to create a delay when being removed.
-        self.start_char_index = self._initial_start_char_index
-        self.end_char_index = 0
+        self._start_char_index = self._initial_start_char_index
+        self._end_char_index = 0
 
         # effect flags
         self._fade_in = False
@@ -68,9 +68,21 @@ class FancyFont:
         # utilise font_swap_markers
         self._initial_font_adjustments(parsed_text, font_swap_markers)
 
+    @property
+    def length(self) -> int:
+        return sum([len(line) for line in self._characters])
+
+    @property
+    def height(self) -> int:
+        return len(self._characters) * (self.font.line_height + self._line_gap) - self._line_gap
+
+    @property
+    def width(self) -> int:
+        return self.line_width
+
     def update(self, delta_time: float):
         # set visible range, determining what chars are shown
-        self.visible_range = [int(self.start_char_index), self.end_char_index]
+        self._visible_range = [int(self._start_char_index), self._end_char_index]
 
         # increment char indices
         start_increment = 0.5  # N.B. make sure it is slower than the incrementing of
@@ -78,15 +90,15 @@ class FancyFont:
 
         # if not fading in then we dont need to change the start index
         if self._fade_out:
-            self.start_char_index += start_increment
+            self._start_char_index += start_increment
 
         if self._fade_in:
-            self.end_char_index += end_increment
-            if self.start_char_index > self.length + 30:
-                self.start_char_index = 0
-                self.end_char_index = 0
+            self._end_char_index += end_increment
+            if self._start_char_index > self.length + 30:
+                self._start_char_index = 0
+                self._end_char_index = 0
 
-            j = self.end_char_index
+            j = self._end_char_index
             # scale to full size
             self._adjust_scale(j - 20, j - 16, 1)
             self._adjust_scale(j - 12, j, 0.8)
@@ -97,51 +109,54 @@ class FancyFont:
             self._adjust_alpha(j - 8, j, 40)
 
         else:
-            self.end_char_index = self.length
+            self._end_char_index = self.length
 
     def render(self, surface: pygame.Surface):
         start_x = self.pos[0]
         start_y = self.pos[1]
         x_offset = 0
         y_offset = 0
-        for line in self.characters:
+        for line in self._characters:
             for char in line:
-                if (self.visible_range[0] <= char.index < self.visible_range[1]) or (char.index == -1):
+                if (self._visible_range[0] <= char.index < self._visible_range[1]) or (char.index == -1):
                     char.render(surface, (start_x + x_offset, start_y + y_offset))
                 x_offset += char.width
-            y_offset += self.line_height + self.line_gap
+            y_offset += self.line_height + self._line_gap
             x_offset = 0
 
     def refresh(self):
         """
         Refresh the font, restarting from the beginning with the current text.
         """
-        self.fonts: List[NewFont] = self._create_fonts()
+        self._fonts: List[NewFont] = self._create_fonts()
 
         # transform text and identify where to swap fonts.
-        parsed_text, font_swap_markers = self._parse_text(self._raw_text)
+        parsed_text, font_swap_markers = self._parse_text(self.raw_text)
 
-        self.parsed_text = parsed_text
-        self.font = self.fonts[0]
+        self._parsed_text = parsed_text
+        self.font = self._fonts[0]
 
         self.line_height = self.font.line_height
-        self.line_gap = 1  # relative to base font height
+        self._line_gap = 1  # relative to base font height
         self.character_gap = 1
         self.space_gap = int(self.font.letter_spacing[0] // 3 + 1)
-        self.used_width = 0
+        self._used_width = 0
 
-        self.characters: List[List[Character]] = [[]]
-        self.base_characters = self._create_base_characters()
+        self._characters: List[List[Character]] = [[]]
+        self._base_characters = self._create_base_characters()
         self._generate_characters()
 
-        self.visible_range = [0, self.length]
+        self._visible_range = [0, self.length]
         self._initial_start_char_index = 0  # can be set to negative to create a delay when being removed.
-        self.start_char_index = self._initial_start_char_index
-        self.end_char_index = 0
+        self._start_char_index = self._initial_start_char_index
+        self._end_char_index = 0
 
         # utilise font_swap_markers
         self._initial_font_adjustments(parsed_text, font_swap_markers)
 
+    @staticmethod
+    def get_character_width(characters: List[Character]) -> int:
+        return sum([char.width for char in characters])
 
     def _initial_font_adjustments(self, parsed_text: str, font_swap_markers):
         """
@@ -162,7 +177,7 @@ class FancyFont:
         Adjust the font of the characters between 2 indices.
         """
         start_index = max(0, start_index)
-        for char in self.base_characters[start_index:end_index]:
+        for char in self._base_characters[start_index:end_index]:
             char.font = new_font
             char.update()
         self._generate_characters()
@@ -172,7 +187,7 @@ class FancyFont:
         Adjust the alpha of the characters between 2 indices. new_alpha can be between 0 and 255.
         """
         start_index = max(0, start_index)
-        for char in self.base_characters[start_index:end_index]:
+        for char in self._base_characters[start_index:end_index]:
             char.alpha = new_alpha
             char.update()
         self._generate_characters()
@@ -182,70 +197,54 @@ class FancyFont:
         Adjust the scale of the characters between 2 indices.
         """
         start_index = max(0, start_index)
-        for char in self.base_characters[start_index:end_index]:
+        for char in self._base_characters[start_index:end_index]:
             char.scale = new_scale
             char.update()
         self._generate_characters()
 
-    @property
-    def length(self) -> int:
-        return sum([len(line) for line in self.characters])
-
-    @property
-    def height(self) -> int:
-        return len(self.characters) * (self.font.line_height + self.line_gap) - self.line_gap
-
-    @property
-    def width(self) -> int:
-        return self.line_width
-
-    @staticmethod
-    def get_character_width(characters: List[Character]) -> int:
-        return sum([char.width for char in characters])
-
     def _generate_characters(self):
         """
-        Convert the text into Characters. Update used_width and the character list.
+        Convert the text into Characters. Update _used_width and the character list.
         """
         word = []
-        self.characters = [[]]
-        self.used_width = 0
+        self._characters = [[]]
+        self._used_width = 0
 
         current_line_width = 0
-        for char in self.base_characters:
+        for char in self._base_characters:
             add_space = False
             if char.character != "\n":
                 word.append(char)
             if char.character in [" ", "\n"]:
                 width = self.get_character_width(word)
                 if self.line_width and (current_line_width + width > self.line_width):  # new line
-                    self.characters.append([])
-                    self.used_width = max(self.used_width, current_line_width)
+                    self._characters.append([])
+                    self._used_width = max(self._used_width, current_line_width)
                     current_line_width = 0
                 else:
                     add_space = True
-                self.characters[-1] += word
+                self._characters[-1] += word
                 current_line_width += width
                 if add_space:
                     font = self.font
-                    if len(self.characters[-1]):
-                        font = self.characters[-1][-1].font
+                    if len(self._characters[-1]):
+                        font = self._characters[-1][-1].font
                     new_space = Character(" ", font, self)
-                    self.characters[-1].append(new_space)
+                    self._characters[-1].append(new_space)
                     current_line_width += new_space.width
                 word = []
             if char.character == "\n":  # new line
-                self.characters[-1] += word
+                self._characters[-1] += word
                 word = []
-                self.characters.append([])
+                self._characters.append([])
                 current_line_width = 0
 
         if word:
-            self.characters[-1] += word
+            self._characters[-1] += word
             width = self.get_character_width(word)
             current_line_width += width
 
-        self.used_width = max(self.used_width, current_line_width)
+        self._used_width = max(self._used_width, current_line_width)
 
     @staticmethod
     def _create_fonts() -> List[NewFont]:
@@ -285,7 +284,7 @@ class FancyFont:
                         # if tag_value == "small"
                         tag_index = 0
 
-                    font_swap_markers.append((last_start, self.fonts[tag_index]))
+                    font_swap_markers.append((last_start, self._fonts[tag_index]))
                     pos = text.find(tag)
                     text = text[:pos] + text[pos + len(tag):]
                     tag = ""
@@ -303,7 +302,7 @@ class FancyFont:
             self._fade_out = False
 
     def _create_base_characters(self) -> List[Character]:
-        base_chars = [Character(char, self.font, self, index=i) for i, char in enumerate(self.parsed_text)]
+        base_chars = [Character(char, self.font, self, index=i) for i, char in enumerate(self._parsed_text)]
         return base_chars
 
 
@@ -346,7 +345,7 @@ class Character:
             return 1
         if self.character != " ":
             return int(
-                (self.font.letter_spacing[self.font.font_order.index(self.character)] +  
+                (self.font.letter_spacing[self.font.font_order.index(self.character)] +
                  self.owning_block.character_gap)
                 * self.scale
             )

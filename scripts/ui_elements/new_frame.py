@@ -139,7 +139,7 @@ class NewFrame(UIElement):
         font = self.font
 
         if isinstance(font, FancyFont):
-            font._raw_text = text
+            font.raw_text = text
             font.refresh()
 
         elif isinstance(font, NewFont):
