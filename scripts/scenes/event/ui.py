@@ -186,13 +186,13 @@ class EventUI(UI):
                         if key not in ["injury"]:
                             font_type = FontType.POSITIVE
                         else:
-                            font_type = FontType.WARNING
+                            font_type = FontType.NEGATIVE
                     else:
                         # less injuries is good, unlike other resources
                         if key in ["injury"]:
                             font_type = FontType.POSITIVE
                         else:
-                            font_type = FontType.WARNING
+                            font_type = FontType.NEGATIVE
 
                     # we know its a number, so take as value
                     text = value

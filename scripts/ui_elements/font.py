@@ -27,7 +27,7 @@ class Font:
         self.text: str = text
         self.line_width: int = line_width
         self.pos: Tuple[int, int] = pos
-        self.line_height: int = self.letters[0].get_height()
+        self.line_height: int = self.letters[0].get_height() + 5  # +5 as it isnt returning properly
         self.font_order: List[str] = [
             "A",
             "B",
@@ -120,11 +120,41 @@ class Font:
 
     @property
     def height(self) -> int:
-        return len(self.letters) * (self.line_height + GAP_SIZE) - GAP_SIZE
+        return max(self.number_of_lines * (self.line_height + GAP_SIZE) - GAP_SIZE, self.line_height)
 
     @property
     def width(self) -> int:
-        return self.line_width
+        return self.get_text_width(self.text)
+
+    @property
+    def number_of_lines(self) -> int:
+        """
+        Calculate the number of lines the given text will take up, based on the line width.
+        """
+        line_width = self.line_width
+        text = self.text
+
+        num_lines = 1
+
+
+        if line_width != 0:
+            spaces = []
+            x = 0
+            for i, char in enumerate(text):
+                if char == " ":
+                    spaces.append((x, i))
+                    x += self._space_width + self._base_spacing
+                else:
+                    x += self.letter_spacing[self.font_order.index(char)] + self._base_spacing
+            line_offset = 0
+            for i, space in enumerate(spaces):
+                if (space[0] - line_offset) > line_width:
+                    line_offset += spaces[i - 1][0] - line_offset
+                    if i != 0:
+                        text = text[: spaces[i - 1][1]] + "\n" + text[spaces[i - 1][1] + 1 :]
+                        num_lines += 1
+
+        return num_lines
 
     def render(self, surface: pygame.Surface):
         text = self.text
@@ -172,31 +202,6 @@ class Font:
             else:
                 text_width += self.letter_spacing[self.font_order.index(char)] + self._base_spacing
         return text_width
-
-    def calculate_number_of_lines(self, text: str, line_width) -> int:
-        """
-        Calculate the number of lines the given text will take up, based on the line width.
-        """
-        num_lines = 1
-
-        if line_width != 0:
-            spaces = []
-            x = 0
-            for i, char in enumerate(text):
-                if char == " ":
-                    spaces.append((x, i))
-                    x += self._space_width + self._base_spacing
-                else:
-                    x += self.letter_spacing[self.font_order.index(char)] + self._base_spacing
-            line_offset = 0
-            for i, space in enumerate(spaces):
-                if (space[0] - line_offset) > line_width:
-                    line_offset += spaces[i - 1][0] - line_offset
-                    if i != 0:
-                        text = text[: spaces[i - 1][1]] + "\n" + text[spaces[i - 1][1] + 1 :]
-                        num_lines += 1
-
-        return num_lines
 
     @staticmethod
     def _load_font_img(path: str, colour: Tuple[int, int, int]) -> Tuple[List[pygame.Surface], List[int]]:

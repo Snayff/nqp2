@@ -6,7 +6,7 @@ from typing import Dict, TYPE_CHECKING
 import pygame
 
 from scripts.core.base_classes.ui import UI
-from scripts.core.constants import DEFAULT_IMAGE_SIZE, GAP_SIZE, SceneType
+from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, GAP_SIZE, SceneType
 from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.panel import Panel
 
@@ -53,14 +53,15 @@ class RunSetupUI(UI):
 
         commanders = self.game.data.commanders
         selected_commander = self.game.run_setup.selected_commander
-        default_font = self.default_font
+        window_width = self.game.window.width
+        window_height = self.game.window.height
+        create_font = self.game.assets.create_font
 
         # positions
         start_x = 20
         start_y = 20
+        default_font = self.game.assets.create_font(FontType.DEFAULT, "")
         font_height = default_font.line_height
-        window_width = self.game.window.width
-        window_height = self.game.window.height
 
         # draw commanders
         current_x = start_x
@@ -69,7 +70,6 @@ class RunSetupUI(UI):
         for selection_counter, commander in enumerate(commanders.values()):
             icon = self.game.assets.commander_animations[commander["type"]]["icon"][0]
             icon_width = icon.get_width()
-            icon_height = icon.get_height()
             frame = Frame((current_x, current_y), icon, is_selectable=True)
             self.elements[commander["type"]] = frame
 
@@ -90,46 +90,68 @@ class RunSetupUI(UI):
         current_y = start_y + DEFAULT_IMAGE_SIZE + GAP_SIZE
         info_x = start_x + 200
         header_x = start_x
-        row_counter = 1
 
         # name
-        frame = Frame((header_x, current_y), text_and_font=("Name", default_font))
+        frame = Frame(
+            (header_x, current_y),
+            font=create_font(FontType.DEFAULT, "Name"),
+            is_selectable=False
+        )
         self.elements["name_header"] = frame
 
-        frame = Frame((info_x, current_y), text_and_font=(commander["name"], default_font))
+        frame = Frame(
+            (header_x, current_y),
+            font=create_font(FontType.DEFAULT, commander["name"]),
+            is_selectable=False
+        )
         self.elements["name"] = frame
 
         current_y += font_height + GAP_SIZE
-        row_counter += 1
 
         # backstory - N.B. no header and needs wider frame
         line_width = window_width - (current_x * 2)
         frame = Frame(
-            (header_x, current_y), text_and_font=(commander["backstory"], default_font), max_line_width=line_width
+            (header_x, current_y),
+            font=create_font(FontType.DEFAULT, commander["backstory"]),
+            is_selectable=False,
+            max_width=line_width
         )
         self.elements["backstory"] = frame
 
         current_y += frame.height + GAP_SIZE
-        row_counter += 1
 
         # limits
-        frame = Frame((header_x, current_y), text_and_font=("Charisma", default_font))
+        frame = Frame(
+            (current_x, current_y),
+            font=create_font(FontType.DEFAULT, "Charisma"),
+            is_selectable=False
+        )
         self.elements["charisma_header"] = frame
 
-        frame = Frame((info_x, current_y), text_and_font=(commander["charisma"], default_font))
+        frame = Frame(
+            (current_x, current_y),
+            font=create_font(FontType.DEFAULT, commander["charisma"]),
+            is_selectable=False
+        )
         self.elements["charisma"] = frame
 
         current_y += font_height
-        row_counter += 1
 
-        frame = Frame((header_x, current_y), text_and_font=("Leadership", default_font))
+        frame = Frame(
+            (current_x, current_y),
+            font=create_font(FontType.DEFAULT, "Leadership"),
+            is_selectable=False
+        )
         self.elements["leadership_header"] = frame
 
-        frame = Frame((info_x, current_y), text_and_font=(commander["leadership"], default_font))
+        frame = Frame(
+            (current_x, current_y),
+            font=create_font(FontType.DEFAULT, commander["leadership"]),
+            is_selectable=False
+        )
         self.elements["leadership"] = frame
 
         current_y += font_height + GAP_SIZE
-        row_counter += 1
 
         # allies
         allies = ""
@@ -139,34 +161,38 @@ class RunSetupUI(UI):
                 allies += ally
             else:
                 allies += ", " + ally
-        frame = Frame((header_x, current_y), text_and_font=("Allies", default_font))
+        frame = Frame(
+            (current_x, current_y),
+            font=create_font(FontType.DEFAULT, "Allies"),
+            is_selectable=False
+        )
         self.elements["allies_header"] = frame
 
-        frame = Frame((info_x, current_y), text_and_font=(allies, default_font))
+        frame = Frame(
+            (current_x, current_y),
+            font=create_font(FontType.DEFAULT, allies),
+            is_selectable=False
+        )
         self.elements["allies"] = frame
 
         current_y += font_height + GAP_SIZE
-        row_counter += 1
 
         # gold
-        frame = Frame((header_x, current_y), text_and_font=("Gold", default_font))
+        frame = Frame(
+            (current_x, current_y),
+            font=create_font(FontType.DEFAULT, "Gold"),
+            is_selectable=False
+        )
         self.elements["gold_header"] = frame
 
-        frame = Frame((info_x, current_y), text_and_font=(commander["gold"], default_font))
+        frame = Frame(
+            (current_x, current_y),
+            font=create_font(FontType.DEFAULT, commander["gold"]),
+            is_selectable=False
+        )
         self.elements["gold"] = frame
 
-        row_counter += 1
-
-        panel_elements = []
-        confirm_text = "Onwards"
-        confirm_width = self.default_font.width(confirm_text)
-        current_x = window_width - (confirm_width + GAP_SIZE)
-        current_y = window_height - (font_height + GAP_SIZE)
-        frame = Frame((current_x, current_y), text_and_font=(confirm_text, default_font), is_selectable=True)
-        self.elements["exit"] = frame
-        panel_elements.append(frame)
-        panel = Panel(panel_elements, True)
-        self.add_panel(panel, "exit")
+        self.add_exit_button()
 
     def refresh_info(self):
         elements = self.elements

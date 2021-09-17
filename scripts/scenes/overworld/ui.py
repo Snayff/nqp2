@@ -10,7 +10,7 @@ import pytweening
 
 from scripts.core import utility
 from scripts.core.base_classes.ui import UI
-from scripts.core.constants import DEFAULT_IMAGE_SIZE, Direction, NodeType, OverworldState, SceneType
+from scripts.core.constants import DEFAULT_IMAGE_SIZE, Direction, FontType, NodeType, OverworldState, SceneType
 from scripts.ui_elements.frame import Frame
 
 if TYPE_CHECKING:
@@ -220,8 +220,7 @@ class OverworldUI(UI):
         super().rebuild_ui()
 
         overworld_map = self.game.overworld
-        warning_font = self.warning_font
-        notification_font = self.notification_font
+        create_font = self.game.assets.create_font
 
         if overworld_map.state == OverworldState.LOADING:
             # draw loading screen
@@ -229,8 +228,8 @@ class OverworldUI(UI):
             current_y = self.game.window.height - 20
             frame = Frame(
                 (current_x, current_y),
-                text_and_font=("Loading...", warning_font),
-                is_selectable=False,
+                font=create_font(FontType.NEGATIVE, "Loading..."),
+                is_selectable=False
             )
             self.elements["loading_message"] = frame
 
@@ -246,10 +245,10 @@ class OverworldUI(UI):
             current_y = int(self.game.window.height / 2)
             frame = Frame(
                 (current_x, current_y),
-                text_and_font=(notification, notification_font),
-                is_selectable=False,
+                font=create_font(FontType.NOTIFICATION, notification),
+                is_selectable=False
             )
-            frame.is_active = False
+            frame.is_active = False  # dont show until activated
             self.elements["event_notification"] = frame
 
             # draw boss notification
@@ -258,8 +257,8 @@ class OverworldUI(UI):
             current_y = int(self.game.window.height / 2)
             frame = Frame(
                 (current_x, current_y),
-                text_and_font=(notification, notification_font),
-                is_selectable=False,
+                font=create_font(FontType.NOTIFICATION, notification),
+                is_selectable=False
             )
             frame.is_active = False
             self.elements["boss_notification"] = frame

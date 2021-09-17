@@ -12,8 +12,6 @@ from scripts.core.constants import ASSET_PATH, DEFAULT_IMAGE_SIZE, FontEffects, 
 from scripts.core.utility import clamp
 from scripts.ui_elements.fancy_font import FancyFont
 from scripts.ui_elements.font import Font
-from scripts.ui_elements.font_enhanced import Font as FontEnhanced
-from scripts.ui_elements.font import Font
 
 if TYPE_CHECKING:
     from typing import Dict, Tuple, List, Optional

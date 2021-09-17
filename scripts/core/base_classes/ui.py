@@ -32,13 +32,6 @@ class UI(ABC):
     def __init__(self, game: Game):
         self.game: Game = game
 
-        self.default_font: Font = self.game.assets.fonts["default"]
-        self.disabled_font: Font = self.game.assets.fonts["disabled"]
-        self.warning_font: Font = self.game.assets.fonts["warning"]
-        self.positive_font: Font = self.game.assets.fonts["positive"]
-        self.instruction_font: Font = self.game.assets.fonts["instruction"]
-        self.notification_font: Font = self.game.assets.fonts["notification"]
-
         self.elements: Dict[str, Union[Frame, UnitStatsFrame]] = {}
         self.panels: Dict[str, Panel] = {}
         self.current_panel: Optional[Panel] = None
@@ -139,14 +132,15 @@ class UI(ABC):
     def draw_instruction(self, surface: pygame.surface):
         if self.temporary_instruction_text:
             text = self.temporary_instruction_text
-            font = self.warning_font
+            font = self.game.assets.create_font(FontType.NEGATIVE, text)
         else:
             text = self.instruction_text
-            font = self.instruction_font
+            font = font = self.game.assets.create_font(FontType.INSTRUCTION, text)
 
-        x = self.game.window.width - font.width(text) - 2
+        x = self.game.window.width - font.width - 2
         y = 2
-        font.render(text, surface, (x, y))
+        font.pos = (x, y)
+        font.render(surface)
 
     def draw_elements(self, surface: pygame.surface):
         for element in self.elements.values():
@@ -175,7 +169,7 @@ class UI(ABC):
         # get position info
         confirm_width = font.get_text_width(button_text)
         current_x = window_width - (confirm_width + GAP_SIZE)
-        current_y = window_height - (self.default_font.line_height + GAP_SIZE)
+        current_y = window_height - (font.line_height + GAP_SIZE)
 
         frame = Frame(
             (current_x, current_y),

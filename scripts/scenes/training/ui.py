@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import pygame
 
 from scripts.core.base_classes.ui import UI
-from scripts.core.constants import DEFAULT_IMAGE_SIZE, GAP_SIZE, SceneType, TrainingState
+from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, GAP_SIZE, SceneType, TrainingState
 from scripts.scenes.combat.elements.unit import Unit
 from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.panel import Panel
@@ -70,19 +70,14 @@ class TrainingUI(UI):
     def rebuild_ui(self):
         super().rebuild_ui()
 
-        default_font = self.default_font
-        disabled_font = self.disabled_font
-        warning_font = self.warning_font
         scene = self.game.training
+        create_font = self.game.assets.create_font
 
         start_x = 20
         start_y = 40
         icon_width = DEFAULT_IMAGE_SIZE
         icon_height = DEFAULT_IMAGE_SIZE
         icon_size = (icon_width, icon_height)
-        font_height = default_font.line_height
-        window_width = self.game.window.width
-        window_height = self.game.window.height
 
         # draw upgrades
         current_x = start_x
@@ -92,30 +87,30 @@ class TrainingUI(UI):
             # check if available
             if scene.upgrades_available[upgrade["type"]]:
                 text = f"{upgrade['stat']} +{upgrade['mod_amount']}"
-                font = default_font
+                font_type = FontType.DEFAULT
                 is_selectable = True
 
                 # check can afford
                 upgrade_cost = self.game.training.calculate_upgrade_cost(upgrade["tier"])
                 can_afford = self.game.memory.gold > upgrade_cost
                 if can_afford:
-                    gold_font = default_font
+                    gold_font_type = FontType.DEFAULT
                 else:
-                    gold_font = warning_font
+                    gold_font_type = FontType.NEGATIVE
 
                 # draw gold cost
                 gold_icon = self.game.assets.get_image("stats", "gold", icon_size)
                 frame = Frame(
                     (current_x, current_y),
                     image=gold_icon,
-                    text_and_font=(str(upgrade_cost), gold_font),
-                    is_selectable=False,
+                    font=create_font(gold_font_type, str(upgrade_cost)),
+                    is_selectable=False
                 )
                 self.elements["cost" + str(selection_counter)] = frame
 
             else:
                 text = f"Sold out"
-                font = disabled_font
+                font_type = FontType.DISABLED
                 is_selectable = False
 
             # draw upgrade icon and details
@@ -124,8 +119,8 @@ class TrainingUI(UI):
             frame = Frame(
                 (upgrade_x, current_y),
                 image=stat_icon,
-                text_and_font=(text, font),
-                is_selectable=is_selectable,
+                font=create_font(font_type, text),
+                is_selectable=is_selectable
             )
             # capture frame
             self.elements[upgrade["type"] + str(selection_counter)] = frame
@@ -152,8 +147,8 @@ class TrainingUI(UI):
             frame = Frame(
                 (current_x, current_y),
                 image=unit_icon,
-                text_and_font=(f"{unit.type}", default_font),
-                is_selectable=True,
+                font=create_font(FontType.DEFAULT, str(unit.type)),
+                is_selectable=True
             )
             frame.add_tier_background(unit.tier)
 

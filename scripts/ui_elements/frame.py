@@ -10,7 +10,6 @@ from scripts.core.constants import DEFAULT_IMAGE_SIZE, GAP_SIZE
 from scripts.core.utility import clamp
 from scripts.ui_elements.fancy_font import FancyFont
 from scripts.ui_elements.font import Font
-from scripts.ui_elements.font import Font
 
 if TYPE_CHECKING:
     from typing import List, Optional, Tuple, Union
@@ -26,16 +25,17 @@ class Frame(UIElement):
         image: Optional[pygame.surface] = None,
         font: Optional[Union[Font, FancyFont]] = None,
         is_selectable: bool = False,
-        max_width: int = 0,
+        max_width: Optional[int] = None,
         max_height: Optional[int] = None,
     ):
         super().__init__(pos, is_selectable)
 
         self.image: Optional[pygame.surface] = image
         self.font: Optional[Union[Font, FancyFont]] = font
-        self.max_width = max_width
-        self.max_height = max_height
+        self.max_width: Optional[int] = max_width
+        self.max_height: Optional[int] = max_height
 
+        self._recalculate_size()
         self._override_font_attrs()
         self._rebuild_surface()
 
@@ -76,18 +76,15 @@ class Frame(UIElement):
         # respect max height
         if self.max_height is not None:
             height = min(height, self.max_height)
-        else:
-            height = height
 
         # respect max width
-        width = min(width, self.max_width)
+        if self.max_width is not None:
+            width = min(width, self.max_width)
 
         self.size = (width, height)
         self.surface = pygame.Surface(self.size, SRCALPHA)
 
     def _rebuild_surface(self):
-        self._recalculate_size()
-
         surface = self.surface
         image = self.image
         font = self.font
@@ -125,7 +122,7 @@ class Frame(UIElement):
         font.pos = (x, y)
 
         # update font size
-        font.line_width = self.max_width - image_width
+        font.line_width = min(self.width - image_width, font.line_width)
 
         # FancyFont needs to refresh
         if isinstance(font, FancyFont):

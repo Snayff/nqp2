@@ -25,7 +25,6 @@ class MainMenuUI(UI):
     def __init__(self, game: Game):
         super().__init__(game)
 
-
     def update(self, delta_time: float):
         super().update(delta_time)
 
@@ -52,21 +51,18 @@ class MainMenuUI(UI):
             elif selected_element == self.elements["exit"]:
                 self.game.state = GameState.EXITING
 
-
-
     def render(self, surface: pygame.surface):
         # N.B. dont draw instruction
-
         self.draw_elements(surface)
 
     def rebuild_ui(self):
         super().rebuild_ui()
 
         create_font = self.game.assets.create_font
-
-        # positions
         window_width = self.game.window.width
         window_height = self.game.window.height
+
+        # positions
         start_x = 10
         start_y = window_height - 100
 
@@ -94,7 +90,7 @@ class MainMenuUI(UI):
         frame = Frame(
             (current_x, current_y),
             font=create_font(FontType.DEFAULT, "Load Game"),
-            is_selectable=True
+            is_selectable=False
         )
         self.elements["load_game"] = frame
         panel_elements.append(frame)
@@ -104,7 +100,7 @@ class MainMenuUI(UI):
         frame = Frame(
             (current_x, current_y),
             font=create_font(FontType.DEFAULT, "Settings"),
-            is_selectable=True
+            is_selectable=False
         )
         self.elements["settings"] = frame
         panel_elements.append(frame)

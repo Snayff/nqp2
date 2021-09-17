@@ -1,20 +1,21 @@
 import pygame
 
 # use font_enhanced.formatted_text_gen if you want colors
-from scripts.ui_elements.font_enhanced import TextBlock
-
-"""
-Tooltips will pop up after <rect_reference> has been hovered for <visible_delay> seconds and will show <text>.
-They are bound by the display size and will adjust their placement automatically.
-<rect_reference> should be a reference to a Rect that should be used to trigger the tooltip (likely the Rect attribute of another UIElement).
-
-Please note that Rects can be resized and moved without creating a new instance. This will be necessary when binding to moving elements.
-In the event that an element is in world space rather than an absolute space, the element should have an alternative rect attribute that
-gets updated to the absolute rect position.
-"""
 
 
 class Tooltip:
+
+    """
+    Tooltips will pop up after <rect_reference> has been hovered for <visible_delay> seconds and will show <text>.
+    They are bound by the display size and will adjust their placement automatically.
+    <rect_reference> should be a reference to a Rect that should be used to trigger the tooltip (likely the Rect
+    attribute of another UIElement).
+
+    Please note that Rects can be resized and moved without creating a new instance. This will be necessary when
+    binding to moving elements.
+    In the event that an element is in world space rather than an absolute space, the element should have an
+    alternative rect attribute that gets updated to the absolute rect position.
+    """
     def __init__(self, game, text, font_id, rect_reference, width=200, padding=2, margin=2, alpha=100, visible_delay=1):
         self.game = game
         self.text = text

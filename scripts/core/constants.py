@@ -113,7 +113,7 @@ class Direction(IntEnum):
 
 class FontType(Enum):
     DEFAULT = "default"
-    WARNING = "warning"
+    NEGATIVE = "negative"
     DISABLED = "disabled"
     POSITIVE = "positive"
     INSTRUCTION = "instruction"

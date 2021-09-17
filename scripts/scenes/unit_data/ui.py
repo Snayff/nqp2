@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING
 import pygame
 
 from scripts.core.base_classes.ui import UI
-from scripts.core.constants import DATA_PATH, DEFAULT_IMAGE_SIZE
+from scripts.core.constants import DATA_PATH, DEFAULT_IMAGE_SIZE, FontType
 from scripts.ui_elements.button import Button
 from scripts.ui_elements.input_box import InputBox
 
@@ -114,20 +114,21 @@ class UnitDataUI(UI):
                 self.frame_counter = 0
 
     def render(self, surface: pygame.surface):
-        default_font = self.game.assets.fonts["default"]
-        positive_font = self.game.assets.fonts["positive"]
-        disabled_font = self.game.assets.fonts["disabled"]
-
         window_width = self.game.window.width
         window_height = self.game.window.height
-        font_height = default_font.line_height
+        create_font = self.game.assets.create_font
+
         metric_col_width = 80
         metric_second_row_start_y = window_height // 2
 
         # draw fields and their titles
-        default_font.render(self.current_unit, surface, (76 - default_font.width(self.current_unit) // 2, 15))
+        font = create_font(FontType.DEFAULT, str(self.current_unit))
+        font.pos = (76 - font.width // 2, 15)
+        font.render(surface)
         for field in self.current_unit_data:
-            default_font.render(field, surface, (self.fields[field].pos[0] - 90, self.fields[field].pos[1] + 3))
+            font = create_font(FontType.DEFAULT, str(self.current_unit),
+                               (self.fields[field].pos[0] - 90, self.fields[field].pos[1] + 3))
+            font.render(surface)
             self.fields[field].render(surface)
 
         # draw unit animations
@@ -154,63 +155,71 @@ class UnitDataUI(UI):
         # show confirmation message
         if self.show_confirmation:
             msg = "Save successful."
-            text_width = default_font.width(msg)
-            positive_font.render(msg, surface, (window_width - text_width - 35, window_height - font_height))
-            # 32 = button width + 5
+            font = create_font(FontType.POSITIVE, msg)
+            font.pos = (window_width - font.width - 35, window_height - font.height)
+            # N.B. 32 = button width + 3
+            font.render(surface)
+
 
         # set positions
-        start_x = window_width - (window_width // 2.8)
+        start_x = int(window_width - (window_width / 2.8))
         start_y = 40
 
         # draw headers
         current_x = start_x + metric_col_width
         current_y = start_y
         for tier_title in ["Tier 1", "Tier 2"]:
-            disabled_font.render(tier_title, surface, (current_x, current_y))
+            font = create_font(FontType.DISABLED, tier_title, (current_x, current_y))
+            font.render(surface)
             current_x += metric_col_width
 
         # draw second row headers
         current_x = start_x + metric_col_width
         current_y = metric_second_row_start_y
         for tier_title in ["Tier 3", "Tier 4"]:
-            disabled_font.render(tier_title, surface, (current_x, current_y))
+            font = create_font(FontType.DISABLED, tier_title, (current_x, current_y))
+            font.render(surface)
             current_x += metric_col_width
 
         # draw stat list
         current_x = start_x
-        current_y = start_y + font_height
+        current_y = start_y + font.height
         for stat in self.tier1_metrics.keys():
-            disabled_font.render(stat, surface, (current_x, current_y))
-            current_y += font_height
+            font = create_font(FontType.DISABLED, stat, (current_x, current_y))
+            font.render(surface)
+            current_y += font.height
 
         # draw stat list for second row
         current_x = start_x
-        current_y = metric_second_row_start_y + font_height
+        current_y = metric_second_row_start_y + font.height
         for stat in self.tier1_metrics.keys():
-            disabled_font.render(stat, surface, (current_x, current_y))
-            current_y += font_height
+            font = create_font(FontType.DISABLED, stat, (current_x, current_y))
+            font.render(surface)
+            current_y += font.height
 
         # show info regarding other units
         current_x = start_x + metric_col_width
-        current_y = start_y + font_height
+        current_y = start_y + font.height
         for tier in [self.tier1_metrics, self.tier2_metrics]:
             for stat_value in tier.values():
-                disabled_font.render(str(stat_value), surface, (current_x, current_y))
-                current_y += font_height
+                font = create_font(FontType.DISABLED, stat_value, (current_x, current_y))
+                font.render(surface)
+                current_y += font.height
 
             current_x += metric_col_width
-            current_y = start_y + font_height
+            current_y = start_y + font.height
 
         # show info regarding other units on second row
         current_x = start_x + metric_col_width
-        current_y = metric_second_row_start_y + font_height
+        current_y = metric_second_row_start_y + font.height
         for tier in [self.tier3_metrics, self.tier4_metrics]:
             for stat_value in tier.values():
-                disabled_font.render(str(stat_value), surface, (current_x, current_y))
-                current_y += font_height
+                font = create_font(FontType.DISABLED, stat_value, (current_x, current_y))
+                font.render(surface)
+                current_y += font.height
 
             current_x += metric_col_width
-            current_y = metric_second_row_start_y + font_height
+            current_y = metric_second_row_start_y + font.height
 
     def refresh_unit_fields(self, unit_id):
         self.current_unit = unit_id

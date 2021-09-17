@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import pygame
 
 from scripts.core.base_classes.ui import UI
-from scripts.core.constants import DEFAULT_IMAGE_SIZE, GAP_SIZE, SceneType
+from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, GAP_SIZE, SceneType
 from scripts.scenes.combat.elements.unit import Unit
 from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.panel import Panel
@@ -64,9 +64,7 @@ class InnUI(UI):
 
         scene = self.game.inn
         units_for_sale = list(scene.sale_troupe.units.values())
-        default_font = self.default_font
-        warning_font = self.warning_font
-        disabled_font = self.disabled_font
+        create_font = self.game.assets.create_font
 
         start_x = 20
         start_y = 40
@@ -82,30 +80,30 @@ class InnUI(UI):
             # check if available
             if scene.units_available[unit.id]:
                 text = f"{unit.type}"
-                font = default_font
+                font_type = FontType.DEFAULT
                 is_selectable = True
 
                 # check can afford
                 can_afford = unit.gold_cost <= self.game.memory.gold
                 has_enough_charisma = self.game.memory.commander.charisma_remaining > 0
                 if can_afford and has_enough_charisma:
-                    gold_font = default_font
+                    gold_font_type = FontType.DEFAULT
                 else:
-                    gold_font = warning_font
+                    gold_font_type = FontType.NEGATIVE
 
                 # draw gold cost
                 gold_icon = self.game.assets.get_image("stats", "gold", icon_size)
                 frame = Frame(
                     (current_x, current_y),
                     image=gold_icon,
-                    text_and_font=(str(unit.gold_cost), gold_font),
-                    is_selectable=False,
+                    font=create_font(gold_font_type, str(unit.gold_cost)),
+                    is_selectable=False
                 )
                 self.elements["cost" + str(selection_counter)] = frame
 
             else:
                 text = f"Recruited"
-                font = disabled_font
+                font_type = FontType.DISABLED
                 is_selectable = False
 
             # draw unit icon and details
@@ -114,11 +112,10 @@ class InnUI(UI):
             frame = Frame(
                 (unit_x, current_y),
                 image=stat_icon,
-                text_and_font=(text, font),
-                is_selectable=is_selectable,
+                font=create_font(font_type, text),
+                is_selectable=is_selectable
             )
             frame.add_tier_background(unit.tier)
-            # capture frame
             self.elements[f"{unit.id}_{selection_counter}"] = frame
             panel_list.append(frame)
 
