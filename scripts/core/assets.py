@@ -202,7 +202,8 @@ class Assets:
         else:
             return image
 
-    def create_font(self, font_type: FontType,  text: str, pos: Tuple[int, int], line_width: int = 0) -> NewFont:
+    def create_font(self, font_type: FontType,  text: str, pos: Tuple[int, int] = (0, 0),
+            line_width: int = 0) -> NewFont:
         """
         Create a font instance.
         """
@@ -211,7 +212,7 @@ class Assets:
         font = NewFont(path, colour, text, line_width, pos)
         return font
 
-    def create_fancy_font(self, text: str, pos: Tuple[int, int], line_width: int = 0,
+    def create_fancy_font(self, text: str, pos: Tuple[int, int] = (0, 0), line_width: int = 0,
             font_effects: Optional[List[FontEffects]] = None) -> FancyFont:
         """
         Create a FancyFont instance. If line_width isnt given then will default to full screen.

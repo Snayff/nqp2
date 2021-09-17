@@ -13,14 +13,15 @@ __all__ = ["NewFont"]
 
 
 class NewFont:
-    def __init__(self, path: str, colour: Tuple[int, int, int], text: str, line_width: int, pos: Tuple[int, int]):
+    def __init__(self, path: str, colour: Tuple[int, int, int], text: str, line_width: int = 0,
+            pos: Tuple[int, int] = (0, 0)):
         self.letters, self.letter_spacing, self.line_height = self._load_font_img(path, colour)
 
         # ensure text is a str
         if not isinstance(text, str):
             text = str(text)
-        self.text: str = text
 
+        self.text: str = text
         self.line_width: int = line_width
         self.pos: Tuple[int, int] = pos
         self.line_height = self.letters[0].get_height()

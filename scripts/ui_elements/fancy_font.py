@@ -21,12 +21,16 @@ class FancyFont:
     New lines are indicated with '\\n'.
     """
 
-    def __init__(self, text: str, pos: Tuple[int, int], max_width: int = 0,
+    def __init__(self, text: str, pos: Tuple[int, int], line_width: int = 0,
             font_effects: Optional[List[FontEffects]] = None):
 
         # handle mutable default
         if font_effects is None:
             font_effects = []
+
+        # ensure text is a str
+        if not isinstance(text, str):
+            text = str(text)
 
         self.fonts: List[Font] = self._create_fonts()
 
@@ -40,7 +44,7 @@ class FancyFont:
         self.line_gap = 1  # relative to base font height
         self.character_gap = 1
         self.space_gap = int(self.font.letter_spacing[0] // 3 + 1)
-        self.max_width = max_width
+        self.line_width = line_width
         self.used_width = 0
 
         self.base_characters = [Character(char, self.font, self, index=i) for i, char in enumerate(self.text)]
@@ -53,9 +57,11 @@ class FancyFont:
         self.end_char_index = 0
 
         # effect flags
-        self._fade_in = True
+        self._fade_in = False
         self._fade_out = False
+        self._process_effect_flags(font_effects)  # update flags
 
+        # utilise font_swap_markers
         for i in range(len(font_swap_markers)):
             start = font_swap_markers[i][0]
             font = font_swap_markers[i][1]
@@ -95,13 +101,15 @@ class FancyFont:
         else:
             self.end_char_index = self.length
 
-    def render(self, surface: pygame.Surface, offset=(0, 0)):
+    def render(self, surface: pygame.Surface):
+        start_x = self.pos[0]
+        start_y = self.pos[1]
         x_offset = 0
         y_offset = 0
         for line in self.characters:
             for char in line:
                 if (self.visible_range[0] <= char.index < self.visible_range[1]) or (char.index == -1):
-                    char.render(surface, (offset[0] + x_offset, offset[1] + y_offset))
+                    char.render(surface, (start_x + x_offset, start_y + y_offset))
                 x_offset += char.width
             y_offset += self.font.line_height + self.line_gap
             x_offset = 0
@@ -126,7 +134,7 @@ class FancyFont:
             char.update()
         self._generate_characters()
 
-    def _adjust_scale(self, start_index, end_index, new_scale):
+    def _adjust_scale(self, start_index: int, end_index: int, new_scale: float):
         """
         Adjust the scale of the characters between 2 indices.
         """
@@ -144,7 +152,12 @@ class FancyFont:
     def height(self) -> int:
         return len(self.characters) * (self.font.line_height + self.line_gap) - self.line_gap
 
-    def width(self, characters) -> int:
+    @property
+    def width(self) -> int:
+        return self.line_width
+
+    @staticmethod
+    def get_character_width(characters: List[Character]) -> int:
         return sum([char.width for char in characters])
 
     def _generate_characters(self):
@@ -161,8 +174,8 @@ class FancyFont:
             if char.character != "\n":
                 word.append(char)
             if char.character in [" ", "\n"]:
-                width = self.width(word)
-                if self.max_width and (current_line_width + width > self.max_width):  # new line
+                width = self.get_character_width(word)
+                if self.line_width and (current_line_width + width > self.line_width):  # new line
                     self.characters.append([])
                     self.used_width = max(self.used_width, current_line_width)
                     current_line_width = 0
@@ -186,7 +199,7 @@ class FancyFont:
 
         if word:
             self.characters[-1] += word
-            width = self.width(word)
+            width = self.get_character_width(word)
             current_line_width += width
 
         self.used_width = max(self.used_width, current_line_width)
@@ -236,6 +249,16 @@ class FancyFont:
 
         return text, font_swap_markers
 
+    def _process_effect_flags(self, font_effects: List[FontEffects]):
+        """
+        Update the effect flags based on the FontEffects passed in.
+        """
+        if FontEffects.FADE_IN in font_effects:
+            self._fade_in = True
+
+        if FontEffects.FADE_OUT in font_effects:
+            self._fade_out = False
+
 
 class Character:
     def __init__(self, character, font, owning_block, index=-1):
@@ -244,6 +267,7 @@ class Character:
         self.font = font
         self.alpha = 255
         self.scale = 1
+        self.width = 0
         self.owning_block = owning_block
         self.update()
 

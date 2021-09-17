@@ -8,6 +8,7 @@ import pygame
 from scripts.core.base_classes.ui import UI
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, GameState, GAP_SIZE, SceneType
 from scripts.ui_elements.frame import Frame
+from scripts.ui_elements.new_frame import NewFrame
 from scripts.ui_elements.panel import Panel
 
 if TYPE_CHECKING:
@@ -114,7 +115,7 @@ class MainMenuUI(UI):
         frame = Frame((0, 0), text_and_font=("", font))
         self.elements["f"] = frame
 
-        new_font = self.game.assets.create_font(FontType.POSITIVE, "this is new font", (100, 100))
-        frame = Frame((100, 100), text_and_font=("", new_font))
+        new_font = self.game.assets.create_font(FontType.POSITIVE, "this is new font")
+        frame = NewFrame((100, 100), font=new_font, max_width=50)
         self.elements["new"] = frame
 
