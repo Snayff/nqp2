@@ -2,11 +2,11 @@ import pygame
 
 
 class Button:
-    def __init__(self, game, content, pos, push_down=True, size=[10, 10], color=(255, 255, 255)):
+    def __init__(self, game, content, pos, push_down=True, size=[10, 10], colour=(255, 255, 255)):
         self.game = game
         self.pos = list(pos)
         self.content = content
-        self.color = color
+        self.colour = colour
 
         if type(self.content) != str:
             size = self.content.get_size()
@@ -35,7 +35,7 @@ class Button:
             surf.blit(self.content, (self.pos[0] + offset[0], self.pos[1] + offset[1]))
         else:
             r = pygame.Rect(self.pos[0] + offset[0], self.pos[1] + offset[1], *self.size)
-            pygame.draw.rect(surf, self.color, r, width=1)
+            pygame.draw.rect(surf, self.colour, r, width=1)
             self.game.assets.fonts["default"].render(
                 self.content,
                 surf,

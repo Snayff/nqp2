@@ -9,10 +9,10 @@ from scripts.core.constants import NodeType, SceneType
 
 _V = TypeVar("_V", int, float)  # to represent where we don't know which type is being used
 
-__all__ = ["swap_color", "clip", "offset", "lerp", "clamp", "itr", "scene_to_scene_type"]
+__all__ = ["swap_colour", "clip", "offset", "lerp", "clamp", "itr", "scene_to_scene_type"]
 
 
-def swap_color(img, old_c, new_c):
+def swap_colour(img, old_c, new_c):
     img.set_colorkey(old_c)
     surface = img.copy()
     surface.fill(new_c)

@@ -6,11 +6,11 @@ import pygame
 
 
 class InputBox:
-    def __init__(self, game, size, pos=[0, 0], color=(255, 255, 255), input_type="all", text="", font=None):
+    def __init__(self, game, size, pos=[0, 0], colour=(255, 255, 255), input_type="all", text="", font=None):
         self.game = game
         self.size = list(size)
         self.pos = list(pos)
-        self.color = color
+        self.colour = colour
 
         if input_type == "detect":
             if type(text) == int:
@@ -120,7 +120,7 @@ class InputBox:
     def render(self, surf, offset=(0, 0)):
         base_pos = (self.pos[0] - offset[0], self.pos[1] - offset[1])
         border_r = pygame.Rect(*base_pos, *self.size)
-        pygame.draw.rect(surf, self.color, border_r, width=1)
+        pygame.draw.rect(surf, self.colour, border_r, width=1)
         self.font.render(
             self.text, surf, (base_pos[0] + self.padding, base_pos[1] + (self.size[1] - self.font.line_height) // 2)
         )
@@ -128,7 +128,7 @@ class InputBox:
         if self.focused and (self.game.master_clock % 1 > 0.2):
             pygame.draw.line(
                 surf,
-                self.color,
+                self.colour,
                 (base_pos[0] + self.padding + text_width, base_pos[1] + 2),
                 (base_pos[0] + self.padding + text_width, base_pos[1] + self.size[1] - 4),
             )

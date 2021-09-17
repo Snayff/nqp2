@@ -1,13 +1,13 @@
 import pygame
 
-from scripts.core.utility import clip, swap_color
+from scripts.core.utility import clip, swap_colour
 
 
 def load_font_img(path, font_color):
     fg_color = (255, 0, 0)
     bg_color = (0, 0, 0)
     font_img = pygame.image.load(path).convert()
-    font_img = swap_color(font_img, fg_color, font_color)
+    font_img = swap_colour(font_img, fg_color, font_color)
     last_x = 0
     letters = []
     letter_spacing = []

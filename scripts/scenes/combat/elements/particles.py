@@ -3,11 +3,11 @@ import random
 
 
 class Particle:
-    def __init__(self, loc, vel, dur, color):
+    def __init__(self, loc, vel, dur, colour):
         self.loc = list(loc)
         self.vel = list(vel)
         self.dur = dur
-        self.color = color
+        self.colour = colour
 
     def update(self, dt):
         self.loc[0] += self.vel[0] * dt
@@ -19,19 +19,19 @@ class Particle:
         return True
 
     def render(self, surf, offset=(0, 0)):
-        surf.set_at((int(self.loc[0] + offset[0]), int(self.loc[1] + offset[1])), self.color)
+        surf.set_at((int(self.loc[0] + offset[0]), int(self.loc[1] + offset[1])), self.colour)
 
 
 class ParticleManager:
     def __init__(self):
         self.particles = []
 
-    def create_particle_burst(self, loc, color, count, speed_range=[30, 60], dur_range=[0.2, 0.3]):
+    def create_particle_burst(self, loc, colour, count, speed_range=[30, 60], dur_range=[0.2, 0.3]):
         for i in range(count):
             speed = random.random() * (speed_range[1] - speed_range[0]) + speed_range[0]
             dur = random.random() * (dur_range[1] - dur_range[0]) + dur_range[0]
             angle = random.random() * math.pi * 2
-            p = Particle(loc, [math.cos(angle) * speed, math.sin(angle) * speed], dur, color)
+            p = Particle(loc, [math.cos(angle) * speed, math.sin(angle) * speed], dur, colour)
             self.particles.append(p)
 
     def update(self, dt):

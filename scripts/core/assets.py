@@ -13,6 +13,7 @@ from scripts.core.utility import clamp
 from scripts.ui_elements.fancy_font import FancyFont
 from scripts.ui_elements.font import Font
 from scripts.ui_elements.font_enhanced import Font as FontEnhanced
+from scripts.ui_elements.new_font import NewFont
 
 if TYPE_CHECKING:
     from typing import Dict, Tuple, List, Optional
@@ -59,6 +60,15 @@ class Assets:
             "positive": Font(str(ASSET_PATH / "fonts/small_font.png"), (0, 255, 0)),
             "instruction": Font(str(ASSET_PATH / "fonts/small_font.png"), (240, 205, 48)),
             "notification": Font(str(ASSET_PATH / "fonts/large_font.png"), (117, 50, 168)),
+        }
+
+        self.new_fonts = {
+            "warning": (str(ASSET_PATH / "fonts/small_font.png"), (255, 0, 0)),
+            "disabled": (str(ASSET_PATH / "fonts/small_font.png"), (128, 128, 128)),
+            "default": (str(ASSET_PATH / "fonts/small_font.png"), (255, 255, 255)),
+            "positive": (str(ASSET_PATH / "fonts/small_font.png"), (0, 255, 0)),
+            "instruction": (str(ASSET_PATH / "fonts/small_font.png"), (240, 205, 48)),
+            "notification": (str(ASSET_PATH / "fonts/large_font.png"), (117, 50, 168)),
         }
 
         self.enhanced_fonts = {
@@ -192,15 +202,17 @@ class Assets:
         else:
             return image
 
-    def create_font(self, font_type: FontType) -> Font:
+    def create_font(self, font_type: FontType,  text: str, pos: Tuple[int, int], line_width: int = 0) -> NewFont:
         """
         Create a font instance.
         """
-        font = self.fonts[font_type]
+        line_width = clamp(line_width, 0, self.game.window.width)
+        path, colour = self.new_fonts[font_type.value]
+        font = NewFont(path, colour, text, line_width, pos)
         return font
 
     def create_fancy_font(self, text: str, pos: Tuple[int, int], line_width: int = 0,
-            font_effects: Optional[List[FontEffects]] = None):
+            font_effects: Optional[List[FontEffects]] = None) -> FancyFont:
         """
         Create a FancyFont instance. If line_width isnt given then will default to full screen.
         """

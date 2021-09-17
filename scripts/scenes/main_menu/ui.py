@@ -6,7 +6,7 @@ from typing import Dict, TYPE_CHECKING
 import pygame
 
 from scripts.core.base_classes.ui import UI
-from scripts.core.constants import DEFAULT_IMAGE_SIZE, GameState, GAP_SIZE, SceneType
+from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, GameState, GAP_SIZE, SceneType
 from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.panel import Panel
 
@@ -113,4 +113,8 @@ class MainMenuUI(UI):
         font = FancyFont(my_str, (0, 0))
         frame = Frame((0, 0), text_and_font=("", font))
         self.elements["f"] = frame
+
+        new_font = self.game.assets.create_font(FontType.POSITIVE, "this is new font", (100, 100))
+        frame = Frame((100, 100), text_and_font=("", new_font))
+        self.elements["new"] = frame
 

@@ -34,6 +34,7 @@ class FancyFont:
         text, font_swap_markers = self._parse_text(text)
 
         self.text = text
+        self.pos: Tuple[int, int] = pos
         self.font = self.fonts[0]
 
         self.line_gap = 1  # relative to base font height
