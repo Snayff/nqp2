@@ -27,7 +27,7 @@ class Font:
         self.text: str = text
         self.line_width: int = line_width
         self.pos: Tuple[int, int] = pos
-        self.line_height: int = self.letters[0].get_height() + 5  # +5 as it isnt returning properly
+        self.line_height: int = self.letters[0].get_height() + 5  # FIXME - it isnt returning properly (hence add)
         self.font_order: List[str] = [
             "A",
             "B",

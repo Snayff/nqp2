@@ -3,7 +3,7 @@ import pygame
 
 from typing import TYPE_CHECKING
 
-from scripts.core.constants import ASSET_PATH, FontEffects
+from scripts.core.constants import ASSET_PATH, FontEffects, TEXT_FADE_IN_SPEED, TEXT_FADE_OUT_SPEED
 from scripts.ui_elements.font import Font
 from scripts.ui_elements.font import Font
 
@@ -45,7 +45,7 @@ class FancyFont:
         self.font: Font = self._fonts[0]
 
         self.line_height: int = self.font.line_height
-        self._line_gap: int = 1  # relative to base font height
+        self._line_gap: int = 5  # relative to base font height
         self.character_gap: int = 1
         self.space_gap: int = int(self.font.letter_spacing[0] // 3 + 1)
         self.line_width: int = line_width
@@ -74,7 +74,8 @@ class FancyFont:
 
     @property
     def height(self) -> int:
-        return len(self._characters) * (self.font.line_height + self._line_gap) - self._line_gap
+        # + 1 to add an extra line at the end to ensure it isnt clipped
+        return ((len(self._characters) + 1) * (self.font.line_height + self._line_gap)) - self._line_gap
 
     @property
     def width(self) -> int:
@@ -85,8 +86,8 @@ class FancyFont:
         self._visible_range = [int(self._start_char_index), self._end_char_index]
 
         # increment char indices
-        start_increment = 0.5  # N.B. make sure it is slower than the incrementing of
-        end_increment = 1
+        start_increment = TEXT_FADE_OUT_SPEED
+        end_increment = TEXT_FADE_IN_SPEED
 
         # if not fading in then we dont need to change the start index
         if self._fade_out:

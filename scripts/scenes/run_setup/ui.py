@@ -43,8 +43,6 @@ class RunSetupUI(UI):
         elif self.current_panel == self.panels["exit"]:
             self.handle_exit_input()
 
-        self.update_elements(delta_time)
-
     def render(self, surface: pygame.surface):
 
         self.draw_instruction(surface)

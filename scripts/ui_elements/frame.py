@@ -37,6 +37,7 @@ class Frame(UIElement):
 
         self._override_font_attrs()
         self._recalculate_size()
+        self.update(0)  # update to prevent the flash of all the text showing at the start
         self._rebuild_surface()
 
     def update(self, delta_time: float):

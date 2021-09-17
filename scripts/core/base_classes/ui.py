@@ -51,6 +51,8 @@ class UI(ABC):
 
             self.game.debug.toggle_dev_console_visibility()
 
+        self.update_elements(delta_time)
+
     @abstractmethod
     def render(self, surface: pygame.surface):
         pass
