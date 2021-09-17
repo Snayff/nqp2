@@ -13,7 +13,7 @@ from scripts.core.utility import clamp
 from scripts.ui_elements.fancy_font import FancyFont
 from scripts.ui_elements.font import Font
 from scripts.ui_elements.font_enhanced import Font as FontEnhanced
-from scripts.ui_elements.new_font import NewFont
+from scripts.ui_elements.font import Font
 
 if TYPE_CHECKING:
     from typing import Dict, Tuple, List, Optional
@@ -54,30 +54,12 @@ class Assets:
         self.game: Game = game
 
         self.fonts = {
-            "warning": Font(str(ASSET_PATH / "fonts/small_font.png"), (255, 0, 0)),
-            "disabled": Font(str(ASSET_PATH / "fonts/small_font.png"), (128, 128, 128)),
-            "default": Font(str(ASSET_PATH / "fonts/small_font.png"), (255, 255, 255)),
-            "positive": Font(str(ASSET_PATH / "fonts/small_font.png"), (0, 255, 0)),
-            "instruction": Font(str(ASSET_PATH / "fonts/small_font.png"), (240, 205, 48)),
-            "notification": Font(str(ASSET_PATH / "fonts/large_font.png"), (117, 50, 168)),
-        }
-
-        self.new_fonts = {
             "warning": (str(ASSET_PATH / "fonts/small_font.png"), (255, 0, 0)),
             "disabled": (str(ASSET_PATH / "fonts/small_font.png"), (128, 128, 128)),
             "default": (str(ASSET_PATH / "fonts/small_font.png"), (255, 255, 255)),
             "positive": (str(ASSET_PATH / "fonts/small_font.png"), (0, 255, 0)),
             "instruction": (str(ASSET_PATH / "fonts/small_font.png"), (240, 205, 48)),
             "notification": (str(ASSET_PATH / "fonts/large_font.png"), (117, 50, 168)),
-        }
-
-        self.enhanced_fonts = {
-            "warning": FontEnhanced(str(ASSET_PATH / "fonts/small_font.png"), (255, 0, 0)),
-            "disabled": FontEnhanced(str(ASSET_PATH / "fonts/small_font.png"), (128, 128, 128)),
-            "default": FontEnhanced(str(ASSET_PATH / "fonts/small_font.png"), (255, 255, 255)),
-            "positive": FontEnhanced(str(ASSET_PATH / "fonts/small_font.png"), (0, 255, 0)),
-            "instruction": FontEnhanced(str(ASSET_PATH / "fonts/small_font.png"), (240, 205, 48)),
-            "notification": FontEnhanced(str(ASSET_PATH / "fonts/large_font.png"), (117, 50, 168)),
         }
 
         # used to hold images so only one copy per dimension ever exists.
@@ -203,13 +185,13 @@ class Assets:
             return image
 
     def create_font(self, font_type: FontType,  text: str, pos: Tuple[int, int] = (0, 0),
-            line_width: int = 0) -> NewFont:
+            line_width: int = 0) -> Font:
         """
         Create a font instance.
         """
         line_width = clamp(line_width, 0, self.game.window.width)
-        path, colour = self.new_fonts[font_type.value]
-        font = NewFont(path, colour, text, line_width, pos)
+        path, colour = self.fonts[font_type.value]
+        font = Font(path, colour, text, line_width, pos)
         return font
 
     def create_fancy_font(self, text: str, pos: Tuple[int, int] = (0, 0), line_width: int = 0,

@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 
 from scripts.core.constants import ASSET_PATH, FontEffects
 from scripts.ui_elements.font import Font
-from scripts.ui_elements.new_font import NewFont
+from scripts.ui_elements.font import Font
 
 if TYPE_CHECKING:
     from typing import Dict, Tuple, List, Optional
@@ -35,14 +35,14 @@ class FancyFont:
 
         self.raw_text: str = text
 
-        self._fonts: List[NewFont] = self._create_fonts()
+        self._fonts: List[Font] = self._create_fonts()
 
         # transform text and identify where to swap fonts.
         parsed_text, font_swap_markers = self._parse_text(text)
 
         self._parsed_text: str = parsed_text
         self.pos: Tuple[int, int] = pos
-        self.font: NewFont = self._fonts[0]
+        self.font: Font = self._fonts[0]
 
         self.line_height: int = self.font.line_height
         self._line_gap: int = 1  # relative to base font height
@@ -128,7 +128,7 @@ class FancyFont:
         """
         Refresh the font, restarting from the beginning with the current text.
         """
-        self._fonts: List[NewFont] = self._create_fonts()
+        self._fonts: List[Font] = self._create_fonts()
 
         # transform text and identify where to swap fonts.
         parsed_text, font_swap_markers = self._parse_text(self.raw_text)
@@ -172,7 +172,7 @@ class FancyFont:
             self._adjust_font(start, end, font)
 
 
-    def _adjust_font(self, start_index: int, end_index: int, new_font: NewFont):
+    def _adjust_font(self, start_index: int, end_index: int, new_font: Font):
         """
         Adjust the font of the characters between 2 indices.
         """
@@ -247,15 +247,15 @@ class FancyFont:
         self._used_width = max(self._used_width, current_line_width)
 
     @staticmethod
-    def _create_fonts() -> List[NewFont]:
-        default_font = NewFont(str(ASSET_PATH / "fonts/small_font.png"), (255, 255, 255), "")
-        big_font = NewFont(str(ASSET_PATH / "fonts/large_font.png"), (255, 255, 255), "")
-        red_font = NewFont(str(ASSET_PATH / "fonts/small_font.png"), (255, 0, 0), "")
+    def _create_fonts() -> List[Font]:
+        default_font = Font(str(ASSET_PATH / "fonts/small_font.png"), (255, 255, 255), "")
+        big_font = Font(str(ASSET_PATH / "fonts/large_font.png"), (255, 255, 255), "")
+        red_font = Font(str(ASSET_PATH / "fonts/small_font.png"), (255, 0, 0), "")
 
         fonts = [default_font, big_font, red_font]
         return fonts
 
-    def _parse_text(self, text: str) -> Tuple[str, List[Tuple[int, NewFont]]]:
+    def _parse_text(self, text: str) -> Tuple[str, List[Tuple[int, Font]]]:
         """
         Parse the text, extracting values from tags, and returns a transformed text and the font swap markers.
         Returns as (updated_text, ([font_swap_markers], Font). font_swap_markers are the indices of where the font

@@ -8,7 +8,7 @@ import pygame
 from scripts.core.base_classes.ui import UI
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, GameState, GAP_SIZE, SceneType
 from scripts.ui_elements.frame import Frame
-from scripts.ui_elements.new_frame import NewFrame
+from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.panel import Panel
 
 if TYPE_CHECKING:
@@ -62,14 +62,13 @@ class MainMenuUI(UI):
     def rebuild_ui(self):
         super().rebuild_ui()
 
-        default_font = self.default_font
+        create_font = self.game.assets.create_font
 
         # positions
         window_width = self.game.window.width
         window_height = self.game.window.height
         start_x = 10
         start_y = window_height - 100
-        font_height = default_font.line_height
 
         # draw background
         background = self.game.assets.get_image("ui", "town", (window_width, window_height))
@@ -82,45 +81,44 @@ class MainMenuUI(UI):
         panel_elements = []
 
         # new game
-        frame = Frame((current_x, current_y), text_and_font=("New Game", default_font), is_selectable=True)
+        frame = Frame(
+            (current_x, current_y),
+            font=create_font(FontType.DEFAULT, "New Game"),
+            is_selectable=True
+        )
         self.elements["new_game"] = frame
         panel_elements.append(frame)
 
         # load
-        current_y += font_height + GAP_SIZE
-        frame = Frame((current_x, current_y), text_and_font=("Load Game", default_font), is_selectable=False)
+        current_y += frame.height + GAP_SIZE
+        frame = Frame(
+            (current_x, current_y),
+            font=create_font(FontType.DEFAULT, "Load Game"),
+            is_selectable=True
+        )
         self.elements["load_game"] = frame
         panel_elements.append(frame)
 
         # options
-        current_y += font_height + GAP_SIZE
-        frame = Frame((current_x, current_y), text_and_font=("settings", default_font), is_selectable=False)
+        current_y += frame.height + GAP_SIZE
+        frame = Frame(
+            (current_x, current_y),
+            font=create_font(FontType.DEFAULT, "Settings"),
+            is_selectable=True
+        )
         self.elements["settings"] = frame
         panel_elements.append(frame)
 
         # exit
-        current_y += font_height + GAP_SIZE
-        frame = Frame((current_x, current_y), text_and_font=("Exit", default_font), is_selectable=True)
+        current_y += frame.height + GAP_SIZE
+        frame = Frame(
+            (current_x, current_y),
+            font=create_font(FontType.DEFAULT, "Exit"),
+            is_selectable=True
+        )
         self.elements["exit"] = frame
         panel_elements.append(frame)
 
         # add panel
         panel = Panel(panel_elements, True)
         self.add_panel(panel, "options")
-
-        # TEST
-        # my_str = "small font, now <!big>a big font and finally <!red> a red one."
-        # font = FancyFont(my_str, (0, 0))
-        # frame = Frame((0, 0), text_and_font=("", font))
-        # self.elements["f"] = frame
-
-        my_str = 'abcd ef<!big>g hi<!red>j <!small>klmnop qrstuvwxyz<!2>ABCDEF Hello W<!0>orld!bapjs odhao<!1>ishdoi ' \
-                 'ahoidhaoin aisdiahs asdio<!0>haph adsiahspahd aisohdoiahddhaihdaiuhdw adhoaihdhaioiohasdiaoh'
-        my_str += 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. <!1>Ut enim<!0> ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-        #frame = Frame((0, 0), text_and_font=(my_str, default_font), max_line_width=40)
-        #self.elements["new1"] = frame
-        new_font = self.game.assets.create_fancy_font(my_str)
-        frame = NewFrame((100, 100), font=new_font, max_width=40, max_height=100)
-        frame.set_text("<!red>OMG this is super red and now it is <!big> really big.")
-        self.elements["new"] = frame
-
