@@ -78,7 +78,7 @@ class FancyFont:
 
     @property
     def width(self) -> int:
-        return self.line_width
+        return self.get_character_width(self._characters[1])
 
     def update(self, delta_time: float):
         # set visible range, determining what chars are shown
@@ -112,6 +112,7 @@ class FancyFont:
             self._end_char_index = self.length
 
     def render(self, surface: pygame.Surface):
+
         start_x = self.pos[0]
         start_y = self.pos[1]
         x_offset = 0

@@ -6,7 +6,7 @@ from typing import Dict, TYPE_CHECKING
 import pygame
 
 from scripts.core.base_classes.ui import UI
-from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, GAP_SIZE, SceneType
+from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontEffects, FontType, GAP_SIZE, SceneType
 from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.panel import Panel
 
@@ -43,6 +43,8 @@ class RunSetupUI(UI):
         elif self.current_panel == self.panels["exit"]:
             self.handle_exit_input()
 
+        self.update_elements(delta_time)
+
     def render(self, surface: pygame.surface):
 
         self.draw_instruction(surface)
@@ -56,6 +58,7 @@ class RunSetupUI(UI):
         window_width = self.game.window.width
         window_height = self.game.window.height
         create_font = self.game.assets.create_font
+        create_fancy_font = self.game.assets.create_fancy_font
 
         # positions
         start_x = 20
@@ -113,7 +116,7 @@ class RunSetupUI(UI):
         max_height = 110
         frame = Frame(
             (header_x, current_y),
-            font=create_font(FontType.DEFAULT, commander["backstory"]),
+            font=create_fancy_font(commander["backstory"], font_effects=[FontEffects.FADE_IN]),
             is_selectable=False,
             max_width=line_width,
             max_height=max_height

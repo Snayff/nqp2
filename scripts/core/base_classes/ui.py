@@ -143,7 +143,7 @@ class UI(ABC):
         font.render(surface)
 
     def draw_elements(self, surface: pygame.surface):
-        for element in self.elements.values():
+        for name, element in self.elements.items():
             element.render(surface)
 
     def update_elements(self, delta_time: float):

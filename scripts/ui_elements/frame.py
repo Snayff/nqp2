@@ -53,7 +53,8 @@ class Frame(UIElement):
         if self.is_active:
             # FancyFont changes each frame so needs redrawing
             if isinstance(self.font, FancyFont):
-                self.font.render(surface)
+                self._rebuild_surface()
+                self.font.render(self.surface)
 
     def _recalculate_size(self):
         image = self.image
