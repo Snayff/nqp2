@@ -4,7 +4,7 @@ import logging
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 
-from scripts.core.constants import DEFAULT_IMAGE_SIZE, GAP_SIZE
+from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, GAP_SIZE
 from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.panel import Panel
 
@@ -116,9 +116,15 @@ class UI(ABC):
         current_x = start_x
         current_y = start_y
 
-        # crate frames
+        # create frames
+        create_font = self.game.assets.create_font
         for key, value in resources.items():
-            frame = Frame((current_x, current_y), value[0], (value[1], disabled_font), False)
+            frame = Frame(
+                (current_x, current_y),
+                image=value[0],
+                font=create_font(FontType.DISABLED, value[1]),
+                is_selectable=False
+            )
             self.elements[f"resource_{key}"] = frame
             panel_elements.append(frame)
 
@@ -164,13 +170,18 @@ class UI(ABC):
     def add_exit_button(self, button_text: str = "Onwards"):
         window_width = self.game.window.width
         window_height = self.game.window.height
+        font = self.game.assets.create_font(FontType.DEFAULT, button_text)
 
-        confirm_text = button_text
-        confirm_width = self.default_font.width(confirm_text)
+        # get position info
+        confirm_width = font.get_text_width(button_text)
         current_x = window_width - (confirm_width + GAP_SIZE)
         current_y = window_height - (self.default_font.line_height + GAP_SIZE)
 
-        frame = Frame((current_x, current_y), text_and_font=(confirm_text, self.default_font), is_selectable=True)
+        frame = Frame(
+            (current_x, current_y),
+            font=font,
+            is_selectable=True
+        )
         self.elements["exit"] = frame
         panel = Panel([frame], True)
         self.add_panel(panel, "exit")
