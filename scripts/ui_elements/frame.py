@@ -35,8 +35,8 @@ class Frame(UIElement):
         self.max_width: Optional[int] = max_width
         self.max_height: Optional[int] = max_height
 
-        self._recalculate_size()
         self._override_font_attrs()
+        self._recalculate_size()
         self._rebuild_surface()
 
     def update(self, delta_time: float):
@@ -69,9 +69,12 @@ class Frame(UIElement):
         if font is not None:
             width += font.width + GAP_SIZE
 
-            # N.B. doesnt amend height if there is an image as is drawn next to the image
-            if height == 0:
-                height += self.font.height
+            # check which is taller, font or image
+            if image is not None:
+                height = max(image.get_height(), font.height)
+            else:
+                # no image so take font height
+                height += font.height
 
         # respect max height
         if self.max_height is not None:
@@ -82,9 +85,10 @@ class Frame(UIElement):
             width = min(width, self.max_width)
 
         self.size = (width, height)
-        self.surface = pygame.Surface(self.size, SRCALPHA)
 
     def _rebuild_surface(self):
+        self.surface = pygame.Surface(self.size, SRCALPHA)
+
         surface = self.surface
         image = self.image
         font = self.font
@@ -122,7 +126,12 @@ class Frame(UIElement):
         font.pos = (x, y)
 
         # update font size
-        font.line_width = min(self.width - image_width, font.line_width)
+        if self.max_width is not None:
+            new_line_width = max(self.max_width - image_width, font.line_width)
+        else:
+            self._recalculate_size()
+            new_line_width = max(self.width - image_width, font.line_width)
+        font.line_width = new_line_width
 
         # FancyFont needs to refresh
         if isinstance(font, FancyFont):
@@ -134,6 +143,8 @@ class Frame(UIElement):
         Update the font text.
         """
         font = self.font
+
+        text = str(text)
 
         if isinstance(font, FancyFont):
             font.raw_text = text

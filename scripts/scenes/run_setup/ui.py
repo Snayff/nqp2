@@ -94,66 +94,75 @@ class RunSetupUI(UI):
         # name
         frame = Frame(
             (header_x, current_y),
-            font=create_font(FontType.DEFAULT, "Name"),
+            font=create_font(FontType.DISABLED, "Name"),
             is_selectable=False
         )
         self.elements["name_header"] = frame
 
         frame = Frame(
-            (header_x, current_y),
+            (info_x, current_y),
             font=create_font(FontType.DEFAULT, commander["name"]),
             is_selectable=False
         )
         self.elements["name"] = frame
 
-        current_y += font_height + GAP_SIZE
+        current_y += frame.height + GAP_SIZE
 
         # backstory - N.B. no header and needs wider frame
         line_width = window_width - (current_x * 2)
+        max_height = 110
         frame = Frame(
             (header_x, current_y),
             font=create_font(FontType.DEFAULT, commander["backstory"]),
             is_selectable=False,
-            max_width=line_width
+            max_width=line_width,
+            max_height=max_height
         )
         self.elements["backstory"] = frame
 
         current_y += frame.height + GAP_SIZE
 
-        # limits
+        # resources
         frame = Frame(
-            (current_x, current_y),
-            font=create_font(FontType.DEFAULT, "Charisma"),
+            (header_x, current_y),
+            font=create_font(FontType.DISABLED, "Charisma"),
             is_selectable=False
         )
         self.elements["charisma_header"] = frame
 
         frame = Frame(
-            (current_x, current_y),
+            (info_x, current_y),
             font=create_font(FontType.DEFAULT, commander["charisma"]),
             is_selectable=False
         )
         self.elements["charisma"] = frame
 
-        current_y += font_height
+        current_y += frame.height + GAP_SIZE
 
         frame = Frame(
-            (current_x, current_y),
-            font=create_font(FontType.DEFAULT, "Leadership"),
+            (header_x, current_y),
+            font=create_font(FontType.DISABLED, "Leadership"),
             is_selectable=False
         )
         self.elements["leadership_header"] = frame
 
         frame = Frame(
-            (current_x, current_y),
+            (info_x, current_y),
             font=create_font(FontType.DEFAULT, commander["leadership"]),
             is_selectable=False
         )
         self.elements["leadership"] = frame
 
-        current_y += font_height + GAP_SIZE
+        current_y += frame.height + GAP_SIZE
 
         # allies
+        frame = Frame(
+            (header_x, current_y),
+            font=create_font(FontType.DISABLED, "Allies"),
+            is_selectable=False
+        )
+        self.elements["allies_header"] = frame
+
         allies = ""
         for ally in commander["allies"]:
             # add comma
@@ -162,31 +171,24 @@ class RunSetupUI(UI):
             else:
                 allies += ", " + ally
         frame = Frame(
-            (current_x, current_y),
-            font=create_font(FontType.DEFAULT, "Allies"),
-            is_selectable=False
-        )
-        self.elements["allies_header"] = frame
-
-        frame = Frame(
-            (current_x, current_y),
+            (info_x, current_y),
             font=create_font(FontType.DEFAULT, allies),
             is_selectable=False
         )
         self.elements["allies"] = frame
 
-        current_y += font_height + GAP_SIZE
+        current_y += frame.height + GAP_SIZE
 
         # gold
         frame = Frame(
-            (current_x, current_y),
-            font=create_font(FontType.DEFAULT, "Gold"),
+            (header_x, current_y),
+            font=create_font(FontType.DISABLED, "Gold"),
             is_selectable=False
         )
         self.elements["gold_header"] = frame
 
         frame = Frame(
-            (current_x, current_y),
+            (info_x, current_y),
             font=create_font(FontType.DEFAULT, commander["gold"]),
             is_selectable=False
         )
