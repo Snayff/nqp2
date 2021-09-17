@@ -201,9 +201,6 @@ class OverworldUI(UI):
         # draw elements
         self.draw_elements(surface)
 
-        days = self.game.memory.days_until_boss
-        self.disabled_font.render(f"Days remaining:{days}", surface, (0, 20))
-
         # show boss
         if state == OverworldState.BOSS_APPROACHING:
             # determine animation frame
@@ -238,6 +235,16 @@ class OverworldUI(UI):
 
             # draw resources
             self.rebuild_resource_elements()
+
+            # draw days remaining
+            days = self.game.memory.days_until_boss
+            font = self.game.assets.create_font(FontType.DISABLED, f"Days remaining:{days}")
+            frame = Frame(
+                (0, 20),
+                font=font,
+                is_selectable=False
+            )
+            self.elements["days_remaining"] = frame
 
             # draw event notification
             notification = "Something is afoot!"

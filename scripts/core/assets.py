@@ -52,12 +52,12 @@ class Assets:
         self.game: Game = game
 
         self.fonts = {
-            "warning": (str(ASSET_PATH / "fonts/small_font.png"), (255, 0, 0)),
-            "disabled": (str(ASSET_PATH / "fonts/small_font.png"), (128, 128, 128)),
-            "default": (str(ASSET_PATH / "fonts/small_font.png"), (255, 255, 255)),
-            "positive": (str(ASSET_PATH / "fonts/small_font.png"), (0, 255, 0)),
-            "instruction": (str(ASSET_PATH / "fonts/small_font.png"), (240, 205, 48)),
-            "notification": (str(ASSET_PATH / "fonts/large_font.png"), (117, 50, 168)),
+            FontType.NEGATIVE: (str(ASSET_PATH / "fonts/small_font.png"), (255, 0, 0)),
+            FontType.DISABLED: (str(ASSET_PATH / "fonts/small_font.png"), (128, 128, 128)),
+            FontType.DEFAULT: (str(ASSET_PATH / "fonts/small_font.png"), (255, 255, 255)),
+            FontType.POSITIVE: (str(ASSET_PATH / "fonts/small_font.png"), (0, 255, 0)),
+            FontType.INSTRUCTION: (str(ASSET_PATH / "fonts/small_font.png"), (240, 205, 48)),
+            FontType.NOTIFICATION: (str(ASSET_PATH / "fonts/large_font.png"), (117, 50, 168)),
         }
 
         # used to hold images so only one copy per dimension ever exists.
@@ -188,7 +188,7 @@ class Assets:
         Create a font instance.
         """
         line_width = clamp(line_width, 0, self.game.window.width)
-        path, colour = self.fonts[font_type.value]
+        path, colour = self.fonts[font_type]
         font = Font(path, colour, text, line_width, pos)
         return font
 

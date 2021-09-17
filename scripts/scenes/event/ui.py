@@ -74,9 +74,6 @@ class EventUI(UI):
         super().rebuild_ui()
 
         event = self.game.event.active_event
-        default_font = self.default_font
-        positive_font = self.positive_font
-        warning_font = self.warning_font
         show_event_result = self.game.data.options["show_event_option_result"]
         state = self.game.event.state
         window_width = self.game.window.width

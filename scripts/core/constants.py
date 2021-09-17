@@ -112,12 +112,12 @@ class Direction(IntEnum):
 
 
 class FontType(Enum):
-    DEFAULT = "default"
-    NEGATIVE = "negative"
-    DISABLED = "disabled"
-    POSITIVE = "positive"
-    INSTRUCTION = "instruction"
-    NOTIFICATION = "notification"
+    DEFAULT = auto()
+    NEGATIVE = auto()
+    DISABLED = auto()
+    POSITIVE = auto()
+    INSTRUCTION = auto()
+    NOTIFICATION = auto()
 
 
 class FontEffects(IntEnum):

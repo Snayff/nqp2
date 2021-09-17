@@ -101,7 +101,6 @@ class UI(ABC):
         }
 
         panel_elements = []
-        disabled_font = self.disabled_font
 
         # positions
         start_x = 2
