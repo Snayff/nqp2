@@ -41,6 +41,7 @@ class FancyFont:
         self.pos: Tuple[int, int] = pos
         self.font = self.fonts[0]
 
+        self.line_height = self.font.line_height
         self.line_gap = 1  # relative to base font height
         self.character_gap = 1
         self.space_gap = int(self.font.letter_spacing[0] // 3 + 1)
@@ -111,7 +112,7 @@ class FancyFont:
                 if (self.visible_range[0] <= char.index < self.visible_range[1]) or (char.index == -1):
                     char.render(surface, (start_x + x_offset, start_y + y_offset))
                 x_offset += char.width
-            y_offset += self.font.line_height + self.line_gap
+            y_offset += self.line_height + self.line_gap
             x_offset = 0
 
     def _adjust_font(self, start_index: int, end_index: int, new_font: Font):

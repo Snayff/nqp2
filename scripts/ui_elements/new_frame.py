@@ -36,6 +36,7 @@ class NewFrame(UIElement):
         self.max_width = max_width
         self.max_height = max_height
 
+        self._override_font_attrs()
         self._rebuild_surface()
 
     def update(self, delta_time: float):
@@ -119,13 +120,12 @@ class NewFrame(UIElement):
             image_width = 0
             x = 0
 
-        # update font pos
-        x += self.x
-        y = self.y + font.line_height // 2
+        # update font pos (remember, this is relative to the frame)
+        y = font.line_height // 2
         font.pos = (x, y)
 
         # update font size
-        font.line_width = self.max_width - image_width
+        font.line_width = (self.max_width - image_width)
 
     def set_text(self, text: str):
         """

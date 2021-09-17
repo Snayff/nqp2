@@ -131,7 +131,7 @@ class NewFont:
         x_offset = 0
         y_offset = 0
 
-        # text wrapping
+        # text wrapping; breaks are on spaces. This can cause some render/clipping issues.
         spaces = []
         x = 0
         for i, char in enumerate(text):
@@ -145,7 +145,7 @@ class NewFont:
             if (space[0] - line_offset) > line_width:
                 line_offset += spaces[i - 1][0] - line_offset
                 if i != 0:
-                    text = text[: spaces[i - 1][1]] + "\n" + text[spaces[i - 1][1] + 1 :]
+                    text = text[: spaces[i - 1][1]] + "\n" + text[spaces[i - 1][1] + 1:]
 
         # draw to surface
         for char in text:
