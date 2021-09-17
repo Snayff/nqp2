@@ -125,13 +125,25 @@ class NewFrame(UIElement):
         font.pos = (x, y)
 
         # update font size
-        font.line_width = (self.max_width - image_width)
+        font.line_width = self.max_width - image_width
+
+        # FancyFont needs to refresh
+        if isinstance(font, FancyFont):
+            font.refresh()
+            pass
 
     def set_text(self, text: str):
         """
         Update the font text.
         """
-        self.font.text = text
+        font = self.font
+
+        if isinstance(font, FancyFont):
+            font._raw_text = text
+            font.refresh()
+
+        elif isinstance(font, NewFont):
+            font.text = text
 
         self._rebuild_surface()
 

@@ -114,12 +114,13 @@ class MainMenuUI(UI):
         # frame = Frame((0, 0), text_and_font=("", font))
         # self.elements["f"] = frame
 
-        my_str = 'abcd ef<!1>g h<!0> i<!1>j <!0>klmnop qrstuvwxyz<!2>ABCDEF Hello W<!0>orld!bapjs odhao<!1>ishdoi ' \
+        my_str = 'abcd ef<!big>g hi<!red>j <!small>klmnop qrstuvwxyz<!2>ABCDEF Hello W<!0>orld!bapjs odhao<!1>ishdoi ' \
                  'ahoidhaoin aisdiahs asdio<!0>haph adsiahspahd aisohdoiahddhaihdaiuhdw adhoaihdhaioiohasdiaoh'
         my_str += 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. <!1>Ut enim<!0> ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-        frame = Frame((0, 0), text_and_font=(my_str, default_font), max_line_width=40)
-        self.elements["new1"] = frame
+        #frame = Frame((0, 0), text_and_font=(my_str, default_font), max_line_width=40)
+        #self.elements["new1"] = frame
         new_font = self.game.assets.create_fancy_font(my_str)
         frame = NewFrame((100, 100), font=new_font, max_width=40, max_height=100)
+        frame.set_text("<!red>OMG this is super red and now it is <!big> really big.")
         self.elements["new"] = frame
 

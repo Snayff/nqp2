@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 
 from scripts.core.constants import ASSET_PATH, FontEffects
 from scripts.ui_elements.font import Font
+from scripts.ui_elements.new_font import NewFont
 
 if TYPE_CHECKING:
     from typing import Dict, Tuple, List, Optional
@@ -32,12 +33,14 @@ class FancyFont:
         if not isinstance(text, str):
             text = str(text)
 
-        self.fonts: List[Font] = self._create_fonts()
+        self._raw_text = text
+
+        self.fonts: List[NewFont] = self._create_fonts()
 
         # transform text and identify where to swap fonts.
-        text, font_swap_markers = self._parse_text(text)
+        parsed_text, font_swap_markers = self._parse_text(text)
 
-        self.text = text
+        self.parsed_text = parsed_text
         self.pos: Tuple[int, int] = pos
         self.font = self.fonts[0]
 
@@ -48,9 +51,9 @@ class FancyFont:
         self.line_width = line_width
         self.used_width = 0
 
-        self.base_characters = [Character(char, self.font, self, index=i) for i, char in enumerate(self.text)]
+        self.characters: List[List[Character]] = [[]]
+        self.base_characters = self._create_base_characters()
         self._generate_characters()
-        self.characters = [[]]
 
         self.visible_range = [0, self.length]
         self._initial_start_char_index = 0  # can be set to negative to create a delay when being removed.
@@ -60,16 +63,10 @@ class FancyFont:
         # effect flags
         self._fade_in = False
         self._fade_out = False
-        self._process_effect_flags(font_effects)  # update flags
+        self._process_effect_flags(font_effects)
 
         # utilise font_swap_markers
-        for i in range(len(font_swap_markers)):
-            start = font_swap_markers[i][0]
-            font = font_swap_markers[i][1]
-            end = len(text) + 1
-            if i < len(font_swap_markers) - 1:
-                end = font_swap_markers[i + 1][0]
-            self._adjust_font(start, end, font)
+        self._initial_font_adjustments(parsed_text, font_swap_markers)
 
     def update(self, delta_time: float):
         # set visible range, determining what chars are shown
@@ -115,7 +112,52 @@ class FancyFont:
             y_offset += self.line_height + self.line_gap
             x_offset = 0
 
-    def _adjust_font(self, start_index: int, end_index: int, new_font: Font):
+    def refresh(self):
+        """
+        Refresh the font, restarting from the beginning with the current text.
+        """
+        self.fonts: List[NewFont] = self._create_fonts()
+
+        # transform text and identify where to swap fonts.
+        parsed_text, font_swap_markers = self._parse_text(self._raw_text)
+
+        self.parsed_text = parsed_text
+        self.font = self.fonts[0]
+
+        self.line_height = self.font.line_height
+        self.line_gap = 1  # relative to base font height
+        self.character_gap = 1
+        self.space_gap = int(self.font.letter_spacing[0] // 3 + 1)
+        self.used_width = 0
+
+        self.characters: List[List[Character]] = [[]]
+        self.base_characters = self._create_base_characters()
+        self._generate_characters()
+
+        self.visible_range = [0, self.length]
+        self._initial_start_char_index = 0  # can be set to negative to create a delay when being removed.
+        self.start_char_index = self._initial_start_char_index
+        self.end_char_index = 0
+
+        # utilise font_swap_markers
+        self._initial_font_adjustments(parsed_text, font_swap_markers)
+
+
+    def _initial_font_adjustments(self, parsed_text: str, font_swap_markers):
+        """
+        Apply the initial font adjustments based on the text returned from _parse_text.
+        """
+        # utilise font_swap_markers
+        for i in range(len(font_swap_markers)):
+            start = font_swap_markers[i][0]
+            font = font_swap_markers[i][1]
+            end = len(parsed_text) + 1
+            if i < len(font_swap_markers) - 1:
+                end = font_swap_markers[i + 1][0]
+            self._adjust_font(start, end, font)
+
+
+    def _adjust_font(self, start_index: int, end_index: int, new_font: NewFont):
         """
         Adjust the font of the characters between 2 indices.
         """
@@ -163,7 +205,7 @@ class FancyFont:
 
     def _generate_characters(self):
         """
-        Convert the text into Characters.
+        Convert the text into Characters. Update used_width and the character list.
         """
         word = []
         self.characters = [[]]
@@ -206,15 +248,15 @@ class FancyFont:
         self.used_width = max(self.used_width, current_line_width)
 
     @staticmethod
-    def _create_fonts() -> List[Font]:
-        default_font = Font(str(ASSET_PATH / "fonts/small_font.png"), (255, 255, 255))
-        big_font = Font(str(ASSET_PATH / "fonts/large_font.png"), (255, 255, 255))
-        red_font = Font(str(ASSET_PATH / "fonts/small_font.png"), (255, 0, 0))
+    def _create_fonts() -> List[NewFont]:
+        default_font = NewFont(str(ASSET_PATH / "fonts/small_font.png"), (255, 255, 255), "")
+        big_font = NewFont(str(ASSET_PATH / "fonts/large_font.png"), (255, 255, 255), "")
+        red_font = NewFont(str(ASSET_PATH / "fonts/small_font.png"), (255, 0, 0), "")
 
         fonts = [default_font, big_font, red_font]
         return fonts
 
-    def _parse_text(self, text: str) -> Tuple[str, List[Tuple[int, Font]]]:
+    def _parse_text(self, text: str) -> Tuple[str, List[Tuple[int, NewFont]]]:
         """
         Parse the text, extracting values from tags, and returns a transformed text and the font swap markers.
         Returns as (updated_text, ([font_swap_markers], Font). font_swap_markers are the indices of where the font
@@ -259,6 +301,10 @@ class FancyFont:
 
         if FontEffects.FADE_OUT in font_effects:
             self._fade_out = False
+
+    def _create_base_characters(self) -> List[Character]:
+        base_chars = [Character(char, self.font, self, index=i) for i, char in enumerate(self.parsed_text)]
+        return base_chars
 
 
 class Character:
