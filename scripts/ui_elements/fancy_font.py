@@ -346,7 +346,8 @@ class Character:
             return 1
         if self.character != " ":
             return int(
-                (self.font.letter_spacing[self.font.font_order.index(self.character)] + self.owning_block.character_gap)
+                (self.font.letter_spacing[self.font.font_order.index(self.character)] +  
+                 self.owning_block.character_gap)
                 * self.scale
             )
         else:

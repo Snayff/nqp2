@@ -15,7 +15,10 @@ __all__ = ["NewFont"]
 class NewFont:
     def __init__(self, path: str, colour: Tuple[int, int, int], text: str, line_width: int = 0,
             pos: Tuple[int, int] = (0, 0)):
-        self.letters, self.letter_spacing, self.line_height = self._load_font_img(path, colour)
+        # Load the font image and convert to individual images.
+        letters, letter_spacing = self._load_font_img(path, colour)
+        self.letters: List[pygame.Surface] = letters
+        self.letter_spacing: List[int] = letter_spacing
 
         # ensure text is a str
         if not isinstance(text, str):
@@ -24,8 +27,8 @@ class NewFont:
         self.text: str = text
         self.line_width: int = line_width
         self.pos: Tuple[int, int] = pos
-        self.line_height = self.letters[0].get_height()
-        self.font_order = [
+        self.line_height: int = self.letters[0].get_height()
+        self.font_order: List[str] = [
             "A",
             "B",
             "C",
@@ -111,9 +114,9 @@ class NewFont:
             ";",
             "∞",
         ]
-        self.space_width = self.letter_spacing[0]
-        self.base_spacing = 1
-        self.line_spacing = 2
+        self._space_width: int = self.letter_spacing[0]
+        self._base_spacing: int = 1
+        self._line_spacing: int = 2
 
     @property
     def height(self) -> int:
@@ -137,9 +140,9 @@ class NewFont:
         for i, char in enumerate(text):
             if char == " ":
                 spaces.append((x, i))
-                x += self.space_width + self.base_spacing
+                x += self._space_width + self._base_spacing
             else:
-                x += self.letter_spacing[self.font_order.index(char)] + self.base_spacing
+                x += self.letter_spacing[self.font_order.index(char)] + self._base_spacing
         line_offset = 0
         for i, space in enumerate(spaces):
             if (space[0] - line_offset) > line_width:
@@ -151,11 +154,11 @@ class NewFont:
         for char in text:
             if char not in ["\n", " "]:
                 surface.blit(self.letters[self.font_order.index(char)], (pos[0] + x_offset, pos[1] + y_offset))
-                x_offset += self.letter_spacing[self.font_order.index(char)] + self.base_spacing
+                x_offset += self.letter_spacing[self.font_order.index(char)] + self._base_spacing
             elif char == " ":
-                x_offset += self.space_width + self.base_spacing
+                x_offset += self._space_width + self._base_spacing
             else:
-                y_offset += self.line_spacing + self.line_height
+                y_offset += self._line_spacing + self.line_height
                 x_offset = 0
 
     def get_text_width(self, text: str) -> int:
@@ -165,9 +168,9 @@ class NewFont:
         text_width = 0
         for char in text:
             if char in ["\n", " "]:
-                text_width += self.space_width + self.base_spacing
+                text_width += self._space_width + self._base_spacing
             else:
-                text_width += self.letter_spacing[self.font_order.index(char)] + self.base_spacing
+                text_width += self.letter_spacing[self.font_order.index(char)] + self._base_spacing
         return text_width
 
     def calculate_number_of_lines(self, text: str, line_width) -> int:
@@ -182,9 +185,9 @@ class NewFont:
             for i, char in enumerate(text):
                 if char == " ":
                     spaces.append((x, i))
-                    x += self.space_width + self.base_spacing
+                    x += self._space_width + self._base_spacing
                 else:
-                    x += self.letter_spacing[self.font_order.index(char)] + self.base_spacing
+                    x += self.letter_spacing[self.font_order.index(char)] + self._base_spacing
             line_offset = 0
             for i, space in enumerate(spaces):
                 if (space[0] - line_offset) > line_width:
@@ -196,7 +199,7 @@ class NewFont:
         return num_lines
 
     @staticmethod
-    def _load_font_img(path: str, colour: Tuple[int, int, int]):
+    def _load_font_img(path: str, colour: Tuple[int, int, int]) -> Tuple[List[pygame.Surface], List[int]]:
         fg_color = (255, 0, 0)
         bg_color = (0, 0, 0)
         font_img = pygame.image.load(path).convert()
@@ -212,4 +215,4 @@ class NewFont:
             x += 1
         for letter in letters:
             letter.set_colorkey(bg_color)
-        return letters, letter_spacing, font_img.get_height()
+        return letters, letter_spacing

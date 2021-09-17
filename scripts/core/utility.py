@@ -21,7 +21,10 @@ def swap_colour(img, old_c, new_c):
     return surface
 
 
-def clip(surface, x, y, x_size, y_size):
+def clip(surface, x, y, x_size, y_size) -> pygame.Surface:
+    """
+    Clip a subsurface from a surface.
+    """
     handle_surf = surface.copy()
     clip_r = pygame.Rect(x, y, x_size, y_size)
     handle_surf.set_clip(clip_r)
