@@ -51,7 +51,7 @@ class Input:
 
         # record duration
         end_time = time.time()
-        logging.info(f"Input: initialised in {format(end_time - start_time, '.2f')}s.")
+        logging.debug(f"Input: initialised in {format(end_time - start_time, '.2f')}s.")
 
     def soft_reset(self):
         """

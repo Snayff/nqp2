@@ -36,7 +36,7 @@ class MainMenuScene(Scene):
 
         # record duration
         end_time = time.time()
-        logging.info(f"MainMenuScene: initialised in {format(end_time - start_time, '.2f')}s.")
+        logging.debug(f"MainMenuScene: initialised in {format(end_time - start_time, '.2f')}s.")
 
     def update(self, delta_time: float):
         super().update(delta_time)

@@ -24,6 +24,9 @@ __all__ = ["Debugger"]
 
 class Debugger:
     def __init__(self, game: Game):
+        # start timer
+        start_time = time.time()
+
         self.game = game
 
         # create required folders
@@ -50,6 +53,10 @@ class Debugger:
         self._num_frames_considered_recent: int = 600
 
         self.initialise_logging()
+
+        # record duration
+        end_time = time.time()
+        logging.debug(f"Window: initialised in {format(end_time - start_time, '.2f')}s.")
 
     def update(self, delta_time: float):
 

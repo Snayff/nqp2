@@ -34,7 +34,7 @@ class Window:
 
         # record duration
         end_time = time.time()
-        logging.info(f"Window: initialised in {format(end_time - start_time, '.2f')}s.")
+        logging.debug(f"Window: initialised in {format(end_time - start_time, '.2f')}s.")
 
     def render_frame(self):
         self.window.blit(pygame.transform.scale(self.display, self.window.get_size()), (0, 0))

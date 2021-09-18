@@ -50,7 +50,7 @@ class PostCombatScene(Scene):
 
         # record duration
         end_time = time.time()
-        logging.info(f"RewardScene: initialised in {format(end_time - start_time, '.2f')}s.")
+        logging.debug(f"RewardScene: initialised in {format(end_time - start_time, '.2f')}s.")
 
     def update(self, delta_time: float):
         super().update(delta_time)
