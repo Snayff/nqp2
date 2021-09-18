@@ -56,7 +56,7 @@ class Debugger:
 
         # record duration
         end_time = time.time()
-        logging.debug(f"Window: initialised in {format(end_time - start_time, '.2f')}s.")
+        logging.debug(f"Debugger: initialised in {format(end_time - start_time, '.2f')}s.")
 
     def update(self, delta_time: float):
 
@@ -165,7 +165,7 @@ class Debugger:
         # format into uk time
         logging.Formatter.converter = time.gmtime
 
-        logging.info(f"Logging initialised.")
+        logging.debug(f"Logging initialised.")
 
     def kill_logging(self):
         """

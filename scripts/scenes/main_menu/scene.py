@@ -50,8 +50,6 @@ class MainMenuScene(Scene):
 
     def new_game(self):
         """
-        Reset all scenes and start game
+        Prep the game for a new, fresh game and move to run setup scene.
         """
-        self.game.overworld.reset()
-        self.game.overworld.generate_map()
         self.game.change_scene(SceneType.RUN_SETUP)
