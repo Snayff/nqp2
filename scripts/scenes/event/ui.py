@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 import pygame
 
 from scripts.core.base_classes.ui import UI
-from scripts.core.constants import DEFAULT_IMAGE_SIZE, EventState, GAP_SIZE, SceneType
+from scripts.core.constants import DEFAULT_IMAGE_SIZE, EventState, FontEffects, FontType, GAP_SIZE, SceneType
 from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.panel import Panel
 
@@ -74,13 +74,11 @@ class EventUI(UI):
         super().rebuild_ui()
 
         event = self.game.event.active_event
-        default_font = self.default_font
-        positive_font = self.positive_font
-        warning_font = self.warning_font
         show_event_result = self.game.data.options["show_event_option_result"]
         state = self.game.event.state
         window_width = self.game.window.width
         window_height = self.game.window.height
+        create_font = self.game.assets.create_font
 
         # positions
         start_x = 20
@@ -90,13 +88,15 @@ class EventUI(UI):
         current_x = start_x
         current_y = start_y
         frame_line_width = window_width - (current_x * 2)
-        font_height = default_font.height
+        fancy_font = self.game.assets.create_fancy_font(event["description"], font_effects=[FontEffects.FADE_IN])
+        font_height = fancy_font.line_height
         max_height = ((window_height // 2) - current_y) - font_height
         frame = Frame(
             (current_x, current_y),
-            text_and_font=(event["description"], default_font),
-            max_line_width=frame_line_width,
+            font=fancy_font,
             max_height=max_height,
+            max_width=frame_line_width,
+            is_selectable=False,
         )
         self.elements["description"] = frame
 
@@ -127,7 +127,9 @@ class EventUI(UI):
                     option_text = option["text"]
 
                 # build frame
-                frame = Frame((current_x, current_y), text_and_font=(option_text, default_font), is_selectable=True)
+                frame = Frame(
+                    (current_x, current_y), font=create_font(FontType.DEFAULT, option_text), is_selectable=True
+                )
                 self.elements[f"option_{counter}"] = frame
                 panel_list.append(frame)
 
@@ -147,7 +149,9 @@ class EventUI(UI):
             current_x = window_width // 4
 
             # draw option chosen
-            frame = Frame((current_x, current_y), text_and_font=(self.selected_option, default_font))
+            frame = Frame(
+                (current_x, current_y), font=create_font(FontType.DEFAULT, self.selected_option), is_selectable=True
+            )
             self.elements["selected_option"] = frame
 
             # increment position
@@ -173,33 +177,28 @@ class EventUI(UI):
                     if int(value) > 0:
                         # more injuries is bad, unlike other resources
                         if key not in ["injury"]:
-                            font = positive_font
+                            font_type = FontType.POSITIVE
                         else:
-                            font = warning_font
+                            font_type = FontType.NEGATIVE
                     else:
                         # less injuries is good, unlike other resources
                         if key in ["injury"]:
-                            font = positive_font
+                            font_type = FontType.POSITIVE
                         else:
-                            font = warning_font
+                            font_type = FontType.NEGATIVE
 
                     # we know its a number, so take as value
                     text = value
                 except ValueError:
                     # string could not be converted to int
-                    font = positive_font
+                    font_type = FontType.POSITIVE
 
                     # generic message to handle adding units
                     text = "recruited."
 
+                # create the frame
                 frame = Frame(
-                    (
-                        current_x,
-                        current_y,
-                    ),
-                    result_image,
-                    text_and_font=(text, font),
-                    is_selectable=False,
+                    (current_x, current_y), image=result_image, font=create_font(font_type, text), is_selectable=False
                 )
                 self.elements[f"result_{counter}"] = frame
                 panel_list.append(frame)

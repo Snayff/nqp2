@@ -8,10 +8,11 @@ from pygame import SRCALPHA
 from scripts.core.base_classes.ui_element import UIElement
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, GAP_SIZE
 from scripts.core.utility import clamp
+from scripts.ui_elements.fancy_font import FancyFont
 from scripts.ui_elements.font import Font
 
 if TYPE_CHECKING:
-    from typing import List, Optional, Tuple
+    from typing import List, Optional, Tuple, Union
 
 
 __all__ = ["Frame"]
@@ -22,27 +23,42 @@ class Frame(UIElement):
         self,
         pos: Tuple[int, int],
         image: Optional[pygame.surface] = None,
-        text_and_font: Optional[Tuple[str, Font]] = (None, None),
+        font: Optional[Union[Font, FancyFont]] = None,
         is_selectable: bool = False,
-        max_line_width: int = 0,
+        max_width: Optional[int] = None,
         max_height: Optional[int] = None,
     ):
         super().__init__(pos, is_selectable)
 
         self.image: Optional[pygame.surface] = image
-        self.text: Optional[str] = str(text_and_font[0])
-        self.font: Optional[Font] = text_and_font[1]
-        self.line_width = max_line_width
-        self.max_height = max_height
+        self.font: Optional[Union[Font, FancyFont]] = font
+        self.max_width: Optional[int] = max_width
+        self.max_height: Optional[int] = max_height
 
+        self._override_font_attrs()
+        self._recalculate_size()
+        self.update(0)  # update to prevent the flash of all the text showing at the start
         self._rebuild_surface()
 
     def update(self, delta_time: float):
-        pass
+        super().update(delta_time)
+
+        if self.is_active:
+            # FancyFont changes each frame so needs redrawing
+            if isinstance(self.font, FancyFont):
+                self.font.update(delta_time)
+
+    def render(self, surface: pygame.Surface):
+        super().render(surface)
+
+        if self.is_active:
+            # FancyFont changes each frame so needs redrawing
+            if isinstance(self.font, FancyFont):
+                self._rebuild_surface()
+                self.font.render(self.surface)
 
     def _recalculate_size(self):
         image = self.image
-        text = self.text
         font = self.font
 
         width = 0
@@ -52,29 +68,31 @@ class Frame(UIElement):
             width += image.get_width()
             height += image.get_height()
 
-        if text is not None and font is not None:
-            width += font.width(self.text) + GAP_SIZE
+        if font is not None:
+            width += font.width + GAP_SIZE
 
-            # N.B. doesnt amend height as is drawn next to image
-            if height == 0:
-                font_height = self.font.height * 2
-                height += font_height * font.calculate_number_of_lines(text, self.line_width)
+            # check which is taller, font or image
+            if image is not None:
+                height = max(image.get_height(), font.height)
+            else:
+                # no image so take font height
+                height += font.height
 
         # respect max height
         if self.max_height is not None:
-            height_ = min(self.max_height, height)
-        else:
-            height_ = height
+            height = min(height, self.max_height)
 
-        self.size = (width, height_)
-        self.surface = pygame.Surface(self.size, SRCALPHA)
+        # respect max width
+        if self.max_width is not None:
+            width = min(width, self.max_width)
+
+        self.size = (width, height)
 
     def _rebuild_surface(self):
-        self._recalculate_size()
+        self.surface = pygame.Surface(self.size, SRCALPHA)
 
         surface = self.surface
         image = self.image
-        text = self.text
         font = self.font
 
         # draw image
@@ -82,16 +100,60 @@ class Frame(UIElement):
             surface.blit(image, (0, 0))
 
         # draw text
-        if text and font:
-            if image:
-                start_x = image.get_width() + GAP_SIZE
-            else:
-                start_x = 0
+        if font:
+            # Font can be drawn once (FancyFont needs constant redrawing)
+            if isinstance(font, Font):
+                font.render(surface)
 
-            font.render(text, surface, (start_x, font.height // 2), self.line_width)
+    def _override_font_attrs(self):
+        """
+        Force the font to use the frame's pos and max sizes.
+        """
+        image = self.image
+        font = self.font
+
+        if not font:
+            return
+
+        # offset for image, if there is one
+        if image:
+            image_width = image.get_width()
+            x = image_width + GAP_SIZE
+        else:
+            image_width = 0
+            x = 0
+
+        # update font pos (remember, this is relative to the frame)
+        y = font.line_height // 2
+        font.pos = (x, y)
+
+        # update font size
+        if self.max_width is not None:
+            new_line_width = max(self.max_width - image_width, font.line_width)
+        else:
+            self._recalculate_size()
+            new_line_width = max(self.width - image_width, font.line_width)
+        font.line_width = new_line_width
+
+        # FancyFont needs to refresh
+        if isinstance(font, FancyFont):
+            font.refresh()
+            pass
 
     def set_text(self, text: str):
-        self.text = str(text)
+        """
+        Update the font text.
+        """
+        font = self.font
+
+        text = str(text)
+
+        if isinstance(font, FancyFont):
+            font.raw_text = text
+            font.refresh()
+
+        elif isinstance(font, Font):
+            font.text = text
 
         self._rebuild_surface()
 

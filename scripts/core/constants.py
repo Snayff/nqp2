@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from enum import auto, IntEnum
+from enum import auto, Enum, IntEnum
 from pathlib import Path
 
 VERSION: str = "0.0.1"
@@ -27,6 +27,10 @@ PUSH_FORCE = 14
 
 # other
 DAYS_UNTIL_BOSS = 30
+
+# UI customisation
+TEXT_FADE_OUT_SPEED = 0.5  # N.B. make sure it is slower than the fade in
+TEXT_FADE_IN_SPEED = 2
 
 
 # states
@@ -109,3 +113,17 @@ class Direction(IntEnum):
     DOWN = auto()
     LEFT = auto()
     RIGHT = auto()
+
+
+class FontType(Enum):
+    DEFAULT = auto()
+    NEGATIVE = auto()
+    DISABLED = auto()
+    POSITIVE = auto()
+    INSTRUCTION = auto()
+    NOTIFICATION = auto()
+
+
+class FontEffects(IntEnum):
+    FADE_IN = auto()
+    FADE_OUT = auto()
