@@ -91,7 +91,7 @@ class Troupe:
         self._units = {}
         self._unit_ids = []
 
-        logging.info(f"All units removed from {self.team}'s troupe.")
+        logging.debug(f"All units removed from {self.team}'s troupe.")
 
     def generate_units(
         self,

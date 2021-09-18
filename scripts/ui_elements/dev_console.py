@@ -252,18 +252,18 @@ class DevConsole(InputBox):
         Set the result of the current combat. Result should be 'win' or 'lose'.
         """
         if result == "win":
+            logging.debug(f"Skipped to combat victory.")
             self.game.combat.end_combat()
             self.game.combat.process_victory()
             confirmation_message = "Combat won."
 
-            logging.debug(f"Skipped to combat victory.")
 
         elif result == "lose":
+            logging.debug(f"Skipped to combat defeat.")
             self.game.combat.end_combat()
             self.game.combat.process_defeat()
             confirmation_message = "Combat lost."
 
-            logging.debug(f"Skipped to combat defeat.")
 
         else:
             confirmation_message = f"Result type ({result}) not recognised."
