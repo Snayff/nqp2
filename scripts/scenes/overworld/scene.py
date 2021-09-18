@@ -38,7 +38,7 @@ class OverworldScene(Scene):
 
         # record duration
         end_time = time.time()
-        logging.info(f"OverworldScene: initialised in {format(end_time - start_time, '.2f')}s.")
+        logging.debug(f"OverworldScene: initialised in {format(end_time - start_time, '.2f')}s.")
 
     def update(self, delta_time: float):
         super().update(delta_time)
@@ -73,14 +73,16 @@ class OverworldScene(Scene):
         self.game.memory.generate_level_boss()
 
     def reset(self):
+        """
+        Reset values to initial state. Does not overwrite the map.
+        """
         self.ui = OverworldUI(self.game)
 
         self.state = OverworldState.LOADING
         self.game.memory.level = 1
         self.game.memory.generate_level_boss()
         self.game.memory.days_until_boss = DAYS_UNTIL_BOSS
-
-        self.generate_map()
+        self.node_container = None
 
     def pay_move_cost(self):
         """

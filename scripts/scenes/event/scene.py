@@ -40,7 +40,7 @@ class EventScene(Scene):
 
         # record duration
         end_time = time.time()
-        logging.info(f"EventScene: initialised in {format(end_time - start_time, '.2f')}s.")
+        logging.debug(f"EventScene: initialised in {format(end_time - start_time, '.2f')}s.")
 
     def update(self, delta_time: float):
         super().update(delta_time)

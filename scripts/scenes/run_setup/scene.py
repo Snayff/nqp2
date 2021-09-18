@@ -38,7 +38,7 @@ class RunSetupScene(Scene):
 
         # record duration
         end_time = time.time()
-        logging.info(f"RunSetupScene: initialised in {format(end_time - start_time, '.2f')}s.")
+        logging.debug(f"RunSetupScene: initialised in {format(end_time - start_time, '.2f')}s.")
 
     def update(self, delta_time: float):
         super().update(delta_time)
@@ -74,6 +74,10 @@ class RunSetupScene(Scene):
             player_troupe.debug_init_units()
         else:
             player_troupe.generate_specific_units(commander["starting_units"])
+
+        # generate map
+        self.game.overworld.reset()
+        self.game.overworld.generate_map()
 
         logging.info(f"Run starting now!")
 

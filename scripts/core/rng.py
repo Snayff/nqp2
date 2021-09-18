@@ -24,7 +24,7 @@ class RNG(random.Random):
 
         # record duration
         end_time = time.time()
-        logging.info(f"RNG: initialised in {format(end_time - start_time, '.2f')}s.")
+        logging.debug(f"RNG: initialised in {format(end_time - start_time, '.2f')}s.")
 
     def set_seed(self, seed: int):
         """

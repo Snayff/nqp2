@@ -76,7 +76,7 @@ class Game:
 
         # record duration
         end_time = time.time()
-        logging.info(f"Game initialised in {format(end_time - start_time, '.2f')}s.")
+        logging.debug(f"Game initialised in {format(end_time - start_time, '.2f')}s.")
 
     def update(self):
         delta_time = self.window.dt

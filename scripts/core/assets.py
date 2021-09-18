@@ -63,10 +63,6 @@ class Assets:
         # used to hold images so only one copy per dimension ever exists.
         self.images: Dict[str, Dict[str, pygame.Surface]] = self._load_images()
 
-        # record duration
-        end_time = time.time()
-        logging.info(f"Assets: initialised in {format(end_time - start_time, '.2f')}s.")
-
         self.unit_animations = {
             unit: {
                 action: self.load_image_dir(ASSET_PATH / "units/" / unit / action)
@@ -119,6 +115,10 @@ class Assets:
         }
 
         self.maps = {map.split(".")[0]: json_read("data/maps/" + map) for map in os.listdir("data/maps")}
+
+        # record duration
+        end_time = time.time()
+        logging.debug(f"Assets: initialised in {format(end_time - start_time, '.2f')}s.")
 
     def get_image(
         self,

@@ -72,7 +72,7 @@ class CombatScene(Scene):
 
         # record duration
         end_time = time.time()
-        logging.info(f"CombatScene: initialised in {format(end_time - start_time, '.2f')}s.")
+        logging.debug(f"CombatScene: initialised in {format(end_time - start_time, '.2f')}s.")
 
     @property
     def general_state(self):

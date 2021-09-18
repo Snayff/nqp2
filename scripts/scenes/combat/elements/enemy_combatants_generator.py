@@ -1,3 +1,5 @@
+import logging
+
 from scripts.scenes.combat.elements.troupe import Troupe
 
 
@@ -12,6 +14,7 @@ class EnemyCombatantsGenerator:
         rng = self.game.rng
 
         combat = self.game.combat._get_random_combat()
+        logging.debug(f"{combat['type']} combat chosen.")
         num_units = len(combat["units"])
 
         # generate positions

@@ -44,7 +44,7 @@ class Data:
 
         # record duration
         end_time = time.time()
-        logging.info(f"Data: initialised in {format(end_time - start_time, '.2f')}s.")
+        logging.debug(f"Data: initialised in {format(end_time - start_time, '.2f')}s.")
 
     @staticmethod
     def _load_tile_info() -> Dict:
@@ -59,7 +59,7 @@ class Data:
                 tuple([id_section if i == 0 else int(id_section) for i, id_section in enumerate(tile_id.split("|"))])
             ] = tile_info_raw[tile_id]
 
-        logging.info(f"Data: All tileset data loaded.")
+        logging.debug(f"Data: All tileset data loaded.")
 
         return tile_info
 
@@ -72,7 +72,7 @@ class Data:
             units[data["type"]] = data
             f.close()
 
-        logging.info(f"Data: All unit data loaded.")
+        logging.debug(f"Data: All unit data loaded.")
 
         return units
 
@@ -94,7 +94,7 @@ class Data:
             upgrades[data["type"]] = data
             f.close()
 
-        logging.info(f"Data: All upgrade data loaded.")
+        logging.debug(f"Data: All upgrade data loaded.")
 
         return upgrades
 
@@ -107,7 +107,7 @@ class Data:
             events[data["type"]] = data
             f.close()
 
-        logging.info(f"Data: All event data loaded.")
+        logging.debug(f"Data: All event data loaded.")
 
         return events
 
@@ -117,7 +117,7 @@ class Data:
         config = json.load(f)
         f.close()
 
-        logging.info(f"Data: Config data loaded.")
+        logging.debug(f"Data: Config data loaded.")
 
         return config
 
@@ -130,7 +130,7 @@ class Data:
             commanders[data["type"]] = data
             f.close()
 
-        logging.info(f"Data: All commanders data loaded.")
+        logging.debug(f"Data: All commanders data loaded.")
 
         return commanders
 
@@ -143,7 +143,7 @@ class Data:
             bosses[data["type"]] = data
             f.close()
 
-        logging.info(f"Data: All bosses data loaded.")
+        logging.debug(f"Data: All bosses data loaded.")
 
         return bosses
 
@@ -156,7 +156,7 @@ class Data:
             combats[data["type"]] = data
             f.close()
 
-        logging.info(f"Data: All combats data loaded.")
+        logging.debug(f"Data: All combats data loaded.")
 
         return combats
 
@@ -169,7 +169,7 @@ class Data:
             skills[skill.split(".")[0]] = data
             f.close()
 
-        logging.info(f"Data: All skills data loaded.")
+        logging.debug(f"Data: All skills data loaded.")
 
         return skills
 
@@ -179,7 +179,7 @@ class Data:
         config = json.load(f)
         f.close()
 
-        logging.info(f"Data: Options data loaded.")
+        logging.debug(f"Data: Options data loaded.")
 
         return config
 
