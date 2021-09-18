@@ -58,7 +58,7 @@ class Troupe:
         self._units[unit.id] = unit
         self._unit_ids.append(unit.id)
 
-        logging.info(f"Unit {unit.type}({unit.id}) added to {self.team}'s troupe.")
+        logging.debug(f"Unit {unit.type}({unit.id}) added to {self.team}'s troupe.")
 
     def _add_unit_from_type(self, unit_type: str) -> int:
         """
@@ -70,7 +70,7 @@ class Troupe:
         self._units[id_] = unit
         self._unit_ids.append(id_)
 
-        logging.info(f"Unit {unit.type}({unit.id}) created and added to {self.team}'s troupe.")
+        logging.debug(f"Unit {unit.type}({unit.id}) created and added to {self.team}'s troupe.")
 
         return id_
 
@@ -79,7 +79,7 @@ class Troupe:
             unit = self._units.pop(id_)
             self._unit_ids.remove(id_)
 
-            logging.info(f"Unit {unit.type}({unit.id}) removed from {unit.team}'s troupe.")
+            logging.debug(f"Unit {unit.type}({unit.id}) removed from {unit.team}'s troupe.")
 
         except KeyError:
             logging.warning(f"remove_unit: {id_} not found in {self.units}. No unit removed.")

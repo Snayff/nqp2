@@ -230,7 +230,7 @@ class Rings(NodeContainer):
 
         # log summary
         logging.info(
-            f"-> Map generated! Rings: {len(self.rings)} | Nodes: filled:{total_nodes}, blank:{blank_nodes}"
+            f"-> Map generated. Rings: {len(self.rings)} | Nodes: filled:{total_nodes}, blank:{blank_nodes}"
             f" | Connections: {total_connections}"
         )
 
