@@ -40,7 +40,7 @@ class DevConsole(InputBox):
         """
         Handle the command in the dev console. Expected format is "[command] [value]".
         """
-        command = self.text
+        command = self.font.text
         confirmation_message = ""
 
         if command[:5] == "event":
