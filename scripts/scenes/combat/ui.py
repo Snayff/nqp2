@@ -265,8 +265,6 @@ class CombatUI(UI):
     def rebuild_ui(self):
         super().rebuild_ui()
 
-        warning_font = self.warning_font
-
         # render status text
         status = "None"
         if self.game.combat.state in [CombatState.UNIT_SELECT_TARGET, CombatState.ACTION_SELECT_TARGET_FREE]:

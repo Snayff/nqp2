@@ -47,7 +47,6 @@ class UIElement(ABC):
 
     @property
     def width(self) -> int:
-        # FIXME - this isnt calculating properly
         return self.size[0]
 
     @property

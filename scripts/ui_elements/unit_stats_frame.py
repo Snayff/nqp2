@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import pygame
 
 from scripts.core.base_classes.ui_element import UIElement
-from scripts.core.constants import DEFAULT_IMAGE_SIZE, GAP_SIZE, StatModifiedStatus
+from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, GAP_SIZE, StatModifiedStatus
 from scripts.scenes.combat.elements.unit import Unit
 from scripts.ui_elements.font import Font
 
@@ -28,12 +28,6 @@ class UnitStatsFrame(UIElement):
         self.game: Game = game
         self.unit: Unit = unit
 
-        self.default_font: Font = self.game.assets.fonts["default"]
-        self.disabled_font: Font = self.game.assets.fonts["disabled"]
-        self.warning_font: Font = self.game.assets.fonts["warning"]
-        self.positive_font: Font = self.game.assets.fonts["positive"]
-        self.instruction_font: Font = self.game.assets.fonts["instruction"]
-
         self._rebuild_surface()
 
     def update(self, delta_time: float):
@@ -47,12 +41,7 @@ class UnitStatsFrame(UIElement):
         unit = self.unit
         start_x = 0
         start_y = 0
-        default_font = self.default_font
-        warning_font = self.warning_font
-        positive_font = self.positive_font
-        instruction_font = self.instruction_font
 
-        font_height = default_font.height
         stat_icon_size = (DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE)
 
         # draw icon
@@ -64,9 +53,10 @@ class UnitStatsFrame(UIElement):
         current_y += unit_icon.get_height() + GAP_SIZE
 
         # draw unit type
-        default_font.render(unit.type, surface, (current_x, current_y))
+        font = self.game.assets.create_font(FontType.DEFAULT, unit.type, (current_x, current_y))
+        font.render(surface)
 
-        current_y += font_height + GAP_SIZE
+        current_y += font.height + GAP_SIZE
 
         # draw stats
         icon_x = current_x
@@ -81,16 +71,18 @@ class UnitStatsFrame(UIElement):
             # determine font
             mod_state = unit.get_modified_status(stat)
             if mod_state == StatModifiedStatus.POSITIVE:
-                font = positive_font
+                font_type = FontType.POSITIVE
             elif mod_state == StatModifiedStatus.POSITIVE_AND_NEGATIVE:
-                font = instruction_font
+                font_type = FontType.INSTRUCTION
             elif mod_state == StatModifiedStatus.NEGATIVE:
-                font = warning_font
+                font_type = FontType.NEGATIVE
             else:
-                font = default_font
+                font_type = FontType.DEFAULT
 
             # + half font height to vertical centre it
-            font.render(str(getattr(unit, stat)), surface, (info_x, current_y + (font_height // 2)))
+            font = self.game.assets.create_font(font_type, str(getattr(unit, stat)))
+            font.pos = (info_x, current_y + (font.height // 2))
+            font.render(surface)
 
             # increment y
             current_y += stat_icon_size[1] + GAP_SIZE

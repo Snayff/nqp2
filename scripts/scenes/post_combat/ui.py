@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 import pygame
 
 from scripts.core.base_classes.ui import UI
-from scripts.core.constants import DEFAULT_IMAGE_SIZE, GAP_SIZE, PostCombatState, RewardType, SceneType
+from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, GAP_SIZE, PostCombatState, RewardType, SceneType
 from scripts.scenes.combat.elements.unit import Unit
 from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.panel import Panel
@@ -76,6 +76,9 @@ class PostCombatUI(UI):
 
     def render(self, surface: pygame.surface):
         combat_data = self.game.combat.end_data
+        create_font = self.game.assets.create_font
+
+        empty_font = create_font(FontType.DEFAULT, "")
 
         unit_width = 120
         if combat_data is not None:
@@ -90,20 +93,19 @@ class PostCombatUI(UI):
                 unit_img = self.game.assets.unit_animations[unit[0]]["icon"][0]
                 surface.blit(unit_img, (x - unit_img.get_width() // 2, y))
                 y += unit_img.get_height() + 4
-                self.game.assets.fonts["default"].render(
-                    unit[0], surface, (x - self.game.assets.fonts["default"].width(unit[0]) // 2, y)
-                )
+                font = create_font(FontType.DEFAULT, unit[0], (x - empty_font.get_text_width(unit[0]) // 2, y))
+                font.render(surface)
                 y += 13
                 for i, v in enumerate([unit[1], unit[2], unit[3], unit[5]]):
                     v = str(v)
                     if i != 3:
-                        self.game.assets.fonts["default"].render(v, surface, (x, y + 4))
+                        font = create_font(FontType.DEFAULT, v, (x, y + 4))
+                        font.render(surface)
                         img = self.game.assets.images["stats"][("dmg_dealt@16x16", "kills@16x16", "defence@16x16")[i]]
                         surface.blit(img, (x - img.get_width() - 2, y))
                     else:
-                        self.game.assets.fonts["default"].render(
-                            v, surface, (x - self.game.assets.fonts["default"].width(v) // 2, y)
-                        )
+                        font = create_font(FontType.DEFAULT, v, (x - empty_font.get_text_width(v) // 2, y))
+                        font.render(surface)
                     y += 18
                 for i in range(unit[4]):
                     x_offset = -unit[4] * 10 + i * 20
@@ -159,37 +161,32 @@ class PostCombatUI(UI):
         self.rebuild_resource_elements()
 
     def _rebuild_victory_ui(self):
-        default_font = self.default_font
-        positive_font = self.positive_font
+        window_width = self.game.window.width
+        window_height = self.game.window.height
+        create_font = self.game.assets.create_font
 
         start_x = 20
         start_y = 40
         icon_width = DEFAULT_IMAGE_SIZE
         icon_height = DEFAULT_IMAGE_SIZE
         icon_size = (icon_width, icon_height)
-        font_height = default_font.height
-        window_width = self.game.window.width
-        window_height = self.game.window.height
 
         # draw header
-        header_text = "Victory"
-        current_x = window_width // 2 - (default_font.width(header_text))
+        text = "Victory"
+        font = create_font(FontType.POSITIVE, text)
+        current_x = (window_width // 2) - font.width
         current_y = start_y
-        frame = Frame(
-            (current_x, current_y),
-            text_and_font=(header_text, positive_font),
-            is_selectable=False,
-        )
+        frame = Frame((current_x, current_y), font=font, is_selectable=False)
         self.elements["header"] = frame
 
         # draw gold reward
         current_y += 50
         gold_icon = self.game.assets.get_image("stats", "gold", icon_size)
-        gold_reward = self.game.post_combat.gold_reward
+        gold_reward = str(self.game.post_combat.gold_reward)
         frame = Frame(
             (current_x, current_y),
             image=gold_icon,
-            text_and_font=(str(gold_reward), default_font),
+            font=create_font(FontType.DEFAULT, gold_reward),
             is_selectable=False,
         )
         self.elements["gold_reward"] = frame
@@ -198,30 +195,21 @@ class PostCombatUI(UI):
         self.add_exit_button()
 
     def _rebuild_defeat_ui(self):
-        default_font = self.default_font
-        negative_font = self.warning_font
-        disabled_font = self.disabled_font
+        create_font = self.game.assets.create_font
 
         start_x = 20
         start_y = 40
-        icon_width = DEFAULT_IMAGE_SIZE
-        icon_height = DEFAULT_IMAGE_SIZE
-        icon_size = (icon_width, icon_height)
-        font_height = default_font.height
         window_width = self.game.window.width
         window_height = self.game.window.height
 
         self.set_instruction_text("Return to the main menu")
 
         # draw header
-        header_text = "Defeat"
-        current_x = window_width // 2 - (default_font.width(header_text))
+        text = "Defeat"
+        font = create_font(FontType.NEGATIVE, text)
+        current_x = (window_width // 2) - font.width
         current_y = start_y
-        frame = Frame(
-            (current_x, current_y),
-            text_and_font=(header_text, negative_font),
-            is_selectable=False,
-        )
+        frame = Frame((current_x, current_y), font=font, is_selectable=False)
         self.elements["header"] = frame
 
         # draw lost morale
@@ -231,11 +219,9 @@ class PostCombatUI(UI):
         if morale <= 0:
             # game over
             text = "Your forces, like your ambitions, lie in ruin."
-            current_x = (window_width // 2) - (disabled_font.width(text) // 2)
-            frame = Frame(
-                (current_x, current_y),
-                text_and_font=(text, disabled_font),
-            )
+            font = create_font(FontType.DISABLED, text)
+            current_x = (window_width // 2) - (font.width // 2)
+            frame = Frame((current_x, current_y), font=font, is_selectable=False)
             self.elements["morale"] = frame
 
             # draw exit button
@@ -243,7 +229,12 @@ class PostCombatUI(UI):
         else:
             # lose morale
             morale_image = self.game.assets.get_image("stats", "morale")
-            frame = Frame((current_x, current_y), image=morale_image, text_and_font=(str("-1"), negative_font))
+            frame = Frame(
+                (current_x, current_y),
+                image=morale_image,
+                font=create_font(FontType.NEGATIVE, str("-1")),
+                is_selectable=False,
+            )
             self.elements["morale"] = frame
 
             # draw exit button
@@ -350,29 +341,24 @@ class PostCombatUI(UI):
             self.game.change_scene(SceneType.MAIN_MENU)
 
     def _rebuild_boss_victory_ui(self):
-        default_font = self.default_font
-        positive_font = self.positive_font
-
         start_y = 40
         window_width = self.game.window.width
 
         # draw header
         header_text = "Victory"
-        current_x = window_width // 2 - (default_font.width(header_text))
+        header_font = self.game.assets.create_font(FontType.DEFAULT, header_text)
+        current_x = (window_width // 2) - header_font.width
         current_y = start_y
-        frame = Frame(
-            (current_x, current_y),
-            text_and_font=(header_text, positive_font),
-            is_selectable=False,
-        )
+        frame = Frame((current_x, current_y), font=header_font, is_selectable=False)
         self.elements["header"] = frame
 
-        # draw gold reward
+        # draw victory message
         current_y += 50
         text = "That's all there is. You've beaten the boss, so why not try another commander?"
+        victory_font = self.game.assets.create_font(FontType.POSITIVE, text)
         frame = Frame(
             (current_x, current_y),
-            text_and_font=(text, default_font),
+            font=victory_font,
             is_selectable=False,
         )
         self.elements["info"] = frame

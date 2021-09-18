@@ -3,14 +3,15 @@ import pygame
 # TODO - add numpad support
 # TODO - add special character support, particularly - .
 # TODO - handle blank input fields
+from scripts.core.constants import FontType
 
 
 class InputBox:
-    def __init__(self, game, size, pos=[0, 0], color=(255, 255, 255), input_type="all", text="", font=None):
+    def __init__(self, game, size, pos=[0, 0], colour=(255, 255, 255), input_type="all", text="", font=None):
         self.game = game
         self.size = list(size)
         self.pos = list(pos)
-        self.color = color
+        self.colour = colour
 
         if input_type == "detect":
             if type(text) == int:
@@ -22,23 +23,25 @@ class InputBox:
 
         self.input_type = input_type
 
-        self.text = str(text)
         self.previous_input_mode = None
         self.padding = 3
         self.focused = False
 
         if not font:
-            font = self.game.assets.fonts["default"]
+            font = self.game.assets.create_font(FontType.DEFAULT, str(text))
         self.font = font
+
+        # assign font pos
+        self.font.pos = (self.pos[0] + self.padding, self.pos[1] + (self.size[1] - self.font.line_height) // 2)
 
     @property
     def value(self):
         if self.input_type == "int":
-            return int(self.text)
+            return int(self.font.text)
         if self.input_type == "float":
-            return float(self.text)
+            return float(self.font.text)
         else:
-            return self.text
+            return self.font.text
 
     @property
     def should_focus(self, offset=(0, 0)):
@@ -74,17 +77,17 @@ class InputBox:
             new_chars = self.game.input.unload_chars()
             for char in new_chars:
                 if char == "backspace":
-                    self.text = self.text[:-1]
+                    self.font.text = self.font.text[:-1]
                 elif self.input_type == "all":
-                    self.text += char
+                    self.font.text += char
 
                 if self.input_type in ["int", "float"]:
                     if char in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
-                        self.text += char
+                        self.font.text += char
                 if self.input_type in ["float"]:
                     if char in ["."]:
-                        if "." not in self.text:
-                            self.text += char
+                        if "." not in self.font.text:
+                            self.font.text += char
                 if self.input_type in ["lower"]:
                     if char in [
                         "a",
@@ -115,20 +118,18 @@ class InputBox:
                         "z",
                         "_",
                     ]:
-                        self.text += char
+                        self.font.text += char
 
     def render(self, surf, offset=(0, 0)):
         base_pos = (self.pos[0] - offset[0], self.pos[1] - offset[1])
         border_r = pygame.Rect(*base_pos, *self.size)
-        pygame.draw.rect(surf, self.color, border_r, width=1)
-        self.font.render(
-            self.text, surf, (base_pos[0] + self.padding, base_pos[1] + (self.size[1] - self.font.height) // 2)
-        )
-        text_width = self.font.width(self.text)
+        pygame.draw.rect(surf, self.colour, border_r, width=1)
+        self.font.render(surf)
+        text_width = self.font.width
         if self.focused and (self.game.master_clock % 1 > 0.2):
             pygame.draw.line(
                 surf,
-                self.color,
+                self.colour,
                 (base_pos[0] + self.padding + text_width, base_pos[1] + 2),
                 (base_pos[0] + self.padding + text_width, base_pos[1] + self.size[1] - 4),
             )

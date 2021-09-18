@@ -4,7 +4,7 @@ import logging
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 
-from scripts.core.constants import DEFAULT_IMAGE_SIZE, GAP_SIZE
+from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, GAP_SIZE
 from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.panel import Panel
 
@@ -32,13 +32,6 @@ class UI(ABC):
     def __init__(self, game: Game):
         self.game: Game = game
 
-        self.default_font: Font = self.game.assets.fonts["default"]
-        self.disabled_font: Font = self.game.assets.fonts["disabled"]
-        self.warning_font: Font = self.game.assets.fonts["warning"]
-        self.positive_font: Font = self.game.assets.fonts["positive"]
-        self.instruction_font: Font = self.game.assets.fonts["instruction"]
-        self.notification_font: Font = self.game.assets.fonts["notification"]
-
         self.elements: Dict[str, Union[Frame, UnitStatsFrame]] = {}
         self.panels: Dict[str, Panel] = {}
         self.current_panel: Optional[Panel] = None
@@ -57,6 +50,8 @@ class UI(ABC):
             self.game.input.states["toggle_dev_console"] = False
 
             self.game.debug.toggle_dev_console_visibility()
+
+        self.update_elements(delta_time)
 
     @abstractmethod
     def render(self, surface: pygame.surface):
@@ -108,7 +103,6 @@ class UI(ABC):
         }
 
         panel_elements = []
-        disabled_font = self.disabled_font
 
         # positions
         start_x = 2
@@ -116,9 +110,15 @@ class UI(ABC):
         current_x = start_x
         current_y = start_y
 
-        # crate frames
+        # create frames
+        create_font = self.game.assets.create_font
         for key, value in resources.items():
-            frame = Frame((current_x, current_y), value[0], (value[1], disabled_font), False)
+            frame = Frame(
+                (current_x, current_y),
+                image=value[0],
+                font=create_font(FontType.DISABLED, value[1]),
+                is_selectable=False,
+            )
             self.elements[f"resource_{key}"] = frame
             panel_elements.append(frame)
 
@@ -133,18 +133,23 @@ class UI(ABC):
     def draw_instruction(self, surface: pygame.surface):
         if self.temporary_instruction_text:
             text = self.temporary_instruction_text
-            font = self.warning_font
+            font = self.game.assets.create_font(FontType.NEGATIVE, text)
         else:
             text = self.instruction_text
-            font = self.instruction_font
+            font = font = self.game.assets.create_font(FontType.INSTRUCTION, text)
 
-        x = self.game.window.width - font.width(text) - 2
+        x = self.game.window.width - font.width - 2
         y = 2
-        font.render(text, surface, (x, y))
+        font.pos = (x, y)
+        font.render(surface)
 
     def draw_elements(self, surface: pygame.surface):
-        for element in self.elements.values():
+        for name, element in self.elements.items():
             element.render(surface)
+
+    def update_elements(self, delta_time: float):
+        for element in self.elements.values():
+            element.update(delta_time)
 
     def add_panel(self, panel: Panel, name: str):
         """
@@ -160,13 +165,14 @@ class UI(ABC):
     def add_exit_button(self, button_text: str = "Onwards"):
         window_width = self.game.window.width
         window_height = self.game.window.height
+        font = self.game.assets.create_font(FontType.DEFAULT, button_text)
 
-        confirm_text = button_text
-        confirm_width = self.default_font.width(confirm_text)
+        # get position info
+        confirm_width = font.get_text_width(button_text)
         current_x = window_width - (confirm_width + GAP_SIZE)
-        current_y = window_height - (self.default_font.height + GAP_SIZE)
+        current_y = window_height - (font.line_height + GAP_SIZE)
 
-        frame = Frame((current_x, current_y), text_and_font=(confirm_text, self.default_font), is_selectable=True)
+        frame = Frame((current_x, current_y), font=font, is_selectable=True)
         self.elements["exit"] = frame
         panel = Panel([frame], True)
         self.add_panel(panel, "exit")

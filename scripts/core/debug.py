@@ -11,7 +11,7 @@ import time
 import timeit
 from typing import TYPE_CHECKING
 
-from scripts.core.constants import DEBUGGING_PATH, INFINITE, LOGGING_PATH, PROFILING_PATH, VERSION
+from scripts.core.constants import DEBUGGING_PATH, FontType, INFINITE, LOGGING_PATH, PROFILING_PATH, VERSION
 from scripts.ui_elements.dev_console import DevConsole
 
 if TYPE_CHECKING:
@@ -80,8 +80,6 @@ class Debugger:
         Draw debug info
         """
         surface = self.game.window.display
-        font = self.game.assets.fonts["disabled"]
-        font_height = font.height
 
         # draw fps
         if self.is_fps_visible:
@@ -92,14 +90,8 @@ class Debugger:
             start_x = 1
             start_y = 1
 
-            current_y = start_y
-            font.render(current_fps, surface, (start_x, current_y))
-
-            current_y += font_height
-            font.render(recent_fps, surface, (start_x, current_y))
-
-            current_y += font_height
-            font.render(avg_fps, surface, (start_x, current_y))
+            text = f"{current_fps} | {recent_fps} | {avg_fps}"
+            self.game.assets.create_font(FontType.DISABLED, text, (start_x, start_y))
 
         if self._dev_console is not None:
             self._dev_console.render(surface)
