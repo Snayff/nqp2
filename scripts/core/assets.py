@@ -14,7 +14,7 @@ from scripts.ui_elements.fancy_font import FancyFont
 from scripts.ui_elements.font import Font
 
 if TYPE_CHECKING:
-    from typing import Dict, Tuple, List, Optional
+    from typing import Dict, List, Optional, Tuple
 
     from scripts.core.game import Game
 
@@ -182,8 +182,7 @@ class Assets:
         else:
             return image
 
-    def create_font(self, font_type: FontType,  text: str, pos: Tuple[int, int] = (0, 0),
-            line_width: int = 0) -> Font:
+    def create_font(self, font_type: FontType, text: str, pos: Tuple[int, int] = (0, 0), line_width: int = 0) -> Font:
         """
         Create a font instance.
         """
@@ -192,8 +191,13 @@ class Assets:
         font = Font(path, colour, text, line_width, pos)
         return font
 
-    def create_fancy_font(self, text: str, pos: Tuple[int, int] = (0, 0), line_width: int = 0,
-            font_effects: Optional[List[FontEffects]] = None) -> FancyFont:
+    def create_fancy_font(
+        self,
+        text: str,
+        pos: Tuple[int, int] = (0, 0),
+        line_width: int = 0,
+        font_effects: Optional[List[FontEffects]] = None,
+    ) -> FancyFont:
         """
         Create a FancyFont instance. If line_width isnt given then will default to full screen.
         """
@@ -205,7 +209,6 @@ class Assets:
 
         font = FancyFont(text, pos, line_width, font_effects)
         return font
-
 
     def load_tileset(self, path):
         """

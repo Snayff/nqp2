@@ -8,7 +8,6 @@ import pygame
 from scripts.core.base_classes.ui import UI
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, GameState, GAP_SIZE, SceneType
 from scripts.ui_elements.frame import Frame
-from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.panel import Panel
 
 if TYPE_CHECKING:
@@ -77,41 +76,25 @@ class MainMenuUI(UI):
         panel_elements = []
 
         # new game
-        frame = Frame(
-            (current_x, current_y),
-            font=create_font(FontType.DEFAULT, "New Game"),
-            is_selectable=True
-        )
+        frame = Frame((current_x, current_y), font=create_font(FontType.DEFAULT, "New Game"), is_selectable=True)
         self.elements["new_game"] = frame
         panel_elements.append(frame)
 
         # load
         current_y += frame.height + GAP_SIZE
-        frame = Frame(
-            (current_x, current_y),
-            font=create_font(FontType.DEFAULT, "Load Game"),
-            is_selectable=False
-        )
+        frame = Frame((current_x, current_y), font=create_font(FontType.DEFAULT, "Load Game"), is_selectable=False)
         self.elements["load_game"] = frame
         panel_elements.append(frame)
 
         # options
         current_y += frame.height + GAP_SIZE
-        frame = Frame(
-            (current_x, current_y),
-            font=create_font(FontType.DEFAULT, "Settings"),
-            is_selectable=False
-        )
+        frame = Frame((current_x, current_y), font=create_font(FontType.DEFAULT, "Settings"), is_selectable=False)
         self.elements["settings"] = frame
         panel_elements.append(frame)
 
         # exit
         current_y += frame.height + GAP_SIZE
-        frame = Frame(
-            (current_x, current_y),
-            font=create_font(FontType.DEFAULT, "Exit"),
-            is_selectable=True
-        )
+        frame = Frame((current_x, current_y), font=create_font(FontType.DEFAULT, "Exit"), is_selectable=True)
         self.elements["exit"] = frame
         panel_elements.append(frame)
 

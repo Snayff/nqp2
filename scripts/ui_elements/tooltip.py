@@ -16,6 +16,7 @@ class Tooltip:
     In the event that an element is in world space rather than an absolute space, the element should have an
     alternative rect attribute that gets updated to the absolute rect position.
     """
+
     def __init__(self, game, text, font_id, rect_reference, width=200, padding=2, margin=2, alpha=100, visible_delay=1):
         self.game = game
         self.text = text

@@ -1,8 +1,9 @@
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
 
 import pygame
-from typing import TYPE_CHECKING
+
 from scripts.core.constants import GAP_SIZE
 from scripts.core.utility import clip, swap_colour
 
@@ -13,8 +14,9 @@ __all__ = ["Font"]
 
 
 class Font:
-    def __init__(self, path: str, colour: Tuple[int, int, int], text: str, line_width: int = 0,
-            pos: Tuple[int, int] = (0, 0)):
+    def __init__(
+        self, path: str, colour: Tuple[int, int, int], text: str, line_width: int = 0, pos: Tuple[int, int] = (0, 0)
+    ):
         # Load the font image and convert to individual images.
         letters, letter_spacing = self._load_font_img(path, colour)
         self.letters: List[pygame.Surface] = letters
@@ -136,7 +138,6 @@ class Font:
 
         num_lines = 1
 
-
         if line_width != 0:
             spaces = []
             x = 0
@@ -178,7 +179,7 @@ class Font:
             if (space[0] - line_offset) > line_width:
                 line_offset += spaces[i - 1][0] - line_offset
                 if i != 0:
-                    text = text[: spaces[i - 1][1]] + "\n" + text[spaces[i - 1][1] + 1:]
+                    text = text[: spaces[i - 1][1]] + "\n" + text[spaces[i - 1][1] + 1 :]
 
         # draw to surface
         for char in text:

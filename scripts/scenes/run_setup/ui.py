@@ -93,18 +93,10 @@ class RunSetupUI(UI):
         header_x = start_x
 
         # name
-        frame = Frame(
-            (header_x, current_y),
-            font=create_font(FontType.DISABLED, "Name"),
-            is_selectable=False
-        )
+        frame = Frame((header_x, current_y), font=create_font(FontType.DISABLED, "Name"), is_selectable=False)
         self.elements["name_header"] = frame
 
-        frame = Frame(
-            (info_x, current_y),
-            font=create_font(FontType.DEFAULT, commander["name"]),
-            is_selectable=False
-        )
+        frame = Frame((info_x, current_y), font=create_font(FontType.DEFAULT, commander["name"]), is_selectable=False)
         self.elements["name"] = frame
 
         current_y += frame.height + GAP_SIZE
@@ -117,51 +109,35 @@ class RunSetupUI(UI):
             font=create_fancy_font(commander["backstory"], font_effects=[FontEffects.FADE_IN]),
             is_selectable=False,
             max_width=line_width,
-            max_height=max_height
+            max_height=max_height,
         )
         self.elements["backstory"] = frame
 
         current_y += frame.height + GAP_SIZE
 
         # resources
-        frame = Frame(
-            (header_x, current_y),
-            font=create_font(FontType.DISABLED, "Charisma"),
-            is_selectable=False
-        )
+        frame = Frame((header_x, current_y), font=create_font(FontType.DISABLED, "Charisma"), is_selectable=False)
         self.elements["charisma_header"] = frame
 
         frame = Frame(
-            (info_x, current_y),
-            font=create_font(FontType.DEFAULT, commander["charisma"]),
-            is_selectable=False
+            (info_x, current_y), font=create_font(FontType.DEFAULT, commander["charisma"]), is_selectable=False
         )
         self.elements["charisma"] = frame
 
         current_y += frame.height + GAP_SIZE
 
-        frame = Frame(
-            (header_x, current_y),
-            font=create_font(FontType.DISABLED, "Leadership"),
-            is_selectable=False
-        )
+        frame = Frame((header_x, current_y), font=create_font(FontType.DISABLED, "Leadership"), is_selectable=False)
         self.elements["leadership_header"] = frame
 
         frame = Frame(
-            (info_x, current_y),
-            font=create_font(FontType.DEFAULT, commander["leadership"]),
-            is_selectable=False
+            (info_x, current_y), font=create_font(FontType.DEFAULT, commander["leadership"]), is_selectable=False
         )
         self.elements["leadership"] = frame
 
         current_y += frame.height + GAP_SIZE
 
         # allies
-        frame = Frame(
-            (header_x, current_y),
-            font=create_font(FontType.DISABLED, "Allies"),
-            is_selectable=False
-        )
+        frame = Frame((header_x, current_y), font=create_font(FontType.DISABLED, "Allies"), is_selectable=False)
         self.elements["allies_header"] = frame
 
         allies = ""
@@ -171,28 +147,16 @@ class RunSetupUI(UI):
                 allies += ally
             else:
                 allies += ", " + ally
-        frame = Frame(
-            (info_x, current_y),
-            font=create_font(FontType.DEFAULT, allies),
-            is_selectable=False
-        )
+        frame = Frame((info_x, current_y), font=create_font(FontType.DEFAULT, allies), is_selectable=False)
         self.elements["allies"] = frame
 
         current_y += frame.height + GAP_SIZE
 
         # gold
-        frame = Frame(
-            (header_x, current_y),
-            font=create_font(FontType.DISABLED, "Gold"),
-            is_selectable=False
-        )
+        frame = Frame((header_x, current_y), font=create_font(FontType.DISABLED, "Gold"), is_selectable=False)
         self.elements["gold_header"] = frame
 
-        frame = Frame(
-            (info_x, current_y),
-            font=create_font(FontType.DEFAULT, commander["gold"]),
-            is_selectable=False
-        )
+        frame = Frame((info_x, current_y), font=create_font(FontType.DEFAULT, commander["gold"]), is_selectable=False)
         self.elements["gold"] = frame
 
         self.add_exit_button()

@@ -96,7 +96,7 @@ class EventUI(UI):
             font=fancy_font,
             max_height=max_height,
             max_width=frame_line_width,
-            is_selectable=False
+            is_selectable=False,
         )
         self.elements["description"] = frame
 
@@ -128,9 +128,7 @@ class EventUI(UI):
 
                 # build frame
                 frame = Frame(
-                    (current_x, current_y),
-                    font=create_font(FontType.DEFAULT, option_text),
-                    is_selectable=True
+                    (current_x, current_y), font=create_font(FontType.DEFAULT, option_text), is_selectable=True
                 )
                 self.elements[f"option_{counter}"] = frame
                 panel_list.append(frame)
@@ -152,9 +150,7 @@ class EventUI(UI):
 
             # draw option chosen
             frame = Frame(
-                (current_x, current_y),
-                font=create_font(FontType.DEFAULT, self.selected_option),
-                is_selectable=True
+                (current_x, current_y), font=create_font(FontType.DEFAULT, self.selected_option), is_selectable=True
             )
             self.elements["selected_option"] = frame
 
@@ -202,10 +198,7 @@ class EventUI(UI):
 
                 # create the frame
                 frame = Frame(
-                    (current_x, current_y),
-                    image=result_image,
-                    font=create_font(font_type, text),
-                    is_selectable=False
+                    (current_x, current_y), image=result_image, font=create_font(font_type, text), is_selectable=False
                 )
                 self.elements[f"result_{counter}"] = frame
                 panel_list.append(frame)

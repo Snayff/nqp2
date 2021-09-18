@@ -34,7 +34,6 @@ class InputBox:
         # assign font pos
         self.font.pos = (self.pos[0] + self.padding, self.pos[1] + (self.size[1] - self.font.line_height) // 2)
 
-
     @property
     def value(self):
         if self.input_type == "int":

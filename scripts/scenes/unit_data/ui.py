@@ -126,8 +126,11 @@ class UnitDataUI(UI):
         font.pos = (76 - font.width // 2, 15)
         font.render(surface)
         for field in self.current_unit_data:
-            font = create_font(FontType.DEFAULT, str(self.current_unit),
-                               (self.fields[field].pos[0] - 90, self.fields[field].pos[1] + 3))
+            font = create_font(
+                FontType.DEFAULT,
+                str(self.current_unit),
+                (self.fields[field].pos[0] - 90, self.fields[field].pos[1] + 3),
+            )
             font.render(surface)
             self.fields[field].render(surface)
 
@@ -159,7 +162,6 @@ class UnitDataUI(UI):
             font.pos = (window_width - font.width - 35, window_height - font.height)
             # N.B. 32 = button width + 3
             font.render(surface)
-
 
         # set positions
         start_x = int(window_width - (window_width / 2.8))

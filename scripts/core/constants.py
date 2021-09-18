@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from enum import Enum, auto, IntEnum
+from enum import auto, Enum, IntEnum
 from pathlib import Path
 
 VERSION: str = "0.0.1"

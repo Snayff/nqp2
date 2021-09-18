@@ -1,14 +1,14 @@
 from __future__ import annotations
-import pygame
 
 from typing import TYPE_CHECKING
 
+import pygame
+
 from scripts.core.constants import ASSET_PATH, FontEffects, TEXT_FADE_IN_SPEED, TEXT_FADE_OUT_SPEED
-from scripts.ui_elements.font import Font
 from scripts.ui_elements.font import Font
 
 if TYPE_CHECKING:
-    from typing import Dict, Tuple, List, Optional
+    from typing import Dict, List, Optional, Tuple
 
 
 __all__ = ["FancyFont"]
@@ -22,8 +22,9 @@ class FancyFont:
     New lines are indicated with '\\n'.
     """
 
-    def __init__(self, text: str, pos: Tuple[int, int], line_width: int = 0,
-            font_effects: Optional[List[FontEffects]] = None):
+    def __init__(
+        self, text: str, pos: Tuple[int, int], line_width: int = 0, font_effects: Optional[List[FontEffects]] = None
+    ):
 
         # handle mutable default
         if font_effects is None:
@@ -173,7 +174,6 @@ class FancyFont:
                 end = font_swap_markers[i + 1][0]
             self._adjust_font(start, end, font)
 
-
     def _adjust_font(self, start_index: int, end_index: int, new_font: Font):
         """
         Adjust the font of the characters between 2 indices.
@@ -288,7 +288,7 @@ class FancyFont:
 
                     font_swap_markers.append((last_start, self._fonts[tag_index]))
                     pos = text.find(tag)
-                    text = text[:pos] + text[pos + len(tag):]
+                    text = text[:pos] + text[pos + len(tag) :]
                     tag = ""
 
         return text, font_swap_markers
@@ -347,8 +347,7 @@ class Character:
             return 1
         if self.character != " ":
             return int(
-                (self.font.letter_spacing[self.font.font_order.index(self.character)] +
-                 self.owning_block.character_gap)
+                (self.font.letter_spacing[self.font.font_order.index(self.character)] + self.owning_block.character_gap)
                 * self.scale
             )
         else:

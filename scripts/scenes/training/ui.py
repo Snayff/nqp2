@@ -104,7 +104,7 @@ class TrainingUI(UI):
                     (current_x, current_y),
                     image=gold_icon,
                     font=create_font(gold_font_type, str(upgrade_cost)),
-                    is_selectable=False
+                    is_selectable=False,
                 )
                 self.elements["cost" + str(selection_counter)] = frame
 
@@ -117,10 +117,7 @@ class TrainingUI(UI):
             upgrade_x = current_x + 50
             stat_icon = self.game.assets.get_image("stats", upgrade["stat"], icon_size)
             frame = Frame(
-                (upgrade_x, current_y),
-                image=stat_icon,
-                font=create_font(font_type, text),
-                is_selectable=is_selectable
+                (upgrade_x, current_y), image=stat_icon, font=create_font(font_type, text), is_selectable=is_selectable
             )
             # capture frame
             self.elements[upgrade["type"] + str(selection_counter)] = frame
@@ -148,7 +145,7 @@ class TrainingUI(UI):
                 (current_x, current_y),
                 image=unit_icon,
                 font=create_font(FontType.DEFAULT, str(unit.type)),
-                is_selectable=True
+                is_selectable=True,
             )
             frame.add_tier_background(unit.tier)
 

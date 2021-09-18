@@ -97,7 +97,7 @@ class InnUI(UI):
                     (current_x, current_y),
                     image=gold_icon,
                     font=create_font(gold_font_type, str(unit.gold_cost)),
-                    is_selectable=False
+                    is_selectable=False,
                 )
                 self.elements["cost" + str(selection_counter)] = frame
 
@@ -110,10 +110,7 @@ class InnUI(UI):
             unit_x = current_x + 50
             stat_icon = self.game.assets.unit_animations[unit.type]["icon"][0]
             frame = Frame(
-                (unit_x, current_y),
-                image=stat_icon,
-                font=create_font(font_type, text),
-                is_selectable=is_selectable
+                (unit_x, current_y), image=stat_icon, font=create_font(font_type, text), is_selectable=is_selectable
             )
             frame.add_tier_background(unit.tier)
             self.elements[f"{unit.id}_{selection_counter}"] = frame

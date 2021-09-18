@@ -224,9 +224,7 @@ class OverworldUI(UI):
             current_x = 10
             current_y = self.game.window.height - 20
             frame = Frame(
-                (current_x, current_y),
-                font=create_font(FontType.NEGATIVE, "Loading..."),
-                is_selectable=False
+                (current_x, current_y), font=create_font(FontType.NEGATIVE, "Loading..."), is_selectable=False
             )
             self.elements["loading_message"] = frame
 
@@ -239,11 +237,7 @@ class OverworldUI(UI):
             # draw days remaining
             days = self.game.memory.days_until_boss
             font = self.game.assets.create_font(FontType.DISABLED, f"Days remaining:{days}")
-            frame = Frame(
-                (0, 20),
-                font=font,
-                is_selectable=False
-            )
+            frame = Frame((0, 20), font=font, is_selectable=False)
             self.elements["days_remaining"] = frame
 
             # draw event notification
@@ -251,9 +245,7 @@ class OverworldUI(UI):
             current_x = 10
             current_y = int(self.game.window.height / 2)
             frame = Frame(
-                (current_x, current_y),
-                font=create_font(FontType.NOTIFICATION, notification),
-                is_selectable=False
+                (current_x, current_y), font=create_font(FontType.NOTIFICATION, notification), is_selectable=False
             )
             frame.is_active = False  # dont show until activated
             self.elements["event_notification"] = frame
@@ -263,9 +255,7 @@ class OverworldUI(UI):
             current_x = 10
             current_y = int(self.game.window.height / 2)
             frame = Frame(
-                (current_x, current_y),
-                font=create_font(FontType.NOTIFICATION, notification),
-                is_selectable=False
+                (current_x, current_y), font=create_font(FontType.NOTIFICATION, notification), is_selectable=False
             )
             frame.is_active = False
             self.elements["boss_notification"] = frame
