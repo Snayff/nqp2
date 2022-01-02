@@ -33,6 +33,9 @@ def gen_blob(start_pos, count, tile_type, terrain, floor_filter=None):
 
 
 def random_foliage():
+    """
+    Return ids for random tile decorations
+    """
     return [random.randint(0, 1), random.randint(2, 13)]
 
 
@@ -52,24 +55,27 @@ def generate(game, terrain, biome):
                     terrain.terrain[loc].append(Tile([biome, *random_foliage()], loc, game.data.tiles))
                 if random.random() < 0.025:
                     tree_bases.append(loc)
-                elif random.random() < terrain.trap_density:
-                    trap_type = random.choice(terrain.trap_types)
-                    terrain.traps.append(
-                        traps.trap_types[trap_type](game, (loc[0] * terrain.tile_size, loc[1] * terrain.tile_size))
-                    )
+                # place traps
+                # elif random.random() < terrain.trap_density:
+                #     trap_type = random.choice(terrain.trap_types)
+                #     terrain.traps.append(
+                #         traps.trap_types[trap_type](game, (loc[0] * terrain.tile_size, loc[1] * terrain.tile_size))
+                #     )
             else:
+                # place trees around border
                 terrain.terrain[loc].append(Tile(["trees", 0, 1], loc, game.data.tiles))
 
-    for base in tree_bases:
-        gen_blob(
-            base,
-            random.randint(3, 24),
-            ["trees", 0, 1],
-            terrain,
-            floor_filter=lambda x: (not x.config["solid"])
-            and (x.group != "trees")
-            and (placement_width < x.loc[0] < combat_area_size[0] - placement_width),
-        )
+    # place trees randomly
+    # for base in tree_bases:
+    #     gen_blob(
+    #         base,
+    #         random.randint(3, 24),
+    #         ["trees", 0, 1],
+    #         terrain,
+    #         floor_filter=lambda x: (not x.config["solid"])
+    #         and (x.group != "trees")
+    #         and (placement_width < x.loc[0] < combat_area_size[0] - placement_width),
+    #     )
 
     for x in range(combat_area_size[0]):
         loc = (x, int(combat_area_size[1] // 2))
