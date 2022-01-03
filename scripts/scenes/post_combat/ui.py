@@ -8,6 +8,7 @@ import pygame
 from scripts.core.base_classes.ui import UI
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, GAP_SIZE, PostCombatState, RewardType, SceneType
 from scripts.scenes.combat.elements.unit import Unit
+
 from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.panel import Panel
 
@@ -15,7 +16,7 @@ if TYPE_CHECKING:
     from typing import Dict, List, Optional, Type, Union
 
     from scripts.core.game import Game
-    from scripts.core.base_classes.scene import Scene
+    from scripts.scenes.post_combat.scene import PostCombatScene
 
 __all__ = ["PostCombatUI"]
 
@@ -28,8 +29,9 @@ class PostCombatUI(UI):
     Represent the UI of the RewardScene.
     """
 
-    def __init__(self, game: Game, parent_scene: Scene):
-        super().__init__(game, parent_scene, True)
+    def __init__(self, game: Game, parent_scene: PostCombatScene):
+        super().__init__(game, True)
+        self.parent_scene: PostCombatScene = parent_scene
 
         self.selected_reward: Optional[Unit] = None
 

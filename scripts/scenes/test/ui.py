@@ -6,13 +6,14 @@ from scripts.core.base_classes.ui import UI
 from scripts.core.constants import FontType
 import pygame
 
+
 from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.panel import Panel
 
 if TYPE_CHECKING:
     from typing import Dict, List, Optional, Type, Union
     from scripts.core.game import Game
-    from scripts.core.base_classes.scene import Scene
+    from scripts.scenes.test.scene import TestScene
 
 __all__ = ["TestUI"]
 
@@ -25,8 +26,9 @@ class TestUI(UI):
     Represent the UI of a scene
     """
 
-    def __init__(self, game: Game, parent_scene: Scene):
-        super().__init__(game, parent_scene, False)
+    def __init__(self, game: Game, parent_scene: TestScene):
+        super().__init__(game, False)
+        self.parent_scene: TestScene = parent_scene
 
 
     def update(self, delta_time: float):

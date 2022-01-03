@@ -8,18 +8,20 @@ import pygame
 from scripts.core.base_classes.ui import UI
 from scripts.core.constants import CombatState, SceneType
 from scripts.core.utility import offset
+
 from scripts.ui_elements.tooltip import Tooltip
 
 if TYPE_CHECKING:
     from scripts.core.game import Game
-    from scripts.core.base_classes.scene import Scene
+    from scripts.scenes.combat.scene import CombatScene
 
 __all__ = ["CombatUI"]
 
 
 class CombatUI(UI):
-    def __init__(self, game: Game, parent_scene: Scene):
-        super().__init__(game, parent_scene, True)
+    def __init__(self, game: Game, parent_scene: CombatScene):
+        super().__init__(game, True)
+        self.parent_scene: CombatScene = parent_scene
 
         # position relative to terrain
         self.place_target = [

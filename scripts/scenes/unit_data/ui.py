@@ -9,13 +9,14 @@ import pygame
 
 from scripts.core.base_classes.ui import UI
 from scripts.core.constants import DATA_PATH, DEFAULT_IMAGE_SIZE, FontType
+
 from scripts.ui_elements.button import Button
 from scripts.ui_elements.input_box import InputBox
 
 if TYPE_CHECKING:
     from typing import Dict, List, Optional, Type, Union
     from scripts.core.game import Game
-    from scripts.core.base_classes.scene import Scene
+    from scripts.scenes.unit_data.scene import UnitDataScene
 
 __all__ = ["UnitDataUI"]
 
@@ -25,8 +26,9 @@ class UnitDataUI(UI):
     Represent the UI of the UnitDataScene.
     """
 
-    def __init__(self, game: Game, parent_scene: Scene):
-        super().__init__(game, parent_scene, True)
+    def __init__(self, game: Game, parent_scene: UnitDataScene):
+        super().__init__(game, True)
+        self.parent_scene: UnitDataScene = parent_scene
 
         window_width = self.game.window.width
         window_height = self.game.window.height

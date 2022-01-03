@@ -7,13 +7,14 @@ from scripts.core.base_classes.ui import UI
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, GAP_SIZE, SceneType
 from scripts.core.utility import next_number_in_loop
 
+
 if TYPE_CHECKING:
     from typing import Dict, List, Optional, Type, Union
 
     import pygame
 
     from scripts.core.game import Game
-    from scripts.core.base_classes.scene import Scene
+    from scripts.scenes.gallery.scene import GalleryScene
 
 
 __all__ = ["GalleryUI"]
@@ -27,8 +28,9 @@ class GalleryUI(UI):
     Represent the UI of a scene
     """
 
-    def __init__(self, game: Game, parent_scene: Scene):
-        super().__init__(game, parent_scene, True)
+    def __init__(self, game: Game, parent_scene: GalleryScene):
+        super().__init__(game, True)
+        self.parent_scene: GalleryScene = parent_scene
 
         self._frame_timer: float = 0
         self._start_index: int = 0

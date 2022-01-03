@@ -8,13 +8,14 @@ from scripts.scenes.combat.elements.camera import Camera
 from scripts.scenes.combat.elements.terrain import Terrain
 import pygame
 
+
 from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.panel import Panel
 
 if TYPE_CHECKING:
     from typing import Dict, List, Optional, Type, Union
     from scripts.core.game import Game
-    from scripts.core.base_classes.scene import Scene
+    from scripts.scenes.world.scene import WorldScene
 
 
 __all__ = ["WorldUI"]
@@ -28,8 +29,9 @@ class WorldUI(UI):
     Represent the UI of a scene
     """
 
-    def __init__(self, game: Game, parent_scene: Scene):
-        super().__init__(game, parent_scene, False)
+    def __init__(self, game: Game, parent_scene: WorldScene):
+        super().__init__(game, False)
+        self.parent_scene: WorldScene = parent_scene
 
         self.camera: Camera = Camera()
         self.terrain: Terrain = Terrain(self.game)

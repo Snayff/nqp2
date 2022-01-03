@@ -7,6 +7,7 @@ import pygame
 from scripts.core.base_classes.ui import UI
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, GAP_SIZE, SceneType
 from scripts.scenes.combat.elements.unit import Unit
+
 from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.panel import Panel
 from scripts.ui_elements.unit_stats_frame import UnitStatsFrame
@@ -15,7 +16,7 @@ if TYPE_CHECKING:
     from typing import Dict, List, Optional, Tuple
 
     from scripts.core.game import Game
-    from scripts.core.base_classes.scene import Scene
+    from scripts.scenes.inn.scene import InnScene
 
 
 __all__ = ["InnUI"]
@@ -29,8 +30,9 @@ class InnUI(UI):
     Represent the UI of the InnScene.
     """
 
-    def __init__(self, game: Game, parent_scene: Scene):
-        super().__init__(game, parent_scene, True)
+    def __init__(self, game: Game, parent_scene: InnScene):
+        super().__init__(game, True)
+        self.parent_scene: InnScene = parent_scene
 
         self.selected_unit: Optional[Unit] = None
         self.stat_frame: Optional[UnitStatsFrame] = None

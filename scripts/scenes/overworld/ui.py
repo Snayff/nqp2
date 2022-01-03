@@ -11,12 +11,13 @@ import pytweening
 from scripts.core import utility
 from scripts.core.base_classes.ui import UI
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, Direction, FontType, NodeType, OverworldState, SceneType
+
 from scripts.ui_elements.frame import Frame
 
 if TYPE_CHECKING:
     from typing import Dict, List, Optional, Type, Union
     from scripts.core.game import Game
-    from scripts.core.base_classes.scene import Scene
+    from scripts.scenes.overworld.scene import OverworldScene
 
 
 __all__ = ["OverworldUI"]
@@ -27,8 +28,9 @@ class OverworldUI(UI):
     Represents the overworld UI.
     """
 
-    def __init__(self, game: Game, parent_scene: Scene):
-        super().__init__(game, parent_scene, True)
+    def __init__(self, game: Game, parent_scene: OverworldScene):
+        super().__init__(game, True)
+        self.parent_scene: OverworldScene = parent_scene
 
         self._wait_time_before_move: float = 0.5
         self.max_travel_time: float = 2.2

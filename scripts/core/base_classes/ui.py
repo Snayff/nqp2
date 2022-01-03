@@ -31,9 +31,8 @@ class UI(ABC):
     Represent the UI of a scene
     """
 
-    def __init__(self, game: Game, parent_scene: Scene, block_onward_input: bool):
+    def __init__(self, game: Game, block_onward_input: bool):
         self.game: Game = game
-        self.parent_scene: Scene = parent_scene
         self.block_onward_input: bool = block_onward_input  # prevents input being passed to the next scene
 
         self.elements: Dict[str, Union[Frame, UnitStatsFrame]] = {}

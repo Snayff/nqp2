@@ -28,14 +28,13 @@ from scripts.scenes.test.scene import TestScene
 from scripts.scenes.training.scene import TrainingScene
 from scripts.scenes.unit_data.scene import UnitDataScene
 from scripts.scenes.view_troupe.scene import ViewTroupeScene
+from scripts.scenes.world.scene import WorldScene
 
 __all__ = ["Game"]
 
 
 ############ TO DO LIST ############
-# TODO - standardise use of id / id_
-# TODO - add data checking to ensure ids are unique and values are as expected
-from scripts.scenes.world.scene import WorldScene
+
 
 
 class Game:
@@ -72,16 +71,14 @@ class Game:
         self.dev_unit_data: UnitDataScene = UnitDataScene(self)
         self.dev_gallery: GalleryScene = GalleryScene(self)
 
-        # point this to whatever scene is active
-        self.active_scene = self.main_menu
-        # self.active_scene.ui.rebuild_ui()
-        self.world.ui.rebuild_ui()
-        self.test.ui.rebuild_ui()
-        self.active_scenes: List[Scene] = [self.world, self.test]
+        self.active_scenes: List[Scene] = []
 
         self.state: GameState = GameState.PLAYING
 
         self.master_clock = 0
+
+        # activate main menu
+        self.activate_scene(SceneType.MAIN_MENU)
 
         # record duration
         end_time = time.time()
@@ -188,6 +185,15 @@ class Game:
         return scene
 
     def change_scene(self, scene_type: SceneType):
+        """
+        Deactivate all active scenes and activate the given scene.
+        """
+        for scene in self.active_scenes:
+            self.deactivate_scene(scene.type)
+
+        self.activate_scene(scene_type)
+
+    def old_change_scene(self, scene_type: SceneType):
         """
         Change the active scene. N.B. not used for switching to dev scenes.
         """

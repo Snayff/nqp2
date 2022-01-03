@@ -7,12 +7,14 @@ import pygame
 
 from scripts.core.base_classes.ui import UI
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, GameState, GAP_SIZE, SceneType
+
 from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.panel import Panel
 
 if TYPE_CHECKING:
     from scripts.core.game import Game
-    from scripts.core.base_classes.scene import Scene
+    from scripts.scenes.main_menu.scene import MainMenuScene
+
 
 __all__ = ["MainMenuUI"]
 
@@ -22,8 +24,9 @@ class MainMenuUI(UI):
     Represent the UI of the MainMenuScene.
     """
 
-    def __init__(self, game: Game, parent_scene: Scene):
-        super().__init__(game, parent_scene, True)
+    def __init__(self, game: Game, parent_scene: MainMenuScene):
+        super().__init__(game, True)
+        self.parent_scene: MainMenuScene = parent_scene
 
     def update(self, delta_time: float):
         super().update(delta_time)
@@ -47,7 +50,7 @@ class MainMenuUI(UI):
 
             selected_element = self.current_panel.selected_element
             if selected_element == self.elements["new_game"]:
-                self.game.main_menu.new_game()
+                self.parent_scene.new_game()
 
             elif selected_element == self.elements["exit"]:
                 self.game.state = GameState.EXITING

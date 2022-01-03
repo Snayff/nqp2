@@ -7,6 +7,7 @@ import pygame
 
 from scripts.core.base_classes.ui import UI
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, EventState, FontEffects, FontType, GAP_SIZE, SceneType
+
 from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.panel import Panel
 
@@ -14,7 +15,7 @@ if TYPE_CHECKING:
     from typing import Dict, List, Optional, Type, Union
 
     from scripts.core.game import Game
-    from scripts.core.base_classes.scene import Scene
+    from scripts.scenes.event.scene import EventScene
 
 __all__ = ["EventUI"]
 
@@ -24,8 +25,9 @@ class EventUI(UI):
     Represent the UI of the EventScene.
     """
 
-    def __init__(self, game: Game, parent_scene: Scene):
-        super().__init__(game, parent_scene, True)
+    def __init__(self, game: Game, parent_scene: EventScene):
+        super().__init__(game, True)
+        self.parent_scene: EventScene = parent_scene
 
         self.selected_option: str = ""  # the option selected
 
