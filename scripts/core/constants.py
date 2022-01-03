@@ -92,6 +92,7 @@ class SceneType(IntEnum):
     RUN_SETUP = auto()
     DEV_DATA_EDITOR = auto()
     DEV_GALLERY = auto()
+    WORLD = auto()
 
 
 class RewardType(IntEnum):

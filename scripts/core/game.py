@@ -2,11 +2,13 @@ from __future__ import annotations
 
 import logging
 import time
+from typing import List, Optional
 
 import pygame as pygame
 
 from scripts.core import utility
 from scripts.core.assets import Assets
+from scripts.core.base_classes.scene import Scene
 from scripts.core.constants import GameState, SceneType
 from scripts.core.data import Data
 from scripts.core.debug import Debugger
@@ -32,6 +34,7 @@ __all__ = ["Game"]
 ############ TO DO LIST ############
 # TODO - standardise use of id / id_
 # TODO - add data checking to ensure ids are unique and values are as expected
+from scripts.scenes.world.scene import WorldScene
 
 
 class Game:
@@ -61,6 +64,7 @@ class Game:
         self.training: TrainingScene = TrainingScene(self)
         self.inn: InnScene = InnScene(self)
         self.troupe: ViewTroupeScene = ViewTroupeScene(self)
+        self.world: WorldScene = WorldScene(self)
 
         # dev scenes
         self.dev_unit_data: UnitDataScene = UnitDataScene(self)
@@ -68,7 +72,8 @@ class Game:
 
         # point this to whatever scene is active
         self.active_scene = self.main_menu
-        self.active_scene.ui.rebuild_ui()
+        # self.active_scene.ui.rebuild_ui()
+        self.active_scenes: List[Scene] = [self.world]
 
         self.state: GameState = GameState.PLAYING
 
@@ -84,12 +89,16 @@ class Game:
         self.master_clock += delta_time
 
         self.input.update(delta_time)
-        self.active_scene.update(delta_time)
+        # self.active_scene.update(delta_time)
+        for scene in self.active_scenes:
+            scene.update(delta_time)
         self.debug.update(delta_time)
 
     def render(self):
         self.window.render_frame()
-        self.active_scene.render()
+        #self.active_scene.render()
+        for scene in self.active_scenes:
+            scene.render()
         self.debug.render()  # always last so it is on top
 
     def run(self):
@@ -98,6 +107,62 @@ class Game:
 
     def quit(self):
         self.state = GameState.EXITING
+
+    def activate_scene(self, scene_type: SceneType):
+        """
+        Add a scene to the scene stack
+        """
+        # reset input to ensure no input carries over between scenes
+        self.input.reset()
+
+        scene = self._scene_type_to_scene(scene_type)
+        self.active_scenes.append(scene)
+
+    def deactivate_scene(self, scene_type: SceneType):
+        """
+        Remove a scene from the scene stack
+        """
+        # reset input to ensure no input carries over between scenes
+        self.input.reset()
+
+        scene = self._scene_type_to_scene(scene_type)
+        self.active_scenes.remove(scene)
+
+    def _scene_type_to_scene(self, scene_type: SceneType) -> Optional[Scene]:
+        if scene_type == SceneType.MAIN_MENU:
+            scene = self.main_menu
+
+        elif scene_type == SceneType.RUN_SETUP:
+            scene = self.run_setup
+
+        elif scene_type == SceneType.OVERWORLD:
+            scene = self.overworld
+
+        elif scene_type == SceneType.COMBAT:
+            scene = self.combat
+
+        elif scene_type == SceneType.BOSS_COMBAT:
+            scene = self.combat
+
+        elif scene_type == SceneType.POST_COMBAT:
+            scene = self.post_combat
+
+        elif scene_type == SceneType.TRAINING:
+            scene = self.training
+
+        elif scene_type == SceneType.INN:
+            scene = self.inn
+
+        elif scene_type == SceneType.EVENT:
+            scene = self.event
+
+        elif scene_type == SceneType.VIEW_TROUPE:
+            scene = self.troupe
+
+        else:
+            scene = None
+
+        return scene
 
     def change_scene(self, scene_type: SceneType):
         """

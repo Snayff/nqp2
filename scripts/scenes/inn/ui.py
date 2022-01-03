@@ -56,7 +56,6 @@ class InnUI(UI):
         # show core info
         self.draw_instruction(surface)
 
-        # draw elements
         self.draw_elements(surface)
 
     def rebuild_ui(self):
