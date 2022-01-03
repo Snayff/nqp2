@@ -26,7 +26,7 @@ class TestUI(UI):
     """
 
     def __init__(self, game: Game, parent_scene: Scene):
-        super().__init__(game, parent_scene, True)
+        super().__init__(game, parent_scene, False)
 
 
     def update(self, delta_time: float):
@@ -34,6 +34,7 @@ class TestUI(UI):
 
     def process_input(self, delta_time: float):
         super().process_input(delta_time)
+
 
     def render(self, surface: pygame.surface):
         # show core info
@@ -48,9 +49,7 @@ class TestUI(UI):
 
         stat_icon = self.game.assets.unit_animations["air_elemental"]["icon"][0]
         frame = Frame(
-            (10, 10), image=stat_icon, font=create_font(FontType.DEFAULT, "text"), is_selectable=False
+            (100, 10), image=stat_icon, font=create_font(FontType.DEFAULT, "test"), is_selectable=False
         )
         self.elements["test_ele"] = frame
-        self.panels["test"] = Panel([frame], True)
-        self.current_panel = self.panels["test"]
-        self.current_panel.select_first_element()
+        self.add_panel(Panel([frame], True), "test")

@@ -125,6 +125,8 @@ class Game:
             if scene.ui.block_onward_input:
                 break
 
+        self.input.reset()
+
     def quit(self):
         self.state = GameState.EXITING
 

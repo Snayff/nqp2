@@ -3,9 +3,13 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.ui import UI
+from scripts.core.constants import FontType
 from scripts.scenes.combat.elements.camera import Camera
 from scripts.scenes.combat.elements.terrain import Terrain
 import pygame
+
+from scripts.ui_elements.frame import Frame
+from scripts.ui_elements.panel import Panel
 
 if TYPE_CHECKING:
     from typing import Dict, List, Optional, Type, Union
@@ -68,4 +72,13 @@ class WorldUI(UI):
         super().rebuild_ui()
 
         self.terrain.generate(self.biome)
+
+        create_font = self.game.assets.create_font
+
+        stat_icon = self.game.assets.unit_animations["deer"]["icon"][0]
+        frame = Frame(
+            (10, 10), image=stat_icon, font=create_font(FontType.DEFAULT, "world"), is_selectable=False
+        )
+        self.elements["test_ele"] = frame
+        self.add_panel(Panel([frame], True), "test")
 
