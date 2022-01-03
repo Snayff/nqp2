@@ -24,6 +24,7 @@ from scripts.scenes.main_menu.scene import MainMenuScene
 from scripts.scenes.overworld.scene import OverworldScene
 from scripts.scenes.post_combat.scene import PostCombatScene
 from scripts.scenes.run_setup.scene import RunSetupScene
+from scripts.scenes.test.scene import TestScene
 from scripts.scenes.training.scene import TrainingScene
 from scripts.scenes.unit_data.scene import UnitDataScene
 from scripts.scenes.view_troupe.scene import ViewTroupeScene
@@ -65,6 +66,7 @@ class Game:
         self.inn: InnScene = InnScene(self)
         self.troupe: ViewTroupeScene = ViewTroupeScene(self)
         self.world: WorldScene = WorldScene(self)
+        self.test = TestScene(self)
 
         # dev scenes
         self.dev_unit_data: UnitDataScene = UnitDataScene(self)
@@ -74,7 +76,8 @@ class Game:
         self.active_scene = self.main_menu
         # self.active_scene.ui.rebuild_ui()
         self.world.ui.rebuild_ui()
-        self.active_scenes: List[Scene] = [self.world]
+        self.test.ui.rebuild_ui()
+        self.active_scenes: List[Scene] = [self.world, self.test]
 
         self.state: GameState = GameState.PLAYING
 
