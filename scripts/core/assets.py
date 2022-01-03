@@ -284,6 +284,6 @@ class Assets:
         image.set_alpha(0)
         images["debug"][f"blank@{DEFAULT_IMAGE_SIZE}x{DEFAULT_IMAGE_SIZE}"] = image
 
-        logging.info(f"Assets: All images loaded.")
+        logging.debug(f"Assets: All images loaded.")
 
         return images

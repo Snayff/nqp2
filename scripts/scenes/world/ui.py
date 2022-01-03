@@ -1,23 +1,15 @@
 from __future__ import annotations
 
-import logging
-from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.ui import UI
-from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, GAP_SIZE
 from scripts.scenes.combat.elements.camera import Camera
 from scripts.scenes.combat.elements.terrain import Terrain
-from scripts.ui_elements.frame import Frame
-from scripts.ui_elements.panel import Panel
+import pygame
 
 if TYPE_CHECKING:
     from typing import Dict, List, Optional, Type, Union
-
-    import pygame
-
     from scripts.core.game import Game
-    from scripts.ui_elements.unit_stats_frame import UnitStatsFrame
 
 
 __all__ = ["WorldUI"]
@@ -53,12 +45,11 @@ class WorldUI(UI):
         # show core info
         self.draw_instruction(surface)
 
-        self.draw_elements(surface)
-
         self.camera.bind(self.terrain.boundaries)
         combat_surf = pygame.Surface(self.game.window.display.get_size())
         self.terrain.render(combat_surf, self.camera.render_offset())
 
+        # blit the terrain
         self.game.window.display.blit(
             combat_surf,
             (
@@ -66,6 +57,8 @@ class WorldUI(UI):
                 -(combat_surf.get_height() - self.game.window.display.get_height()) // 2,
             ),
         )
+
+        self.draw_elements(surface)
 
     def rebuild_ui(self):
         super().rebuild_ui()

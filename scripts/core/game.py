@@ -73,6 +73,7 @@ class Game:
         # point this to whatever scene is active
         self.active_scene = self.main_menu
         # self.active_scene.ui.rebuild_ui()
+        self.world.ui.rebuild_ui()
         self.active_scenes: List[Scene] = [self.world]
 
         self.state: GameState = GameState.PLAYING
