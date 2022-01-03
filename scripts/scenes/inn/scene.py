@@ -30,7 +30,7 @@ class InnScene(Scene):
 
         super().__init__(game, SceneType.TRAINING)
 
-        self.ui: InnUI = InnUI(game)
+        self.ui: InnUI = InnUI(game, self)
 
         self.sale_troupe: Optional[Troupe] = None
         self.units_available: Dict[int, bool] = {}  # unit.id : is available
@@ -43,11 +43,9 @@ class InnScene(Scene):
         super().update(delta_time)
         self.ui.update(delta_time)
 
-    def render(self):
-        self.ui.render(self.game.window.display)
 
     def reset(self):
-        self.ui = InnUI(self.game)
+        self.ui = InnUI(self.game, self)
 
         self.sale_troupe = None
 

@@ -11,14 +11,15 @@ from scripts.core.utility import offset
 from scripts.ui_elements.tooltip import Tooltip
 
 if TYPE_CHECKING:
-    pass
+    from scripts.core.game import Game
+    from scripts.core.base_classes.scene import Scene
 
 __all__ = ["CombatUI"]
 
 
 class CombatUI(UI):
-    def __init__(self, game):
-        super().__init__(game)
+    def __init__(self, game: Game, parent_scene: Scene):
+        super().__init__(game, parent_scene, True)
 
         # position relative to terrain
         self.place_target = [
@@ -42,10 +43,10 @@ class CombatUI(UI):
                 target_pos[1] -= self.game.window.base_resolution[1] // 2
 
             self.game.combat.camera.pos[0] += (
-                (target_pos[0] - self.game.combat.camera.pos[0]) / 10 * (self.game.window.dt * 60)
+                (target_pos[0] - self.game.combat.camera.pos[0]) / 10 * (self.game.window.delta_time * 60)
             )
             self.game.combat.camera.pos[1] += (
-                (target_pos[1] - self.game.combat.camera.pos[1]) / 10 * (self.game.window.dt * 60)
+                (target_pos[1] - self.game.combat.camera.pos[1]) / 10 * (self.game.window.delta_time * 60)
             )
 
         # scroll buttons to fit current col
@@ -53,6 +54,9 @@ class CombatUI(UI):
             self.button_scroll = self.selected_col - self.shown_buttons + 1
         if self.selected_col < self.button_scroll:
             self.button_scroll = self.selected_col
+
+    def process_input(self, delta_time: float):
+        super().process_input(delta_time)
 
         if self.game.combat.state in [CombatState.UNIT_CHOOSE_CARD, CombatState.ACTION_CHOOSE_CARD]:
 
@@ -111,7 +115,7 @@ class CombatUI(UI):
             # add up direction movement
             for direction in directions:
                 if self.game.input.states["hold_" + direction]:
-                    offset(move_amount, directions[direction], self.game.window.dt * 175)
+                    offset(move_amount, directions[direction], self.game.window.delta_time * 175)
 
             self.place_target = offset(self.place_target, move_amount)
 

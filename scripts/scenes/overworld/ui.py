@@ -14,7 +14,9 @@ from scripts.core.constants import DEFAULT_IMAGE_SIZE, Direction, FontType, Node
 from scripts.ui_elements.frame import Frame
 
 if TYPE_CHECKING:
+    from typing import Dict, List, Optional, Type, Union
     from scripts.core.game import Game
+    from scripts.core.base_classes.scene import Scene
 
 
 __all__ = ["OverworldUI"]
@@ -25,8 +27,8 @@ class OverworldUI(UI):
     Represents the overworld UI.
     """
 
-    def __init__(self, game: Game):
-        super().__init__(game)
+    def __init__(self, game: Game, parent_scene: Scene):
+        super().__init__(game, parent_scene, True)
 
         self._wait_time_before_move: float = 0.5
         self.max_travel_time: float = 2.2
@@ -48,6 +50,73 @@ class OverworldUI(UI):
 
     def update(self, delta_time: float):
         super().update(delta_time)
+
+        state = self.game.overworld.state
+
+        # tick frame
+        self._frame_timer += delta_time
+        # FIXME - temporary looping frame logic
+        while self._frame_timer > 0.66:
+            self._frame_timer -= 0.66
+
+        # get boss draw pos
+        if state == OverworldState.BOSS_APPROACHING:
+            # init boss approaching
+            if self._boss_x == 0 and self._boss_y == 0:
+                self._boss_x = self.game.overworld.node_container.boss_pos[0]
+                self._boss_y = self.game.overworld.node_container.boss_pos[1]
+
+                self.elements["boss_notification"].is_active = True
+
+            # update timer
+            self._total_travel_time += delta_time
+
+            total_time = self._total_travel_time
+            wait_before = self._wait_time_before_move
+            wait_after = self._wait_time_after_arrival
+            max_duration = self.max_travel_time
+
+            if total_time > (wait_before + max_duration + wait_after):
+                # trigger boss fight
+                self.game.overworld.node_container.selected_node.type = NodeType.BOSS_COMBAT
+                self.game.overworld.node_container.trigger_current_node()
+
+                self.game.overworld.state = OverworldState.READY
+
+            elif total_time > (wait_before + max_duration):
+                # make boss wait by player
+                selected_node = self.game.overworld.node_container.selected_node
+                target_x = selected_node.pos[0] - (DEFAULT_IMAGE_SIZE // 2)
+                target_y = selected_node.pos[1] - (DEFAULT_IMAGE_SIZE // 2)
+                self._boss_x = target_x
+                self._boss_y = target_y
+
+            elif total_time > wait_before:
+                # move boss to player
+                self.current_travel_time += delta_time
+
+                # determine amount to use for lerp
+                percent_time_complete = min(1.0, self.current_travel_time / self.max_travel_time)
+
+                # update selection position
+                lerp_amount = pytweening.easeInQuad(percent_time_complete)
+                selected_node = self.game.overworld.node_container.selected_node
+                target_x = selected_node.pos[0] - (DEFAULT_IMAGE_SIZE // 2)
+                target_y = selected_node.pos[1] - (DEFAULT_IMAGE_SIZE // 2)
+                self._boss_x = utility.lerp(self._boss_x, target_x, lerp_amount)
+                self._boss_y = utility.lerp(self._boss_y, target_y, lerp_amount)
+
+            elif total_time < wait_before:
+                # make boss wait after spawn
+                pass
+
+        else:
+            # reset timers
+            self.current_travel_time = 0
+            self._total_travel_time = 0
+
+    def process_input(self, delta_time: float):
+        super().process_input(delta_time)
 
         state = self.game.overworld.state
 
@@ -123,74 +192,13 @@ class OverworldUI(UI):
             if node_container.show_event_notification:
                 if node_container.event_notification_timer > 0:
                     self.elements["event_notification"].is_active = True
+                    delta_time = self.game.window.delta_time
                     node_container.event_notification_timer -= delta_time
                 else:
                     self.elements["event_notification"].is_active = False
                     node_container.show_event_notification = False
 
                     self.game.change_scene(SceneType.EVENT)
-
-        # tick frame
-        self._frame_timer += delta_time
-        # FIXME - temporary looping frame logic
-        while self._frame_timer > 0.66:
-            self._frame_timer -= 0.66
-
-        # get boss draw pos
-        if state == OverworldState.BOSS_APPROACHING:
-            # init boss approaching
-            if self._boss_x == 0 and self._boss_y == 0:
-                self._boss_x = self.game.overworld.node_container.boss_pos[0]
-                self._boss_y = self.game.overworld.node_container.boss_pos[1]
-
-                self.elements["boss_notification"].is_active = True
-
-            # update timer
-            self._total_travel_time += delta_time
-
-            total_time = self._total_travel_time
-            wait_before = self._wait_time_before_move
-            wait_after = self._wait_time_after_arrival
-            max_duration = self.max_travel_time
-
-            if total_time > (wait_before + max_duration + wait_after):
-                # trigger boss fight
-                self.game.overworld.node_container.selected_node.type = NodeType.BOSS_COMBAT
-                self.game.overworld.node_container.trigger_current_node()
-
-                self.game.overworld.state = OverworldState.READY
-
-            elif total_time > (wait_before + max_duration):
-                # make boss wait by player
-                selected_node = self.game.overworld.node_container.selected_node
-                target_x = selected_node.pos[0] - (DEFAULT_IMAGE_SIZE // 2)
-                target_y = selected_node.pos[1] - (DEFAULT_IMAGE_SIZE // 2)
-                self._boss_x = target_x
-                self._boss_y = target_y
-
-            elif total_time > wait_before:
-                # move boss to player
-                self.current_travel_time += delta_time
-
-                # determine amount to use for lerp
-                percent_time_complete = min(1.0, self.current_travel_time / self.max_travel_time)
-
-                # update selection position
-                lerp_amount = pytweening.easeInQuad(percent_time_complete)
-                selected_node = self.game.overworld.node_container.selected_node
-                target_x = selected_node.pos[0] - (DEFAULT_IMAGE_SIZE // 2)
-                target_y = selected_node.pos[1] - (DEFAULT_IMAGE_SIZE // 2)
-                self._boss_x = utility.lerp(self._boss_x, target_x, lerp_amount)
-                self._boss_y = utility.lerp(self._boss_y, target_y, lerp_amount)
-
-            elif total_time < wait_before:
-                # make boss wait after spawn
-                pass
-
-        else:
-            # reset timers
-            self.current_travel_time = 0
-            self._total_travel_time = 0
 
     def render(self, surface: pygame.surface):
         state = self.game.overworld.state

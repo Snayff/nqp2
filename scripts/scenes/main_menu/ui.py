@@ -12,6 +12,7 @@ from scripts.ui_elements.panel import Panel
 
 if TYPE_CHECKING:
     from scripts.core.game import Game
+    from scripts.core.base_classes.scene import Scene
 
 __all__ = ["MainMenuUI"]
 
@@ -21,13 +22,14 @@ class MainMenuUI(UI):
     Represent the UI of the MainMenuScene.
     """
 
-    def __init__(self, game: Game):
-        super().__init__(game)
+    def __init__(self, game: Game, parent_scene: Scene):
+        super().__init__(game, parent_scene, True)
 
     def update(self, delta_time: float):
         super().update(delta_time)
 
-        self.update_elements(delta_time)
+    def process_input(self, delta_time: float):
+        super().process_input(delta_time)
 
         # generic input
         if self.game.input.states["down"]:

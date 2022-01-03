@@ -15,6 +15,7 @@ if TYPE_CHECKING:
     from typing import Dict, List, Optional, Tuple
 
     from scripts.core.game import Game
+    from scripts.core.base_classes.scene import Scene
 
 
 __all__ = ["InnUI"]
@@ -28,8 +29,8 @@ class InnUI(UI):
     Represent the UI of the InnScene.
     """
 
-    def __init__(self, game: Game):
-        super().__init__(game)
+    def __init__(self, game: Game, parent_scene: Scene):
+        super().__init__(game, parent_scene, True)
 
         self.selected_unit: Optional[Unit] = None
         self.stat_frame: Optional[UnitStatsFrame] = None
@@ -39,6 +40,9 @@ class InnUI(UI):
 
     def update(self, delta_time: float):
         super().update(delta_time)
+
+    def process_input(self, delta_time: float):
+        super().process_input(delta_time)
 
         # generic input
         if self.game.input.states["view_troupe"]:

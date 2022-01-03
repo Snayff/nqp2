@@ -23,15 +23,13 @@ class TestScene(Scene):
     def __init__(self, game: Game):
         super().__init__(game, SceneType.WORLD)
 
-        self.ui: TestUI = TestUI(game)
+        self.ui: TestUI = TestUI(game, self)
 
 
     def update(self, delta_time: float):
         super().update(delta_time)
         self.ui.update(delta_time)
 
-    def render(self):
-        self.ui.render(self.game.window.display)
 
     def reset(self):
-        self.ui = TestUI(self.game)
+        self.ui = TestUI(self.game, self)

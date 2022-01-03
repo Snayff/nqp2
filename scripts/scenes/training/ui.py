@@ -12,9 +12,9 @@ from scripts.ui_elements.panel import Panel
 from scripts.ui_elements.unit_stats_frame import UnitStatsFrame
 
 if TYPE_CHECKING:
-    from typing import Dict, List, Optional, Tuple
-
+    from typing import Dict, List, Optional, Type, Union, Tuple
     from scripts.core.game import Game
+    from scripts.core.base_classes.scene import Scene
 
 __all__ = ["TrainingUI"]
 
@@ -24,8 +24,8 @@ class TrainingUI(UI):
     Represent the UI of the TrainingScene.
     """
 
-    def __init__(self, game: Game):
-        super().__init__(game)
+    def __init__(self, game: Game, parent_scene: Scene):
+        super().__init__(game, parent_scene, True)
 
         self.selected_unit: Optional[Unit] = None
         self.selected_upgrade: Optional[Dict] = None
@@ -37,7 +37,9 @@ class TrainingUI(UI):
     def update(self, delta_time: float):
         super().update(delta_time)
 
-        # generic input
+    def process_input(self, delta_time: float):
+        super().process_input(delta_time)
+
         # view troupe
         if self.game.input.states["view_troupe"]:
             self.game.input.states["view_troupe"] = False

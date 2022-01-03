@@ -10,6 +10,7 @@ import pygame
 if TYPE_CHECKING:
     from typing import Dict, List, Optional, Type, Union
     from scripts.core.game import Game
+    from scripts.core.base_classes.scene import Scene
 
 
 __all__ = ["WorldUI"]
@@ -23,8 +24,8 @@ class WorldUI(UI):
     Represent the UI of a scene
     """
 
-    def __init__(self, game: Game):
-        super().__init__(game)
+    def __init__(self, game: Game, parent_scene: Scene):
+        super().__init__(game, parent_scene, False)
 
         self.camera: Camera = Camera()
         self.terrain: Terrain = Terrain(self.game)
@@ -40,6 +41,9 @@ class WorldUI(UI):
 
         if not self.force_idle:
             self.terrain.update(self.speed)
+
+    def process_input(self, delta_time: float):
+        super().process_input(delta_time)
 
     def render(self, surface: pygame.surface):
         # show core info

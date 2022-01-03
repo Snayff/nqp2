@@ -27,7 +27,7 @@ class GalleryScene(Scene):
 
         super().__init__(game, SceneType.DEV_GALLERY)
 
-        self.ui: GalleryUI = GalleryUI(game)
+        self.ui: GalleryUI = GalleryUI(game, self)
 
         self.previous_scene_type: SceneType = SceneType.DEV_GALLERY
 
@@ -39,8 +39,5 @@ class GalleryScene(Scene):
         super().update(delta_time)
         self.ui.update(delta_time)
 
-    def render(self):
-        self.ui.render(self.game.window.display)
-
     def reset(self):
-        self.ui = GalleryUI(self.game)
+        self.ui = GalleryUI(self.game, self)

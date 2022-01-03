@@ -87,27 +87,43 @@ class Game:
         end_time = time.time()
         logging.debug(f"Game initialised in {format(end_time - start_time, '.2f')}s.")
 
-    def update(self):
-        delta_time = self.window.dt
+    def _update(self):
+        # update delta time first
+        self.window.update()
+        delta_time = self.window.delta_time
 
         self.master_clock += delta_time
 
         self.input.update(delta_time)
-        # self.active_scene.update(delta_time)
         for scene in self.active_scenes:
             scene.update(delta_time)
         self.debug.update(delta_time)
 
-    def render(self):
-        self.window.render_frame()
-        #self.active_scene.render()
+    def _render(self):
+        # always refresh first
+        self.window.refresh()
+
+        surface = self.window.display
         for scene in self.active_scenes:
-            scene.render()
+            # handle those scenes that still have render methods
+            if scene in (self.combat, self.overworld):
+                scene.render(surface)
+            scene.ui.render(surface)
         self.debug.render()  # always last so it is on top
 
     def run(self):
-        self.update()
-        self.render()
+        self._update()
+        self._process_input()
+        self._render()
+
+    def _process_input(self):
+        delta_time = self.window.delta_time
+
+        # process input in each scene, from the top of the stack, until a scene blocks input
+        for scene in reversed(self.active_scenes):
+            scene.ui.process_input(delta_time)
+            if scene.ui.block_onward_input:
+                break
 
     def quit(self):
         self.state = GameState.EXITING
@@ -120,6 +136,7 @@ class Game:
         self.input.reset()
 
         scene = self._scene_type_to_scene(scene_type)
+        scene.ui.rebuild_ui()
         self.active_scenes.append(scene)
 
     def deactivate_scene(self, scene_type: SceneType):

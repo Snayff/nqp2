@@ -31,7 +31,7 @@ class RunSetupScene(Scene):
 
         super().__init__(game, SceneType.RUN_SETUP)
 
-        self.ui: RunSetupUI = RunSetupUI(game)
+        self.ui: RunSetupUI = RunSetupUI(game, self)
 
         self.selected_commander: str = list(self.game.data.commanders)[0]  # set to first commander
         self.selected_seed: int = int(datetime.now().strftime("%Y%m%d%H%M%S"))
@@ -43,9 +43,6 @@ class RunSetupScene(Scene):
     def update(self, delta_time: float):
         super().update(delta_time)
         self.ui.update(delta_time)
-
-    def render(self):
-        self.ui.render(self.game.window.display)
 
     def start_run(self):
         # set the seed
@@ -88,6 +85,6 @@ class RunSetupScene(Scene):
         """
         Reset to clean state.
         """
-        self.ui = RunSetupUI(self.game)
+        self.ui = RunSetupUI(self.game, self)
         self.selected_commander = list(self.game.data.commanders)[0]  # set to first commander
         self.selected_seed = int(datetime.now().strftime("%Y%m%d%H%M%S"))

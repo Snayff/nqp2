@@ -13,9 +13,9 @@ from scripts.ui_elements.button import Button
 from scripts.ui_elements.input_box import InputBox
 
 if TYPE_CHECKING:
-    from typing import Dict
-
+    from typing import Dict, List, Optional, Type, Union
     from scripts.core.game import Game
+    from scripts.core.base_classes.scene import Scene
 
 __all__ = ["UnitDataUI"]
 
@@ -25,8 +25,8 @@ class UnitDataUI(UI):
     Represent the UI of the UnitDataScene.
     """
 
-    def __init__(self, game: Game):
-        super().__init__(game)
+    def __init__(self, game: Game, parent_scene: Scene):
+        super().__init__(game, parent_scene, True)
 
         window_width = self.game.window.width
         window_height = self.game.window.height
@@ -62,6 +62,31 @@ class UnitDataUI(UI):
     def update(self, delta_time: float):
         super().update(delta_time)
 
+        # update text fields
+        for field in self.current_unit_data:
+            self.fields[field].update(delta_time)
+            if self.fields[field].should_focus:
+                self.fields[field].focus()
+            else:
+                self.fields[field].unfocus()
+
+        # update confirmation timer
+        if self.confirmation_timer > 0:
+            self.confirmation_timer -= 1
+        else:
+            self.show_confirmation = False
+
+        self.frame_timer += 1
+        if self.frame_timer > 20:
+            self.frame_timer = 0
+            self.frame_counter += 1
+
+            if self.frame_counter > 4:
+                self.frame_counter = 0
+
+    def process_input(self, delta_time: float):
+        super().process_input(delta_time)
+
         # handle button presses
         buttons = self.buttons
         for button in buttons.values():
@@ -90,28 +115,6 @@ class UnitDataUI(UI):
                 if button == buttons["cancel"]:
                     # go back to previous scene
                     self.game.change_scene(self.game.dev_unit_data.previous_scene_type)
-
-        # update text fields
-        for field in self.current_unit_data:
-            self.fields[field].update(delta_time)
-            if self.fields[field].should_focus:
-                self.fields[field].focus()
-            else:
-                self.fields[field].unfocus()
-
-        # update confirmation timer
-        if self.confirmation_timer > 0:
-            self.confirmation_timer -= 1
-        else:
-            self.show_confirmation = False
-
-        self.frame_timer += 1
-        if self.frame_timer > 20:
-            self.frame_timer = 0
-            self.frame_counter += 1
-
-            if self.frame_counter > 4:
-                self.frame_counter = 0
 
     def render(self, surface: pygame.surface):
         window_width = self.game.window.width

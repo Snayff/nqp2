@@ -25,7 +25,7 @@ class WorldScene(Scene):
 
         super().__init__(game, SceneType.WORLD)
 
-        self.ui: WorldUI = WorldUI(game)
+        self.ui: WorldUI = WorldUI(game, self)
 
         # record duration
         end_time = time.time()
@@ -35,8 +35,5 @@ class WorldScene(Scene):
         super().update(delta_time)
         self.ui.update(delta_time)
 
-    def render(self):
-        self.ui.render(self.game.window.display)
-
     def reset(self):
-        self.ui = WorldUI(self.game)
+        self.ui = WorldUI(self.game, self.ui.parent_scene)

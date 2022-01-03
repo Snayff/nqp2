@@ -31,7 +31,7 @@ class PostCombatScene(Scene):
 
         super().__init__(game, SceneType.POST_COMBAT)
 
-        self.ui: PostCombatUI = PostCombatUI(game)
+        self.ui: PostCombatUI = PostCombatUI(game, self)
 
         self.state: PostCombatState = PostCombatState.VICTORY
 
@@ -56,11 +56,8 @@ class PostCombatScene(Scene):
         super().update(delta_time)
         self.ui.update(delta_time)
 
-    def render(self):
-        self.ui.render(self.game.window.display)
-
     def reset(self):
-        self.ui = PostCombatUI(self.game)
+        self.ui = PostCombatUI(self.game, self)
 
         self.state = PostCombatState.VICTORY
 

@@ -4,8 +4,6 @@ from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.ui import UI
 from scripts.core.constants import FontType
-from scripts.scenes.combat.elements.camera import Camera
-from scripts.scenes.combat.elements.terrain import Terrain
 import pygame
 
 from scripts.ui_elements.frame import Frame
@@ -14,7 +12,7 @@ from scripts.ui_elements.panel import Panel
 if TYPE_CHECKING:
     from typing import Dict, List, Optional, Type, Union
     from scripts.core.game import Game
-
+    from scripts.core.base_classes.scene import Scene
 
 __all__ = ["TestUI"]
 
@@ -27,12 +25,15 @@ class TestUI(UI):
     Represent the UI of a scene
     """
 
-    def __init__(self, game: Game):
-        super().__init__(game)
+    def __init__(self, game: Game, parent_scene: Scene):
+        super().__init__(game, parent_scene, True)
 
 
     def update(self, delta_time: float):
         super().update(delta_time)
+
+    def process_input(self, delta_time: float):
+        super().process_input(delta_time)
 
     def render(self, surface: pygame.surface):
         # show core info

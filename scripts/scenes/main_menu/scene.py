@@ -32,7 +32,7 @@ class MainMenuScene(Scene):
 
         super().__init__(game, SceneType.MAIN_MENU)
 
-        self.ui: MainMenuUI = MainMenuUI(game)
+        self.ui: MainMenuUI = MainMenuUI(game, self)
 
         # record duration
         end_time = time.time()
@@ -42,11 +42,8 @@ class MainMenuScene(Scene):
         super().update(delta_time)
         self.ui.update(delta_time)
 
-    def render(self):
-        self.ui.render(self.game.window.display)
-
     def reset(self):
-        self.ui = MainMenuUI(self.game)
+        self.ui = MainMenuUI(self.game, self)
 
     def new_game(self):
         """

@@ -4,6 +4,7 @@ import logging
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 
+
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, GAP_SIZE
 from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.panel import Panel
@@ -16,6 +17,7 @@ if TYPE_CHECKING:
     from scripts.core.game import Game
     from scripts.ui_elements.font import Font
     from scripts.ui_elements.unit_stats_frame import UnitStatsFrame
+    from scripts.core.base_classes.scene import Scene
 
 
 __all__ = ["UI"]
@@ -29,8 +31,10 @@ class UI(ABC):
     Represent the UI of a scene
     """
 
-    def __init__(self, game: Game):
+    def __init__(self, game: Game, parent_scene: Scene, block_onward_input: bool):
         self.game: Game = game
+        self.parent_scene: Scene = parent_scene
+        self.block_onward_input: bool = block_onward_input  # prevents input being passed to the next scene
 
         self.elements: Dict[str, Union[Frame, UnitStatsFrame]] = {}
         self.panels: Dict[str, Panel] = {}
@@ -46,12 +50,13 @@ class UI(ABC):
         if self.temporary_instruction_timer <= 0:
             self.temporary_instruction_text = ""
 
+        self.update_elements(delta_time)
+
+    def process_input(self, delta_time: float):
         if self.game.input.states["toggle_dev_console"]:
             self.game.input.states["toggle_dev_console"] = False
 
             self.game.debug.toggle_dev_console_visibility()
-
-        self.update_elements(delta_time)
 
     @abstractmethod
     def render(self, surface: pygame.surface):

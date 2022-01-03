@@ -21,7 +21,7 @@ class UnitDataScene(Scene):
 
         super().__init__(game, SceneType.DEV_DATA_EDITOR)
 
-        self.ui: UnitDataUI = UnitDataUI(game)
+        self.ui: UnitDataUI = UnitDataUI(game, self)
 
         self.previous_scene_type: SceneType = SceneType.DEV_DATA_EDITOR
 
@@ -37,4 +37,4 @@ class UnitDataScene(Scene):
         self.ui.render(self.game.window.display)
 
     def reset(self):
-        self.ui = UnitDataUI(self.game)
+        self.ui = UnitDataUI(self.game, self)
