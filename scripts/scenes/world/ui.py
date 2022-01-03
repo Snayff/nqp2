@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.ui import UI
-from scripts.core.constants import FontType
+from scripts.core.constants import FontType, WorldState
 from scripts.scenes.combat.elements.camera import Camera
 from scripts.scenes.combat.elements.terrain import Terrain
 import pygame
@@ -33,12 +33,14 @@ class WorldUI(UI):
         super().__init__(game, False)
         self.parent_scene: WorldScene = parent_scene
 
+        # info pulled over from combat to render terrain
         self.camera: Camera = Camera()
         self.terrain: Terrain = Terrain(self.game)
         self.biome = "plains"
         self.mod_delta_time = 0  # actual delta time by combat speed
         self.combat_speed = 1
         self.force_idle = False
+
 
     def update(self, delta_time: float):
         super().update(delta_time)
@@ -56,10 +58,13 @@ class WorldUI(UI):
         self.draw_instruction(surface)
 
         self.camera.bind(self.terrain.boundaries)
-        combat_surf = pygame.Surface(self.game.window.display.get_size())
+        combat_surf = pygame.Surface(self.game.window.display.get_size())  # Not sure we need this?
         self.terrain.render(combat_surf, self.camera.render_offset())
 
-        # blit the terrain
+        if self.parent_scene.state == WorldState.IDLE:
+            self.parent_scene.units.render(combat_surf, self.camera.render_offset())
+
+        # blit the terrain and units
         self.game.window.display.blit(
             combat_surf,
             (
@@ -74,13 +79,4 @@ class WorldUI(UI):
         super().rebuild_ui()
 
         self.terrain.generate(self.biome)
-
-        create_font = self.game.assets.create_font
-
-        stat_icon = self.game.assets.unit_animations["deer"]["icon"][0]
-        frame = Frame(
-            (10, 10), image=stat_icon, font=create_font(FontType.DEFAULT, "world"), is_selectable=False
-        )
-        self.elements["test_ele"] = frame
-        self.add_panel(Panel([frame], True), "test")
 

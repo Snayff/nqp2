@@ -135,7 +135,13 @@ class Game:
         self.input.reset()
 
         scene = self._scene_type_to_scene(scene_type)
+
+        # reset and rebuild scene
+        scene.reset()
         scene.ui.rebuild_ui()
+
+        # add scene to active list
+
         self.active_scenes.append(scene)
 
     def deactivate_scene(self, scene_type: SceneType):

@@ -65,6 +65,11 @@ class PostCombatState(IntEnum):
     BOSS_VICTORY = auto()
 
 
+class WorldState(IntEnum):
+    IDLE = auto()
+    OTHER_SCENE_ACTIVE = auto()
+
+
 class EventState(IntEnum):
     MAKE_DECISION = auto()
     RESULT = auto()
