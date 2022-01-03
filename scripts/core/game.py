@@ -82,7 +82,7 @@ class Game:
 
         # record duration
         end_time = time.time()
-        logging.debug(f"Game initialised in {format(end_time - start_time, '.2f')}s.")
+        logging.info(f"Game initialised in {format(end_time - start_time, '.2f')}s.")
 
     def _update(self):
         # update delta time first
@@ -179,8 +179,12 @@ class Game:
         elif scene_type == SceneType.VIEW_TROUPE:
             scene = self.troupe
 
+        elif scene_type == SceneType.WORLD:
+            scene = self.world
+
         else:
             scene = None
+            logging.error(f"_scene_type_to_scene: No matching SceneType found. Given [{scene_type}].")
 
         return scene
 

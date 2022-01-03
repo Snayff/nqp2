@@ -36,17 +36,17 @@ class WorldUI(UI):
         self.camera: Camera = Camera()
         self.terrain: Terrain = Terrain(self.game)
         self.biome = "plains"
-        self.speed = 0
+        self.mod_delta_time = 0  # actual delta time by combat speed
         self.combat_speed = 1
         self.force_idle = False
 
     def update(self, delta_time: float):
         super().update(delta_time)
 
-        self.speed = self.combat_speed * delta_time
+        self.mod_delta_time = self.combat_speed * delta_time
 
         if not self.force_idle:
-            self.terrain.update(self.speed)
+            self.terrain.update(self.mod_delta_time)
 
     def process_input(self, delta_time: float):
         super().process_input(delta_time)
