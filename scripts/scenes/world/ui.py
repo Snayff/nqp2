@@ -72,6 +72,7 @@ class WorldUI(UI):
             ),
         )
 
+        self.draw_grid(surface)
         self.draw_instruction(surface)
         self.draw_elements(surface)
 
@@ -80,5 +81,30 @@ class WorldUI(UI):
 
         self.terrain.generate(self.biome)
 
+    def draw_grid(self, surface: pygame.Surface):
+        """
+        Draw the unit selection grid
+        """
+        # TODO  - needs to be aligned to camera; move to camera?
+        grid_size = self.parent_scene.grid_size
+        grid_cell_size = self.parent_scene.grid_cell_size
+        grid_margin = self.parent_scene.grid_margin
+        line_colour = (0, 0, 0)
+
+        # draw horizontal lines
+        for h_line in range(grid_size[1] + 1):
+            start_x = grid_margin
+            start_y = h_line * grid_cell_size + grid_margin
+            end_x = grid_size[0] * grid_cell_size + grid_margin
+            end_y = h_line * grid_cell_size + grid_margin
+            pygame.draw.line(surface, line_colour, (start_x, start_y), (end_x, end_y))
+
+        # draw vertical lines
+        for v_line in range(grid_size[0] + 1):
+            start_x = v_line * grid_cell_size + grid_margin
+            start_y = grid_margin
+            end_x = v_line * grid_cell_size + grid_margin
+            end_y = grid_size[1] * grid_cell_size + grid_margin
+            pygame.draw.line(surface, line_colour, (start_x, start_y), (end_x, end_y))
 
 

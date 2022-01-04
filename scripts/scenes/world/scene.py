@@ -33,6 +33,11 @@ class WorldScene(Scene):
         self.unit_manager: UnitManager = UnitManager(game)  # TODO - overhaul; perhaps merge into World
         self.unit_grid: List = []
 
+        # unit selection grid dimensions
+        self.grid_size: List[int, int] = [3, 8]  # col, row
+        self.grid_cell_size: int = 32
+        self.grid_margin: int = 32
+
         # record duration
         end_time = time.time()
         logging.debug(f"WorldScene: initialised in {format(end_time - start_time, '.2f')}s.")
@@ -58,10 +63,14 @@ class WorldScene(Scene):
             self.unit_manager.add_unit_to_combat(unit)
 
     def align_unit_pos_to_unit_grid(self):
+        max_rows = self.grid_size[1]
+        grid_margin = self.grid_margin
+        grid_cell_size = self.grid_cell_size
+
         for i, unit in enumerate(self.unit_grid):
-            x = i // 8
-            y = i % 8
-            unit.set_position([32 + x * 32, 32 + y * 32])
+            x = i // max_rows
+            y = i % max_rows
+            unit.set_position([grid_margin + x * grid_cell_size, grid_margin + y * grid_cell_size])
 
 
     def get_all_entities(self):
