@@ -302,7 +302,6 @@ class Unit:
         """
         Spawn the unit's entities.
         """
-
         for i in range(self.count):
             self.entities.append(Entity(self))
 
@@ -324,6 +323,15 @@ class Unit:
                 pos[1] += entity.pos[1]
             self.pos[0] = pos[0] / len(self.entities)
             self.pos[1] = pos[1] / len(self.entities)
+
+    def set_position(self, pos: List[int, int]):
+        """
+        Set the unit's position.
+        """
+        self.entities = []
+
+        self.pos = pos
+        self.spawn_entities()
 
     def add_modifier(self, stat: str, amount: int):
         """

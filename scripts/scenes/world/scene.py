@@ -10,6 +10,7 @@ from scripts.scenes.combat.elements.unit_manager import UnitManager
 from scripts.scenes.world.ui import WorldUI
 
 if TYPE_CHECKING:
+    from typing import Dict, List, Optional, Type, Union
     from scripts.core.game import Game
 
 __all__ = ["WorldScene"]
@@ -29,7 +30,8 @@ class WorldScene(Scene):
         self.ui: WorldUI = WorldUI(game, self)
 
         self.state = WorldState.IDLE
-        self.units: UnitManager = UnitManager(game)  # TODO - overhaul; perhaps merge into World
+        self.unit_manager: UnitManager = UnitManager(game)  # TODO - overhaul; perhaps merge into World
+        self.unit_grid: List = []
 
         # record duration
         end_time = time.time()
@@ -38,11 +40,32 @@ class WorldScene(Scene):
     def update(self, delta_time: float):
         super().update(delta_time)
         self.ui.update(delta_time)
+        self.unit_manager.update(delta_time)
 
     def reset(self):
         self.ui = WorldUI(self.game, self)
 
-        # TODO - add all player units to grid, in set position (that persists)
-        unit = list(self.game.memory.player_troupe.units.values())[0]
-        unit.pos = [100, 100]
-        self.units.add_unit_to_combat(unit)
+        self.add_player_units()
+        self.align_unit_pos_to_unit_grid()
+
+    def add_player_units(self):
+        """
+        Add the player's unit_manager to the combat and unit_grid
+        """
+        units = list(self.game.memory.player_troupe.units.values())
+        for i, unit in enumerate(units, 1):
+            self.unit_grid.append(unit)
+            self.unit_manager.add_unit_to_combat(unit)
+
+    def align_unit_pos_to_unit_grid(self):
+        for i, unit in enumerate(self.unit_grid):
+            x = i // 8
+            y = i % 8
+            unit.set_position([32 + x * 32, 32 + y * 32])
+
+
+    def get_all_entities(self):
+        entities = []
+        for unit in self.unit_manager.units:
+            entities += unit.entities
+        return entities
