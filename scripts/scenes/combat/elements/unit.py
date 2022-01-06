@@ -73,7 +73,7 @@ class Unit:
         self.colour = (0, 0, 255)
         self.entities: List[Entity] = []
         self.dead_entities: List[Entity] = []
-        self.pos: List[int, int] = [0, 0]
+        self.pos: Tuple[int, int] = [0, 0]
         self.placed: bool = False
 
     @property
