@@ -133,3 +133,31 @@ class FontType(Enum):
 class FontEffects(IntEnum):
     FADE_IN = auto()
     FADE_OUT = auto()
+
+
+class GamepadButton(IntEnum):
+    UP = auto()
+    LEFT = auto()
+    DOWN = auto()
+    RIGHT = auto()
+    NORTH = auto()
+    EAST = auto()
+    SOUTH = auto()
+    WEST = auto()
+    SELECT_OR_BACK = auto()
+    START = auto()
+    LEFT_SHOULDER_1 = auto()
+    LEFT_SHOULDER_2 = auto()
+    RIGHT_SHOULDER_1 = auto()
+    RIGHT_SHOULDER_2 = auto()
+    LEFT_STICK = auto()
+    RIGHT_STICK = auto()
+
+
+class GamepadAxes(IntEnum):
+    LEFT_X = auto()
+    LEFT_Y = auto()
+    RIGHT_X = auto()
+    RIGHT_Y = auto()
+    DPAD_X = auto()
+    DPAD_Y = auto()

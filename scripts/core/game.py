@@ -43,6 +43,7 @@ class Game:
 
         # init libraries
         pygame.init()
+        pygame.joystick.init()
 
         # managers
         self.debug: Debugger = Debugger(self)

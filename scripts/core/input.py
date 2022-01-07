@@ -1,16 +1,76 @@
 from __future__ import annotations
 
+import dataclasses
 import logging
 import time
-from typing import TYPE_CHECKING
+from typing import Mapping, Tuple, TYPE_CHECKING
 
 import pygame
 from pygame.locals import *
+
+from .constants import GamepadAxes, GamepadButton
 
 if TYPE_CHECKING:
     from scripts.core.game import Game
 
 __all__ = ["Input"]
+
+
+@dataclasses.dataclass
+class ControllerConfig:
+    deadzone: float
+    axes: Mapping[int, GamepadAxes]
+    hat: Mapping[int, Tuple[GamepadButton, GamepadButton]]
+    buttons: Mapping[int, GamepadButton]
+
+
+# specific to xbox gamepad layout, should not be changed by player
+# add more configs for other gamepad types: ps3,4,5, switch, etc
+xbox_gamepad_config = ControllerConfig(
+    deadzone=0.25,
+    axes={
+        0: GamepadAxes.LEFT_X,
+        1: GamepadAxes.LEFT_Y,
+        # 2: None,  # l. shoulder
+        3: GamepadAxes.RIGHT_X,
+        4: GamepadAxes.RIGHT_Y,
+        # 5: None,  # r. shoulder
+    },
+    hat={
+        0: (GamepadButton.LEFT, GamepadButton.RIGHT),
+        1: (GamepadButton.DOWN, GamepadButton.UP),
+    },
+    buttons={
+        0: GamepadButton.SOUTH,
+        1: GamepadButton.EAST,
+        2: GamepadButton.WEST,
+        3: GamepadButton.NORTH,
+        4: GamepadButton.LEFT_SHOULDER_1,
+        5: GamepadButton.RIGHT_SHOULDER_1,
+        6: GamepadButton.SELECT_OR_BACK,
+        7: GamepadButton.START,
+        8: GamepadButton.LEFT_STICK,
+        9: GamepadButton.RIGHT_STICK,
+    },
+)
+
+# generic mapping for gamepad buttons to game input labels
+# if the player wants to change config, this would need to be changed
+gamepad_label_map = {
+    GamepadButton.UP: "up",
+    GamepadButton.LEFT: "left",
+    GamepadButton.DOWN: "down",
+    GamepadButton.RIGHT: "right",
+    GamepadButton.EAST: "cancel",
+    GamepadButton.SOUTH: "select",
+    GamepadButton.NORTH: "view_troupe",
+}
+
+# map analog axis to digital buttons
+gamepad_axis_direction_map = {
+    GamepadAxes.LEFT_X: [GamepadButton.LEFT, GamepadButton.RIGHT],
+    GamepadAxes.LEFT_Y: [GamepadButton.UP, GamepadButton.DOWN],
+}
 
 
 class Input:
@@ -48,6 +108,9 @@ class Input:
 
         self.mouse_pos = [0, 0]
         self.mouse_pos_raw = self.mouse_pos.copy()
+
+        self.gamepads = dict()
+        self.scan_gamepads()
 
         # record duration
         end_time = time.time()
@@ -207,6 +270,57 @@ class Input:
                     if event.key == K_DOWN:
                         self.states["hold_down"] = False
 
+                if event.type == JOYBUTTONDOWN:
+                    button = xbox_gamepad_config.buttons[event.button]
+                    label = gamepad_label_map.get(button)
+                    if label:
+                        self.states[label] = True
+                        self.states["hold_" + label] = True
+
+                if event.type == JOYBUTTONUP:
+                    button = xbox_gamepad_config.buttons[event.button]
+                    label = gamepad_label_map.get(button)
+                    if label:
+                        self.states["hold_" + label] = False
+
+                if event.type == JOYHATMOTION:
+                    for axis, value in enumerate(event.value):
+                        endstops = xbox_gamepad_config.hat[axis]
+                        button = None
+                        if value == -1:
+                            button = endstops[0]
+                        elif value == 1:
+                            button = endstops[1]
+                        if button:
+                            label = gamepad_label_map[button]
+                            self.states[label] = True
+                            self.states["hold_" + label] = True
+                        else:
+                            for button in endstops:
+                                label = gamepad_label_map[button]
+                                self.states["hold_" + label] = False
+
+                if event.type == JOYAXISMOTION:
+                    axis = xbox_gamepad_config.axes[event.axis]
+                    endstops = gamepad_axis_direction_map.get(axis)
+                    if endstops is not None:
+                        if abs(event.value) >= xbox_gamepad_config.deadzone:
+                            button = None
+                            if event.value < 0:
+                                button = endstops[0]
+                            elif event.value > 0:
+                                button = endstops[1]
+                            if button:
+                                label = gamepad_label_map[button]
+                                hold_label = "hold_" + label
+                                if not self.states[hold_label]:
+                                    self.states[label] = True
+                                self.states[hold_label] = True
+                        else:
+                            for button in endstops:
+                                label = gamepad_label_map[button]
+                                self.states["hold_" + label] = False
+
             elif self.mode == "typing":
                 if event.type == KEYDOWN:
                     for char in chars:
@@ -222,3 +336,11 @@ class Input:
 
                     if event.key == K_SPACE:
                         self.char_buffer.append(" ")
+
+    def scan_gamepads(self):
+        for index in range(pygame.joystick.get_count()):
+            gamepad = pygame.joystick.Joystick(index)
+            gamepad.init()
+            # if the Joystick object is deleted, then event loop
+            # will not have joystick events, so we need to keep a ref.
+            self.gamepads[gamepad.get_guid()] = gamepad
