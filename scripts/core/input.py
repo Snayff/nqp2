@@ -3,7 +3,7 @@ from __future__ import annotations
 import dataclasses
 import logging
 import time
-from typing import TYPE_CHECKING, Mapping, Tuple
+from typing import Mapping, Tuple, TYPE_CHECKING
 
 import pygame
 from pygame.locals import *
@@ -18,22 +18,23 @@ __all__ = ["Input"]
 
 @dataclasses.dataclass
 class ControllerConfig:
-   deadzone: float
-   axes: Mapping[int, GamepadAxes]
-   hat: Mapping[int, Tuple[GamepadButton, GamepadButton]]
-   buttons: Mapping[int, GamepadButton]
+    deadzone: float
+    axes: Mapping[int, GamepadAxes]
+    hat: Mapping[int, Tuple[GamepadButton, GamepadButton]]
+    buttons: Mapping[int, GamepadButton]
+
 
 # specific to xbox gamepad layout, should not be changed by player
 # add more configs for other gamepad types: ps3,4,5, switch, etc
 xbox_gamepad_config = ControllerConfig(
-    deadzone=.25,
+    deadzone=0.25,
     axes={
-       0: GamepadAxes.LEFT_X,
-       1: GamepadAxes.LEFT_Y,
-       # 2: None,  # l. shoulder
-       3: GamepadAxes.RIGHT_X,
-       4: GamepadAxes.RIGHT_Y,
-       # 5: None,  # r. shoulder
+        0: GamepadAxes.LEFT_X,
+        1: GamepadAxes.LEFT_Y,
+        # 2: None,  # l. shoulder
+        3: GamepadAxes.RIGHT_X,
+        4: GamepadAxes.RIGHT_Y,
+        # 5: None,  # r. shoulder
     },
     hat={
         0: (GamepadButton.LEFT, GamepadButton.RIGHT),
