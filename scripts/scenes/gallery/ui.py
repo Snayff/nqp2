@@ -13,6 +13,7 @@ if TYPE_CHECKING:
     import pygame
 
     from scripts.core.game import Game
+    from scripts.scenes.gallery.scene import GalleryScene
 
 
 __all__ = ["GalleryUI"]
@@ -26,8 +27,9 @@ class GalleryUI(UI):
     Represent the UI of a scene
     """
 
-    def __init__(self, game: Game):
-        super().__init__(game)
+    def __init__(self, game: Game, parent_scene: GalleryScene):
+        super().__init__(game, True)
+        self.parent_scene: GalleryScene = parent_scene
 
         self._frame_timer: float = 0
         self._start_index: int = 0
@@ -42,6 +44,15 @@ class GalleryUI(UI):
 
     def update(self, delta_time: float):
         super().update(delta_time)
+
+        # tick frame
+        self._frame_timer += delta_time
+        # FIXME - temporary looping frame logic
+        while self._frame_timer > 0.66:
+            self._frame_timer -= 0.66
+
+    def process_input(self, delta_time: float):
+        super().process_input(delta_time)
 
         max_units = len(self.game.assets.unit_animations)
 
@@ -69,12 +80,6 @@ class GalleryUI(UI):
 
                 # return to previous scene
                 self.game.change_scene(self.game.dev_gallery.previous_scene_type)
-
-        # tick frame
-        self._frame_timer += delta_time
-        # FIXME - temporary looping frame logic
-        while self._frame_timer > 0.66:
-            self._frame_timer -= 0.66
 
     def render(self, surface: pygame.surface):
         default_font = self.default_font

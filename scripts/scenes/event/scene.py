@@ -30,7 +30,7 @@ class EventScene(Scene):
 
         super().__init__(game, SceneType.EVENT)
 
-        self.ui: EventUI = EventUI(game)
+        self.ui: EventUI = EventUI(game, self)
 
         self.state: EventState = EventState.MAKE_DECISION
 
@@ -46,11 +46,8 @@ class EventScene(Scene):
         super().update(delta_time)
         self.ui.update(delta_time)
 
-    def render(self):
-        self.ui.render(self.game.window.display)
-
     def reset(self):
-        self.ui = EventUI(self.game)
+        self.ui = EventUI(self.game, self)
 
         self.active_event = {}
 

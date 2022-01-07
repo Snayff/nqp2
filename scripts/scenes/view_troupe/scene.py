@@ -28,7 +28,7 @@ class ViewTroupeScene(Scene):
 
         super().__init__(game, SceneType.VIEW_TROUPE)
 
-        self.ui: ViewTroupeUI = ViewTroupeUI(game)
+        self.ui: ViewTroupeUI = ViewTroupeUI(game, self)
 
         self.previous_scene_type: SceneType = SceneType.VIEW_TROUPE
 
@@ -40,9 +40,6 @@ class ViewTroupeScene(Scene):
         super().update(delta_time)
         self.ui.update(delta_time)
 
-    def render(self):
-        self.ui.render(self.game.window.display)
-
     def reset(self):
-        self.ui = ViewTroupeUI(self.game)
+        self.ui = ViewTroupeUI(self.game, self)
         self.previous_scene_type = SceneType.VIEW_TROUPE

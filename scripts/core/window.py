@@ -29,19 +29,26 @@ class Window:
 
         self.display = pygame.Surface(self.base_resolution)
 
-        self.dt = 0.1
+        self.delta_time = 0.1
         self.frame_start = time.time()
 
         # record duration
         end_time = time.time()
         logging.debug(f"Window: initialised in {format(end_time - start_time, '.2f')}s.")
 
-    def render_frame(self):
+    def refresh(self):
+        """
+        Clear screen.
+        """
         self.window.blit(pygame.transform.scale(self.display, self.window.get_size()), (0, 0))
         pygame.display.update()
         self.display.fill((0, 0, 0))
 
-        self.dt = time.time() - self.frame_start
+    def update(self):
+        """
+        Update internal timer
+        """
+        self.delta_time = time.time() - self.frame_start
         self.frame_start = time.time()
 
     @property

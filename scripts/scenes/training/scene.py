@@ -32,7 +32,7 @@ class TrainingScene(Scene):
 
         super().__init__(game, SceneType.TRAINING)
 
-        self.ui: TrainingUI = TrainingUI(game)
+        self.ui: TrainingUI = TrainingUI(game, self)
         self.state: TrainingState = TrainingState.CHOOSE_UPGRADE
 
         self.upgrades_offered: List = []
@@ -46,11 +46,8 @@ class TrainingScene(Scene):
         super().update(delta_time)
         self.ui.update(delta_time)
 
-    def render(self):
-        self.ui.render(self.game.window.display)
-
     def reset(self):
-        self.ui = TrainingUI(self.game)
+        self.ui = TrainingUI(self.game, self)
         self.state = TrainingState.CHOOSE_UPGRADE
         self.upgrades_offered = []
         self.upgrades_available = {}

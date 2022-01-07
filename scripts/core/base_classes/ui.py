@@ -13,6 +13,7 @@ if TYPE_CHECKING:
 
     import pygame
 
+    from scripts.core.base_classes.scene import Scene
     from scripts.core.game import Game
     from scripts.ui_elements.font import Font
     from scripts.ui_elements.unit_stats_frame import UnitStatsFrame
@@ -29,8 +30,9 @@ class UI(ABC):
     Represent the UI of a scene
     """
 
-    def __init__(self, game: Game):
+    def __init__(self, game: Game, block_onward_input: bool):
         self.game: Game = game
+        self.block_onward_input: bool = block_onward_input  # prevents input being passed to the next scene
 
         self.elements: Dict[str, Union[Frame, UnitStatsFrame]] = {}
         self.panels: Dict[str, Panel] = {}
@@ -46,12 +48,13 @@ class UI(ABC):
         if self.temporary_instruction_timer <= 0:
             self.temporary_instruction_text = ""
 
+        self.update_elements(delta_time)
+
+    def process_input(self, delta_time: float):
         if self.game.input.states["toggle_dev_console"]:
             self.game.input.states["toggle_dev_console"] = False
 
             self.game.debug.toggle_dev_console_visibility()
-
-        self.update_elements(delta_time)
 
     @abstractmethod
     def render(self, surface: pygame.surface):

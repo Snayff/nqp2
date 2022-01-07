@@ -11,7 +11,10 @@ from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.panel import Panel
 
 if TYPE_CHECKING:
+    from typing import Dict, List, Optional, Type, Union
+
     from scripts.core.game import Game
+    from scripts.scenes.run_setup.scene import RunSetupScene
 
 __all__ = ["RunSetupUI"]
 
@@ -21,15 +24,18 @@ class RunSetupUI(UI):
     Represent the UI of the RunSetupScene.
     """
 
-    def __init__(self, game: Game):
-        super().__init__(game)
+    def __init__(self, game: Game, parent_scene: RunSetupScene):
+        super().__init__(game, True)
+        self.parent_scene: RunSetupScene = parent_scene
 
         self.set_instruction_text("Choose who will lead the rebellion.")
 
     def update(self, delta_time: float):
         super().update(delta_time)
 
-        # data editor
+    def process_input(self, delta_time: float):
+        super().process_input(delta_time)
+
         if self.game.input.states["toggle_dev_console"]:
             self.game.input.states["toggle_dev_console"] = False
 
