@@ -9,12 +9,12 @@ import pygame
 
 from scripts.core.base_classes.ui import UI
 from scripts.core.constants import DATA_PATH, DEFAULT_IMAGE_SIZE, FontType
-
 from scripts.ui_elements.button import Button
 from scripts.ui_elements.input_box import InputBox
 
 if TYPE_CHECKING:
     from typing import Dict, List, Optional, Type, Union
+
     from scripts.core.game import Game
     from scripts.scenes.unit_data.scene import UnitDataScene
 

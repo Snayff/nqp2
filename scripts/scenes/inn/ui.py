@@ -7,7 +7,6 @@ import pygame
 from scripts.core.base_classes.ui import UI
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, GAP_SIZE, SceneType
 from scripts.scenes.combat.elements.unit import Unit
-
 from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.panel import Panel
 from scripts.ui_elements.unit_stats_frame import UnitStatsFrame

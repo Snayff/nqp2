@@ -36,7 +36,6 @@ __all__ = ["Game"]
 ############ TO DO LIST ############
 
 
-
 class Game:
     def __init__(self):
         # start timer

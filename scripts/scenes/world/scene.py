@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
 import time
+from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.scene import Scene
 from scripts.core.constants import SceneType, WorldState
@@ -11,6 +11,7 @@ from scripts.scenes.world.ui import WorldUI
 
 if TYPE_CHECKING:
     from typing import Dict, List, Optional, Type, Union
+
     from scripts.core.game import Game
 
 __all__ = ["WorldScene"]
@@ -71,7 +72,6 @@ class WorldScene(Scene):
             x = i // max_rows
             y = i % max_rows
             unit.set_position([grid_margin + x * grid_cell_size, grid_margin + y * grid_cell_size])
-
 
     def get_all_entities(self):
         entities = []

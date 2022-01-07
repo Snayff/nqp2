@@ -4,7 +4,6 @@ import logging
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 
-
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, GAP_SIZE
 from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.panel import Panel
@@ -14,10 +13,10 @@ if TYPE_CHECKING:
 
     import pygame
 
+    from scripts.core.base_classes.scene import Scene
     from scripts.core.game import Game
     from scripts.ui_elements.font import Font
     from scripts.ui_elements.unit_stats_frame import UnitStatsFrame
-    from scripts.core.base_classes.scene import Scene
 
 
 __all__ = ["UI"]

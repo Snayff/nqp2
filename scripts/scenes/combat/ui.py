@@ -8,7 +8,6 @@ import pygame
 from scripts.core.base_classes.ui import UI
 from scripts.core.constants import CombatState, SceneType
 from scripts.core.utility import offset
-
 from scripts.ui_elements.tooltip import Tooltip
 
 if TYPE_CHECKING:

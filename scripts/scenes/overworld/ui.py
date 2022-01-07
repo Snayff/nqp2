@@ -11,11 +11,11 @@ import pytweening
 from scripts.core import utility
 from scripts.core.base_classes.ui import UI
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, Direction, FontType, NodeType, OverworldState, SceneType
-
 from scripts.ui_elements.frame import Frame
 
 if TYPE_CHECKING:
     from typing import Dict, List, Optional, Type, Union
+
     from scripts.core.game import Game
     from scripts.scenes.overworld.scene import OverworldScene
 

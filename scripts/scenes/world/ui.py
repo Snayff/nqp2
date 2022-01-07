@@ -2,18 +2,18 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+import pygame
+
 from scripts.core.base_classes.ui import UI
 from scripts.core.constants import FontType, WorldState
 from scripts.scenes.combat.elements.camera import Camera
 from scripts.scenes.combat.elements.terrain import Terrain
-import pygame
-
-
 from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.panel import Panel
 
 if TYPE_CHECKING:
     from typing import Dict, List, Optional, Type, Union
+
     from scripts.core.game import Game
     from scripts.scenes.world.scene import WorldScene
 
@@ -40,9 +40,6 @@ class WorldUI(UI):
         self.mod_delta_time = 0  # actual delta time by combat speed
         self.combat_speed = 1
         self.force_idle = False
-
-
-
 
     def update(self, delta_time: float):
         super().update(delta_time)
@@ -106,5 +103,3 @@ class WorldUI(UI):
             end_x = v_line * grid_cell_size + grid_margin
             end_y = grid_size[1] * grid_cell_size + grid_margin
             pygame.draw.line(surface, line_colour, (start_x, start_y), (end_x, end_y))
-
-

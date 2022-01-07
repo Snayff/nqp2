@@ -7,7 +7,6 @@ import pygame
 
 from scripts.core.base_classes.ui import UI
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, EventState, FontEffects, FontType, GAP_SIZE, SceneType
-
 from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.panel import Panel
 
@@ -35,7 +34,6 @@ class EventUI(UI):
 
     def update(self, delta_time: float):
         super().update(delta_time)
-
 
     def process_input(self, delta_time: float):
         super().process_input(delta_time)

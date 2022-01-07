@@ -43,7 +43,6 @@ class InnScene(Scene):
         super().update(delta_time)
         self.ui.update(delta_time)
 
-
     def reset(self):
         self.ui = InnUI(self.game, self)
 

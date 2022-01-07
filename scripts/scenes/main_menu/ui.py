@@ -7,7 +7,6 @@ import pygame
 
 from scripts.core.base_classes.ui import UI
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, GameState, GAP_SIZE, SceneType
-
 from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.panel import Panel
 

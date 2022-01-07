@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
 import time
+from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.scene import Scene
 from scripts.core.constants import SceneType
@@ -25,11 +25,9 @@ class TestScene(Scene):
 
         self.ui: TestUI = TestUI(game, self)
 
-
     def update(self, delta_time: float):
         super().update(delta_time)
         self.ui.update(delta_time)
-
 
     def reset(self):
         self.ui = TestUI(self.game, self)

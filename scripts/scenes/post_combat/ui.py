@@ -8,7 +8,6 @@ import pygame
 from scripts.core.base_classes.ui import UI
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, GAP_SIZE, PostCombatState, RewardType, SceneType
 from scripts.scenes.combat.elements.unit import Unit
-
 from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.panel import Panel
 
@@ -148,7 +147,6 @@ class PostCombatUI(UI):
 
         # draw elements
         self.draw_elements(surface)
-
 
     def rebuild_ui(self):
         super().rebuild_ui()

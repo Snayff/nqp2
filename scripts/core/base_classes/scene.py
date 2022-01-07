@@ -30,4 +30,3 @@ class Scene(ABC):
     @abstractmethod
     def reset(self):
         pass
-

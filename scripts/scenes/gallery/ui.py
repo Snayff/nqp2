@@ -7,7 +7,6 @@ from scripts.core.base_classes.ui import UI
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, GAP_SIZE, SceneType
 from scripts.core.utility import next_number_in_loop
 
-
 if TYPE_CHECKING:
     from typing import Dict, List, Optional, Type, Union
 

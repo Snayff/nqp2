@@ -7,12 +7,12 @@ import pygame
 
 from scripts.core.base_classes.ui import UI
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontEffects, FontType, GAP_SIZE, SceneType
-
 from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.panel import Panel
 
 if TYPE_CHECKING:
     from typing import Dict, List, Optional, Type, Union
+
     from scripts.core.game import Game
     from scripts.scenes.run_setup.scene import RunSetupScene
 

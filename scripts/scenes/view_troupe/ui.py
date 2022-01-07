@@ -10,6 +10,7 @@ from scripts.ui_elements.unit_stats_frame import UnitStatsFrame
 
 if TYPE_CHECKING:
     from typing import Dict, List, Optional, Type, Union
+
     from scripts.core.game import Game
     from scripts.scenes.view_troupe.scene import ViewTroupeScene
 
