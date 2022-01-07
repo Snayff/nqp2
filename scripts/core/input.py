@@ -124,7 +124,7 @@ class Input:
 
         if self.mode == "typing":
             if self.states["backspace"]:
-                self.backspace_hold += self.game.window.dt
+                self.backspace_hold += self.game.window.delta_time
                 if self.backspace_hold > 0.7:
                     self.backspace_hold -= 0.035
                     self.char_buffer.append("backspace")

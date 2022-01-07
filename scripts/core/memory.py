@@ -66,7 +66,7 @@ class Memory:
 
         # record duration
         end_time = time.time()
-        logging.info(f"Memory: initialised in {format(end_time - start_time, '.2f')}s.")
+        logging.debug(f"Memory: initialised in {format(end_time - start_time, '.2f')}s.")
 
     def amend_gold(self, amount: int) -> int:
         """

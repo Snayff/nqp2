@@ -31,7 +31,7 @@ class OverworldScene(Scene):
 
         super().__init__(game, SceneType.OVERWORLD)
 
-        self.ui: OverworldUI = OverworldUI(game)
+        self.ui: OverworldUI = OverworldUI(game, self)
 
         self.node_container: Optional[NodeContainer] = None
         self.state: OverworldState = OverworldState.LOADING
@@ -76,7 +76,7 @@ class OverworldScene(Scene):
         """
         Reset values to initial state. Does not overwrite the map.
         """
-        self.ui = OverworldUI(self.game)
+        self.ui = OverworldUI(self.game, self)
 
         self.state = OverworldState.LOADING
         self.game.memory.level = 1

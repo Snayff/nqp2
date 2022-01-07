@@ -6,12 +6,13 @@ from typing import TYPE_CHECKING
 import pygame
 
 from scripts.core.base_classes.ui import UI
-from scripts.core.constants import DEFAULT_IMAGE_SIZE, GAP_SIZE, SceneType
-from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.unit_stats_frame import UnitStatsFrame
 
 if TYPE_CHECKING:
+    from typing import Dict, List, Optional, Type, Union
+
     from scripts.core.game import Game
+    from scripts.scenes.view_troupe.scene import ViewTroupeScene
 
 __all__ = ["ViewTroupeUI"]
 
@@ -21,13 +22,17 @@ class ViewTroupeUI(UI):
     Represent the UI of the ViewTroupeScene.
     """
 
-    def __init__(self, game: Game):
-        super().__init__(game)
+    def __init__(self, game: Game, parent_scene: ViewTroupeScene):
+        super().__init__(game, True)
+        self.parent_scene: ViewTroupeScene = parent_scene
 
         self.set_instruction_text(f"Press X to exit the troupe overview.")
 
     def update(self, delta_time: float):
         super().update(delta_time)
+
+    def process_input(self, delta_time: float):
+        super().process_input(delta_time)
 
         # generic input
         if self.game.input.states["down"]:

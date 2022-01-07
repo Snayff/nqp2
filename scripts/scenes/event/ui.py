@@ -11,9 +11,10 @@ from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.panel import Panel
 
 if TYPE_CHECKING:
-    from typing import List
+    from typing import Dict, List, Optional, Type, Union
 
     from scripts.core.game import Game
+    from scripts.scenes.event.scene import EventScene
 
 __all__ = ["EventUI"]
 
@@ -23,8 +24,9 @@ class EventUI(UI):
     Represent the UI of the EventScene.
     """
 
-    def __init__(self, game: Game):
-        super().__init__(game)
+    def __init__(self, game: Game, parent_scene: EventScene):
+        super().__init__(game, True)
+        self.parent_scene: EventScene = parent_scene
 
         self.selected_option: str = ""  # the option selected
 
@@ -33,7 +35,9 @@ class EventUI(UI):
     def update(self, delta_time: float):
         super().update(delta_time)
 
-        # generic input
+    def process_input(self, delta_time: float):
+        super().process_input(delta_time)
+
         # selection in panel
         if self.game.input.states["down"]:
             self.game.input.states["down"] = False

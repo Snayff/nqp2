@@ -48,7 +48,7 @@ class CombatScene(Scene):
 
         self.enemy_generator = EnemyCombatantsGenerator(self.game)
 
-        self.ui: CombatUI = CombatUI(self.game)
+        self.ui: CombatUI = CombatUI(self.game, self)
 
         self.actions = actions
         self.skill_cooldowns = []
@@ -84,7 +84,7 @@ class CombatScene(Scene):
     def update(self, delta_time: float):
         super().update(delta_time)
 
-        self.dt = self.combat_speed * self.game.window.dt
+        self.dt = self.combat_speed * self.game.window.delta_time
 
         if not self.force_idle:
             self.terrain.update(self.dt)
@@ -92,7 +92,7 @@ class CombatScene(Scene):
         self.particles.update(self.dt)
 
         if self.combat_ending_timer != -1:
-            self.combat_ending_timer += self.game.window.dt
+            self.combat_ending_timer += self.game.window.delta_time
             self.combat_speed = 0.3 - (0.05 * self.combat_ending_timer)
             self.camera.zoom = 1 + (self.combat_ending_timer / 2)
             self.force_idle = True
@@ -107,12 +107,12 @@ class CombatScene(Scene):
                 self.camera.pos[0] += (
                     ((focus_point[0] - self.game.window.display.get_width() // 2) - self.camera.pos[0])
                     / 10
-                    * (self.game.window.dt * 60)
+                    * (self.game.window.delta_time * 60)
                 )
                 self.camera.pos[1] += (
                     ((focus_point[1] - self.game.window.display.get_height() // 2) - self.camera.pos[1])
                     / 10
-                    * (self.game.window.dt * 60)
+                    * (self.game.window.delta_time * 60)
                 )
             if self.combat_ending_timer > 4:
                 self.end_combat()
@@ -208,7 +208,7 @@ class CombatScene(Scene):
 
         self.enemy_generator = EnemyCombatantsGenerator(self.game)
 
-        self.ui: CombatUI = CombatUI(self.game)
+        self.ui: CombatUI = CombatUI(self.game, self)
 
         self.actions = actions
 

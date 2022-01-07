@@ -23,7 +23,7 @@ class UnitManager:
 
     def update(self, delta_time: float):
         for unit in self.units:
-            unit.update(self.game.combat.dt)
+            unit.update(delta_time)
 
     def render(self, surface: pygame.Surface, offset=(0, 0)):
         for unit in self.units:
