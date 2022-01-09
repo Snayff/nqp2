@@ -3,8 +3,8 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 
-from scripts.core.constants import SceneType
 from scripts.core.base_classes.ui import UI
+from scripts.core.constants import SceneType
 
 if TYPE_CHECKING:
     from scripts.core.game import Game
@@ -17,8 +17,7 @@ class Scene(ABC):
     Handles Scene interactions and consolidates the rendering.
     """
 
-    def __init__(self,
-                 game: Game, scene_type: SceneType):
+    def __init__(self, game: Game, scene_type: SceneType):
         self.game: Game = game
 
         self.ui: UI = None  # ignore_type
