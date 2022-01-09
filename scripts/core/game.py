@@ -157,7 +157,7 @@ class Game:
             logging.warning(f"Scene activated [{scene_type}] was not in the scene_stack and so was added.")
             self.add_scene(scene_type)
 
-        scene.ui.activate()
+        scene.activate()
 
     def remove_scene(self, scene_type: SceneType):
         """
@@ -181,7 +181,7 @@ class Game:
             logging.warning(f"Scene to deactivate [{scene_type}] was not in the scene_stack and so was ignored.")
             return
 
-        scene.ui.deactivate()
+        scene.deactivate()
 
     def _scene_type_to_scene(self, scene_type: SceneType) -> Optional[Scene]:
         if scene_type == SceneType.MAIN_MENU:

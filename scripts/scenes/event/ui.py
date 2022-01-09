@@ -86,7 +86,7 @@ class EventUI(UI):
 
 
         # draw background
-        bg_surface = pygame.Surface((frame_line_width, window_height // 2), SRCALPHA)
+        bg_surface = pygame.Surface((frame_line_width, window_height - (start_y * 2)), SRCALPHA)
         bg_surface.fill((0, 0, 0, 150))
         frame = Frame(
             (start_x, start_y), image=bg_surface,  is_selectable=False

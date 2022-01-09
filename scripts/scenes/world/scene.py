@@ -48,11 +48,15 @@ class WorldScene(Scene):
         self.ui.update(delta_time)
         self.unit_manager.update(delta_time)
 
-    def reset(self):
-        self.ui = WorldUI(self.game, self)
+    def activate(self):
+        super().activate()
 
         self.add_player_units()
         self.align_unit_pos_to_unit_grid()
+
+
+    def reset(self):
+        self.ui = WorldUI(self.game, self)
 
     def add_player_units(self):
         """
