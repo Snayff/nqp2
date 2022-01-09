@@ -23,8 +23,6 @@ class Scene(ABC):
         self.ui: UI = None  # ignore_type
         self.type: SceneType = scene_type
 
-        self.is_active: bool = False
-
     @abstractmethod
     def update(self, delta_time: float):
         pass

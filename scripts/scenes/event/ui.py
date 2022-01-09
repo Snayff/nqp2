@@ -30,6 +30,8 @@ class EventUI(UI):
 
         self.selected_option: str = ""  # the option selected
 
+        self.is_active: bool = False
+
         self.set_instruction_text("Choose what to do next.")
 
     def update(self, delta_time: float):

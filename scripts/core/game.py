@@ -152,7 +152,7 @@ class Game:
         Activate a scene
         """
         scene = self._scene_type_to_scene(scene_type)
-        scene.is_active = True
+        scene.ui.is_active = True
 
         if scene not in self.scene_stack:
             logging.warning(f"Scene set to active [{scene_type.name}] is not in the scene stack.")
