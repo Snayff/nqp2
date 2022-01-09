@@ -78,3 +78,14 @@ class WorldScene(Scene):
         for unit in self.unit_manager.units:
             entities += unit.entities
         return entities
+
+
+    def move_to_new_room(self):
+        """
+        stub
+        """
+        # TODO - write method
+
+        # once new room ready
+        if self.game.event.roll_for_event():
+            self.game.add_scene(SceneType.EVENT)

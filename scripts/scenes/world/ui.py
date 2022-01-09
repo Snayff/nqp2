@@ -52,6 +52,10 @@ class WorldUI(UI):
     def process_input(self, delta_time: float):
         super().process_input(delta_time)
 
+        # TODO  - replace when new room choice is in.
+        if self.game.input.states["backspace"]:
+            self.parent_scene.move_to_new_room()
+
     def render(self, surface: pygame.surface):
         self.camera.bind(self.terrain.boundaries)
         combat_surf = pygame.Surface(self.game.window.display.get_size())  # Not sure we need this?
