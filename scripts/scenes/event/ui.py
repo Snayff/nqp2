@@ -40,18 +40,13 @@ class EventUI(UI):
 
         # selection in panel
         if self.game.input.states["down"]:
-            self.game.input.states["down"] = False
-
             self.current_panel.select_next_element()
 
         if self.game.input.states["up"]:
-            self.game.input.states["up"] = False
-
             self.current_panel.select_previous_element()
 
         # view troupe
         if self.game.input.states["view_troupe"]:
-            self.game.input.states["view_troupe"] = False
             self.game.change_scene([SceneType.VIEW_TROUPE])
 
         # panel specific input
@@ -61,8 +56,6 @@ class EventUI(UI):
         elif self.current_panel == self.panels["exit"]:
 
             if self.game.input.states["select"]:
-                self.game.input.states["select"] = False
-
                 self.game.deactivate_scene(SceneType.EVENT)
 
                 self.game.event.state = EventState.MAKE_DECISION
