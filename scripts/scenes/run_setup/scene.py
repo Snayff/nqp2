@@ -72,14 +72,11 @@ class RunSetupScene(Scene):
         else:
             player_troupe.generate_specific_units(commander["starting_units"])
 
-        # generate map
-        # self.game.overworld.reset()
-        # self.game.overworld.generate_map()
-
         logging.info(f"Run starting now!")
 
         # change scene
-        self.game.change_scene(SceneType.WORLD)
+        self.game.change_scene([SceneType.WORLD])
+        self.game.add_scene(SceneType.EVENT, False)
 
     def reset(self):
         """

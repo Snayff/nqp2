@@ -30,8 +30,6 @@ class EventUI(UI):
 
         self.selected_option: str = ""  # the option selected
 
-        self.is_active: bool = False
-
         self.set_instruction_text("Choose what to do next.")
 
     def update(self, delta_time: float):
@@ -54,7 +52,7 @@ class EventUI(UI):
         # view troupe
         if self.game.input.states["view_troupe"]:
             self.game.input.states["view_troupe"] = False
-            self.game.change_scene(SceneType.VIEW_TROUPE)
+            self.game.change_scene([SceneType.VIEW_TROUPE])
 
         # panel specific input
         if self.current_panel == self.panels["options"]:
@@ -65,7 +63,7 @@ class EventUI(UI):
             if self.game.input.states["select"]:
                 self.game.input.states["select"] = False
 
-                self.game.change_scene(SceneType.OVERWORLD)
+                self.game.change_scene([SceneType.OVERWORLD])
 
                 self.game.event.state = EventState.MAKE_DECISION
 

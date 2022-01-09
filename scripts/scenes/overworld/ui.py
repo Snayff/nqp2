@@ -182,7 +182,7 @@ class OverworldUI(UI):
 
             if self.game.input.states["view_troupe"]:
                 self.game.input.states["view_troupe"] = False
-                self.game.change_scene(SceneType.VIEW_TROUPE)
+                self.game.change_scene([SceneType.VIEW_TROUPE])
 
             if self.game.input.states["select"]:
                 self.game.input.states["select"] = False
@@ -200,7 +200,7 @@ class OverworldUI(UI):
                     self.elements["event_notification"].is_active = False
                     node_container.show_event_notification = False
 
-                    self.game.change_scene(SceneType.EVENT)
+                    self.game.change_scene([SceneType.EVENT])
 
     def render(self, surface: pygame.surface):
         state = self.game.overworld.state

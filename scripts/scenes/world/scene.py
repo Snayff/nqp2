@@ -88,4 +88,5 @@ class WorldScene(Scene):
 
         # once new room ready
         if self.game.event.roll_for_event():
-            self.game.add_scene(SceneType.EVENT)
+            self.game.event.load_random_event()
+            self.game.activate_scene(SceneType.EVENT)

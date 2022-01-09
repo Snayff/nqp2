@@ -118,7 +118,7 @@ class CombatScene(Scene):
                 self.end_combat()
                 if self.game.post_combat.state == PostCombatState.DEFEAT:
                     self.game.combat.process_defeat()
-                self.game.change_scene(SceneType.POST_COMBAT)
+                self.game.change_scene([SceneType.POST_COMBAT])
 
         # reduce skill cooldowns
         for i in range(len(self.skill_cooldowns)):
@@ -321,7 +321,7 @@ class CombatScene(Scene):
 
         # transition to post-combat
         self.game.post_combat.state = PostCombatState.DEFEAT
-        self.game.change_scene(SceneType.POST_COMBAT)
+        self.game.change_scene([SceneType.POST_COMBAT])
 
     def process_victory(self):
         """
@@ -335,4 +335,4 @@ class CombatScene(Scene):
             # self.combat_category == "boss":
             new_state = PostCombatState.BOSS_VICTORY
         self.game.post_combat.state = new_state
-        self.game.change_scene(SceneType.POST_COMBAT)
+        self.game.change_scene([SceneType.POST_COMBAT])

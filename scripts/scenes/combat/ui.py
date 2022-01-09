@@ -154,7 +154,7 @@ class CombatUI(UI):
 
         if self.game.input.states["view_troupe"]:
             self.game.input.states["view_troupe"] = False
-            self.game.change_scene(SceneType.VIEW_TROUPE)
+            self.game.change_scene([SceneType.VIEW_TROUPE])
 
     @property
     def button_count(self):

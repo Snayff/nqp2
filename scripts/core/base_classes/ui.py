@@ -42,6 +42,8 @@ class UI(ABC):
         self.temporary_instruction_timer: float = 0.0
         self.instruction_text: str = ""
 
+        self.is_active: bool = False
+
     def update(self, delta_time: float):
         self.temporary_instruction_timer -= delta_time
 
@@ -63,6 +65,13 @@ class UI(ABC):
     def rebuild_ui(self):
         self.elements = {}
         self.panels = {}
+
+    def activate(self):
+        """
+        Activate the UI. Rebuilds and begins rendering the UI.
+        """
+        self.rebuild_ui()
+        self.is_active = True
 
     def refresh_info(self):
         pass

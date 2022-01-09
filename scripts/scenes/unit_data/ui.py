@@ -116,7 +116,7 @@ class UnitDataUI(UI):
 
                 if button == buttons["cancel"]:
                     # go back to previous scene
-                    self.game.change_scene(self.game.dev_unit_data.previous_scene_type)
+                    self.game.change_scene([self.game.dev_unit_data.previous_scene_type])
 
     def render(self, surface: pygame.surface):
         window_width = self.game.window.width

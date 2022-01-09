@@ -49,4 +49,4 @@ class MainMenuScene(Scene):
         """
         Prep the game for a new, fresh game and move to run setup scene.
         """
-        self.game.change_scene(SceneType.RUN_SETUP)
+        self.game.change_scene([SceneType.RUN_SETUP])
