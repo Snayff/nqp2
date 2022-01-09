@@ -37,6 +37,7 @@ class EventScene(Scene):
         self.active_event: Dict = {}
         self.event_resources = {}  # resources needed for the event
         self.triggered_results: List[str] = []  # the list of result strings from the selected option
+        self.events_triggered: int = 0  # num events triggered this level
 
         # record duration
         end_time = time.time()
@@ -235,3 +236,17 @@ class EventScene(Scene):
 
         else:
             logging.warning(f"Result key specified ({result_key}) is not known and was ignored.")
+
+    def roll_for_event(self) -> bool:
+        """
+        Roll to see if an event will be triggered when transitioning between nodes. True for event due.
+        """
+        # check if we have hit the limit of events
+        if self.events_triggered >= self.game.data.config["overworld"]["max_events_per_level"]:
+            return False
+
+        if self.game.rng.roll() < self.game.data.config["overworld"]["chance_of_event"]:
+            return True
+
+        # safety catch
+        return False

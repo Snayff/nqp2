@@ -48,7 +48,7 @@ class InnUI(UI):
         # generic input
         if self.game.input.states["view_troupe"]:
             self.game.input.states["view_troupe"] = False
-            self.game.change_scene(SceneType.VIEW_TROUPE)
+            self.game.change_scene([SceneType.VIEW_TROUPE])
 
         # panel specific input
         if self.current_panel == self.panels["buy"]:
@@ -212,7 +212,7 @@ class InnUI(UI):
             self.game.input.states["select"] = False
 
             # return to overworld
-            self.game.change_scene(SceneType.OVERWORLD)
+            self.game.change_scene([SceneType.OVERWORLD])
 
         # return to selections
         if self.game.input.states["cancel"]:

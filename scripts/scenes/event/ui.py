@@ -4,6 +4,7 @@ import logging
 from typing import TYPE_CHECKING
 
 import pygame
+from pygame import SRCALPHA
 
 from scripts.core.base_classes.ui import UI
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, EventState, FontEffects, FontType, GAP_SIZE, SceneType
@@ -40,19 +41,14 @@ class EventUI(UI):
 
         # selection in panel
         if self.game.input.states["down"]:
-            self.game.input.states["down"] = False
-
             self.current_panel.select_next_element()
 
         if self.game.input.states["up"]:
-            self.game.input.states["up"] = False
-
             self.current_panel.select_previous_element()
 
         # view troupe
         if self.game.input.states["view_troupe"]:
-            self.game.input.states["view_troupe"] = False
-            self.game.change_scene(SceneType.VIEW_TROUPE)
+            self.game.change_scene([SceneType.VIEW_TROUPE])
 
         # panel specific input
         if self.current_panel == self.panels["options"]:
@@ -61,9 +57,7 @@ class EventUI(UI):
         elif self.current_panel == self.panels["exit"]:
 
             if self.game.input.states["select"]:
-                self.game.input.states["select"] = False
-
-                self.game.change_scene(SceneType.OVERWORLD)
+                self.game.deactivate_scene(SceneType.EVENT)
 
                 self.game.event.state = EventState.MAKE_DECISION
 
@@ -77,21 +71,28 @@ class EventUI(UI):
     def rebuild_ui(self):
         super().rebuild_ui()
 
+        # positions
+        start_x = 18
+        start_y = 50
+
+        # values needed for multiple elements
         event = self.game.event.active_event
         show_event_result = self.game.data.options["show_event_option_result"]
         state = self.game.event.state
         window_width = self.game.window.width
         window_height = self.game.window.height
         create_font = self.game.assets.create_font
+        frame_line_width = window_width - (start_x * 2)
 
-        # positions
-        start_x = 20
-        start_y = 50
+        # draw background
+        bg_surface = pygame.Surface((frame_line_width, window_height - (start_y * 2)), SRCALPHA)
+        bg_surface.fill((0, 0, 0, 150))
+        frame = Frame((start_x, start_y), image=bg_surface, is_selectable=False)
+        self.elements[f"background"] = frame
 
         # draw description
-        current_x = start_x
+        current_x = start_x + 2
         current_y = start_y
-        frame_line_width = window_width - (current_x * 2)
         fancy_font = self.game.assets.create_fancy_font(event["description"], font_effects=[FontEffects.FADE_IN])
         font_height = fancy_font.line_height
         max_height = ((window_height // 2) - current_y) - font_height

@@ -90,7 +90,7 @@
             "blank": 0.2
         },
         "chance_node_type_hidden": 10,
-        "chance_of_event": 20,
+        "chance_of_event": 100,
         "max_events_per_level": 5,
         "event_notification_duration": 3.0
     },

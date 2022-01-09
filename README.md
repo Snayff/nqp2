@@ -20,8 +20,8 @@ Quality of last commit:
 
 Progress:
 
-![GitHub milestone](https://img.shields.io/github/milestones/progress/Snayff/nqp2/1)
-![GitHub commits since tagged version](https://img.shields.io/github/commits-since/Snayff/nqp2/0.0.1)
+[![GitHub milestone](https://img.shields.io/github/milestones/progress/Snayff/nqp2/1)](https://github.com/Snayff/nqp2/milestone/1)
+[![GitHub commits since tagged version](https://img.shields.io/github/commits-since/Snayff/nqp2/0.0.1)](https://github.com/Snayff/nqp2/commits/develop)
 
 ## Who dunnit? 
 
@@ -29,7 +29,7 @@ Design, writing and code by [Snayff].
 
 Design and writing by [PuddingChef]. 
 
-Additional code by [DaFluffyPotato].
+Additional code by [DaFluffyPotato], [douglascdev] and [bitcraft].
 
 Art by [Aleksander Makarov].
 
@@ -58,6 +58,8 @@ See the [Design Document] for what's planned, or the [wiki] for details on the w
 [Snayff]: https://github.com/Snayff
 [PuddingChef]: https://github.com/PuddingChef
 [DaFluffyPotato]: http://dafluffypotato.com
+[douglascdev]: https://github.com/douglascdev
+[bitcraft]: https://github.com/bitcraft
 [Aleksander Makarov]: https://iknowkingrabbit.itch.io/
 [Design Document]: https://docs.google.com/document/d/1J6PRu0flNJGRrUqQwEJYH1CG7n4FQ4PSB_9IyDORwR4/edit#
 [wiki]: https://github.com/Snayff/nqp2/wiki

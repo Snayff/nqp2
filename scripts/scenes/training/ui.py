@@ -45,7 +45,7 @@ class TrainingUI(UI):
         # view troupe
         if self.game.input.states["view_troupe"]:
             self.game.input.states["view_troupe"] = False
-            self.game.change_scene(SceneType.VIEW_TROUPE)
+            self.game.change_scene([SceneType.VIEW_TROUPE])
 
         # panel specific input
         if self.current_panel == self.panels["upgrades"]:
@@ -61,7 +61,7 @@ class TrainingUI(UI):
                 self.selected_unit = None
                 self.selected_upgrade = None
 
-                self.game.change_scene(SceneType.OVERWORLD)
+                self.game.change_scene([SceneType.OVERWORLD])
 
     def render(self, surface: pygame.surface):
 

@@ -49,7 +49,7 @@ class ViewTroupeUI(UI):
             self.game.input.states["cancel"] = False
 
             # return to previous scene
-            self.game.change_scene(self.game.troupe.previous_scene_type)
+            self.game.change_scene([self.game.troupe.previous_scene_type])
 
     def render(self, surface: pygame.surface):
         # show core info

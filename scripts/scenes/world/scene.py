@@ -48,11 +48,14 @@ class WorldScene(Scene):
         self.ui.update(delta_time)
         self.unit_manager.update(delta_time)
 
-    def reset(self):
-        self.ui = WorldUI(self.game, self)
+    def activate(self):
+        super().activate()
 
         self.add_player_units()
         self.align_unit_pos_to_unit_grid()
+
+    def reset(self):
+        self.ui = WorldUI(self.game, self)
 
     def add_player_units(self):
         """
@@ -78,3 +81,14 @@ class WorldScene(Scene):
         for unit in self.unit_manager.units:
             entities += unit.entities
         return entities
+
+    def move_to_new_room(self):
+        """
+        stub
+        """
+        # TODO - write method
+
+        # once new room ready
+        if self.game.event.roll_for_event():
+            self.game.event.load_random_event()
+            self.game.activate_scene(SceneType.EVENT)

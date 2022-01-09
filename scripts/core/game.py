@@ -71,14 +71,14 @@ class Game:
         self.dev_unit_data: UnitDataScene = UnitDataScene(self)
         self.dev_gallery: GalleryScene = GalleryScene(self)
 
-        self.active_scenes: List[Scene] = []
+        self.scene_stack: List[Scene] = []
 
         self.state: GameState = GameState.PLAYING
 
         self.master_clock = 0
 
-        # activate main menu
-        self.activate_scene(SceneType.MAIN_MENU)
+        # activate main men
+        self.add_scene(SceneType.MAIN_MENU)
 
         # record duration
         end_time = time.time()
@@ -92,8 +92,9 @@ class Game:
         self.master_clock += delta_time
 
         self.input.update(delta_time)
-        for scene in self.active_scenes:
-            scene.update(delta_time)
+        for scene in self.scene_stack:
+            if scene.ui.is_active:
+                scene.update(delta_time)
         self.debug.update(delta_time)
 
     def _render(self):
@@ -101,11 +102,14 @@ class Game:
         self.window.refresh()
 
         surface = self.window.display
-        for scene in self.active_scenes:
-            # handle those scenes that still have render methods
-            if scene in (self.combat, self.overworld):
-                scene.render(surface)
-            scene.ui.render(surface)
+        for scene in self.scene_stack:
+            if scene.ui.is_active:
+                # handle those scenes that still have render methods
+                # TODO - remove all render methods from Scene
+                if scene in (self.combat, self.overworld):
+                    scene.render(surface)
+                scene.ui.render(surface)
+
         self.debug.render()  # always last so it is on top
 
     def run(self):
@@ -117,17 +121,18 @@ class Game:
         delta_time = self.window.delta_time
 
         # process input in each scene, from the top of the stack, until a scene blocks input
-        for scene in reversed(self.active_scenes):
-            scene.ui.process_input(delta_time)
-            if scene.ui.block_onward_input:
-                break
+        for scene in reversed(self.scene_stack):
+            if scene.ui.is_active:
+                scene.ui.process_input(delta_time)
+                if scene.ui.block_onward_input:
+                    break
 
         self.input.reset()
 
     def quit(self):
         self.state = GameState.EXITING
 
-    def activate_scene(self, scene_type: SceneType):
+    def add_scene(self, scene_type: SceneType, activate: bool = True):
         """
         Add a scene to the scene stack
         """
@@ -136,23 +141,47 @@ class Game:
 
         scene = self._scene_type_to_scene(scene_type)
 
-        # reset and rebuild scene
-        scene.reset()
-        scene.ui.rebuild_ui()
-
         # add scene to active list
+        self.scene_stack.append(scene)
 
-        self.active_scenes.append(scene)
+        if activate:
+            self.activate_scene(scene_type)
 
-    def deactivate_scene(self, scene_type: SceneType):
+    def activate_scene(self, scene_type: SceneType):
         """
-        Remove a scene from the scene stack
+        Activate a scene. If specified scene isnt in the scene stack it is added.
+        """
+        scene = self._scene_type_to_scene(scene_type)
+
+        if scene not in self.scene_stack:
+            logging.warning(f"Scene activated [{scene_type}] was not in the scene_stack and so was added.")
+            self.add_scene(scene_type)
+
+        scene.activate()
+
+    def remove_scene(self, scene_type: SceneType):
+        """
+        Remove a scene from the scene stack. Also deactivates
         """
         # reset input to ensure no input carries over between scenes
         self.input.reset()
 
         scene = self._scene_type_to_scene(scene_type)
-        self.active_scenes.remove(scene)
+
+        # clean up
+        self.scene_stack.remove(scene)
+
+    def deactivate_scene(self, scene_type: SceneType):
+        """
+        Deactivate a scene
+        """
+        scene = self._scene_type_to_scene(scene_type)
+
+        if scene not in self.scene_stack:
+            logging.warning(f"Scene to deactivate [{scene_type}] was not in the scene_stack and so was ignored.")
+            return
+
+        scene.deactivate()
 
     def _scene_type_to_scene(self, scene_type: SceneType) -> Optional[Scene]:
         if scene_type == SceneType.MAIN_MENU:
@@ -194,14 +223,15 @@ class Game:
 
         return scene
 
-    def change_scene(self, scene_type: SceneType):
+    def change_scene(self, scene_types: List[SceneType]):
         """
-        Deactivate all active scenes and activate the given scene.
+        Deactivate all active scenes and activate the given scenes.
         """
-        for scene in self.active_scenes:
-            self.deactivate_scene(scene.type)
+        for scene in self.scene_stack:
+            self.remove_scene(scene.type)
 
-        self.activate_scene(scene_type)
+        for scene_type in scene_types:
+            self.add_scene(scene_type)
 
     def old_change_scene(self, scene_type: SceneType):
         """

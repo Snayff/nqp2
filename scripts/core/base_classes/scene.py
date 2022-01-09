@@ -22,6 +22,7 @@ class Scene(ABC):
 
         self.ui: UI = None  # ignore_type
         self.type: SceneType = scene_type
+        self.is_active: bool = False
 
     @abstractmethod
     def update(self, delta_time: float):
@@ -30,3 +31,17 @@ class Scene(ABC):
     @abstractmethod
     def reset(self):
         pass
+
+    def activate(self):
+        """
+        Activate the Scene. Propagates to the scene's UI.
+        """
+        self.is_active = True
+        self.ui.activate()
+
+    def deactivate(self):
+        """
+        Deactivate the Scene. Propagates to the scene's UI.
+        """
+        self.is_active = False
+        self.ui.deactivate()
