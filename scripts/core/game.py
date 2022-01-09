@@ -159,9 +159,9 @@ class Game:
 
         scene.ui.activate()
 
-    def deactivate_scene(self, scene_type: SceneType):
+    def remove_scene(self, scene_type: SceneType):
         """
-        Remove a scene from the scene stack
+        Remove a scene from the scene stack. Also deactivates
         """
         # reset input to ensure no input carries over between scenes
         self.input.reset()
@@ -170,6 +170,18 @@ class Game:
 
         # clean up
         self.scene_stack.remove(scene)
+
+    def deactivate_scene(self, scene_type: SceneType):
+        """
+        Deactivate a scene
+        """
+        scene = self._scene_type_to_scene(scene_type)
+
+        if scene not in self.scene_stack:
+            logging.warning(f"Scene to deactivate [{scene_type}] was not in the scene_stack and so was ignored.")
+            return
+
+        scene.ui.deactivate()
 
     def _scene_type_to_scene(self, scene_type: SceneType) -> Optional[Scene]:
         if scene_type == SceneType.MAIN_MENU:
@@ -216,7 +228,7 @@ class Game:
         Deactivate all active scenes and activate the given scenes.
         """
         for scene in self.scene_stack:
-            self.deactivate_scene(scene.type)
+            self.remove_scene(scene.type)
 
         for scene_type in scene_types:
             self.add_scene(scene_type)

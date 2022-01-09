@@ -63,7 +63,7 @@ class EventUI(UI):
             if self.game.input.states["select"]:
                 self.game.input.states["select"] = False
 
-                self.game.change_scene([SceneType.OVERWORLD])
+                self.game.deactivate_scene(SceneType.EVENT)
 
                 self.game.event.state = EventState.MAKE_DECISION
 

@@ -73,6 +73,12 @@ class UI(ABC):
         self.rebuild_ui()
         self.is_active = True
 
+    def deactivate(self):
+        """
+        Deactivate the UI. R
+        """
+        self.is_active = False
+
     def refresh_info(self):
         pass
 
