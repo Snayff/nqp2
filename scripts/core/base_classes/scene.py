@@ -32,7 +32,6 @@ class Scene(ABC):
     def reset(self):
         pass
 
-
     def activate(self):
         """
         Activate the Scene. Propagates to the scene's UI.

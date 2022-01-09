@@ -84,13 +84,10 @@ class EventUI(UI):
         create_font = self.game.assets.create_font
         frame_line_width = window_width - (start_x * 2)
 
-
         # draw background
         bg_surface = pygame.Surface((frame_line_width, window_height - (start_y * 2)), SRCALPHA)
         bg_surface.fill((0, 0, 0, 150))
-        frame = Frame(
-            (start_x, start_y), image=bg_surface,  is_selectable=False
-        )
+        frame = Frame((start_x, start_y), image=bg_surface, is_selectable=False)
         self.elements[f"background"] = frame
 
         # draw description

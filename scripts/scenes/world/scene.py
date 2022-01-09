@@ -54,7 +54,6 @@ class WorldScene(Scene):
         self.add_player_units()
         self.align_unit_pos_to_unit_grid()
 
-
     def reset(self):
         self.ui = WorldUI(self.game, self)
 
@@ -82,7 +81,6 @@ class WorldScene(Scene):
         for unit in self.unit_manager.units:
             entities += unit.entities
         return entities
-
 
     def move_to_new_room(self):
         """
