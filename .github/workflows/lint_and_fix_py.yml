@@ -11,10 +11,16 @@ jobs:
           python-version: 3.8
       - name: Install black and isort
         run: pip install black isort
-      - name: Run black and isort
-        run: black --check scripts/ && isort --check-only scripts/
-      - name: If needed, commit black changes to the pull request
-        if: failure()
+      - name: Test if black and isort should reformat the scripts
+        id: black_isort_status
+        run: |
+          if black --check scripts/ && isort --check-only scripts/; then
+            echo "::set-output name=result::false"
+          else
+            echo "::set-output name=result::true"
+          fi
+      - name: If needed, commit black/isort changes to the pull request
+        if: steps.black_isort_status.outputs.result == 'true'
         run: |
           black "scripts/"
           isort "scripts/"
