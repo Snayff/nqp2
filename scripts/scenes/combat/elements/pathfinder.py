@@ -1,4 +1,5 @@
 import tcod
+from numpy import asarray, int32
 
 
 class Pathfinder:
@@ -7,6 +8,8 @@ class Pathfinder:
         self.terrain = terrain
 
     def set_map(self, map_data):
+        # The numpy asarray conversion is a temporary workaround for the bug described in issue 185
+        map_data = asarray(map_data, dtype=int32)
         self.tcod_map = tcod.path.AStar(map_data, diagonal=0)
 
     def route(self, start, end):
