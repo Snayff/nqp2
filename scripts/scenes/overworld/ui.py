@@ -202,7 +202,7 @@ class OverworldUI(UI):
 
                     self.game.change_scene([SceneType.EVENT])
 
-    def render(self, surface: pygame.surface):
+    def render(self, surface: pygame.Surface):
         state = self.game.overworld.state
 
         # show core info

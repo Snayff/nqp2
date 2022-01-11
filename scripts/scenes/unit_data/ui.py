@@ -118,7 +118,7 @@ class UnitDataUI(UI):
                     # go back to previous scene
                     self.game.change_scene([self.game.dev_unit_data.previous_scene_type])
 
-    def render(self, surface: pygame.surface):
+    def render(self, surface: pygame.Surface):
         window_width = self.game.window.width
         window_height = self.game.window.height
         create_font = self.game.assets.create_font

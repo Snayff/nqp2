@@ -28,7 +28,7 @@ class Panel:
         for element in self.elements:
             element.update(delta_time)
 
-    def render(self, surface: pygame.surface):
+    def render(self, surface: pygame.Surface):
         for element in self.elements:
             element.render(surface)
 

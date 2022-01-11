@@ -22,7 +22,7 @@ class Frame(UIElement):
     def __init__(
         self,
         pos: Tuple[int, int],
-        image: Optional[pygame.surface] = None,
+        image: Optional[pygame.Surface] = None,
         font: Optional[Union[Font, FancyFont]] = None,
         is_selectable: bool = False,
         max_width: Optional[int] = None,
@@ -30,7 +30,7 @@ class Frame(UIElement):
     ):
         super().__init__(pos, is_selectable)
 
-        self.image: Optional[pygame.surface] = image
+        self.image: Optional[pygame.Surface] = image
         self.font: Optional[Union[Font, FancyFont]] = font
         self.max_width: Optional[int] = max_width
         self.max_height: Optional[int] = max_height

@@ -59,7 +59,7 @@ class UI(ABC):
             self.game.debug.toggle_dev_console_visibility()
 
     @abstractmethod
-    def render(self, surface: pygame.surface):
+    def render(self, surface: pygame.Surface):
         pass
 
     def rebuild_ui(self):
@@ -148,7 +148,7 @@ class UI(ABC):
         panel.unselect_all_elements()
         self.panels["resources"] = panel
 
-    def draw_instruction(self, surface: pygame.surface):
+    def draw_instruction(self, surface: pygame.Surface):
         if self.temporary_instruction_text:
             text = self.temporary_instruction_text
             font = self.game.assets.create_font(FontType.NEGATIVE, text)
@@ -161,7 +161,7 @@ class UI(ABC):
         font.pos = (x, y)
         font.render(surface)
 
-    def draw_elements(self, surface: pygame.surface):
+    def draw_elements(self, surface: pygame.Surface):
         for name, element in self.elements.items():
             element.render(surface)
 

@@ -36,7 +36,7 @@ class TestUI(UI):
     def process_input(self, delta_time: float):
         super().process_input(delta_time)
 
-    def render(self, surface: pygame.surface):
+    def render(self, surface: pygame.Surface):
         # show core info
         self.draw_instruction(surface)
 

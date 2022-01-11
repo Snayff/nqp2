@@ -56,7 +56,7 @@ class WorldUI(UI):
         if self.game.input.states["backspace"]:
             self.parent_scene.move_to_new_room()
 
-    def render(self, surface: pygame.surface):
+    def render(self, surface: pygame.Surface):
         self.camera.bind(self.terrain.boundaries)
         combat_surf = pygame.Surface(self.game.window.display.get_size())  # Not sure we need this?
         self.terrain.render(combat_surf, self.camera.render_offset())

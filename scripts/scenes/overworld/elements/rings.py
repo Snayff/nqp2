@@ -55,7 +55,7 @@ class Rings(NodeContainer):
         while self._frame_timer > 0.66:
             self._frame_timer -= 0.66
 
-    def render(self, surface: pygame.surface):
+    def render(self, surface: pygame.Surface):
         # draw the nodes on top of the ring
         gap_between_rings = self.outer_radius / self.num_rings
         for ring_count, ring in enumerate(self.rings.values()):

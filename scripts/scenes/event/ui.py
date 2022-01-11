@@ -61,7 +61,7 @@ class EventUI(UI):
 
                 self.game.event.state = EventState.MAKE_DECISION
 
-    def render(self, surface: pygame.surface):
+    def render(self, surface: pygame.Surface):
         # show core info
         self.draw_instruction(surface)
 

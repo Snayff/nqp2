@@ -63,7 +63,7 @@ class TrainingUI(UI):
 
                 self.game.change_scene([SceneType.OVERWORLD])
 
-    def render(self, surface: pygame.surface):
+    def render(self, surface: pygame.Surface):
 
         # show core info
         self.draw_instruction(surface)
