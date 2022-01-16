@@ -34,8 +34,8 @@ class WorldScene(Scene):
         self.unit_manager: UnitManager = UnitManager(game)  # TODO - overhaul; perhaps merge into World
         self.unit_grid: List = []
 
-        # unit selection grid dimensions
-        self.grid_size: List[int, int] = [3, 8]  # col, row
+        # unit placement grid settings
+        self.grid_size: List[int, int] = [3, 6]  # col, row
         self.grid_cell_size: int = 32
         self.grid_margin: int = 32
 
