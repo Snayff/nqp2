@@ -1,0 +1,25 @@
+Welcome to Not Quite Paradise 2's documentation!
+===============================================================
+
+Last updated on |today| for version |version|.
+
+
+**API**
+
+
+..  toctree::
+    :maxdepth: 1
+
+    api/core/_core
+    api/scenes/_scenes
+    api/ui_elements/ui_elements
+
+
+
+**Developer Notes**
+
+
+..  toctree::
+    :maxdepth: 1
+
+    developer_notes/_developer_notes
