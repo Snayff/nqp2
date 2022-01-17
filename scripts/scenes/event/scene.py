@@ -127,7 +127,7 @@ class EventScene(Scene):
 
         return resource
 
-    def trigger_result(self):
+    def _trigger_result(self):
         """
         Trigger the result for the previously selected option.
 

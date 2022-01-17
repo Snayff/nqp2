@@ -52,7 +52,7 @@ class EventUI(UI):
 
         # panel specific input
         if self.current_panel == self.panels["options"]:
-            self.handle_options_input()
+            self._handle_options_input()
 
         elif self.current_panel == self.panels["exit"]:
 
@@ -220,7 +220,7 @@ class EventUI(UI):
 
         self.rebuild_resource_elements()
 
-    def handle_options_input(self):
+    def _handle_options_input(self):
         options = self._game.event.active_event["options"]
 
         # select option and trigger result
@@ -235,7 +235,7 @@ class EventUI(UI):
             self.selected_option = options[index]["text"]
 
             # trigger results and update display
-            self._game.event.trigger_result()
+            self._game.event._trigger_result()
             self._game.event.state = EventState.RESULT
             self.rebuild_ui()
 
