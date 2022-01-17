@@ -205,8 +205,8 @@ class Assets:
                 tileset_data[-1].append(
                     clip(
                         spritesheet,
-                        x,
-                        y,
+                        x * DEFAULT_IMAGE_SIZE,
+                        y * DEFAULT_IMAGE_SIZE,
                         DEFAULT_IMAGE_SIZE,
                         DEFAULT_IMAGE_SIZE
                     )
