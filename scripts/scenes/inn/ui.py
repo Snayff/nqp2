@@ -48,10 +48,10 @@ class InnUI(UI):
             self._game.change_scene([SceneType.VIEW_TROUPE])
 
         # panel specific input
-        if self.current_panel == self.panels["buy"]:
+        if self._current_panel == self._panels["buy"]:
             self._handle_buy_input()
 
-        elif self.current_panel == self.panels["exit"]:
+        elif self._current_panel == self._panels["exit"]:
             self._handle_exit_input()
 
     def render(self, surface: pygame.surface):
@@ -100,7 +100,7 @@ class InnUI(UI):
                     font=create_font(gold_font_type, str(unit.gold_cost)),
                     is_selectable=False,
                 )
-                self.elements["cost" + str(selection_counter)] = frame
+                self._elements["cost" + str(selection_counter)] = frame
 
             else:
                 text = f"Recruited"
@@ -114,7 +114,7 @@ class InnUI(UI):
                 (unit_x, current_y), image=stat_icon, font=create_font(font_type, text), is_selectable=is_selectable
             )
             frame.add_tier_background(unit.tier)
-            self.elements[f"{unit.id}_{selection_counter}"] = frame
+            self._elements[f"{unit.id}_{selection_counter}"] = frame
             panel_list.append(frame)
 
             # highlight selected unit
@@ -127,21 +127,21 @@ class InnUI(UI):
             current_y += icon_height + GAP_SIZE
 
         # add units to a panel
-        self.panels["buy"] = Panel(panel_list, True)
-        self.current_panel = self.panels["buy"]
-        self.current_panel.select_first_element()
+        self._panels["buy"] = Panel(panel_list, True)
+        self._current_panel = self._panels["buy"]
+        self._current_panel.select_first_element()
 
         # draw stat frame
         current_x += 150
         unit_stat_y = start_y + 20
         frame = UnitStatsFrame(self._game, (current_x, unit_stat_y), self._selected_unit)
-        self.elements["stat_frame"] = frame
+        self._elements["stat_frame"] = frame
 
         self.add_exit_button()
         self.rebuild_resource_elements()
 
     def refresh_info(self):
-        elements = self.elements
+        elements = self._elements
 
         if self._selected_unit is not None:
             elements["stat_frame"].set_unit(self._selected_unit)
@@ -150,15 +150,15 @@ class InnUI(UI):
         if self._game.input.states["down"]:
             self._game.input.states["down"] = False
 
-            self.current_panel.select_next_element()
-            self._selected_unit = list(self._game.inn.sale_troupe.units.values())[self.current_panel.selected_index]
+            self._current_panel.select_next_element()
+            self._selected_unit = list(self._game.inn.sale_troupe.units.values())[self._current_panel.selected_index]
             self.refresh_info()  # for stat panel
 
         if self._game.input.states["up"]:
             self._game.input.states["up"] = False
 
-            self.current_panel.select_previous_element()
-            self._selected_unit = list(self._game.inn.sale_troupe.units.values())[self.current_panel.selected_index]
+            self._current_panel.select_previous_element()
+            self._selected_unit = list(self._game.inn.sale_troupe.units.values())[self._current_panel.selected_index]
             self.refresh_info()  # for stat panel
 
         # select option and trigger result
@@ -167,7 +167,7 @@ class InnUI(UI):
 
             # get selected unit
             units = list(self._game.inn.sale_troupe.units.values())
-            unit = units[self.current_panel.selected_index]
+            unit = units[self._current_panel.selected_index]
 
             # is available
             if self._game.inn.units_available[unit.id]:

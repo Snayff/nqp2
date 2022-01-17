@@ -38,12 +38,12 @@ class ViewTroupeUI(UI):
         if self._game.input.states["down"]:
             self._game.input.states["down"] = False
 
-            self.current_panel.select_next_element()
+            self._current_panel.select_next_element()
 
         if self._game.input.states["up"]:
             self._game.input.states["up"] = False
 
-            self.current_panel.select_previous_element()
+            self._current_panel.select_previous_element()
 
         if self._game.input.states["cancel"]:
             self._game.input.states["cancel"] = False
@@ -73,7 +73,7 @@ class ViewTroupeUI(UI):
         for count, unit in enumerate(units.values()):
 
             frame = UnitStatsFrame(self._game, (current_x, current_y), unit, False)
-            self.elements[f"{unit.id}"] = frame
+            self._elements[f"{unit.id}"] = frame
             # if we need to refer back to this we will need to change key
 
             current_x += 70

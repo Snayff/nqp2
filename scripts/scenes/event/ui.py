@@ -41,20 +41,20 @@ class EventUI(UI):
 
         # selection in panel
         if self._game.input.states["down"]:
-            self.current_panel.select_next_element()
+            self._current_panel.select_next_element()
 
         if self._game.input.states["up"]:
-            self.current_panel.select_previous_element()
+            self._current_panel.select_previous_element()
 
         # view troupe
         if self._game.input.states["view_troupe"]:
             self._game.change_scene([SceneType.VIEW_TROUPE])
 
         # panel specific input
-        if self.current_panel == self.panels["options"]:
+        if self._current_panel == self._panels["options"]:
             self._handle_options_input()
 
-        elif self.current_panel == self.panels["exit"]:
+        elif self._current_panel == self._panels["exit"]:
 
             if self._game.input.states["select"]:
                 self._game.deactivate_scene(SceneType.EVENT)
@@ -88,7 +88,7 @@ class EventUI(UI):
         bg_surface = pygame.Surface((frame_line_width, window_height - (start_y * 2)), SRCALPHA)
         bg_surface.fill((0, 0, 0, 150))
         frame = Frame((start_x, start_y), image=bg_surface, is_selectable=False)
-        self.elements[f"background"] = frame
+        self._elements[f"background"] = frame
 
         # draw description
         current_x = start_x + 2
@@ -103,7 +103,7 @@ class EventUI(UI):
             max_width=frame_line_width,
             is_selectable=False,
         )
-        self.elements["description"] = frame
+        self._elements["description"] = frame
 
         # move to half way down screen
         current_y = window_height // 2
@@ -114,7 +114,7 @@ class EventUI(UI):
         surface = pygame.Surface((line_width, 1))
         pygame.draw.line(surface, (117, 50, 168), (0, 0), (line_width, 0))
         frame = Frame((offset, current_y), surface)
-        self.elements["separator"] = frame
+        self._elements["separator"] = frame
 
         # increment position
         current_y += 10
@@ -135,7 +135,7 @@ class EventUI(UI):
                 frame = Frame(
                     (current_x, current_y), font=create_font(FontType.DEFAULT, option_text), is_selectable=True
                 )
-                self.elements[f"option_{counter}"] = frame
+                self._elements[f"option_{counter}"] = frame
                 panel_list.append(frame)
 
                 # increment position
@@ -157,7 +157,7 @@ class EventUI(UI):
             frame = Frame(
                 (current_x, current_y), font=create_font(FontType.DEFAULT, self._selected_option), is_selectable=True
             )
-            self.elements["selected_option"] = frame
+            self._elements["selected_option"] = frame
 
             # increment position
             current_y += frame.height + (GAP_SIZE * 2)
@@ -205,7 +205,7 @@ class EventUI(UI):
                 frame = Frame(
                     (current_x, current_y), image=result_image, font=create_font(font_type, text), is_selectable=False
                 )
-                self.elements[f"result_{counter}"] = frame
+                self._elements[f"result_{counter}"] = frame
                 panel_list.append(frame)
 
                 # increment position
@@ -227,7 +227,7 @@ class EventUI(UI):
         if self._game.input.states["select"]:
             self._game.input.states["select"] = False
 
-            index = self.current_panel.selected_index
+            index = self._current_panel.selected_index
             logging.info(f"Selected option {index}, {options[index]}.")
 
             # save results for later

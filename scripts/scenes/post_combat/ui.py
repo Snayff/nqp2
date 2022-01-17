@@ -182,7 +182,7 @@ class PostCombatUI(UI):
         current_x = (window_width // 2) - font.width
         current_y = start_y
         frame = Frame((current_x, current_y), font=font, is_selectable=False)
-        self.elements["header"] = frame
+        self._elements["header"] = frame
 
         # draw gold reward
         current_y += 50
@@ -194,7 +194,7 @@ class PostCombatUI(UI):
             font=create_font(FontType.DEFAULT, gold_reward),
             is_selectable=False,
         )
-        self.elements["gold_reward"] = frame
+        self._elements["gold_reward"] = frame
 
         # draw exit button
         self.add_exit_button()
@@ -215,7 +215,7 @@ class PostCombatUI(UI):
         current_x = (window_width // 2) - font.width
         current_y = start_y
         frame = Frame((current_x, current_y), font=font, is_selectable=False)
-        self.elements["header"] = frame
+        self._elements["header"] = frame
 
         # draw lost morale
         current_y = window_height // 2
@@ -227,7 +227,7 @@ class PostCombatUI(UI):
             font = create_font(FontType.DISABLED, text)
             current_x = (window_width // 2) - (font.width // 2)
             frame = Frame((current_x, current_y), font=font, is_selectable=False)
-            self.elements["morale"] = frame
+            self._elements["morale"] = frame
 
             # draw exit button
             self.add_exit_button("Abandon hope")
@@ -240,7 +240,7 @@ class PostCombatUI(UI):
                 font=create_font(FontType.NEGATIVE, str("-1")),
                 is_selectable=False,
             )
-            self.elements["morale"] = frame
+            self._elements["morale"] = frame
 
             # draw exit button
             self.add_exit_button()
@@ -355,7 +355,7 @@ class PostCombatUI(UI):
         current_x = (window_width // 2) - header_font.width
         current_y = start_y
         frame = Frame((current_x, current_y), font=header_font, is_selectable=False)
-        self.elements["header"] = frame
+        self._elements["header"] = frame
 
         # draw victory message
         current_y += 50
@@ -366,7 +366,7 @@ class PostCombatUI(UI):
             font=victory_font,
             is_selectable=False,
         )
-        self.elements["info"] = frame
+        self._elements["info"] = frame
 
         # draw exit button
         self.add_exit_button()

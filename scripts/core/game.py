@@ -2,11 +2,9 @@ from __future__ import annotations
 
 import logging
 import time
-from typing import List, Optional
 
 import pygame as pygame
 
-from scripts.core import utility
 from scripts.core.assets import Assets
 from scripts.core.base_classes.scene import Scene
 from scripts.core.constants import GameState, SceneType
@@ -27,6 +25,11 @@ from scripts.scenes.training.scene import TrainingScene
 from scripts.scenes.unit_data.scene import UnitDataScene
 from scripts.scenes.view_troupe.scene import ViewTroupeScene
 from scripts.scenes.world.scene import WorldScene
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from typing import List, Optional, Tuple, Union, Dict
 
 __all__ = ["Game"]
 

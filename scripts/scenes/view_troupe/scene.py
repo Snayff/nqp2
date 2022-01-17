@@ -2,14 +2,15 @@ from __future__ import annotations
 
 import logging
 import time
-from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.scene import Scene
 from scripts.core.constants import SceneType
 from scripts.scenes.view_troupe.ui import ViewTroupeUI
 
+from typing import TYPE_CHECKING
+
 if TYPE_CHECKING:
-    from typing import Dict
+    from typing import List, Optional, Tuple, Union, Dict
 
     from scripts.core.game import Game
 

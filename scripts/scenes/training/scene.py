@@ -2,14 +2,15 @@ from __future__ import annotations
 
 import logging
 import time
-from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.scene import Scene
 from scripts.core.constants import SceneType, TrainingState
 from scripts.scenes.training.ui import TrainingUI
 
+from typing import TYPE_CHECKING
+
 if TYPE_CHECKING:
-    from typing import Dict, List
+    from typing import List, Optional, Tuple, Union, Dict
 
     from scripts.core.game import Game
 
@@ -36,7 +37,7 @@ class TrainingScene(Scene):
         self.state: TrainingState = TrainingState.CHOOSE_UPGRADE
 
         self.upgrades_offered: List = []
-        self.upgrades_available: Dict[str, bool] = {}  # upgrade.type : is available
+        self.upgrades_available: Dict[str, bool] = {}  # upgrade.type : is_available
 
         # record duration
         end_time = time.time()
