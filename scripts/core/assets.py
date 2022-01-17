@@ -9,7 +9,7 @@ from typing import TYPE_CHECKING
 import pygame
 
 from scripts.core.constants import ASSET_PATH, DEFAULT_IMAGE_SIZE, FontEffects, FontType
-from scripts.core.utility import clamp
+from scripts.core.utility import clamp, clip
 from scripts.ui_elements.fancy_font import FancyFont
 from scripts.ui_elements.font import Font
 
@@ -203,10 +203,12 @@ class Assets:
             tileset_data.append([])
             for x in range(spritesheet.get_width() // DEFAULT_IMAGE_SIZE):
                 tileset_data[-1].append(
-                    self.clip(
+                    clip(
                         spritesheet,
-                        [x * DEFAULT_IMAGE_SIZE, y * DEFAULT_IMAGE_SIZE],
-                        [DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE],
+                        x,
+                        y,
+                        DEFAULT_IMAGE_SIZE,
+                        DEFAULT_IMAGE_SIZE
                     )
                 )
 
@@ -274,13 +276,3 @@ class Assets:
         data = json.load(f)
         f.close()
         return data
-
-    def clip(self, surf, pos, size):
-        x, y = pos
-        x_size, y_size = size
-
-        handle_surf = surf.copy()
-        clip_r = pygame.Rect(x, y, x_size, y_size)
-        handle_surf.set_clip(clip_r)
-        image = surf.subsurface(handle_surf.get_clip())
-        return image.copy()
