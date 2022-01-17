@@ -23,7 +23,7 @@ class Entity:
         injury_deduction = 1 - 0.1 * parent_unit.injuries
 
         self.unit: Unit = parent_unit
-        self.game = self.unit.game
+        self._game = self.unit._game
 
         self.pos = self.unit.pos.copy()
         self.team = self.unit.team
@@ -45,7 +45,7 @@ class Entity:
         self.action = "walk"
         self.frame_timer = 0
 
-        self.behaviour = self.game.data.behaviours.entity_behaviours[self.unit.default_behaviour](self)
+        self.behaviour = self._game.data.behaviours.entity_behaviours[self.unit.default_behaviour](self)
 
         self.attack_timer = 0
         self.pushed_by_log = []
@@ -71,26 +71,26 @@ class Entity:
         Splits the movement operation into smaller amounts to prevent issues with high speed movement.
         Calls the move sub-process anywhere from one to several times depending on the speed.
         """
-        move_count = int(abs(movement[0]) // self.game.combat.terrain.tile_size + 1)
-        move_count = max(int(abs(movement[1]) // self.game.combat.terrain.tile_size + 1), move_count)
+        move_count = int(abs(movement[0]) // self._game.combat.terrain.tile_size + 1)
+        move_count = max(int(abs(movement[1]) // self._game.combat.terrain.tile_size + 1), move_count)
         move_amount = [movement[0] / move_count, movement[1] / move_count]
         for i in range(move_count):
             self.sub_move(move_amount)
 
     def sub_move(self, movement):
         self.pos[0] += movement[0]
-        if self.game.combat.terrain.check_tile_solid(self.pos):
+        if self._game.combat.terrain.check_tile_solid(self.pos):
             if movement[0] > 0:
-                self.pos[0] = self.game.combat.terrain.tile_rect_px(self.pos).left - 1
+                self.pos[0] = self._game.combat.terrain.tile_rect_px(self.pos).left - 1
             if movement[0] < 0:
-                self.pos[0] = self.game.combat.terrain.tile_rect_px(self.pos).right + 1
+                self.pos[0] = self._game.combat.terrain.tile_rect_px(self.pos).right + 1
 
         self.pos[1] += movement[1]
-        if self.game.combat.terrain.check_tile_solid(self.pos):
+        if self._game.combat.terrain.check_tile_solid(self.pos):
             if movement[1] > 0:
-                self.pos[1] = self.game.combat.terrain.tile_rect_px(self.pos).top - 1
+                self.pos[1] = self._game.combat.terrain.tile_rect_px(self.pos).top - 1
             if movement[1] < 0:
-                self.pos[1] = self.game.combat.terrain.tile_rect_px(self.pos).bottom + 1
+                self.pos[1] = self._game.combat.terrain.tile_rect_px(self.pos).bottom + 1
 
     def dis(self, entity):
         """
@@ -114,7 +114,7 @@ class Entity:
     def deal_damage(self, amount, owner=None):
         # prevent damage if in godmode
         dmg_amt = 0
-        if not (self.team == "player" and "godmode" in self.game.memory.flags):
+        if not (self.team == "player" and "godmode" in self._game.memory.flags):
             dmg_amt = amount * (DEFENSE_SCALE / (DEFENSE_SCALE + self.defence))
             self.health -= dmg_amt
             self.unit.damage_received += dmg_amt
@@ -122,7 +122,7 @@ class Entity:
                 self.health = 0
                 if self.alive:
                     self.frame_timer = 0
-                    self.game.combat.last_unit_death = (self, owner if owner else self)
+                    self._game.combat.last_unit_death = (self, owner if owner else self)
                 self.alive = False
 
             # comment me out to remove the hit animation
@@ -130,7 +130,7 @@ class Entity:
                 self.action = "hit"
                 self.frame_timer = 0
 
-            self.game.combat.particles.create_particle_burst(self.pos.copy(), (255, 50, 100), random.randint(10, 16))
+            self._game.combat.particles.create_particle_burst(self.pos.copy(), (255, 50, 100), random.randint(10, 16))
 
             self.damaged_by_log = (self.damaged_by_log + [owner])[-30:]
 
@@ -144,14 +144,14 @@ class Entity:
                     self.attack_timer = 1 / self.attack_speed
 
                 # increase damage if in godmode
-                if self.team == "player" and "godmode" in self.game.memory.flags:
+                if self.team == "player" and "godmode" in self._game.memory.flags:
                     mod = 9999
                 else:
                     mod = 0
 
                 if self.use_ammo:
                     self.ammo -= 1
-                    self.game.combat.projectiles.add_projectile(self, entity)
+                    self._game.combat.projectiles.add_projectile(self, entity)
                     if self.ammo <= 0:
                         # switch to melee when out of ammo
                         self.use_ammo = False
@@ -174,7 +174,7 @@ class Entity:
 
         # make sure the attack action can be transferred after movement
         self.is_attacking = False
-        if (not self.game.combat.force_idle) and self.alive:
+        if (not self._game.combat.force_idle) and self.alive:
             self.behaviour.process(dt)
 
         if not self.alive:
@@ -198,7 +198,7 @@ class Entity:
 
         # handle collision
         if self.alive:
-            for entity in self.game.world.get_all_entities():
+            for entity in self._game.world.get_all_entities():
                 if (entity != self) and (entity.alive):
                     combined_size = self.size + entity.size
                     # horizontal scan
@@ -246,21 +246,21 @@ class Entity:
 
     @property
     def animation_frames(self):
-        return len(self.game.assets.unit_animations[self.type][self.action])
+        return len(self._game.assets.unit_animations[self.type][self.action])
 
     @property
     def img(self):
         frame = int(self.frame_timer / self.cycle_length * self.animation_frames) % self.animation_frames
 
         try:
-            img = self.game.assets.unit_animations[self.type][self.action][frame]
+            img = self._game.assets.unit_animations[self.type][self.action][frame]
         except KeyError:
             img = pygame.Surface((self.size * 2, self.size * 2))
 
         return img
 
     def render(self, surface: pygame.Surface, shift=(0, 0)):
-        if self.type in self.game.assets.unit_animations:
+        if self.type in self._game.assets.unit_animations:
             flip = False
             if self.pos_change[0] < 0:
                 flip = True

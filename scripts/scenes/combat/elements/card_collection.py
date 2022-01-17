@@ -5,7 +5,7 @@ from .card import Card
 
 class CardCollection:
     def __init__(self, game):
-        self.game = game
+        self._game = game
         self.cards = []
 
     def add_card(self, card):
@@ -16,7 +16,7 @@ class CardCollection:
         pass
 
     def shuffle(self):
-        self.game.rng.shuffle(self.cards)
+        self._game.rng.shuffle(self.cards)
 
     def draw(self, count=1, to=None):
         drawn_cards = []
@@ -42,15 +42,15 @@ class CardCollection:
     def from_troupe(self, troupe_src):
         self.cards = []
         for unit in troupe_src.units:
-            self.add_card(Card(self.game, troupe_src=troupe_src, troupe_id=unit))
+            self.add_card(Card(self._game, troupe_src=troupe_src, troupe_id=unit))
 
     # also just a tool for now
     def generate_actions(self, count):
         for i in range(count):
-            self.add_card(Card(self.game, "fireball"))
+            self.add_card(Card(self._game, "fireball"))
 
     def copy(self):
-        new_col = CardCollection(self.game)
+        new_col = CardCollection(self._game)
         for card in self.cards:
             new_col.add_card(card.copy())
         return new_col

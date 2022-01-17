@@ -41,5 +41,5 @@ class ViewTroupeScene(Scene):
         self.ui.update(delta_time)
 
     def reset(self):
-        self.ui = ViewTroupeUI(self.game, self)
+        self.ui = ViewTroupeUI(self._game, self)
         self.previous_scene_type = SceneType.VIEW_TROUPE

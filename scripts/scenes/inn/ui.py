@@ -46,9 +46,9 @@ class InnUI(UI):
         super().process_input(delta_time)
 
         # generic input
-        if self.game.input.states["view_troupe"]:
-            self.game.input.states["view_troupe"] = False
-            self.game.change_scene([SceneType.VIEW_TROUPE])
+        if self._game.input.states["view_troupe"]:
+            self._game.input.states["view_troupe"] = False
+            self._game.change_scene([SceneType.VIEW_TROUPE])
 
         # panel specific input
         if self.current_panel == self.panels["buy"]:
@@ -66,9 +66,9 @@ class InnUI(UI):
     def rebuild_ui(self):
         super().rebuild_ui()
 
-        scene = self.game.inn
+        scene = self._game.inn
         units_for_sale = list(scene.sale_troupe.units.values())
-        create_font = self.game.assets.create_font
+        create_font = self._game.assets.create_font
 
         start_x = 20
         start_y = 40
@@ -88,15 +88,15 @@ class InnUI(UI):
                 is_selectable = True
 
                 # check can afford
-                can_afford = unit.gold_cost <= self.game.memory.gold
-                has_enough_charisma = self.game.memory.commander.charisma_remaining > 0
+                can_afford = unit.gold_cost <= self._game.memory.gold
+                has_enough_charisma = self._game.memory.commander.charisma_remaining > 0
                 if can_afford and has_enough_charisma:
                     gold_font_type = FontType.DEFAULT
                 else:
                     gold_font_type = FontType.NEGATIVE
 
                 # draw gold cost
-                gold_icon = self.game.assets.get_image("stats", "gold", icon_size)
+                gold_icon = self._game.assets.get_image("stats", "gold", icon_size)
                 frame = Frame(
                     (current_x, current_y),
                     image=gold_icon,
@@ -112,7 +112,7 @@ class InnUI(UI):
 
             # draw unit icon and details
             unit_x = current_x + 50
-            stat_icon = self.game.assets.unit_animations[unit.type]["icon"][0]
+            stat_icon = self._game.assets.unit_animations[unit.type]["icon"][0]
             frame = Frame(
                 (unit_x, current_y), image=stat_icon, font=create_font(font_type, text), is_selectable=is_selectable
             )
@@ -137,7 +137,7 @@ class InnUI(UI):
         # draw stat frame
         current_x += 150
         unit_stat_y = start_y + 20
-        frame = UnitStatsFrame(self.game, (current_x, unit_stat_y), self.selected_unit)
+        frame = UnitStatsFrame(self._game, (current_x, unit_stat_y), self.selected_unit)
         self.elements["stat_frame"] = frame
 
         self.add_exit_button()
@@ -150,43 +150,43 @@ class InnUI(UI):
             elements["stat_frame"].set_unit(self.selected_unit)
 
     def handle_buy_input(self):
-        if self.game.input.states["down"]:
-            self.game.input.states["down"] = False
+        if self._game.input.states["down"]:
+            self._game.input.states["down"] = False
 
             self.current_panel.select_next_element()
-            self.selected_unit = list(self.game.inn.sale_troupe.units.values())[self.current_panel.selected_index]
+            self.selected_unit = list(self._game.inn.sale_troupe.units.values())[self.current_panel.selected_index]
             self.refresh_info()  # for stat panel
 
-        if self.game.input.states["up"]:
-            self.game.input.states["up"] = False
+        if self._game.input.states["up"]:
+            self._game.input.states["up"] = False
 
             self.current_panel.select_previous_element()
-            self.selected_unit = list(self.game.inn.sale_troupe.units.values())[self.current_panel.selected_index]
+            self.selected_unit = list(self._game.inn.sale_troupe.units.values())[self.current_panel.selected_index]
             self.refresh_info()  # for stat panel
 
         # select option and trigger result
-        if self.game.input.states["select"]:
-            self.game.input.states["select"] = False
+        if self._game.input.states["select"]:
+            self._game.input.states["select"] = False
 
             # get selected unit
-            units = list(self.game.inn.sale_troupe.units.values())
+            units = list(self._game.inn.sale_troupe.units.values())
             unit = units[self.current_panel.selected_index]
 
             # is available
-            if self.game.inn.units_available[unit.id]:
+            if self._game.inn.units_available[unit.id]:
 
                 # can we purchase
-                can_afford = unit.gold_cost <= self.game.memory.gold
-                has_enough_charisma = self.game.memory.commander.charisma_remaining > 0
+                can_afford = unit.gold_cost <= self._game.memory.gold
+                has_enough_charisma = self._game.memory.commander.charisma_remaining > 0
                 if can_afford and has_enough_charisma:
-                    self.game.inn.purchase_unit(unit)
+                    self._game.inn.purchase_unit(unit)
 
                     self.rebuild_ui()
 
                     self.set_instruction_text(f"{unit.id} recruited!", True)
 
                     # check if anything left available
-                    if True in self.game.inn.units_available.values():
+                    if True in self._game.inn.units_available.values():
                         self.set_instruction_text("Choose an upgrade to buy.")
                     else:
                         self.set_instruction_text("All sold out. Time to move on.")
@@ -201,21 +201,21 @@ class InnUI(UI):
                         self.set_instruction_text(f"You don't have enough charisma to recruit them.", True)
 
         # exit
-        if self.game.input.states["cancel"]:
-            self.game.input.states["cancel"] = False
+        if self._game.input.states["cancel"]:
+            self._game.input.states["cancel"] = False
 
             self.select_panel("exit")
 
     def handle_exit_input(self):
         # exit
-        if self.game.input.states["select"]:
-            self.game.input.states["select"] = False
+        if self._game.input.states["select"]:
+            self._game.input.states["select"] = False
 
             # return to overworld
-            self.game.change_scene([SceneType.OVERWORLD])
+            self._game.change_scene([SceneType.OVERWORLD])
 
         # return to selections
-        if self.game.input.states["cancel"]:
-            self.game.input.states["cancel"] = False
+        if self._game.input.states["cancel"]:
+            self._game.input.states["cancel"] = False
 
             self.select_panel("buy")

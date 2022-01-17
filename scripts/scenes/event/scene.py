@@ -48,12 +48,12 @@ class EventScene(Scene):
         self.ui.update(delta_time)
 
     def reset(self):
-        self.ui = EventUI(self.game, self)
+        self.ui = EventUI(self._game, self)
 
         self.active_event = {}
 
     def load_random_event(self):
-        self.active_event = self.game.memory.get_random_event()
+        self.active_event = self._game.memory.get_random_event()
 
         logging.info(f"Event {self.active_event['type']} loaded.")
 
@@ -64,9 +64,9 @@ class EventScene(Scene):
         Load a specific event.
         """
         if remove_from_pool:
-            event = self.game.memory.event_deck.pop(event_id)
+            event = self._game.memory.event_deck.pop(event_id)
         else:
-            event = self.game.memory.event_deck[event_id]
+            event = self._game.memory.event_deck[event_id]
 
         self.active_event = event
         logging.info(f"Event {self.active_event['type']} loaded.")
@@ -92,10 +92,10 @@ class EventScene(Scene):
 
         if resource_key == "existing_unit":
             unit = None
-            units = list(self.game.memory.player_troupe.units.values())
+            units = list(self._game.memory.player_troupe.units.values())
 
             # shuffle list
-            self.game.rng.shuffle(units)
+            self._game.rng.shuffle(units)
 
             # ensure a unique resource
             for unit in units:
@@ -105,8 +105,8 @@ class EventScene(Scene):
             resource = unit
 
         elif resource_key == "new_specific_unit":
-            if resource_target in self.game.data.units:
-                troupe = Troupe(self.game, "player", self.game.memory.player_troupe.allies)
+            if resource_target in self._game.data.units:
+                troupe = Troupe(self._game, "player", self._game.memory.player_troupe.allies)
                 unit_id = troupe.generate_specific_units([resource_target])[0]
                 resource = troupe.units[unit_id]
 
@@ -121,7 +121,7 @@ class EventScene(Scene):
             else:
                 tiers = [int(resource_target)]
 
-            troupe = Troupe(self.game, "player", self.game.memory.player_troupe.allies)
+            troupe = Troupe(self._game, "player", self._game.memory.player_troupe.allies)
             unit_id = troupe.generate_units(1, tiers)[0]
             resource = troupe.units[unit_id]
 
@@ -162,29 +162,29 @@ class EventScene(Scene):
         Resolve the action from the result. Not all actions need a target and in those cases the target is ignored.
         """
         if result_key == "gold":
-            original_value = self.game.memory.gold
-            self.game.memory.amend_gold(int(result_value))
-            logging.info(f"Gold changed by {result_value};  {original_value} -> {self.game.memory.gold}.")
+            original_value = self._game.memory.gold
+            self._game.memory.amend_gold(int(result_value))
+            logging.info(f"Gold changed by {result_value};  {original_value} -> {self._game.memory.gold}.")
 
         elif result_key == "rations":
-            original_value = self.game.memory.rations
-            self.game.memory.amend_rations(int(result_value))
-            logging.info(f"Rations changed by {result_value};  {original_value} -> {self.game.memory.rations}.")
+            original_value = self._game.memory.rations
+            self._game.memory.amend_rations(int(result_value))
+            logging.info(f"Rations changed by {result_value};  {original_value} -> {self._game.memory.rations}.")
 
         elif result_key == "morale":
-            original_value = self.game.memory.morale
-            self.game.memory.amend_morale(int(result_value))
-            logging.info(f"Morale changed by {result_value};  {original_value} -> {self.game.memory.morale}.")
+            original_value = self._game.memory.morale
+            self._game.memory.amend_morale(int(result_value))
+            logging.info(f"Morale changed by {result_value};  {original_value} -> {self._game.memory.morale}.")
 
         elif result_key == "charisma":
-            original_value = self.game.memory.charisma
-            self.game.memory.amend_charisma(int(result_value))
-            logging.info(f"Charisma changed by {result_value};  {original_value} -> {self.game.memory.charisma}.")
+            original_value = self._game.memory.charisma
+            self._game.memory.amend_charisma(int(result_value))
+            logging.info(f"Charisma changed by {result_value};  {original_value} -> {self._game.memory.charisma}.")
 
         elif result_key == "leadership":
-            original_value = self.game.memory.leadership
-            self.game.memory.amend_leadership(int(result_value))
-            logging.info(f"Leadership changed by {result_value};  {original_value} -> {self.game.memory.leadership}.")
+            original_value = self._game.memory.leadership
+            self._game.memory.amend_leadership(int(result_value))
+            logging.info(f"Leadership changed by {result_value};  {original_value} -> {self._game.memory.leadership}.")
 
         elif result_key == "injury":
             try:
@@ -207,17 +207,17 @@ class EventScene(Scene):
 
         elif result_key == "unlock_event":
             # add flag to show unlocked
-            self.game.memory.flags.append(result_value + "_unlocked")
+            self._game.memory.flags.append(result_value + "_unlocked")
 
-            self.game.memory.prioritise_event(result_value)
+            self._game.memory.prioritise_event(result_value)
 
         elif result_key == "add_unit_resource":
             try:
                 unit = self.event_resources[result_value]
 
                 # check doesnt already exist
-                if unit not in self.game.memory.player_troupe.units:
-                    self.game.memory.player_troupe.add_unit(unit)
+                if unit not in self._game.memory.player_troupe.units:
+                    self._game.memory.player_troupe.add_unit(unit)
                 else:
                     logging.warning(f"Target specified ({target}) is an existing unit and was therefore ignored.")
 
@@ -228,8 +228,8 @@ class EventScene(Scene):
                 )
 
         elif result_key == "add_specific_unit":
-            if result_value in self.game.data.units:
-                self.game.memory.player_troupe.generate_specific_units([result_value])
+            if result_value in self._game.data.units:
+                self._game.memory.player_troupe.generate_specific_units([result_value])
 
             else:
                 logging.warning(f"Unit type ({result_value}) specified does not exist. No unit was added.")
@@ -242,10 +242,10 @@ class EventScene(Scene):
         Roll to see if an event will be triggered when transitioning between nodes. True for event due.
         """
         # check if we have hit the limit of events
-        if self.events_triggered >= self.game.data.config["overworld"]["max_events_per_level"]:
+        if self.events_triggered >= self._game.data.config["overworld"]["max_events_per_level"]:
             return False
 
-        if self.game.rng.roll() < self.game.data.config["overworld"]["chance_of_event"]:
+        if self._game.rng.roll() < self._game.data.config["overworld"]["chance_of_event"]:
             return True
 
         # safety catch

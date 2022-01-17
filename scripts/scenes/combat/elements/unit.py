@@ -20,10 +20,10 @@ __all__ = ["Unit"]
 
 class Unit:
     def __init__(self, game: Game, id_: int, unit_type: str, team: str):
-        self.game: Game = game
+        self._game: Game = game
 
         # persistent
-        unit_data = self.game.data.units[unit_type]
+        unit_data = self._game.data.units[unit_type]
         self.id = id_
         self.type: str = unit_type
         self.team: str = team  # this is derived from the Troupe but can be overridden in combat
@@ -34,7 +34,7 @@ class Unit:
         self.default_behaviour: str = unit_data["default_behaviour"]
 
         # stats that include
-        base_values = self.game.data.config["unit_base_values"][f"tier_{unit_data['tier']}"]
+        base_values = self._game.data.config["unit_base_values"][f"tier_{unit_data['tier']}"]
         self._health: int = unit_data["health"] + base_values["health"]
         self._attack: int = unit_data["attack"] + base_values["attack"]
         self._defence: int = unit_data["defence"] + base_values["defence"]
@@ -68,7 +68,7 @@ class Unit:
         self.kills: int = 0
 
         # during combat
-        self.behaviour = self.game.data.behaviours.unit_behaviours[self.default_behaviour](self)
+        self.behaviour = self._game.data.behaviours.unit_behaviours[self.default_behaviour](self)
         self.alive: bool = True
         self.colour = (0, 0, 255)
         self.entities: List[Entity] = []
@@ -227,7 +227,7 @@ class Unit:
         # a unit is alive if all of its entities are alive
         self.alive = bool(len(self.entities))
 
-        if self.game.combat.force_idle == False:
+        if self._game.combat.force_idle == False:
             self.behaviour.process(dt)
 
         for i, entity in enumerate(self.dead_entities):
@@ -269,7 +269,7 @@ class Unit:
     def post_render(self, surface: pygame.Surface, shift=(0, 0)):
         if self.team == "player":
             # should be swapped when banner assets are added
-            banner_img = self.game.assets.ui["banner"]
+            banner_img = self._game.assets.ui["banner"]
             surface.blit(
                 banner_img,
                 (
@@ -282,7 +282,7 @@ class Unit:
         """
         Reset the in combat values ready to begin combat.
         """
-        self.behaviour = self.game.data.behaviours.unit_behaviours[self.default_behaviour](self)
+        self.behaviour = self._game.data.behaviours.unit_behaviours[self.default_behaviour](self)
         self.alive = True
         self.placed = False
 

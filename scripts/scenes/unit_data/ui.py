@@ -30,20 +30,20 @@ class UnitDataUI(UI):
         super().__init__(game, True)
         self.parent_scene: UnitDataScene = parent_scene
 
-        window_width = self.game.window.width
-        window_height = self.game.window.height
+        window_width = self._game.window.width
+        window_height = self._game.window.height
 
         self.buttons: Dict[str, Button] = {
             "left_arrow": Button(
-                game, pygame.transform.flip(self.game.assets.get_image("ui", "arrow_button"), True, False), (10, 10)
+                game, pygame.transform.flip(self._game.assets.get_image("ui", "arrow_button"), True, False), (10, 10)
             ),
-            "right_arrow": Button(game, self.game.assets.get_image("ui", "arrow_button"), (120, 10)),
+            "right_arrow": Button(game, self._game.assets.get_image("ui", "arrow_button"), (120, 10)),
             "save": Button(game, "save", (window_width - 32, window_height - 22), size=[30, 20]),
             "cancel": Button(game, "cancel", (2, window_height - 22), size=[30, 20]),
         }
 
         self.fields = {}
-        self.unit_list = list(self.game.data.units)
+        self.unit_list = list(self._game.data.units)
         self.unit_index = 0
         self.current_unit = 0
         self.current_unit_data = {}
@@ -116,12 +116,12 @@ class UnitDataUI(UI):
 
                 if button == buttons["cancel"]:
                     # go back to previous scene
-                    self.game.change_scene([self.game.dev_unit_data.previous_scene_type])
+                    self._game.change_scene([self._game.dev_unit_data.previous_scene_type])
 
     def render(self, surface: pygame.surface):
-        window_width = self.game.window.width
-        window_height = self.game.window.height
-        create_font = self.game.assets.create_font
+        window_width = self._game.window.width
+        window_height = self._game.window.height
+        create_font = self._game.assets.create_font
 
         metric_col_width = 80
         metric_second_row_start_y = window_height // 2
@@ -146,9 +146,9 @@ class UnitDataUI(UI):
         unit_type = self.current_unit_data["type"]
         try:
             for animation_name in ["icon", "idle", "walk", "attack", "hit", "death"]:
-                num_frames = len(self.game.assets.unit_animations[unit_type][animation_name])
+                num_frames = len(self._game.assets.unit_animations[unit_type][animation_name])
                 frame_ = min(frame, num_frames - 1)
-                img = self.game.assets.unit_animations[unit_type][animation_name][frame_]
+                img = self._game.assets.unit_animations[unit_type][animation_name][frame_]
                 img_ = pygame.transform.scale(img, (DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE))
                 surface.blit(img_, (current_img_x, current_img_y))
 
@@ -230,15 +230,15 @@ class UnitDataUI(UI):
 
     def refresh_unit_fields(self, unit_id):
         self.current_unit = unit_id
-        self.current_unit_data = self.game.data.units[unit_id]
-        self.game.input.mode = "default"
+        self.current_unit_data = self._game.data.units[unit_id]
+        self._game.input.mode = "default"
 
         self.fields = {}
         for i, field in enumerate(self.current_unit_data):
             y = i % 15  # this is the rows in the col
             x = i // 15  # must match int used for y
             self.fields[field] = InputBox(
-                self.game,
+                self._game,
                 [80, 16],
                 pos=[100 + x * 200, 30 + y * 20],
                 input_type="detect",
@@ -270,7 +270,7 @@ class UnitDataUI(UI):
         tier4 = {}
 
         # get data sorted by stat
-        for unit in self.game.data.units.values():
+        for unit in self._game.data.units.values():
             if unit["tier"] == 1:
                 current_dict = tier1
             elif unit["tier"] == 2:

@@ -41,14 +41,14 @@ class CombatScene(Scene):
         super().__init__(game, SceneType.COMBAT)
 
         self.camera: Camera = Camera()
-        self.terrain: Terrain = Terrain(self.game)
-        self.units: UnitManager = UnitManager(self.game)
-        self.projectiles: ProjectileManager = ProjectileManager(self.game)
+        self.terrain: Terrain = Terrain(self._game)
+        self.units: UnitManager = UnitManager(self._game)
+        self.projectiles: ProjectileManager = ProjectileManager(self._game)
         self.particles: ParticleManager = ParticleManager()
 
-        self.enemy_generator = EnemyCombatantsGenerator(self.game)
+        self.enemy_generator = EnemyCombatantsGenerator(self._game)
 
-        self.ui: CombatUI = CombatUI(self.game, self)
+        self.ui: CombatUI = CombatUI(self._game, self)
 
         self.actions = actions
         self.skill_cooldowns = []
@@ -84,7 +84,7 @@ class CombatScene(Scene):
     def update(self, delta_time: float):
         super().update(delta_time)
 
-        self.dt = self.combat_speed * self.game.window.delta_time
+        self.dt = self.combat_speed * self._game.window.delta_time
 
         if not self.force_idle:
             self.terrain.update(self.dt)
@@ -92,11 +92,11 @@ class CombatScene(Scene):
         self.particles.update(self.dt)
 
         if self.combat_ending_timer != -1:
-            self.combat_ending_timer += self.game.window.delta_time
+            self.combat_ending_timer += self._game.window.delta_time
             self.combat_speed = 0.3 - (0.05 * self.combat_ending_timer)
             self.camera.zoom = 1 + (self.combat_ending_timer / 2)
             self.force_idle = True
-            self.game.combat.state == CombatState.WATCH
+            self._game.combat.state == CombatState.WATCH
             if self.last_unit_death:
                 # average the last positions of the last entity to die and the killer of that entity
                 focus_point = (
@@ -105,20 +105,20 @@ class CombatScene(Scene):
                 )
                 # gradually move camera
                 self.camera.pos[0] += (
-                    ((focus_point[0] - self.game.window.display.get_width() // 2) - self.camera.pos[0])
+                    ((focus_point[0] - self._game.window.display.get_width() // 2) - self.camera.pos[0])
                     / 10
-                    * (self.game.window.delta_time * 60)
+                    * (self._game.window.delta_time * 60)
                 )
                 self.camera.pos[1] += (
-                    ((focus_point[1] - self.game.window.display.get_height() // 2) - self.camera.pos[1])
+                    ((focus_point[1] - self._game.window.display.get_height() // 2) - self.camera.pos[1])
                     / 10
-                    * (self.game.window.delta_time * 60)
+                    * (self._game.window.delta_time * 60)
                 )
             if self.combat_ending_timer > 4:
                 self.end_combat()
-                if self.game.post_combat.state == PostCombatState.DEFEAT:
-                    self.game.combat.process_defeat()
-                self.game.change_scene([SceneType.POST_COMBAT])
+                if self._game.post_combat.state == PostCombatState.DEFEAT:
+                    self._game.combat.process_defeat()
+                self._game.change_scene([SceneType.POST_COMBAT])
 
         # reduce skill cooldowns
         for i in range(len(self.skill_cooldowns)):
@@ -128,7 +128,7 @@ class CombatScene(Scene):
         self.all_entities = self.get_all_entities()
 
         # end combat when either side is empty
-        if (self.game.combat.state not in [CombatState.UNIT_CHOOSE_CARD, CombatState.UNIT_SELECT_TARGET]) and (
+        if (self._game.combat.state not in [CombatState.UNIT_CHOOSE_CARD, CombatState.UNIT_SELECT_TARGET]) and (
             self.combat_ending_timer == -1
         ):
             player_entities = [e for e in self.all_entities if e.team == "player"]
@@ -144,12 +144,12 @@ class CombatScene(Scene):
         self.projectiles.update(delta_time)
 
         # run at normal speed during watch phase
-        if self.game.combat.state == CombatState.WATCH:
+        if self._game.combat.state == CombatState.WATCH:
             self.combat_speed = 1
             self.force_idle = False
 
         # pause combat during unit placement
-        elif self.game.combat.state in [CombatState.UNIT_CHOOSE_CARD, CombatState.UNIT_SELECT_TARGET]:
+        elif self._game.combat.state in [CombatState.UNIT_CHOOSE_CARD, CombatState.UNIT_SELECT_TARGET]:
             self.combat_speed = 1
             self.force_idle = True
 
@@ -160,7 +160,7 @@ class CombatScene(Scene):
 
     def render(self):
         self.camera.bind(self.terrain.boundaries)
-        combat_surf = pygame.Surface(self.game.window.display.get_size())
+        combat_surf = pygame.Surface(self._game.window.display.get_size())
         self.terrain.render(combat_surf, self.camera.render_offset())
 
         if self.debug_pathfinding:
@@ -181,15 +181,15 @@ class CombatScene(Scene):
                 combat_surf,
                 (int(combat_surf.get_width() * self.camera.zoom), int(combat_surf.get_height() * self.camera.zoom)),
             )
-        self.game.window.display.blit(
+        self._game.window.display.blit(
             combat_surf,
             (
-                -(combat_surf.get_width() - self.game.window.display.get_width()) // 2,
-                -(combat_surf.get_height() - self.game.window.display.get_height()) // 2,
+                -(combat_surf.get_width() - self._game.window.display.get_width()) // 2,
+                -(combat_surf.get_height() - self._game.window.display.get_height()) // 2,
             ),
         )
 
-        self.ui.render(self.game.window.display)
+        self.ui.render(self._game.window.display)
 
     def reset(self):
         self.camera = Camera()
@@ -201,14 +201,14 @@ class CombatScene(Scene):
         self.state: CombatState = CombatState.UNIT_CHOOSE_CARD
 
     def generate_combat(self, biome="plains"):
-        self.terrain: Terrain = Terrain(self.game)
+        self.terrain: Terrain = Terrain(self._game)
         self.terrain.generate(biome)
 
-        self.units: UnitManager = UnitManager(self.game)
+        self.units: UnitManager = UnitManager(self._game)
 
-        self.enemy_generator = EnemyCombatantsGenerator(self.game)
+        self.enemy_generator = EnemyCombatantsGenerator(self._game)
 
-        self.ui: CombatUI = CombatUI(self.game, self)
+        self.ui: CombatUI = CombatUI(self._game, self)
 
         self.actions = actions
 
@@ -218,21 +218,21 @@ class CombatScene(Scene):
 
         self.combat_ending_timer = -1
 
-        self.placeable_units = self.game.memory.player_troupe._unit_ids.copy()
+        self.placeable_units = self._game.memory.player_troupe._unit_ids.copy()
         self.units_are_available = [True] * len(self.placeable_units)
-        self.skill_cooldowns = [0] * len(self.game.memory.player_actions)
+        self.skill_cooldowns = [0] * len(self._game.memory.player_actions)
 
         self.leadership_points_spent = 0  # points spent to place units
 
     def end_combat(self):
         combat_end_data = []
-        for unit in self.game.memory.player_troupe._units.values():
+        for unit in self._game.memory.player_troupe._units.values():
             new_data = [unit.type, int(unit.damage_dealt), unit.kills, int(unit.damage_received)]
             combat_end_data.append(new_data)
 
         # process injuries
         remove_units = []
-        for i, unit in enumerate(self.game.memory.player_troupe._units.values()):
+        for i, unit in enumerate(self._game.memory.player_troupe._units.values()):
             if unit in self.units.units:
                 # do an update to ensure unit.alive is updated
                 unit.update(0.0001)
@@ -259,7 +259,7 @@ class CombatScene(Scene):
 
         # remove units after since they can't be removed during iteration
         for unit in remove_units:
-            self.game.memory.player_troupe.remove_unit(unit)
+            self._game.memory.player_troupe.remove_unit(unit)
 
         self.end_data = combat_end_data
 
@@ -286,9 +286,9 @@ class CombatScene(Scene):
         self.ui.selected_col = 0
 
     def _get_random_combat(self) -> Dict[str, Any]:
-        if len(self.game.data.combats) > 0:
-            level = self.game.memory.level
-            combats = self.game.data.combats.values()
+        if len(self._game.data.combats) > 0:
+            level = self._game.memory.level
+            combats = self._game.data.combats.values()
 
             # get possible combats
             possible_combats = []
@@ -297,10 +297,10 @@ class CombatScene(Scene):
                 # ensure only combat for this level or lower and of desired type
                 if combat["level_available"] <= level and combat["category"] == self.combat_category:
                     possible_combats.append(combat)
-                    occur_rate = self.game.data.get_combat_occur_rate(combat["type"])
+                    occur_rate = self._game.data.get_combat_occur_rate(combat["type"])
                     possible_combats_occur_rates.append(occur_rate)
 
-            combat_ = self.game.rng.choices(possible_combats, possible_combats_occur_rates)[0]
+            combat_ = self._game.rng.choices(possible_combats, possible_combats_occur_rates)[0]
         else:
             combat_ = {}
         return combat_
@@ -317,11 +317,11 @@ class CombatScene(Scene):
             # self.combat_category == "boss":
             morale_removed = -999
 
-        self.game.memory.amend_morale(morale_removed)
+        self._game.memory.amend_morale(morale_removed)
 
         # transition to post-combat
-        self.game.post_combat.state = PostCombatState.DEFEAT
-        self.game.change_scene([SceneType.POST_COMBAT])
+        self._game.post_combat.state = PostCombatState.DEFEAT
+        self._game.change_scene([SceneType.POST_COMBAT])
 
     def process_victory(self):
         """
@@ -334,5 +334,5 @@ class CombatScene(Scene):
         else:
             # self.combat_category == "boss":
             new_state = PostCombatState.BOSS_VICTORY
-        self.game.post_combat.state = new_state
-        self.game.change_scene([SceneType.POST_COMBAT])
+        self._game.post_combat.state = new_state
+        self._game.change_scene([SceneType.POST_COMBAT])

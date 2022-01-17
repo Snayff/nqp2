@@ -42,8 +42,8 @@ class PostCombatScene(Scene):
 
         # reward options
         self.gold_reward: int = 0
-        player_troupe = self.game.memory.player_troupe
-        self.troupe_rewards: Troupe = Troupe(self.game, "reward", player_troupe.allies)
+        player_troupe = self._game.memory.player_troupe
+        self.troupe_rewards: Troupe = Troupe(self._game, "reward", player_troupe.allies)
         self.resource_rewards = None
         self.upgrade_rewards = None
         self.action_rewards = None
@@ -57,7 +57,7 @@ class PostCombatScene(Scene):
         self.ui.update(delta_time)
 
     def reset(self):
-        self.ui = PostCombatUI(self.game, self)
+        self.ui = PostCombatUI(self._game, self)
 
         self.state = PostCombatState.VICTORY
 
@@ -68,8 +68,8 @@ class PostCombatScene(Scene):
 
         # reward options
         self.gold_reward = 0
-        player_troupe = self.game.memory.player_troupe
-        self.troupe_rewards = Troupe(self.game, "reward", player_troupe.allies)
+        player_troupe = self._game.memory.player_troupe
+        self.troupe_rewards = Troupe(self._game, "reward", player_troupe.allies)
         self.resource_rewards = None
         self.upgrade_rewards = None
         self.action_rewards = None
@@ -78,10 +78,10 @@ class PostCombatScene(Scene):
         """
         Generate reward to offer. Overwrites existing rewards.
         """
-        gold_min = self.game.data.config["post_combat"]["gold_min"]
-        gold_max = self.game.data.config["post_combat"]["gold_max"]
-        gold_level_multiplier = self.game.data.config["post_combat"]["gold_level_multiplier"]
-        level = self.game.memory.level
+        gold_min = self._game.data.config["post_combat"]["gold_min"]
+        gold_max = self._game.data.config["post_combat"]["gold_max"]
+        gold_level_multiplier = self._game.data.config["post_combat"]["gold_level_multiplier"]
+        level = self._game.memory.level
 
         # only apply multiplier after level 1
         if level > 1:
@@ -90,7 +90,7 @@ class PostCombatScene(Scene):
             mod = 1
 
         # roll gold
-        self.gold_reward = int(self.game.rng.randint(gold_min, gold_max) * mod)
+        self.gold_reward = int(self._game.rng.randint(gold_min, gold_max) * mod)
 
         # generate required rewards
         reward_type = self.reward_type
@@ -117,7 +117,7 @@ class PostCombatScene(Scene):
     def _generate_troupe_rewards(self):
 
         # update troupe to match players
-        player_troupe = self.game.memory.player_troupe
+        player_troupe = self._game.memory.player_troupe
         self.troupe_rewards.allies = player_troupe.allies
 
         # generate units in Troupe
@@ -156,14 +156,14 @@ class PostCombatScene(Scene):
             self._choose_resource_rewards(reward)
 
         # add gold
-        self.game.memory.amend_gold(self.gold_reward)
+        self._game.memory.amend_gold(self.gold_reward)
 
     def _choose_troupe_rewards(self, reward: Unit):
         if isinstance(reward, Unit):
             # check can afford
-            has_enough_charisma = self.game.memory.commander.charisma_remaining > 0
+            has_enough_charisma = self._game.memory.commander.charisma_remaining > 0
             if has_enough_charisma:
-                self.game.memory.player_troupe.add_unit(reward)
+                self._game.memory.player_troupe.add_unit(reward)
         else:
             logging.error(
                 f"Chose {reward} as a unit reward. As it isnt a unit, something has "

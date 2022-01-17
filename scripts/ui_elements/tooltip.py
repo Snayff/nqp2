@@ -18,7 +18,7 @@ class Tooltip:
     """
 
     def __init__(self, game, text, font_id, rect_reference, width=200, padding=2, margin=2, alpha=100, visible_delay=1):
-        self.game = game
+        self._game = game
         self.text = text
         self.font_id = font_id
         self.rect_reference = rect_reference
@@ -37,7 +37,7 @@ class Tooltip:
 
     def generate_text_surf(self):
         text_block = TextBlock(
-            self.text, self.game.assets.enhanced_fonts[self.font_id], max_width=self.width - self.padding * 2
+            self.text, self._game.assets.enhanced_fonts[self.font_id], max_width=self.width - self.padding * 2
         )
         self.text_surf = pygame.Surface(
             (text_block.used_width + self.padding * 2, text_block.height + self.padding * 2)
@@ -47,7 +47,7 @@ class Tooltip:
         text_block.render(self.text_surf, (self.padding, self.padding))
 
     def update(self, delta_time):
-        mouse_pos = self.game.input.mouse_pos
+        mouse_pos = self._game.input.mouse_pos
         if self.rect_reference.collidepoint(mouse_pos):
             self.rect_hover_timer += delta_time
         else:
@@ -55,8 +55,8 @@ class Tooltip:
 
     def render(self, surf):
         if self.rect_hover_timer >= self.visible_delay:
-            mouse_pos = self.game.input.mouse_pos
-            display_size = self.game.window.base_resolution
+            mouse_pos = self._game.input.mouse_pos
+            display_size = self._game.window.base_resolution
 
             # prioritize placing the tooltip centered above the mouse
             base_pos = [

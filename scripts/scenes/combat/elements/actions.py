@@ -3,7 +3,7 @@ from scripts.scenes.combat.elements.hitbox import Hitbox
 
 class Action:
     def __init__(self, game):
-        self.game = game
+        self._game = game
         self.target_type = "free"
 
     def use(self):
@@ -19,7 +19,7 @@ class Fireball(Action):
         self.radius = 30
 
     def use(self, location):
-        hitbox = Hitbox(self.game.combat.all_entities, "circle", (location, self.radius), self.damage)
+        hitbox = Hitbox(self._game.combat.all_entities, "circle", (location, self.radius), self.damage)
         hitbox.apply()
 
 

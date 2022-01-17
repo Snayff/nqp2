@@ -21,7 +21,7 @@ __all__ = ["NodeContainer"]
 
 class NodeContainer(ABC):
     def __init__(self, game: Game):
-        self.game: Game = game
+        self._game: Game = game
 
         self.selected_node: Optional[Node] = None
         self.target_node: Optional[Node] = None
@@ -59,10 +59,10 @@ class NodeContainer(ABC):
         Roll to see if an event will be triggered when transitioning between nodes.
         """
         # check if we have hit the limit of events
-        if self.events_triggered >= self.game.data.config["overworld"]["max_events_per_level"]:
+        if self.events_triggered >= self._game.data.config["overworld"]["max_events_per_level"]:
             return
 
-        if self.game.rng.roll() < self.game.data.config["overworld"]["chance_of_event"]:
+        if self._game.rng.roll() < self._game.data.config["overworld"]["chance_of_event"]:
             self.is_due_event = True
 
     def _get_node_icon(self, node_type: NodeType) -> pygame.Surface:
@@ -70,18 +70,18 @@ class NodeContainer(ABC):
         Get the node icon from the node type
         """
         if node_type == NodeType.COMBAT:
-            node_icon = self.game.assets.get_image("nodes", "combat")
+            node_icon = self._game.assets.get_image("nodes", "combat")
         elif node_type == NodeType.EVENT:
-            node_icon = self.game.assets.get_image("nodes", "event")
+            node_icon = self._game.assets.get_image("nodes", "event")
         elif node_type == NodeType.INN:
-            node_icon = self.game.assets.get_image("nodes", "inn")
+            node_icon = self._game.assets.get_image("nodes", "inn")
         elif node_type == NodeType.TRAINING:
-            node_icon = self.game.assets.get_image("nodes", "training")
+            node_icon = self._game.assets.get_image("nodes", "training")
         elif node_type == NodeType.BOSS_COMBAT:
-            node_icon = self.game.assets.get_image("nodes", "boss_combat")
+            node_icon = self._game.assets.get_image("nodes", "boss_combat")
         else:
             # node_type == NodeType.BLANK:
-            node_icon = self.game.assets.get_image("nodes", "blank")
+            node_icon = self._game.assets.get_image("nodes", "blank")
 
         return node_icon
 
@@ -89,7 +89,7 @@ class NodeContainer(ABC):
         """
         Return a random node type
         """
-        node_weights_dict = self.game.data.config["overworld"]["node_weights"]
+        node_weights_dict = self._game.data.config["overworld"]["node_weights"]
         node_types = [NodeType.COMBAT, NodeType.INN, NodeType.TRAINING, NodeType.BLANK]
 
         node_weights = []
@@ -106,7 +106,7 @@ class NodeContainer(ABC):
             for enum_ in node_types:
                 node_weights.append(0.1)
 
-        node_type = self.game.rng.choices(node_types, node_weights, k=1)[0]
+        node_type = self._game.rng.choices(node_types, node_weights, k=1)[0]
 
         return node_type
 
@@ -124,7 +124,7 @@ class NodeContainer(ABC):
             self.is_travel_paused = True
             self.current_travel_time = 0
             self._current_wait_time = 0
-            self.game.overworld.state = OverworldState.READY
+            self._game.overworld.state = OverworldState.READY
 
             return
 
@@ -142,7 +142,7 @@ class NodeContainer(ABC):
             self.is_travel_paused = True
             self.is_due_event = False
             self.events_triggered += 1
-            self.event_notification_timer = self.game.data.config["overworld"]["event_notification_duration"]
+            self.event_notification_timer = self._game.data.config["overworld"]["event_notification_duration"]
             self.show_event_notification = True
 
         # check if at target pos
@@ -164,10 +164,10 @@ class NodeContainer(ABC):
                 self._current_wait_time = 0
 
                 # pay travel cost
-                self.game.overworld.pay_move_cost()
+                self._game.overworld.pay_move_cost()
 
                 # count down boss timer
-                self.game.memory.days_until_boss -= 1
+                self._game.memory.days_until_boss -= 1
 
                 # trigger if not already completed and is an auto-triggering type
                 if self.selected_node.is_trigger_on_touch:
@@ -205,4 +205,4 @@ class NodeContainer(ABC):
             # reveal node type
             selected_node.reveal_type()
 
-            self.game.change_scene(scene)
+            self._game.change_scene(scene)

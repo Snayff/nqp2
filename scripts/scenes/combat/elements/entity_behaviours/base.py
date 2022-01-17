@@ -28,7 +28,7 @@ class Base(Behaviour):
         self.walk_towards(next_point, self.entity.move_speed * dt)
         if (
             math.sqrt((next_point[0] - self.entity.pos[0]) ** 2 + (next_point[1] - self.entity.pos[1]) ** 2)
-            < self.game.combat.terrain.tile_size // 3
+            < self._game.combat.terrain.tile_size // 3
         ):
             self.current_path.pop(0)
 
@@ -68,7 +68,7 @@ class Base(Behaviour):
             self.last_path_update -= PATH_UPDATE_FREQ
 
             if self.target_entity:
-                self.visibility_line = self.game.combat.terrain.sight_line(
+                self.visibility_line = self._game.combat.terrain.sight_line(
                     self.entity.pos.copy(), self.target_entity.pos.copy()
                 )
             else:
@@ -76,10 +76,10 @@ class Base(Behaviour):
 
             if not self.visibility_line:
                 if self.entity.unit.behaviour.smart_range_retarget:
-                    for entity in self.game.combat.all_entities:
+                    for entity in self._game.combat.all_entities:
                         if entity.team != self.entity.team:
                             if entity.dis(self.entity) < self.entity.range + self.entity.size + self.target_entity.size:
-                                if self.game.combat.terrain.sight_line(entity.pos.copy(), self.entity.pos.copy()):
+                                if self._game.combat.terrain.sight_line(entity.pos.copy(), self.entity.pos.copy()):
                                     self.target_entity = entity
                                     self.target_pos = self.target_entity.pos.copy()
                                     break
@@ -90,7 +90,7 @@ class Base(Behaviour):
                 if self.entity.unit.behaviour.retreating:
                     self.target_pos = list(self.entity.unit.behaviour.retreat_target)
                 if self.target_pos:
-                    self.current_path = self.game.combat.terrain.pathfinder.px_route(
+                    self.current_path = self._game.combat.terrain.pathfinder.px_route(
                         self.entity.pos.copy(), self.target_pos.copy()
                     )
 

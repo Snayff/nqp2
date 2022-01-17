@@ -29,7 +29,7 @@ def gen_blob(start_pos, count, tile_type, terrain, floor_filter=None):
                 if not valid:
                     continue
 
-            terrain.terrain[point].append(Tile(tile_type, point, terrain.game.data.tiles))
+            terrain.terrain[point].append(Tile(tile_type, point, terrain._game.data.tiles))
 
 
 def random_foliage():

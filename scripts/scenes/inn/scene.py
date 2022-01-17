@@ -44,7 +44,7 @@ class InnScene(Scene):
         self.ui.update(delta_time)
 
     def reset(self):
-        self.ui = InnUI(self.game, self)
+        self.ui = InnUI(self._game, self)
 
         self.sale_troupe = None
 
@@ -54,10 +54,10 @@ class InnScene(Scene):
         """
 
         # pay gold
-        self.game.memory.amend_gold(-unit.gold_cost)  # remove gold cost
+        self._game.memory.amend_gold(-unit.gold_cost)  # remove gold cost
 
         # add unit
-        self.game.memory.player_troupe.add_unit(unit)
+        self._game.memory.player_troupe.add_unit(unit)
 
         # update unit availability
         self.units_available[unit.id] = False
@@ -67,8 +67,8 @@ class InnScene(Scene):
         Generate the options for sale at the Inn.
         """
         # update troupe to match players
-        player_troupe = self.game.memory.player_troupe
-        self.sale_troupe = Troupe(self.game, "inn", player_troupe.allies)
+        player_troupe = self._game.memory.player_troupe
+        self.sale_troupe = Troupe(self._game, "inn", player_troupe.allies)
 
         self.sale_troupe.generate_units(5)
 

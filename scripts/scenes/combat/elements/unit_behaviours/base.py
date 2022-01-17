@@ -35,7 +35,7 @@ class Base(Behaviour):
         Find the nearest enemy from a different team and update the target.
         """
         nearest = [None, 9999999]
-        for entity in self.game.combat.all_entities:
+        for entity in self._game.combat.all_entities:
             if entity.team != self.unit.team:
                 dis = entity.dis(self.unit)
                 if dis < nearest[1]:
@@ -61,7 +61,7 @@ class Base(Behaviour):
                 self.find_target()
 
             if self.leader:
-                loc = self.game.combat.terrain.px_to_loc(self.leader.pos.copy())
+                loc = self._game.combat.terrain.px_to_loc(self.leader.pos.copy())
                 if loc not in self.position_log:
                     self.position_log.append(loc)
                     self.position_log = self.position_log[-50:]
@@ -92,8 +92,8 @@ class Base(Behaviour):
                         if self.force_retreat:
                             self.retreating = True
                             self.retreat_target = (
-                                self.position_log[-RETREAT_AMT][0] * self.game.combat.terrain.tile_size,
-                                self.position_log[-RETREAT_AMT][1] * self.game.combat.terrain.tile_size,
+                                self.position_log[-RETREAT_AMT][0] * self._game.combat.terrain.tile_size,
+                                self.position_log[-RETREAT_AMT][1] * self._game.combat.terrain.tile_size,
                             )
                         for entity in self.unit.entities:
                             entity.behaviour.state = "path"

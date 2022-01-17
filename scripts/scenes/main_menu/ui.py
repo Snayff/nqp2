@@ -34,25 +34,25 @@ class MainMenuUI(UI):
         super().process_input(delta_time)
 
         # generic input
-        if self.game.input.states["down"]:
-            self.game.input.states["down"] = False
+        if self._game.input.states["down"]:
+            self._game.input.states["down"] = False
 
             self.current_panel.select_next_element()
 
-        if self.game.input.states["up"]:
-            self.game.input.states["up"] = False
+        if self._game.input.states["up"]:
+            self._game.input.states["up"] = False
 
             self.current_panel.select_previous_element()
 
-        if self.game.input.states["select"]:
-            self.game.input.states["select"] = False
+        if self._game.input.states["select"]:
+            self._game.input.states["select"] = False
 
             selected_element = self.current_panel.selected_element
             if selected_element == self.elements["new_game"]:
                 self.parent_scene.new_game()
 
             elif selected_element == self.elements["exit"]:
-                self.game.state = GameState.EXITING
+                self._game.state = GameState.EXITING
 
     def render(self, surface: pygame.surface):
         # N.B. dont draw instruction
@@ -61,16 +61,16 @@ class MainMenuUI(UI):
     def rebuild_ui(self):
         super().rebuild_ui()
 
-        create_font = self.game.assets.create_font
-        window_width = self.game.window.width
-        window_height = self.game.window.height
+        create_font = self._game.assets.create_font
+        window_width = self._game.window.width
+        window_height = self._game.window.height
 
         # positions
         start_x = 10
         start_y = window_height - 100
 
         # draw background
-        background = self.game.assets.get_image("ui", "town", (window_width, window_height))
+        background = self._game.assets.get_image("ui", "town", (window_width, window_height))
         frame = Frame((0, 0), background)
         self.elements["background"] = frame
 

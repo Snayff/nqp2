@@ -36,7 +36,7 @@ class GalleryUI(UI):
         self._end_index: int = 47  # 47 is max that can be shown on screen, -1 for index
         self._amount_per_col: int = 16
         self._filters = ["all"]
-        for faction in self.game.data.factions:
+        for faction in self._game.data.factions:
             self._filters.append(faction)
         self._current_filter = "all"
 
@@ -54,20 +54,20 @@ class GalleryUI(UI):
     def process_input(self, delta_time: float):
         super().process_input(delta_time)
 
-        max_units = len(self.game.assets.unit_animations)
+        max_units = len(self._game.assets.unit_animations)
 
-        if self.game.input.states["left"]:
-            self.game.input.states["left"] = False
+        if self._game.input.states["left"]:
+            self._game.input.states["left"] = False
             self._start_index = max(self._start_index - 16, 0)
             self._end_index = max(self._end_index - 16, 47)
 
-        if self.game.input.states["right"]:
-            self.game.input.states["right"] = False
+        if self._game.input.states["right"]:
+            self._game.input.states["right"] = False
             self._start_index = min(self._start_index + 16, max_units - 47)
             self._end_index = min(self._end_index + 16, max_units)
 
-        if self.game.input.states["tab"]:
-            self.game.input.states["tab"] = False
+        if self._game.input.states["tab"]:
+            self._game.input.states["tab"] = False
 
             current_filter_index = self._filters.index(self._current_filter)
             next_index = next_number_in_loop(current_filter_index, len(self._filters))
@@ -75,21 +75,21 @@ class GalleryUI(UI):
 
         # exit
         if self.current_panel == self.panels["exit"]:
-            if self.game.input.states["select"]:
-                self.game.input.states["select"] = False
+            if self._game.input.states["select"]:
+                self._game.input.states["select"] = False
 
                 # return to previous scene
-                self.game.change_scene([self.game.dev_gallery.previous_scene_type])
+                self._game.change_scene([self._game.dev_gallery.previous_scene_type])
 
     def render(self, surface: pygame.surface):
         default_font = self.default_font
         positive_font = self.positive_font
         disabled_font = self.disabled_font
-        units = self.game.data.units
-        animations = self.game.assets.unit_animations
+        units = self._game.data.units
+        animations = self._game.assets.unit_animations
         start_index = self._start_index
         end_index = self._end_index
-        window_width = self.game.window.width
+        window_width = self._game.window.width
 
         start_x = 10
         start_y = 10

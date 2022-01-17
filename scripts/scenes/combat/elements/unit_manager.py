@@ -12,7 +12,7 @@ __all__ = ["UnitManager"]
 
 class UnitManager:
     def __init__(self, game):
-        self.game = game
+        self._game = game
 
         self.units = []
 

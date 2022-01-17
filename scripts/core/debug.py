@@ -27,7 +27,7 @@ class Debugger:
         # start timer
         start_time = time.time()
 
-        self.game = game
+        self._game = game
 
         # create required folders
         self._create_folders()
@@ -86,7 +86,7 @@ class Debugger:
         """
         Draw debug info
         """
-        surface = self.game.window.display
+        surface = self._game.window.display
 
         # draw fps
         if self.is_fps_visible:
@@ -98,7 +98,7 @@ class Debugger:
             start_y = 1
 
             text = f"{current_fps} | {recent_fps} | {avg_fps}"
-            self.game.assets.create_font(FontType.DISABLED, text, (start_x, start_y))
+            self._game.assets.create_font(FontType.DISABLED, text, (start_x, start_y))
 
         if self._dev_console is not None:
             self._dev_console.render(surface)
@@ -120,12 +120,12 @@ class Debugger:
 
     def toggle_dev_console_visibility(self):
         if self._dev_console is None:
-            self._dev_console = DevConsole(self.game)
+            self._dev_console = DevConsole(self._game)
             self._dev_console.focus()
-            self.game.input.mode = "typing"
+            self._game.input.mode = "typing"
         else:
             self._dev_console = None
-            self.game.input.mode = "default"
+            self._game.input.mode = "default"
 
     def initialise_logging(self):
         """

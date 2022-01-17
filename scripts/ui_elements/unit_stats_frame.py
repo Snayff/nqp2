@@ -25,7 +25,7 @@ class UnitStatsFrame(UIElement):
     def __init__(self, game: Game, pos: Tuple[int, int], unit: Unit, is_selectable: bool = False):
         super().__init__(pos, is_selectable)
 
-        self.game: Game = game
+        self._game: Game = game
         self.unit: Unit = unit
 
         self._rebuild_surface()
@@ -47,13 +47,13 @@ class UnitStatsFrame(UIElement):
         # draw icon
         current_x = start_x
         current_y = start_y
-        unit_icon = self.game.assets.unit_animations[unit.type]["icon"][0]
+        unit_icon = self._game.assets.unit_animations[unit.type]["icon"][0]
         surface.blit(unit_icon, (current_x, current_y))
 
         current_y += unit_icon.get_height() + GAP_SIZE
 
         # draw unit type
-        font = self.game.assets.create_font(FontType.DEFAULT, unit.type, (current_x, current_y))
+        font = self._game.assets.create_font(FontType.DEFAULT, unit.type, (current_x, current_y))
         font.render(surface)
 
         current_y += font.height + GAP_SIZE
@@ -65,7 +65,7 @@ class UnitStatsFrame(UIElement):
         for stat in stats:
 
             # draw stat icon
-            stat_icon = self.game.assets.get_image("stats", stat, stat_icon_size)
+            stat_icon = self._game.assets.get_image("stats", stat, stat_icon_size)
             surface.blit(stat_icon, (icon_x, current_y))
 
             # determine font
@@ -80,7 +80,7 @@ class UnitStatsFrame(UIElement):
                 font_type = FontType.DEFAULT
 
             # + half font height to vertical centre it
-            font = self.game.assets.create_font(font_type, str(getattr(unit, stat)))
+            font = self._game.assets.create_font(font_type, str(getattr(unit, stat)))
             font.pos = (info_x, current_y + (font.height // 2))
             font.render(surface)
 

@@ -55,13 +55,13 @@ class WorldScene(Scene):
         self.align_unit_pos_to_unit_grid()
 
     def reset(self):
-        self.ui = WorldUI(self.game, self)
+        self.ui = WorldUI(self._game, self)
 
     def add_player_units(self):
         """
         Add the player's unit_manager to the combat and unit_grid
         """
-        units = list(self.game.memory.player_troupe.units.values())
+        units = list(self._game.memory.player_troupe.units.values())
         for i, unit in enumerate(units, 1):
             self.unit_grid.append(unit)
             self.unit_manager.add_unit_to_combat(unit)
@@ -89,6 +89,6 @@ class WorldScene(Scene):
         # TODO - write method
 
         # once new room ready
-        if self.game.event.roll_for_event():
-            self.game.event.load_random_event()
-            self.game.activate_scene(SceneType.EVENT)
+        if self._game.event.roll_for_event():
+            self._game.event.load_random_event()
+            self._game.activate_scene(SceneType.EVENT)

@@ -78,7 +78,7 @@ class Input:
         # start timer
         start_time = time.time()
 
-        self.game: Game = game
+        self._game: Game = game
 
         self.states = {
             "right": False,
@@ -109,8 +109,8 @@ class Input:
         self.mouse_pos = [0, 0]
         self.mouse_pos_raw = self.mouse_pos.copy()
 
-        self.gamepads = dict()
-        self.scan_gamepads()
+        self._gamepads = dict()
+        self._scan_gamepads()
 
         # record duration
         end_time = time.time()
@@ -141,8 +141,8 @@ class Input:
 
         self.mouse_pos = list(pygame.mouse.get_pos())
         self.mouse_pos_raw = self.mouse_pos.copy()
-        self.mouse_pos[0] *= self.game.window.base_resolution[0] / self.game.window.scaled_resolution[0]
-        self.mouse_pos[1] *= self.game.window.base_resolution[1] / self.game.window.scaled_resolution[1]
+        self.mouse_pos[0] *= self._game.window.base_resolution[0] / self._game.window.scaled_resolution[0]
+        self.mouse_pos[1] *= self._game.window.base_resolution[1] / self._game.window.scaled_resolution[1]
 
         chars = [
             ".",
@@ -187,7 +187,7 @@ class Input:
 
         if self.mode == "typing":
             if self.states["backspace"]:
-                self.backspace_hold += self.game.window.delta_time
+                self.backspace_hold += self._game.window.delta_time
                 if self.backspace_hold > 0.7:
                     self.backspace_hold -= 0.035
                     self.char_buffer.append("backspace")
@@ -196,7 +196,7 @@ class Input:
 
         for event in pygame.event.get():
             if event.type == QUIT:
-                self.game.quit()
+                self._game.quit()
 
             if event.type == MOUSEBUTTONDOWN:
                 if event.button == 1:
@@ -204,7 +204,7 @@ class Input:
 
             if event.type == KEYDOWN:
                 if event.key == K_ESCAPE:
-                    self.game.quit()
+                    self._game.quit()
 
                 if event.key in [K_LSHIFT, K_RSHIFT]:
                     self.states["shift"] = True
@@ -337,10 +337,10 @@ class Input:
                     if event.key == K_SPACE:
                         self.char_buffer.append(" ")
 
-    def scan_gamepads(self):
+    def _scan_gamepads(self):
         for index in range(pygame.joystick.get_count()):
             gamepad = pygame.joystick.Joystick(index)
             gamepad.init()
             # if the Joystick object is deleted, then event loop
             # will not have joystick events, so we need to keep a ref.
-            self.gamepads[gamepad.get_guid()] = gamepad
+            self._gamepads[gamepad.get_guid()] = gamepad

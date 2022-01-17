@@ -26,12 +26,12 @@ class DevConsole(InputBox):
         if self.focused:
 
             # pressed enter
-            if self.game.input.states["typing_enter"]:
-                self.game.input.states["typing_enter"] = False
+            if self._game.input.states["typing_enter"]:
+                self._game.input.states["typing_enter"] = False
 
                 self._handle_dev_command()
 
-                self.game.debug.toggle_dev_console_visibility()
+                self._game.debug.toggle_dev_console_visibility()
 
     def render(self, surface: pygame.surface, offset=(0, 0)):
         super().render(surface)
@@ -47,51 +47,51 @@ class DevConsole(InputBox):
             event_id = command[6:]  # +1 position to account for space
 
             # check active scene
-            if self.game.active_scene.type not in (SceneType.MAIN_MENU, SceneType.RUN_SETUP):
+            if self._game.active_scene.type not in (SceneType.MAIN_MENU, SceneType.RUN_SETUP):
                 confirmation_message = self._switch_to_event(event_id)
 
         elif command[:7] == "godmode":
             # check active scene
-            if self.game.active_scene.type not in (SceneType.MAIN_MENU, SceneType.RUN_SETUP):
+            if self._game.active_scene.type not in (SceneType.MAIN_MENU, SceneType.RUN_SETUP):
                 confirmation_message = self._toggle_godmode()
 
         elif command[:17] == "create_unit_jsons":
             # check active scene
-            if self.game.active_scene.type in (SceneType.MAIN_MENU,):
+            if self._game.active_scene.type in (SceneType.MAIN_MENU,):
                 confirmation_message = self._add_unit_json_for_each_asset_folder()
 
         elif command[:13] == "load_unit_csv":
             # check active scene
-            if self.game.active_scene.type in (SceneType.MAIN_MENU,):
+            if self._game.active_scene.type in (SceneType.MAIN_MENU,):
                 confirmation_message = self._load_unit_csv()
 
         elif command[:7] == "gallery":
             # check active scene
-            if self.game.active_scene.type in (SceneType.MAIN_MENU,):
+            if self._game.active_scene.type in (SceneType.MAIN_MENU,):
                 confirmation_message = self._switch_to_gallery()
 
         elif command[:11] == "data_editor":
             # check active scene
-            if self.game.active_scene.type in (SceneType.MAIN_MENU,):
+            if self._game.active_scene.type in (SceneType.MAIN_MENU,):
                 confirmation_message = self._switch_to_data_editor()
 
         elif command[:13] == "combat_result":
             result = command[14:]  # +1 position to account for space
 
             # check active scene
-            if self.game.active_scene.type == SceneType.COMBAT:
+            if self._game.active_scene.type == SceneType.COMBAT:
                 confirmation_message = self._process_combat_result(result)
 
         # update result
         if confirmation_message != "":
-            self.game.active_scene.ui.set_instruction_text(confirmation_message, True)
+            self._game.active_scene.ui.set_instruction_text(confirmation_message, True)
 
     def _add_unit_json_for_each_asset_folder(self) -> str:
         """
         Add a placeholder unit_json for every unit asset folder.
         """
         count = 0
-        unit_dict = list(self.game.data.units.values())[0]
+        unit_dict = list(self._game.data.units.values())[0]
 
         logging.debug(f"Creating unit jsons...")
 
@@ -127,22 +127,22 @@ class DevConsole(InputBox):
         """
         Turns godmode on or off.
         """
-        if "godmode" in self.game.memory.flags:
-            self.game.memory.flags.remove("godmode")
+        if "godmode" in self._game.memory.flags:
+            self._game.memory.flags.remove("godmode")
             state = "off"
 
             logging.debug(f"Turned godmode off.")
 
         else:
-            self.game.memory.flags.append("godmode")
+            self._game.memory.flags.append("godmode")
 
             state = "on"
 
             logging.debug(f"Turned godmode on.")
 
             # add cheat flag
-            if "cheated" not in self.game.memory.flags:
-                self.game.memory.flags.append("cheated")
+            if "cheated" not in self._game.memory.flags:
+                self._game.memory.flags.append("cheated")
 
         confirmation_message = f"God mode turned {state}."
 
@@ -153,11 +153,11 @@ class DevConsole(InputBox):
         Change the scene and load a specific event.
         """
         # validate event
-        if event_id in self.game.memory.event_deck.keys():
+        if event_id in self._game.memory.event_deck.keys():
             # load event
-            self.game.event.load_event(event_id)
-            self.game.event.ui.rebuild_ui()
-            self.game.active_scene = self.game.event
+            self._game.event.load_event(event_id)
+            self._game.event.ui.rebuild_ui()
+            self._game.active_scene = self._game.event
 
             confirmation_message = f"Loaded event {event_id}."
             return confirmation_message
@@ -166,17 +166,17 @@ class DevConsole(InputBox):
             logging.warning(f"DevConsole: {event_id} not found.")
 
     def _switch_to_gallery(self) -> str:
-        self.game.dev_gallery.previous_scene_type = scene_to_scene_type(self.game.active_scene)
-        self.game.dev_gallery.ui.rebuild_ui()
-        self.game.active_scene = self.game.dev_gallery
+        self._game.dev_gallery.previous_scene_type = scene_to_scene_type(self._game.active_scene)
+        self._game.dev_gallery.ui.rebuild_ui()
+        self._game.active_scene = self._game.dev_gallery
 
         confirmation_message = f"Loaded gallery."
         return confirmation_message
 
     def _switch_to_data_editor(self):
-        self.game.dev_unit_data.previous_scene_type = scene_to_scene_type(self.game.active_scene)
-        self.game.dev_unit_data.ui.rebuild_ui()
-        self.game.active_scene = self.game.dev_unit_data
+        self._game.dev_unit_data.previous_scene_type = scene_to_scene_type(self._game.active_scene)
+        self._game.dev_unit_data.ui.rebuild_ui()
+        self._game.active_scene = self._game.dev_unit_data
 
         confirmation_message = f"Loaded data editor."
         return confirmation_message
@@ -185,7 +185,7 @@ class DevConsole(InputBox):
         """
         Load the unit csv into the unit json files.
         """
-        existing_units = list(self.game.data.units.keys())
+        existing_units = list(self._game.data.units.keys())
         num_updated = 0
         num_created = 0
 
@@ -253,14 +253,14 @@ class DevConsole(InputBox):
         """
         if result == "win":
             logging.debug(f"Skipped to combat victory.")
-            self.game.combat.end_combat()
-            self.game.combat.process_victory()
+            self._game.combat.end_combat()
+            self._game.combat.process_victory()
             confirmation_message = "Combat won."
 
         elif result == "lose":
             logging.debug(f"Skipped to combat defeat.")
-            self.game.combat.end_combat()
-            self.game.combat.process_defeat()
+            self._game.combat.end_combat()
+            self._game.combat.process_defeat()
             confirmation_message = "Combat lost."
 
         else:

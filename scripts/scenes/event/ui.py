@@ -40,15 +40,15 @@ class EventUI(UI):
         super().process_input(delta_time)
 
         # selection in panel
-        if self.game.input.states["down"]:
+        if self._game.input.states["down"]:
             self.current_panel.select_next_element()
 
-        if self.game.input.states["up"]:
+        if self._game.input.states["up"]:
             self.current_panel.select_previous_element()
 
         # view troupe
-        if self.game.input.states["view_troupe"]:
-            self.game.change_scene([SceneType.VIEW_TROUPE])
+        if self._game.input.states["view_troupe"]:
+            self._game.change_scene([SceneType.VIEW_TROUPE])
 
         # panel specific input
         if self.current_panel == self.panels["options"]:
@@ -56,10 +56,10 @@ class EventUI(UI):
 
         elif self.current_panel == self.panels["exit"]:
 
-            if self.game.input.states["select"]:
-                self.game.deactivate_scene(SceneType.EVENT)
+            if self._game.input.states["select"]:
+                self._game.deactivate_scene(SceneType.EVENT)
 
-                self.game.event.state = EventState.MAKE_DECISION
+                self._game.event.state = EventState.MAKE_DECISION
 
     def render(self, surface: pygame.surface):
         # show core info
@@ -76,12 +76,12 @@ class EventUI(UI):
         start_y = 50
 
         # values needed for multiple elements
-        event = self.game.event.active_event
-        show_event_result = self.game.data.options["show_event_option_result"]
-        state = self.game.event.state
-        window_width = self.game.window.width
-        window_height = self.game.window.height
-        create_font = self.game.assets.create_font
+        event = self._game.event.active_event
+        show_event_result = self._game.data.options["show_event_option_result"]
+        state = self._game.event.state
+        window_width = self._game.window.width
+        window_height = self._game.window.height
+        create_font = self._game.assets.create_font
         frame_line_width = window_width - (start_x * 2)
 
         # draw background
@@ -93,7 +93,7 @@ class EventUI(UI):
         # draw description
         current_x = start_x + 2
         current_y = start_y
-        fancy_font = self.game.assets.create_fancy_font(event["description"], font_effects=[FontEffects.FADE_IN])
+        fancy_font = self._game.assets.create_fancy_font(event["description"], font_effects=[FontEffects.FADE_IN])
         font_height = fancy_font.line_height
         max_height = ((window_height // 2) - current_y) - font_height
         frame = Frame(
@@ -166,9 +166,9 @@ class EventUI(UI):
             current_x = (window_width // 2) - (DEFAULT_IMAGE_SIZE // 2)
 
             # draw results
-            results = self.game.event.triggered_results
+            results = self._game.event.triggered_results
             for counter, result in enumerate(results):
-                key, value, target = self.game.event.parse_event_string(result)
+                key, value, target = self._game.event.parse_event_string(result)
 
                 # only show results we want the player to be aware of
                 if key in ["unlock_event"]:
@@ -221,22 +221,22 @@ class EventUI(UI):
         self.rebuild_resource_elements()
 
     def handle_options_input(self):
-        options = self.game.event.active_event["options"]
+        options = self._game.event.active_event["options"]
 
         # select option and trigger result
-        if self.game.input.states["select"]:
-            self.game.input.states["select"] = False
+        if self._game.input.states["select"]:
+            self._game.input.states["select"] = False
 
             index = self.current_panel.selected_index
             logging.info(f"Selected option {index}, {options[index]}.")
 
             # save results for later
-            self.game.event.triggered_results = options[index]["result"]
+            self._game.event.triggered_results = options[index]["result"]
             self.selected_option = options[index]["text"]
 
             # trigger results and update display
-            self.game.event.trigger_result()
-            self.game.event.state = EventState.RESULT
+            self._game.event.trigger_result()
+            self._game.event.state = EventState.RESULT
             self.rebuild_ui()
 
             self.select_panel("exit")
@@ -248,33 +248,33 @@ class EventUI(UI):
         icon_size = (DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE)
 
         if result_key == "gold":
-            image = self.game.assets.get_image("stats", "gold", icon_size)
+            image = self._game.assets.get_image("stats", "gold", icon_size)
 
         elif result_key == "rations":
-            image = self.game.assets.get_image("stats", "rations", icon_size)
+            image = self._game.assets.get_image("stats", "rations", icon_size)
 
         elif result_key == "morale":
-            image = self.game.assets.get_image("stats", "morale", icon_size)
+            image = self._game.assets.get_image("stats", "morale", icon_size)
 
         elif result_key == "charisma":
-            image = self.game.assets.get_image("stats", "charisma", icon_size)
+            image = self._game.assets.get_image("stats", "charisma", icon_size)
 
         elif result_key == "leadership":
-            image = self.game.assets.get_image("stats", "leadership", icon_size)
+            image = self._game.assets.get_image("stats", "leadership", icon_size)
 
         elif result_key == "injury":
-            image = self.game.assets.get_image("stats", "injury", icon_size)
+            image = self._game.assets.get_image("stats", "injury", icon_size)
 
         elif result_key == "add_unit_resource":
-            unit = self.game.event.event_resources[result_value]
+            unit = self._game.event.event_resources[result_value]
             unit_type = unit.type
-            image = self.game.assets.unit_animations[unit_type]["icon"][0]
+            image = self._game.assets.unit_animations[unit_type]["icon"][0]
 
         elif result_key == "add_specific_unit":
-            image = self.game.assets.unit_animations[result_value]["icon"][0]
+            image = self._game.assets.unit_animations[result_value]["icon"][0]
 
         else:
             logging.warning(f"Result key not recognised. Image not found used.")
-            image = self.game.assets.get_image("debug", "not_found", icon_size)
+            image = self._game.assets.get_image("debug", "not_found", icon_size)
 
         return image

@@ -21,10 +21,8 @@ from scripts.scenes.event.scene import EventScene
 from scripts.scenes.gallery.scene import GalleryScene
 from scripts.scenes.inn.scene import InnScene
 from scripts.scenes.main_menu.scene import MainMenuScene
-from scripts.scenes.overworld.scene import OverworldScene
 from scripts.scenes.post_combat.scene import PostCombatScene
 from scripts.scenes.run_setup.scene import RunSetupScene
-from scripts.scenes.test.scene import TestScene
 from scripts.scenes.training.scene import TrainingScene
 from scripts.scenes.unit_data.scene import UnitDataScene
 from scripts.scenes.view_troupe.scene import ViewTroupeScene
@@ -57,7 +55,6 @@ class Game:
         # scenes
         self.main_menu: MainMenuScene = MainMenuScene(self)
         self.run_setup: RunSetupScene = RunSetupScene(self)
-        self.overworld: OverworldScene = OverworldScene(self)
         self.combat: CombatScene = CombatScene(self)
         self.post_combat: PostCombatScene = PostCombatScene(self)
         self.event: EventScene = EventScene(self)
@@ -65,7 +62,6 @@ class Game:
         self.inn: InnScene = InnScene(self)
         self.troupe: ViewTroupeScene = ViewTroupeScene(self)
         self.world: WorldScene = WorldScene(self)
-        self.test = TestScene(self)
 
         # dev scenes
         self.dev_unit_data: UnitDataScene = UnitDataScene(self)
@@ -106,7 +102,7 @@ class Game:
             if scene.ui.is_active:
                 # handle those scenes that still have render methods
                 # TODO - remove all render methods from Scene
-                if scene in (self.combat, self.overworld):
+                if scene in (self.combat, ):
                     scene.render(surface)
                 scene.ui.render(surface)
 

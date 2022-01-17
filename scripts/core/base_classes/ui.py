@@ -31,7 +31,7 @@ class UI(ABC):
     """
 
     def __init__(self, game: Game, block_onward_input: bool):
-        self.game: Game = game
+        self._game: Game = game
         self.block_onward_input: bool = block_onward_input  # prevents input being passed to the next scene
 
         self.elements: Dict[str, Union[Frame, UnitStatsFrame]] = {}
@@ -53,10 +53,10 @@ class UI(ABC):
         self.update_elements(delta_time)
 
     def process_input(self, delta_time: float):
-        if self.game.input.states["toggle_dev_console"]:
-            self.game.input.states["toggle_dev_console"] = False
+        if self._game.input.states["toggle_dev_console"]:
+            self._game.input.states["toggle_dev_console"] = False
 
-            self.game.debug.toggle_dev_console_visibility()
+            self._game.debug.toggle_dev_console_visibility()
 
     @abstractmethod
     def render(self, surface: pygame.surface):
@@ -99,24 +99,24 @@ class UI(ABC):
         # key : [value, icon]
         resources = {
             "gold": [
-                self.game.assets.get_image("stats", "gold", icon_size),
-                str(self.game.memory.gold),
+                self._game.assets.get_image("stats", "gold", icon_size),
+                str(self._game.memory.gold),
             ],
             "rations": [
-                self.game.assets.get_image("stats", "rations", icon_size),
-                str(self.game.memory.rations),
+                self._game.assets.get_image("stats", "rations", icon_size),
+                str(self._game.memory.rations),
             ],
             "morale": [
-                self.game.assets.get_image("stats", "morale", icon_size),
-                str(self.game.memory.morale),
+                self._game.assets.get_image("stats", "morale", icon_size),
+                str(self._game.memory.morale),
             ],
             "charisma": [
-                self.game.assets.get_image("stats", "charisma", icon_size),
-                str(self.game.memory.commander.charisma_remaining),
+                self._game.assets.get_image("stats", "charisma", icon_size),
+                str(self._game.memory.commander.charisma_remaining),
             ],
             "leadership": [
-                self.game.assets.get_image("stats", "leadership", icon_size),
-                str(self.game.memory.leadership),
+                self._game.assets.get_image("stats", "leadership", icon_size),
+                str(self._game.memory.leadership),
             ],
         }
 
@@ -129,7 +129,7 @@ class UI(ABC):
         current_y = start_y
 
         # create frames
-        create_font = self.game.assets.create_font
+        create_font = self._game.assets.create_font
         for key, value in resources.items():
             frame = Frame(
                 (current_x, current_y),
@@ -151,12 +151,12 @@ class UI(ABC):
     def draw_instruction(self, surface: pygame.surface):
         if self.temporary_instruction_text:
             text = self.temporary_instruction_text
-            font = self.game.assets.create_font(FontType.NEGATIVE, text)
+            font = self._game.assets.create_font(FontType.NEGATIVE, text)
         else:
             text = self.instruction_text
-            font = font = self.game.assets.create_font(FontType.INSTRUCTION, text)
+            font = font = self._game.assets.create_font(FontType.INSTRUCTION, text)
 
-        x = self.game.window.width - font.width - 2
+        x = self._game.window.width - font.width - 2
         y = 2
         font.pos = (x, y)
         font.render(surface)
@@ -181,9 +181,9 @@ class UI(ABC):
             self.current_panel.select_first_element()
 
     def add_exit_button(self, button_text: str = "Onwards"):
-        window_width = self.game.window.width
-        window_height = self.game.window.height
-        font = self.game.assets.create_font(FontType.DEFAULT, button_text)
+        window_width = self._game.window.width
+        window_height = self._game.window.height
+        font = self._game.assets.create_font(FontType.DEFAULT, button_text)
 
         # get position info
         confirm_width = font.get_text_width(button_text)

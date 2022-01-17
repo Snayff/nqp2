@@ -30,7 +30,7 @@ class Assets:
         # start timer
         start_time = time.time()
 
-        self.game: Game = game
+        self._game: Game = game
 
         self.fonts = {
             FontType.NEGATIVE: (str(ASSET_PATH / "fonts/small_font.png"), (255, 0, 0)),
@@ -167,7 +167,7 @@ class Assets:
         """
         Create a font instance.
         """
-        line_width = clamp(line_width, 0, self.game.window.width)
+        line_width = clamp(line_width, 0, self._game.window.width)
         path, colour = self.fonts[font_type]
         font = Font(path, colour, text, line_width, pos)
         return font
@@ -182,7 +182,7 @@ class Assets:
         """
         Create a FancyFont instance. If line_width isnt given then will default to full screen.
         """
-        line_width = clamp(line_width, 0, self.game.window.width)
+        line_width = clamp(line_width, 0, self._game.window.width)
 
         # handle mutable default
         if font_effects is None:

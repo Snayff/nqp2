@@ -18,7 +18,7 @@ class Scene(ABC):
     """
 
     def __init__(self, game: Game, scene_type: SceneType):
-        self.game: Game = game
+        self._game: Game = game
 
         self.ui: UI = None  # ignore_type
         self.type: SceneType = scene_type

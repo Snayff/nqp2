@@ -33,7 +33,7 @@ class RunSetupScene(Scene):
 
         self.ui: RunSetupUI = RunSetupUI(game, self)
 
-        self.selected_commander: str = list(self.game.data.commanders)[0]  # set to first commander
+        self.selected_commander: str = list(self._game.data.commanders)[0]  # set to first commander
         self.selected_seed: int = int(datetime.now().strftime("%Y%m%d%H%M%S"))
 
         # record duration
@@ -46,28 +46,28 @@ class RunSetupScene(Scene):
 
     def start_run(self):
         # set the seed
-        self.game.rng.set_seed(self.selected_seed)
+        self._game.rng.set_seed(self.selected_seed)
 
         # create commander
-        commander = self.game.data.commanders[self.selected_commander]
-        self.game.memory.commander = Commander(self.game, commander["type"])
+        commander = self._game.data.commanders[self.selected_commander]
+        self._game.memory.commander = Commander(self._game, commander["type"])
 
         # create player troupe
-        self.game.memory.player_troupe = Troupe(self.game, "player", commander["allies"])
+        self._game.memory.player_troupe = Troupe(self._game, "player", commander["allies"])
 
         # register commander values
-        starting_values = self.game.data.config["starting_values"]
-        self.game.memory.amend_gold(starting_values["gold"] + commander["gold"])
-        self.game.memory.amend_rations(starting_values["rations"] + commander["rations"])
-        self.game.memory.amend_morale(starting_values["morale"] + commander["morale"])
-        self.game.memory.amend_charisma(starting_values["charisma"] + commander["charisma"])
-        self.game.memory.amend_leadership(starting_values["leadership"] + commander["leadership"])
+        starting_values = self._game.data.config["starting_values"]
+        self._game.memory.amend_gold(starting_values["gold"] + commander["gold"])
+        self._game.memory.amend_rations(starting_values["rations"] + commander["rations"])
+        self._game.memory.amend_morale(starting_values["morale"] + commander["morale"])
+        self._game.memory.amend_charisma(starting_values["charisma"] + commander["charisma"])
+        self._game.memory.amend_leadership(starting_values["leadership"] + commander["leadership"])
 
         logging.info(f"Player chose {self.selected_commander} as their commander.")
 
         # prep player troupe
-        player_troupe = self.game.memory.player_troupe
-        if self.game.debug.debug_mode:
+        player_troupe = self._game.memory.player_troupe
+        if self._game.debug.debug_mode:
             player_troupe.debug_init_units()
         else:
             player_troupe.generate_specific_units(commander["starting_units"])
@@ -75,13 +75,13 @@ class RunSetupScene(Scene):
         logging.info(f"Run starting now!")
 
         # change scene
-        self.game.change_scene([SceneType.WORLD])
-        self.game.add_scene(SceneType.EVENT, False)
+        self._game.change_scene([SceneType.WORLD])
+        self._game.add_scene(SceneType.EVENT, False)
 
     def reset(self):
         """
         Reset to clean state.
         """
-        self.ui = RunSetupUI(self.game, self)
-        self.selected_commander = list(self.game.data.commanders)[0]  # set to first commander
+        self.ui = RunSetupUI(self._game, self)
+        self.selected_commander = list(self._game.data.commanders)[0]  # set to first commander
         self.selected_seed = int(datetime.now().strftime("%Y%m%d%H%M%S"))

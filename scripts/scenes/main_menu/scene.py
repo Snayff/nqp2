@@ -43,10 +43,10 @@ class MainMenuScene(Scene):
         self.ui.update(delta_time)
 
     def reset(self):
-        self.ui = MainMenuUI(self.game, self)
+        self.ui = MainMenuUI(self._game, self)
 
     def new_game(self):
         """
         Prep the game for a new, fresh game and move to run setup scene.
         """
-        self.game.change_scene([SceneType.RUN_SETUP])
+        self._game.change_scene([SceneType.RUN_SETUP])

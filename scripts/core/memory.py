@@ -26,13 +26,13 @@ class Memory:
         # start timer
         start_time = time.time()
 
-        self.game: Game = game
+        self._game: Game = game
 
         # units
         self._last_id = 0
 
         # empty values will be overwritten in run_start
-        self.player_troupe: Troupe = Troupe(self.game, "player", [])
+        self.player_troupe: Troupe = Troupe(self._game, "player", [])
         self.player_actions = ["fireball"]
         self.commander: Optional[Commander] = None
 
@@ -120,7 +120,7 @@ class Memory:
         # priority or non-priority
         if len(self.priority_events) >= 1:
             chance_of_priority = 33 * self.turns_since_priority_event
-            if self.game.rng.roll() < chance_of_priority:
+            if self._game.rng.roll() < chance_of_priority:
                 events = self.priority_events
                 self.turns_since_priority_event = 0  # reset count
             else:
@@ -133,11 +133,11 @@ class Memory:
         for event in events.values():
             if self._check_event_conditions(event):
                 possible_events.append(event)
-                occur_rate = self.game.data.get_event_occur_rate(event["type"])
+                occur_rate = self._game.data.get_event_occur_rate(event["type"])
                 possible_events_occur_rates.append(occur_rate)
 
         # choose an event
-        event_ = self.game.rng.choices(possible_events, possible_events_occur_rates)[0]
+        event_ = self._game.rng.choices(possible_events, possible_events_occur_rates)[0]
 
         events.pop(event_["type"])
 
@@ -149,7 +149,7 @@ class Memory:
             levels = [1, 2, 3, 4]  # all levels
 
         event_deck = {}
-        events = self.game.data.events
+        events = self._game.data.events
 
         # add events
         for event in events.values():
@@ -214,11 +214,11 @@ class Memory:
         """
         available_bosses = []
 
-        for boss in self.game.data.bosses.values():
+        for boss in self._game.data.bosses.values():
             if boss["level_available"] <= self.level and boss["type"] not in self.seen_bosses:
                 available_bosses.append(boss["type"])
 
-        chosen_boss = self.game.rng.choice(available_bosses)
+        chosen_boss = self._game.rng.choice(available_bosses)
         self.level_boss = chosen_boss
 
         self.seen_bosses.append(chosen_boss)

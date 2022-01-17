@@ -45,7 +45,7 @@ def grid_walk(start, end):
 
 class Terrain:
     def __init__(self, game):
-        self.game = game
+        self._game = game
         self.terrain = {}
         self.tile_size = TILE_SIZE
         self.barrier_size = BARRIER_SIZE
@@ -137,7 +137,7 @@ class Terrain:
         return self.tile_rect(loc)
 
     def generate(self, biome):
-        map_generator.generate(self.game, self, biome)
+        map_generator.generate(self._game, self, biome)
         self.gen_pathfinding_map()
 
     def update(self, dt):
@@ -147,7 +147,7 @@ class Terrain:
     def render(self, surface: pygame.Surface, offset=(0, 0)):
         for loc in self.terrain:
             for tile in self.terrain[loc]:
-                tile.render(self.game, surface, self.game.combat.camera.pos)
+                tile.render(self._game, surface, self._game.combat.camera.pos)
 
         for trap in self.traps:
-            trap.render(surface, self.game.combat.camera.render_offset())
+            trap.render(surface, self._game.combat.camera.render_offset())

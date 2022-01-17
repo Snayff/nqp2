@@ -40,4 +40,4 @@ class GalleryScene(Scene):
         self.ui.update(delta_time)
 
     def reset(self):
-        self.ui = GalleryUI(self.game, self)
+        self.ui = GalleryUI(self._game, self)

@@ -34,7 +34,7 @@ class UnitDataScene(Scene):
         self.ui.update(delta_time)
 
     def render(self):
-        self.ui.render(self.game.window.display)
+        self.ui.render(self._game.window.display)
 
     def reset(self):
-        self.ui = UnitDataUI(self.game, self)
+        self.ui = UnitDataUI(self._game, self)

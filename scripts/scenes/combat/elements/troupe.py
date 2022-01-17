@@ -21,7 +21,7 @@ class Troupe:
     """
 
     def __init__(self, game: Game, team: str, allies: List[str]):
-        self.game: Game = game
+        self._game: Game = game
 
         self._unit_ids: List[int] = []  # used to manage order
         self._units: Dict[int, Unit] = {}
@@ -44,7 +44,7 @@ class Troupe:
         """
         ids = []
 
-        unit_types = self.game.data.get_units_by_category(self.allies)
+        unit_types = self._game.data.get_units_by_category(self.allies)
         for unit_type in unit_types:
             id_ = self._add_unit_from_type(unit_type)
             ids.append(id_)
@@ -65,8 +65,8 @@ class Troupe:
         Create a unit based on the unit type and add the unit to the troupe. Return id.
         """
 
-        id_ = self.game.memory.generate_id()
-        unit = Unit(self.game, id_, unit_type, self.team)
+        id_ = self._game.memory.generate_id()
+        unit = Unit(self._game, id_, unit_type, self.team)
         self._units[id_] = unit
         self._unit_ids.append(id_)
 
@@ -111,21 +111,21 @@ class Troupe:
         # get unit info
         unit_types_ = []
         unit_occur_rate = []
-        for unit_type in self.game.data.get_units_by_category(self.allies, tiers_allowed):
+        for unit_type in self._game.data.get_units_by_category(self.allies, tiers_allowed):
             unit_types_.append(unit_type)
-            occur_rate = self.game.data.get_unit_occur_rate(unit_type)
+            occur_rate = self._game.data.get_unit_occur_rate(unit_type)
             unit_occur_rate.append(occur_rate)
 
         # choose units
         if duplicates:
-            chosen_types = self.game.rng.choices(unit_types_, unit_occur_rate, k=number_of_units)
+            chosen_types = self._game.rng.choices(unit_types_, unit_occur_rate, k=number_of_units)
 
         else:
             chosen_types = []
 
             for i in range(number_of_units):
                 # choose unit
-                unit = self.game.rng.choices(unit_types_, unit_occur_rate)[0]
+                unit = self._game.rng.choices(unit_types_, unit_occur_rate)[0]
                 chosen_types.append(unit)
 
                 # remove unit and occur rate from option pool
@@ -167,7 +167,7 @@ class Troupe:
         unit = self.units[id_]
 
         try:
-            data = self.game.data.upgrades[upgrade_type]
+            data = self._game.data.upgrades[upgrade_type]
             unit.add_modifier(data["stat"], data["mod_amount"])
 
         except KeyError:
@@ -177,5 +177,5 @@ class Troupe:
         """
         Return a random unit from the Troupe.
         """
-        id_ = self.game.rng.choice(self.units)
+        id_ = self._game.rng.choice(self.units)
         return self.units[id_]

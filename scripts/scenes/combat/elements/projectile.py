@@ -5,7 +5,7 @@ import pygame
 
 class Projectile:
     def __init__(self, game, owner, target):
-        self.game = game
+        self._game = game
         self.owner = owner
         self.target = target
         self.angle = self.owner.angle(target)
@@ -28,10 +28,10 @@ class Projectile:
             self.pos[1] += math.sin(self.angle) * dis
             r = pygame.Rect(self.pos[0] - 4, self.pos[1] - 4, 8, 8)
 
-            if not self.game.combat.terrain.check_tile_hoverable(self.pos):
+            if not self._game.combat.terrain.check_tile_hoverable(self.pos):
                 return False
 
-            for entity in self.game.combat.all_entities:
+            for entity in self._game.combat.all_entities:
                 if entity.team != self.owner.team:
                     if r.collidepoint(entity.pos):
                         entity.deal_damage(self.damage, self.owner)
@@ -40,7 +40,7 @@ class Projectile:
         return True
 
     def render(self, surf, offset=(0, 0)):
-        img = self.game.assets.projectiles[self.img]
+        img = self._game.assets.projectiles[self.img]
         rotated_img = pygame.transform.rotate(img, -math.degrees(self.angle))
         surf.blit(
             rotated_img,

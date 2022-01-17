@@ -36,10 +36,10 @@ class RunSetupUI(UI):
     def process_input(self, delta_time: float):
         super().process_input(delta_time)
 
-        if self.game.input.states["toggle_dev_console"]:
-            self.game.input.states["toggle_dev_console"] = False
+        if self._game.input.states["toggle_dev_console"]:
+            self._game.input.states["toggle_dev_console"] = False
 
-            self.game.change_scene([SceneType.DEV_DATA_EDITOR])
+            self._game.change_scene([SceneType.DEV_DATA_EDITOR])
 
         # panel specific input
         if self.current_panel == self.panels["commanders"]:
@@ -57,17 +57,17 @@ class RunSetupUI(UI):
     def rebuild_ui(self):
         super().rebuild_ui()
 
-        commanders = self.game.data.commanders
-        selected_commander = self.game.run_setup.selected_commander
-        window_width = self.game.window.width
-        window_height = self.game.window.height
-        create_font = self.game.assets.create_font
-        create_fancy_font = self.game.assets.create_fancy_font
+        commanders = self._game.data.commanders
+        selected_commander = self._game.run_setup.selected_commander
+        window_width = self._game.window.width
+        window_height = self._game.window.height
+        create_font = self._game.assets.create_font
+        create_fancy_font = self._game.assets.create_fancy_font
 
         # positions
         start_x = 20
         start_y = 20
-        default_font = self.game.assets.create_font(FontType.DEFAULT, "")
+        default_font = self._game.assets.create_font(FontType.DEFAULT, "")
         font_height = default_font.line_height
 
         # draw commanders
@@ -75,7 +75,7 @@ class RunSetupUI(UI):
         current_y = start_y
         panel_elements = []
         for selection_counter, commander in enumerate(commanders.values()):
-            icon = self.game.assets.commander_animations[commander["type"]]["icon"][0]
+            icon = self._game.assets.commander_animations[commander["type"]]["icon"][0]
             icon_width = icon.get_width()
             frame = Frame((current_x, current_y), icon, is_selectable=True)
             self.elements[commander["type"]] = frame
@@ -169,7 +169,7 @@ class RunSetupUI(UI):
 
     def refresh_info(self):
         elements = self.elements
-        commander = self.game.data.commanders[self.game.run_setup.selected_commander]
+        commander = self._game.data.commanders[self._game.run_setup.selected_commander]
 
         elements["gold"].set_text(commander["gold"])
         elements["leadership"].set_text(commander["leadership"])
@@ -188,37 +188,37 @@ class RunSetupUI(UI):
 
     def handle_select_commander_input(self):
         # selections within panel
-        if self.game.input.states["left"]:
-            self.game.input.states["left"] = False
+        if self._game.input.states["left"]:
+            self._game.input.states["left"] = False
 
             self.current_panel.select_previous_element()
 
             # update selected commander and shown info
-            selected_commander = list(self.game.data.commanders)[self.current_panel.selected_index]
-            self.game.run_setup.selected_commander = selected_commander
+            selected_commander = list(self._game.data.commanders)[self.current_panel.selected_index]
+            self._game.run_setup.selected_commander = selected_commander
             self.refresh_info()
 
-        if self.game.input.states["right"]:
-            self.game.input.states["right"] = False
+        if self._game.input.states["right"]:
+            self._game.input.states["right"] = False
 
             self.current_panel.select_next_element()
 
             # update selected commander and shown info
-            selected_commander = list(self.game.data.commanders)[self.current_panel.selected_index]
-            self.game.run_setup.selected_commander = selected_commander
+            selected_commander = list(self._game.data.commanders)[self.current_panel.selected_index]
+            self._game.run_setup.selected_commander = selected_commander
             self.refresh_info()
 
         # select option and move to exit
-        if self.game.input.states["select"]:
-            self.game.input.states["select"] = False
+        if self._game.input.states["select"]:
+            self._game.input.states["select"] = False
 
             self.select_panel("exit")
 
     def handle_exit_input(self):
-        if self.game.input.states["select"]:
-            self.game.run_setup.start_run()
+        if self._game.input.states["select"]:
+            self._game.run_setup.start_run()
 
-        if self.game.input.states["cancel"]:
+        if self._game.input.states["cancel"]:
             # unselect current option
             self.current_panel.unselect_all_elements()
 

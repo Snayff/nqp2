@@ -26,7 +26,7 @@ class Data:
         # start timer
         start_time = time.time()
 
-        self.game: Game = game
+        self._game: Game = game
 
         self.commanders: Dict[str, Any] = self._load_commanders()
         self.units: Dict[str, Any] = self._load_unit_info()

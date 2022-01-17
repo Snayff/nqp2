@@ -1,6 +1,6 @@
 class Trap:
     def __init__(self, game, loc, type, trigger=("time", 1)):
-        self.game = game
+        self._game = game
         self.type = type
         self.loc = loc
         self.trigger_type = trigger
@@ -23,7 +23,7 @@ class Trap:
                 self.trigger()
 
         if (self.trigger_type[0] == "prox") and (self.timer >= 0):
-            for entity in self.game.combat.all_entities:
+            for entity in self._game.combat.all_entities:
                 if (
                     entity.raw_dis((self.loc[0] + self.size[0] // 2, self.loc[1] + self.size[1] // 2))
                     < self.trigger_type[1]
@@ -41,12 +41,12 @@ class Trap:
                     self.is_triggered = False
 
     def render(self, surf, offset=(0, 0)):
-        img_count = len(self.game.assets.trap_animations[self.type]) - 1
+        img_count = len(self._game.assets.trap_animations[self.type]) - 1
         if self.animation_timer == 0:
-            img = self.game.assets.trap_animations[self.type][0]
+            img = self._game.assets.trap_animations[self.type][0]
         else:
             img_idx = int(self.animation_timer / self.animation_dur * img_count)
-            img = self.game.assets.trap_animations[self.type][img_idx + 1]
+            img = self._game.assets.trap_animations[self.type][img_idx + 1]
         self.size = list(img.get_size())
         surf.blit(img, (self.loc[0] + offset[0], self.loc[1] + offset[1]))
 
@@ -57,7 +57,7 @@ class SpinningBlades(Trap):
 
     def trigger(self):
         super().trigger()
-        for entity in self.game.combat.all_entities:
+        for entity in self._game.combat.all_entities:
             if entity.raw_dis((self.loc[0] + self.size[0] // 2, self.loc[1] + self.size[1] // 2)) < self.size[0] // 2:
                 entity.deal_damage(1, owner=entity)
 
@@ -68,7 +68,7 @@ class Pit(Trap):
 
     def trigger(self):
         super().trigger()
-        for entity in self.game.combat.all_entities:
+        for entity in self._game.combat.all_entities:
             if entity.raw_dis((self.loc[0] + self.size[0] // 2, self.loc[1] + self.size[1] // 2)) < self.size[0] // 2:
                 entity.deal_damage(1, owner=entity)
                 for entity2 in entity.unit.entities:

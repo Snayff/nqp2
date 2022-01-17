@@ -1,6 +1,6 @@
 class Behaviour:
     def __init__(self, unit):
-        self.game = unit.game
+        self._game = unit._game
         self.unit = unit
 
         self.complete_init()

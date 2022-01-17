@@ -35,7 +35,7 @@ class WorldUI(UI):
 
         # TODO - info pulled over from combat to render terrain, needs clean up
         self.camera: Camera = Camera()
-        self.terrain: Terrain = Terrain(self.game)
+        self.terrain: Terrain = Terrain(self._game)
         self.biome = "plains"
         self.mod_delta_time = 0  # actual delta time by combat speed
         self.combat_speed = 1
@@ -53,23 +53,23 @@ class WorldUI(UI):
         super().process_input(delta_time)
 
         # TODO  - replace when new room choice is in.
-        if self.game.input.states["backspace"]:
+        if self._game.input.states["backspace"]:
             self.parent_scene.move_to_new_room()
 
     def render(self, surface: pygame.surface):
         self.camera.bind(self.terrain.boundaries)
-        combat_surf = pygame.Surface(self.game.window.display.get_size())  # Not sure we need this?
+        combat_surf = pygame.Surface(self._game.window.display.get_size())  # Not sure we need this?
         self.terrain.render(combat_surf, self.camera.render_offset())
 
         if self.parent_scene.state == WorldState.IDLE:
             self.parent_scene.unit_manager.render(combat_surf, self.camera.render_offset())
 
         # blit the terrain and unit_manager
-        self.game.window.display.blit(
+        self._game.window.display.blit(
             combat_surf,
             (
-                -(combat_surf.get_width() - self.game.window.display.get_width()) // 2,
-                -(combat_surf.get_height() - self.game.window.display.get_height()) // 2,
+                -(combat_surf.get_width() - self._game.window.display.get_width()) // 2,
+                -(combat_surf.get_height() - self._game.window.display.get_height()) // 2,
             ),
         )
 
