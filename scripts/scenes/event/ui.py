@@ -29,7 +29,7 @@ class EventUI(UI):
         super().__init__(game, True)
         self._parent_scene: EventScene = parent_scene
 
-        self.selected_option: str = ""  # the option selected
+        self._selected_option: str = ""  # the option selected
 
         self.set_instruction_text("Choose what to do next.")
 
@@ -155,7 +155,7 @@ class EventUI(UI):
 
             # draw option chosen
             frame = Frame(
-                (current_x, current_y), font=create_font(FontType.DEFAULT, self.selected_option), is_selectable=True
+                (current_x, current_y), font=create_font(FontType.DEFAULT, self._selected_option), is_selectable=True
             )
             self.elements["selected_option"] = frame
 
@@ -232,7 +232,7 @@ class EventUI(UI):
 
             # save results for later
             self._game.event.triggered_results = options[index]["result"]
-            self.selected_option = options[index]["text"]
+            self._selected_option = options[index]["text"]
 
             # trigger results and update display
             self._game.event._trigger_result()

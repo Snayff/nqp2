@@ -48,7 +48,7 @@ class InnScene(Scene):
 
         self.sale_troupe = None
 
-    def purchase_unit(self, unit: Unit):
+    def _purchase_unit(self, unit: Unit):
         """
         Purchase the unit
         """
@@ -62,7 +62,7 @@ class InnScene(Scene):
         # update unit availability
         self.units_available[unit.id] = False
 
-    def generate_sale_options(self):
+    def _generate_sale_options(self):
         """
         Generate the options for sale at the Inn.
         """
