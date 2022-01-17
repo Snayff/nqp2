@@ -128,8 +128,10 @@ class Grid:
         ]
 
         line_colour = (0, 100, 0)
-        line_colour_hover = (0, 150, 0)
-        line_colour_selected = (0, 200, 0)
+        line_colour_hover = (0, 140, 0)
+        line_colour_selected = (0, 180, 0)
+
+        selected_hover_border_width = 3
 
         cell_rect = pygame.Rect((0, 0, self.cell_size, self.cell_size))
 
@@ -139,11 +141,11 @@ class Grid:
 
         # Surface for the cell that's under the current mouse position or gamepad selection, but not selected
         self.cell_surface_hover = pygame.Surface((self.cell_size, self.cell_size), pygame.SRCALPHA)
-        pygame.draw.rect(self.cell_surface_hover, line_colour_hover, cell_rect, 1, 1)
+        pygame.draw.rect(self.cell_surface_hover, line_colour_hover, cell_rect, selected_hover_border_width, 1)
 
         # Surface for the cell that was selected
         self.cell_surface_selected = pygame.Surface((self.cell_size, self.cell_size), pygame.SRCALPHA)
-        pygame.draw.rect(self.cell_surface_selected, line_colour_selected, cell_rect, 1, 1)
+        pygame.draw.rect(self.cell_surface_selected, line_colour_selected, cell_rect, selected_hover_border_width, 1)
 
     def move_unit_to_cell(self, unit: Unit, cell: GridCell):
         cell_center_x, cell_center_y = cell.rect.x + self.cell_size // 2, cell.rect.y + self.cell_size // 2
