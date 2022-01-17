@@ -22,27 +22,8 @@ __all__ = ["Assets"]
 
 
 ######### TO DO LIST  ##########
-# TODO - either move functions to utility or make methods
+
 # TODO - update get_image to be easier to use and support animations - use name, with optional action and frame?
-
-
-def clip(surf, pos, size):
-    x, y = pos
-    x_size, y_size = size
-
-    handle_surf = surf.copy()
-    clip_r = pygame.Rect(x, y, x_size, y_size)
-    handle_surf.set_clip(clip_r)
-    image = surf.subsurface(handle_surf.get_clip())
-    return image.copy()
-
-
-def json_read(path):
-    f = open(path, "r")
-    data = json.load(f)
-    f.close()
-    return data
-
 
 class Assets:
     def __init__(self, game: Game):
@@ -114,7 +95,7 @@ class Assets:
             if projectiles_image.split(".")[-1] == "png"
         }
 
-        self.maps = {map.split(".")[0]: json_read("data/maps/" + map) for map in os.listdir("data/maps")}
+        self.maps = {map.split(".")[0]: self.json_read("data/maps/" + map) for map in os.listdir("data/maps")}
 
         # record duration
         end_time = time.time()
@@ -222,7 +203,7 @@ class Assets:
             tileset_data.append([])
             for x in range(spritesheet.get_width() // DEFAULT_IMAGE_SIZE):
                 tileset_data[-1].append(
-                    clip(
+                    self.clip(
                         spritesheet,
                         [x * DEFAULT_IMAGE_SIZE, y * DEFAULT_IMAGE_SIZE],
                         [DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE],
@@ -287,3 +268,19 @@ class Assets:
         logging.debug(f"Assets: All images loaded.")
 
         return images
+
+    def json_read(self, path):
+        f = open(path, "r")
+        data = json.load(f)
+        f.close()
+        return data
+
+    def clip(self, surf, pos, size):
+        x, y = pos
+        x_size, y_size = size
+
+        handle_surf = surf.copy()
+        clip_r = pygame.Rect(x, y, x_size, y_size)
+        handle_surf.set_clip(clip_r)
+        image = surf.subsurface(handle_surf.get_clip())
+        return image.copy()
