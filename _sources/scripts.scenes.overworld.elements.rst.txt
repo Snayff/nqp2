@@ -1,0 +1,29 @@
+scripts.scenes.overworld.elements package
+=========================================
+
+Submodules
+----------
+
+scripts.scenes.overworld.elements.node module
+---------------------------------------------
+
+.. automodule:: scripts.scenes.overworld.elements.node
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scenes.overworld.elements.rings module
+----------------------------------------------
+
+.. automodule:: scripts.scenes.overworld.elements.rings
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: scripts.scenes.overworld.elements
+   :members:
+   :undoc-members:
+   :show-inheritance:

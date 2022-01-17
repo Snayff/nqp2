@@ -1,0 +1,101 @@
+scripts.core package
+====================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   scripts.core.base_classes
+
+Submodules
+----------
+
+scripts.core.assets module
+--------------------------
+
+.. automodule:: scripts.core.assets
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.core.constants module
+-----------------------------
+
+.. automodule:: scripts.core.constants
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.core.data module
+------------------------
+
+.. automodule:: scripts.core.data
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.core.debug module
+-------------------------
+
+.. automodule:: scripts.core.debug
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.core.game module
+------------------------
+
+.. automodule:: scripts.core.game
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.core.input module
+-------------------------
+
+.. automodule:: scripts.core.input
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.core.memory module
+--------------------------
+
+.. automodule:: scripts.core.memory
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.core.rng module
+-----------------------
+
+.. automodule:: scripts.core.rng
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.core.utility module
+---------------------------
+
+.. automodule:: scripts.core.utility
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.core.window module
+--------------------------
+
+.. automodule:: scripts.core.window
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: scripts.core
+   :members:
+   :undoc-members:
+   :show-inheritance:

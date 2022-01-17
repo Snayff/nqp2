@@ -1,0 +1,7 @@
+nqp2 module
+===========
+
+.. automodule:: nqp2
+   :members:
+   :undoc-members:
+   :show-inheritance:

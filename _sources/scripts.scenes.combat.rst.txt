@@ -1,0 +1,37 @@
+scripts.scenes.combat package
+=============================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   scripts.scenes.combat.elements
+
+Submodules
+----------
+
+scripts.scenes.combat.scene module
+----------------------------------
+
+.. automodule:: scripts.scenes.combat.scene
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scenes.combat.ui module
+-------------------------------
+
+.. automodule:: scripts.scenes.combat.ui
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: scripts.scenes.combat
+   :members:
+   :undoc-members:
+   :show-inheritance:

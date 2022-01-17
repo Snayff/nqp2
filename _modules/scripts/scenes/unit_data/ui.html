@@ -1,0 +1,627 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="lang:clipboard.copy" content="Copy to clipboard">
+  <meta name="lang:clipboard.copied" content="Copied to clipboard">
+  <meta name="lang:search.language" content="en">
+  <meta name="lang:search.pipeline.stopwords" content="True">
+  <meta name="lang:search.pipeline.trimmer" content="True">
+  <meta name="lang:search.result.none" content="No matching documents">
+  <meta name="lang:search.result.one" content="1 matching document">
+  <meta name="lang:search.result.other" content="# matching documents">
+  <meta name="lang:search.tokenizer" content="[\s\-]+">
+
+  
+    <link href="https://fonts.gstatic.com/" rel="preconnect" crossorigin>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700|Roboto:300,400,400i,700&display=fallback" rel="stylesheet">
+
+    <style>
+      body,
+      input {
+        font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif
+      }
+
+      code,
+      kbd,
+      pre {
+        font-family: "Roboto Mono", "Courier New", Courier, monospace
+      }
+    </style>
+  
+
+  <link rel="stylesheet" href="../../../../_static/stylesheets/application.css"/>
+  <link rel="stylesheet" href="../../../../_static/stylesheets/application-palette.css"/>
+  <link rel="stylesheet" href="../../../../_static/stylesheets/application-fixes.css"/>
+  
+  <link rel="stylesheet" href="../../../../_static/fonts/material-icons.css"/>
+  
+  <meta name="theme-color" content="#3f51b5">
+  <script src="../../../../_static/javascripts/modernizr.js"></script>
+  
+  
+  
+    <title>scripts.scenes.unit_data.ui &#8212; NotQuiteParadise2  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/material.css" />
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+  
+   
+
+  </head>
+  <body dir=ltr
+        data-md-color-primary=deep-purple data-md-color-accent=deep-orange>
+  
+  <svg class="md-svg">
+    <defs data-children-count="0">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+      
+    </defs>
+  </svg>
+  
+  <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer">
+  <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search">
+  <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+  <a href="#_modules/scripts/scenes/unit_data/ui" tabindex="1" class="md-skip"> Skip to content </a>
+  <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex navheader">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../../../../index.html" title="NotQuiteParadise2  documentation"
+           class="md-header-nav__button md-logo">
+          
+            <i class="md-icon">&#xe869</i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          <span class="md-header-nav__topic">Not Quite Paradise 2</span>
+          <span class="md-header-nav__topic"> scripts.scenes.unit_data.ui </span>
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+        
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" action="../../../../search.html" method="get" name="search">
+      <input type="text" class="md-search__input" name="q" placeholder="Search"
+             autocapitalize="off" autocomplete="off" spellcheck="false"
+             data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            <a href="https://github.com/Snayff/nqp2" title="Go to repository" class="md-source" data-md-source="github">
+
+    <div class="md-source__icon">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    Not Quite Paradise
+  </div>
+</a>
+          </div>
+        </div>
+      
+      
+  
+  <script src="../../../../_static/javascripts/version_dropdown.js"></script>
+  <script>
+    var json_loc = "../../../../"versions.json"",
+        target_loc = "../../../../../",
+        text = "Versions";
+    $( document ).ready( add_version_dropdown(json_loc, target_loc, text));
+  </script>
+  
+
+    </div>
+  </nav>
+</header>
+
+  
+  <div class="md-container">
+    
+    
+    
+  <nav class="md-tabs" data-md-component="tabs">
+    <div class="md-tabs__inner md-grid">
+      <ul class="md-tabs__list">
+          <li class="md-tabs__item"><a href="../../../../index.html" class="md-tabs__link">NotQuiteParadise2  documentation</a></li>
+          <li class="md-tabs__item"><a href="../../../index.html" class="md-tabs__link">Module code</a></li>
+      </ul>
+    </div>
+  </nav>
+    <main class="md-main">
+      <div class="md-main__inner md-grid" data-md-component="container">
+        
+          <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+            <div class="md-sidebar__scrollwrap">
+              <div class="md-sidebar__inner">
+                <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../../../../index.html" title="NotQuiteParadise2 documentation" class="md-nav__button md-logo">
+      
+        <i class="md-icon">&#xe869</i>
+      
+    </a>
+    <a href="../../../../index.html"
+       title="NotQuiteParadise2 documentation">Not Quite Paradise 2</a>
+  </label>
+    <div class="md-nav__source">
+      <a href="https://github.com/Snayff/nqp2" title="Go to repository" class="md-source" data-md-source="github">
+
+    <div class="md-source__icon">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    Not Quite Paradise
+  </div>
+</a>
+    </div>
+  
+  
+
+  
+  <ul class="md-nav__list">
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../api/core/_core.html" class="md-nav__link">Core</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../api/scenes/_scenes.html" class="md-nav__link">Scenes</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../api/ui_elements/ui_elements.html" class="md-nav__link">UI Elements</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../developer_notes/_developer_notes.html" class="md-nav__link">Developer Notes</a>
+      
+    
+    </li>
+  </ul>
+  
+
+</nav>
+              </div>
+            </div>
+          </div>
+          <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+            <div class="md-sidebar__scrollwrap">
+              <div class="md-sidebar__inner">
+                
+<nav class="md-nav md-nav--secondary">
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+
+<li id="searchbox" class="md-nav__item"></li>
+
+  </ul>
+</nav>
+              </div>
+            </div>
+          </div>
+        
+        <div class="md-content">
+          <article class="md-content__inner md-typeset" role="main">
+            
+  <h1 id="modules-scripts-scenes-unit-data-ui--page-root">Source code for scripts.scenes.unit_data.ui</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">statistics</span> <span class="kn">import</span> <span class="n">mean</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="kn">import</span> <span class="nn">pygame</span>
+
+<span class="kn">from</span> <span class="nn">scripts.core.base_classes.ui</span> <span class="kn">import</span> <span class="n">UI</span>
+<span class="kn">from</span> <span class="nn">scripts.core.constants</span> <span class="kn">import</span> <span class="n">DATA_PATH</span><span class="p">,</span> <span class="n">DEFAULT_IMAGE_SIZE</span><span class="p">,</span> <span class="n">FontType</span>
+<span class="kn">from</span> <span class="nn">scripts.ui_elements.button</span> <span class="kn">import</span> <span class="n">Button</span>
+<span class="kn">from</span> <span class="nn">scripts.ui_elements.input_box</span> <span class="kn">import</span> <span class="n">InputBox</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Union</span>
+
+    <span class="kn">from</span> <span class="nn">scripts.core.game</span> <span class="kn">import</span> <span class="n">Game</span>
+    <span class="kn">from</span> <span class="nn">scripts.scenes.unit_data.scene</span> <span class="kn">import</span> <span class="n">UnitDataScene</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"UnitDataUI"</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="UnitDataUI"><a class="viewcode-back" href="../../../../scripts.scenes.unit_data.html#scripts.scenes.unit_data.ui.UnitDataUI">[docs]</a><span class="k">class</span> <span class="nc">UnitDataUI</span><span class="p">(</span><span class="n">UI</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Represent the UI of the UnitDataScene.</span>
+<span class="sd">    """</span>
+
+<div class="viewcode-block" id="UnitDataUI.__init__"><a class="viewcode-back" href="../../../../scripts.scenes.unit_data.html#scripts.scenes.unit_data.ui.UnitDataUI.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">game</span><span class="p">:</span> <span class="n">Game</span><span class="p">,</span> <span class="n">parent_scene</span><span class="p">:</span> <span class="n">UnitDataScene</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent_scene</span><span class="p">:</span> <span class="n">UnitDataScene</span> <span class="o">=</span> <span class="n">parent_scene</span>
+
+        <span class="n">window_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">width</span>
+        <span class="n">window_height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">height</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttons</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Button</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"left_arrow"</span><span class="p">:</span> <span class="n">Button</span><span class="p">(</span>
+                <span class="n">game</span><span class="p">,</span> <span class="n">pygame</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">"ui"</span><span class="p">,</span> <span class="s2">"arrow_button"</span><span class="p">),</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+            <span class="p">),</span>
+            <span class="s2">"right_arrow"</span><span class="p">:</span> <span class="n">Button</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">"ui"</span><span class="p">,</span> <span class="s2">"arrow_button"</span><span class="p">),</span> <span class="p">(</span><span class="mi">120</span><span class="p">,</span> <span class="mi">10</span><span class="p">)),</span>
+            <span class="s2">"save"</span><span class="p">:</span> <span class="n">Button</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="s2">"save"</span><span class="p">,</span> <span class="p">(</span><span class="n">window_width</span> <span class="o">-</span> <span class="mi">32</span><span class="p">,</span> <span class="n">window_height</span> <span class="o">-</span> <span class="mi">22</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">20</span><span class="p">]),</span>
+            <span class="s2">"cancel"</span><span class="p">:</span> <span class="n">Button</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="s2">"cancel"</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">window_height</span> <span class="o">-</span> <span class="mi">22</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">20</span><span class="p">]),</span>
+        <span class="p">}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">fields</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">unit_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">unit_index</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_unit</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_unit_data</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">tier1_metrics</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tier2_metrics</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tier3_metrics</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tier4_metrics</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">confirmation_timer</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">show_confirmation</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_timer</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_counter</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">refresh_unit_fields</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unit_list</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">unit_index</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">calculate_unit_metrics</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="UnitDataUI.update"><a class="viewcode-back" href="../../../../scripts.scenes.unit_data.html#scripts.scenes.unit_data.ui.UnitDataUI.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span>
+
+        <span class="c1"># update text fields</span>
+        <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_unit_data</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">field</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">field</span><span class="p">]</span><span class="o">.</span><span class="n">should_focus</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">field</span><span class="p">]</span><span class="o">.</span><span class="n">focus</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">field</span><span class="p">]</span><span class="o">.</span><span class="n">unfocus</span><span class="p">()</span>
+
+        <span class="c1"># update confirmation timer</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">confirmation_timer</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">confirmation_timer</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">show_confirmation</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_timer</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">frame_timer</span> <span class="o">&gt;</span> <span class="mi">20</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">frame_timer</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">frame_counter</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">frame_counter</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">frame_counter</span> <span class="o">=</span> <span class="mi">0</span></div>
+
+<div class="viewcode-block" id="UnitDataUI.process_input"><a class="viewcode-back" href="../../../../scripts.scenes.unit_data.html#scripts.scenes.unit_data.ui.UnitDataUI.process_input">[docs]</a>    <span class="k">def</span> <span class="nf">process_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">process_input</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span>
+
+        <span class="c1"># handle button presses</span>
+        <span class="n">buttons</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buttons</span>
+        <span class="k">for</span> <span class="n">button</span> <span class="ow">in</span> <span class="n">buttons</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">button</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">button</span><span class="o">.</span><span class="n">pressed</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">button</span> <span class="o">==</span> <span class="n">buttons</span><span class="p">[</span><span class="s2">"right_arrow"</span><span class="p">]:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">unit_index</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">unit_index</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unit_list</span><span class="p">):</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">unit_index</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">if</span> <span class="n">button</span> <span class="o">==</span> <span class="n">buttons</span><span class="p">[</span><span class="s2">"left_arrow"</span><span class="p">]:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">unit_index</span> <span class="o">-=</span> <span class="mi">1</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">unit_index</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">unit_index</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unit_list</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="n">button</span> <span class="ow">in</span> <span class="p">[</span><span class="n">buttons</span><span class="p">[</span><span class="s2">"right_arrow"</span><span class="p">],</span> <span class="n">buttons</span><span class="p">[</span><span class="s2">"left_arrow"</span><span class="p">]]:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">refresh_unit_fields</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unit_list</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">unit_index</span><span class="p">])</span>
+
+                <span class="k">if</span> <span class="n">button</span> <span class="o">==</span> <span class="n">buttons</span><span class="p">[</span><span class="s2">"save"</span><span class="p">]:</span>
+                    <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_unit_data</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">current_unit_data</span><span class="p">[</span><span class="n">field</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">field</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+
+                    <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+                    <span class="c1"># update metrics</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">calculate_unit_metrics</span><span class="p">()</span>
+
+                <span class="k">if</span> <span class="n">button</span> <span class="o">==</span> <span class="n">buttons</span><span class="p">[</span><span class="s2">"cancel"</span><span class="p">]:</span>
+                    <span class="c1"># go back to previous scene</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">change_scene</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">dev_unit_data</span><span class="o">.</span><span class="n">previous_scene_type</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="UnitDataUI.render"><a class="viewcode-back" href="../../../../scripts.scenes.unit_data.html#scripts.scenes.unit_data.ui.UnitDataUI.render">[docs]</a>    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">surface</span><span class="p">):</span>
+        <span class="n">window_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">width</span>
+        <span class="n">window_height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">height</span>
+        <span class="n">create_font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">create_font</span>
+
+        <span class="n">metric_col_width</span> <span class="o">=</span> <span class="mi">80</span>
+        <span class="n">metric_second_row_start_y</span> <span class="o">=</span> <span class="n">window_height</span> <span class="o">//</span> <span class="mi">2</span>
+
+        <span class="c1"># draw fields and their titles</span>
+        <span class="n">font</span> <span class="o">=</span> <span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_unit</span><span class="p">))</span>
+        <span class="n">font</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="p">(</span><span class="mi">76</span> <span class="o">-</span> <span class="n">font</span><span class="o">.</span><span class="n">width</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
+        <span class="n">font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_unit_data</span><span class="p">:</span>
+            <span class="n">font</span> <span class="o">=</span> <span class="n">create_font</span><span class="p">(</span>
+                <span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span>
+                <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_unit</span><span class="p">),</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">field</span><span class="p">]</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">90</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">field</span><span class="p">]</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">3</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">field</span><span class="p">]</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>
+
+        <span class="c1"># draw unit animations</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">frame_counter</span>
+        <span class="n">current_img_x</span> <span class="o">=</span> <span class="mi">150</span>
+        <span class="n">current_img_y</span> <span class="o">=</span> <span class="mi">10</span>
+        <span class="n">unit_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_unit_data</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">animation_name</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"icon"</span><span class="p">,</span> <span class="s2">"idle"</span><span class="p">,</span> <span class="s2">"walk"</span><span class="p">,</span> <span class="s2">"attack"</span><span class="p">,</span> <span class="s2">"hit"</span><span class="p">,</span> <span class="s2">"death"</span><span class="p">]:</span>
+                <span class="n">num_frames</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">unit_animations</span><span class="p">[</span><span class="n">unit_type</span><span class="p">][</span><span class="n">animation_name</span><span class="p">])</span>
+                <span class="n">frame_</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">num_frames</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="n">img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">unit_animations</span><span class="p">[</span><span class="n">unit_type</span><span class="p">][</span><span class="n">animation_name</span><span class="p">][</span><span class="n">frame_</span><span class="p">]</span>
+                <span class="n">img_</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="n">DEFAULT_IMAGE_SIZE</span><span class="p">,</span> <span class="n">DEFAULT_IMAGE_SIZE</span><span class="p">))</span>
+                <span class="n">surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">img_</span><span class="p">,</span> <span class="p">(</span><span class="n">current_img_x</span><span class="p">,</span> <span class="n">current_img_y</span><span class="p">))</span>
+
+                <span class="n">current_img_x</span> <span class="o">+=</span> <span class="n">DEFAULT_IMAGE_SIZE</span> <span class="o">+</span> <span class="mi">2</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="c1"># draw buttons</span>
+        <span class="k">for</span> <span class="n">button</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buttons</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">button</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>
+
+        <span class="c1"># show confirmation message</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_confirmation</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">"Save successful."</span>
+            <span class="n">font</span> <span class="o">=</span> <span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">POSITIVE</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
+            <span class="n">font</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="p">(</span><span class="n">window_width</span> <span class="o">-</span> <span class="n">font</span><span class="o">.</span><span class="n">width</span> <span class="o">-</span> <span class="mi">35</span><span class="p">,</span> <span class="n">window_height</span> <span class="o">-</span> <span class="n">font</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
+            <span class="c1"># N.B. 32 = button width + 3</span>
+            <span class="n">font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>
+
+        <span class="c1"># set positions</span>
+        <span class="n">start_x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">window_width</span> <span class="o">-</span> <span class="p">(</span><span class="n">window_width</span> <span class="o">/</span> <span class="mf">2.8</span><span class="p">))</span>
+        <span class="n">start_y</span> <span class="o">=</span> <span class="mi">40</span>
+
+        <span class="c1"># draw headers</span>
+        <span class="n">current_x</span> <span class="o">=</span> <span class="n">start_x</span> <span class="o">+</span> <span class="n">metric_col_width</span>
+        <span class="n">current_y</span> <span class="o">=</span> <span class="n">start_y</span>
+        <span class="k">for</span> <span class="n">tier_title</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"Tier 1"</span><span class="p">,</span> <span class="s2">"Tier 2"</span><span class="p">]:</span>
+            <span class="n">font</span> <span class="o">=</span> <span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DISABLED</span><span class="p">,</span> <span class="n">tier_title</span><span class="p">,</span> <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">))</span>
+            <span class="n">font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>
+            <span class="n">current_x</span> <span class="o">+=</span> <span class="n">metric_col_width</span>
+
+        <span class="c1"># draw second row headers</span>
+        <span class="n">current_x</span> <span class="o">=</span> <span class="n">start_x</span> <span class="o">+</span> <span class="n">metric_col_width</span>
+        <span class="n">current_y</span> <span class="o">=</span> <span class="n">metric_second_row_start_y</span>
+        <span class="k">for</span> <span class="n">tier_title</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"Tier 3"</span><span class="p">,</span> <span class="s2">"Tier 4"</span><span class="p">]:</span>
+            <span class="n">font</span> <span class="o">=</span> <span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DISABLED</span><span class="p">,</span> <span class="n">tier_title</span><span class="p">,</span> <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">))</span>
+            <span class="n">font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>
+            <span class="n">current_x</span> <span class="o">+=</span> <span class="n">metric_col_width</span>
+
+        <span class="c1"># draw stat list</span>
+        <span class="n">current_x</span> <span class="o">=</span> <span class="n">start_x</span>
+        <span class="n">current_y</span> <span class="o">=</span> <span class="n">start_y</span> <span class="o">+</span> <span class="n">font</span><span class="o">.</span><span class="n">height</span>
+        <span class="k">for</span> <span class="n">stat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tier1_metrics</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">font</span> <span class="o">=</span> <span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DISABLED</span><span class="p">,</span> <span class="n">stat</span><span class="p">,</span> <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">))</span>
+            <span class="n">font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>
+            <span class="n">current_y</span> <span class="o">+=</span> <span class="n">font</span><span class="o">.</span><span class="n">height</span>
+
+        <span class="c1"># draw stat list for second row</span>
+        <span class="n">current_x</span> <span class="o">=</span> <span class="n">start_x</span>
+        <span class="n">current_y</span> <span class="o">=</span> <span class="n">metric_second_row_start_y</span> <span class="o">+</span> <span class="n">font</span><span class="o">.</span><span class="n">height</span>
+        <span class="k">for</span> <span class="n">stat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tier1_metrics</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">font</span> <span class="o">=</span> <span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DISABLED</span><span class="p">,</span> <span class="n">stat</span><span class="p">,</span> <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">))</span>
+            <span class="n">font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>
+            <span class="n">current_y</span> <span class="o">+=</span> <span class="n">font</span><span class="o">.</span><span class="n">height</span>
+
+        <span class="c1"># show info regarding other units</span>
+        <span class="n">current_x</span> <span class="o">=</span> <span class="n">start_x</span> <span class="o">+</span> <span class="n">metric_col_width</span>
+        <span class="n">current_y</span> <span class="o">=</span> <span class="n">start_y</span> <span class="o">+</span> <span class="n">font</span><span class="o">.</span><span class="n">height</span>
+        <span class="k">for</span> <span class="n">tier</span> <span class="ow">in</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">tier1_metrics</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tier2_metrics</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">stat_value</span> <span class="ow">in</span> <span class="n">tier</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="n">font</span> <span class="o">=</span> <span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DISABLED</span><span class="p">,</span> <span class="n">stat_value</span><span class="p">,</span> <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">))</span>
+                <span class="n">font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>
+                <span class="n">current_y</span> <span class="o">+=</span> <span class="n">font</span><span class="o">.</span><span class="n">height</span>
+
+            <span class="n">current_x</span> <span class="o">+=</span> <span class="n">metric_col_width</span>
+            <span class="n">current_y</span> <span class="o">=</span> <span class="n">start_y</span> <span class="o">+</span> <span class="n">font</span><span class="o">.</span><span class="n">height</span>
+
+        <span class="c1"># show info regarding other units on second row</span>
+        <span class="n">current_x</span> <span class="o">=</span> <span class="n">start_x</span> <span class="o">+</span> <span class="n">metric_col_width</span>
+        <span class="n">current_y</span> <span class="o">=</span> <span class="n">metric_second_row_start_y</span> <span class="o">+</span> <span class="n">font</span><span class="o">.</span><span class="n">height</span>
+        <span class="k">for</span> <span class="n">tier</span> <span class="ow">in</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">tier3_metrics</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tier4_metrics</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">stat_value</span> <span class="ow">in</span> <span class="n">tier</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="n">font</span> <span class="o">=</span> <span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DISABLED</span><span class="p">,</span> <span class="n">stat_value</span><span class="p">,</span> <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">))</span>
+                <span class="n">font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>
+                <span class="n">current_y</span> <span class="o">+=</span> <span class="n">font</span><span class="o">.</span><span class="n">height</span>
+
+            <span class="n">current_x</span> <span class="o">+=</span> <span class="n">metric_col_width</span>
+            <span class="n">current_y</span> <span class="o">=</span> <span class="n">metric_second_row_start_y</span> <span class="o">+</span> <span class="n">font</span><span class="o">.</span><span class="n">height</span></div>
+
+<div class="viewcode-block" id="UnitDataUI.refresh_unit_fields"><a class="viewcode-back" href="../../../../scripts.scenes.unit_data.html#scripts.scenes.unit_data.ui.UnitDataUI.refresh_unit_fields">[docs]</a>    <span class="k">def</span> <span class="nf">refresh_unit_fields</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unit_id</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_unit</span> <span class="o">=</span> <span class="n">unit_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_unit_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="p">[</span><span class="n">unit_id</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="s2">"default"</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">fields</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">field</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_unit_data</span><span class="p">):</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">15</span>  <span class="c1"># this is the rows in the col</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">i</span> <span class="o">//</span> <span class="mi">15</span>  <span class="c1"># must match int used for y</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">field</span><span class="p">]</span> <span class="o">=</span> <span class="n">InputBox</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="p">,</span>
+                <span class="p">[</span><span class="mi">80</span><span class="p">,</span> <span class="mi">16</span><span class="p">],</span>
+                <span class="n">pos</span><span class="o">=</span><span class="p">[</span><span class="mi">100</span> <span class="o">+</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">30</span> <span class="o">+</span> <span class="n">y</span> <span class="o">*</span> <span class="mi">20</span><span class="p">],</span>
+                <span class="n">input_type</span><span class="o">=</span><span class="s2">"detect"</span><span class="p">,</span>
+                <span class="n">text</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">current_unit_data</span><span class="p">[</span><span class="n">field</span><span class="p">],</span>
+            <span class="p">)</span></div>
+
+<div class="viewcode-block" id="UnitDataUI.save"><a class="viewcode-back" href="../../../../scripts.scenes.unit_data.html#scripts.scenes.unit_data.ui.UnitDataUI.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Save the current unit data to the json.</span>
+<span class="sd">        """</span>
+        <span class="n">unit_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_unit_data</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span>
+        <span class="n">str_path</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">DATA_PATH</span> <span class="o">/</span> <span class="s2">"units"</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">unit_type</span><span class="si">}</span><span class="s2">.json"</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">str_path</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_unit_data</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"UnitDataUI: updated </span><span class="si">{</span><span class="n">unit_type</span><span class="si">}</span><span class="s2">; new data saved."</span><span class="p">)</span>
+
+        <span class="c1"># trigger confirmation message</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">show_confirmation</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">confirmation_timer</span> <span class="o">=</span> <span class="mi">800</span></div>
+
+<div class="viewcode-block" id="UnitDataUI.calculate_unit_metrics"><a class="viewcode-back" href="../../../../scripts.scenes.unit_data.html#scripts.scenes.unit_data.ui.UnitDataUI.calculate_unit_metrics">[docs]</a>    <span class="k">def</span> <span class="nf">calculate_unit_metrics</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Calculate useful info.</span>
+<span class="sd">        """</span>
+        <span class="n">tier1</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">tier2</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">tier3</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">tier4</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># get data sorted by stat</span>
+        <span class="k">for</span> <span class="n">unit</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">unit</span><span class="p">[</span><span class="s2">"tier"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">current_dict</span> <span class="o">=</span> <span class="n">tier1</span>
+            <span class="k">elif</span> <span class="n">unit</span><span class="p">[</span><span class="s2">"tier"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">current_dict</span> <span class="o">=</span> <span class="n">tier2</span>
+            <span class="k">elif</span> <span class="n">unit</span><span class="p">[</span><span class="s2">"tier"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="n">current_dict</span> <span class="o">=</span> <span class="n">tier3</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># unit["tier"] == 4:</span>
+                <span class="n">current_dict</span> <span class="o">=</span> <span class="n">tier4</span>
+
+            <span class="c1"># add all units stats to stat lists</span>
+            <span class="k">for</span> <span class="n">stat</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">unit</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="c1"># ignore strings and tier</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">or</span> <span class="n">stat</span> <span class="o">==</span> <span class="s2">"tier"</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+                <span class="c1"># init list</span>
+                <span class="k">if</span> <span class="n">stat</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">current_dict</span><span class="p">:</span>
+                    <span class="n">current_dict</span><span class="p">[</span><span class="n">stat</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">current_dict</span><span class="p">[</span><span class="n">stat</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+        <span class="n">tier1_calc</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">tier2_calc</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">tier3_calc</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">tier4_calc</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># do calculations</span>
+        <span class="k">for</span> <span class="n">stat</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">tier1</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">min_</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+            <span class="n">avg</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">mean</span><span class="p">(</span><span class="n">values</span><span class="p">),</span> <span class="s2">".2f"</span><span class="p">)</span>
+            <span class="n">max_</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+            <span class="n">tier1_calc</span><span class="p">[</span><span class="n">stat</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">min_</span><span class="p">,</span> <span class="n">avg</span><span class="p">,</span> <span class="n">max_</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">stat</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">tier2</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">min_</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+            <span class="n">avg</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">mean</span><span class="p">(</span><span class="n">values</span><span class="p">),</span> <span class="s2">".2f"</span><span class="p">)</span>
+            <span class="n">max_</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+            <span class="n">tier2_calc</span><span class="p">[</span><span class="n">stat</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">min_</span><span class="p">,</span> <span class="n">avg</span><span class="p">,</span> <span class="n">max_</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">stat</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">tier3</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">min_</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+            <span class="n">avg</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">mean</span><span class="p">(</span><span class="n">values</span><span class="p">),</span> <span class="s2">".2f"</span><span class="p">)</span>
+            <span class="n">max_</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+            <span class="n">tier3_calc</span><span class="p">[</span><span class="n">stat</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">min_</span><span class="p">,</span> <span class="n">avg</span><span class="p">,</span> <span class="n">max_</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">stat</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">tier4</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">min_</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+            <span class="n">avg</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">mean</span><span class="p">(</span><span class="n">values</span><span class="p">),</span> <span class="s2">".2f"</span><span class="p">)</span>
+            <span class="n">max_</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+            <span class="n">tier4_calc</span><span class="p">[</span><span class="n">stat</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">min_</span><span class="p">,</span> <span class="n">avg</span><span class="p">,</span> <span class="n">max_</span><span class="p">]</span>
+
+        <span class="c1"># overwrite attributes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tier1_metrics</span> <span class="o">=</span> <span class="n">tier1_calc</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tier2_metrics</span> <span class="o">=</span> <span class="n">tier2_calc</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tier3_metrics</span> <span class="o">=</span> <span class="n">tier3_calc</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tier4_metrics</span> <span class="o">=</span> <span class="n">tier4_calc</span></div></div>
+</pre></div>
+
+          </article>
+        </div>
+      </div>
+    </main>
+  </div>
+  <footer class="md-footer">
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+          
+          
+        </a>
+        
+      </nav>
+    </div>
+    <div class="md-footer-meta md-typeset">
+      <div class="md-footer-meta__inner md-grid">
+        <div class="md-footer-copyright">
+          <div class="md-footer-copyright__highlight">
+              &#169; Copyright 2019-2022, Josh Snaith.
+              
+          </div>
+            Created using
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+             and
+            <a href="https://github.com/bashtage/sphinx-material/">Material for
+              Sphinx</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="../../../../_static/javascripts/application.js"></script>
+  <script>app.initialize({version: "1.0.4", url: {base: ".."}})</script>
+  </body>
+</html>

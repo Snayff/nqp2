@@ -1,0 +1,29 @@
+scripts.scenes.world package
+============================
+
+Submodules
+----------
+
+scripts.scenes.world.scene module
+---------------------------------
+
+.. automodule:: scripts.scenes.world.scene
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scenes.world.ui module
+------------------------------
+
+.. automodule:: scripts.scenes.world.ui
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: scripts.scenes.world
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,29 @@
+scripts.scenes.event package
+============================
+
+Submodules
+----------
+
+scripts.scenes.event.scene module
+---------------------------------
+
+.. automodule:: scripts.scenes.event.scene
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scenes.event.ui module
+------------------------------
+
+.. automodule:: scripts.scenes.event.ui
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: scripts.scenes.event
+   :members:
+   :undoc-members:
+   :show-inheritance:

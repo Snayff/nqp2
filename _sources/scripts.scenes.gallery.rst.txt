@@ -1,0 +1,29 @@
+scripts.scenes.gallery package
+==============================
+
+Submodules
+----------
+
+scripts.scenes.gallery.scene module
+-----------------------------------
+
+.. automodule:: scripts.scenes.gallery.scene
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scenes.gallery.ui module
+--------------------------------
+
+.. automodule:: scripts.scenes.gallery.ui
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: scripts.scenes.gallery
+   :members:
+   :undoc-members:
+   :show-inheritance:

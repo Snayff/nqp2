@@ -1,0 +1,29 @@
+scripts.scenes.main\_menu package
+=================================
+
+Submodules
+----------
+
+scripts.scenes.main\_menu.scene module
+--------------------------------------
+
+.. automodule:: scripts.scenes.main_menu.scene
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scenes.main\_menu.ui module
+-----------------------------------
+
+.. automodule:: scripts.scenes.main_menu.ui
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: scripts.scenes.main_menu
+   :members:
+   :undoc-members:
+   :show-inheritance:

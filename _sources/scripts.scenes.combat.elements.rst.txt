@@ -1,0 +1,182 @@
+scripts.scenes.combat.elements package
+======================================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   scripts.scenes.combat.elements.entity_behaviours
+   scripts.scenes.combat.elements.unit_behaviours
+
+Submodules
+----------
+
+scripts.scenes.combat.elements.actions module
+---------------------------------------------
+
+.. automodule:: scripts.scenes.combat.elements.actions
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scenes.combat.elements.behavior\_manager module
+-------------------------------------------------------
+
+.. automodule:: scripts.scenes.combat.elements.behavior_manager
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scenes.combat.elements.camera module
+--------------------------------------------
+
+.. automodule:: scripts.scenes.combat.elements.camera
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scenes.combat.elements.card module
+------------------------------------------
+
+.. automodule:: scripts.scenes.combat.elements.card
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scenes.combat.elements.card\_collection module
+------------------------------------------------------
+
+.. automodule:: scripts.scenes.combat.elements.card_collection
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scenes.combat.elements.commander module
+-----------------------------------------------
+
+.. automodule:: scripts.scenes.combat.elements.commander
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scenes.combat.elements.enemy\_combatants\_generator module
+------------------------------------------------------------------
+
+.. automodule:: scripts.scenes.combat.elements.enemy_combatants_generator
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scenes.combat.elements.entity module
+--------------------------------------------
+
+.. automodule:: scripts.scenes.combat.elements.entity
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scenes.combat.elements.hitbox module
+--------------------------------------------
+
+.. automodule:: scripts.scenes.combat.elements.hitbox
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scenes.combat.elements.map\_generator module
+----------------------------------------------------
+
+.. automodule:: scripts.scenes.combat.elements.map_generator
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scenes.combat.elements.particles module
+-----------------------------------------------
+
+.. automodule:: scripts.scenes.combat.elements.particles
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scenes.combat.elements.pathfinder module
+------------------------------------------------
+
+.. automodule:: scripts.scenes.combat.elements.pathfinder
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scenes.combat.elements.projectile module
+------------------------------------------------
+
+.. automodule:: scripts.scenes.combat.elements.projectile
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scenes.combat.elements.projectile\_manager module
+---------------------------------------------------------
+
+.. automodule:: scripts.scenes.combat.elements.projectile_manager
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scenes.combat.elements.terrain module
+---------------------------------------------
+
+.. automodule:: scripts.scenes.combat.elements.terrain
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scenes.combat.elements.tile module
+------------------------------------------
+
+.. automodule:: scripts.scenes.combat.elements.tile
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scenes.combat.elements.traps module
+-------------------------------------------
+
+.. automodule:: scripts.scenes.combat.elements.traps
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scenes.combat.elements.troupe module
+--------------------------------------------
+
+.. automodule:: scripts.scenes.combat.elements.troupe
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scenes.combat.elements.unit module
+------------------------------------------
+
+.. automodule:: scripts.scenes.combat.elements.unit
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scenes.combat.elements.unit\_manager module
+---------------------------------------------------
+
+.. automodule:: scripts.scenes.combat.elements.unit_manager
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: scripts.scenes.combat.elements
+   :members:
+   :undoc-members:
+   :show-inheritance:
