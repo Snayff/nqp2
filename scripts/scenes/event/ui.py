@@ -27,7 +27,7 @@ class EventUI(UI):
 
     def __init__(self, game: Game, parent_scene: EventScene):
         super().__init__(game, True)
-        self.parent_scene: EventScene = parent_scene
+        self._parent_scene: EventScene = parent_scene
 
         self.selected_option: str = ""  # the option selected
 

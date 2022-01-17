@@ -31,7 +31,7 @@ class InnUI(UI):
 
     def __init__(self, game: Game, parent_scene: InnScene):
         super().__init__(game, True)
-        self.parent_scene: InnScene = parent_scene
+        self._parent_scene: InnScene = parent_scene
 
         self.selected_unit: Optional[Unit] = None
         self.stat_frame: Optional[UnitStatsFrame] = None

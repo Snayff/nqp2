@@ -27,7 +27,7 @@ class TrainingUI(UI):
 
     def __init__(self, game: Game, parent_scene: TrainingScene):
         super().__init__(game, True)
-        self.parent_scene: TrainingScene = parent_scene
+        self._parent_scene: TrainingScene = parent_scene
 
         self.selected_unit: Optional[Unit] = None
         self.selected_upgrade: Optional[Dict] = None

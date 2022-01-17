@@ -31,7 +31,7 @@ class WorldUI(UI):
 
     def __init__(self, game: Game, parent_scene: WorldScene):
         super().__init__(game, False)
-        self.parent_scene: WorldScene = parent_scene
+        self._parent_scene: WorldScene = parent_scene
 
         # TODO - info pulled over from combat to render terrain, needs clean up
         self.camera: Camera = Camera()
@@ -54,15 +54,15 @@ class WorldUI(UI):
 
         # TODO  - replace when new room choice is in.
         if self._game.input.states["backspace"]:
-            self.parent_scene.move_to_new_room()
+            self._parent_scene.move_to_new_room()
 
     def render(self, surface: pygame.surface):
         self.camera.bind(self.terrain.boundaries)
         combat_surf = pygame.Surface(self._game.window.display.get_size())  # Not sure we need this?
         self.terrain.render(combat_surf, self.camera.render_offset())
 
-        if self.parent_scene.state == WorldState.IDLE:
-            self.parent_scene.unit_manager.render(combat_surf, self.camera.render_offset())
+        if self._parent_scene.state == WorldState.IDLE:
+            self._parent_scene.unit_manager.render(combat_surf, self.camera.render_offset())
 
         # blit the terrain and unit_manager
         self._game.window.display.blit(
@@ -87,9 +87,9 @@ class WorldUI(UI):
         Draw the unit selection grid
         """
         # TODO  - needs to be aligned to camera; move to camera?
-        grid_size = self.parent_scene.grid_size
-        grid_cell_size = self.parent_scene.grid_cell_size
-        grid_margin = self.parent_scene.grid_margin
+        grid_size = self._parent_scene.grid_size
+        grid_cell_size = self._parent_scene.grid_cell_size
+        grid_margin = self._parent_scene.grid_margin
         line_colour = (0, 0, 0)
 
         # draw horizontal lines

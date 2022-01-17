@@ -25,7 +25,7 @@ class MainMenuUI(UI):
 
     def __init__(self, game: Game, parent_scene: MainMenuScene):
         super().__init__(game, True)
-        self.parent_scene: MainMenuScene = parent_scene
+        self._parent_scene: MainMenuScene = parent_scene
 
     def update(self, delta_time: float):
         super().update(delta_time)
@@ -49,7 +49,7 @@ class MainMenuUI(UI):
 
             selected_element = self.current_panel.selected_element
             if selected_element == self.elements["new_game"]:
-                self.parent_scene.new_game()
+                self._parent_scene.new_game()
 
             elif selected_element == self.elements["exit"]:
                 self._game.state = GameState.EXITING

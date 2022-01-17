@@ -24,7 +24,7 @@ class ViewTroupeUI(UI):
 
     def __init__(self, game: Game, parent_scene: ViewTroupeScene):
         super().__init__(game, True)
-        self.parent_scene: ViewTroupeScene = parent_scene
+        self._parent_scene: ViewTroupeScene = parent_scene
 
         self.set_instruction_text(f"Press X to exit the troupe overview.")
 

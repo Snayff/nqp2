@@ -29,7 +29,7 @@ class GalleryUI(UI):
 
     def __init__(self, game: Game, parent_scene: GalleryScene):
         super().__init__(game, True)
-        self.parent_scene: GalleryScene = parent_scene
+        self._parent_scene: GalleryScene = parent_scene
 
         self._frame_timer: float = 0
         self._start_index: int = 0

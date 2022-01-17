@@ -20,7 +20,7 @@ __all__ = ["CombatUI"]
 class CombatUI(UI):
     def __init__(self, game: Game, parent_scene: CombatScene):
         super().__init__(game, True)
-        self.parent_scene: CombatScene = parent_scene
+        self._parent_scene: CombatScene = parent_scene
 
         # position relative to terrain
         self.place_target = [

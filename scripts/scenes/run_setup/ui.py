@@ -26,7 +26,7 @@ class RunSetupUI(UI):
 
     def __init__(self, game: Game, parent_scene: RunSetupScene):
         super().__init__(game, True)
-        self.parent_scene: RunSetupScene = parent_scene
+        self._parent_scene: RunSetupScene = parent_scene
 
         self.set_instruction_text("Choose who will lead the rebellion.")
 

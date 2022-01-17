@@ -28,7 +28,7 @@ class UnitDataUI(UI):
 
     def __init__(self, game: Game, parent_scene: UnitDataScene):
         super().__init__(game, True)
-        self.parent_scene: UnitDataScene = parent_scene
+        self._parent_scene: UnitDataScene = parent_scene
 
         window_width = self._game.window.width
         window_height = self._game.window.height

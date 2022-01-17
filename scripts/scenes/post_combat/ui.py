@@ -30,7 +30,7 @@ class PostCombatUI(UI):
 
     def __init__(self, game: Game, parent_scene: PostCombatScene):
         super().__init__(game, True)
-        self.parent_scene: PostCombatScene = parent_scene
+        self._parent_scene: PostCombatScene = parent_scene
 
         self.selected_reward: Optional[Unit] = None
 
