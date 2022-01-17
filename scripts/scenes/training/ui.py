@@ -290,14 +290,18 @@ class TrainingUI(UI):
             self._game.input.states["down"] = False
 
             self._current_panel.select_next_element()
-            self._selected_unit = list(self._game.memory.player_troupe.units.values())[self._current_panel.selected_index]
+            self._selected_unit = list(self._game.memory.player_troupe.units.values())[
+                self._current_panel.selected_index
+            ]
             self.refresh_info()  # for stat panel
 
         if self._game.input.states["up"]:
             self._game.input.states["up"] = False
 
             self._current_panel.select_previous_element()
-            self._selected_unit = list(self._game.memory.player_troupe.units.values())[self._current_panel.selected_index]
+            self._selected_unit = list(self._game.memory.player_troupe.units.values())[
+                self._current_panel.selected_index
+            ]
             self.refresh_info()  # for stat panel
 
     def _attempt_upgrade_unit(self) -> bool:

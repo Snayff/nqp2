@@ -25,6 +25,7 @@ __all__ = ["Assets"]
 
 # TODO - update get_image to be easier to use and support animations - use name, with optional action and frame?
 
+
 class Assets:
     def __init__(self, game: Game):
         # start timer
@@ -208,7 +209,7 @@ class Assets:
                         x * DEFAULT_IMAGE_SIZE,
                         y * DEFAULT_IMAGE_SIZE,
                         DEFAULT_IMAGE_SIZE,
-                        DEFAULT_IMAGE_SIZE
+                        DEFAULT_IMAGE_SIZE,
                     )
                 )
 

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
 
 import pygame
 
@@ -8,10 +9,9 @@ from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, GameState, GAP_
 from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.panel import Panel
 
-from typing import TYPE_CHECKING
-
 if TYPE_CHECKING:
-    from typing import List, Optional, Tuple, Union, Dict
+    from typing import Dict, List, Optional, Tuple, Union
+
     from scripts.core.game import Game
     from scripts.scenes.main_menu.scene import MainMenuScene
 

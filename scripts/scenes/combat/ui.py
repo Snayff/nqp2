@@ -137,7 +137,9 @@ class CombatUI(UI):
                     logging.debug(f"Placed {unit.type}({unit.id}) at {unit.pos}.")
                 else:
                     action = self._game.combat.actions[self._game.memory.player_actions[self.selected_col]](self._game)
-                    self._game.combat.skill_cooldowns[self.selected_col] = self._game.data.skills[action.type]["cooldown"]
+                    self._game.combat.skill_cooldowns[self.selected_col] = self._game.data.skills[action.type][
+                        "cooldown"
+                    ]
                     action.use(self.place_target.copy())
 
             if self._game.input.states["cancel"] or self._game.input.states["select"]:
@@ -263,7 +265,9 @@ class CombatUI(UI):
                     placement_img,
                     (render_base[0] - placement_img.get_width() // 2, render_base[1] - placement_img.get_height() // 2),
                 )
-            pygame.draw.circle(surface, (255, 255, 255), self._game.combat.camera.render_offset(self.place_target), 8, 1)
+            pygame.draw.circle(
+                surface, (255, 255, 255), self._game.combat.camera.render_offset(self.place_target), 8, 1
+            )
 
         self.render_buttons(surface)
 

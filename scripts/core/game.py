@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import logging
 import time
+from typing import TYPE_CHECKING
 
 import pygame as pygame
 
@@ -26,10 +27,8 @@ from scripts.scenes.unit_data.scene import UnitDataScene
 from scripts.scenes.view_troupe.scene import ViewTroupeScene
 from scripts.scenes.world.scene import WorldScene
 
-from typing import TYPE_CHECKING
-
 if TYPE_CHECKING:
-    from typing import List, Optional, Tuple, Union, Dict
+    from typing import Dict, List, Optional, Tuple, Union
 
 __all__ = ["Game"]
 
@@ -105,7 +104,7 @@ class Game:
             if scene.ui.is_active:
                 # handle those scenes that still have render methods
                 # TODO - remove all render methods from Scene
-                if scene in (self.combat, ):
+                if scene in (self.combat,):
                     scene.render(surface)
                 scene.ui.render(surface)
 
