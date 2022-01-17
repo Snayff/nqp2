@@ -25,9 +25,6 @@ WEIGHT_SCALE = 5
 DEFENSE_SCALE = 10
 PUSH_FORCE = 14
 
-# other
-DAYS_UNTIL_BOSS = 30
-
 # UI customisation
 TEXT_FADE_OUT_SPEED = 0.5  # N.B. make sure it is slower than the fade in
 TEXT_FADE_IN_SPEED = 2

@@ -4,7 +4,6 @@ import logging
 import time
 from typing import TYPE_CHECKING
 
-from scripts.core.constants import DAYS_UNTIL_BOSS
 from scripts.scenes.combat.elements.card_collection import CardCollection
 from scripts.scenes.combat.elements.commander import Commander
 from scripts.scenes.combat.elements.troupe import Troupe
@@ -56,7 +55,6 @@ class Memory:
         # general
         self.level: int = 0
         self.flags: List[str] = []
-        self.days_until_boss: int = DAYS_UNTIL_BOSS
 
         # generated values for later user
         self.level_boss: str = ""
