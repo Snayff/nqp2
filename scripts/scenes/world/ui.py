@@ -109,6 +109,11 @@ class Grid:
         self.cells_x_size, self.cells_y_size = parent_scene.grid_size  # Number of vertical and horizontal cells
         self.units: List[Unit] = parent_scene.unit_manager.units  # Troupe units for placement
         self.game = parent_scene.game
+        # TODO:
+        #  - get margin from parent_scene
+        #  - check if there are unnecessary variables/functions related to grid in world/scene.py
+        #  - get the grid to move with the camera
+        #  - support gamepad
         self.margin_x, self.margin_y = 16 * 5, 16 * 6
         self.surface = surface
         self.moved_units_to_grid = False
@@ -140,6 +145,12 @@ class Grid:
         self.cell_surface_selected = pygame.Surface((self.cell_size, self.cell_size), pygame.SRCALPHA)
         pygame.draw.rect(self.cell_surface_selected, line_colour_selected, cell_rect, 1, 1)
 
+    def move_unit_to_cell(self, unit: Unit, cell: GridCell):
+        cell_center_x, cell_center_y = cell.rect.x + self.cell_size // 2, cell.rect.y + self.cell_size // 2
+        cell.unit = unit
+        # TODO: fix the following calculation, unit.size is NOT the size of the unit so this is wrong
+        unit.set_position([cell_center_x + unit.size // 2, cell_center_y + unit.size // 2])
+
     def move_units_to_grid(self):
         """
         Moves each unit to the position of a grid cell and assigns a reference to the unit in each cell, so that
@@ -148,9 +159,7 @@ class Grid:
         if not self.moved_units_to_grid:
             for i, unit_cell in enumerate(zip(self.units, self.cells)):
                 unit, cell = unit_cell
-                cell_center_x, cell_center_y = cell.rect.x + self.cell_size // 2, cell.rect.y + self.cell_size // 2
-                cell.unit = unit
-                unit.set_position([cell_center_x + unit.size // 2, cell_center_y + unit.size // 2])
+                self.move_unit_to_cell(unit, cell)
             self.moved_units_to_grid = True
 
     def process_input(self):
@@ -170,15 +179,32 @@ class Grid:
 
             if not clicked:  # Mouse/gamepad is hovering over cell, but it was not selected
                 self.hover_cell = cell
+
             elif not self.selected_cell:  # The current cell was selected and there is no previously selected cell
                 self.selected_cell = cell
+
             elif self.selected_cell is cell:  # The cell was unselected by the user
                 self.selected_cell = None
+
             elif self.selected_cell is not cell:  # Two cells were selected, attempt unit position switching
-                if None not in (self.selected_cell.unit, cell.unit):  # Switch only if units are assigned to both cells
+                # Both cells have units, so we switch their positions
+                if self.selected_cell.unit and cell.unit:
                     selected_unit_pos = self.selected_cell.unit.pos
                     self.selected_cell.unit.set_position(cell.unit.pos)
                     cell.unit.set_position(selected_unit_pos)
+
+                # Only selected_cell has a unit, so we assign it to cell.unit and set selected_cell's unit to None
+                elif self.selected_cell.unit and not cell.unit:
+                    cell.unit = self.selected_cell.unit
+                    self.move_unit_to_cell(cell.unit, cell)
+                    self.selected_cell.unit = None
+
+                # Only cell.unit has a unit, so we assign it to selected_cell and set cell's unit to None
+                elif cell.unit and not self.selected_cell.unit:
+                    self.selected_cell.unit = cell.unit
+                    self.move_unit_to_cell(self.selected_cell.unit, self.selected_cell)
+                    cell.unit = None
+
                 self.hover_cell = self.selected_cell = None
 
     def render(self):
