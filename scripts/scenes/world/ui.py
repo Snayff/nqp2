@@ -114,6 +114,8 @@ class Grid:
         #  - check if there are unnecessary variables/functions related to grid in world/scene.py
         #  - get the grid to move with the camera
         #  - support gamepad
+        #  - show units moving on screen instead of setting their positions
+        #  - there's still a bug somewhere that keeps units from switching placement
         self.margin_x, self.margin_y = 16 * 5, 16 * 6
         self.surface = surface
         self.moved_units_to_grid = False
