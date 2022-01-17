@@ -42,7 +42,7 @@ class Assets:
         }
 
         # used to hold images so only one copy per dimension ever exists.
-        self.images: Dict[str, Dict[str, pygame.Surface]] = self._load_images()
+        self._images: Dict[str, Dict[str, pygame.Surface]] = self._load_images()
 
         self.unit_animations = {
             unit: {
@@ -127,7 +127,7 @@ class Assets:
 
         # check if exists already
         try:
-            image = self.images[folder_name][internal_name]
+            image = self._images[folder_name][internal_name]
 
         except KeyError:
             # try and get the image specified
@@ -139,18 +139,18 @@ class Assets:
                     image = pygame.transform.smoothscale(image, desired_dimensions)
 
                 # add new image to storage
-                self.images[folder_name][internal_name] = image
+                self._images[folder_name][internal_name] = image
 
             except FileNotFoundError:
                 # didnt find image requested so use not found image
                 not_found_name = f"not_found@{desired_width}x{desired_height}"
-                if not_found_name in self.images["debug"]:
-                    image = self.images["debug"][not_found_name]
+                if not_found_name in self._images["debug"]:
+                    image = self._images["debug"][not_found_name]
                 else:
                     image = pygame.image.load(str(ASSET_PATH / "debug/image_not_found.png")).convert_alpha()
 
                     # add new image to storage
-                    self.images["debug"][internal_name] = image
+                    self._images["debug"][internal_name] = image
 
                 logging.warning(
                     f"Get_image: Tried to use {folder_name}/{image_name} but it wasn't found. "

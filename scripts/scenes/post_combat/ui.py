@@ -106,7 +106,7 @@ class PostCombatUI(UI):
                     if i != 3:
                         font = create_font(FontType.DEFAULT, v, (x, y + 4))
                         font.render(surface)
-                        img = self._game.assets.images["stats"][("dmg_dealt@16x16", "kills@16x16", "defence@16x16")[i]]
+                        img = self._game.assets._images["stats"][("dmg_dealt@16x16", "kills@16x16", "defence@16x16")[i]]
                         surface.blit(img, (x - img.get_width() - 2, y))
                     else:
                         font = create_font(FontType.DEFAULT, v, (x - empty_font.get_text_width(v) // 2, y))
@@ -114,7 +114,7 @@ class PostCombatUI(UI):
                     y += 18
                 for i in range(unit[4]):
                     x_offset = -unit[4] * 10 + i * 20
-                    surface.blit(self._game.assets.images["stats"]["health@16x16"], (x + x_offset, y))
+                    surface.blit(self._game.assets._images["stats"]["health@16x16"], (x + x_offset, y))
 
         if self.selected_ui_row == 1:
             surface.blit(
