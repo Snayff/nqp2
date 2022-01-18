@@ -125,8 +125,8 @@ class Grid:
         # Initializes grid cells
         self.cells = [
             GridCell(pygame.Rect((self.margin_x + x, self.margin_y + y, self.cell_size, self.cell_size)))
-            for x in range(0, self.cells_x_size * self.cell_size, self.cell_size)
             for y in range(0, self.cells_y_size * self.cell_size, self.cell_size)
+            for x in range(0, self.cells_x_size * self.cell_size, self.cell_size)
         ]
 
         line_colour = (0, 100, 0)
@@ -175,41 +175,48 @@ class Grid:
         mouse_x, mouse_y = self.game.input.mouse_pos
         clicked = self.game.input.mouse_state["left"]
 
-        for i, cell in enumerate(self.cells):
-            is_hovering_cell = pygame.Rect(mouse_x, mouse_y, 1, 1).colliderect(cell.rect)
+        cell_x_index, cell_y_index = (int(mouse_x) - self.margin_x) // self.cell_size, (
+            int(mouse_y) - self.margin_y
+        ) // self.cell_size
 
-            if not is_hovering_cell:
-                continue
+        mouse_x_is_out_of_placement_area = cell_x_index < 0 or cell_x_index >= self.cells_x_size
+        mouse_y_is_out_of_placement_area = cell_y_index < 0 or cell_y_index >= self.cells_y_size
 
-            if not clicked:  # Mouse/gamepad is hovering over cell, but it was not selected
-                self.hover_cell = cell
+        if mouse_x_is_out_of_placement_area or mouse_y_is_out_of_placement_area:
+            return
 
-            elif not self.selected_cell:  # The current cell was selected and there is no previously selected cell
-                self.selected_cell = cell
+        # Converts 2d x and y position to a single position with the index of the cell in the array
+        cell = self.cells[cell_y_index * self.cells_x_size + cell_x_index]
 
-            elif self.selected_cell is cell:  # The cell was unselected by the user
-                self.selected_cell = None
+        if not clicked:  # Mouse/gamepad is hovering over cell, but it was not selected
+            self.hover_cell = cell
 
-            elif self.selected_cell is not cell:  # Two cells were selected, attempt unit position switching
-                # Both cells have units, so we switch their positions
-                if self.selected_cell.unit and cell.unit:
-                    selected_unit_pos = self.selected_cell.unit.pos
-                    self.selected_cell.unit.set_position(cell.unit.pos)
-                    cell.unit.set_position(selected_unit_pos)
+        elif not self.selected_cell:  # The current cell was selected and there is no previously selected cell
+            self.selected_cell = cell
 
-                # Only selected_cell has a unit, so we assign it to cell.unit and set selected_cell's unit to None
-                elif self.selected_cell.unit and not cell.unit:
-                    cell.unit = self.selected_cell.unit
-                    self.move_unit_to_cell(cell.unit, cell)
-                    self.selected_cell.unit = None
+        elif self.selected_cell is cell:  # The cell was unselected by the user
+            self.selected_cell = None
 
-                # Only cell.unit has a unit, so we assign it to selected_cell and set cell's unit to None
-                elif cell.unit and not self.selected_cell.unit:
-                    self.selected_cell.unit = cell.unit
-                    self.move_unit_to_cell(self.selected_cell.unit, self.selected_cell)
-                    cell.unit = None
+        elif self.selected_cell is not cell:  # Two cells were selected, attempt unit position switching
+            # Both cells have units, so we switch their positions
+            if self.selected_cell.unit and cell.unit:
+                selected_unit_pos = self.selected_cell.unit.pos
+                self.selected_cell.unit.set_position(cell.unit.pos)
+                cell.unit.set_position(selected_unit_pos)
 
-                self.hover_cell = self.selected_cell = None
+            # Only selected_cell has a unit, so we assign it to cell.unit and set selected_cell's unit to None
+            elif self.selected_cell.unit and not cell.unit:
+                cell.unit = self.selected_cell.unit
+                self.move_unit_to_cell(cell.unit, cell)
+                self.selected_cell.unit = None
+
+            # Only cell.unit has a unit, so we assign it to selected_cell and set cell's unit to None
+            elif cell.unit and not self.selected_cell.unit:
+                self.selected_cell.unit = cell.unit
+                self.move_unit_to_cell(self.selected_cell.unit, self.selected_cell)
+                cell.unit = None
+
+            self.hover_cell = self.selected_cell = None
 
     def render(self):
         for i, cell in enumerate(self.cells):
