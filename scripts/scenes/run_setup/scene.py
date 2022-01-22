@@ -53,7 +53,8 @@ class RunSetupScene(Scene):
         self._game.memory.commander = Commander(self._game, commander["type"])
 
         # create player troupe
-        self._game.memory.player_troupe = Troupe(self._game, "player", commander["allies"])
+        troupe = Troupe(self._game, "player", commander["allies"])
+        self._game.memory.add_troupe(troupe)
 
         # register commander values
         starting_values = self._game.data.config["starting_values"]

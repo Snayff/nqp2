@@ -30,19 +30,10 @@ class Memory:
 
         # units
         self._last_id = 0
+        self.troupes: Dict[int, Troupe] = {self.generate_id(): Troupe(self._game, "player", [])}
 
-        # empty values will be overwritten in run_start
-        self.player_troupe: Troupe = Troupe(self._game, "player", [])
+        # player choices
         self.commander: Optional[Commander] = None
-
-        #############################
-        # TODO  i dont like any of this. rewrite it
-        # self.player_actions = ["fireball"]
-        # self.unit_deck: CardCollection = CardCollection(game)
-        # self.unit_deck.from_troupe(self.player_troupe)
-        # self.action_deck: CardCollection = CardCollection(game)
-        # self.action_deck.generate_actions(20)
-        ################################
 
         # events
         self._event_deck: Dict = self._load_events([1])  # all available events
@@ -246,6 +237,45 @@ class Memory:
         Get a list of all entities
         """
         entities = []
-        entities += self.player_troupe.entities
+
+        for troupe in self.troupes.values():
+            entities += troupe.entities
 
         return entities
+
+    @property
+    def player_troupe(self) -> Troupe:
+        try:
+            # player troupe should be in index 1
+            troupe = self.troupes[1]
+            if troupe.team == "player":
+                return troupe
+        except KeyError:
+            logging.debug(f"Player Troupe not at index 1 as expected.")
+
+        # in case it isnt in index 0
+        for troupe in self.troupes.values():
+            if troupe.team == "player":
+                return troupe
+
+        # in case we cant find it at all!
+        logging.error(f"Tried to get player troupe but couldnt find it!")
+        raise Exception
+
+    def add_troupe(self, troupe: Troupe):
+        """
+        Add a Troupe to Memory.
+        """
+        self.troupes[self.generate_id()] = troupe
+
+    def remove_troupe(self, id_: int):
+        """
+        Remove a Troupe from Memory. Deletes Troupe.
+        """
+        try:
+            troupe = self.troupes.pop(id_)
+            troupe.remove_all_units()
+
+        except KeyError:
+            logging.warning(f"Tried to remove troupe id ({id_} but not found. Troupes:({self.troupes})")
+            raise Exception
