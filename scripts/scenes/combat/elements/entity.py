@@ -12,10 +12,6 @@ if TYPE_CHECKING:
 
 __all__ = ["Entity"]
 
-"""
-Don't try to enforce typing with some of the functions here. They're meant to take anything with a "pos" attribute.
-This can be adjusted to have valid typing, but it'd make a lot of stuff unnecessarily complicated.
-"""
 
 
 class Entity:

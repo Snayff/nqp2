@@ -48,7 +48,7 @@ class Memory:
         self.morale: int = 0
 
         # progress
-        self.level: int = 0
+        self.level: int = 1
         self.flags: List[str] = []
 
         # generated values for later user

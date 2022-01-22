@@ -2,12 +2,13 @@ from __future__ import annotations
 
 import logging
 import time
-from typing import TYPE_CHECKING
+from typing import Any, TYPE_CHECKING
 
 from scripts.core.base_classes.scene import Scene
 from scripts.core.constants import SceneType, WorldState
 from scripts.scenes.combat.elements.particles import ParticleManager
 from scripts.scenes.combat.elements.projectile_manager import ProjectileManager
+from scripts.scenes.combat.elements.troupe import Troupe
 from scripts.scenes.world.ui import WorldUI
 
 if TYPE_CHECKING:
@@ -42,6 +43,7 @@ class WorldScene(Scene):
 
         self.projectiles: ProjectileManager = ProjectileManager(self._game)
         self.particles: ParticleManager = ParticleManager()
+        self.combat_category: str = "basic"
 
         # record duration
         end_time = time.time()
@@ -51,15 +53,21 @@ class WorldScene(Scene):
         super().update(delta_time)
         self.ui.update(delta_time)
 
-        self._game.memory.player_troupe.update(delta_time)
+        # update all troupes
+        for troupe in self._game.memory.troupes.values():
+            troupe.update(delta_time)
 
     def activate(self):
         super().activate()
 
         self._align_unit_pos_to_unit_grid()
 
+        # test
+        #self.generate_combat()
+
     def reset(self):
         self.ui = WorldUI(self._game, self)
+        self.unit_grid = []
 
     def _align_unit_pos_to_unit_grid(self):
         """
@@ -90,3 +98,64 @@ class WorldScene(Scene):
         if self._game.event.roll_for_event():
             self._game.event.load_random_event()
             self._game.activate_scene(SceneType.EVENT)
+
+    def generate_combat(self):
+        rng = self._game.rng
+
+        combat = self._get_random_combat()
+        logging.debug(f"{combat['type']} combat chosen.")
+        num_units = len(combat["units"])
+
+        enemy_troupe = Troupe(self._game, "enemy", [])
+
+        # generate positions
+        positions = []
+        for i in range(num_units):
+            # choose a random spot on the right side of the map
+            while True:
+                pos = [
+                    self._game.window.base_resolution[0] // 4 * 3
+                    + rng.random() * (self._game.window.base_resolution[0] // 4),
+                    rng.random() * self._game.window.base_resolution[1],
+                ]
+                if not self.ui.terrain.check_tile_solid(pos):
+                    break
+            positions.append(pos)
+
+        # generate units
+        if self._game.debug.debug_mode:
+            ids = enemy_troupe.debug_init_units()
+            ids = ids[:num_units]
+        else:
+
+            ids = enemy_troupe.generate_specific_units(unit_types=combat["units"])
+
+        # assign positions and add to combat
+        for id_ in ids:
+            unit = enemy_troupe.units[id_]
+
+            unit.pos = positions.pop(0)
+
+        self._game.memory.add_troupe(enemy_troupe)
+
+
+    def _get_random_combat(self) -> Dict[str, Any]:
+        if len(self._game.data.combats) > 0:
+            level = self._game.memory.level
+            combats = self._game.data.combats.values()
+
+            # get possible combats
+            possible_combats = []
+            possible_combats_occur_rates = []
+            for combat in combats:
+                # ensure only combat for this level or lower and of desired type
+                if combat["level_available"] <= level and combat["category"] == self.combat_category:
+                    possible_combats.append(combat)
+                    occur_rate = self._game.data.get_combat_occur_rate(combat["type"])
+                    possible_combats_occur_rates.append(occur_rate)
+
+            combat_ = self._game.rng.choices(possible_combats, possible_combats_occur_rates)[0]
+        else:
+            combat_ = {}
+        return combat_
+
