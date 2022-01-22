@@ -5,6 +5,7 @@ import random
 from typing import TYPE_CHECKING
 
 from scripts.scenes.combat.elements.commander import Commander
+from scripts.scenes.combat.elements.entity import Entity
 from scripts.scenes.combat.elements.unit import Unit
 
 if TYPE_CHECKING:
@@ -28,6 +29,10 @@ class Troupe:
         self.team: str = team
         self.allies: List[str] = allies
 
+    def update(self, delta_time: float):
+        for unit in self.units.values():
+            unit.update(delta_time)
+
     @property
     def units(self) -> Dict[int, Unit]:
         units_ = {}
@@ -37,6 +42,13 @@ class Troupe:
             units_[id_] = self._units[id_]
 
         return units_
+
+    @property
+    def entities(self) -> List[Entity]:
+        entities = []
+        for unit in self.units.values():
+            entities += unit.entities
+        return entities
 
     def debug_init_units(self) -> List[int]:
         """

@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING
 
 from scripts.scenes.combat.elements.card_collection import CardCollection
 from scripts.scenes.combat.elements.commander import Commander
+from scripts.scenes.combat.elements.entity import Entity
 from scripts.scenes.combat.elements.troupe import Troupe
 
 if TYPE_CHECKING:
@@ -239,3 +240,12 @@ class Memory:
         self.level_boss = chosen_boss
 
         self._seen_bosses.append(chosen_boss)
+
+    def get_all_entities(self) -> List[Entity]:
+        """
+        Get a list of all entities
+        """
+        entities = []
+        entities += self.player_troupe.entities
+
+        return entities

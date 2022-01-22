@@ -1,4 +1,8 @@
-from typing import List
+from typing import TYPE_CHECKING
+from typing import Dict, List
+
+if TYPE_CHECKING:
+    from typing import Dict, List, Optional, Tuple, Union
 
 
 class Camera:
@@ -6,7 +10,8 @@ class Camera:
         self.pos = [0, 0]
         self.zoom = 1
 
-    def render_offset(self, pos: List = None):
+
+    def render_offset(self, pos: List = None) -> List[int]:
         # handle mutable arg
         if pos is None:
             pos = [0, 0]

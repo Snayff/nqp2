@@ -45,25 +45,27 @@ class WorldScene(Scene):
         super().update(delta_time)
         self.ui.update(delta_time)
 
+        self._game.memory.player_troupe.update(delta_time)
+
     def activate(self):
         super().activate()
 
-        self._add_player_units()
         self._align_unit_pos_to_unit_grid()
 
     def reset(self):
         self.ui = WorldUI(self._game, self)
 
-    def _add_player_units(self):
-        """
-        Add the player's units to the combat and unit_grid
-        """
-        units = list(self._game.memory.player_troupe.units.values())
-        for i, unit in enumerate(units, 1):
-            self.unit_grid.append(unit)
-            self.unit_manager.add_unit_to_combat(unit)
 
     def _align_unit_pos_to_unit_grid(self):
+        """
+        Add player's units to the unit_grid and align their positions.
+        """
+        self.unit_grid = []
+
+        units = self._game.memory.player_troupe.units.values()
+        for unit in units:
+            self.unit_grid.append(unit)
+
         max_rows = self.grid_size[1]
         grid_margin = self.grid_margin
         grid_cell_size = self.grid_cell_size
@@ -73,11 +75,6 @@ class WorldScene(Scene):
             y = i % max_rows
             unit.set_position([grid_margin + x * grid_cell_size, grid_margin + y * grid_cell_size])
 
-    def get_all_entities(self):
-        entities = []
-        for unit in self.unit_manager.units:
-            entities += unit.entities
-        return entities
 
     def move_to_new_room(self):
         """

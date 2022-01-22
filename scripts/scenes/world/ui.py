@@ -62,7 +62,7 @@ class WorldUI(UI):
         self.terrain.render(combat_surf, self.camera.render_offset())
 
         if self._parent_scene.state == WorldState.IDLE:
-            self._parent_scene.unit_manager.render(combat_surf, self.camera.render_offset())
+            self._draw_units(combat_surf, self.camera.render_offset())
 
         # blit the terrain and unit_manager
         self._game.window.display.blit(
@@ -73,7 +73,7 @@ class WorldUI(UI):
             ),
         )
 
-        self.draw_grid(surface)
+        self._draw_grid(surface)
         self.draw_instruction(surface)
         self.draw_elements(surface)
 
@@ -82,7 +82,7 @@ class WorldUI(UI):
 
         self.terrain.generate(self.biome)
 
-    def draw_grid(self, surface: pygame.Surface):
+    def _draw_grid(self, surface: pygame.Surface):
         """
         Draw the unit selection grid
         """
