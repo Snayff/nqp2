@@ -55,7 +55,6 @@ class WorldScene(Scene):
     def reset(self):
         self.ui = WorldUI(self._game, self)
 
-
     def _align_unit_pos_to_unit_grid(self):
         """
         Add player's units to the unit_grid and align their positions.
@@ -74,7 +73,6 @@ class WorldScene(Scene):
             x = i // max_rows
             y = i % max_rows
             unit.set_position([grid_margin + x * grid_cell_size, grid_margin + y * grid_cell_size])
-
 
     def move_to_new_room(self):
         """

@@ -12,7 +12,7 @@ from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.panel import Panel
 
 if TYPE_CHECKING:
-    from typing import Dict, List, Optional, Type, Union, Tuple
+    from typing import Dict, List, Optional, Tuple, Type, Union
 
     from scripts.core.game import Game
     from scripts.scenes.world.scene import WorldScene
@@ -109,7 +109,7 @@ class WorldUI(UI):
 
     def _draw_units(self, surface: pygame.surface, offset: Tuple[int, int] = (0, 0)):
         units = self._game.memory.player_troupe.units.values()
-        
+
         for unit in units:
             unit.render(surface, shift=offset)
 

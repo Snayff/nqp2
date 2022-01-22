@@ -1,5 +1,4 @@
-from typing import TYPE_CHECKING
-from typing import Dict, List
+from typing import Dict, List, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from typing import Dict, List, Optional, Tuple, Union
@@ -9,7 +8,6 @@ class Camera:
     def __init__(self):
         self.pos = [0, 0]
         self.zoom = 1
-
 
     def render_offset(self, pos: List = None) -> List[int]:
         # handle mutable arg
