@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import math
 import random
-from typing import TYPE_CHECKING
+from typing import Optional, TYPE_CHECKING
 
 import pygame
 
@@ -75,6 +75,13 @@ class Unit:
         self.dead_entities: List[Entity] = []
         self.pos: Tuple[int, int] = [0, 0]
         self.placed: bool = False
+
+        # visual
+        self.border_surface_timer: float = 0
+        self.border_surface: Optional[pygame.surface] = None
+        self.border_surface_offset: Tuple[int, int] = (0, 0)
+        self.border_surface_outline: Optional[pygame.surface] = None
+        self.border_surface_outline_black: Optional[pygame.surface] = None
 
     @property
     def health(self) -> int:
@@ -268,7 +275,7 @@ class Unit:
 
     def post_render(self, surface: pygame.Surface, shift=(0, 0)):
         if self.team == "player":
-            # should be swapped when banner assets are added
+            # TODO - should be swapped when banner assets are added
             banner_img = self._game.assets.ui["banner"]
             surface.blit(
                 banner_img,

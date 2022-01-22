@@ -32,18 +32,21 @@ class Memory:
 
         # empty values will be overwritten in run_start
         self.player_troupe: Troupe = Troupe(self._game, "player", [])
-        self.player_actions = ["fireball"]
         self.commander: Optional[Commander] = None
 
-        self.unit_deck: CardCollection = CardCollection(game)
-        self.unit_deck.from_troupe(self.player_troupe)
-        self.action_deck: CardCollection = CardCollection(game)
-        self.action_deck.generate_actions(20)
+        #############################
+        # TODO  i dont like any of this. rewrite it
+        # self.player_actions = ["fireball"]
+        # self.unit_deck: CardCollection = CardCollection(game)
+        # self.unit_deck.from_troupe(self.player_troupe)
+        # self.action_deck: CardCollection = CardCollection(game)
+        # self.action_deck.generate_actions(20)
+        ################################
 
         # events
-        self.event_deck: Dict = self._load_events([1])  # all available events
-        self.priority_events: Dict = {}  # events to be prioritised
-        self.turns_since_priority_event: int = 0
+        self._event_deck: Dict = self._load_events([1])  # all available events
+        self._priority_events: Dict = {}  # events to be prioritised
+        self._turns_since_priority_event: int = 0
 
         # resources
         self.gold: int = 0
@@ -52,7 +55,7 @@ class Memory:
         self.leadership: int = 0
         self.morale: int = 0
 
-        # general
+        # progress
         self.level: int = 0
         self.flags: List[str] = []
 
@@ -60,7 +63,7 @@ class Memory:
         self.level_boss: str = ""
 
         # history
-        self.seen_bosses: List[str] = []
+        self._seen_bosses: List[str] = []
 
         # record duration
         end_time = time.time()
@@ -116,16 +119,16 @@ class Memory:
         possible_events_occur_rates = []
 
         # priority or non-priority
-        if len(self.priority_events) >= 1:
-            chance_of_priority = 33 * self.turns_since_priority_event
+        if len(self._priority_events) >= 1:
+            chance_of_priority = 33 * self._turns_since_priority_event
             if self._game.rng.roll() < chance_of_priority:
-                events = self.priority_events
-                self.turns_since_priority_event = 0  # reset count
+                events = self._priority_events
+                self._turns_since_priority_event = 0  # reset count
             else:
-                events = self.event_deck
-                self.turns_since_priority_event += 1  # increment count
+                events = self._event_deck
+                self._turns_since_priority_event += 1  # increment count
         else:
-            events = self.event_deck
+            events = self._event_deck
 
         # grab events and occur rate
         for event in events.values():
@@ -140,6 +143,22 @@ class Memory:
         events.pop(event_["type"])
 
         return event_
+
+    def get_event(self, event_id: str, remove_from_pool: bool):
+        """
+        Get a specific event. remove_from_pool determines whether the event is removed from the list of possible
+        events.
+        """
+        try:
+            if remove_from_pool:
+                event = self._event_deck.pop(event_id)
+            else:
+                event = self._event_deck[event_id]
+
+            return event
+        except KeyError:
+            logging.error(f"Event ID ({event_id}) not found.")
+            raise Exception
 
     def _load_events(self, levels: Optional[List[int]] = None) -> Dict:
         # handle mutable default
@@ -200,8 +219,8 @@ class Memory:
         Move an event from the event_deck to the priority events.
         """
         try:
-            event = self.event_deck.pop(event_type)
-            self.priority_events[event_type] = event
+            event = self._event_deck.pop(event_type)
+            self._priority_events[event_type] = event
 
         except KeyError:
             logging.critical(f"Event ({event_type}) specified not found in Memory.event_deck and was ignored.")
@@ -213,10 +232,10 @@ class Memory:
         available_bosses = []
 
         for boss in self._game.data.bosses.values():
-            if boss["level_available"] <= self.level and boss["type"] not in self.seen_bosses:
+            if boss["level_available"] <= self.level and boss["type"] not in self._seen_bosses:
                 available_bosses.append(boss["type"])
 
         chosen_boss = self._game.rng.choice(available_bosses)
         self.level_boss = chosen_boss
 
-        self.seen_bosses.append(chosen_boss)
+        self._seen_bosses.append(chosen_boss)

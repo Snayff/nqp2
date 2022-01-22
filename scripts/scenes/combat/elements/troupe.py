@@ -67,6 +67,7 @@ class Troupe:
 
         id_ = self._game.memory.generate_id()
         unit = Unit(self._game, id_, unit_type, self.team)
+        unit.spawn_entities()
         self._units[id_] = unit
         self._unit_ids.append(id_)
 

@@ -63,10 +63,7 @@ class EventScene(Scene):
         """
         Load a specific event.
         """
-        if remove_from_pool:
-            event = self._game.memory.event_deck.pop(event_id)
-        else:
-            event = self._game.memory.event_deck[event_id]
+        event = self._game.memory.get_event(event_id, remove_from_pool)
 
         self.active_event = event
         logging.info(f"Event {self.active_event['type']} loaded.")

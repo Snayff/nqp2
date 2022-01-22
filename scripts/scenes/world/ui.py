@@ -12,7 +12,7 @@ from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.panel import Panel
 
 if TYPE_CHECKING:
-    from typing import Dict, List, Optional, Type, Union
+    from typing import Dict, List, Optional, Type, Union, Tuple
 
     from scripts.core.game import Game
     from scripts.scenes.world.scene import WorldScene
@@ -86,7 +86,6 @@ class WorldUI(UI):
         """
         Draw the unit selection grid
         """
-        # TODO  - needs to be aligned to camera; move to camera?
         grid_size = self._parent_scene.grid_size
         grid_cell_size = self._parent_scene.grid_cell_size
         grid_margin = self._parent_scene.grid_margin
@@ -107,3 +106,23 @@ class WorldUI(UI):
             end_x = v_line * grid_cell_size + grid_margin
             end_y = grid_size[1] * grid_cell_size + grid_margin
             pygame.draw.line(surface, line_colour, (start_x, start_y), (end_x, end_y))
+
+    def _draw_units(self, surface: pygame.surface, offset: Tuple[int, int] = (0, 0)):
+        units = self._game.memory.player_troupe.units.values()
+        
+        for unit in units:
+            unit.render(surface, shift=offset)
+
+        # organize entities for layered rendering
+        entity_list = []
+        for unit in units:
+            for entity in unit.entities + unit.dead_entities:
+                entity_list.append((entity.pos[1] + entity.img.get_height() // 2, len(entity_list), entity))
+
+        entity_list.sort()
+
+        for entity in entity_list:
+            entity[2].render(surface, shift=offset)
+
+        for unit in units:
+            unit.post_render(surface, shift=offset)

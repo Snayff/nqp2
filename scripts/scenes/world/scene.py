@@ -6,7 +6,6 @@ from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.scene import Scene
 from scripts.core.constants import SceneType, WorldState
-from scripts.scenes.combat.elements.unit_manager import UnitManager
 from scripts.scenes.world.ui import WorldUI
 
 if TYPE_CHECKING:
@@ -31,7 +30,6 @@ class WorldScene(Scene):
         self.ui: WorldUI = WorldUI(game, self)
 
         self.state = WorldState.IDLE
-        self.unit_manager: UnitManager = UnitManager(game)  # TODO - overhaul; perhaps merge into World
         self.unit_grid: List = []
 
         # unit selection grid dimensions
@@ -46,27 +44,26 @@ class WorldScene(Scene):
     def update(self, delta_time: float):
         super().update(delta_time)
         self.ui.update(delta_time)
-        self.unit_manager.update(delta_time)
 
     def activate(self):
         super().activate()
 
-        self.add_player_units()
-        self.align_unit_pos_to_unit_grid()
+        self._add_player_units()
+        self._align_unit_pos_to_unit_grid()
 
     def reset(self):
         self.ui = WorldUI(self._game, self)
 
-    def add_player_units(self):
+    def _add_player_units(self):
         """
-        Add the player's unit_manager to the combat and unit_grid
+        Add the player's units to the combat and unit_grid
         """
         units = list(self._game.memory.player_troupe.units.values())
         for i, unit in enumerate(units, 1):
             self.unit_grid.append(unit)
             self.unit_manager.add_unit_to_combat(unit)
 
-    def align_unit_pos_to_unit_grid(self):
+    def _align_unit_pos_to_unit_grid(self):
         max_rows = self.grid_size[1]
         grid_margin = self.grid_margin
         grid_cell_size = self.grid_cell_size
