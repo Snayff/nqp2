@@ -62,7 +62,7 @@ class Unit:
         self.modifiers: Dict[str, List[int]] = {}
 
         self.injuries: int = 0
-        
+
         # stats recording
         self.damage_dealt: int = 0
         self.damage_received: int = 0

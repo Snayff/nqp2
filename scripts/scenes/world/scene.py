@@ -63,7 +63,7 @@ class WorldScene(Scene):
         self._align_unit_pos_to_unit_grid()
 
         # test
-        #self.generate_combat()
+        # self.generate_combat()
 
     def reset(self):
         self.ui = WorldUI(self._game, self)
@@ -138,7 +138,6 @@ class WorldScene(Scene):
 
         self._game.memory.add_troupe(enemy_troupe)
 
-
     def _get_random_combat(self) -> Dict[str, Any]:
         if len(self._game.data.combats) > 0:
             level = self._game.memory.level
@@ -158,4 +157,3 @@ class WorldScene(Scene):
         else:
             combat_ = {}
         return combat_
-

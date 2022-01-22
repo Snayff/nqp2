@@ -13,7 +13,6 @@ if TYPE_CHECKING:
 __all__ = ["Entity"]
 
 
-
 class Entity:
     def __init__(self, parent_unit):
         injury_deduction = 1 - 0.1 * parent_unit.injuries
