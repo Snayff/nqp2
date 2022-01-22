@@ -57,6 +57,9 @@ class Memory:
         # history
         self._seen_bosses: List[str] = []
 
+        # in memory config
+        self.game_speed: float = 0
+
         # record duration
         end_time = time.time()
         logging.debug(f"Memory: initialised in {format(end_time - start_time, '.2f')}s.")
