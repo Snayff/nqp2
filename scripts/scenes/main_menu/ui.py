@@ -57,7 +57,7 @@ class MainMenuUI(UI):
 
     def render(self, surface: pygame.surface):
         # N.B. dont draw instruction
-        self.draw_elements(surface)
+        self._draw_elements(surface)
 
     def rebuild_ui(self):
         super().rebuild_ui()

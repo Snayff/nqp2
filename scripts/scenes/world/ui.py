@@ -74,8 +74,8 @@ class WorldUI(UI):
         )
 
         self._draw_grid(surface)
-        self.draw_instruction(surface)
-        self.draw_elements(surface)
+        self._draw_instruction(surface)
+        self._draw_elements(surface)
 
     def rebuild_ui(self):
         super().rebuild_ui()

@@ -244,8 +244,8 @@ class CombatUI(UI):
             surface.blit(friendly_surf, (0, 0))
             surface.blit(enemy_surf, (surface.get_width() - enemy_surf.get_width(), 0))
 
-        self.draw_instruction(surface)
-        self.draw_elements(surface)
+        self._draw_instruction(surface)
+        self._draw_elements(surface)
 
         # draw selector
         if self._game.combat.state in [CombatState.UNIT_SELECT_TARGET, CombatState.ACTION_SELECT_TARGET_FREE]:

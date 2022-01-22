@@ -148,7 +148,7 @@ class UI(ABC):
         panel.unselect_all_elements()
         self._panels["resources"] = panel
 
-    def draw_instruction(self, surface: pygame.surface):
+    def _draw_instruction(self, surface: pygame.surface):
         if self._temporary_instruction_text:
             text = self._temporary_instruction_text
             font = self._game.assets.create_font(FontType.NEGATIVE, text)
@@ -161,7 +161,7 @@ class UI(ABC):
         font.pos = (x, y)
         font.render(surface)
 
-    def draw_elements(self, surface: pygame.surface):
+    def _draw_elements(self, surface: pygame.surface):
         for name, element in self._elements.items():
             element.render(surface)
 

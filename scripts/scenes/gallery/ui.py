@@ -160,7 +160,7 @@ class GalleryUI(UI):
             f"{self._current_filter}. {num_shown}/{num_in_filter}", surface, (window_width - 200, start_y)
         )
 
-        self.draw_elements(surface)
+        self._draw_elements(surface)
 
     def rebuild_ui(self):
         super().rebuild_ui()
