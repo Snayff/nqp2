@@ -27,7 +27,7 @@ class Button:
     def update(self, delta_time: float):
         self.push_timer = max(0, self.push_timer - delta_time)
 
-    def render(self, surf, offset=(0, 0)):
+    def draw(self, surf, offset=(0, 0)):
         offset = list(offset)
         if self.push_timer:
             offset[1] += 1
@@ -36,7 +36,7 @@ class Button:
         else:
             r = pygame.Rect(self.pos[0] + offset[0], self.pos[1] + offset[1], *self.size)
             pygame.draw.rect(surf, self.colour, r, width=1)
-            self._game.assets.fonts["default"].render(
+            self._game.assets.fonts["default"].draw(
                 self.content,
                 surf,
                 (

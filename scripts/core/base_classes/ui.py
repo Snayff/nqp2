@@ -59,7 +59,7 @@ class UI(ABC):
             self._game.debug.toggle_dev_console_visibility()
 
     @abstractmethod
-    def render(self, surface: pygame.surface):
+    def draw(self, surface: pygame.surface):
         pass
 
     def rebuild_ui(self):
@@ -159,11 +159,11 @@ class UI(ABC):
         x = self._game.window.width - font.width - 2
         y = 2
         font.pos = (x, y)
-        font.render(surface)
+        font.draw(surface)
 
     def _draw_elements(self, surface: pygame.surface):
         for name, element in self._elements.items():
-            element.render(surface)
+            element.draw(surface)
 
     def update_elements(self, delta_time: float):
         for element in self._elements.values():

@@ -48,14 +48,14 @@ class Frame(UIElement):
             if isinstance(self.font, FancyFont):
                 self.font.update(delta_time)
 
-    def render(self, surface: pygame.Surface):
-        super().render(surface)
+    def draw(self, surface: pygame.Surface):
+        super().draw(surface)
 
         if self.is_active:
             # FancyFont changes each frame so needs redrawing
             if isinstance(self.font, FancyFont):
                 self._rebuild_surface()
-                self.font.render(self.surface)
+                self.font.draw(self.surface)
 
     def _recalculate_size(self):
         image = self.image
@@ -103,7 +103,7 @@ class Frame(UIElement):
         if font:
             # Font can be drawn once (FancyFont needs constant redrawing)
             if isinstance(font, Font):
-                font.render(surface)
+                font.draw(surface)
 
     def _override_font_attrs(self):
         """

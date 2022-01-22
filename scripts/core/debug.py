@@ -82,7 +82,7 @@ class Debugger:
         if self._dev_console is not None:
             self._dev_console.update(delta_time)
 
-    def render(self):
+    def draw(self):
         """
         Draw debug info
         """
@@ -101,7 +101,7 @@ class Debugger:
             self._game.assets.create_font(FontType.DISABLED, text, (start_x, start_y))
 
         if self._dev_console is not None:
-            self._dev_console.render(surface)
+            self._dev_console.draw(surface)
 
     @staticmethod
     def _create_folders():

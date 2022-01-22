@@ -49,7 +49,7 @@ class RunSetupUI(UI):
         elif self._current_panel == self._panels["exit"]:
             self._handle_exit_input()
 
-    def render(self, surface: pygame.surface):
+    def draw(self, surface: pygame.surface):
 
         self._draw_instruction(surface)
         self._draw_elements(surface)

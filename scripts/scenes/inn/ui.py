@@ -54,7 +54,7 @@ class InnUI(UI):
         elif self._current_panel == self._panels["exit"]:
             self._handle_exit_input()
 
-    def render(self, surface: pygame.surface):
+    def draw(self, surface: pygame.surface):
         # show core info
         self._draw_instruction(surface)
 

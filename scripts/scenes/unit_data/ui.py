@@ -118,7 +118,7 @@ class UnitDataUI(UI):
                     # go back to previous scene
                     self._game.change_scene([self._game.dev_unit_data.previous_scene_type])
 
-    def render(self, surface: pygame.surface):
+    def draw(self, surface: pygame.surface):
         window_width = self._game.window.width
         window_height = self._game.window.height
         create_font = self._game.assets.create_font
@@ -129,15 +129,15 @@ class UnitDataUI(UI):
         # draw fields and their titles
         font = create_font(FontType.DEFAULT, str(self.current_unit))
         font.pos = (76 - font.width // 2, 15)
-        font.render(surface)
+        font.draw(surface)
         for field in self.current_unit_data:
             font = create_font(
                 FontType.DEFAULT,
                 str(self.current_unit),
                 (self.fields[field].pos[0] - 90, self.fields[field].pos[1] + 3),
             )
-            font.render(surface)
-            self.fields[field].render(surface)
+            font.draw(surface)
+            self.fields[field].draw(surface)
 
         # draw unit animations
         frame = self.frame_counter
@@ -158,7 +158,7 @@ class UnitDataUI(UI):
 
         # draw buttons
         for button in self.buttons.values():
-            button.render(surface)
+            button.draw(surface)
 
         # show confirmation message
         if self.show_confirmation:
@@ -166,7 +166,7 @@ class UnitDataUI(UI):
             font = create_font(FontType.POSITIVE, msg)
             font.pos = (window_width - font.width - 35, window_height - font.height)
             # N.B. 32 = button width + 3
-            font.render(surface)
+            font.draw(surface)
 
         # set positions
         start_x = int(window_width - (window_width / 2.8))
@@ -177,7 +177,7 @@ class UnitDataUI(UI):
         current_y = start_y
         for tier_title in ["Tier 1", "Tier 2"]:
             font = create_font(FontType.DISABLED, tier_title, (current_x, current_y))
-            font.render(surface)
+            font.draw(surface)
             current_x += metric_col_width
 
         # draw second row headers
@@ -185,7 +185,7 @@ class UnitDataUI(UI):
         current_y = metric_second_row_start_y
         for tier_title in ["Tier 3", "Tier 4"]:
             font = create_font(FontType.DISABLED, tier_title, (current_x, current_y))
-            font.render(surface)
+            font.draw(surface)
             current_x += metric_col_width
 
         # draw stat list
@@ -193,7 +193,7 @@ class UnitDataUI(UI):
         current_y = start_y + font.height
         for stat in self.tier1_metrics.keys():
             font = create_font(FontType.DISABLED, stat, (current_x, current_y))
-            font.render(surface)
+            font.draw(surface)
             current_y += font.height
 
         # draw stat list for second row
@@ -201,7 +201,7 @@ class UnitDataUI(UI):
         current_y = metric_second_row_start_y + font.height
         for stat in self.tier1_metrics.keys():
             font = create_font(FontType.DISABLED, stat, (current_x, current_y))
-            font.render(surface)
+            font.draw(surface)
             current_y += font.height
 
         # show info regarding other units
@@ -210,7 +210,7 @@ class UnitDataUI(UI):
         for tier in [self.tier1_metrics, self.tier2_metrics]:
             for stat_value in tier.values():
                 font = create_font(FontType.DISABLED, stat_value, (current_x, current_y))
-                font.render(surface)
+                font.draw(surface)
                 current_y += font.height
 
             current_x += metric_col_width
@@ -222,7 +222,7 @@ class UnitDataUI(UI):
         for tier in [self.tier3_metrics, self.tier4_metrics]:
             for stat_value in tier.values():
                 font = create_font(FontType.DISABLED, stat_value, (current_x, current_y))
-                font.render(surface)
+                font.draw(surface)
                 current_y += font.height
 
             current_x += metric_col_width

@@ -259,7 +259,7 @@ class Entity:
 
         return img
 
-    def render(self, surface: pygame.Surface, shift=(0, 0)):
+    def draw(self, surface: pygame.Surface, shift=(0, 0)):
         if self.type in self._game.assets.unit_animations:
             flip = False
             if self.pos_change[0] < 0:

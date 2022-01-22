@@ -18,7 +18,7 @@ class Particle:
             return False
         return True
 
-    def render(self, surf, offset=(0, 0)):
+    def draw(self, surf, offset=(0, 0)):
         surf.set_at((int(self.loc[0] + offset[0]), int(self.loc[1] + offset[1])), self.colour)
 
 
@@ -39,6 +39,6 @@ class ParticleManager:
             if not p.update(dt):
                 self.particles.pop(i)
 
-    def render(self, surf, offset=(0, 0)):
+    def draw(self, surf, offset=(0, 0)):
         for p in self.particles:
-            p.render(surf, offset=offset)
+            p.draw(surf, offset=offset)

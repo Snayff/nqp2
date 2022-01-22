@@ -79,7 +79,7 @@ class PostCombatUI(UI):
         elif self._game.post_combat.state == PostCombatState.BOSS_VICTORY:
             self.handle_boss_victory_input()
 
-    def render(self, surface: pygame.surface):
+    def draw(self, surface: pygame.surface):
         combat_data = self._game.combat.end_data
         create_font = self._game.assets.create_font
 
@@ -99,18 +99,18 @@ class PostCombatUI(UI):
                 surface.blit(unit_img, (x - unit_img.get_width() // 2, y))
                 y += unit_img.get_height() + 4
                 font = create_font(FontType.DEFAULT, unit[0], (x - empty_font.get_text_width(unit[0]) // 2, y))
-                font.render(surface)
+                font.draw(surface)
                 y += 13
                 for i, v in enumerate([unit[1], unit[2], unit[3], unit[5]]):
                     v = str(v)
                     if i != 3:
                         font = create_font(FontType.DEFAULT, v, (x, y + 4))
-                        font.render(surface)
+                        font.draw(surface)
                         img = self._game.assets._images["stats"][("dmg_dealt@16x16", "kills@16x16", "defence@16x16")[i]]
                         surface.blit(img, (x - img.get_width() - 2, y))
                     else:
                         font = create_font(FontType.DEFAULT, v, (x - empty_font.get_text_width(v) // 2, y))
-                        font.render(surface)
+                        font.draw(surface)
                     y += 18
                 for i in range(unit[4]):
                     x_offset = -unit[4] * 10 + i * 20
@@ -264,23 +264,23 @@ class PostCombatUI(UI):
         # col_width = int((window_width - (start_x * 2)) / len(stats))
         #
         # # victory message
-        # positive_font.render("Victory!", surface, (start_x, start_y))
+        # positive_font.draw("Victory!", surface, (start_x, start_y))
         #
         # # gold reward
         # current_y = start_y + (font_height * 2)
         # gold_reward = self._game.reward.gold_reward
-        # default_font.render(f"{gold_reward} gold scavenged from the dead.", surface, (start_x, current_y))
+        # default_font.draw(f"{gold_reward} gold scavenged from the dead.", surface, (start_x, current_y))
         #
         # # instruction
         # current_y = window_height // 2
-        # warning_font.render(f"Choose one of the following rewards.", surface, (start_x, current_y))
+        # warning_font.draw(f"Choose one of the following rewards.", surface, (start_x, current_y))
         #
         # # draw headers
         # current_y = current_y + (font_height * 2)
         # col_count = 0
         # for stat in stats:
         #     col_x = start_x + (col_width * col_count)
-        #     default_font.render(stat, surface, (col_x, current_y))
+        #     default_font.draw(stat, surface, (col_x, current_y))
         #
         #     col_count += 1
         #
@@ -297,7 +297,7 @@ class PostCombatUI(UI):
         #         col_x = start_x + (col_width * col_count)
         #
         #         text = str(getattr(unit, stat))
-        #         active_font.render(text, surface, (col_x, option_y))
+        #         active_font.draw(text, surface, (col_x, option_y))
         #
         #         col_count += 1
         #

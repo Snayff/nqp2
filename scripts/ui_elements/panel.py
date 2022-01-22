@@ -28,9 +28,9 @@ class Panel:
         for element in self.elements:
             element.update(delta_time)
 
-    def render(self, surface: pygame.surface):
+    def draw(self, surface: pygame.surface):
         for element in self.elements:
-            element.render(surface)
+            element.draw(surface)
 
     @property
     def selected_element(self):

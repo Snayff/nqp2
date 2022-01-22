@@ -158,10 +158,10 @@ class CombatScene(Scene):
             self.combat_speed = 0.3
             self.force_idle = False
 
-    def render(self):
+    def draw(self):
         self.camera.bind(self.terrain.boundaries)
         combat_surf = pygame.Surface(self._game.window.display.get_size())
-        self.terrain.render(combat_surf, self.camera.render_offset())
+        self.terrain.draw(combat_surf, self.camera.render_offset())
 
         if self.debug_pathfinding:
             for entity in self.get_all_entities():
@@ -173,9 +173,9 @@ class CombatScene(Scene):
                         ]
                         pygame.draw.lines(combat_surf, (255, 0, 0), False, points)
 
-        self.units.render(combat_surf, self.camera.render_offset())
-        self.projectiles.render(combat_surf, self.camera.render_offset())
-        self.particles.render(combat_surf, self.camera.render_offset())
+        self.units.draw(combat_surf, self.camera.render_offset())
+        self.projectiles.draw(combat_surf, self.camera.render_offset())
+        self.particles.draw(combat_surf, self.camera.render_offset())
         if self.camera.zoom != 1:
             combat_surf = pygame.transform.scale(
                 combat_surf,
@@ -189,7 +189,7 @@ class CombatScene(Scene):
             ),
         )
 
-        self.ui.render(self._game.window.display)
+        self.ui.draw(self._game.window.display)
 
     def reset(self):
         self.camera = Camera()

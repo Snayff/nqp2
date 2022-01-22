@@ -33,8 +33,8 @@ class UnitDataScene(Scene):
         super().update(delta_time)
         self.ui.update(delta_time)
 
-    def render(self):
-        self.ui.render(self._game.window.display)
+    def draw(self):
+        self.ui.draw(self._game.window.display)
 
     def reset(self):
         self.ui = UnitDataUI(self._game, self)

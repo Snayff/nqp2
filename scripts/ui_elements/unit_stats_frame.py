@@ -54,7 +54,7 @@ class UnitStatsFrame(UIElement):
 
         # draw unit type
         font = self._game.assets.create_font(FontType.DEFAULT, unit.type, (current_x, current_y))
-        font.render(surface)
+        font.draw(surface)
 
         current_y += font.height + GAP_SIZE
 
@@ -82,7 +82,7 @@ class UnitStatsFrame(UIElement):
             # + half font height to vertical centre it
             font = self._game.assets.create_font(font_type, str(getattr(unit, stat)))
             font.pos = (info_x, current_y + (font.height // 2))
-            font.render(surface)
+            font.draw(surface)
 
             # increment y
             current_y += stat_icon_size[1] + GAP_SIZE

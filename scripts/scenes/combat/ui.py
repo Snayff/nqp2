@@ -232,9 +232,9 @@ class CombatUI(UI):
                         else:
                             surface.blit(red_selected_surf, button_pos)
 
-    def render(self, surface: pygame.Surface):
+    def draw(self, surface: pygame.Surface):
         if self._game.combat.general_state == "units":
-            # render friendly/enemy spawn areas
+            # draw friendly/enemy spawn areas
             friendly_surf = pygame.Surface((int(surface.get_width() * 0.25), surface.get_height()))
             enemy_surf = friendly_surf.copy()
             friendly_surf.fill((50, 250, 150))
@@ -274,7 +274,7 @@ class CombatUI(UI):
     def rebuild_ui(self):
         super().rebuild_ui()
 
-        # render status text
+        # draw status text
         status = "None"
         if self._game.combat.state in [CombatState.UNIT_SELECT_TARGET, CombatState.ACTION_SELECT_TARGET_FREE]:
             status = "select a target location"

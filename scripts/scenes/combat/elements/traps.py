@@ -40,7 +40,7 @@ class Trap:
                     self.animation_timer = 0
                     self.is_triggered = False
 
-    def render(self, surf, offset=(0, 0)):
+    def draw(self, surf, offset=(0, 0)):
         img_count = len(self._game.assets.trap_animations[self.type]) - 1
         if self.animation_timer == 0:
             img = self._game.assets.trap_animations[self.type][0]

@@ -120,11 +120,11 @@ class InputBox:
                     ]:
                         self.font.text += char
 
-    def render(self, surf, offset=(0, 0)):
+    def draw(self, surf, offset=(0, 0)):
         base_pos = (self.pos[0] - offset[0], self.pos[1] - offset[1])
         border_r = pygame.Rect(*base_pos, *self.size)
         pygame.draw.rect(surf, self.colour, border_r, width=1)
-        self.font.render(surf)
+        self.font.draw(surf)
         text_width = self.font.width
         if self.focused and (self._game.master_clock % 1 > 0.2):
             pygame.draw.line(

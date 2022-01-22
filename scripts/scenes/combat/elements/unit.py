@@ -248,7 +248,7 @@ class Unit:
                 self.entities.pop(i)
                 self.dead_entities.append(entity)
 
-    def render(self, surface: pygame.Surface, shift=(0, 0)):
+    def draw(self, surface: pygame.Surface, shift=(0, 0)):
         if self.team == "player":
             for d in [(-1, 0), (1, 0), (0, 1), (0, -1)]:
                 surface.blit(

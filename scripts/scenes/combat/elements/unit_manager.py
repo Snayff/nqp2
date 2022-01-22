@@ -25,9 +25,9 @@ class UnitManager:
         for unit in self.units:
             unit.update(delta_time)
 
-    def render(self, surface: pygame.Surface, offset=(0, 0)):
+    def draw(self, surface: pygame.Surface, offset=(0, 0)):
         for unit in self.units:
-            unit.render(surface, shift=offset)
+            unit.draw(surface, shift=offset)
 
         # organize entities for layered rendering
         entity_list = []
@@ -38,7 +38,7 @@ class UnitManager:
         entity_list.sort()
 
         for entity in entity_list:
-            entity[2].render(surface, shift=offset)
+            entity[2].draw(surface, shift=offset)
 
         for unit in self.units:
             unit.post_render(surface, shift=offset)

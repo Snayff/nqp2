@@ -22,7 +22,7 @@ class Tile:
     def src_x(self):
         return self.type[2]
 
-    def render(self, game, surf, offset=[0, 0]):
+    def draw(self, game, surf, offset=[0, 0]):
         tileset = game.assets.tilesets[self.group]
         if self.group[-8:] == "animated":
             self.type[2] = int((game.master_clock * 2) % len(tileset[self.src_y]))

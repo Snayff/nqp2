@@ -102,13 +102,13 @@ class Game:
         surface = self.window.display
         for scene in self.scene_stack:
             if scene.ui.is_active:
-                # handle those scenes that still have render methods
-                # TODO - remove all render methods from Scene
+                # handle those scenes that still have draw methods
+                # TODO - remove all draw methods from Scene
                 if scene in (self.combat,):
-                    scene.render(surface)
-                scene.ui.render(surface)
+                    scene.draw(surface)
+                scene.ui.draw(surface)
 
-        self.debug.render()  # always last so it is on top
+        self.debug.draw()  # always last so it is on top
 
     def run(self):
         self._update()

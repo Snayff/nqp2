@@ -15,6 +15,6 @@ class ProjectileManager:
             if not alive:
                 self.projectiles.pop(i)
 
-    def render(self, surf, offset=(0, 0)):
+    def draw(self, surf, offset=(0, 0)):
         for projectile in self.projectiles:
-            projectile.render(surf, offset)
+            projectile.draw(surf, offset)

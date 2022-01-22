@@ -39,7 +39,7 @@ class Projectile:
 
         return True
 
-    def render(self, surf, offset=(0, 0)):
+    def draw(self, surf, offset=(0, 0)):
         img = self._game.assets.projectiles[self.img]
         rotated_img = pygame.transform.rotate(img, -math.degrees(self.angle))
         surf.blit(

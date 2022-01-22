@@ -33,8 +33,8 @@ class DevConsole(InputBox):
 
                 self._game.debug.toggle_dev_console_visibility()
 
-    def render(self, surface: pygame.surface, offset=(0, 0)):
-        super().render(surface)
+    def draw(self, surface: pygame.surface, offset=(0, 0)):
+        super().draw(surface)
 
     def _handle_dev_command(self):
         """

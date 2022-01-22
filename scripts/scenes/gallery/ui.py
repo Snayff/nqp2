@@ -81,7 +81,7 @@ class GalleryUI(UI):
                 # return to previous scene
                 self._game.change_scene([self._game.dev_gallery.previous_scene_type])
 
-    def render(self, surface: pygame.surface):
+    def draw(self, surface: pygame.surface):
         default_font = self.default_font
         positive_font = self.positive_font
         disabled_font = self.disabled_font
@@ -105,10 +105,10 @@ class GalleryUI(UI):
 
         # draw headers
         anim_states = ["icon", "idle", "walk", "attack", "hit", "death"]
-        disabled_font.render("name", surface, (current_x, current_y))
+        disabled_font.draw("name", surface, (current_x, current_y))
         current_x += name_col_width
         for header in anim_states:
-            disabled_font.render(header, surface, (current_x, current_y))
+            disabled_font.draw(header, surface, (current_x, current_y))
             current_x += sprite_col_width
 
         # increment y
@@ -129,7 +129,7 @@ class GalleryUI(UI):
             current_x = start_x + (j // self._amount_per_col) * 200
             current_y = start_y + row_height + (j % self._amount_per_col) * 20
 
-            default_font.render(name, surface, (current_x, current_y))
+            default_font.draw(name, surface, (current_x, current_y))
             current_x += name_col_width
 
             for animation in anim_states:
@@ -156,7 +156,7 @@ class GalleryUI(UI):
 
         # draw filter and result number
         num_shown = j
-        positive_font.render(
+        positive_font.draw(
             f"{self._current_filter}. {num_shown}/{num_in_filter}", surface, (window_width - 200, start_y)
         )
 

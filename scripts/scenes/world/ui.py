@@ -33,7 +33,7 @@ class WorldUI(UI):
         super().__init__(game, False)
         self._parent_scene: WorldScene = parent_scene
 
-        # TODO - info pulled over from combat to render terrain, needs clean up
+        # TODO - info pulled over from combat to draw terrain, needs clean up
         self.camera: Camera = Camera()
         self.terrain: Terrain = Terrain(self._game)
         self.biome = "plains"
@@ -55,10 +55,10 @@ class WorldUI(UI):
         if self._game.input.states["backspace"]:
             self._parent_scene.move_to_new_room()
 
-    def render(self, surface: pygame.surface):
+    def draw(self, surface: pygame.surface):
         self.camera.bind(self.terrain.boundaries)
         combat_surf = pygame.Surface(self._game.window.display.get_size())  # Not sure we need this?
-        self.terrain.render(combat_surf, self.camera.render_offset())
+        self.terrain.draw(combat_surf, self.camera.render_offset())
 
         if self._parent_scene.state == WorldState.IDLE:
             self._draw_units(combat_surf, self.camera.render_offset())
@@ -110,7 +110,7 @@ class WorldUI(UI):
         units = self._game.memory.player_troupe.units.values()
 
         for unit in units:
-            unit.render(surface, shift=offset)
+            unit.draw(surface, shift=offset)
 
         # organize entities for layered rendering
         entity_list = []
@@ -121,7 +121,7 @@ class WorldUI(UI):
         entity_list.sort()
 
         for entity in entity_list:
-            entity[2].render(surface, shift=offset)
+            entity[2].draw(surface, shift=offset)
 
         for unit in units:
             unit.post_render(surface, shift=offset)
