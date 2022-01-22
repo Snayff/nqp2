@@ -6,6 +6,8 @@ from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.scene import Scene
 from scripts.core.constants import SceneType, WorldState
+from scripts.scenes.combat.elements.particles import ParticleManager
+from scripts.scenes.combat.elements.projectile_manager import ProjectileManager
 from scripts.scenes.world.ui import WorldUI
 
 if TYPE_CHECKING:
@@ -31,11 +33,15 @@ class WorldScene(Scene):
 
         self.state = WorldState.IDLE
         self.unit_grid: List = []
+        self.last_unit_death = None
 
         # unit selection grid dimensions
         self.grid_size: List[int, int] = [3, 8]  # col, row
         self.grid_cell_size: int = 32
         self.grid_margin: int = 32
+
+        self.projectiles: ProjectileManager = ProjectileManager(self._game)
+        self.particles: ParticleManager = ParticleManager()
 
         # record duration
         end_time = time.time()

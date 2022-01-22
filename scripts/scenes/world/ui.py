@@ -38,15 +38,19 @@ class WorldUI(UI):
         self.terrain: Terrain = Terrain(self._game)
         self.biome = "plains"
         self.mod_delta_time = 0  # actual delta time multiplied by game speed
-        self.force_idle = False
+        self.forced_idle = False
 
     def update(self, delta_time: float):
         super().update(delta_time)
 
         self.mod_delta_time = self._game.memory.game_speed * delta_time
 
-        if not self.force_idle:
+        # TODO - what is driving "forced_idle"?
+        if not self.forced_idle:
             self.terrain.update(self.mod_delta_time)
+            units = self._game.memory.get_all_units()
+            for unit in units:
+                unit.forced_idle = True
 
     def process_input(self, delta_time: float):
         super().process_input(delta_time)

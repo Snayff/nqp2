@@ -4,10 +4,10 @@ import logging
 import time
 from typing import TYPE_CHECKING
 
-from scripts.scenes.combat.elements.card_collection import CardCollection
 from scripts.scenes.combat.elements.commander import Commander
 from scripts.scenes.combat.elements.entity import Entity
 from scripts.scenes.combat.elements.troupe import Troupe
+from scripts.scenes.combat.elements.unit import Unit
 
 if TYPE_CHECKING:
     from typing import Dict, List, Optional, Tuple
@@ -245,6 +245,18 @@ class Memory:
             entities += troupe.entities
 
         return entities
+
+    def get_all_units(self) -> List[Unit]:
+        """
+        Get a list of all Units
+        """
+        units = []
+
+        for troupe in self.troupes.values():
+            for unit in troupe.units.values():
+                units.append(unit)
+
+        return units
 
     @property
     def player_troupe(self) -> Troupe:

@@ -62,12 +62,12 @@ class Unit:
         self.modifiers: Dict[str, List[int]] = {}
 
         self.injuries: int = 0
-
+        
+        # stats recording
         self.damage_dealt: int = 0
         self.damage_received: int = 0
         self.kills: int = 0
 
-        # during combat
         self.behaviour = self._game.data.behaviours.unit_behaviours[self.default_behaviour](self)
         self.alive: bool = True
         self.colour = (0, 0, 255)
@@ -75,6 +75,7 @@ class Unit:
         self.dead_entities: List[Entity] = []
         self.pos: Tuple[int, int] = [0, 0]
         self.placed: bool = False
+        self.forced_idle: bool = False
 
         # visual
         self.border_surface_timer: float = 0
@@ -234,7 +235,7 @@ class Unit:
         # a unit is alive if all of its entities are alive
         self.alive = bool(len(self.entities))
 
-        if self._game.combat.force_idle == False:
+        if self.forced_idle == False:
             self.behaviour.process(dt)
 
         for i, entity in enumerate(self.dead_entities):

@@ -22,30 +22,30 @@ class Entity:
     def __init__(self, parent_unit):
         injury_deduction = 1 - 0.1 * parent_unit.injuries
 
-        self.unit: Unit = parent_unit
-        self._game = self.unit._game
+        self._parent_unit: Unit = parent_unit
+        self._game = self._parent_unit._game
 
-        self.pos = self.unit.pos.copy()
-        self.team = self.unit.team
-        self.type: str = self.unit.type
-        self.health: int = int(self.unit.health * injury_deduction)
-        self.defence: int = int(self.unit.defence * injury_deduction)
-        self.attack: int = int(self.unit.attack * injury_deduction)
-        self.range: int = self.unit.range
-        self.attack_speed: float = self.unit.attack_speed * injury_deduction
-        self.move_speed: int = int(self.unit.move_speed * injury_deduction)
-        self.ammo: int = int(self.unit.ammo * injury_deduction)
-        self.use_ammo = self.unit.ammo > 0
-        self.count: int = int(self.unit.count * injury_deduction)
-        self.projectile_data = self.unit.projectile_data
-        self.size: int = self.unit.size
-        self.weight: int = self.unit.weight
+        self.pos = self._parent_unit.pos.copy()
+        self.team = self._parent_unit.team
+        self.type: str = self._parent_unit.type
+        self.health: int = int(self._parent_unit.health * injury_deduction)
+        self.defence: int = int(self._parent_unit.defence * injury_deduction)
+        self.attack: int = int(self._parent_unit.attack * injury_deduction)
+        self.range: int = self._parent_unit.range
+        self.attack_speed: float = self._parent_unit.attack_speed * injury_deduction
+        self.move_speed: int = int(self._parent_unit.move_speed * injury_deduction)
+        self.ammo: int = int(self._parent_unit.ammo * injury_deduction)
+        self.use_ammo = self._parent_unit.ammo > 0
+        self.count: int = int(self._parent_unit.count * injury_deduction)
+        self.projectile_data = self._parent_unit.projectile_data
+        self.size: int = self._parent_unit.size
+        self.weight: int = self._parent_unit.weight
 
         # animation stuff
         self.action = "walk"
         self.frame_timer = 0
 
-        self.behaviour = self._game.data.behaviours.entity_behaviours[self.unit.default_behaviour](self)
+        self.behaviour = self._game.data.behaviours.entity_behaviours[self._parent_unit.default_behaviour](self)
 
         self.attack_timer = 0
         self.pushed_by_log = []
@@ -64,33 +64,34 @@ class Entity:
         self.pos[1] += random.random() * 0.1 - 0.05  # don't use seeded rng
 
         # temp
-        self.colour = self.unit.colour
+        self.colour = self._parent_unit.colour
 
     def move(self, movement):
         """
         Splits the movement operation into smaller amounts to prevent issues with high speed movement.
         Calls the move sub-process anywhere from one to several times depending on the speed.
         """
-        move_count = int(abs(movement[0]) // self._game.combat.terrain.tile_size + 1)
-        move_count = max(int(abs(movement[1]) // self._game.combat.terrain.tile_size + 1), move_count)
+        # TODO - remove reliance on Scenes
+        move_count = int(abs(movement[0]) // self._game.world.ui.terrain.tile_size + 1)
+        move_count = max(int(abs(movement[1]) // self._game.world.ui.terrain.tile_size + 1), move_count)
         move_amount = [movement[0] / move_count, movement[1] / move_count]
         for i in range(move_count):
             self.sub_move(move_amount)
 
     def sub_move(self, movement):
         self.pos[0] += movement[0]
-        if self._game.combat.terrain.check_tile_solid(self.pos):
+        if self._game.world.ui.terrain.check_tile_solid(self.pos):
             if movement[0] > 0:
-                self.pos[0] = self._game.combat.terrain.tile_rect_px(self.pos).left - 1
+                self.pos[0] = self._game.world.ui.terrain.tile_rect_px(self.pos).left - 1
             if movement[0] < 0:
-                self.pos[0] = self._game.combat.terrain.tile_rect_px(self.pos).right + 1
+                self.pos[0] = self._game.world.ui.terrain.tile_rect_px(self.pos).right + 1
 
         self.pos[1] += movement[1]
-        if self._game.combat.terrain.check_tile_solid(self.pos):
+        if self._game.world.ui.terrain.check_tile_solid(self.pos):
             if movement[1] > 0:
-                self.pos[1] = self._game.combat.terrain.tile_rect_px(self.pos).top - 1
+                self.pos[1] = self._game.world.ui.terrain.tile_rect_px(self.pos).top - 1
             if movement[1] < 0:
-                self.pos[1] = self._game.combat.terrain.tile_rect_px(self.pos).bottom + 1
+                self.pos[1] = self._game.world.ui.terrain.tile_rect_px(self.pos).bottom + 1
 
     def dis(self, entity):
         """
@@ -112,17 +113,19 @@ class Entity:
         self.move(movement)
 
     def deal_damage(self, amount, owner=None):
+        # TODO - remove reliance on Scenes
+
         # prevent damage if in godmode
         dmg_amt = 0
         if not (self.team == "player" and "godmode" in self._game.memory.flags):
             dmg_amt = amount * (DEFENSE_SCALE / (DEFENSE_SCALE + self.defence))
             self.health -= dmg_amt
-            self.unit.damage_received += dmg_amt
+            self._parent_unit.damage_received += dmg_amt
             if self.health <= 0:
                 self.health = 0
                 if self.alive:
                     self.frame_timer = 0
-                    self._game.combat.last_unit_death = (self, owner if owner else self)
+                    self._game.world.last_unit_death = (self, owner if owner else self)
                 self.alive = False
 
             # comment me out to remove the hit animation
@@ -130,13 +133,14 @@ class Entity:
                 self.action = "hit"
                 self.frame_timer = 0
 
-            self._game.combat.particles.create_particle_burst(self.pos.copy(), (255, 50, 100), random.randint(10, 16))
+            self._game.world.particles.create_particle_burst(self.pos.copy(), (255, 50, 100), random.randint(10, 16))
 
             self.damaged_by_log = (self.damaged_by_log + [owner])[-30:]
 
         return (self.alive, dmg_amt)
 
     def attempt_attack(self, entity):
+        # TODO - remove reliance on Scenes
         if (not self.use_ammo) or (self.ammo > 0):
             if self.dis(entity) - (entity.size + self.size) < self.range:
                 self.is_attacking = True
@@ -151,7 +155,7 @@ class Entity:
 
                 if self.use_ammo:
                     self.ammo -= 1
-                    self._game.combat.projectiles.add_projectile(self, entity)
+                    self._game.world.projectiles.add_projectile(self, entity)
                     if self.ammo <= 0:
                         # switch to melee when out of ammo
                         self.use_ammo = False
@@ -160,8 +164,8 @@ class Entity:
                 else:
                     dmg_status = entity.deal_damage(self.attack + mod, self)
                     if not dmg_status[0]:
-                        self.unit.kills += 1
-                    self.unit.damage_dealt += dmg_status[1]
+                        self._parent_unit.kills += 1
+                    self._parent_unit.damage_dealt += dmg_status[1]
 
                 self.attack_timer = 1 / self.attack_speed
 
@@ -174,7 +178,7 @@ class Entity:
 
         # make sure the attack action can be transferred after movement
         self.is_attacking = False
-        if (not self._game.combat.force_idle) and self.alive:
+        if (not self._parent_unit.forced_idle) and self.alive:
             self.behaviour.process(dt)
 
         if not self.alive:
@@ -283,10 +287,10 @@ class Entity:
         #        offset(shift.copy(), self.pos),
         #        offset(shift.copy(), self.behaviour.priority_target.pos),
         #    )
-        # elif self.unit.behaviour.target:
+        # elif self._parent_unit.behaviour.target:
         #    pygame.draw.line(
         #        surface,
         #        (255, 255, 0),
         #        offset(shift.copy(), self.pos),
-        #        offset(shift.copy(), self.unit.behaviour.target.pos),
+        #        offset(shift.copy(), self._parent_unit.behaviour.target.pos),
         #    )

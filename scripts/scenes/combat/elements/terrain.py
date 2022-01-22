@@ -147,7 +147,7 @@ class Terrain:
     def draw(self, surface: pygame.Surface, offset=(0, 0)):
         for loc in self.terrain:
             for tile in self.terrain[loc]:
-                tile.draw(self._game, surface, self._game.combat.camera.pos)
+                tile.draw(self._game, surface, self._game.world.ui.camera.pos)
 
         for trap in self.traps:
             trap.draw(surface, self._game.combat.camera.render_offset())

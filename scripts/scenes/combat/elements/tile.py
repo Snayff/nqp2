@@ -29,6 +29,6 @@ class Tile:
 
         img = tileset[self.src_y][self.src_x]
 
-        tile_size = game.combat.terrain.tile_size
+        tile_size = game.world.ui.terrain.tile_size
 
         surf.blit(img, (self.loc[0] * tile_size - offset[0], self.loc[1] * tile_size - offset[1]))

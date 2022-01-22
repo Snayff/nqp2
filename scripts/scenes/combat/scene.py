@@ -10,12 +10,10 @@ from scripts.core.base_classes.scene import Scene
 from scripts.core.constants import CombatState, PostCombatState, SceneType
 from scripts.scenes.combat.elements.actions import actions
 from scripts.scenes.combat.elements.camera import Camera
-from scripts.scenes.combat.elements.card_collection import CardCollection
 from scripts.scenes.combat.elements.enemy_combatants_generator import EnemyCombatantsGenerator
 from scripts.scenes.combat.elements.particles import ParticleManager
 from scripts.scenes.combat.elements.projectile_manager import ProjectileManager
 from scripts.scenes.combat.elements.terrain import Terrain
-from scripts.scenes.combat.elements.unit_manager import UnitManager
 from scripts.scenes.combat.ui import CombatUI
 
 if TYPE_CHECKING:
@@ -56,7 +54,7 @@ class CombatScene(Scene):
         self.state: CombatState = CombatState.UNIT_CHOOSE_CARD
 
         self.combat_speed = 1
-        self.force_idle = True
+        self.forced_idle = True
         self.dt = 0
         self.combat_ending_timer = -1
 
@@ -86,7 +84,7 @@ class CombatScene(Scene):
 
         self.dt = self.combat_speed * self._game.window.delta_time
 
-        if not self.force_idle:
+        if not self.forced_idle:
             self.terrain.update(self.dt)
 
         self.particles.update(self.dt)
@@ -95,7 +93,7 @@ class CombatScene(Scene):
             self.combat_ending_timer += self._game.window.delta_time
             self.combat_speed = 0.3 - (0.05 * self.combat_ending_timer)
             self.camera.zoom = 1 + (self.combat_ending_timer / 2)
-            self.force_idle = True
+            self.forced_idle = True
             self._game.combat.state == CombatState.WATCH
             if self.last_unit_death:
                 # average the last positions of the last entity to die and the killer of that entity
@@ -146,17 +144,17 @@ class CombatScene(Scene):
         # run at normal speed during watch phase
         if self._game.combat.state == CombatState.WATCH:
             self.combat_speed = 1
-            self.force_idle = False
+            self.forced_idle = False
 
         # pause combat during unit placement
         elif self._game.combat.state in [CombatState.UNIT_CHOOSE_CARD, CombatState.UNIT_SELECT_TARGET]:
             self.combat_speed = 1
-            self.force_idle = True
+            self.forced_idle = True
 
         # slow down combat when playing actions
         else:
             self.combat_speed = 0.3
-            self.force_idle = False
+            self.forced_idle = False
 
     def draw(self):
         self.camera.bind(self.terrain.boundaries)

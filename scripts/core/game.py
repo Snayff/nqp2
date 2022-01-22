@@ -57,7 +57,6 @@ class Game:
         # scenes
         self.main_menu: MainMenuScene = MainMenuScene(self)
         self.run_setup: RunSetupScene = RunSetupScene(self)
-        self.combat: CombatScene = CombatScene(self)
         self.post_combat: PostCombatScene = PostCombatScene(self)
         self.event: EventScene = EventScene(self)
         self.training: TrainingScene = TrainingScene(self)
@@ -102,10 +101,6 @@ class Game:
         surface = self.window.display
         for scene in self.scene_stack:
             if scene.ui.is_active:
-                # handle those scenes that still have draw methods
-                # TODO - remove all draw methods from Scene
-                if scene in (self.combat,):
-                    scene.draw(surface)
                 scene.ui.draw(surface)
 
         self.debug.draw()  # always last so it is on top
@@ -187,15 +182,6 @@ class Game:
 
         elif scene_type == SceneType.RUN_SETUP:
             scene = self.run_setup
-
-        elif scene_type == SceneType.OVERWORLD:
-            scene = self.overworld
-
-        elif scene_type == SceneType.COMBAT:
-            scene = self.combat
-
-        elif scene_type == SceneType.BOSS_COMBAT:
-            scene = self.combat
 
         elif scene_type == SceneType.POST_COMBAT:
             scene = self.post_combat
