@@ -65,14 +65,22 @@ class RunSetupUI(UI):
         create_fancy_font = self._game.assets.create_fancy_font
 
         # positions
-        start_x = 20
-        start_y = 20
+        start_x = 0
+        start_y = 0
         default_font = self._game.assets.create_font(FontType.DEFAULT, "")
         font_height = default_font.line_height
 
-        # draw commanders
+        # draw background
         current_x = start_x
         current_y = start_y
+        bg = pygame.Surface((window_width, window_height))
+        bg.fill((0, 0, 0))
+        frame = Frame((current_x, current_y), bg, is_selectable=False)
+        self._elements["bg"] = frame
+
+        # draw commanders
+        current_x = start_x + 20
+        current_y = start_y + 20
         panel_elements = []
         for selection_counter, commander in enumerate(commanders.values()):
             icon = self._game.assets.commander_animations[commander["type"]]["icon"][0]
@@ -94,9 +102,9 @@ class RunSetupUI(UI):
 
         # draw info
         commander = commanders[selected_commander]
-        current_y = start_y + DEFAULT_IMAGE_SIZE + GAP_SIZE
-        info_x = start_x + 200
-        header_x = start_x
+        current_y += DEFAULT_IMAGE_SIZE + GAP_SIZE
+        info_x = start_x + 220
+        header_x = start_x + 20
 
         # name
         frame = Frame((header_x, current_y), font=create_font(FontType.DISABLED, "Name"), is_selectable=False)
