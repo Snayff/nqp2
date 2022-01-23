@@ -1,8 +1,9 @@
+import math
+import random
+
 import pygame
 
 from .pathfinder import Pathfinder
-import math
-import random
 from .tile import Tile
 
 TILE_SIZE = 16
@@ -40,6 +41,7 @@ def grid_walk(start, end):
         points.append((start[0], start[1]))
 
     return points
+
 
 def gen_blob(start_pos, count, tile_type, terrain, floor_filter=None):
     blob_points = [tuple(start_pos)]
@@ -85,7 +87,7 @@ def generate(game, terrain, biome):
             loc = (x - terrain.barrier_size - 1, y - terrain.barrier_size - 1)
             terrain.terrain[loc] = [Tile([biome, 0, 1], loc, game.data.tiles)]
             if (terrain.barrier_size < x <= (combat_area_size[0] + terrain.barrier_size)) and (
-                    terrain.barrier_size < y <= (combat_area_size[1] + terrain.barrier_size)
+                terrain.barrier_size < y <= (combat_area_size[1] + terrain.barrier_size)
             ):
                 if random.random() < 0.3:
                     terrain.terrain[loc].append(Tile([biome, *random_foliage()], loc, game.data.tiles))
@@ -125,6 +127,7 @@ def generate(game, terrain, biome):
     terrain.boundaries.y = -terrain.barrier_size * terrain.tile_size
     terrain.boundaries.width = (terrain.barrier_size * 2 + combat_area_size[0]) * terrain.tile_size
     terrain.boundaries.height = (terrain.barrier_size * 2 + combat_area_size[1]) * terrain.tile_size
+
 
 class Terrain:
     def __init__(self, game):
@@ -234,6 +237,3 @@ class Terrain:
 
         for trap in self.traps:
             trap.draw(surface, self._game.combat.camera.render_offset())
-
-
-

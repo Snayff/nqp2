@@ -73,7 +73,7 @@ def scene_to_scene_type(scene) -> SceneType:
     """
     Take a Scene and return the relevant SceneType
     """
-    
+
     from scripts.scenes.event.scene import EventScene
     from scripts.scenes.gallery.scene import GalleryScene
     from scripts.scenes.inn.scene import InnScene
