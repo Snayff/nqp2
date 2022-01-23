@@ -82,7 +82,7 @@
         "tier_cost_multiplier": 1.2,
         "cost":25
     },
-    "overworld": {
+    "world": {
         "node_weights": {
             "combat": 0.5,
             "inn": 0.1,

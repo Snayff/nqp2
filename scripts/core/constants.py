@@ -57,7 +57,6 @@ class PostCombatState(IntEnum):
 
 class WorldState(IntEnum):
     IDLE = auto()
-    OTHER_SCENE_ACTIVE = auto()
     COMBAT = auto()
 
 

@@ -236,13 +236,13 @@ class EventScene(Scene):
 
     def roll_for_event(self) -> bool:
         """
-        Roll to see if an event will be triggered when transitioning between nodes. True for event due.
+        Roll to see if an event will be triggered when transitioning between rooms. True for event due.
         """
         # check if we have hit the limit of events
-        if self.events_triggered >= self._game.data.config["overworld"]["max_events_per_level"]:
+        if self.events_triggered >= self._game.data.config["world"]["max_events_per_level"]:
             return False
 
-        if self._game.rng.roll() < self._game.data.config["overworld"]["chance_of_event"]:
+        if self._game.rng.roll() < self._game.data.config["world"]["chance_of_event"]:
             return True
 
         # safety catch

@@ -73,9 +73,6 @@ class WorldScene(Scene):
 
         self._align_unit_pos_to_unit_grid()
 
-        # test
-        # self.generate_combat()
-
     def reset(self):
         self.ui = WorldUI(self._game, self)
         self.unit_grid = []
@@ -101,16 +98,23 @@ class WorldScene(Scene):
 
     def move_to_new_room(self):
         """
-        stub
+        Move Units to a new room.
         """
         # TODO - write method
 
-        # once new room ready
+        # TEST assume room is combat
+        self.generate_combat()
+
+        # once new room ready but not active
         if self._game.event.roll_for_event():
+            self.state = WorldState.IDLE
             self._game.event.load_random_event()
             self._game.activate_scene(SceneType.EVENT)
 
     def generate_combat(self):
+        """
+        Generate a random combat
+        """
         rng = self._game.rng
 
         combat = self._get_random_combat()
