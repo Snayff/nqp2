@@ -1,5 +1,7 @@
-import pygame
 from typing import TYPE_CHECKING
+
+import pygame
+
 from scripts.core.constants import FontType
 
 if TYPE_CHECKING:
@@ -9,7 +11,6 @@ if TYPE_CHECKING:
 # TODO - add numpad support
 # TODO - add special character support, particularly - | .
 # TODO - handle blank input fields
-
 
 
 class InputBox:

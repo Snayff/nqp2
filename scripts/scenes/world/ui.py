@@ -69,7 +69,6 @@ class WorldUI(UI):
                 # refresh info shown
                 self.rebuild_ui()
 
-
     def process_input(self, delta_time: float):
         super().process_input(delta_time)
 

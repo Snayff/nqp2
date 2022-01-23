@@ -303,5 +303,3 @@ class WorldScene(Scene):
             self._game.memory.player_troupe.remove_unit(unit)
 
         self._game_log.extend(combat_end_data)
-
-

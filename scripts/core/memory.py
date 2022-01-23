@@ -321,7 +321,7 @@ class Memory:
 
         # events
         self._event_deck = self._load_events([1])  # all available events
-        self._priority_events= {}  # events to be prioritised
+        self._priority_events = {}  # events to be prioritised
         self._turns_since_priority_event = 0
 
         # resources
