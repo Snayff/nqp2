@@ -59,6 +59,7 @@ class WorldState(IntEnum):
     IDLE = auto()
     COMBAT = auto()
     DEFEAT = auto()
+    COMBAT_VICTORY = auto()
 
 
 class EventState(IntEnum):
@@ -67,8 +68,6 @@ class EventState(IntEnum):
 
 
 class SceneType(IntEnum):
-    COMBAT = auto()
-    BOSS_COMBAT = auto()
     POST_COMBAT = auto()
     EVENT = auto()
     INN = auto()

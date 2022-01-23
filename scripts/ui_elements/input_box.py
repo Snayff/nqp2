@@ -1,14 +1,20 @@
 import pygame
+from typing import TYPE_CHECKING
+from scripts.core.constants import FontType
+
+if TYPE_CHECKING:
+    from scripts.core.game import Game
+
 
 # TODO - add numpad support
-# TODO - add special character support, particularly - .
+# TODO - add special character support, particularly - | .
 # TODO - handle blank input fields
-from scripts.core.constants import FontType
+
 
 
 class InputBox:
     def __init__(self, game, size, pos=[0, 0], colour=(255, 255, 255), input_type="all", text="", font=None):
-        self._game = game
+        self._game: Game = game
         self.size = list(size)
         self.pos = list(pos)
         self.colour = colour

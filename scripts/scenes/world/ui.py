@@ -39,12 +39,36 @@ class WorldUI(UI):
         self.biome = "plains"
         self.debug_pathfinding: bool = False
 
+        self.victory_duration: float = 0
+
     def update(self, delta_time: float):
         super().update(delta_time)
 
         self.terrain.update(delta_time)
 
         self._update_camera_pos(delta_time)
+
+        if self._parent_scene.state == WorldState.COMBAT_VICTORY:
+            self.victory_duration += delta_time
+
+            if self.victory_duration > 3:  # victory duration
+                # remove enemy troupe
+                self._game.memory.remove_troupe(self._parent_scene.enemy_troupe_id)
+
+                # put units back to idle
+                for troupe in self._game.memory.troupes.values():
+                    troupe.set_force_idle(False)
+
+                # reset info and reposition player's Troupe
+                self._parent_scene.end_combat()
+                self._parent_scene.align_unit_pos_to_unit_grid()
+
+                # update state to prevent further updates
+                self._parent_scene.state = WorldState.IDLE
+
+                # refresh info shown
+                self.rebuild_ui()
+
 
     def process_input(self, delta_time: float):
         super().process_input(delta_time)
@@ -57,7 +81,7 @@ class WorldUI(UI):
                 self._parent_scene.state = WorldState.COMBAT
                 for troupe in self._game.memory.troupes.values():
                     troupe.set_force_idle(False)
-
+        #############################################
 
         if self._parent_scene.state == WorldState.DEFEAT:
             if self._game.input.states["select"]:
@@ -70,22 +94,16 @@ class WorldUI(UI):
     def draw(self, surface: pygame.surface):
         self.camera.bind(self.terrain.boundaries)
         combat_surf = pygame.Surface(self._game.window.display.get_size())  # TODO Not sure we need this?
+
         self.terrain.draw(combat_surf, self.camera.render_offset())
+        self._draw_units(combat_surf, self.camera.render_offset())
 
         if self.debug_pathfinding:
             self._draw_path_debug(surface)
 
-        if self._parent_scene.state == WorldState.IDLE:
-            self._draw_units(combat_surf, self.camera.render_offset())
-
         if self._parent_scene.state == WorldState.COMBAT:
-            self._draw_units(combat_surf, self.camera.render_offset())
             self._parent_scene.projectiles.draw(combat_surf, self.camera.render_offset())
             self._parent_scene.particles.draw(combat_surf, self.camera.render_offset())
-
-        if self._parent_scene.state == WorldState.DEFEAT:
-            self._draw_units(combat_surf, self.camera.render_offset())
-
 
         # handle camera zoom
         if self.camera.zoom != 1:
@@ -103,7 +121,9 @@ class WorldUI(UI):
             ),
         )
 
-        self._draw_grid(surface)
+        if self._parent_scene.state == WorldState.IDLE:
+            self._draw_grid(surface)
+
         self._draw_instruction(surface)
         self._draw_elements(surface)
 
@@ -142,6 +162,16 @@ class WorldUI(UI):
                 is_selectable=False,
             )
             self._elements["defeat_instruction"] = frame
+
+        if self._parent_scene.state == WorldState.COMBAT_VICTORY:
+            defeat_icon = self._game.assets.get_image("ui", "arrow_button", icon_size)
+            frame = Frame(
+                (current_x, current_y),
+                image=defeat_icon,
+                font=create_font(FontType.POSITIVE, "Victory"),
+                is_selectable=False,
+            )
+            self._elements["victory_notification"] = frame
 
     def _draw_grid(self, surface: pygame.Surface):
         """

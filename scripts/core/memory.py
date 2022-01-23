@@ -277,11 +277,14 @@ class Memory:
         logging.error(f"Tried to get player troupe but couldnt find it!")
         raise Exception
 
-    def add_troupe(self, troupe: Troupe):
+    def add_troupe(self, troupe: Troupe) -> int:
         """
-        Add a Troupe to Memory.
+        Add a Troupe to Memory. Returns Troupe ID
         """
-        self.troupes[self.generate_id()] = troupe
+        id_ = self.generate_id()
+        self.troupes[id_] = troupe
+
+        return id_
 
     def remove_troupe(self, id_: int):
         """

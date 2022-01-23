@@ -7,7 +7,7 @@ import os
 
 import pygame
 
-from scripts.core.constants import ASSET_PATH, DATA_PATH, SceneType
+from scripts.core.constants import ASSET_PATH, DATA_PATH, SceneType, WorldState
 from scripts.core.utility import scene_to_scene_type
 from scripts.ui_elements.input_box import InputBox
 
@@ -47,44 +47,45 @@ class DevConsole(InputBox):
             event_id = command[6:]  # +1 position to account for space
 
             # check active scene
-            if self._game.active_scene.type not in (SceneType.MAIN_MENU, SceneType.RUN_SETUP):
+            if (SceneType.MAIN_MENU, SceneType.RUN_SETUP) not in self._game.scene_stack:
                 confirmation_message = self._switch_to_event(event_id)
 
         elif command[:7] == "godmode":
             # check active scene
-            if self._game.active_scene.type not in (SceneType.MAIN_MENU, SceneType.RUN_SETUP):
+            if SceneType.WORLD in self._game.scene_stack:
                 confirmation_message = self._toggle_godmode()
 
         elif command[:17] == "create_unit_jsons":
             # check active scene
-            if self._game.active_scene.type in (SceneType.MAIN_MENU,):
+            if SceneType.MAIN_MENU in self._game.scene_stack:
                 confirmation_message = self._add_unit_json_for_each_asset_folder()
 
         elif command[:13] == "load_unit_csv":
             # check active scene
-            if self._game.active_scene.type in (SceneType.MAIN_MENU,):
+            if SceneType.MAIN_MENU in self._game.scene_stack:
                 confirmation_message = self._load_unit_csv()
 
         elif command[:7] == "gallery":
             # check active scene
-            if self._game.active_scene.type in (SceneType.MAIN_MENU,):
+            if SceneType.MAIN_MENU in self._game.scene_stack:
                 confirmation_message = self._switch_to_gallery()
 
         elif command[:11] == "data_editor":
             # check active scene
-            if self._game.active_scene.type in (SceneType.MAIN_MENU,):
+            if SceneType.MAIN_MENU in self._game.scene_stack:
                 confirmation_message = self._switch_to_data_editor()
 
         elif command[:13] == "combat_result":
             result = command[14:]  # +1 position to account for space
 
             # check active scene
-            if self._game.active_scene.type == SceneType.COMBAT:
+            if SceneType.WORLD in self._game.scene_stack and self._game.world.state == WorldState.COMBAT:
                 confirmation_message = self._process_combat_result(result)
 
         # update result
         if confirmation_message != "":
-            self._game.active_scene.ui.set_instruction_text(confirmation_message, True)
+            active_scene = self._game.scene_stack[0]
+            active_scene.ui.set_instruction_text(confirmation_message, True)
 
     def _add_unit_json_for_each_asset_folder(self) -> str:
         """
