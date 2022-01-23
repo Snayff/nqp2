@@ -192,3 +192,11 @@ class Troupe:
         """
         id_ = self._game.rng.choice(self.units)
         return self.units[id_]
+
+    def set_force_idle(self, active: bool):
+        """
+        Set the forced_idle attr for all units in the Troupe
+        """
+        for unit in self.units.values():
+            unit.forced_idle = active
+

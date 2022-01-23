@@ -35,15 +35,15 @@ class Base(Behaviour):
         Find the nearest enemy from a different team and update the target.
         """
         nearest = [None, 9999999]
-        for entity in self._game.combat.all_entities:
+        for entity in self._game.memory.get_all_entities():
             if entity.team != self.unit.team:
                 dis = entity.dis(self.unit)
                 if dis < nearest[1]:
                     nearest = [entity, dis]
 
         if nearest[0]:
-            self.target_unit = nearest[0].unit
-            self.reference_entity = random.choice(nearest[0].unit.entities)
+            self.target_unit = nearest[0]._parent_unit
+            self.reference_entity = random.choice(nearest[0]._parent_unit.entities)
         else:
             self.target_unit = None
             self.reference_entity = None
@@ -61,7 +61,8 @@ class Base(Behaviour):
                 self.find_target()
 
             if self.leader:
-                loc = self._game.combat.terrain.px_to_loc(self.leader.pos.copy())
+                # TODO - remove reliance on scene
+                loc = self._game.world.ui.terrain.px_to_loc(self.leader.pos.copy())
                 if loc not in self.position_log:
                     self.position_log.append(loc)
                     self.position_log = self.position_log[-50:]

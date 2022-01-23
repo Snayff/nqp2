@@ -38,7 +38,6 @@ class WorldUI(UI):
         self.terrain: Terrain = Terrain(self._game)
         self.biome = "plains"
         self.mod_delta_time = 0  # actual delta time multiplied by game speed
-        self.forced_idle: bool = False
         self.debug_pathfinding: bool = False
 
     def update(self, delta_time: float):
@@ -46,12 +45,7 @@ class WorldUI(UI):
 
         self.mod_delta_time = self._game.memory.game_speed * delta_time
 
-        # TODO - what is driving "forced_idle"?
-        if not self.forced_idle:
-            self.terrain.update(self.mod_delta_time)
-            units = self._game.memory.get_all_units()
-            for unit in units:
-                unit.forced_idle = True
+        self.terrain.update(self.mod_delta_time)
 
         self._update_camera_pos(delta_time)
 
@@ -63,6 +57,8 @@ class WorldUI(UI):
             self._parent_scene.move_to_new_room()
         if self._game.input.states["select"]:
             self._parent_scene.state = WorldState.COMBAT
+            for troupe in self._game.memory.troupes.values():
+                troupe.set_force_idle(False)
 
     def draw(self, surface: pygame.surface):
         self.camera.bind(self.terrain.boundaries)

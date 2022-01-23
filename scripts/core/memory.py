@@ -58,7 +58,7 @@ class Memory:
         self._seen_bosses: List[str] = []
 
         # in memory config
-        self._game_speed: float = 0
+        self._game_speed: float = 1
 
         # record duration
         end_time = time.time()
@@ -300,7 +300,6 @@ class Memory:
         Set the game speed. 1 is default.
         """
         self._game_speed = speed
-        logging.debug(f"Game speed set to {self._game_speed}")
 
     @property
     def game_speed(self) -> float:

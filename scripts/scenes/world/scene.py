@@ -73,6 +73,10 @@ class WorldScene(Scene):
 
         self._align_unit_pos_to_unit_grid()
 
+        # force idle
+        for troupe in self._game.memory.troupes.values():
+            troupe.set_force_idle(True)
+
     def reset(self):
         self.ui = WorldUI(self._game, self)
         self.unit_grid = []
@@ -186,14 +190,13 @@ class WorldScene(Scene):
         """
         self.projectiles.update(delta_time)
 
-        self.ui.forced_idle = False
-
         # if combat ending
         if self._combat_ending_timer != -1:
             self._combat_ending_timer += delta_time
             self._game.memory.set_game_speed(0.3 - (0.05 * self._combat_ending_timer))
             self.ui.camera.zoom = 1 + (self._combat_ending_timer / 2)
-            self.ui.forced_idle = True
+            for troupe in self._game.memory.troupes.values():
+                troupe.set_force_idle(True)
 
             # TODO - what is last death?
             if self.last_unit_death:
@@ -249,12 +252,13 @@ class WorldScene(Scene):
         # transition to post-combat
         # TODO - add post combat
 
-    def end_combat(self):
+    def _end_combat(self):
         """
         End the combat
         """
         self._game.memory.set_game_speed(1)
-        self.ui.forced_idle = True
+        for troupe in self._game.memory.troupes.values():
+            troupe.set_force_idle(True)
         self.state = WorldState.IDLE  # TODO - add post combat
 
         self._process_new_injuries()

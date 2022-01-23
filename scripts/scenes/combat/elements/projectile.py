@@ -28,10 +28,10 @@ class Projectile:
             self.pos[1] += math.sin(self.angle) * dis
             r = pygame.Rect(self.pos[0] - 4, self.pos[1] - 4, 8, 8)
 
-            if not self._game.combat.terrain.check_tile_hoverable(self.pos):
+            if not self._game.world.ui.terrain.check_tile_hoverable(self.pos):
                 return False
 
-            for entity in self._game.combat.all_entities:
+            for entity in self._game.memory.get_all_entities():
                 if entity.team != self.owner.team:
                     if r.collidepoint(entity.pos):
                         entity.deal_damage(self.damage, self.owner)
