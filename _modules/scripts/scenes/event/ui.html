@@ -221,6 +221,13 @@
     <li class="md-nav__item">
     
     
+      <a href="../../../../api/scene_elements/_scene_elements.html" class="md-nav__link">Scene Elements</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../../../../api/ui_elements/ui_elements.html" class="md-nav__link">UI Elements</a>
       
     
@@ -228,7 +235,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../../developer_notes/_developer_notes.html" class="md-nav__link">Developer Notes</a>
+      <a href="../../../../developer/_developer.html" class="md-nav__link">Developer</a>
       
     
     </li>
@@ -288,9 +295,9 @@
 
 <div class="viewcode-block" id="EventUI.__init__"><a class="viewcode-back" href="../../../../scripts.scenes.event.html#scripts.scenes.event.ui.EventUI.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">game</span><span class="p">:</span> <span class="n">Game</span><span class="p">,</span> <span class="n">parent_scene</span><span class="p">:</span> <span class="n">EventScene</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">parent_scene</span><span class="p">:</span> <span class="n">EventScene</span> <span class="o">=</span> <span class="n">parent_scene</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span><span class="p">:</span> <span class="n">EventScene</span> <span class="o">=</span> <span class="n">parent_scene</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">selected_option</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>  <span class="c1"># the option selected</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_selected_option</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>  <span class="c1"># the option selected</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">set_instruction_text</span><span class="p">(</span><span class="s2">"Choose what to do next."</span><span class="p">)</span></div>
 
@@ -301,33 +308,33 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">process_input</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span>
 
         <span class="c1"># selection in panel</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"down"</span><span class="p">]:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">current_panel</span><span class="o">.</span><span class="n">select_next_element</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"down"</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">select_next_element</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"up"</span><span class="p">]:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">current_panel</span><span class="o">.</span><span class="n">select_previous_element</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"up"</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">select_previous_element</span><span class="p">()</span>
 
         <span class="c1"># view troupe</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"view_troupe"</span><span class="p">]:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">change_scene</span><span class="p">([</span><span class="n">SceneType</span><span class="o">.</span><span class="n">VIEW_TROUPE</span><span class="p">])</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"view_troupe"</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">change_scene</span><span class="p">(</span><span class="n">SceneType</span><span class="o">.</span><span class="n">VIEW_TROUPE</span><span class="p">)</span>
 
         <span class="c1"># panel specific input</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_panel</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">panels</span><span class="p">[</span><span class="s2">"options"</span><span class="p">]:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">handle_options_input</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_panels</span><span class="p">[</span><span class="s2">"options"</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_handle_options_input</span><span class="p">()</span>
 
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_panel</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">panels</span><span class="p">[</span><span class="s2">"exit"</span><span class="p">]:</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_panels</span><span class="p">[</span><span class="s2">"exit"</span><span class="p">]:</span>
 
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"select"</span><span class="p">]:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">deactivate_scene</span><span class="p">(</span><span class="n">SceneType</span><span class="o">.</span><span class="n">EVENT</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"select"</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">deactivate_scene</span><span class="p">(</span><span class="n">SceneType</span><span class="o">.</span><span class="n">EVENT</span><span class="p">)</span>
 
-                <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">EventState</span><span class="o">.</span><span class="n">MAKE_DECISION</span></div>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">EventState</span><span class="o">.</span><span class="n">MAKE_DECISION</span></div>
 
-<div class="viewcode-block" id="EventUI.render"><a class="viewcode-back" href="../../../../scripts.scenes.event.html#scripts.scenes.event.ui.EventUI.render">[docs]</a>    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">surface</span><span class="p">):</span>
+<div class="viewcode-block" id="EventUI.draw"><a class="viewcode-back" href="../../../../scripts.scenes.event.html#scripts.scenes.event.ui.EventUI.draw">[docs]</a>    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">surface</span><span class="p">):</span>
         <span class="c1"># show core info</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">draw_instruction</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_draw_instruction</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>
 
         <span class="c1"># draw elements</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">draw_elements</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_draw_elements</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="EventUI.rebuild_ui"><a class="viewcode-back" href="../../../../scripts.scenes.event.html#scripts.scenes.event.ui.EventUI.rebuild_ui">[docs]</a>    <span class="k">def</span> <span class="nf">rebuild_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">rebuild_ui</span><span class="p">()</span>
@@ -337,24 +344,24 @@
         <span class="n">start_y</span> <span class="o">=</span> <span class="mi">50</span>
 
         <span class="c1"># values needed for multiple elements</span>
-        <span class="n">event</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">active_event</span>
-        <span class="n">show_event_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s2">"show_event_option_result"</span><span class="p">]</span>
-        <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">state</span>
-        <span class="n">window_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">width</span>
-        <span class="n">window_height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">height</span>
-        <span class="n">create_font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">create_font</span>
+        <span class="n">event</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">active_event</span>
+        <span class="n">show_event_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s2">"show_event_option_result"</span><span class="p">]</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">state</span>
+        <span class="n">window_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">width</span>
+        <span class="n">window_height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">height</span>
+        <span class="n">create_font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">create_font</span>
         <span class="n">frame_line_width</span> <span class="o">=</span> <span class="n">window_width</span> <span class="o">-</span> <span class="p">(</span><span class="n">start_x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
 
         <span class="c1"># draw background</span>
         <span class="n">bg_surface</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">((</span><span class="n">frame_line_width</span><span class="p">,</span> <span class="n">window_height</span> <span class="o">-</span> <span class="p">(</span><span class="n">start_y</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)),</span> <span class="n">SRCALPHA</span><span class="p">)</span>
         <span class="n">bg_surface</span><span class="o">.</span><span class="n">fill</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">150</span><span class="p">))</span>
         <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">((</span><span class="n">start_x</span><span class="p">,</span> <span class="n">start_y</span><span class="p">),</span> <span class="n">image</span><span class="o">=</span><span class="n">bg_surface</span><span class="p">,</span> <span class="n">is_selectable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="sa">f</span><span class="s2">"background"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="sa">f</span><span class="s2">"background"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
 
         <span class="c1"># draw description</span>
         <span class="n">current_x</span> <span class="o">=</span> <span class="n">start_x</span> <span class="o">+</span> <span class="mi">2</span>
         <span class="n">current_y</span> <span class="o">=</span> <span class="n">start_y</span>
-        <span class="n">fancy_font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">create_fancy_font</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="s2">"description"</span><span class="p">],</span> <span class="n">font_effects</span><span class="o">=</span><span class="p">[</span><span class="n">FontEffects</span><span class="o">.</span><span class="n">FADE_IN</span><span class="p">])</span>
+        <span class="n">fancy_font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">create_fancy_font</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="s2">"description"</span><span class="p">],</span> <span class="n">font_effects</span><span class="o">=</span><span class="p">[</span><span class="n">FontEffects</span><span class="o">.</span><span class="n">FADE_IN</span><span class="p">])</span>
         <span class="n">font_height</span> <span class="o">=</span> <span class="n">fancy_font</span><span class="o">.</span><span class="n">line_height</span>
         <span class="n">max_height</span> <span class="o">=</span> <span class="p">((</span><span class="n">window_height</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">current_y</span><span class="p">)</span> <span class="o">-</span> <span class="n">font_height</span>
         <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
@@ -364,7 +371,7 @@
             <span class="n">max_width</span><span class="o">=</span><span class="n">frame_line_width</span><span class="p">,</span>
             <span class="n">is_selectable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="s2">"description"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="s2">"description"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
 
         <span class="c1"># move to half way down screen</span>
         <span class="n">current_y</span> <span class="o">=</span> <span class="n">window_height</span> <span class="o">//</span> <span class="mi">2</span>
@@ -375,7 +382,7 @@
         <span class="n">surface</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">((</span><span class="n">line_width</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
         <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">surface</span><span class="p">,</span> <span class="p">(</span><span class="mi">117</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">168</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">line_width</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
         <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">((</span><span class="n">offset</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span> <span class="n">surface</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="s2">"separator"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="s2">"separator"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
 
         <span class="c1"># increment position</span>
         <span class="n">current_y</span> <span class="o">+=</span> <span class="mi">10</span>
@@ -396,7 +403,7 @@
                 <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
                     <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span> <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="n">option_text</span><span class="p">),</span> <span class="n">is_selectable</span><span class="o">=</span><span class="kc">True</span>
                 <span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="sa">f</span><span class="s2">"option_</span><span class="si">{</span><span class="n">counter</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="sa">f</span><span class="s2">"option_</span><span class="si">{</span><span class="n">counter</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
                 <span class="n">panel_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
 
                 <span class="c1"># increment position</span>
@@ -416,9 +423,9 @@
 
             <span class="c1"># draw option chosen</span>
             <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
-                <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span> <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_option</span><span class="p">),</span> <span class="n">is_selectable</span><span class="o">=</span><span class="kc">True</span>
+                <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span> <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selected_option</span><span class="p">),</span> <span class="n">is_selectable</span><span class="o">=</span><span class="kc">True</span>
             <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="s2">"selected_option"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="s2">"selected_option"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
 
             <span class="c1"># increment position</span>
             <span class="n">current_y</span> <span class="o">+=</span> <span class="n">frame</span><span class="o">.</span><span class="n">height</span> <span class="o">+</span> <span class="p">(</span><span class="n">GAP_SIZE</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
@@ -427,9 +434,9 @@
             <span class="n">current_x</span> <span class="o">=</span> <span class="p">(</span><span class="n">window_width</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">DEFAULT_IMAGE_SIZE</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
 
             <span class="c1"># draw results</span>
-            <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">triggered_results</span>
+            <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">triggered_results</span>
             <span class="k">for</span> <span class="n">counter</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">results</span><span class="p">):</span>
-                <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">parse_event_string</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+                <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">parse_event_string</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 
                 <span class="c1"># only show results we want the player to be aware of</span>
                 <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"unlock_event"</span><span class="p">]:</span>
@@ -466,7 +473,7 @@
                 <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
                     <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span> <span class="n">image</span><span class="o">=</span><span class="n">result_image</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">font_type</span><span class="p">,</span> <span class="n">text</span><span class="p">),</span> <span class="n">is_selectable</span><span class="o">=</span><span class="kc">False</span>
                 <span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="sa">f</span><span class="s2">"result_</span><span class="si">{</span><span class="n">counter</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="sa">f</span><span class="s2">"result_</span><span class="si">{</span><span class="n">counter</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
                 <span class="n">panel_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
 
                 <span class="c1"># increment position</span>
@@ -481,26 +488,26 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">rebuild_resource_elements</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="EventUI.handle_options_input"><a class="viewcode-back" href="../../../../scripts.scenes.event.html#scripts.scenes.event.ui.EventUI.handle_options_input">[docs]</a>    <span class="k">def</span> <span class="nf">handle_options_input</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">options</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">active_event</span><span class="p">[</span><span class="s2">"options"</span><span class="p">]</span>
+    <span class="k">def</span> <span class="nf">_handle_options_input</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">active_event</span><span class="p">[</span><span class="s2">"options"</span><span class="p">]</span>
 
         <span class="c1"># select option and trigger result</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"select"</span><span class="p">]:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"select"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"select"</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"select"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
 
-            <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_panel</span><span class="o">.</span><span class="n">selected_index</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">selected_index</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Selected option </span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">options</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span>
 
             <span class="c1"># save results for later</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">triggered_results</span> <span class="o">=</span> <span class="n">options</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="s2">"result"</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">selected_option</span> <span class="o">=</span> <span class="n">options</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="s2">"text"</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">triggered_results</span> <span class="o">=</span> <span class="n">options</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="s2">"result"</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_selected_option</span> <span class="o">=</span> <span class="n">options</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="s2">"text"</span><span class="p">]</span>
 
             <span class="c1"># trigger results and update display</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">trigger_result</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">EventState</span><span class="o">.</span><span class="n">RESULT</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">_trigger_result</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">EventState</span><span class="o">.</span><span class="n">RESULT</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">rebuild_ui</span><span class="p">()</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">select_panel</span><span class="p">(</span><span class="s2">"exit"</span><span class="p">)</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">select_panel</span><span class="p">(</span><span class="s2">"exit"</span><span class="p">)</span>
 
 <div class="viewcode-block" id="EventUI._get_result_image"><a class="viewcode-back" href="../../../../api/scenes/event.html#scripts.scenes.event.ui.EventUI._get_result_image">[docs]</a>    <span class="k">def</span> <span class="nf">_get_result_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">result_value</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">result_target</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">:</span>
         <span class="sd">"""</span>
@@ -509,34 +516,34 @@
         <span class="n">icon_size</span> <span class="o">=</span> <span class="p">(</span><span class="n">DEFAULT_IMAGE_SIZE</span><span class="p">,</span> <span class="n">DEFAULT_IMAGE_SIZE</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">result_key</span> <span class="o">==</span> <span class="s2">"gold"</span><span class="p">:</span>
-            <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">"stats"</span><span class="p">,</span> <span class="s2">"gold"</span><span class="p">,</span> <span class="n">icon_size</span><span class="p">)</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">"stats"</span><span class="p">,</span> <span class="s2">"gold"</span><span class="p">,</span> <span class="n">icon_size</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">result_key</span> <span class="o">==</span> <span class="s2">"rations"</span><span class="p">:</span>
-            <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">"stats"</span><span class="p">,</span> <span class="s2">"rations"</span><span class="p">,</span> <span class="n">icon_size</span><span class="p">)</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">"stats"</span><span class="p">,</span> <span class="s2">"rations"</span><span class="p">,</span> <span class="n">icon_size</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">result_key</span> <span class="o">==</span> <span class="s2">"morale"</span><span class="p">:</span>
-            <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">"stats"</span><span class="p">,</span> <span class="s2">"morale"</span><span class="p">,</span> <span class="n">icon_size</span><span class="p">)</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">"stats"</span><span class="p">,</span> <span class="s2">"morale"</span><span class="p">,</span> <span class="n">icon_size</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">result_key</span> <span class="o">==</span> <span class="s2">"charisma"</span><span class="p">:</span>
-            <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">"stats"</span><span class="p">,</span> <span class="s2">"charisma"</span><span class="p">,</span> <span class="n">icon_size</span><span class="p">)</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">"stats"</span><span class="p">,</span> <span class="s2">"charisma"</span><span class="p">,</span> <span class="n">icon_size</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">result_key</span> <span class="o">==</span> <span class="s2">"leadership"</span><span class="p">:</span>
-            <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">"stats"</span><span class="p">,</span> <span class="s2">"leadership"</span><span class="p">,</span> <span class="n">icon_size</span><span class="p">)</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">"stats"</span><span class="p">,</span> <span class="s2">"leadership"</span><span class="p">,</span> <span class="n">icon_size</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">result_key</span> <span class="o">==</span> <span class="s2">"injury"</span><span class="p">:</span>
-            <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">"stats"</span><span class="p">,</span> <span class="s2">"injury"</span><span class="p">,</span> <span class="n">icon_size</span><span class="p">)</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">"stats"</span><span class="p">,</span> <span class="s2">"injury"</span><span class="p">,</span> <span class="n">icon_size</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">result_key</span> <span class="o">==</span> <span class="s2">"add_unit_resource"</span><span class="p">:</span>
-            <span class="n">unit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">event_resources</span><span class="p">[</span><span class="n">result_value</span><span class="p">]</span>
+            <span class="n">unit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">event_resources</span><span class="p">[</span><span class="n">result_value</span><span class="p">]</span>
             <span class="n">unit_type</span> <span class="o">=</span> <span class="n">unit</span><span class="o">.</span><span class="n">type</span>
-            <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">unit_animations</span><span class="p">[</span><span class="n">unit_type</span><span class="p">][</span><span class="s2">"icon"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">unit_animations</span><span class="p">[</span><span class="n">unit_type</span><span class="p">][</span><span class="s2">"icon"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
 
         <span class="k">elif</span> <span class="n">result_key</span> <span class="o">==</span> <span class="s2">"add_specific_unit"</span><span class="p">:</span>
-            <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">unit_animations</span><span class="p">[</span><span class="n">result_value</span><span class="p">][</span><span class="s2">"icon"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">unit_animations</span><span class="p">[</span><span class="n">result_value</span><span class="p">][</span><span class="s2">"icon"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
 
         <span class="k">else</span><span class="p">:</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Result key not recognised. Image not found used."</span><span class="p">)</span>
-            <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">"debug"</span><span class="p">,</span> <span class="s2">"not_found"</span><span class="p">,</span> <span class="n">icon_size</span><span class="p">)</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">"debug"</span><span class="p">,</span> <span class="s2">"not_found"</span><span class="p">,</span> <span class="n">icon_size</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">image</span></div></div>
 </pre></div>

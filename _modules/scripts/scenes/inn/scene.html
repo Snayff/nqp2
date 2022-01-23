@@ -221,6 +221,13 @@
     <li class="md-nav__item">
     
     
+      <a href="../../../../api/scene_elements/_scene_elements.html" class="md-nav__link">Scene Elements</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../../../../api/ui_elements/ui_elements.html" class="md-nav__link">UI Elements</a>
       
     
@@ -228,7 +235,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../../developer_notes/_developer_notes.html" class="md-nav__link">Developer Notes</a>
+      <a href="../../../../developer/_developer.html" class="md-nav__link">Developer</a>
       
     
     </li>
@@ -262,14 +269,13 @@
 <span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">import</span> <span class="nn">random</span>
 <span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
 <span class="kn">from</span> <span class="nn">scripts.core.base_classes.scene</span> <span class="kn">import</span> <span class="n">Scene</span>
 <span class="kn">from</span> <span class="nn">scripts.core.constants</span> <span class="kn">import</span> <span class="n">SceneType</span>
-<span class="kn">from</span> <span class="nn">scripts.scenes.combat.elements.troupe</span> <span class="kn">import</span> <span class="n">Troupe</span>
-<span class="kn">from</span> <span class="nn">scripts.scenes.combat.elements.unit</span> <span class="kn">import</span> <span class="n">Unit</span>
+<span class="kn">from</span> <span class="nn">scripts.scene_elements.troupe</span> <span class="kn">import</span> <span class="n">Troupe</span>
+<span class="kn">from</span> <span class="nn">scripts.scene_elements.unit</span> <span class="kn">import</span> <span class="n">Unit</span>
 <span class="kn">from</span> <span class="nn">scripts.scenes.inn.ui</span> <span class="kn">import</span> <span class="n">InnUI</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
@@ -305,31 +311,31 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="InnScene.reset"><a class="viewcode-back" href="../../../../scripts.scenes.inn.html#scripts.scenes.inn.scene.InnScene.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="n">InnUI</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="n">InnUI</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">sale_troupe</span> <span class="o">=</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="InnScene.purchase_unit"><a class="viewcode-back" href="../../../../scripts.scenes.inn.html#scripts.scenes.inn.scene.InnScene.purchase_unit">[docs]</a>    <span class="k">def</span> <span class="nf">purchase_unit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unit</span><span class="p">:</span> <span class="n">Unit</span><span class="p">):</span>
+<div class="viewcode-block" id="InnScene._purchase_unit"><a class="viewcode-back" href="../../../../api/scenes/inn.html#scripts.scenes.inn.scene.InnScene._purchase_unit">[docs]</a>    <span class="k">def</span> <span class="nf">_purchase_unit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unit</span><span class="p">:</span> <span class="n">Unit</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Purchase the unit</span>
 <span class="sd">        """</span>
 
         <span class="c1"># pay gold</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">amend_gold</span><span class="p">(</span><span class="o">-</span><span class="n">unit</span><span class="o">.</span><span class="n">gold_cost</span><span class="p">)</span>  <span class="c1"># remove gold cost</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">amend_gold</span><span class="p">(</span><span class="o">-</span><span class="n">unit</span><span class="o">.</span><span class="n">gold_cost</span><span class="p">)</span>  <span class="c1"># remove gold cost</span>
 
         <span class="c1"># add unit</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">player_troupe</span><span class="o">.</span><span class="n">add_unit</span><span class="p">(</span><span class="n">unit</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">player_troupe</span><span class="o">.</span><span class="n">add_unit</span><span class="p">(</span><span class="n">unit</span><span class="p">)</span>
 
         <span class="c1"># update unit availability</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">units_available</span><span class="p">[</span><span class="n">unit</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span></div>
 
-<div class="viewcode-block" id="InnScene.generate_sale_options"><a class="viewcode-back" href="../../../../scripts.scenes.inn.html#scripts.scenes.inn.scene.InnScene.generate_sale_options">[docs]</a>    <span class="k">def</span> <span class="nf">generate_sale_options</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="InnScene._generate_sale_options"><a class="viewcode-back" href="../../../../api/scenes/inn.html#scripts.scenes.inn.scene.InnScene._generate_sale_options">[docs]</a>    <span class="k">def</span> <span class="nf">_generate_sale_options</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Generate the options for sale at the Inn.</span>
 <span class="sd">        """</span>
         <span class="c1"># update troupe to match players</span>
-        <span class="n">player_troupe</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">player_troupe</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sale_troupe</span> <span class="o">=</span> <span class="n">Troupe</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="p">,</span> <span class="s2">"inn"</span><span class="p">,</span> <span class="n">player_troupe</span><span class="o">.</span><span class="n">allies</span><span class="p">)</span>
+        <span class="n">player_troupe</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">player_troupe</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sale_troupe</span> <span class="o">=</span> <span class="n">Troupe</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="s2">"inn"</span><span class="p">,</span> <span class="n">player_troupe</span><span class="o">.</span><span class="n">allies</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">sale_troupe</span><span class="o">.</span><span class="n">generate_units</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 

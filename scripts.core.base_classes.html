@@ -221,6 +221,13 @@
     <li class="md-nav__item">
     
     
+      <a href="api/scene_elements/_scene_elements.html" class="md-nav__link">Scene Elements</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="api/ui_elements/ui_elements.html" class="md-nav__link">UI Elements</a>
       
     
@@ -228,7 +235,7 @@
     <li class="md-nav__item">
     
     
-      <a href="developer_notes/_developer_notes.html" class="md-nav__link">Developer Notes</a>
+      <a href="developer/_developer.html" class="md-nav__link">Developer</a>
       
     
     </li>
@@ -249,8 +256,6 @@
         <li class="md-nav__item"><a href="#scripts-core-base-classes--page-root" class="md-nav__link">scripts.core.base_classes package</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#submodules" class="md-nav__link">Submodules</a>
-        </li>
-        <li class="md-nav__item"><a href="#module-scripts.core.base_classes.node_container" class="md-nav__link">scripts.core.base_classes.node_container module</a>
         </li>
         <li class="md-nav__item"><a href="#module-scripts.core.base_classes.scene" class="md-nav__link">scripts.core.base_classes.scene module</a>
         </li>
@@ -280,44 +285,6 @@
 <h1 id="scripts-core-base-classes--page-root">scripts.core.base_classes package<a class="headerlink" href="#scripts-core-base-classes--page-root" title="Permalink to this headline">¶</a></h1>
 <section id="submodules">
 <h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
-</section>
-<section id="module-scripts.core.base_classes.node_container">
-<span id="scripts-core-base-classes-node-container-module"></span><h2 id="module-scripts.core.base_classes.node_container">scripts.core.base_classes.node_container module<a class="headerlink" href="#module-scripts.core.base_classes.node_container" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="scripts.core.base_classes.node_container.NodeContainer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">NodeContainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scripts.core.html#scripts.core.game.Game" title="scripts.core.game.Game"><span class="pre">Game</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/base_classes/node_container.html#NodeContainer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.base_classes.node_container.NodeContainer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/abc.html#abc.ABC" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="scripts.core.base_classes.node_container.NodeContainer.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scripts.core.html#scripts.core.game.Game" title="scripts.core.game.Game"><span class="pre">Game</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/base_classes/node_container.html#NodeContainer.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.base_classes.node_container.NodeContainer.__init__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="scripts.core.base_classes.node_container.NodeContainer.generate_nodes">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">generate_nodes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/base_classes/node_container.html#NodeContainer.generate_nodes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.base_classes.node_container.NodeContainer.generate_nodes" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="scripts.core.base_classes.node_container.NodeContainer.render">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">surface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://www.pygame.org/docs/ref/surface.html#pygame.Surface" title="(in pygame v2.1.1)"><span class="pre">pygame.Surface</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/base_classes/node_container.html#NodeContainer.render"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.base_classes.node_container.NodeContainer.render" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="scripts.core.base_classes.node_container.NodeContainer.roll_for_event">
-<span class="sig-name descname"><span class="pre">roll_for_event</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/base_classes/node_container.html#NodeContainer.roll_for_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.base_classes.node_container.NodeContainer.roll_for_event" title="Permalink to this definition">¶</a></dt>
-<dd><p>Roll to see if an event will be triggered when transitioning between nodes.</p>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="scripts.core.base_classes.node_container.NodeContainer.select_next_node">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">select_next_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">direction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scripts.core.html#scripts.core.constants.Direction" title="scripts.core.constants.Direction"><span class="pre">scripts.core.constants.Direction</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/base_classes/node_container.html#NodeContainer.select_next_node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.base_classes.node_container.NodeContainer.select_next_node" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="scripts.core.base_classes.node_container.NodeContainer.trigger_current_node">
-<span class="sig-name descname"><span class="pre">trigger_current_node</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/base_classes/node_container.html#NodeContainer.trigger_current_node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.base_classes.node_container.NodeContainer.trigger_current_node" title="Permalink to this definition">¶</a></dt>
-<dd><p>Activate the current node and trigger the scene change.</p>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="scripts.core.base_classes.node_container.NodeContainer.update">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/base_classes/node_container.html#NodeContainer.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.base_classes.node_container.NodeContainer.update" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-</dd></dl>
 </section>
 <section id="module-scripts.core.base_classes.scene">
 <span id="scripts-core-base-classes-scene-module"></span><h2 id="module-scripts.core.base_classes.scene">scripts.core.base_classes.scene module<a class="headerlink" href="#module-scripts.core.base_classes.scene" title="Permalink to this headline">¶</a></h2>
@@ -384,12 +351,8 @@
 <dd><p>Deactivate the UI. R</p>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="scripts.core.base_classes.ui.UI.draw_elements">
-<span class="sig-name descname"><span class="pre">draw_elements</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">surface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pygame.surface</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/base_classes/ui.html#UI.draw_elements"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.base_classes.ui.UI.draw_elements" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="scripts.core.base_classes.ui.UI.draw_instruction">
-<span class="sig-name descname"><span class="pre">draw_instruction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">surface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pygame.surface</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/base_classes/ui.html#UI.draw_instruction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.base_classes.ui.UI.draw_instruction" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="scripts.core.base_classes.ui.UI.draw">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">surface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pygame.surface</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/base_classes/ui.html#UI.draw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.base_classes.ui.UI.draw" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="scripts.core.base_classes.ui.UI.process_input">
@@ -407,10 +370,6 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="scripts.core.base_classes.ui.UI.refresh_info">
 <span class="sig-name descname"><span class="pre">refresh_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/base_classes/ui.html#UI.refresh_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.base_classes.ui.UI.refresh_info" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="scripts.core.base_classes.ui.UI.render">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">surface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pygame.surface</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/base_classes/ui.html#UI.render"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.base_classes.ui.UI.render" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="scripts.core.base_classes.ui.UI.select_panel">
@@ -441,13 +400,13 @@
 <dt class="sig sig-object py" id="scripts.core.base_classes.ui_element.UIElement.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_selectable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/base_classes/ui_element.html#UIElement.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.base_classes.ui_element.UIElement.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.base_classes.ui_element.UIElement.draw">
+<span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">surface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://www.pygame.org/docs/ref/surface.html#pygame.Surface" title="(in pygame v2.1.1)"><span class="pre">pygame.Surface</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/base_classes/ui_element.html#UIElement.draw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.base_classes.ui_element.UIElement.draw" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="scripts.core.base_classes.ui_element.UIElement.height">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">height</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></em><a class="headerlink" href="#scripts.core.base_classes.ui_element.UIElement.height" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="scripts.core.base_classes.ui_element.UIElement.render">
-<span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">surface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://www.pygame.org/docs/ref/surface.html#pygame.Surface" title="(in pygame v2.1.1)"><span class="pre">pygame.Surface</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/base_classes/ui_element.html#UIElement.render"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.base_classes.ui_element.UIElement.render" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="scripts.core.base_classes.ui_element.UIElement.set_active">

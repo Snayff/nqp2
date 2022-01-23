@@ -221,6 +221,13 @@
     <li class="md-nav__item">
     
     
+      <a href="../../../../api/scene_elements/_scene_elements.html" class="md-nav__link">Scene Elements</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../../../../api/ui_elements/ui_elements.html" class="md-nav__link">UI Elements</a>
       
     
@@ -228,7 +235,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../../developer_notes/_developer_notes.html" class="md-nav__link">Developer Notes</a>
+      <a href="../../../../developer/_developer.html" class="md-nav__link">Developer</a>
       
     
     </li>
@@ -270,7 +277,7 @@
 <span class="kn">from</span> <span class="nn">scripts.scenes.training.ui</span> <span class="kn">import</span> <span class="n">TrainingUI</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span>
+    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
     <span class="kn">from</span> <span class="nn">scripts.core.game</span> <span class="kn">import</span> <span class="n">Game</span>
 
@@ -297,7 +304,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="p">:</span> <span class="n">TrainingState</span> <span class="o">=</span> <span class="n">TrainingState</span><span class="o">.</span><span class="n">CHOOSE_UPGRADE</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">upgrades_offered</span><span class="p">:</span> <span class="n">List</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">upgrades_available</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># upgrade.type : is available</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">upgrades_available</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># upgrade.type : is_available</span>
 
         <span class="c1"># record duration</span>
         <span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
@@ -308,7 +315,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="TrainingScene.reset"><a class="viewcode-back" href="../../../../scripts.scenes.training.html#scripts.scenes.training.scene.TrainingScene.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="n">TrainingUI</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="n">TrainingUI</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">TrainingState</span><span class="o">.</span><span class="n">CHOOSE_UPGRADE</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">upgrades_offered</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">upgrades_available</span> <span class="o">=</span> <span class="p">{}</span></div>
@@ -317,15 +324,15 @@
         <span class="sd">"""</span>
 <span class="sd">        Generate upgrades to sell. NOTE: currently hard coded.</span>
 <span class="sd">        """</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">upgrades_offered</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">upgrades</span><span class="p">[</span><span class="s2">"minor_attack"</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">upgrades</span><span class="p">[</span><span class="s2">"minor_defence"</span><span class="p">]]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">upgrades_offered</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">upgrades</span><span class="p">[</span><span class="s2">"minor_attack"</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">upgrades</span><span class="p">[</span><span class="s2">"minor_defence"</span><span class="p">]]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">upgrades_available</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"minor_attack"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">"minor_defence"</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span></div>
 
 <div class="viewcode-block" id="TrainingScene.calculate_upgrade_cost"><a class="viewcode-back" href="../../../../scripts.scenes.training.html#scripts.scenes.training.scene.TrainingScene.calculate_upgrade_cost">[docs]</a>    <span class="k">def</span> <span class="nf">calculate_upgrade_cost</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tier</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Calculate the cost of the upgrade based on the tier of the upgrade.</span>
 <span class="sd">        """</span>
-        <span class="n">tier_multiplier</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">"upgrade"</span><span class="p">][</span><span class="s2">"tier_cost_multiplier"</span><span class="p">]</span>
-        <span class="n">upgrade_cost</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">"upgrade"</span><span class="p">][</span><span class="s2">"cost"</span><span class="p">]</span>
+        <span class="n">tier_multiplier</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">"upgrade"</span><span class="p">][</span><span class="s2">"tier_cost_multiplier"</span><span class="p">]</span>
+        <span class="n">upgrade_cost</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">"upgrade"</span><span class="p">][</span><span class="s2">"cost"</span><span class="p">]</span>
 
         <span class="c1"># only apply multiplier post tier 1</span>
         <span class="k">if</span> <span class="n">tier</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>

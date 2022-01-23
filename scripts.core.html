@@ -221,6 +221,13 @@
     <li class="md-nav__item">
     
     
+      <a href="api/scene_elements/_scene_elements.html" class="md-nav__link">Scene Elements</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="api/ui_elements/ui_elements.html" class="md-nav__link">UI Elements</a>
       
     
@@ -228,7 +235,7 @@
     <li class="md-nav__item">
     
     
-      <a href="developer_notes/_developer_notes.html" class="md-nav__link">Developer Notes</a>
+      <a href="developer/_developer.html" class="md-nav__link">Developer</a>
       
     
     </li>
@@ -298,7 +305,6 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="scripts.core.base_classes.html">scripts.core.base_classes package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="scripts.core.base_classes.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="scripts.core.base_classes.html#module-scripts.core.base_classes.node_container">scripts.core.base_classes.node_container module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="scripts.core.base_classes.html#module-scripts.core.base_classes.scene">scripts.core.base_classes.scene module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="scripts.core.base_classes.html#module-scripts.core.base_classes.ui">scripts.core.base_classes.ui module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="scripts.core.base_classes.html#module-scripts.core.base_classes.ui_element">scripts.core.base_classes.ui_element module</a></li>
@@ -338,6 +344,10 @@
 <p>A transparent surface can be returned by folder_name = “debug” and image_name = “blank”.</p>
 </dd></dl>
 <dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.assets.Assets.json_read">
+<span class="sig-name descname"><span class="pre">json_read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/assets.html#Assets.json_read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.assets.Assets.json_read" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
 <dt class="sig sig-object py" id="scripts.core.assets.Assets.load_image_dir">
 <span class="sig-name descname"><span class="pre">load_image_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'list'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/assets.html#Assets.load_image_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.assets.Assets.load_image_dir" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load images in a directory with specified format.</p>
@@ -348,14 +358,6 @@
 <dd><p>Loads a tileset from a spritesheet.</p>
 </dd></dl>
 </dd></dl>
-<dl class="py function">
-<dt class="sig sig-object py" id="scripts.core.assets.clip">
-<span class="sig-name descname"><span class="pre">clip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">surf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/assets.html#clip"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.assets.clip" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-<dl class="py function">
-<dt class="sig sig-object py" id="scripts.core.assets.json_read">
-<span class="sig-name descname"><span class="pre">json_read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/assets.html#json_read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.assets.json_read" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 </section>
 <section id="module-scripts.core.constants">
 <span id="scripts-core-constants-module"></span><h2 id="module-scripts.core.constants">scripts.core.constants module<a class="headerlink" href="#module-scripts.core.constants" title="Permalink to this headline">¶</a></h2>
@@ -580,58 +582,6 @@
 <dd></dd></dl>
 </dd></dl>
 <dl class="py class">
-<dt class="sig sig-object py" id="scripts.core.constants.NodeType">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">NodeType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/constants.html#NodeType"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.constants.NodeType" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.IntEnum" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.IntEnum</span></code></a></p>
-<p>An enumeration.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="scripts.core.constants.NodeType.BLANK">
-<span class="sig-name descname"><span class="pre">BLANK</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#scripts.core.constants.NodeType.BLANK" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="scripts.core.constants.NodeType.BOSS_COMBAT">
-<span class="sig-name descname"><span class="pre">BOSS_COMBAT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6</span></em><a class="headerlink" href="#scripts.core.constants.NodeType.BOSS_COMBAT" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="scripts.core.constants.NodeType.COMBAT">
-<span class="sig-name descname"><span class="pre">COMBAT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#scripts.core.constants.NodeType.COMBAT" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="scripts.core.constants.NodeType.EVENT">
-<span class="sig-name descname"><span class="pre">EVENT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#scripts.core.constants.NodeType.EVENT" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="scripts.core.constants.NodeType.INN">
-<span class="sig-name descname"><span class="pre">INN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#scripts.core.constants.NodeType.INN" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="scripts.core.constants.NodeType.TRAINING">
-<span class="sig-name descname"><span class="pre">TRAINING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#scripts.core.constants.NodeType.TRAINING" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-</dd></dl>
-<dl class="py class">
-<dt class="sig sig-object py" id="scripts.core.constants.OverworldState">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">OverworldState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/constants.html#OverworldState"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.constants.OverworldState" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.IntEnum" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.IntEnum</span></code></a></p>
-<p>An enumeration.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="scripts.core.constants.OverworldState.BOSS_APPROACHING">
-<span class="sig-name descname"><span class="pre">BOSS_APPROACHING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#scripts.core.constants.OverworldState.BOSS_APPROACHING" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="scripts.core.constants.OverworldState.LOADING">
-<span class="sig-name descname"><span class="pre">LOADING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#scripts.core.constants.OverworldState.LOADING" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="scripts.core.constants.OverworldState.READY">
-<span class="sig-name descname"><span class="pre">READY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#scripts.core.constants.OverworldState.READY" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="scripts.core.constants.OverworldState.TRAVELLING">
-<span class="sig-name descname"><span class="pre">TRAVELLING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#scripts.core.constants.OverworldState.TRAVELLING" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-</dd></dl>
-<dl class="py class">
 <dt class="sig sig-object py" id="scripts.core.constants.PostCombatState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PostCombatState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/constants.html#PostCombatState"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.constants.PostCombatState" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.IntEnum" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.IntEnum</span></code></a></p>
@@ -677,56 +627,48 @@
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.IntEnum" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.IntEnum</span></code></a></p>
 <p>An enumeration.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="scripts.core.constants.SceneType.BOSS_COMBAT">
-<span class="sig-name descname"><span class="pre">BOSS_COMBAT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#scripts.core.constants.SceneType.BOSS_COMBAT" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="scripts.core.constants.SceneType.COMBAT">
-<span class="sig-name descname"><span class="pre">COMBAT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#scripts.core.constants.SceneType.COMBAT" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-<dl class="py attribute">
 <dt class="sig sig-object py" id="scripts.core.constants.SceneType.DEV_DATA_EDITOR">
-<span class="sig-name descname"><span class="pre">DEV_DATA_EDITOR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">11</span></em><a class="headerlink" href="#scripts.core.constants.SceneType.DEV_DATA_EDITOR" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">DEV_DATA_EDITOR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">9</span></em><a class="headerlink" href="#scripts.core.constants.SceneType.DEV_DATA_EDITOR" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="scripts.core.constants.SceneType.DEV_GALLERY">
-<span class="sig-name descname"><span class="pre">DEV_GALLERY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">12</span></em><a class="headerlink" href="#scripts.core.constants.SceneType.DEV_GALLERY" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">DEV_GALLERY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></em><a class="headerlink" href="#scripts.core.constants.SceneType.DEV_GALLERY" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="scripts.core.constants.SceneType.EVENT">
-<span class="sig-name descname"><span class="pre">EVENT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#scripts.core.constants.SceneType.EVENT" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">EVENT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#scripts.core.constants.SceneType.EVENT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="scripts.core.constants.SceneType.INN">
-<span class="sig-name descname"><span class="pre">INN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#scripts.core.constants.SceneType.INN" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">INN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#scripts.core.constants.SceneType.INN" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="scripts.core.constants.SceneType.MAIN_MENU">
-<span class="sig-name descname"><span class="pre">MAIN_MENU</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8</span></em><a class="headerlink" href="#scripts.core.constants.SceneType.MAIN_MENU" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">MAIN_MENU</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6</span></em><a class="headerlink" href="#scripts.core.constants.SceneType.MAIN_MENU" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="scripts.core.constants.SceneType.OVERWORLD">
-<span class="sig-name descname"><span class="pre">OVERWORLD</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">7</span></em><a class="headerlink" href="#scripts.core.constants.SceneType.OVERWORLD" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">OVERWORLD</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#scripts.core.constants.SceneType.OVERWORLD" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="scripts.core.constants.SceneType.POST_COMBAT">
-<span class="sig-name descname"><span class="pre">POST_COMBAT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#scripts.core.constants.SceneType.POST_COMBAT" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">POST_COMBAT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#scripts.core.constants.SceneType.POST_COMBAT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="scripts.core.constants.SceneType.RUN_SETUP">
-<span class="sig-name descname"><span class="pre">RUN_SETUP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></em><a class="headerlink" href="#scripts.core.constants.SceneType.RUN_SETUP" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">RUN_SETUP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8</span></em><a class="headerlink" href="#scripts.core.constants.SceneType.RUN_SETUP" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="scripts.core.constants.SceneType.TRAINING">
-<span class="sig-name descname"><span class="pre">TRAINING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6</span></em><a class="headerlink" href="#scripts.core.constants.SceneType.TRAINING" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">TRAINING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#scripts.core.constants.SceneType.TRAINING" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="scripts.core.constants.SceneType.VIEW_TROUPE">
-<span class="sig-name descname"><span class="pre">VIEW_TROUPE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">9</span></em><a class="headerlink" href="#scripts.core.constants.SceneType.VIEW_TROUPE" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">VIEW_TROUPE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">7</span></em><a class="headerlink" href="#scripts.core.constants.SceneType.VIEW_TROUPE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="scripts.core.constants.SceneType.WORLD">
-<span class="sig-name descname"><span class="pre">WORLD</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">13</span></em><a class="headerlink" href="#scripts.core.constants.SceneType.WORLD" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">WORLD</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">11</span></em><a class="headerlink" href="#scripts.core.constants.SceneType.WORLD" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 </dd></dl>
 <dl class="py class">
@@ -771,12 +713,20 @@
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.IntEnum" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.IntEnum</span></code></a></p>
 <p>An enumeration.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="scripts.core.constants.WorldState.IDLE">
-<span class="sig-name descname"><span class="pre">IDLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#scripts.core.constants.WorldState.IDLE" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="scripts.core.constants.WorldState.COMBAT">
+<span class="sig-name descname"><span class="pre">COMBAT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#scripts.core.constants.WorldState.COMBAT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="scripts.core.constants.WorldState.OTHER_SCENE_ACTIVE">
-<span class="sig-name descname"><span class="pre">OTHER_SCENE_ACTIVE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#scripts.core.constants.WorldState.OTHER_SCENE_ACTIVE" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="scripts.core.constants.WorldState.COMBAT_VICTORY">
+<span class="sig-name descname"><span class="pre">COMBAT_VICTORY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#scripts.core.constants.WorldState.COMBAT_VICTORY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scripts.core.constants.WorldState.DEFEAT">
+<span class="sig-name descname"><span class="pre">DEFEAT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#scripts.core.constants.WorldState.DEFEAT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scripts.core.constants.WorldState.IDLE">
+<span class="sig-name descname"><span class="pre">IDLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#scripts.core.constants.WorldState.IDLE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 </dd></dl>
 </section>
@@ -829,6 +779,11 @@
 <dd><p>Turn off current profiling. Dump data to file if required.</p>
 </dd></dl>
 <dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.debug.Debugger.draw">
+<span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">surface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pygame.surface</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/debug.html#Debugger.draw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.debug.Debugger.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw debug info</p>
+</dd></dl>
+<dl class="py method">
 <dt class="sig sig-object py" id="scripts.core.debug.Debugger.enable_profiling">
 <span class="sig-name descname"><span class="pre">enable_profiling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">999</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/debug.html#Debugger.enable_profiling"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.debug.Debugger.enable_profiling" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enable profiling. Create profiler if one doesnt exist</p>
@@ -871,9 +826,9 @@ print( performance_test(method_descs, old_methods, new_methods) )</p>
 <dd><p>Print the debuggers stats.</p>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="scripts.core.debug.Debugger.render">
-<span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/debug.html#Debugger.render"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.debug.Debugger.render" title="Permalink to this definition">¶</a></dt>
-<dd><p>Draw debug info</p>
+<dt class="sig sig-object py" id="scripts.core.debug.Debugger.toggle_debug_info">
+<span class="sig-name descname"><span class="pre">toggle_debug_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/debug.html#Debugger.toggle_debug_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.debug.Debugger.toggle_debug_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Toggle whether the debug info is shown</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="scripts.core.debug.Debugger.toggle_dev_console_visibility">
@@ -907,18 +862,13 @@ print( performance_test(method_descs, old_methods, new_methods) )</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="scripts.core.game.Game.change_scene">
-<span class="sig-name descname"><span class="pre">change_scene</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scene_types</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scripts.core.constants.SceneType" title="scripts.core.constants.SceneType"><span class="pre">scripts.core.constants.SceneType</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/game.html#Game.change_scene"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.game.Game.change_scene" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deactivate all active scenes and activate the given scenes.</p>
+<span class="sig-name descname"><span class="pre">change_scene</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scene_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scripts.core.constants.SceneType" title="scripts.core.constants.SceneType"><span class="pre">scripts.core.constants.SceneType</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/game.html#Game.change_scene"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.game.Game.change_scene" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deactivate all active scenes and activate the given scene.</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="scripts.core.game.Game.deactivate_scene">
 <span class="sig-name descname"><span class="pre">deactivate_scene</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scene_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scripts.core.constants.SceneType" title="scripts.core.constants.SceneType"><span class="pre">scripts.core.constants.SceneType</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/game.html#Game.deactivate_scene"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.game.Game.deactivate_scene" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deactivate a scene</p>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="scripts.core.game.Game.old_change_scene">
-<span class="sig-name descname"><span class="pre">old_change_scene</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scene_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scripts.core.constants.SceneType" title="scripts.core.constants.SceneType"><span class="pre">scripts.core.constants.SceneType</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/game.html#Game.old_change_scene"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.game.Game.old_change_scene" title="Permalink to this definition">¶</a></dt>
-<dd><p>Change the active scene. N.B. not used for switching to dev scenes.</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="scripts.core.game.Game.quit">
@@ -976,10 +926,6 @@ print( performance_test(method_descs, old_methods, new_methods) )</p>
 <dd><p>Set all input to false.</p>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="scripts.core.input.Input.scan_gamepads">
-<span class="sig-name descname"><span class="pre">scan_gamepads</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/input.html#Input.scan_gamepads"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.input.Input.scan_gamepads" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-<dl class="py method">
 <dt class="sig sig-object py" id="scripts.core.input.Input.soft_reset">
 <span class="sig-name descname"><span class="pre">soft_reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/input.html#Input.soft_reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.input.Input.soft_reset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resets inputs that should only be activated for 1 frame.</p>
@@ -1006,6 +952,11 @@ print( performance_test(method_descs, old_methods, new_methods) )</p>
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scripts.core.game.Game" title="scripts.core.game.Game"><span class="pre">Game</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/memory.html#Memory.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.memory.Memory.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.memory.Memory.add_troupe">
+<span class="sig-name descname"><span class="pre">add_troupe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">troupe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scripts.scene_elements.html#scripts.scene_elements.troupe.Troupe" title="scripts.scene_elements.troupe.Troupe"><span class="pre">scripts.scene_elements.troupe.Troupe</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></span><a class="reference internal" href="_modules/scripts/core/memory.html#Memory.add_troupe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.memory.Memory.add_troupe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a Troupe to Memory. Returns Troupe ID</p>
+</dd></dl>
+<dl class="py method">
 <dt class="sig sig-object py" id="scripts.core.memory.Memory.amend_charisma">
 <span class="sig-name descname"><span class="pre">amend_charisma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></span><a class="reference internal" href="_modules/scripts/core/memory.html#Memory.amend_charisma"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.memory.Memory.amend_charisma" title="Permalink to this definition">¶</a></dt>
 <dd><p>Amend the current charisma value by the given amount. Return remaining amount.</p>
@@ -1030,6 +981,10 @@ print( performance_test(method_descs, old_methods, new_methods) )</p>
 <span class="sig-name descname"><span class="pre">amend_rations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></span><a class="reference internal" href="_modules/scripts/core/memory.html#Memory.amend_rations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.memory.Memory.amend_rations" title="Permalink to this definition">¶</a></dt>
 <dd><p>Amend the current rations value by the given amount. Return remaining amount.</p>
 </dd></dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="scripts.core.memory.Memory.game_speed">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">game_speed</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#scripts.core.memory.Memory.game_speed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="scripts.core.memory.Memory.generate_id">
 <span class="sig-name descname"><span class="pre">generate_id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></span><a class="reference internal" href="_modules/scripts/core/memory.html#Memory.generate_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.memory.Memory.generate_id" title="Permalink to this definition">¶</a></dt>
@@ -1041,14 +996,49 @@ print( performance_test(method_descs, old_methods, new_methods) )</p>
 <dd><p>Generate the boss for the current level.</p>
 </dd></dl>
 <dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.memory.Memory.get_all_entities">
+<span class="sig-name descname"><span class="pre">get_all_entities</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scripts.scene_elements.html#scripts.scene_elements.entity.Entity" title="scripts.scene_elements.entity.Entity"><span class="pre">Entity</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/scripts/core/memory.html#Memory.get_all_entities"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.memory.Memory.get_all_entities" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all entities</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.memory.Memory.get_all_units">
+<span class="sig-name descname"><span class="pre">get_all_units</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scripts.scene_elements.html#scripts.scene_elements.unit.Unit" title="scripts.scene_elements.unit.Unit"><span class="pre">Unit</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/scripts/core/memory.html#Memory.get_all_units"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.memory.Memory.get_all_units" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all Units</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.memory.Memory.get_event">
+<span class="sig-name descname"><span class="pre">get_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_from_pool</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/memory.html#Memory.get_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.memory.Memory.get_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a specific event. remove_from_pool determines whether the event is removed from the list of possible
+events.</p>
+</dd></dl>
+<dl class="py method">
 <dt class="sig sig-object py" id="scripts.core.memory.Memory.get_random_event">
 <span class="sig-name descname"><span class="pre">get_random_event</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Dict</span></span></span><a class="reference internal" href="_modules/scripts/core/memory.html#Memory.get_random_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.memory.Memory.get_random_event" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a random event from those available. This event is then removed from the list of possible events.</p>
 </dd></dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="scripts.core.memory.Memory.player_troupe">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">player_troupe</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="scripts.scene_elements.html#scripts.scene_elements.troupe.Troupe" title="scripts.scene_elements.troupe.Troupe"><span class="pre">scripts.scene_elements.troupe.Troupe</span></a></em><a class="headerlink" href="#scripts.core.memory.Memory.player_troupe" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="scripts.core.memory.Memory.prioritise_event">
 <span class="sig-name descname"><span class="pre">prioritise_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/memory.html#Memory.prioritise_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.memory.Memory.prioritise_event" title="Permalink to this definition">¶</a></dt>
 <dd><p>Move an event from the event_deck to the priority events.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.memory.Memory.remove_troupe">
+<span class="sig-name descname"><span class="pre">remove_troupe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/memory.html#Memory.remove_troupe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.memory.Memory.remove_troupe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove a Troupe from Memory. Deletes Troupe.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.memory.Memory.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/memory.html#Memory.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.memory.Memory.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset to initial values</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.memory.Memory.set_game_speed">
+<span class="sig-name descname"><span class="pre">set_game_speed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">speed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/memory.html#Memory.set_game_speed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.memory.Memory.set_game_speed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the game speed. 1 is default.</p>
 </dd></dl>
 </dd></dl>
 </section>
@@ -1106,12 +1096,8 @@ as 1 to handle float imprecision.</p>
 <span class="sig-name descname"><span class="pre">next_number_in_loop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">loop_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></span><a class="reference internal" href="_modules/scripts/core/utility.html#next_number_in_loop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.utility.next_number_in_loop" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py function">
-<dt class="sig sig-object py" id="scripts.core.utility.node_type_to_scene_type">
-<span class="sig-name descname"><span class="pre">node_type_to_scene_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scripts.core.constants.NodeType" title="scripts.core.constants.NodeType"><span class="pre">scripts.core.constants.NodeType</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="#scripts.core.constants.SceneType" title="scripts.core.constants.SceneType"><span class="pre">scripts.core.constants.SceneType</span></a></span></span><a class="reference internal" href="_modules/scripts/core/utility.html#node_type_to_scene_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.utility.node_type_to_scene_type" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-<dl class="py function">
 <dt class="sig sig-object py" id="scripts.core.utility.offset">
-<span class="sig-name descname"><span class="pre">offset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">list_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><span class="pre">List</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset_mult</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/utility.html#offset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.utility.offset" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">offset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">list_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset_mult</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/utility.html#offset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.utility.offset" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="scripts.core.utility.previous_number_in_loop">

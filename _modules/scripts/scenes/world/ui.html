@@ -221,6 +221,13 @@
     <li class="md-nav__item">
     
     
+      <a href="../../../../api/scene_elements/_scene_elements.html" class="md-nav__link">Scene Elements</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../../../../api/ui_elements/ui_elements.html" class="md-nav__link">UI Elements</a>
       
     
@@ -228,7 +235,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../../developer_notes/_developer_notes.html" class="md-nav__link">Developer Notes</a>
+      <a href="../../../../developer/_developer.html" class="md-nav__link">Developer</a>
       
     
     </li>
@@ -266,14 +273,13 @@
 <span class="kn">import</span> <span class="nn">pygame</span>
 
 <span class="kn">from</span> <span class="nn">scripts.core.base_classes.ui</span> <span class="kn">import</span> <span class="n">UI</span>
-<span class="kn">from</span> <span class="nn">scripts.core.constants</span> <span class="kn">import</span> <span class="n">FontType</span><span class="p">,</span> <span class="n">WorldState</span>
-<span class="kn">from</span> <span class="nn">scripts.scenes.combat.elements.camera</span> <span class="kn">import</span> <span class="n">Camera</span>
-<span class="kn">from</span> <span class="nn">scripts.scenes.combat.elements.terrain</span> <span class="kn">import</span> <span class="n">Terrain</span>
+<span class="kn">from</span> <span class="nn">scripts.core.constants</span> <span class="kn">import</span> <span class="n">DEFAULT_IMAGE_SIZE</span><span class="p">,</span> <span class="n">FontType</span><span class="p">,</span> <span class="n">SceneType</span><span class="p">,</span> <span class="n">WorldState</span>
+<span class="kn">from</span> <span class="nn">scripts.scene_elements.camera</span> <span class="kn">import</span> <span class="n">Camera</span>
+<span class="kn">from</span> <span class="nn">scripts.scene_elements.terrain</span> <span class="kn">import</span> <span class="n">Terrain</span>
 <span class="kn">from</span> <span class="nn">scripts.ui_elements.frame</span> <span class="kn">import</span> <span class="n">Frame</span>
-<span class="kn">from</span> <span class="nn">scripts.ui_elements.panel</span> <span class="kn">import</span> <span class="n">Panel</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Union</span>
+    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
 
     <span class="kn">from</span> <span class="nn">scripts.core.game</span> <span class="kn">import</span> <span class="n">Game</span>
     <span class="kn">from</span> <span class="nn">scripts.scenes.world.scene</span> <span class="kn">import</span> <span class="n">WorldScene</span>
@@ -292,65 +298,153 @@
 
 <div class="viewcode-block" id="WorldUI.__init__"><a class="viewcode-back" href="../../../../scripts.scenes.world.html#scripts.scenes.world.ui.WorldUI.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">game</span><span class="p">:</span> <span class="n">Game</span><span class="p">,</span> <span class="n">parent_scene</span><span class="p">:</span> <span class="n">WorldScene</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">parent_scene</span><span class="p">:</span> <span class="n">WorldScene</span> <span class="o">=</span> <span class="n">parent_scene</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span><span class="p">:</span> <span class="n">WorldScene</span> <span class="o">=</span> <span class="n">parent_scene</span>
 
-        <span class="c1"># TODO - info pulled over from combat to render terrain, needs clean up</span>
+        <span class="c1"># TODO - info pulled over from combat to draw terrain, needs clean up</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="p">:</span> <span class="n">Camera</span> <span class="o">=</span> <span class="n">Camera</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">terrain</span><span class="p">:</span> <span class="n">Terrain</span> <span class="o">=</span> <span class="n">Terrain</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">terrain</span><span class="p">:</span> <span class="n">Terrain</span> <span class="o">=</span> <span class="n">Terrain</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">biome</span> <span class="o">=</span> <span class="s2">"plains"</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">mod_delta_time</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># actual delta time by combat speed</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">combat_speed</span> <span class="o">=</span> <span class="mi">1</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">force_idle</span> <span class="o">=</span> <span class="kc">False</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">debug_pathfinding</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">victory_duration</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span></div>
 
 <div class="viewcode-block" id="WorldUI.update"><a class="viewcode-back" href="../../../../scripts.scenes.world.html#scripts.scenes.world.ui.WorldUI.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">mod_delta_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">combat_speed</span> <span class="o">*</span> <span class="n">delta_time</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">terrain</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">force_idle</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">terrain</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mod_delta_time</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_camera_pos</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">COMBAT_VICTORY</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">victory_duration</span> <span class="o">+=</span> <span class="n">delta_time</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">victory_duration</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">:</span>  <span class="c1"># victory duration</span>
+                <span class="c1"># remove enemy troupe</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">remove_troupe</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span><span class="o">.</span><span class="n">enemy_troupe_id</span><span class="p">)</span>
+
+                <span class="c1"># put units back to idle</span>
+                <span class="k">for</span> <span class="n">troupe</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">troupes</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                    <span class="n">troupe</span><span class="o">.</span><span class="n">set_force_idle</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+                <span class="c1"># reset info and reposition player's Troupe</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span><span class="o">.</span><span class="n">end_combat</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span><span class="o">.</span><span class="n">align_unit_pos_to_unit_grid</span><span class="p">()</span>
+
+                <span class="c1"># update state to prevent further updates</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">IDLE</span>
+
+                <span class="c1"># refresh info shown</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">rebuild_ui</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="WorldUI.process_input"><a class="viewcode-back" href="../../../../scripts.scenes.world.html#scripts.scenes.world.ui.WorldUI.process_input">[docs]</a>    <span class="k">def</span> <span class="nf">process_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">process_input</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span>
 
         <span class="c1"># TODO  - replace when new room choice is in.</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"backspace"</span><span class="p">]:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">parent_scene</span><span class="o">.</span><span class="n">move_to_new_room</span><span class="p">()</span></div>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">IDLE</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"backspace"</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span><span class="o">.</span><span class="n">move_to_new_room</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"select"</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">COMBAT</span>
+                <span class="k">for</span> <span class="n">troupe</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">troupes</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                    <span class="n">troupe</span><span class="o">.</span><span class="n">set_force_idle</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="c1">#############################################</span>
 
-<div class="viewcode-block" id="WorldUI.render"><a class="viewcode-back" href="../../../../scripts.scenes.world.html#scripts.scenes.world.ui.WorldUI.render">[docs]</a>    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">surface</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">DEFEAT</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"select"</span><span class="p">]:</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
+                <span class="c1"># return to main menu</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">change_scene</span><span class="p">(</span><span class="n">SceneType</span><span class="o">.</span><span class="n">MAIN_MENU</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="WorldUI.draw"><a class="viewcode-back" href="../../../../scripts.scenes.world.html#scripts.scenes.world.ui.WorldUI.draw">[docs]</a>    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">surface</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">terrain</span><span class="o">.</span><span class="n">boundaries</span><span class="p">)</span>
-        <span class="n">combat_surf</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">get_size</span><span class="p">())</span>  <span class="c1"># Not sure we need this?</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">terrain</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">combat_surf</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">render_offset</span><span class="p">())</span>
+        <span class="n">combat_surf</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">get_size</span><span class="p">())</span>  <span class="c1"># TODO Not sure we need this?</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent_scene</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">IDLE</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">parent_scene</span><span class="o">.</span><span class="n">unit_manager</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">combat_surf</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">render_offset</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">terrain</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">combat_surf</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">render_offset</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_draw_units</span><span class="p">(</span><span class="n">combat_surf</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">render_offset</span><span class="p">())</span>
 
-        <span class="c1"># blit the terrain and unit_manager</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug_pathfinding</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_draw_path_debug</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">COMBAT</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span><span class="o">.</span><span class="n">projectiles</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">combat_surf</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">render_offset</span><span class="p">())</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span><span class="o">.</span><span class="n">particles</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">combat_surf</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">render_offset</span><span class="p">())</span>
+
+        <span class="c1"># handle camera zoom</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">combat_surf</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span>
+                <span class="n">combat_surf</span><span class="p">,</span>
+                <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">combat_surf</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">combat_surf</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span><span class="p">)),</span>
+            <span class="p">)</span>
+
+        <span class="c1"># blit the terrain and units</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span>
             <span class="n">combat_surf</span><span class="p">,</span>
             <span class="p">(</span>
-                <span class="o">-</span><span class="p">(</span><span class="n">combat_surf</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">get_width</span><span class="p">())</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span>
-                <span class="o">-</span><span class="p">(</span><span class="n">combat_surf</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">get_height</span><span class="p">())</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span>
+                <span class="o">-</span><span class="p">(</span><span class="n">combat_surf</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">get_width</span><span class="p">())</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span>
+                <span class="o">-</span><span class="p">(</span><span class="n">combat_surf</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">get_height</span><span class="p">())</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span>
             <span class="p">),</span>
         <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">draw_grid</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">draw_instruction</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">draw_elements</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span></div>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">IDLE</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_draw_grid</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_draw_instruction</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_draw_elements</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="WorldUI.rebuild_ui"><a class="viewcode-back" href="../../../../scripts.scenes.world.html#scripts.scenes.world.ui.WorldUI.rebuild_ui">[docs]</a>    <span class="k">def</span> <span class="nf">rebuild_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">rebuild_ui</span><span class="p">()</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">terrain</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">biome</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">terrain</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">biome</span><span class="p">)</span>
 
-<div class="viewcode-block" id="WorldUI.draw_grid"><a class="viewcode-back" href="../../../../scripts.scenes.world.html#scripts.scenes.world.ui.WorldUI.draw_grid">[docs]</a>    <span class="k">def</span> <span class="nf">draw_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">):</span>
+        <span class="n">create_font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">create_font</span>
+
+        <span class="n">icon_width</span> <span class="o">=</span> <span class="n">DEFAULT_IMAGE_SIZE</span>
+        <span class="n">icon_height</span> <span class="o">=</span> <span class="n">DEFAULT_IMAGE_SIZE</span>
+        <span class="n">icon_size</span> <span class="o">=</span> <span class="p">(</span><span class="n">icon_width</span><span class="p">,</span> <span class="n">icon_height</span><span class="p">)</span>
+        <span class="n">start_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">centre</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">start_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">centre</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="c1"># draw upgrades</span>
+        <span class="n">current_x</span> <span class="o">=</span> <span class="n">start_x</span>
+        <span class="n">current_y</span> <span class="o">=</span> <span class="n">start_y</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">DEFEAT</span><span class="p">:</span>
+            <span class="n">defeat_icon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">"ui"</span><span class="p">,</span> <span class="s2">"arrow_button"</span><span class="p">,</span> <span class="n">icon_size</span><span class="p">)</span>
+            <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span>
+                <span class="n">image</span><span class="o">=</span><span class="n">defeat_icon</span><span class="p">,</span>
+                <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">NEGATIVE</span><span class="p">,</span> <span class="s2">"Defeated"</span><span class="p">),</span>
+                <span class="n">is_selectable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="s2">"defeat_notification"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
+
+            <span class="n">current_y</span> <span class="o">+=</span> <span class="mi">100</span>
+
+            <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span>
+                <span class="n">image</span><span class="o">=</span><span class="n">defeat_icon</span><span class="p">,</span>
+                <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="s2">"Press Enter to return to the main menu."</span><span class="p">),</span>
+                <span class="n">is_selectable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="s2">"defeat_instruction"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">COMBAT_VICTORY</span><span class="p">:</span>
+            <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span>
+                <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">POSITIVE</span><span class="p">,</span> <span class="s2">"Victory"</span><span class="p">),</span>
+                <span class="n">is_selectable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="s2">"victory_notification"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span></div>
+
+<div class="viewcode-block" id="WorldUI._draw_grid"><a class="viewcode-back" href="../../../../api/scenes/world.html#scripts.scenes.world.ui.WorldUI._draw_grid">[docs]</a>    <span class="k">def</span> <span class="nf">_draw_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Draw the unit selection grid</span>
 <span class="sd">        """</span>
-        <span class="c1"># TODO  - needs to be aligned to camera; move to camera?</span>
-        <span class="n">grid_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent_scene</span><span class="o">.</span><span class="n">grid_size</span>
-        <span class="n">grid_cell_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent_scene</span><span class="o">.</span><span class="n">grid_cell_size</span>
-        <span class="n">grid_margin</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent_scene</span><span class="o">.</span><span class="n">grid_margin</span>
+        <span class="n">grid_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span><span class="o">.</span><span class="n">grid_size</span>
+        <span class="n">grid_cell_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span><span class="o">.</span><span class="n">grid_cell_size</span>
+        <span class="n">grid_margin</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span><span class="o">.</span><span class="n">grid_margin</span>
         <span class="n">line_colour</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
         <span class="c1"># draw horizontal lines</span>
@@ -367,7 +461,67 @@
             <span class="n">start_y</span> <span class="o">=</span> <span class="n">grid_margin</span>
             <span class="n">end_x</span> <span class="o">=</span> <span class="n">v_line</span> <span class="o">*</span> <span class="n">grid_cell_size</span> <span class="o">+</span> <span class="n">grid_margin</span>
             <span class="n">end_y</span> <span class="o">=</span> <span class="n">grid_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">grid_cell_size</span> <span class="o">+</span> <span class="n">grid_margin</span>
-            <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">surface</span><span class="p">,</span> <span class="n">line_colour</span><span class="p">,</span> <span class="p">(</span><span class="n">start_x</span><span class="p">,</span> <span class="n">start_y</span><span class="p">),</span> <span class="p">(</span><span class="n">end_x</span><span class="p">,</span> <span class="n">end_y</span><span class="p">))</span></div></div>
+            <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">surface</span><span class="p">,</span> <span class="n">line_colour</span><span class="p">,</span> <span class="p">(</span><span class="n">start_x</span><span class="p">,</span> <span class="n">start_y</span><span class="p">),</span> <span class="p">(</span><span class="n">end_x</span><span class="p">,</span> <span class="n">end_y</span><span class="p">))</span></div>
+
+    <span class="k">def</span> <span class="nf">_draw_units</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">surface</span><span class="p">,</span> <span class="n">offset</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)):</span>
+        <span class="n">units</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">get_all_units</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">unit</span> <span class="ow">in</span> <span class="n">units</span><span class="p">:</span>
+            <span class="n">unit</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">surface</span><span class="p">,</span> <span class="n">shift</span><span class="o">=</span><span class="n">offset</span><span class="p">)</span>
+
+        <span class="c1"># organize entities for layered rendering</span>
+        <span class="n">entity_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">unit</span> <span class="ow">in</span> <span class="n">units</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">unit</span><span class="o">.</span><span class="n">entities</span> <span class="o">+</span> <span class="n">unit</span><span class="o">.</span><span class="n">dead_entities</span><span class="p">:</span>
+                <span class="n">entity_list</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">entity</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">entity</span><span class="o">.</span><span class="n">img</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">entity_list</span><span class="p">),</span> <span class="n">entity</span><span class="p">))</span>
+
+        <span class="n">entity_list</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">entity_list</span><span class="p">:</span>
+            <span class="n">entity</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">surface</span><span class="p">,</span> <span class="n">shift</span><span class="o">=</span><span class="n">offset</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">unit</span> <span class="ow">in</span> <span class="n">units</span><span class="p">:</span>
+            <span class="n">unit</span><span class="o">.</span><span class="n">post_render</span><span class="p">(</span><span class="n">surface</span><span class="p">,</span> <span class="n">shift</span><span class="o">=</span><span class="n">offset</span><span class="p">)</span>
+
+<div class="viewcode-block" id="WorldUI._draw_path_debug"><a class="viewcode-back" href="../../../../api/scenes/world.html#scripts.scenes.world.ui.WorldUI._draw_path_debug">[docs]</a>    <span class="k">def</span> <span class="nf">_draw_path_debug</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">surface</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Draw lines to indicate the pathfinding</span>
+<span class="sd">        """</span>
+        <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">get_all_entities</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">entity</span><span class="o">.</span><span class="n">_parent_unit</span><span class="o">.</span><span class="n">default_behaviour</span> <span class="o">!=</span> <span class="s2">"swarm"</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">entity</span><span class="o">.</span><span class="n">behaviour</span><span class="o">.</span><span class="n">current_path</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">behaviour</span><span class="o">.</span><span class="n">current_path</span><span class="p">):</span>
+                    <span class="n">points</span> <span class="o">=</span> <span class="p">[</span>
+                        <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">render_offset</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">render_offset</span><span class="p">()[</span><span class="mi">1</span><span class="p">])</span>
+                        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="p">([</span><span class="n">entity</span><span class="o">.</span><span class="n">pos</span><span class="p">]</span> <span class="o">+</span> <span class="n">entity</span><span class="o">.</span><span class="n">behaviour</span><span class="o">.</span><span class="n">current_path</span><span class="p">)</span>
+                    <span class="p">]</span>
+                    <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">lines</span><span class="p">(</span><span class="n">surface</span><span class="p">,</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="kc">False</span><span class="p">,</span> <span class="n">points</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_get_team_center</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">team</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">]:</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">pos_totals</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">unit</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">get_all_units</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">unit</span><span class="o">.</span><span class="n">team</span> <span class="o">==</span> <span class="n">team</span><span class="p">:</span>
+                <span class="n">pos_totals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">unit</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">pos_totals</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">unit</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">count</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">pos_totals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">count</span><span class="p">,</span> <span class="n">pos_totals</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">count</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="WorldUI._update_camera_pos"><a class="viewcode-back" href="../../../../api/scenes/world.html#scripts.scenes.world.ui.WorldUI._update_camera_pos">[docs]</a>    <span class="k">def</span> <span class="nf">_update_camera_pos</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_time</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Update the camera's position to follow the player's Units</span>
+<span class="sd">        """</span>
+        <span class="n">target_pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_team_center</span><span class="p">(</span><span class="s2">"player"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">target_pos</span><span class="p">:</span>
+            <span class="n">target_pos</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">target_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">base_resolution</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span>
+            <span class="n">target_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">base_resolution</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="p">(</span><span class="n">target_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mi">10</span> <span class="o">*</span> <span class="p">(</span><span class="n">delta_time</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="p">(</span><span class="n">target_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">10</span> <span class="o">*</span> <span class="p">(</span><span class="n">delta_time</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span></div></div>
 </pre></div>
 
           </article>

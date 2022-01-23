@@ -1,0 +1,150 @@
+scripts.scene\_elements package
+===============================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   scripts.scene_elements.entity_behaviours
+   scripts.scene_elements.unit_behaviours
+
+Submodules
+----------
+
+scripts.scene\_elements.actions module
+--------------------------------------
+
+.. automodule:: scripts.scene_elements.actions
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scene\_elements.behavior\_manager module
+------------------------------------------------
+
+.. automodule:: scripts.scene_elements.behavior_manager
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scene\_elements.camera module
+-------------------------------------
+
+.. automodule:: scripts.scene_elements.camera
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scene\_elements.commander module
+----------------------------------------
+
+.. automodule:: scripts.scene_elements.commander
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scene\_elements.entity module
+-------------------------------------
+
+.. automodule:: scripts.scene_elements.entity
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scene\_elements.hitbox module
+-------------------------------------
+
+.. automodule:: scripts.scene_elements.hitbox
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scene\_elements.particle module
+---------------------------------------
+
+.. automodule:: scripts.scene_elements.particle
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scene\_elements.particle\_manager module
+------------------------------------------------
+
+.. automodule:: scripts.scene_elements.particle_manager
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scene\_elements.pathfinder module
+-----------------------------------------
+
+.. automodule:: scripts.scene_elements.pathfinder
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scene\_elements.projectile module
+-----------------------------------------
+
+.. automodule:: scripts.scene_elements.projectile
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scene\_elements.projectile\_manager module
+--------------------------------------------------
+
+.. automodule:: scripts.scene_elements.projectile_manager
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scene\_elements.terrain module
+--------------------------------------
+
+.. automodule:: scripts.scene_elements.terrain
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scene\_elements.tile module
+-----------------------------------
+
+.. automodule:: scripts.scene_elements.tile
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scene\_elements.traps module
+------------------------------------
+
+.. automodule:: scripts.scene_elements.traps
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scene\_elements.troupe module
+-------------------------------------
+
+.. automodule:: scripts.scene_elements.troupe
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scene\_elements.unit module
+-----------------------------------
+
+.. automodule:: scripts.scene_elements.unit
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: scripts.scene_elements
+   :members:
+   :undoc-members:
+   :show-inheritance:

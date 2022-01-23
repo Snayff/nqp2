@@ -12,14 +12,15 @@ Last updated on |today| for version |version|.
 
     api/core/_core
     api/scenes/_scenes
+    api/scene_elements/_scene_elements
     api/ui_elements/ui_elements
 
 
 
-**Developer Notes**
+**Developer Information**
 
 
 ..  toctree::
     :maxdepth: 1
 
-    developer_notes/_developer_notes
+    developer/_developer

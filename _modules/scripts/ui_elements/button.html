@@ -221,6 +221,13 @@
     <li class="md-nav__item">
     
     
+      <a href="../../../api/scene_elements/_scene_elements.html" class="md-nav__link">Scene Elements</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../../../api/ui_elements/ui_elements.html" class="md-nav__link">UI Elements</a>
       
     
@@ -228,7 +235,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../developer_notes/_developer_notes.html" class="md-nav__link">Developer Notes</a>
+      <a href="../../../developer/_developer.html" class="md-nav__link">Developer</a>
       
     
     </li>
@@ -264,7 +271,7 @@
 
 <div class="viewcode-block" id="Button"><a class="viewcode-back" href="../../../scripts.ui_elements.html#scripts.ui_elements.button.Button">[docs]</a><span class="k">class</span> <span class="nc">Button</span><span class="p">:</span>
 <div class="viewcode-block" id="Button.__init__"><a class="viewcode-back" href="../../../scripts.ui_elements.html#scripts.ui_elements.button.Button.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">game</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">push_down</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="n">colour</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">)):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">game</span> <span class="o">=</span> <span class="n">game</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_game</span> <span class="o">=</span> <span class="n">game</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="n">content</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">colour</span> <span class="o">=</span> <span class="n">colour</span>
@@ -279,8 +286,8 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">pressed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">r</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">collidepoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">mouse_pos</span><span class="p">):</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">mouse_state</span><span class="p">[</span><span class="s2">"left"</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">collidepoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">mouse_pos</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">mouse_state</span><span class="p">[</span><span class="s2">"left"</span><span class="p">]:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">push_timer</span> <span class="o">=</span> <span class="mf">0.2</span>
                 <span class="k">return</span> <span class="kc">True</span>
         <span class="k">return</span> <span class="kc">False</span>
@@ -288,7 +295,7 @@
 <div class="viewcode-block" id="Button.update"><a class="viewcode-back" href="../../../scripts.ui_elements.html#scripts.ui_elements.button.Button.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">push_timer</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">push_timer</span> <span class="o">-</span> <span class="n">delta_time</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Button.render"><a class="viewcode-back" href="../../../scripts.ui_elements.html#scripts.ui_elements.button.Button.render">[docs]</a>    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surf</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)):</span>
+<div class="viewcode-block" id="Button.draw"><a class="viewcode-back" href="../../../scripts.ui_elements.html#scripts.ui_elements.button.Button.draw">[docs]</a>    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surf</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)):</span>
         <span class="n">offset</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">push_timer</span><span class="p">:</span>
             <span class="n">offset</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
@@ -297,14 +304,14 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">r</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">offset</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">offset</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
             <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">surf</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">colour</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">fonts</span><span class="p">[</span><span class="s2">"default"</span><span class="p">]</span><span class="o">.</span><span class="n">render</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">fonts</span><span class="p">[</span><span class="s2">"default"</span><span class="p">]</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">content</span><span class="p">,</span>
                 <span class="n">surf</span><span class="p">,</span>
                 <span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
                     <span class="o">+</span> <span class="n">offset</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-                    <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">fonts</span><span class="p">[</span><span class="s2">"default"</span><span class="p">]</span><span class="o">.</span><span class="n">width</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">content</span><span class="p">))</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">offset</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">fonts</span><span class="p">[</span><span class="s2">"default"</span><span class="p">]</span><span class="o">.</span><span class="n">line_height</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span>
+                    <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">fonts</span><span class="p">[</span><span class="s2">"default"</span><span class="p">]</span><span class="o">.</span><span class="n">width</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">content</span><span class="p">))</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">offset</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">fonts</span><span class="p">[</span><span class="s2">"default"</span><span class="p">]</span><span class="o">.</span><span class="n">line_height</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span>
                 <span class="p">),</span>
             <span class="p">)</span></div></div>
 </pre></div>

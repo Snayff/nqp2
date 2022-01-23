@@ -221,6 +221,13 @@
     <li class="md-nav__item">
     
     
+      <a href="../../../../api/scene_elements/_scene_elements.html" class="md-nav__link">Scene Elements</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../../../../api/ui_elements/ui_elements.html" class="md-nav__link">UI Elements</a>
       
     
@@ -228,7 +235,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../../developer_notes/_developer_notes.html" class="md-nav__link">Developer Notes</a>
+      <a href="../../../../developer/_developer.html" class="md-nav__link">Developer</a>
       
     
     </li>
@@ -262,14 +269,13 @@
 <span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">import</span> <span class="nn">random</span>
 <span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
 <span class="kn">from</span> <span class="nn">scripts.core.base_classes.scene</span> <span class="kn">import</span> <span class="n">Scene</span>
 <span class="kn">from</span> <span class="nn">scripts.core.constants</span> <span class="kn">import</span> <span class="n">EventState</span><span class="p">,</span> <span class="n">SceneType</span>
-<span class="kn">from</span> <span class="nn">scripts.scenes.combat.elements.troupe</span> <span class="kn">import</span> <span class="n">Troupe</span>
-<span class="kn">from</span> <span class="nn">scripts.scenes.combat.elements.unit</span> <span class="kn">import</span> <span class="n">Unit</span>
+<span class="kn">from</span> <span class="nn">scripts.scene_elements.troupe</span> <span class="kn">import</span> <span class="n">Troupe</span>
+<span class="kn">from</span> <span class="nn">scripts.scene_elements.unit</span> <span class="kn">import</span> <span class="n">Unit</span>
 <span class="kn">from</span> <span class="nn">scripts.scenes.event.ui</span> <span class="kn">import</span> <span class="n">EventUI</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
@@ -309,12 +315,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="EventScene.reset"><a class="viewcode-back" href="../../../../scripts.scenes.event.html#scripts.scenes.event.scene.EventScene.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="n">EventUI</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="n">EventUI</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">active_event</span> <span class="o">=</span> <span class="p">{}</span></div>
 
 <div class="viewcode-block" id="EventScene.load_random_event"><a class="viewcode-back" href="../../../../scripts.scenes.event.html#scripts.scenes.event.scene.EventScene.load_random_event">[docs]</a>    <span class="k">def</span> <span class="nf">load_random_event</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">active_event</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">get_random_event</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_event</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">get_random_event</span><span class="p">()</span>
 
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Event </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">active_event</span><span class="p">[</span><span class="s1">'type'</span><span class="p">]</span><span class="si">}</span><span class="s2"> loaded."</span><span class="p">)</span>
 
@@ -324,10 +330,7 @@
         <span class="sd">"""</span>
 <span class="sd">        Load a specific event.</span>
 <span class="sd">        """</span>
-        <span class="k">if</span> <span class="n">remove_from_pool</span><span class="p">:</span>
-            <span class="n">event</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">event_deck</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">event_id</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">event</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">event_deck</span><span class="p">[</span><span class="n">event_id</span><span class="p">]</span>
+        <span class="n">event</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">get_event</span><span class="p">(</span><span class="n">event_id</span><span class="p">,</span> <span class="n">remove_from_pool</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">active_event</span> <span class="o">=</span> <span class="n">event</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Event </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">active_event</span><span class="p">[</span><span class="s1">'type'</span><span class="p">]</span><span class="si">}</span><span class="s2"> loaded."</span><span class="p">)</span>
@@ -353,10 +356,10 @@
 
         <span class="k">if</span> <span class="n">resource_key</span> <span class="o">==</span> <span class="s2">"existing_unit"</span><span class="p">:</span>
             <span class="n">unit</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="n">units</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">player_troupe</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+            <span class="n">units</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">player_troupe</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
 
             <span class="c1"># shuffle list</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">rng</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">units</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">rng</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">units</span><span class="p">)</span>
 
             <span class="c1"># ensure a unique resource</span>
             <span class="k">for</span> <span class="n">unit</span> <span class="ow">in</span> <span class="n">units</span><span class="p">:</span>
@@ -366,8 +369,8 @@
             <span class="n">resource</span> <span class="o">=</span> <span class="n">unit</span>
 
         <span class="k">elif</span> <span class="n">resource_key</span> <span class="o">==</span> <span class="s2">"new_specific_unit"</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">resource_target</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="p">:</span>
-                <span class="n">troupe</span> <span class="o">=</span> <span class="n">Troupe</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="p">,</span> <span class="s2">"player"</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">player_troupe</span><span class="o">.</span><span class="n">allies</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">resource_target</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="p">:</span>
+                <span class="n">troupe</span> <span class="o">=</span> <span class="n">Troupe</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="s2">"player"</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">player_troupe</span><span class="o">.</span><span class="n">allies</span><span class="p">)</span>
                 <span class="n">unit_id</span> <span class="o">=</span> <span class="n">troupe</span><span class="o">.</span><span class="n">generate_specific_units</span><span class="p">([</span><span class="n">resource_target</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
                 <span class="n">resource</span> <span class="o">=</span> <span class="n">troupe</span><span class="o">.</span><span class="n">units</span><span class="p">[</span><span class="n">unit_id</span><span class="p">]</span>
 
@@ -382,13 +385,13 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">tiers</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">resource_target</span><span class="p">)]</span>
 
-            <span class="n">troupe</span> <span class="o">=</span> <span class="n">Troupe</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="p">,</span> <span class="s2">"player"</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">player_troupe</span><span class="o">.</span><span class="n">allies</span><span class="p">)</span>
+            <span class="n">troupe</span> <span class="o">=</span> <span class="n">Troupe</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="s2">"player"</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">player_troupe</span><span class="o">.</span><span class="n">allies</span><span class="p">)</span>
             <span class="n">unit_id</span> <span class="o">=</span> <span class="n">troupe</span><span class="o">.</span><span class="n">generate_units</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">tiers</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
             <span class="n">resource</span> <span class="o">=</span> <span class="n">troupe</span><span class="o">.</span><span class="n">units</span><span class="p">[</span><span class="n">unit_id</span><span class="p">]</span>
 
         <span class="k">return</span> <span class="n">resource</span></div>
 
-<div class="viewcode-block" id="EventScene.trigger_result"><a class="viewcode-back" href="../../../../scripts.scenes.event.html#scripts.scenes.event.scene.EventScene.trigger_result">[docs]</a>    <span class="k">def</span> <span class="nf">trigger_result</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="EventScene._trigger_result"><a class="viewcode-back" href="../../../../api/scenes/event.html#scripts.scenes.event.scene.EventScene._trigger_result">[docs]</a>    <span class="k">def</span> <span class="nf">_trigger_result</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Trigger the result for the previously selected option.</span>
 
@@ -423,29 +426,29 @@
 <span class="sd">        Resolve the action from the result. Not all actions need a target and in those cases the target is ignored.</span>
 <span class="sd">        """</span>
         <span class="k">if</span> <span class="n">result_key</span> <span class="o">==</span> <span class="s2">"gold"</span><span class="p">:</span>
-            <span class="n">original_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">gold</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">amend_gold</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">result_value</span><span class="p">))</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Gold changed by </span><span class="si">{</span><span class="n">result_value</span><span class="si">}</span><span class="s2">;  </span><span class="si">{</span><span class="n">original_value</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">gold</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span>
+            <span class="n">original_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">gold</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">amend_gold</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">result_value</span><span class="p">))</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Gold changed by </span><span class="si">{</span><span class="n">result_value</span><span class="si">}</span><span class="s2">;  </span><span class="si">{</span><span class="n">original_value</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">gold</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">result_key</span> <span class="o">==</span> <span class="s2">"rations"</span><span class="p">:</span>
-            <span class="n">original_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">rations</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">amend_rations</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">result_value</span><span class="p">))</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Rations changed by </span><span class="si">{</span><span class="n">result_value</span><span class="si">}</span><span class="s2">;  </span><span class="si">{</span><span class="n">original_value</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">rations</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span>
+            <span class="n">original_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">rations</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">amend_rations</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">result_value</span><span class="p">))</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Rations changed by </span><span class="si">{</span><span class="n">result_value</span><span class="si">}</span><span class="s2">;  </span><span class="si">{</span><span class="n">original_value</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">rations</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">result_key</span> <span class="o">==</span> <span class="s2">"morale"</span><span class="p">:</span>
-            <span class="n">original_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">morale</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">amend_morale</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">result_value</span><span class="p">))</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Morale changed by </span><span class="si">{</span><span class="n">result_value</span><span class="si">}</span><span class="s2">;  </span><span class="si">{</span><span class="n">original_value</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">morale</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span>
+            <span class="n">original_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">morale</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">amend_morale</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">result_value</span><span class="p">))</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Morale changed by </span><span class="si">{</span><span class="n">result_value</span><span class="si">}</span><span class="s2">;  </span><span class="si">{</span><span class="n">original_value</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">morale</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">result_key</span> <span class="o">==</span> <span class="s2">"charisma"</span><span class="p">:</span>
-            <span class="n">original_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">charisma</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">amend_charisma</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">result_value</span><span class="p">))</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Charisma changed by </span><span class="si">{</span><span class="n">result_value</span><span class="si">}</span><span class="s2">;  </span><span class="si">{</span><span class="n">original_value</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">charisma</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span>
+            <span class="n">original_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">charisma</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">amend_charisma</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">result_value</span><span class="p">))</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Charisma changed by </span><span class="si">{</span><span class="n">result_value</span><span class="si">}</span><span class="s2">;  </span><span class="si">{</span><span class="n">original_value</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">charisma</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">result_key</span> <span class="o">==</span> <span class="s2">"leadership"</span><span class="p">:</span>
-            <span class="n">original_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">leadership</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">amend_leadership</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">result_value</span><span class="p">))</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Leadership changed by </span><span class="si">{</span><span class="n">result_value</span><span class="si">}</span><span class="s2">;  </span><span class="si">{</span><span class="n">original_value</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">leadership</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span>
+            <span class="n">original_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">leadership</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">amend_leadership</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">result_value</span><span class="p">))</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Leadership changed by </span><span class="si">{</span><span class="n">result_value</span><span class="si">}</span><span class="s2">;  </span><span class="si">{</span><span class="n">original_value</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">leadership</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">result_key</span> <span class="o">==</span> <span class="s2">"injury"</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
@@ -468,17 +471,17 @@
 
         <span class="k">elif</span> <span class="n">result_key</span> <span class="o">==</span> <span class="s2">"unlock_event"</span><span class="p">:</span>
             <span class="c1"># add flag to show unlocked</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result_value</span> <span class="o">+</span> <span class="s2">"_unlocked"</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result_value</span> <span class="o">+</span> <span class="s2">"_unlocked"</span><span class="p">)</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">prioritise_event</span><span class="p">(</span><span class="n">result_value</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">prioritise_event</span><span class="p">(</span><span class="n">result_value</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">result_key</span> <span class="o">==</span> <span class="s2">"add_unit_resource"</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">unit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">event_resources</span><span class="p">[</span><span class="n">result_value</span><span class="p">]</span>
 
                 <span class="c1"># check doesnt already exist</span>
-                <span class="k">if</span> <span class="n">unit</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">player_troupe</span><span class="o">.</span><span class="n">units</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">player_troupe</span><span class="o">.</span><span class="n">add_unit</span><span class="p">(</span><span class="n">unit</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">unit</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">player_troupe</span><span class="o">.</span><span class="n">units</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">player_troupe</span><span class="o">.</span><span class="n">add_unit</span><span class="p">(</span><span class="n">unit</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Target specified (</span><span class="si">{</span><span class="n">target</span><span class="si">}</span><span class="s2">) is an existing unit and was therefore ignored."</span><span class="p">)</span>
 
@@ -489,8 +492,8 @@
                 <span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">result_key</span> <span class="o">==</span> <span class="s2">"add_specific_unit"</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">result_value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">player_troupe</span><span class="o">.</span><span class="n">generate_specific_units</span><span class="p">([</span><span class="n">result_value</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">result_value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">player_troupe</span><span class="o">.</span><span class="n">generate_specific_units</span><span class="p">([</span><span class="n">result_value</span><span class="p">])</span>
 
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Unit type (</span><span class="si">{</span><span class="n">result_value</span><span class="si">}</span><span class="s2">) specified does not exist. No unit was added."</span><span class="p">)</span>
@@ -500,13 +503,13 @@
 
 <div class="viewcode-block" id="EventScene.roll_for_event"><a class="viewcode-back" href="../../../../scripts.scenes.event.html#scripts.scenes.event.scene.EventScene.roll_for_event">[docs]</a>    <span class="k">def</span> <span class="nf">roll_for_event</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="sd">"""</span>
-<span class="sd">        Roll to see if an event will be triggered when transitioning between nodes. True for event due.</span>
+<span class="sd">        Roll to see if an event will be triggered when transitioning between rooms. True for event due.</span>
 <span class="sd">        """</span>
         <span class="c1"># check if we have hit the limit of events</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">events_triggered</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">"overworld"</span><span class="p">][</span><span class="s2">"max_events_per_level"</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">events_triggered</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">"world"</span><span class="p">][</span><span class="s2">"max_events_per_level"</span><span class="p">]:</span>
             <span class="k">return</span> <span class="kc">False</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">rng</span><span class="o">.</span><span class="n">roll</span><span class="p">()</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">"overworld"</span><span class="p">][</span><span class="s2">"chance_of_event"</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">rng</span><span class="o">.</span><span class="n">roll</span><span class="p">()</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">"world"</span><span class="p">][</span><span class="s2">"chance_of_event"</span><span class="p">]:</span>
             <span class="k">return</span> <span class="kc">True</span>
 
         <span class="c1"># safety catch</span>

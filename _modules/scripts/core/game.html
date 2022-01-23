@@ -221,6 +221,13 @@
     <li class="md-nav__item">
     
     
+      <a href="../../../api/scene_elements/_scene_elements.html" class="md-nav__link">Scene Elements</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../../../api/ui_elements/ui_elements.html" class="md-nav__link">UI Elements</a>
       
     
@@ -228,7 +235,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../developer_notes/_developer_notes.html" class="md-nav__link">Developer Notes</a>
+      <a href="../../../developer/_developer.html" class="md-nav__link">Developer</a>
       
     
     </li>
@@ -263,11 +270,10 @@
 
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
 <span class="kn">import</span> <span class="nn">pygame</span> <span class="k">as</span> <span class="nn">pygame</span>
 
-<span class="kn">from</span> <span class="nn">scripts.core</span> <span class="kn">import</span> <span class="n">utility</span>
 <span class="kn">from</span> <span class="nn">scripts.core.assets</span> <span class="kn">import</span> <span class="n">Assets</span>
 <span class="kn">from</span> <span class="nn">scripts.core.base_classes.scene</span> <span class="kn">import</span> <span class="n">Scene</span>
 <span class="kn">from</span> <span class="nn">scripts.core.constants</span> <span class="kn">import</span> <span class="n">GameState</span><span class="p">,</span> <span class="n">SceneType</span>
@@ -277,19 +283,19 @@
 <span class="kn">from</span> <span class="nn">scripts.core.memory</span> <span class="kn">import</span> <span class="n">Memory</span>
 <span class="kn">from</span> <span class="nn">scripts.core.rng</span> <span class="kn">import</span> <span class="n">RNG</span>
 <span class="kn">from</span> <span class="nn">scripts.core.window</span> <span class="kn">import</span> <span class="n">Window</span>
-<span class="kn">from</span> <span class="nn">scripts.scenes.combat.scene</span> <span class="kn">import</span> <span class="n">CombatScene</span>
 <span class="kn">from</span> <span class="nn">scripts.scenes.event.scene</span> <span class="kn">import</span> <span class="n">EventScene</span>
 <span class="kn">from</span> <span class="nn">scripts.scenes.gallery.scene</span> <span class="kn">import</span> <span class="n">GalleryScene</span>
 <span class="kn">from</span> <span class="nn">scripts.scenes.inn.scene</span> <span class="kn">import</span> <span class="n">InnScene</span>
 <span class="kn">from</span> <span class="nn">scripts.scenes.main_menu.scene</span> <span class="kn">import</span> <span class="n">MainMenuScene</span>
-<span class="kn">from</span> <span class="nn">scripts.scenes.overworld.scene</span> <span class="kn">import</span> <span class="n">OverworldScene</span>
 <span class="kn">from</span> <span class="nn">scripts.scenes.post_combat.scene</span> <span class="kn">import</span> <span class="n">PostCombatScene</span>
 <span class="kn">from</span> <span class="nn">scripts.scenes.run_setup.scene</span> <span class="kn">import</span> <span class="n">RunSetupScene</span>
-<span class="kn">from</span> <span class="nn">scripts.scenes.test.scene</span> <span class="kn">import</span> <span class="n">TestScene</span>
 <span class="kn">from</span> <span class="nn">scripts.scenes.training.scene</span> <span class="kn">import</span> <span class="n">TrainingScene</span>
 <span class="kn">from</span> <span class="nn">scripts.scenes.unit_data.scene</span> <span class="kn">import</span> <span class="n">UnitDataScene</span>
 <span class="kn">from</span> <span class="nn">scripts.scenes.view_troupe.scene</span> <span class="kn">import</span> <span class="n">ViewTroupeScene</span>
 <span class="kn">from</span> <span class="nn">scripts.scenes.world.scene</span> <span class="kn">import</span> <span class="n">WorldScene</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Game"</span><span class="p">]</span>
 
@@ -318,15 +324,12 @@
         <span class="c1"># scenes</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">main_menu</span><span class="p">:</span> <span class="n">MainMenuScene</span> <span class="o">=</span> <span class="n">MainMenuScene</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">run_setup</span><span class="p">:</span> <span class="n">RunSetupScene</span> <span class="o">=</span> <span class="n">RunSetupScene</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">overworld</span><span class="p">:</span> <span class="n">OverworldScene</span> <span class="o">=</span> <span class="n">OverworldScene</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">combat</span><span class="p">:</span> <span class="n">CombatScene</span> <span class="o">=</span> <span class="n">CombatScene</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">post_combat</span><span class="p">:</span> <span class="n">PostCombatScene</span> <span class="o">=</span> <span class="n">PostCombatScene</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">event</span><span class="p">:</span> <span class="n">EventScene</span> <span class="o">=</span> <span class="n">EventScene</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">training</span><span class="p">:</span> <span class="n">TrainingScene</span> <span class="o">=</span> <span class="n">TrainingScene</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">inn</span><span class="p">:</span> <span class="n">InnScene</span> <span class="o">=</span> <span class="n">InnScene</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">troupe</span><span class="p">:</span> <span class="n">ViewTroupeScene</span> <span class="o">=</span> <span class="n">ViewTroupeScene</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">world</span><span class="p">:</span> <span class="n">WorldScene</span> <span class="o">=</span> <span class="n">WorldScene</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">test</span> <span class="o">=</span> <span class="n">TestScene</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
         <span class="c1"># dev scenes</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dev_unit_data</span><span class="p">:</span> <span class="n">UnitDataScene</span> <span class="o">=</span> <span class="n">UnitDataScene</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -353,9 +356,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">master_clock</span> <span class="o">+=</span> <span class="n">delta_time</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"tab"</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="o">.</span><span class="n">toggle_debug_info</span><span class="p">()</span>
+
         <span class="k">for</span> <span class="n">scene</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene_stack</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">scene</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">is_active</span><span class="p">:</span>
                 <span class="n">scene</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_render</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -365,13 +372,9 @@
         <span class="n">surface</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">display</span>
         <span class="k">for</span> <span class="n">scene</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene_stack</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">scene</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">is_active</span><span class="p">:</span>
-                <span class="c1"># handle those scenes that still have render methods</span>
-                <span class="c1"># TODO - remove all render methods from Scene</span>
-                <span class="k">if</span> <span class="n">scene</span> <span class="ow">in</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">combat</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">overworld</span><span class="p">):</span>
-                    <span class="n">scene</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>
-                <span class="n">scene</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>
+                <span class="n">scene</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>  <span class="c1"># always last so it is on top</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>  <span class="c1"># always last so it is on top</span>
 
 <div class="viewcode-block" id="Game.run"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.game.Game.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">()</span>
@@ -451,15 +454,6 @@
         <span class="k">elif</span> <span class="n">scene_type</span> <span class="o">==</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">RUN_SETUP</span><span class="p">:</span>
             <span class="n">scene</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_setup</span>
 
-        <span class="k">elif</span> <span class="n">scene_type</span> <span class="o">==</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">OVERWORLD</span><span class="p">:</span>
-            <span class="n">scene</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">overworld</span>
-
-        <span class="k">elif</span> <span class="n">scene_type</span> <span class="o">==</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">COMBAT</span><span class="p">:</span>
-            <span class="n">scene</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">combat</span>
-
-        <span class="k">elif</span> <span class="n">scene_type</span> <span class="o">==</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">BOSS_COMBAT</span><span class="p">:</span>
-            <span class="n">scene</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">combat</span>
-
         <span class="k">elif</span> <span class="n">scene_type</span> <span class="o">==</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">POST_COMBAT</span><span class="p">:</span>
             <span class="n">scene</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">post_combat</span>
 
@@ -484,74 +478,15 @@
 
         <span class="k">return</span> <span class="n">scene</span>
 
-<div class="viewcode-block" id="Game.change_scene"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.game.Game.change_scene">[docs]</a>    <span class="k">def</span> <span class="nf">change_scene</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scene_types</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">SceneType</span><span class="p">]):</span>
+<div class="viewcode-block" id="Game.change_scene"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.game.Game.change_scene">[docs]</a>    <span class="k">def</span> <span class="nf">change_scene</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scene_type</span><span class="p">:</span> <span class="n">SceneType</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        Deactivate all active scenes and activate the given scenes.</span>
+<span class="sd">        Deactivate all active scenes and activate the given scene.</span>
 <span class="sd">        """</span>
         <span class="k">for</span> <span class="n">scene</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene_stack</span><span class="p">:</span>
+            <span class="n">scene</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">remove_scene</span><span class="p">(</span><span class="n">scene</span><span class="o">.</span><span class="n">type</span><span class="p">)</span>
 
-        <span class="k">for</span> <span class="n">scene_type</span> <span class="ow">in</span> <span class="n">scene_types</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">add_scene</span><span class="p">(</span><span class="n">scene_type</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="Game.old_change_scene"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.game.Game.old_change_scene">[docs]</a>    <span class="k">def</span> <span class="nf">old_change_scene</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scene_type</span><span class="p">:</span> <span class="n">SceneType</span><span class="p">):</span>
-        <span class="sd">"""</span>
-<span class="sd">        Change the active scene. N.B. not used for switching to dev scenes.</span>
-<span class="sd">        """</span>
-        <span class="c1"># reset exiting scene if not overworld</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">active_scene</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">overworld</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">active_scene</span><span class="p">,</span> <span class="s2">"reset"</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">active_scene</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-
-        <span class="c1"># reset input to ensure no input carries over between scenes</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-
-        <span class="c1"># change scene and take scene specific action</span>
-        <span class="k">if</span> <span class="n">scene_type</span> <span class="o">==</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">MAIN_MENU</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">active_scene</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">main_menu</span>
-
-        <span class="k">elif</span> <span class="n">scene_type</span> <span class="o">==</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">RUN_SETUP</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">active_scene</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_setup</span>
-
-        <span class="k">elif</span> <span class="n">scene_type</span> <span class="o">==</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">OVERWORLD</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">active_scene</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">overworld</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">overworld</span><span class="o">.</span><span class="n">node_container</span><span class="o">.</span><span class="n">is_travel_paused</span> <span class="o">=</span> <span class="kc">False</span>
-
-        <span class="k">elif</span> <span class="n">scene_type</span> <span class="o">==</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">COMBAT</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">combat</span><span class="o">.</span><span class="n">generate_combat</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">active_scene</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">combat</span>
-
-        <span class="k">elif</span> <span class="n">scene_type</span> <span class="o">==</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">BOSS_COMBAT</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">combat</span><span class="o">.</span><span class="n">combat_category</span> <span class="o">=</span> <span class="s2">"boss"</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">combat</span><span class="o">.</span><span class="n">generate_combat</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">active_scene</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">combat</span>
-
-        <span class="k">elif</span> <span class="n">scene_type</span> <span class="o">==</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">POST_COMBAT</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">post_combat</span><span class="o">.</span><span class="n">generate_reward</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">active_scene</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">post_combat</span>
-
-        <span class="k">elif</span> <span class="n">scene_type</span> <span class="o">==</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">TRAINING</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">training</span><span class="o">.</span><span class="n">generate_upgrades</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">active_scene</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">training</span>
-
-        <span class="k">elif</span> <span class="n">scene_type</span> <span class="o">==</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">INN</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">inn</span><span class="o">.</span><span class="n">generate_sale_options</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">active_scene</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inn</span>
-
-        <span class="k">elif</span> <span class="n">scene_type</span> <span class="o">==</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">EVENT</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">load_random_event</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">active_scene</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">event</span>
-
-        <span class="k">elif</span> <span class="n">scene_type</span> <span class="o">==</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">VIEW_TROUPE</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">troupe</span><span class="o">.</span><span class="n">previous_scene_type</span> <span class="o">=</span> <span class="n">utility</span><span class="o">.</span><span class="n">scene_to_scene_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">active_scene</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">active_scene</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">troupe</span>
-
-        <span class="c1"># rebuild ui</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">active_scene</span><span class="p">,</span> <span class="s2">"ui"</span><span class="p">):</span>
-            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">active_scene</span><span class="o">.</span><span class="n">ui</span><span class="p">,</span> <span class="s2">"rebuild_ui"</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">active_scene</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rebuild_ui</span><span class="p">()</span>
-
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Active scene changed to </span><span class="si">{</span><span class="n">scene_type</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_scene</span><span class="p">(</span><span class="n">scene_type</span><span class="p">)</span></div></div>
 </pre></div>
 
           </article>

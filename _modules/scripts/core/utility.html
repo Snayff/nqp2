@@ -221,6 +221,13 @@
     <li class="md-nav__item">
     
     
+      <a href="../../../api/scene_elements/_scene_elements.html" class="md-nav__link">Scene Elements</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../../../api/ui_elements/ui_elements.html" class="md-nav__link">UI Elements</a>
       
     
@@ -228,7 +235,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../developer_notes/_developer_notes.html" class="md-nav__link">Developer Notes</a>
+      <a href="../../../developer/_developer.html" class="md-nav__link">Developer</a>
       
     
     </li>
@@ -262,11 +269,14 @@
 <span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">TypeVar</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">TypeVar</span>
 
 <span class="kn">import</span> <span class="nn">pygame</span>
 
-<span class="kn">from</span> <span class="nn">scripts.core.constants</span> <span class="kn">import</span> <span class="n">NodeType</span><span class="p">,</span> <span class="n">SceneType</span>
+<span class="kn">from</span> <span class="nn">scripts.core.constants</span> <span class="kn">import</span> <span class="n">SceneType</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
 
 <span class="n">_V</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">"_V"</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>  <span class="c1"># to represent where we don't know which type is being used</span>
 
@@ -331,12 +341,11 @@
     <span class="sd">"""</span>
 <span class="sd">    Take a Scene and return the relevant SceneType</span>
 <span class="sd">    """</span>
-    <span class="kn">from</span> <span class="nn">scripts.scenes.combat.scene</span> <span class="kn">import</span> <span class="n">CombatScene</span>
+
     <span class="kn">from</span> <span class="nn">scripts.scenes.event.scene</span> <span class="kn">import</span> <span class="n">EventScene</span>
     <span class="kn">from</span> <span class="nn">scripts.scenes.gallery.scene</span> <span class="kn">import</span> <span class="n">GalleryScene</span>
     <span class="kn">from</span> <span class="nn">scripts.scenes.inn.scene</span> <span class="kn">import</span> <span class="n">InnScene</span>
     <span class="kn">from</span> <span class="nn">scripts.scenes.main_menu.scene</span> <span class="kn">import</span> <span class="n">MainMenuScene</span>
-    <span class="kn">from</span> <span class="nn">scripts.scenes.overworld.scene</span> <span class="kn">import</span> <span class="n">OverworldScene</span>
     <span class="kn">from</span> <span class="nn">scripts.scenes.post_combat.scene</span> <span class="kn">import</span> <span class="n">PostCombatScene</span>
     <span class="kn">from</span> <span class="nn">scripts.scenes.run_setup.scene</span> <span class="kn">import</span> <span class="n">RunSetupScene</span>
     <span class="kn">from</span> <span class="nn">scripts.scenes.training.scene</span> <span class="kn">import</span> <span class="n">TrainingScene</span>
@@ -351,12 +360,10 @@
         <span class="n">scene</span> <span class="o">=</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">TRAINING</span>
     <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">scene</span><span class="p">)</span> <span class="ow">is</span> <span class="n">InnScene</span><span class="p">:</span>
         <span class="n">scene</span> <span class="o">=</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">INN</span>
-    <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">scene</span><span class="p">)</span> <span class="ow">is</span> <span class="n">OverworldScene</span><span class="p">:</span>
-        <span class="n">scene</span> <span class="o">=</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">OVERWORLD</span>
     <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">scene</span><span class="p">)</span> <span class="ow">is</span> <span class="n">EventScene</span><span class="p">:</span>
         <span class="n">scene</span> <span class="o">=</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">EVENT</span>
     <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">scene</span><span class="p">)</span> <span class="ow">is</span> <span class="n">PostCombatScene</span><span class="p">:</span>
-        <span class="n">scene</span> <span class="o">=</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">REWARD</span>
+        <span class="n">scene</span> <span class="o">=</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">POST_COMBAT</span>
     <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">scene</span><span class="p">)</span> <span class="ow">is</span> <span class="n">RunSetupScene</span><span class="p">:</span>
         <span class="n">scene</span> <span class="o">=</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">RUN_SETUP</span>
     <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">scene</span><span class="p">)</span> <span class="ow">is</span> <span class="n">UnitDataScene</span><span class="p">:</span>
@@ -367,25 +374,6 @@
         <span class="n">scene</span> <span class="o">=</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">DEV_GALLERY</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"scene_to_scene_type: Scene (</span><span class="si">{</span><span class="n">scene</span><span class="si">}</span><span class="s2">) not found."</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">scene</span></div>
-
-
-<div class="viewcode-block" id="node_type_to_scene_type"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.utility.node_type_to_scene_type">[docs]</a><span class="k">def</span> <span class="nf">node_type_to_scene_type</span><span class="p">(</span><span class="n">node_type</span><span class="p">:</span> <span class="n">NodeType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SceneType</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">node_type</span> <span class="o">==</span> <span class="n">NodeType</span><span class="o">.</span><span class="n">COMBAT</span><span class="p">:</span>
-        <span class="n">scene</span> <span class="o">=</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">COMBAT</span>
-    <span class="k">elif</span> <span class="n">node_type</span> <span class="o">==</span> <span class="n">NodeType</span><span class="o">.</span><span class="n">INN</span><span class="p">:</span>
-        <span class="n">scene</span> <span class="o">=</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">INN</span>
-    <span class="k">elif</span> <span class="n">node_type</span> <span class="o">==</span> <span class="n">NodeType</span><span class="o">.</span><span class="n">TRAINING</span><span class="p">:</span>
-        <span class="n">scene</span> <span class="o">=</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">TRAINING</span>
-    <span class="k">elif</span> <span class="n">node_type</span> <span class="o">==</span> <span class="n">NodeType</span><span class="o">.</span><span class="n">EVENT</span><span class="p">:</span>
-        <span class="n">scene</span> <span class="o">=</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">EVENT</span>
-    <span class="k">elif</span> <span class="n">node_type</span> <span class="o">==</span> <span class="n">NodeType</span><span class="o">.</span><span class="n">BLANK</span><span class="p">:</span>
-        <span class="n">scene</span> <span class="o">=</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">OVERWORLD</span>
-
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"node_type_to_scene_type: Node type (</span><span class="si">{</span><span class="n">node_type</span><span class="si">}</span><span class="s2"> not found. Default to Combat."</span><span class="p">)</span>
-        <span class="n">scene</span> <span class="o">=</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">COMBAT</span>
 
     <span class="k">return</span> <span class="n">scene</span></div>
 

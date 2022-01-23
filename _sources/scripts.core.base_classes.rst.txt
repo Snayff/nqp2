@@ -4,14 +4,6 @@ scripts.core.base\_classes package
 Submodules
 ----------
 
-scripts.core.base\_classes.node\_container module
--------------------------------------------------
-
-.. automodule:: scripts.core.base_classes.node_container
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 scripts.core.base\_classes.scene module
 ---------------------------------------
 

@@ -221,6 +221,13 @@
     <li class="md-nav__item">
     
     
+      <a href="../../../../api/scene_elements/_scene_elements.html" class="md-nav__link">Scene Elements</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../../../../api/ui_elements/ui_elements.html" class="md-nav__link">UI Elements</a>
       
     
@@ -228,7 +235,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../../developer_notes/_developer_notes.html" class="md-nav__link">Developer Notes</a>
+      <a href="../../../../developer/_developer.html" class="md-nav__link">Developer</a>
       
     
     </li>
@@ -267,13 +274,13 @@
 
 <span class="kn">from</span> <span class="nn">scripts.core.base_classes.ui</span> <span class="kn">import</span> <span class="n">UI</span>
 <span class="kn">from</span> <span class="nn">scripts.core.constants</span> <span class="kn">import</span> <span class="n">DEFAULT_IMAGE_SIZE</span><span class="p">,</span> <span class="n">FontType</span><span class="p">,</span> <span class="n">GAP_SIZE</span><span class="p">,</span> <span class="n">SceneType</span><span class="p">,</span> <span class="n">TrainingState</span>
-<span class="kn">from</span> <span class="nn">scripts.scenes.combat.elements.unit</span> <span class="kn">import</span> <span class="n">Unit</span>
+<span class="kn">from</span> <span class="nn">scripts.scene_elements.unit</span> <span class="kn">import</span> <span class="n">Unit</span>
 <span class="kn">from</span> <span class="nn">scripts.ui_elements.frame</span> <span class="kn">import</span> <span class="n">Frame</span>
 <span class="kn">from</span> <span class="nn">scripts.ui_elements.panel</span> <span class="kn">import</span> <span class="n">Panel</span>
 <span class="kn">from</span> <span class="nn">scripts.ui_elements.unit_stats_frame</span> <span class="kn">import</span> <span class="n">UnitStatsFrame</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Union</span>
+    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
 
     <span class="kn">from</span> <span class="nn">scripts.core.game</span> <span class="kn">import</span> <span class="n">Game</span>
     <span class="kn">from</span> <span class="nn">scripts.scenes.training.scene</span> <span class="kn">import</span> <span class="n">TrainingScene</span>
@@ -288,12 +295,12 @@
 
 <div class="viewcode-block" id="TrainingUI.__init__"><a class="viewcode-back" href="../../../../scripts.scenes.training.html#scripts.scenes.training.ui.TrainingUI.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">game</span><span class="p">:</span> <span class="n">Game</span><span class="p">,</span> <span class="n">parent_scene</span><span class="p">:</span> <span class="n">TrainingScene</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">parent_scene</span><span class="p">:</span> <span class="n">TrainingScene</span> <span class="o">=</span> <span class="n">parent_scene</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span><span class="p">:</span> <span class="n">TrainingScene</span> <span class="o">=</span> <span class="n">parent_scene</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">selected_unit</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Unit</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">selected_upgrade</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">stat_frame</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">UnitStatsFrame</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">stat_frame_pos</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_selected_unit</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Unit</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_selected_upgrade</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stat_frame</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">UnitStatsFrame</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stat_frame_pos</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">set_instruction_text</span><span class="p">(</span><span class="s2">"Choose an upgrade to buy."</span><span class="p">)</span></div>
 
@@ -304,39 +311,39 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">process_input</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span>
 
         <span class="c1"># view troupe</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"view_troupe"</span><span class="p">]:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"view_troupe"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">change_scene</span><span class="p">([</span><span class="n">SceneType</span><span class="o">.</span><span class="n">VIEW_TROUPE</span><span class="p">])</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"view_troupe"</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"view_troupe"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">change_scene</span><span class="p">(</span><span class="n">SceneType</span><span class="o">.</span><span class="n">VIEW_TROUPE</span><span class="p">)</span>
 
         <span class="c1"># panel specific input</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_panel</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">panels</span><span class="p">[</span><span class="s2">"upgrades"</span><span class="p">]:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">handle_select_upgrade_input</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_panels</span><span class="p">[</span><span class="s2">"upgrades"</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_handle_select_upgrade_input</span><span class="p">()</span>
 
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_panel</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">panels</span><span class="p">[</span><span class="s2">"units"</span><span class="p">]:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">handle_choose_unit_input</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_panels</span><span class="p">[</span><span class="s2">"units"</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_handle_choose_unit_input</span><span class="p">()</span>
 
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_panel</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">panels</span><span class="p">[</span><span class="s2">"exit"</span><span class="p">]:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"select"</span><span class="p">]:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"select"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_panels</span><span class="p">[</span><span class="s2">"exit"</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"select"</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"select"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
 
-                <span class="bp">self</span><span class="o">.</span><span class="n">selected_unit</span> <span class="o">=</span> <span class="kc">None</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">selected_upgrade</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_selected_unit</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_selected_upgrade</span> <span class="o">=</span> <span class="kc">None</span>
 
-                <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">change_scene</span><span class="p">([</span><span class="n">SceneType</span><span class="o">.</span><span class="n">OVERWORLD</span><span class="p">])</span></div>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">change_scene</span><span class="p">(</span><span class="n">SceneType</span><span class="o">.</span><span class="n">OVERWORLD</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="TrainingUI.render"><a class="viewcode-back" href="../../../../scripts.scenes.training.html#scripts.scenes.training.ui.TrainingUI.render">[docs]</a>    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">surface</span><span class="p">):</span>
+<div class="viewcode-block" id="TrainingUI.draw"><a class="viewcode-back" href="../../../../scripts.scenes.training.html#scripts.scenes.training.ui.TrainingUI.draw">[docs]</a>    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">surface</span><span class="p">):</span>
 
         <span class="c1"># show core info</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">draw_instruction</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_draw_instruction</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>
 
         <span class="c1"># draw elements</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">draw_elements</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_draw_elements</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="TrainingUI.rebuild_ui"><a class="viewcode-back" href="../../../../scripts.scenes.training.html#scripts.scenes.training.ui.TrainingUI.rebuild_ui">[docs]</a>    <span class="k">def</span> <span class="nf">rebuild_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">rebuild_ui</span><span class="p">()</span>
 
-        <span class="n">scene</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">training</span>
-        <span class="n">create_font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">create_font</span>
+        <span class="n">scene</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">training</span>
+        <span class="n">create_font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">create_font</span>
 
         <span class="n">start_x</span> <span class="o">=</span> <span class="mi">20</span>
         <span class="n">start_y</span> <span class="o">=</span> <span class="mi">40</span>
@@ -356,22 +363,22 @@
                 <span class="n">is_selectable</span> <span class="o">=</span> <span class="kc">True</span>
 
                 <span class="c1"># check can afford</span>
-                <span class="n">upgrade_cost</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">training</span><span class="o">.</span><span class="n">calculate_upgrade_cost</span><span class="p">(</span><span class="n">upgrade</span><span class="p">[</span><span class="s2">"tier"</span><span class="p">])</span>
-                <span class="n">can_afford</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">gold</span> <span class="o">&gt;</span> <span class="n">upgrade_cost</span>
+                <span class="n">upgrade_cost</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">training</span><span class="o">.</span><span class="n">calculate_upgrade_cost</span><span class="p">(</span><span class="n">upgrade</span><span class="p">[</span><span class="s2">"tier"</span><span class="p">])</span>
+                <span class="n">can_afford</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">gold</span> <span class="o">&gt;</span> <span class="n">upgrade_cost</span>
                 <span class="k">if</span> <span class="n">can_afford</span><span class="p">:</span>
                     <span class="n">gold_font_type</span> <span class="o">=</span> <span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">gold_font_type</span> <span class="o">=</span> <span class="n">FontType</span><span class="o">.</span><span class="n">NEGATIVE</span>
 
                 <span class="c1"># draw gold cost</span>
-                <span class="n">gold_icon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">"stats"</span><span class="p">,</span> <span class="s2">"gold"</span><span class="p">,</span> <span class="n">icon_size</span><span class="p">)</span>
+                <span class="n">gold_icon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">"stats"</span><span class="p">,</span> <span class="s2">"gold"</span><span class="p">,</span> <span class="n">icon_size</span><span class="p">)</span>
                 <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
                     <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span>
                     <span class="n">image</span><span class="o">=</span><span class="n">gold_icon</span><span class="p">,</span>
                     <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">gold_font_type</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">upgrade_cost</span><span class="p">)),</span>
                     <span class="n">is_selectable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                 <span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="s2">"cost"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">selection_counter</span><span class="p">)]</span> <span class="o">=</span> <span class="n">frame</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="s2">"cost"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">selection_counter</span><span class="p">)]</span> <span class="o">=</span> <span class="n">frame</span>
 
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">text</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"Sold out"</span>
@@ -380,18 +387,18 @@
 
             <span class="c1"># draw upgrade icon and details</span>
             <span class="n">upgrade_x</span> <span class="o">=</span> <span class="n">current_x</span> <span class="o">+</span> <span class="mi">50</span>
-            <span class="n">stat_icon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">"stats"</span><span class="p">,</span> <span class="n">upgrade</span><span class="p">[</span><span class="s2">"stat"</span><span class="p">],</span> <span class="n">icon_size</span><span class="p">)</span>
+            <span class="n">stat_icon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">"stats"</span><span class="p">,</span> <span class="n">upgrade</span><span class="p">[</span><span class="s2">"stat"</span><span class="p">],</span> <span class="n">icon_size</span><span class="p">)</span>
             <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
                 <span class="p">(</span><span class="n">upgrade_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span> <span class="n">image</span><span class="o">=</span><span class="n">stat_icon</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">font_type</span><span class="p">,</span> <span class="n">text</span><span class="p">),</span> <span class="n">is_selectable</span><span class="o">=</span><span class="n">is_selectable</span>
             <span class="p">)</span>
             <span class="c1"># capture frame</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">upgrade</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">selection_counter</span><span class="p">)]</span> <span class="o">=</span> <span class="n">frame</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="n">upgrade</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">selection_counter</span><span class="p">)]</span> <span class="o">=</span> <span class="n">frame</span>
             <span class="n">panel_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
 
             <span class="c1"># highlight selected upgrade</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_upgrade</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">selected_upgrade</span> <span class="o">=</span> <span class="n">upgrade</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">upgrade</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_upgrade</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selected_upgrade</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_selected_upgrade</span> <span class="o">=</span> <span class="n">upgrade</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">upgrade</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selected_upgrade</span><span class="p">:</span>
                 <span class="n">frame</span><span class="o">.</span><span class="n">is_selected</span> <span class="o">=</span> <span class="kc">True</span>
 
             <span class="c1"># increment</span>
@@ -404,8 +411,8 @@
         <span class="n">current_x</span> <span class="o">+=</span> <span class="mi">150</span>
         <span class="n">current_y</span> <span class="o">=</span> <span class="n">start_y</span> <span class="o">+</span> <span class="mi">20</span>  <span class="c1"># add an offset</span>
         <span class="n">panel_list</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">selection_counter</span><span class="p">,</span> <span class="n">unit</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">player_troupe</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
-            <span class="n">unit_icon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">unit_animations</span><span class="p">[</span><span class="n">unit</span><span class="o">.</span><span class="n">type</span><span class="p">][</span><span class="s2">"icon"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">selection_counter</span><span class="p">,</span> <span class="n">unit</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">player_troupe</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+            <span class="n">unit_icon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">unit_animations</span><span class="p">[</span><span class="n">unit</span><span class="o">.</span><span class="n">type</span><span class="p">][</span><span class="s2">"icon"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
             <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
                 <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span>
                 <span class="n">image</span><span class="o">=</span><span class="n">unit_icon</span><span class="p">,</span>
@@ -415,13 +422,13 @@
             <span class="n">frame</span><span class="o">.</span><span class="n">add_tier_background</span><span class="p">(</span><span class="n">unit</span><span class="o">.</span><span class="n">tier</span><span class="p">)</span>
 
             <span class="c1"># register frame</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">unit</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">unit</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
             <span class="n">panel_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
 
             <span class="c1"># highlight selected unit</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_unit</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">selected_unit</span> <span class="o">=</span> <span class="n">unit</span>
-            <span class="k">if</span> <span class="n">unit</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_unit</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selected_unit</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_selected_unit</span> <span class="o">=</span> <span class="n">unit</span>
+            <span class="k">if</span> <span class="n">unit</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selected_unit</span><span class="p">:</span>
                 <span class="n">frame</span><span class="o">.</span><span class="n">is_selected</span> <span class="o">=</span> <span class="kc">True</span>
 
             <span class="c1"># increment</span>
@@ -432,8 +439,8 @@
 
         <span class="c1"># draw stat frame</span>
         <span class="n">current_x</span> <span class="o">+=</span> <span class="mi">100</span>
-        <span class="n">frame</span> <span class="o">=</span> <span class="n">UnitStatsFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="p">,</span> <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">start_y</span> <span class="o">+</span> <span class="mi">20</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_unit</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="s2">"stat_frame"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">UnitStatsFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">start_y</span> <span class="o">+</span> <span class="mi">20</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selected_unit</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="s2">"stat_frame"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
         <span class="n">frame</span><span class="o">.</span><span class="n">is_active</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="c1"># draw exit button</span>
@@ -442,80 +449,80 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">rebuild_resource_elements</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="TrainingUI.refresh_info"><a class="viewcode-back" href="../../../../scripts.scenes.training.html#scripts.scenes.training.ui.TrainingUI.refresh_info">[docs]</a>    <span class="k">def</span> <span class="nf">refresh_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">elements</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span>
+        <span class="n">elements</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_unit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">elements</span><span class="p">[</span><span class="s2">"stat_frame"</span><span class="p">]</span><span class="o">.</span><span class="n">set_unit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_unit</span><span class="p">)</span></div>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selected_unit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">elements</span><span class="p">[</span><span class="s2">"stat_frame"</span><span class="p">]</span><span class="o">.</span><span class="n">set_unit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_selected_unit</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="TrainingUI.handle_select_upgrade_input"><a class="viewcode-back" href="../../../../scripts.scenes.training.html#scripts.scenes.training.ui.TrainingUI.handle_select_upgrade_input">[docs]</a>    <span class="k">def</span> <span class="nf">handle_select_upgrade_input</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"select"</span><span class="p">]:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"select"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">def</span> <span class="nf">_handle_select_upgrade_input</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"select"</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"select"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
 
-            <span class="n">selected_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_panel</span><span class="o">.</span><span class="n">selected_index</span>
-            <span class="n">upgrade</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">training</span><span class="o">.</span><span class="n">upgrades_offered</span><span class="p">[</span><span class="n">selected_index</span><span class="p">]</span>
+            <span class="n">selected_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">selected_index</span>
+            <span class="n">upgrade</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">training</span><span class="o">.</span><span class="n">upgrades_offered</span><span class="p">[</span><span class="n">selected_index</span><span class="p">]</span>
 
             <span class="c1"># check upgrade is available - this is a defensive check; you shouldnt be able to select a sold upgrade</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">training</span><span class="o">.</span><span class="n">upgrades_available</span><span class="p">[</span><span class="n">upgrade</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]]:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">training</span><span class="o">.</span><span class="n">upgrades_available</span><span class="p">[</span><span class="n">upgrade</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]]:</span>
 
                 <span class="c1"># select the upgrade</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">selected_upgrade</span> <span class="o">=</span> <span class="n">upgrade</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_selected_upgrade</span> <span class="o">=</span> <span class="n">upgrade</span>
 
                 <span class="c1"># move to next panel</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">select_panel</span><span class="p">(</span><span class="s2">"units"</span><span class="p">)</span>
 
                 <span class="c1"># show unit stat frame</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="s2">"stat_frame"</span><span class="p">]</span><span class="o">.</span><span class="n">is_active</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="s2">"stat_frame"</span><span class="p">]</span><span class="o">.</span><span class="n">is_active</span> <span class="o">=</span> <span class="kc">True</span>
 
                 <span class="c1"># update state</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">training</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">TrainingState</span><span class="o">.</span><span class="n">CHOOSE_TARGET_UNIT</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">training</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">TrainingState</span><span class="o">.</span><span class="n">CHOOSE_TARGET_UNIT</span>
 
                 <span class="c1"># update info</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">selected_unit</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">player_troupe</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="n">selected_index</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_selected_unit</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">player_troupe</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="n">selected_index</span><span class="p">]</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">refresh_info</span><span class="p">()</span>
 
                 <span class="c1"># update instruction</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">set_instruction_text</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Choose a unit to apply </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_upgrade</span><span class="p">[</span><span class="s1">'type'</span><span class="p">]</span><span class="si">}</span><span class="s2"> to."</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_instruction_text</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Choose a unit to apply </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_selected_upgrade</span><span class="p">[</span><span class="s1">'type'</span><span class="p">]</span><span class="si">}</span><span class="s2"> to."</span><span class="p">)</span>
 
         <span class="c1"># go to exit</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"cancel"</span><span class="p">]:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"cancel"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"cancel"</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"cancel"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">select_panel</span><span class="p">(</span><span class="s2">"exit"</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"down"</span><span class="p">]:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"down"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"down"</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"down"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">current_panel</span><span class="o">.</span><span class="n">select_next_element</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">select_next_element</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"up"</span><span class="p">]:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"up"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"up"</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"up"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">current_panel</span><span class="o">.</span><span class="n">select_previous_element</span><span class="p">()</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">select_previous_element</span><span class="p">()</span>
 
-<div class="viewcode-block" id="TrainingUI.handle_choose_unit_input"><a class="viewcode-back" href="../../../../scripts.scenes.training.html#scripts.scenes.training.ui.TrainingUI.handle_choose_unit_input">[docs]</a>    <span class="k">def</span> <span class="nf">handle_choose_unit_input</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_handle_choose_unit_input</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="c1"># choose a unit</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"select"</span><span class="p">]:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"select"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
-            <span class="n">upgrade</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_upgrade</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"select"</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"select"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">upgrade</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selected_upgrade</span>
 
             <span class="c1"># do we have info needed</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_unit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">upgrade</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selected_unit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">upgrade</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
 
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">attempt_upgrade_unit</span><span class="p">():</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_attempt_upgrade_unit</span><span class="p">():</span>
 
                     <span class="c1"># confirm to user</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">set_instruction_text</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_unit</span><span class="o">.</span><span class="n">type</span><span class="si">}</span><span class="s2"> upgraded with </span><span class="si">{</span><span class="n">upgrade</span><span class="p">[</span><span class="s1">'type'</span><span class="p">]</span><span class="si">}</span><span class="s2">."</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">set_instruction_text</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_selected_unit</span><span class="o">.</span><span class="n">type</span><span class="si">}</span><span class="s2"> upgraded with </span><span class="si">{</span><span class="n">upgrade</span><span class="p">[</span><span class="s1">'type'</span><span class="p">]</span><span class="si">}</span><span class="s2">."</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
                     <span class="c1"># change state</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">training</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">TrainingState</span><span class="o">.</span><span class="n">CHOOSE_UPGRADE</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">training</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">TrainingState</span><span class="o">.</span><span class="n">CHOOSE_UPGRADE</span>
 
                     <span class="c1"># reset values to choose another upgrade</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">selected_unit</span> <span class="o">=</span> <span class="kc">None</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_selected_unit</span> <span class="o">=</span> <span class="kc">None</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">rebuild_ui</span><span class="p">()</span>
 
                     <span class="c1"># check if anything left available</span>
-                    <span class="k">if</span> <span class="kc">True</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">training</span><span class="o">.</span><span class="n">upgrades_available</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="kc">True</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">training</span><span class="o">.</span><span class="n">upgrades_available</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">set_instruction_text</span><span class="p">(</span><span class="s2">"Choose an upgrade to buy."</span><span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">set_instruction_text</span><span class="p">(</span><span class="s2">"All sold out. Time to move on."</span><span class="p">)</span>
@@ -523,60 +530,64 @@
                         <span class="bp">self</span><span class="o">.</span><span class="n">select_panel</span><span class="p">(</span><span class="s2">"exit"</span><span class="p">)</span>
 
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">upgrade_cost</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">training</span><span class="o">.</span><span class="n">calculate_upgrade_cost</span><span class="p">(</span><span class="n">upgrade</span><span class="p">[</span><span class="s2">"tier"</span><span class="p">])</span>
+                    <span class="n">upgrade_cost</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">training</span><span class="o">.</span><span class="n">calculate_upgrade_cost</span><span class="p">(</span><span class="n">upgrade</span><span class="p">[</span><span class="s2">"tier"</span><span class="p">])</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">set_instruction_text</span><span class="p">(</span>
                         <span class="sa">f</span><span class="s2">"You can't afford the </span><span class="si">{</span><span class="n">upgrade_cost</span><span class="si">}</span><span class="s2"> gold to purchase "</span> <span class="sa">f</span><span class="s2">"  </span><span class="si">{</span><span class="n">upgrade</span><span class="p">[</span><span class="s1">'type'</span><span class="p">]</span><span class="si">}</span><span class="s2">."</span><span class="p">,</span> <span class="kc">True</span>
                     <span class="p">)</span>
 
         <span class="c1"># return to upgrade select</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"cancel"</span><span class="p">]:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"cancel"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"cancel"</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"cancel"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">selected_unit</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_selected_unit</span> <span class="o">=</span> <span class="kc">None</span>
 
             <span class="c1"># change panel</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">select_panel</span><span class="p">(</span><span class="s2">"upgrades"</span><span class="p">)</span>
 
             <span class="c1"># hide stat panel</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="s2">"stat_frame"</span><span class="p">]</span><span class="o">.</span><span class="n">is_active</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="s2">"stat_frame"</span><span class="p">]</span><span class="o">.</span><span class="n">is_active</span> <span class="o">=</span> <span class="kc">False</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">refresh_info</span><span class="p">()</span>
 
             <span class="c1"># change state</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">training</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">TrainingState</span><span class="o">.</span><span class="n">CHOOSE_UPGRADE</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">training</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">TrainingState</span><span class="o">.</span><span class="n">CHOOSE_UPGRADE</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">set_instruction_text</span><span class="p">(</span><span class="s2">"Choose an upgrade to buy."</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"down"</span><span class="p">]:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"down"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"down"</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"down"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">current_panel</span><span class="o">.</span><span class="n">select_next_element</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">selected_unit</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">player_troupe</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="bp">self</span><span class="o">.</span><span class="n">current_panel</span><span class="o">.</span><span class="n">selected_index</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">select_next_element</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_selected_unit</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">player_troupe</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">selected_index</span>
+            <span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">refresh_info</span><span class="p">()</span>  <span class="c1"># for stat panel</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"up"</span><span class="p">]:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"up"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"up"</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"up"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">current_panel</span><span class="o">.</span><span class="n">select_previous_element</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">selected_unit</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">player_troupe</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="bp">self</span><span class="o">.</span><span class="n">current_panel</span><span class="o">.</span><span class="n">selected_index</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">refresh_info</span><span class="p">()</span>  <span class="c1"># for stat panel</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">select_previous_element</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_selected_unit</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">player_troupe</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">selected_index</span>
+            <span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">refresh_info</span><span class="p">()</span>  <span class="c1"># for stat panel</span>
 
-<div class="viewcode-block" id="TrainingUI.attempt_upgrade_unit"><a class="viewcode-back" href="../../../../scripts.scenes.training.html#scripts.scenes.training.ui.TrainingUI.attempt_upgrade_unit">[docs]</a>    <span class="k">def</span> <span class="nf">attempt_upgrade_unit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<div class="viewcode-block" id="TrainingUI._attempt_upgrade_unit"><a class="viewcode-back" href="../../../../api/scenes/training.html#scripts.scenes.training.ui.TrainingUI._attempt_upgrade_unit">[docs]</a>    <span class="k">def</span> <span class="nf">_attempt_upgrade_unit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="sd">"""</span>
 <span class="sd">        Attempt to upgrade the unit. Returns true is successful.</span>
 <span class="sd">        """</span>
         <span class="c1"># can we afford</span>
-        <span class="n">id_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_unit</span><span class="o">.</span><span class="n">id</span>
-        <span class="n">upgrade</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_upgrade</span>
-        <span class="n">upgrade_cost</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">training</span><span class="o">.</span><span class="n">calculate_upgrade_cost</span><span class="p">(</span><span class="n">upgrade</span><span class="p">[</span><span class="s2">"tier"</span><span class="p">])</span>
-        <span class="k">if</span> <span class="n">upgrade_cost</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">gold</span><span class="p">:</span>
+        <span class="n">id_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selected_unit</span><span class="o">.</span><span class="n">id</span>
+        <span class="n">upgrade</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selected_upgrade</span>
+        <span class="n">upgrade_cost</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">training</span><span class="o">.</span><span class="n">calculate_upgrade_cost</span><span class="p">(</span><span class="n">upgrade</span><span class="p">[</span><span class="s2">"tier"</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">upgrade_cost</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">gold</span><span class="p">:</span>
 
             <span class="c1"># pay for the upgrade and execute it</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">amend_gold</span><span class="p">(</span><span class="o">-</span><span class="n">upgrade_cost</span><span class="p">)</span>  <span class="c1"># remove gold cost</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">player_troupe</span><span class="o">.</span><span class="n">upgrade_unit</span><span class="p">(</span><span class="n">id_</span><span class="p">,</span> <span class="n">upgrade</span><span class="p">[</span><span class="s2">"type"</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">amend_gold</span><span class="p">(</span><span class="o">-</span><span class="n">upgrade_cost</span><span class="p">)</span>  <span class="c1"># remove gold cost</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">player_troupe</span><span class="o">.</span><span class="n">upgrade_unit</span><span class="p">(</span><span class="n">id_</span><span class="p">,</span> <span class="n">upgrade</span><span class="p">[</span><span class="s2">"type"</span><span class="p">])</span>
 
             <span class="c1">#  update upgrade availability and refresh UI</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">training</span><span class="o">.</span><span class="n">upgrades_available</span><span class="p">[</span><span class="n">upgrade</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">training</span><span class="o">.</span><span class="n">upgrades_available</span><span class="p">[</span><span class="n">upgrade</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">False</span>
 
             <span class="n">success</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">else</span><span class="p">:</span>

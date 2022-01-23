@@ -221,6 +221,13 @@
     <li class="md-nav__item">
     
     
+      <a href="../../../api/scene_elements/_scene_elements.html" class="md-nav__link">Scene Elements</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../../../api/ui_elements/ui_elements.html" class="md-nav__link">UI Elements</a>
       
     
@@ -228,7 +235,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../developer_notes/_developer_notes.html" class="md-nav__link">Developer Notes</a>
+      <a href="../../../developer/_developer.html" class="md-nav__link">Developer</a>
       
     
     </li>
@@ -289,9 +296,9 @@
         <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">:</span>
             <span class="n">element</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Panel.render"><a class="viewcode-back" href="../../../scripts.ui_elements.html#scripts.ui_elements.panel.Panel.render">[docs]</a>    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">surface</span><span class="p">):</span>
+<div class="viewcode-block" id="Panel.draw"><a class="viewcode-back" href="../../../scripts.ui_elements.html#scripts.ui_elements.panel.Panel.draw">[docs]</a>    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">surface</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">:</span>
-            <span class="n">element</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span></div>
+            <span class="n">element</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">selected_element</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

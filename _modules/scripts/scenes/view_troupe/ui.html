@@ -221,6 +221,13 @@
     <li class="md-nav__item">
     
     
+      <a href="../../../../api/scene_elements/_scene_elements.html" class="md-nav__link">Scene Elements</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../../../../api/ui_elements/ui_elements.html" class="md-nav__link">UI Elements</a>
       
     
@@ -228,7 +235,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../../developer_notes/_developer_notes.html" class="md-nav__link">Developer Notes</a>
+      <a href="../../../../developer/_developer.html" class="md-nav__link">Developer</a>
       
     
     </li>
@@ -285,7 +292,7 @@
 
 <div class="viewcode-block" id="ViewTroupeUI.__init__"><a class="viewcode-back" href="../../../../scripts.scenes.view_troupe.html#scripts.scenes.view_troupe.ui.ViewTroupeUI.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">game</span><span class="p">:</span> <span class="n">Game</span><span class="p">,</span> <span class="n">parent_scene</span><span class="p">:</span> <span class="n">ViewTroupeScene</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">parent_scene</span><span class="p">:</span> <span class="n">ViewTroupeScene</span> <span class="o">=</span> <span class="n">parent_scene</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span><span class="p">:</span> <span class="n">ViewTroupeScene</span> <span class="o">=</span> <span class="n">parent_scene</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">set_instruction_text</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Press X to exit the troupe overview."</span><span class="p">)</span></div>
 
@@ -296,33 +303,33 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">process_input</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span>
 
         <span class="c1"># generic input</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"down"</span><span class="p">]:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"down"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"down"</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"down"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">current_panel</span><span class="o">.</span><span class="n">select_next_element</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">select_next_element</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"up"</span><span class="p">]:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"up"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"up"</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"up"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">current_panel</span><span class="o">.</span><span class="n">select_previous_element</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">select_previous_element</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"cancel"</span><span class="p">]:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"cancel"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"cancel"</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"cancel"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
 
             <span class="c1"># return to previous scene</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">change_scene</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">troupe</span><span class="o">.</span><span class="n">previous_scene_type</span><span class="p">])</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">change_scene</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">troupe</span><span class="o">.</span><span class="n">previous_scene_type</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="ViewTroupeUI.render"><a class="viewcode-back" href="../../../../scripts.scenes.view_troupe.html#scripts.scenes.view_troupe.ui.ViewTroupeUI.render">[docs]</a>    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">surface</span><span class="p">):</span>
+<div class="viewcode-block" id="ViewTroupeUI.draw"><a class="viewcode-back" href="../../../../scripts.scenes.view_troupe.html#scripts.scenes.view_troupe.ui.ViewTroupeUI.draw">[docs]</a>    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">surface</span><span class="p">):</span>
         <span class="c1"># show core info</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">draw_instruction</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_draw_instruction</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>
 
         <span class="c1"># draw elements</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">draw_elements</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_draw_elements</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="ViewTroupeUI.rebuild_ui"><a class="viewcode-back" href="../../../../scripts.scenes.view_troupe.html#scripts.scenes.view_troupe.ui.ViewTroupeUI.rebuild_ui">[docs]</a>    <span class="k">def</span> <span class="nf">rebuild_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">rebuild_ui</span><span class="p">()</span>
 
-        <span class="n">units</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">player_troupe</span><span class="o">.</span><span class="n">units</span>
+        <span class="n">units</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">player_troupe</span><span class="o">.</span><span class="n">units</span>
 
         <span class="c1"># positions</span>
         <span class="n">start_x</span> <span class="o">=</span> <span class="mi">20</span>
@@ -333,8 +340,8 @@
         <span class="n">current_y</span> <span class="o">=</span> <span class="n">start_y</span>
         <span class="k">for</span> <span class="n">count</span><span class="p">,</span> <span class="n">unit</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">units</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
 
-            <span class="n">frame</span> <span class="o">=</span> <span class="n">UnitStatsFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="p">,</span> <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span> <span class="n">unit</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">unit</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
+            <span class="n">frame</span> <span class="o">=</span> <span class="n">UnitStatsFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span> <span class="n">unit</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">unit</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
             <span class="c1"># if we need to refer back to this we will need to change key</span>
 
             <span class="n">current_x</span> <span class="o">+=</span> <span class="mi">70</span>

@@ -313,6 +313,13 @@
     <li class="md-nav__item">
     
     
+      <a href="../scene_elements/_scene_elements.html" class="md-nav__link">Scene Elements</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../ui_elements/ui_elements.html" class="md-nav__link">UI Elements</a>
       
     
@@ -320,7 +327,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../developer_notes/_developer_notes.html" class="md-nav__link">Developer Notes</a>
+      <a href="../../developer/_developer.html" class="md-nav__link">Developer</a>
       
     
     </li>
@@ -373,6 +380,11 @@
 <dd><p>Return true if all an event’s conditions are met.</p>
 </dd></dl>
 <dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.memory.Memory.add_troupe">
+<span class="sig-name descname"><span class="pre">add_troupe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">troupe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../scripts.scene_elements.html#scripts.scene_elements.troupe.Troupe" title="scripts.scene_elements.troupe.Troupe"><span class="pre">scripts.scene_elements.troupe.Troupe</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></span><a class="reference internal" href="../../_modules/scripts/core/memory.html#Memory.add_troupe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.memory.Memory.add_troupe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a Troupe to Memory. Returns Troupe ID</p>
+</dd></dl>
+<dl class="py method">
 <dt class="sig sig-object py" id="scripts.core.memory.Memory.amend_charisma">
 <span class="sig-name descname"><span class="pre">amend_charisma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></span><a class="reference internal" href="../../_modules/scripts/core/memory.html#Memory.amend_charisma"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.memory.Memory.amend_charisma" title="Permalink to this definition">¶</a></dt>
 <dd><p>Amend the current charisma value by the given amount. Return remaining amount.</p>
@@ -408,6 +420,22 @@
 <dd><p>Generate the boss for the current level.</p>
 </dd></dl>
 <dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.memory.Memory.get_all_entities">
+<span class="sig-name descname"><span class="pre">get_all_entities</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../../scripts.scene_elements.html#scripts.scene_elements.entity.Entity" title="scripts.scene_elements.entity.Entity"><span class="pre">Entity</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/scripts/core/memory.html#Memory.get_all_entities"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.memory.Memory.get_all_entities" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all entities</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.memory.Memory.get_all_units">
+<span class="sig-name descname"><span class="pre">get_all_units</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../../scripts.scene_elements.html#scripts.scene_elements.unit.Unit" title="scripts.scene_elements.unit.Unit"><span class="pre">Unit</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/scripts/core/memory.html#Memory.get_all_units"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.memory.Memory.get_all_units" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all Units</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.memory.Memory.get_event">
+<span class="sig-name descname"><span class="pre">get_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_from_pool</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/core/memory.html#Memory.get_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.memory.Memory.get_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a specific event. remove_from_pool determines whether the event is removed from the list of possible
+events.</p>
+</dd></dl>
+<dl class="py method">
 <dt class="sig sig-object py" id="scripts.core.memory.Memory.get_random_event">
 <span class="sig-name descname"><span class="pre">get_random_event</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Dict</span></span></span><a class="reference internal" href="../../_modules/scripts/core/memory.html#Memory.get_random_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.memory.Memory.get_random_event" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a random event from those available. This event is then removed from the list of possible events.</p>
@@ -416,6 +444,21 @@
 <dt class="sig sig-object py" id="scripts.core.memory.Memory.prioritise_event">
 <span class="sig-name descname"><span class="pre">prioritise_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/core/memory.html#Memory.prioritise_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.memory.Memory.prioritise_event" title="Permalink to this definition">¶</a></dt>
 <dd><p>Move an event from the event_deck to the priority events.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.memory.Memory.remove_troupe">
+<span class="sig-name descname"><span class="pre">remove_troupe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/core/memory.html#Memory.remove_troupe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.memory.Memory.remove_troupe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove a Troupe from Memory. Deletes Troupe.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.memory.Memory.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/core/memory.html#Memory.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.memory.Memory.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset to initial values</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.memory.Memory.set_game_speed">
+<span class="sig-name descname"><span class="pre">set_game_speed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">speed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/core/memory.html#Memory.set_game_speed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.memory.Memory.set_game_speed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the game speed. 1 is default.</p>
 </dd></dl>
 </dd></dl>
 </section>

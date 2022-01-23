@@ -221,6 +221,13 @@
     <li class="md-nav__item">
     
     
+      <a href="../../../api/scene_elements/_scene_elements.html" class="md-nav__link">Scene Elements</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../../../api/ui_elements/ui_elements.html" class="md-nav__link">UI Elements</a>
       
     
@@ -228,7 +235,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../developer_notes/_developer_notes.html" class="md-nav__link">Developer Notes</a>
+      <a href="../../../developer/_developer.html" class="md-nav__link">Developer</a>
       
     
     </li>
@@ -267,11 +274,10 @@
 
 <span class="kn">from</span> <span class="nn">scripts.core.base_classes.ui_element</span> <span class="kn">import</span> <span class="n">UIElement</span>
 <span class="kn">from</span> <span class="nn">scripts.core.constants</span> <span class="kn">import</span> <span class="n">DEFAULT_IMAGE_SIZE</span><span class="p">,</span> <span class="n">FontType</span><span class="p">,</span> <span class="n">GAP_SIZE</span><span class="p">,</span> <span class="n">StatModifiedStatus</span>
-<span class="kn">from</span> <span class="nn">scripts.scenes.combat.elements.unit</span> <span class="kn">import</span> <span class="n">Unit</span>
-<span class="kn">from</span> <span class="nn">scripts.ui_elements.font</span> <span class="kn">import</span> <span class="n">Font</span>
+<span class="kn">from</span> <span class="nn">scripts.scene_elements.unit</span> <span class="kn">import</span> <span class="n">Unit</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
+    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
 
     <span class="kn">from</span> <span class="nn">scripts.core.game</span> <span class="kn">import</span> <span class="n">Game</span>
 
@@ -286,7 +292,7 @@
 <div class="viewcode-block" id="UnitStatsFrame.__init__"><a class="viewcode-back" href="../../../scripts.ui_elements.html#scripts.ui_elements.unit_stats_frame.UnitStatsFrame.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">game</span><span class="p">:</span> <span class="n">Game</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">unit</span><span class="p">:</span> <span class="n">Unit</span><span class="p">,</span> <span class="n">is_selectable</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">is_selectable</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="p">:</span> <span class="n">Game</span> <span class="o">=</span> <span class="n">game</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">:</span> <span class="n">Game</span> <span class="o">=</span> <span class="n">game</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">unit</span><span class="p">:</span> <span class="n">Unit</span> <span class="o">=</span> <span class="n">unit</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_rebuild_surface</span><span class="p">()</span></div>
@@ -308,14 +314,14 @@
         <span class="c1"># draw icon</span>
         <span class="n">current_x</span> <span class="o">=</span> <span class="n">start_x</span>
         <span class="n">current_y</span> <span class="o">=</span> <span class="n">start_y</span>
-        <span class="n">unit_icon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">unit_animations</span><span class="p">[</span><span class="n">unit</span><span class="o">.</span><span class="n">type</span><span class="p">][</span><span class="s2">"icon"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">unit_icon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">unit_animations</span><span class="p">[</span><span class="n">unit</span><span class="o">.</span><span class="n">type</span><span class="p">][</span><span class="s2">"icon"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">unit_icon</span><span class="p">,</span> <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">))</span>
 
         <span class="n">current_y</span> <span class="o">+=</span> <span class="n">unit_icon</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span> <span class="o">+</span> <span class="n">GAP_SIZE</span>
 
         <span class="c1"># draw unit type</span>
-        <span class="n">font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="n">unit</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">))</span>
-        <span class="n">font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>
+        <span class="n">font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="n">unit</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">))</span>
+        <span class="n">font</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>
 
         <span class="n">current_y</span> <span class="o">+=</span> <span class="n">font</span><span class="o">.</span><span class="n">height</span> <span class="o">+</span> <span class="n">GAP_SIZE</span>
 
@@ -326,7 +332,7 @@
         <span class="k">for</span> <span class="n">stat</span> <span class="ow">in</span> <span class="n">stats</span><span class="p">:</span>
 
             <span class="c1"># draw stat icon</span>
-            <span class="n">stat_icon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">"stats"</span><span class="p">,</span> <span class="n">stat</span><span class="p">,</span> <span class="n">stat_icon_size</span><span class="p">)</span>
+            <span class="n">stat_icon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">"stats"</span><span class="p">,</span> <span class="n">stat</span><span class="p">,</span> <span class="n">stat_icon_size</span><span class="p">)</span>
             <span class="n">surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">stat_icon</span><span class="p">,</span> <span class="p">(</span><span class="n">icon_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">))</span>
 
             <span class="c1"># determine font</span>
@@ -341,9 +347,9 @@
                 <span class="n">font_type</span> <span class="o">=</span> <span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span>
 
             <span class="c1"># + half font height to vertical centre it</span>
-            <span class="n">font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">create_font</span><span class="p">(</span><span class="n">font_type</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">stat</span><span class="p">)))</span>
+            <span class="n">font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">create_font</span><span class="p">(</span><span class="n">font_type</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">stat</span><span class="p">)))</span>
             <span class="n">font</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="p">(</span><span class="n">info_x</span><span class="p">,</span> <span class="n">current_y</span> <span class="o">+</span> <span class="p">(</span><span class="n">font</span><span class="o">.</span><span class="n">height</span> <span class="o">//</span> <span class="mi">2</span><span class="p">))</span>
-            <span class="n">font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>
+            <span class="n">font</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>
 
             <span class="c1"># increment y</span>
             <span class="n">current_y</span> <span class="o">+=</span> <span class="n">stat_icon_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">GAP_SIZE</span>

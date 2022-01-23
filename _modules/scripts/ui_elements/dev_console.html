@@ -221,6 +221,13 @@
     <li class="md-nav__item">
     
     
+      <a href="../../../api/scene_elements/_scene_elements.html" class="md-nav__link">Scene Elements</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../../../api/ui_elements/ui_elements.html" class="md-nav__link">UI Elements</a>
       
     
@@ -228,7 +235,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../developer_notes/_developer_notes.html" class="md-nav__link">Developer Notes</a>
+      <a href="../../../developer/_developer.html" class="md-nav__link">Developer</a>
       
     
     </li>
@@ -268,7 +275,7 @@
 
 <span class="kn">import</span> <span class="nn">pygame</span>
 
-<span class="kn">from</span> <span class="nn">scripts.core.constants</span> <span class="kn">import</span> <span class="n">ASSET_PATH</span><span class="p">,</span> <span class="n">DATA_PATH</span><span class="p">,</span> <span class="n">SceneType</span>
+<span class="kn">from</span> <span class="nn">scripts.core.constants</span> <span class="kn">import</span> <span class="n">ASSET_PATH</span><span class="p">,</span> <span class="n">DATA_PATH</span><span class="p">,</span> <span class="n">SceneType</span><span class="p">,</span> <span class="n">WorldState</span>
 <span class="kn">from</span> <span class="nn">scripts.core.utility</span> <span class="kn">import</span> <span class="n">scene_to_scene_type</span>
 <span class="kn">from</span> <span class="nn">scripts.ui_elements.input_box</span> <span class="kn">import</span> <span class="n">InputBox</span>
 
@@ -287,15 +294,15 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">focused</span><span class="p">:</span>
 
             <span class="c1"># pressed enter</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"typing_enter"</span><span class="p">]:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"typing_enter"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"typing_enter"</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"typing_enter"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
 
                 <span class="bp">self</span><span class="o">.</span><span class="n">_handle_dev_command</span><span class="p">()</span>
 
-                <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">debug</span><span class="o">.</span><span class="n">toggle_dev_console_visibility</span><span class="p">()</span></div>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">debug</span><span class="o">.</span><span class="n">toggle_dev_console_visibility</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="DevConsole.render"><a class="viewcode-back" href="../../../scripts.ui_elements.html#scripts.ui_elements.dev_console.DevConsole.render">[docs]</a>    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">surface</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span></div>
+<div class="viewcode-block" id="DevConsole.draw"><a class="viewcode-back" href="../../../scripts.ui_elements.html#scripts.ui_elements.dev_console.DevConsole.draw">[docs]</a>    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">surface</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_handle_dev_command</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
@@ -308,51 +315,52 @@
             <span class="n">event_id</span> <span class="o">=</span> <span class="n">command</span><span class="p">[</span><span class="mi">6</span><span class="p">:]</span>  <span class="c1"># +1 position to account for space</span>
 
             <span class="c1"># check active scene</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">active_scene</span><span class="o">.</span><span class="n">type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="n">SceneType</span><span class="o">.</span><span class="n">MAIN_MENU</span><span class="p">,</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">RUN_SETUP</span><span class="p">):</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">SceneType</span><span class="o">.</span><span class="n">MAIN_MENU</span><span class="p">,</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">RUN_SETUP</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">scene_stack</span><span class="p">:</span>
                 <span class="n">confirmation_message</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_switch_to_event</span><span class="p">(</span><span class="n">event_id</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">command</span><span class="p">[:</span><span class="mi">7</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"godmode"</span><span class="p">:</span>
             <span class="c1"># check active scene</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">active_scene</span><span class="o">.</span><span class="n">type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="n">SceneType</span><span class="o">.</span><span class="n">MAIN_MENU</span><span class="p">,</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">RUN_SETUP</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">WORLD</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">scene_stack</span><span class="p">:</span>
                 <span class="n">confirmation_message</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_toggle_godmode</span><span class="p">()</span>
 
         <span class="k">elif</span> <span class="n">command</span><span class="p">[:</span><span class="mi">17</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"create_unit_jsons"</span><span class="p">:</span>
             <span class="c1"># check active scene</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">active_scene</span><span class="o">.</span><span class="n">type</span> <span class="ow">in</span> <span class="p">(</span><span class="n">SceneType</span><span class="o">.</span><span class="n">MAIN_MENU</span><span class="p">,):</span>
+            <span class="k">if</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">MAIN_MENU</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">scene_stack</span><span class="p">:</span>
                 <span class="n">confirmation_message</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_unit_json_for_each_asset_folder</span><span class="p">()</span>
 
         <span class="k">elif</span> <span class="n">command</span><span class="p">[:</span><span class="mi">13</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"load_unit_csv"</span><span class="p">:</span>
             <span class="c1"># check active scene</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">active_scene</span><span class="o">.</span><span class="n">type</span> <span class="ow">in</span> <span class="p">(</span><span class="n">SceneType</span><span class="o">.</span><span class="n">MAIN_MENU</span><span class="p">,):</span>
+            <span class="k">if</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">MAIN_MENU</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">scene_stack</span><span class="p">:</span>
                 <span class="n">confirmation_message</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_unit_csv</span><span class="p">()</span>
 
         <span class="k">elif</span> <span class="n">command</span><span class="p">[:</span><span class="mi">7</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"gallery"</span><span class="p">:</span>
             <span class="c1"># check active scene</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">active_scene</span><span class="o">.</span><span class="n">type</span> <span class="ow">in</span> <span class="p">(</span><span class="n">SceneType</span><span class="o">.</span><span class="n">MAIN_MENU</span><span class="p">,):</span>
+            <span class="k">if</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">MAIN_MENU</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">scene_stack</span><span class="p">:</span>
                 <span class="n">confirmation_message</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_switch_to_gallery</span><span class="p">()</span>
 
         <span class="k">elif</span> <span class="n">command</span><span class="p">[:</span><span class="mi">11</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"data_editor"</span><span class="p">:</span>
             <span class="c1"># check active scene</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">active_scene</span><span class="o">.</span><span class="n">type</span> <span class="ow">in</span> <span class="p">(</span><span class="n">SceneType</span><span class="o">.</span><span class="n">MAIN_MENU</span><span class="p">,):</span>
+            <span class="k">if</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">MAIN_MENU</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">scene_stack</span><span class="p">:</span>
                 <span class="n">confirmation_message</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_switch_to_data_editor</span><span class="p">()</span>
 
         <span class="k">elif</span> <span class="n">command</span><span class="p">[:</span><span class="mi">13</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"combat_result"</span><span class="p">:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">command</span><span class="p">[</span><span class="mi">14</span><span class="p">:]</span>  <span class="c1"># +1 position to account for space</span>
 
             <span class="c1"># check active scene</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">active_scene</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">COMBAT</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">WORLD</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">scene_stack</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">COMBAT</span><span class="p">:</span>
                 <span class="n">confirmation_message</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_process_combat_result</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 
         <span class="c1"># update result</span>
         <span class="k">if</span> <span class="n">confirmation_message</span> <span class="o">!=</span> <span class="s2">""</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">active_scene</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">set_instruction_text</span><span class="p">(</span><span class="n">confirmation_message</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+            <span class="n">active_scene</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">scene_stack</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">active_scene</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">set_instruction_text</span><span class="p">(</span><span class="n">confirmation_message</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_add_unit_json_for_each_asset_folder</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="sd">"""</span>
 <span class="sd">        Add a placeholder unit_json for every unit asset folder.</span>
 <span class="sd">        """</span>
         <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">unit_dict</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">unit_dict</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
 
         <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Creating unit jsons..."</span><span class="p">)</span>
 
@@ -388,22 +396,22 @@
         <span class="sd">"""</span>
 <span class="sd">        Turns godmode on or off.</span>
 <span class="sd">        """</span>
-        <span class="k">if</span> <span class="s2">"godmode"</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">flags</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">"godmode"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s2">"godmode"</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">flags</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">"godmode"</span><span class="p">)</span>
             <span class="n">state</span> <span class="o">=</span> <span class="s2">"off"</span>
 
             <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Turned godmode off."</span><span class="p">)</span>
 
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"godmode"</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"godmode"</span><span class="p">)</span>
 
             <span class="n">state</span> <span class="o">=</span> <span class="s2">"on"</span>
 
             <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Turned godmode on."</span><span class="p">)</span>
 
             <span class="c1"># add cheat flag</span>
-            <span class="k">if</span> <span class="s2">"cheated"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">flags</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"cheated"</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s2">"cheated"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">flags</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"cheated"</span><span class="p">)</span>
 
         <span class="n">confirmation_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"God mode turned </span><span class="si">{</span><span class="n">state</span><span class="si">}</span><span class="s2">."</span>
 
@@ -414,11 +422,11 @@
 <span class="sd">        Change the scene and load a specific event.</span>
 <span class="sd">        """</span>
         <span class="c1"># validate event</span>
-        <span class="k">if</span> <span class="n">event_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">event_deck</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">event_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">event_deck</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="c1"># load event</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">load_event</span><span class="p">(</span><span class="n">event_id</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rebuild_ui</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">active_scene</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">event</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">load_event</span><span class="p">(</span><span class="n">event_id</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rebuild_ui</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">active_scene</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">event</span>
 
             <span class="n">confirmation_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"Loaded event </span><span class="si">{</span><span class="n">event_id</span><span class="si">}</span><span class="s2">."</span>
             <span class="k">return</span> <span class="n">confirmation_message</span>
@@ -427,17 +435,17 @@
             <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"DevConsole: </span><span class="si">{</span><span class="n">event_id</span><span class="si">}</span><span class="s2"> not found."</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_switch_to_gallery</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">dev_gallery</span><span class="o">.</span><span class="n">previous_scene_type</span> <span class="o">=</span> <span class="n">scene_to_scene_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">active_scene</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">dev_gallery</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rebuild_ui</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">active_scene</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">dev_gallery</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">dev_gallery</span><span class="o">.</span><span class="n">previous_scene_type</span> <span class="o">=</span> <span class="n">scene_to_scene_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">active_scene</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">dev_gallery</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rebuild_ui</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">active_scene</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">dev_gallery</span>
 
         <span class="n">confirmation_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"Loaded gallery."</span>
         <span class="k">return</span> <span class="n">confirmation_message</span>
 
     <span class="k">def</span> <span class="nf">_switch_to_data_editor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">dev_unit_data</span><span class="o">.</span><span class="n">previous_scene_type</span> <span class="o">=</span> <span class="n">scene_to_scene_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">active_scene</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">dev_unit_data</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rebuild_ui</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">active_scene</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">dev_unit_data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">dev_unit_data</span><span class="o">.</span><span class="n">previous_scene_type</span> <span class="o">=</span> <span class="n">scene_to_scene_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">active_scene</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">dev_unit_data</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rebuild_ui</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">active_scene</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">dev_unit_data</span>
 
         <span class="n">confirmation_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"Loaded data editor."</span>
         <span class="k">return</span> <span class="n">confirmation_message</span>
@@ -446,7 +454,7 @@
         <span class="sd">"""</span>
 <span class="sd">        Load the unit csv into the unit json files.</span>
 <span class="sd">        """</span>
-        <span class="n">existing_units</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="n">existing_units</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
         <span class="n">num_updated</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">num_created</span> <span class="o">=</span> <span class="mi">0</span>
 
@@ -514,14 +522,14 @@
 <span class="sd">        """</span>
         <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="s2">"win"</span><span class="p">:</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Skipped to combat victory."</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">combat</span><span class="o">.</span><span class="n">end_combat</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">combat</span><span class="o">.</span><span class="n">process_victory</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">combat</span><span class="o">.</span><span class="n">end_combat</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">combat</span><span class="o">.</span><span class="n">process_victory</span><span class="p">()</span>
             <span class="n">confirmation_message</span> <span class="o">=</span> <span class="s2">"Combat won."</span>
 
         <span class="k">elif</span> <span class="n">result</span> <span class="o">==</span> <span class="s2">"lose"</span><span class="p">:</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Skipped to combat defeat."</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">combat</span><span class="o">.</span><span class="n">end_combat</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">combat</span><span class="o">.</span><span class="n">process_defeat</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">combat</span><span class="o">.</span><span class="n">end_combat</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">combat</span><span class="o">.</span><span class="n">process_defeat</span><span class="p">()</span>
             <span class="n">confirmation_message</span> <span class="o">=</span> <span class="s2">"Combat lost."</span>
 
         <span class="k">else</span><span class="p">:</span>

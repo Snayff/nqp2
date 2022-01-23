@@ -221,6 +221,13 @@
     <li class="md-nav__item">
     
     
+      <a href="../../../api/scene_elements/_scene_elements.html" class="md-nav__link">Scene Elements</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../../../api/ui_elements/ui_elements.html" class="md-nav__link">UI Elements</a>
       
     
@@ -228,7 +235,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../developer_notes/_developer_notes.html" class="md-nav__link">Developer Notes</a>
+      <a href="../../../developer/_developer.html" class="md-nav__link">Developer</a>
       
     
     </li>
@@ -272,8 +279,11 @@
 <span class="kn">import</span> <span class="nn">timeit</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
+<span class="kn">import</span> <span class="nn">pygame</span>
+
 <span class="kn">from</span> <span class="nn">scripts.core.constants</span> <span class="kn">import</span> <span class="n">DEBUGGING_PATH</span><span class="p">,</span> <span class="n">FontType</span><span class="p">,</span> <span class="n">INFINITE</span><span class="p">,</span> <span class="n">LOGGING_PATH</span><span class="p">,</span> <span class="n">PROFILING_PATH</span><span class="p">,</span> <span class="n">VERSION</span>
 <span class="kn">from</span> <span class="nn">scripts.ui_elements.dev_console</span> <span class="kn">import</span> <span class="n">DevConsole</span>
+<span class="kn">from</span> <span class="nn">scripts.ui_elements.font</span> <span class="kn">import</span> <span class="n">Font</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Union</span>
@@ -288,7 +298,7 @@
         <span class="c1"># start timer</span>
         <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">game</span> <span class="o">=</span> <span class="n">game</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_game</span> <span class="o">=</span> <span class="n">game</span>
 
         <span class="c1"># create required folders</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_create_folders</span><span class="p">()</span>
@@ -305,13 +315,16 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">profile_duration_remaining</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">INFINITE</span>
 
         <span class="c1"># flags</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">is_fps_visible</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">is_profiling</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">is_logging</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_show_debug_info</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="c1"># values</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_num_frames_considered_recent</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">600</span>
+
+        <span class="c1"># ui</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fonts</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Font</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">initialise_logging</span><span class="p">()</span>
 
@@ -341,28 +354,21 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">recent_average_fps</span> <span class="o">+=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_fps</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">average_fps</span><span class="p">)</span> <span class="o">/</span> <span class="n">frames_to_count</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dev_console</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_dev_console</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_dev_console</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Debugger.render"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.debug.Debugger.render">[docs]</a>    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_show_debug_info</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_debug_info</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Debugger.draw"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.debug.Debugger.draw">[docs]</a>    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">surface</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Draw debug info</span>
 <span class="sd">        """</span>
-        <span class="n">surface</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">display</span>
-
-        <span class="c1"># draw fps</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_fps_visible</span><span class="p">:</span>
-            <span class="n">current_fps</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"FPS: C=</span><span class="si">{</span><span class="nb">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_fps</span><span class="p">,</span> <span class="s1">'.2f'</span><span class="p">)</span><span class="si">}</span><span class="s2">, "</span>
-            <span class="n">recent_fps</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"R_Avg=</span><span class="si">{</span><span class="nb">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">recent_average_fps</span><span class="p">,</span> <span class="s1">'.2f'</span><span class="p">)</span><span class="si">}</span><span class="s2">, "</span>
-            <span class="n">avg_fps</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"Avg=</span><span class="si">{</span><span class="nb">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">average_fps</span><span class="p">,</span> <span class="s1">'.2f'</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
-
-            <span class="n">start_x</span> <span class="o">=</span> <span class="mi">1</span>
-            <span class="n">start_y</span> <span class="o">=</span> <span class="mi">1</span>
-
-            <span class="n">text</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">current_fps</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">recent_fps</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">avg_fps</span><span class="si">}</span><span class="s2">"</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DISABLED</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="p">(</span><span class="n">start_x</span><span class="p">,</span> <span class="n">start_y</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_show_debug_info</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">font</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fonts</span><span class="p">:</span>
+                <span class="n">font</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dev_console</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_dev_console</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_dev_console</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span></div>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_create_folders</span><span class="p">():</span>
@@ -381,12 +387,12 @@
 
 <div class="viewcode-block" id="Debugger.toggle_dev_console_visibility"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.debug.Debugger.toggle_dev_console_visibility">[docs]</a>    <span class="k">def</span> <span class="nf">toggle_dev_console_visibility</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dev_console</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_dev_console</span> <span class="o">=</span> <span class="n">DevConsole</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_dev_console</span> <span class="o">=</span> <span class="n">DevConsole</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_dev_console</span><span class="o">.</span><span class="n">focus</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="s2">"typing"</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="s2">"typing"</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_dev_console</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="s2">"default"</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="s2">"default"</span></div>
 
 <div class="viewcode-block" id="Debugger.initialise_logging"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.debug.Debugger.initialise_logging">[docs]</a>    <span class="k">def</span> <span class="nf">initialise_logging</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
@@ -540,7 +546,31 @@
         <span class="sd">"""</span>
 <span class="sd">        Print the debuggers stats.</span>
 <span class="sd">        """</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Avg FPS: </span><span class="si">{</span><span class="nb">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">average_fps</span><span class="p">,</span> <span class="s1">'.2f'</span><span class="p">)</span><span class="si">}</span><span class="s2">, R_Avg: </span><span class="si">{</span><span class="nb">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">recent_average_fps</span><span class="p">,</span> <span class="s1">'.2f'</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span></div></div>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Avg FPS: </span><span class="si">{</span><span class="nb">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">average_fps</span><span class="p">,</span> <span class="s1">'.2f'</span><span class="p">)</span><span class="si">}</span><span class="s2">, R_Avg: </span><span class="si">{</span><span class="nb">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">recent_average_fps</span><span class="p">,</span> <span class="s1">'.2f'</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Debugger.toggle_debug_info"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.debug.Debugger.toggle_debug_info">[docs]</a>    <span class="k">def</span> <span class="nf">toggle_debug_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Toggle whether the debug info is shown</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_show_debug_info</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_show_debug_info</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_show_debug_info</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+    <span class="k">def</span> <span class="nf">_refresh_debug_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">current_fps</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"FPS: C=</span><span class="si">{</span><span class="nb">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_fps</span><span class="p">,</span> <span class="s1">'.2f'</span><span class="p">)</span><span class="si">}</span><span class="s2">, "</span>
+        <span class="n">recent_fps</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"R_Avg=</span><span class="si">{</span><span class="nb">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">recent_average_fps</span><span class="p">,</span> <span class="s1">'.2f'</span><span class="p">)</span><span class="si">}</span><span class="s2">, "</span>
+        <span class="n">avg_fps</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"Avg=</span><span class="si">{</span><span class="nb">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">average_fps</span><span class="p">,</span> <span class="s1">'.2f'</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+
+        <span class="n">start_x</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">start_y</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="n">text</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">current_fps</span><span class="si">}</span><span class="s2"> ; </span><span class="si">{</span><span class="n">recent_fps</span><span class="si">}</span><span class="s2"> ;</span><span class="si">{</span><span class="n">avg_fps</span><span class="si">}</span><span class="s2">"</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fonts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="p">(</span><span class="n">start_x</span><span class="p">,</span> <span class="n">start_y</span><span class="p">)))</span>
+
+        <span class="n">current_y</span> <span class="o">=</span> <span class="n">start_y</span> <span class="o">+</span> <span class="mi">10</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"Game speed:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">game_speed</span><span class="si">}</span><span class="s2"> ; WorldState: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fonts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="p">(</span><span class="n">start_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">)))</span></div>
 </pre></div>
 
           </article>

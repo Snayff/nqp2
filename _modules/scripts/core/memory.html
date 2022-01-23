@@ -221,6 +221,13 @@
     <li class="md-nav__item">
     
     
+      <a href="../../../api/scene_elements/_scene_elements.html" class="md-nav__link">Scene Elements</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../../../api/ui_elements/ui_elements.html" class="md-nav__link">UI Elements</a>
       
     
@@ -228,7 +235,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../developer_notes/_developer_notes.html" class="md-nav__link">Developer Notes</a>
+      <a href="../../../developer/_developer.html" class="md-nav__link">Developer</a>
       
     
     </li>
@@ -265,13 +272,13 @@
 <span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
-<span class="kn">from</span> <span class="nn">scripts.core.constants</span> <span class="kn">import</span> <span class="n">DAYS_UNTIL_BOSS</span>
-<span class="kn">from</span> <span class="nn">scripts.scenes.combat.elements.card_collection</span> <span class="kn">import</span> <span class="n">CardCollection</span>
-<span class="kn">from</span> <span class="nn">scripts.scenes.combat.elements.commander</span> <span class="kn">import</span> <span class="n">Commander</span>
-<span class="kn">from</span> <span class="nn">scripts.scenes.combat.elements.troupe</span> <span class="kn">import</span> <span class="n">Troupe</span>
+<span class="kn">from</span> <span class="nn">scripts.scene_elements.commander</span> <span class="kn">import</span> <span class="n">Commander</span>
+<span class="kn">from</span> <span class="nn">scripts.scene_elements.entity</span> <span class="kn">import</span> <span class="n">Entity</span>
+<span class="kn">from</span> <span class="nn">scripts.scene_elements.troupe</span> <span class="kn">import</span> <span class="n">Troupe</span>
+<span class="kn">from</span> <span class="nn">scripts.scene_elements.unit</span> <span class="kn">import</span> <span class="n">Unit</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
+    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
 
     <span class="kn">from</span> <span class="nn">scripts.core.game</span> <span class="kn">import</span> <span class="n">Game</span>
 
@@ -287,43 +294,40 @@
         <span class="c1"># start timer</span>
         <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="p">:</span> <span class="n">Game</span> <span class="o">=</span> <span class="n">game</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">:</span> <span class="n">Game</span> <span class="o">=</span> <span class="n">game</span>
 
         <span class="c1"># units</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_last_id</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">troupes</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Troupe</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
-        <span class="c1"># empty values will be overwritten in run_start</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">player_troupe</span><span class="p">:</span> <span class="n">Troupe</span> <span class="o">=</span> <span class="n">Troupe</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="p">,</span> <span class="s2">"player"</span><span class="p">,</span> <span class="p">[])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">player_actions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"fireball"</span><span class="p">]</span>
+        <span class="c1"># player choices</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">commander</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Commander</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">unit_deck</span><span class="p">:</span> <span class="n">CardCollection</span> <span class="o">=</span> <span class="n">CardCollection</span><span class="p">(</span><span class="n">game</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">unit_deck</span><span class="o">.</span><span class="n">from_troupe</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">player_troupe</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">action_deck</span><span class="p">:</span> <span class="n">CardCollection</span> <span class="o">=</span> <span class="n">CardCollection</span><span class="p">(</span><span class="n">game</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">action_deck</span><span class="o">.</span><span class="n">generate_actions</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
-
         <span class="c1"># events</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">event_deck</span><span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_events</span><span class="p">([</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># all available events</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">priority_events</span><span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># events to be prioritised</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">turns_since_priority_event</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_event_deck</span><span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_events</span><span class="p">([</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># all available events</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_priority_events</span><span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># events to be prioritised</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_turns_since_priority_event</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
 
         <span class="c1"># resources</span>
+        <span class="c1"># TODO - should these be under commander?</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gold</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">charisma</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">leadership</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">morale</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
 
-        <span class="c1"># general</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># progress</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">flags</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">days_until_boss</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DAYS_UNTIL_BOSS</span>
 
         <span class="c1"># generated values for later user</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">level_boss</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>
 
         <span class="c1"># history</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">seen_bosses</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_seen_bosses</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># in memory config</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_game_speed</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span>
 
         <span class="c1"># record duration</span>
         <span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
@@ -379,30 +383,46 @@
         <span class="n">possible_events_occur_rates</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="c1"># priority or non-priority</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">priority_events</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">chance_of_priority</span> <span class="o">=</span> <span class="mi">33</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">turns_since_priority_event</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">rng</span><span class="o">.</span><span class="n">roll</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">chance_of_priority</span><span class="p">:</span>
-                <span class="n">events</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">priority_events</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">turns_since_priority_event</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># reset count</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_priority_events</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">chance_of_priority</span> <span class="o">=</span> <span class="mi">33</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_turns_since_priority_event</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">rng</span><span class="o">.</span><span class="n">roll</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">chance_of_priority</span><span class="p">:</span>
+                <span class="n">events</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_priority_events</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_turns_since_priority_event</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># reset count</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">events</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">event_deck</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">turns_since_priority_event</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># increment count</span>
+                <span class="n">events</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_event_deck</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_turns_since_priority_event</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># increment count</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">events</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">event_deck</span>
+            <span class="n">events</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_event_deck</span>
 
         <span class="c1"># grab events and occur rate</span>
         <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_event_conditions</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
                 <span class="n">possible_events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
-                <span class="n">occur_rate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get_event_occur_rate</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="s2">"type"</span><span class="p">])</span>
+                <span class="n">occur_rate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get_event_occur_rate</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="s2">"type"</span><span class="p">])</span>
                 <span class="n">possible_events_occur_rates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">occur_rate</span><span class="p">)</span>
 
         <span class="c1"># choose an event</span>
-        <span class="n">event_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">rng</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">possible_events</span><span class="p">,</span> <span class="n">possible_events_occur_rates</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">event_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">rng</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">possible_events</span><span class="p">,</span> <span class="n">possible_events_occur_rates</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
         <span class="n">events</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">event_</span><span class="p">[</span><span class="s2">"type"</span><span class="p">])</span>
 
         <span class="k">return</span> <span class="n">event_</span></div>
+
+<div class="viewcode-block" id="Memory.get_event"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.memory.Memory.get_event">[docs]</a>    <span class="k">def</span> <span class="nf">get_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">remove_from_pool</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Get a specific event. remove_from_pool determines whether the event is removed from the list of possible</span>
+<span class="sd">        events.</span>
+<span class="sd">        """</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">remove_from_pool</span><span class="p">:</span>
+                <span class="n">event</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_event_deck</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">event_id</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">event</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_event_deck</span><span class="p">[</span><span class="n">event_id</span><span class="p">]</span>
+
+            <span class="k">return</span> <span class="n">event</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Event ID (</span><span class="si">{</span><span class="n">event_id</span><span class="si">}</span><span class="s2">) not found."</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">Exception</span></div>
 
     <span class="k">def</span> <span class="nf">_load_events</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">levels</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="c1"># handle mutable default</span>
@@ -410,7 +430,7 @@
             <span class="n">levels</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>  <span class="c1"># all levels</span>
 
         <span class="n">event_deck</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">events</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">events</span>
+        <span class="n">events</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">events</span>
 
         <span class="c1"># add events</span>
         <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
@@ -463,8 +483,8 @@
 <span class="sd">        Move an event from the event_deck to the priority events.</span>
 <span class="sd">        """</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">event</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">event_deck</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">event_type</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">priority_events</span><span class="p">[</span><span class="n">event_type</span><span class="p">]</span> <span class="o">=</span> <span class="n">event</span>
+            <span class="n">event</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_event_deck</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">event_type</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_priority_events</span><span class="p">[</span><span class="n">event_type</span><span class="p">]</span> <span class="o">=</span> <span class="n">event</span>
 
         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Event (</span><span class="si">{</span><span class="n">event_type</span><span class="si">}</span><span class="s2">) specified not found in Memory.event_deck and was ignored."</span><span class="p">)</span></div>
@@ -475,14 +495,123 @@
 <span class="sd">        """</span>
         <span class="n">available_bosses</span> <span class="o">=</span> <span class="p">[]</span>
 
-        <span class="k">for</span> <span class="n">boss</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">bosses</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">boss</span><span class="p">[</span><span class="s2">"level_available"</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">level</span> <span class="ow">and</span> <span class="n">boss</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">seen_bosses</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">boss</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">bosses</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">boss</span><span class="p">[</span><span class="s2">"level_available"</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">level</span> <span class="ow">and</span> <span class="n">boss</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seen_bosses</span><span class="p">:</span>
                 <span class="n">available_bosses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">boss</span><span class="p">[</span><span class="s2">"type"</span><span class="p">])</span>
 
-        <span class="n">chosen_boss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">available_bosses</span><span class="p">)</span>
+        <span class="n">chosen_boss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">available_bosses</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">level_boss</span> <span class="o">=</span> <span class="n">chosen_boss</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">seen_bosses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">chosen_boss</span><span class="p">)</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_seen_bosses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">chosen_boss</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Memory.get_all_entities"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.memory.Memory.get_all_entities">[docs]</a>    <span class="k">def</span> <span class="nf">get_all_entities</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Entity</span><span class="p">]:</span>
+        <span class="sd">"""</span>
+<span class="sd">        Get a list of all entities</span>
+<span class="sd">        """</span>
+        <span class="n">entities</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">troupe</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">troupes</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">entities</span> <span class="o">+=</span> <span class="n">troupe</span><span class="o">.</span><span class="n">entities</span>
+
+        <span class="k">return</span> <span class="n">entities</span></div>
+
+<div class="viewcode-block" id="Memory.get_all_units"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.memory.Memory.get_all_units">[docs]</a>    <span class="k">def</span> <span class="nf">get_all_units</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Unit</span><span class="p">]:</span>
+        <span class="sd">"""</span>
+<span class="sd">        Get a list of all Units</span>
+<span class="sd">        """</span>
+        <span class="n">units</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">troupe</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">troupes</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">unit</span> <span class="ow">in</span> <span class="n">troupe</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="n">units</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">unit</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">units</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">player_troupe</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Troupe</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># player troupe should be in index 1</span>
+            <span class="n">troupe</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">troupes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">troupe</span><span class="o">.</span><span class="n">team</span> <span class="o">==</span> <span class="s2">"player"</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">troupe</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Player Troupe not at index 1 as expected."</span><span class="p">)</span>
+
+        <span class="c1"># in case it isnt in index 0</span>
+        <span class="k">for</span> <span class="n">troupe</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">troupes</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">troupe</span><span class="o">.</span><span class="n">team</span> <span class="o">==</span> <span class="s2">"player"</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">troupe</span>
+
+        <span class="c1"># in case we cant find it at all!</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Tried to get player troupe but couldnt find it!"</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">Exception</span>
+
+<div class="viewcode-block" id="Memory.add_troupe"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.memory.Memory.add_troupe">[docs]</a>    <span class="k">def</span> <span class="nf">add_troupe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">troupe</span><span class="p">:</span> <span class="n">Troupe</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">"""</span>
+<span class="sd">        Add a Troupe to Memory. Returns Troupe ID</span>
+<span class="sd">        """</span>
+        <span class="n">id_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_id</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">troupes</span><span class="p">[</span><span class="n">id_</span><span class="p">]</span> <span class="o">=</span> <span class="n">troupe</span>
+
+        <span class="k">return</span> <span class="n">id_</span></div>
+
+<div class="viewcode-block" id="Memory.remove_troupe"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.memory.Memory.remove_troupe">[docs]</a>    <span class="k">def</span> <span class="nf">remove_troupe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">id_</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Remove a Troupe from Memory. Deletes Troupe.</span>
+<span class="sd">        """</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">troupe</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">troupes</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">id_</span><span class="p">)</span>
+            <span class="n">troupe</span><span class="o">.</span><span class="n">remove_all_units</span><span class="p">()</span>
+
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Tried to remove troupe id (</span><span class="si">{</span><span class="n">id_</span><span class="si">}</span><span class="s2"> but not found. Troupes:(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">troupes</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">Exception</span></div>
+
+<div class="viewcode-block" id="Memory.set_game_speed"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.memory.Memory.set_game_speed">[docs]</a>    <span class="k">def</span> <span class="nf">set_game_speed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">speed</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Set the game speed. 1 is default.</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_game_speed</span> <span class="o">=</span> <span class="n">speed</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">game_speed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game_speed</span>
+
+<div class="viewcode-block" id="Memory.reset"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.memory.Memory.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Reset to initial values</span>
+<span class="sd">        """</span>
+        <span class="c1"># units</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_last_id</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">troupes</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># player choices</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">commander</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># events</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_event_deck</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_events</span><span class="p">([</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># all available events</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_priority_events</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># events to be prioritised</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_turns_since_priority_event</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># resources</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gold</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rations</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">charisma</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">leadership</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">morale</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># progress</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">level</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flags</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># generated values for later user</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">level_boss</span> <span class="o">=</span> <span class="s2">""</span>
+
+        <span class="c1"># history</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_seen_bosses</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># in memory config</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_game_speed</span> <span class="o">=</span> <span class="mi">1</span></div></div>
 </pre></div>
 
           </article>

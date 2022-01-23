@@ -1,0 +1,743 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="lang:clipboard.copy" content="Copy to clipboard">
+  <meta name="lang:clipboard.copied" content="Copied to clipboard">
+  <meta name="lang:search.language" content="en">
+  <meta name="lang:search.pipeline.stopwords" content="True">
+  <meta name="lang:search.pipeline.trimmer" content="True">
+  <meta name="lang:search.result.none" content="No matching documents">
+  <meta name="lang:search.result.one" content="1 matching document">
+  <meta name="lang:search.result.other" content="# matching documents">
+  <meta name="lang:search.tokenizer" content="[\s\-]+">
+
+  
+    <link href="https://fonts.gstatic.com/" rel="preconnect" crossorigin>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700|Roboto:300,400,400i,700&display=fallback" rel="stylesheet">
+
+    <style>
+      body,
+      input {
+        font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif
+      }
+
+      code,
+      kbd,
+      pre {
+        font-family: "Roboto Mono", "Courier New", Courier, monospace
+      }
+    </style>
+  
+
+  <link rel="stylesheet" href="../_static/stylesheets/application.css"/>
+  <link rel="stylesheet" href="../_static/stylesheets/application-palette.css"/>
+  <link rel="stylesheet" href="../_static/stylesheets/application-fixes.css"/>
+  
+  <link rel="stylesheet" href="../_static/fonts/material-icons.css"/>
+  
+  <meta name="theme-color" content="#3f51b5">
+  <script src="../_static/javascripts/modernizr.js"></script>
+  
+  
+  
+    <title>Developer Guide &#8212; NotQuiteParadise2  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/material.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Adding New Content" href="adding_new_content.html" />
+    <link rel="prev" title="Developer" href="_developer.html" />
+  
+   
+
+  </head>
+  <body dir=ltr
+        data-md-color-primary=deep-purple data-md-color-accent=deep-orange>
+  
+  <svg class="md-svg">
+    <defs data-children-count="0">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+      
+    </defs>
+  </svg>
+  
+  <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer">
+  <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search">
+  <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+  <a href="#developer/developer_guide" tabindex="1" class="md-skip"> Skip to content </a>
+  <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex navheader">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../index.html" title="NotQuiteParadise2  documentation"
+           class="md-header-nav__button md-logo">
+          
+            <i class="md-icon">&#xe869</i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          <span class="md-header-nav__topic">Not Quite Paradise 2</span>
+          <span class="md-header-nav__topic"> Developer Guide </span>
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+        
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" action="../search.html" method="get" name="search">
+      <input type="text" class="md-search__input" name="q" placeholder="Search"
+             autocapitalize="off" autocomplete="off" spellcheck="false"
+             data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            <a href="https://github.com/Snayff/nqp2" title="Go to repository" class="md-source" data-md-source="github">
+
+    <div class="md-source__icon">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    Not Quite Paradise
+  </div>
+</a>
+          </div>
+        </div>
+      
+      
+  
+  <script src="../_static/javascripts/version_dropdown.js"></script>
+  <script>
+    var json_loc = "../"versions.json"",
+        target_loc = "../../",
+        text = "Versions";
+    $( document ).ready( add_version_dropdown(json_loc, target_loc, text));
+  </script>
+  
+
+    </div>
+  </nav>
+</header>
+
+  
+  <div class="md-container">
+    
+    
+    
+  <nav class="md-tabs" data-md-component="tabs">
+    <div class="md-tabs__inner md-grid">
+      <ul class="md-tabs__list">
+          <li class="md-tabs__item"><a href="../index.html" class="md-tabs__link">NotQuiteParadise2  documentation</a></li>
+          <li class="md-tabs__item"><a href="_developer.html" class="md-tabs__link">Developer</a></li>
+      </ul>
+    </div>
+  </nav>
+    <main class="md-main">
+      <div class="md-main__inner md-grid" data-md-component="container">
+        
+          <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+            <div class="md-sidebar__scrollwrap">
+              <div class="md-sidebar__inner">
+                <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../index.html" title="NotQuiteParadise2 documentation" class="md-nav__button md-logo">
+      
+        <i class="md-icon">&#xe869</i>
+      
+    </a>
+    <a href="../index.html"
+       title="NotQuiteParadise2 documentation">Not Quite Paradise 2</a>
+  </label>
+    <div class="md-nav__source">
+      <a href="https://github.com/Snayff/nqp2" title="Go to repository" class="md-source" data-md-source="github">
+
+    <div class="md-source__icon">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    Not Quite Paradise
+  </div>
+</a>
+    </div>
+  
+  
+
+  
+  <ul class="md-nav__list">
+    <li class="md-nav__item">
+    
+    
+      <a href="../api/core/_core.html" class="md-nav__link">Core</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../api/scenes/_scenes.html" class="md-nav__link">Scenes</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../api/scene_elements/_scene_elements.html" class="md-nav__link">Scene Elements</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../api/ui_elements/ui_elements.html" class="md-nav__link">UI Elements</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="_developer.html" class="md-nav__link">Developer</a>
+      <ul class="md-nav__list"> 
+    <li class="md-nav__item">
+    
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    <label class="md-nav__link md-nav__link--active" for="__toc"> Developer Guide </label>
+    
+      <a href="#" class="md-nav__link md-nav__link--active">Developer Guide</a>
+      
+        
+<nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">Contents</label>
+  <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#developer-developer-guide--page-root" class="md-nav__link">Developer Guide</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#tools-used" class="md-nav__link">Tools Used</a>
+        </li>
+        <li class="md-nav__item"><a href="#style-guide" class="md-nav__link">Style Guide</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#general" class="md-nav__link">General</a>
+        </li>
+        <li class="md-nav__item"><a href="#naming" class="md-nav__link">Naming</a>
+        </li>
+        <li class="md-nav__item"><a href="#reporting" class="md-nav__link">Reporting</a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#architecture-overview" class="md-nav__link">Architecture Overview</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#game-is-key" class="md-nav__link">Game is key</a>
+        </li>
+        <li class="md-nav__item"><a href="#core" class="md-nav__link">Core</a>
+        </li>
+        <li class="md-nav__item"><a href="#scenes" class="md-nav__link">Scenes</a>
+        </li>
+        <li class="md-nav__item"><a href="#data" class="md-nav__link">Data</a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#contributing" class="md-nav__link">Contributing</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#forking" class="md-nav__link">Forking</a>
+        </li>
+        <li class="md-nav__item"><a href="#merging" class="md-nav__link">Merging</a>
+        </li>
+        <li class="md-nav__item"><a href="#bug-issues-and-defects" class="md-nav__link">Bug, Issues and Defects</a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#game-config" class="md-nav__link">Game Config</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#config-explained" class="md-nav__link">Config Explained</a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#developer-console" class="md-nav__link">Developer Console</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#commands" class="md-nav__link">Commands</a>
+        </li></ul>
+            </nav>
+        </li></ul>
+            </nav>
+        </li>
+    
+<li class="md-nav__item"><a class="md-nav__extra_link" href="../_sources/developer/developer_guide.rst.txt">Show Source</a> </li>
+
+  </ul>
+</nav>
+      <ul class="md-nav__list"> 
+    <li class="md-nav__item">
+    
+    
+      <a href="#tools-used" class="md-nav__link">Tools Used</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#style-guide" class="md-nav__link">Style Guide</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#architecture-overview" class="md-nav__link">Architecture Overview</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#contributing" class="md-nav__link">Contributing</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#game-config" class="md-nav__link">Game Config</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#developer-console" class="md-nav__link">Developer Console</a>
+      
+    
+    </li></ul>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="adding_new_content.html" class="md-nav__link">Adding New Content</a>
+      
+    
+    </li></ul>
+    
+    </li>
+  </ul>
+  
+
+</nav>
+              </div>
+            </div>
+          </div>
+          <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+            <div class="md-sidebar__scrollwrap">
+              <div class="md-sidebar__inner">
+                
+<nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">Contents</label>
+  <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#developer-developer-guide--page-root" class="md-nav__link">Developer Guide</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#tools-used" class="md-nav__link">Tools Used</a>
+        </li>
+        <li class="md-nav__item"><a href="#style-guide" class="md-nav__link">Style Guide</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#general" class="md-nav__link">General</a>
+        </li>
+        <li class="md-nav__item"><a href="#naming" class="md-nav__link">Naming</a>
+        </li>
+        <li class="md-nav__item"><a href="#reporting" class="md-nav__link">Reporting</a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#architecture-overview" class="md-nav__link">Architecture Overview</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#game-is-key" class="md-nav__link">Game is key</a>
+        </li>
+        <li class="md-nav__item"><a href="#core" class="md-nav__link">Core</a>
+        </li>
+        <li class="md-nav__item"><a href="#scenes" class="md-nav__link">Scenes</a>
+        </li>
+        <li class="md-nav__item"><a href="#data" class="md-nav__link">Data</a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#contributing" class="md-nav__link">Contributing</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#forking" class="md-nav__link">Forking</a>
+        </li>
+        <li class="md-nav__item"><a href="#merging" class="md-nav__link">Merging</a>
+        </li>
+        <li class="md-nav__item"><a href="#bug-issues-and-defects" class="md-nav__link">Bug, Issues and Defects</a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#game-config" class="md-nav__link">Game Config</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#config-explained" class="md-nav__link">Config Explained</a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#developer-console" class="md-nav__link">Developer Console</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#commands" class="md-nav__link">Commands</a>
+        </li></ul>
+            </nav>
+        </li></ul>
+            </nav>
+        </li>
+    
+<li class="md-nav__item"><a class="md-nav__extra_link" href="../_sources/developer/developer_guide.rst.txt">Show Source</a> </li>
+
+<li id="searchbox" class="md-nav__item"></li>
+
+  </ul>
+</nav>
+              </div>
+            </div>
+          </div>
+        
+        <div class="md-content">
+          <article class="md-content__inner md-typeset" role="main">
+            
+  <section id="developer-guide">
+<h1 id="developer-developer-guide--page-root">Developer Guide<a class="headerlink" href="#developer-developer-guide--page-root" title="Permalink to this headline">¶</a></h1>
+<p>So you want to contribute to Not Quite Paradise2? Huzzah! Any support is welcome and <strong>greatly</strong> appreciated!</p>
+<section id="tools-used">
+<h2 id="tools-used">Tools Used<a class="headerlink" href="#tools-used" title="Permalink to this headline">¶</a></h2>
+<p>The following tools are used as standard to ensure a consistent and reliable codebase.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://black.readthedocs.io/en/stable/">black</a> - an opinionated <a class="reference external" href="https://en.wikipedia.org/wiki/Lint_(software)">linter</a>.</p></li>
+<li><p><a class="reference external" href="https://pycqa.github.io/isort/">isort</a> - manage the order of imports.</p></li>
+</ul>
+<p>When you submit a pull request the CI, Github Actions, will run black and isort automatically.</p>
+</section>
+<section id="style-guide">
+<h2 id="style-guide">Style Guide<a class="headerlink" href="#style-guide" title="Permalink to this headline">¶</a></h2>
+<section id="general">
+<h3 id="general">General<a class="headerlink" href="#general" title="Permalink to this headline">¶</a></h3>
+<p>PEP8 compliant.
+Make use of type hints, with a view to reintroducing MyPy in the future.</p>
+</section>
+<section id="naming">
+<h3 id="naming">Naming<a class="headerlink" href="#naming" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>If checking a bool use IsA or HasA.</p></li>
+<li><dl class="simple">
+<dt>If setting a variable from statically held data prefix with “load_[data]”</dt><dd><ul>
+<li><p>Where a variable name contains “name” the variable may include spaces and other special characters. Where it includes “key” it may contain alphanumeric values only.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="reporting">
+<h3 id="reporting">Reporting<a class="headerlink" href="#reporting" title="Permalink to this headline">¶</a></h3>
+<p>Functions that change state should confirm when they have done so, via the log.</p>
+</section>
+</section>
+<section id="architecture-overview">
+<h2 id="architecture-overview">Architecture Overview<a class="headerlink" href="#architecture-overview" title="Permalink to this headline">¶</a></h2>
+<section id="game-is-key">
+<h3 id="game-is-key">Game is key<a class="headerlink" href="#game-is-key" title="Permalink to this headline">¶</a></h3>
+<p>All of the functionality is channeled through <code class="docutils literal notranslate"><span class="pre">Game</span></code>, with most classes having a reference to that class in order to access other aspects of the code base.</p>
+</section>
+<section id="core">
+<h3 id="core">Core<a class="headerlink" href="#core" title="Permalink to this headline">¶</a></h3>
+<p>The core aspects of the engine are held in a series of classes stored in the aptly named <code class="docutils literal notranslate"><span class="pre">/core</span></code> directory. Each of these classes handle a critical element of the engine and their purposes are intended to overlap as little as possible.</p>
+</section>
+<section id="scenes">
+<h3 id="scenes">Scenes<a class="headerlink" href="#scenes" title="Permalink to this headline">¶</a></h3>
+<p>In game interactions are handled via <code class="docutils literal notranslate"><span class="pre">Scene</span></code> s. Each <code class="docutils literal notranslate"><span class="pre">Scene</span></code> has a directory in the scene folder and is made up of 2 classes, <code class="docutils literal notranslate"><span class="pre">Scene</span></code> and <code class="docutils literal notranslate"><span class="pre">UI</span></code>.</p>
+<p>Scenes can be stacked on top of another and are rendered in the order in which they are added, those added earlier being rendered sooner.  Scenes also have a concept of input blocking, allowing input to flow onto scenes further down the stack, or not, as required.</p>
+</section>
+<section id="data">
+<h3 id="data">Data<a class="headerlink" href="#data" title="Permalink to this headline">¶</a></h3>
+<p>Where possible, static data should be defined in external files. See <a class="reference internal" href="#game-config"><span class="std std-ref">Game Config</span></a> for examples.</p>
+</section>
+</section>
+<section id="contributing">
+<h2 id="contributing">Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h2>
+<section id="forking">
+<h3 id="forking">Forking<a class="headerlink" href="#forking" title="Permalink to this headline">¶</a></h3>
+<p>To get started, <a class="reference external" href="https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/fork-a-repo">fork the repository</a> and open it up in your favorite editor. Next, open your terminal and point it to where you just saved the NQP2 repository. If you want to use <a class="reference external" href="https://python-poetry.org/">poetry</a> you would then run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">poetry</span>
+<span class="n">poetry</span> <span class="n">install</span>
+</pre></div>
+</div>
+<p>This will install all of the dependencies needed, using poetry.</p>
+<p>To run NQP2, navigate the terminal to the game directory and then use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">nqp2</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>If you’re not sure where to start helping out you can look at the existing feature requests and issues, <a class="reference external" href="https://github.com/Snayff/nqp2/issues">here</a>. Pick one you think you’d like to tackle and make the relevant changes to your fork.</p>
+</section>
+<section id="merging">
+<h3 id="merging">Merging<a class="headerlink" href="#merging" title="Permalink to this headline">¶</a></h3>
+<p>When you’re ready, submit a <a class="reference external" href="https://docs.github.com/en/free-pro-team@latest/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request">pull request</a> to have your changes added to the main repository. Any pull request must pass the checks in the Github Actions. The code must remain compatible with the building of the <a class="reference external" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> documentation, so that the docs are always up to date.</p>
+</section>
+<section id="bug-issues-and-defects">
+<h3 id="bug-issues-and-defects">Bug, Issues and Defects<a class="headerlink" href="#bug-issues-and-defects" title="Permalink to this headline">¶</a></h3>
+<p>If you find any problems in the existing code you can raise a <a class="reference external" href="https://github.com/Snayff/nqp2/issues/new?assignees=&amp;labels=bug&amp;template=bug_report.md&amp;title=">new issue</a> on Not Quite Paradise 2’s GitHub page.</p>
+</section>
+</section>
+<section id="game-config">
+<h2 id="game-config">Game Config<a class="headerlink" href="#game-config" title="Permalink to this headline">¶</a></h2>
+<p>Many of the values used throughout NQP2 are held in external data files. Those that relate to how the game functions are held in <code class="docutils literal notranslate"><span class="pre">config.json</span></code>.</p>
+<section id="config-explained">
+<h3 id="config-explained">Config Explained<a class="headerlink" href="#config-explained" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>{
+    "unit_tier_occur_rates": {
+        "1": 100, # the weight ascribed to a tier 1 unit when generating
+        "2": 50,  # the weight for a tier 2 unit...
+        "3": 25,
+        "4": 1
+    },
+    "event_tier_occur_rates": {
+        "1": 100,  # the weight of a tier 1 event when generating
+        "2": 75,  # the weight of a tier 2 event...
+        "3": 50,
+        "4": 25
+    },
+    "combat_tier_occur_rates": {
+        "1": 100,  # the weight of a tier 1 combat when generating
+        "2": 75,  # the weight of a tier 2 combat...
+        "3": 50,
+        "4": 25
+    },
+    "unit_base_values": {
+        "tier_1": {  # base values used for tier 1 units
+            "health": 0,
+            "defence": 0,
+            "attack": 0,
+            "range": 0,
+            "attack_speed": 0,
+            "move_speed": 0,
+            "ammo": 0,
+            "count": 0,
+            "size": 0,
+            "weight": 0,
+            "gold_cost": 0
+        },
+        "tier_2": {  # base values used for tier 2 units
+            "health": 0,
+            "defence": 0,
+            "attack": 0,
+            "range": 0,
+            "attack_speed": 0,
+            "move_speed": 0,
+            "ammo": 0,
+            "count": 0,
+            "size": 0,
+            "weight": 0,
+            "gold_cost": 0
+        },
+        "tier_3": {  # base values used for tier 3 units
+            "health": 0,
+            "defence": 0,
+            "attack": 0,
+            "range": 0,
+            "attack_speed": 0,
+            "move_speed": 0,
+            "ammo": 0,
+            "count": 0,
+            "size": 0,
+            "weight": 0,
+            "gold_cost": 0
+        },
+        "tier_4": {  # base values used for tier 4 units
+            "health": 0,
+            "defence": 0,
+            "attack": 0,
+            "range": 0,
+            "attack_speed": 0,
+            "move_speed": 0,
+            "ammo": 0,
+            "count": 0,
+            "size": 0,
+            "weight": 0,
+            "gold_cost": 0
+        }
+    },
+    "starting_values": {  # starting values of different resources
+        "gold": 0,
+        "rations": 0,
+        "morale": 0,
+        "charisma": 0,
+        "leadership": 0
+    },
+    "upgrade": {
+        "tier_cost_multiplier": 1.2,  # the multiplier applied to the upgrade cost. Only applies to tiers &gt; 1. (tier * tier_cost_multiplier) * cost
+        "cost":25  # the base cost of an upgrade
+    },
+    "overworld": {
+        "node_weights": {  # the weight assigned to each node during generation.
+            "combat": 0.5,
+            "event": 0.2,
+            "inn": 0.1,
+            "training": 0.1,
+            "unknown": 0.2
+        }
+    },
+    "post_combat": {
+        "gold_min": 10,  # minimum gold given as reward post combat
+        "gold_max": 50,  # maximum gold given
+        "gold_level_multiplier": 1.1  # the multiplier applied to the gold rewards. Only applied post level 1. (level * gold_level_multiplier) * gold_min (and gold_max)
+    }
+}
+</pre></div>
+</div>
+</section>
+</section>
+<section id="developer-console">
+<h2 id="developer-console">Developer Console<a class="headerlink" href="#developer-console" title="Permalink to this headline">¶</a></h2>
+<p>To open or close the developer console use the back tick <code class="docutils literal notranslate"><span class="pre">``</span></code>.</p>
+<section id="commands">
+<h3 id="commands">Commands<a class="headerlink" href="#commands" title="Permalink to this headline">¶</a></h3>
+<table id="id3">
+<caption><span class="caption-text">Title</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 25%"/>
+<col style="width: 25%"/>
+<col style="width: 50%"/>
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Syntax</p></th>
+<th class="head"><p>Example</p></th>
+<th class="head"><p>Additional Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>event [event_type]</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">event</span> <span class="pre">camp_party</span></code></p></td>
+<td><p>Load specified event.</p></td>
+</tr>
+<tr class="row-odd"><td><p>godmode</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">godmode</span></code></p></td>
+<td><p>Toggles godmode where player units take no damage and deal increased damage.</p></td>
+</tr>
+<tr class="row-even"><td><p>create_unit_jsons</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">create_unit_jsons</span></code></p></td>
+<td><p>A template json is created for each unit, based on the folder names in the asset folder.</p></td>
+</tr>
+<tr class="row-odd"><td><p>gallery</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">gallery</span></code></p></td>
+<td><p>Load the unit gallery.</p></td>
+</tr>
+<tr class="row-even"><td><p>data_editor</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">data_editor</span></code></p></td>
+<td><p>Load the data editor.</p></td>
+</tr>
+<tr class="row-odd"><td><p>load_unit_csv</p></td>
+<td><p><a href="#id1"><span class="problematic" id="id2">``</span></a>load_unit_csv ``</p></td>
+<td><p>Load a csv named <code class="docutils literal notranslate"><span class="pre">units.csv</span></code> into the unit’s json files, or creates new ones as appropriate. Does not handle <code class="docutils literal notranslate"><span class="pre">size</span></code>, <code class="docutils literal notranslate"><span class="pre">weight</span></code>, <code class="docutils literal notranslate"><span class="pre">gold_cost</span></code>, <code class="docutils literal notranslate"><span class="pre">default_behaviour</span></code> or <code class="docutils literal notranslate"><span class="pre">type</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p>combat_result [result]</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">combat_result</span> <span class="pre">win</span></code></p></td>
+<td><p>Expects “win” or “lose”. Instantly ends the current combat with the given result.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+
+
+          </article>
+        </div>
+      </div>
+    </main>
+  </div>
+  <footer class="md-footer">
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+          
+            <a href="_developer.html" title="Developer"
+               class="md-flex md-footer-nav__link md-footer-nav__link--prev"
+               rel="prev">
+              <div class="md-flex__cell md-flex__cell--shrink">
+                <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+              </div>
+              <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+                <span class="md-flex__ellipsis">
+                  <span
+                      class="md-footer-nav__direction"> Previous </span> Developer </span>
+              </div>
+            </a>
+          
+          
+            <a href="adding_new_content.html" title="Adding New Content"
+               class="md-flex md-footer-nav__link md-footer-nav__link--next"
+               rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
+                class="md-flex__ellipsis"> <span
+                class="md-footer-nav__direction"> Next </span> Adding New Content </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink"><i
+                class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          
+        </a>
+        
+      </nav>
+    </div>
+    <div class="md-footer-meta md-typeset">
+      <div class="md-footer-meta__inner md-grid">
+        <div class="md-footer-copyright">
+          <div class="md-footer-copyright__highlight">
+              &#169; Copyright 2019-2022, Josh Snaith.
+              
+          </div>
+            Created using
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+             and
+            <a href="https://github.com/bashtage/sphinx-material/">Material for
+              Sphinx</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="../_static/javascripts/application.js"></script>
+  <script>app.initialize({version: "1.0.4", url: {base: ".."}})</script>
+  </body>
+</html>

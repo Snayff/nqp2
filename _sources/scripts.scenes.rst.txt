@@ -7,15 +7,12 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
-   scripts.scenes.combat
    scripts.scenes.event
    scripts.scenes.gallery
    scripts.scenes.inn
    scripts.scenes.main_menu
-   scripts.scenes.overworld
    scripts.scenes.post_combat
    scripts.scenes.run_setup
-   scripts.scenes.test
    scripts.scenes.training
    scripts.scenes.unit_data
    scripts.scenes.view_troupe

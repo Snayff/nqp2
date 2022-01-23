@@ -221,6 +221,13 @@
     <li class="md-nav__item">
     
     
+      <a href="../../../../api/scene_elements/_scene_elements.html" class="md-nav__link">Scene Elements</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../../../../api/ui_elements/ui_elements.html" class="md-nav__link">UI Elements</a>
       
     
@@ -228,7 +235,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../../developer_notes/_developer_notes.html" class="md-nav__link">Developer Notes</a>
+      <a href="../../../../developer/_developer.html" class="md-nav__link">Developer</a>
       
     
     </li>
@@ -292,40 +299,40 @@
 <span class="sd">    """</span>
 
 <div class="viewcode-block" id="UI.__init__"><a class="viewcode-back" href="../../../../scripts.core.base_classes.html#scripts.core.base_classes.ui.UI.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">game</span><span class="p">:</span> <span class="n">Game</span><span class="p">,</span> <span class="n">block_onward_input</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="p">:</span> <span class="n">Game</span> <span class="o">=</span> <span class="n">game</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">:</span> <span class="n">Game</span> <span class="o">=</span> <span class="n">game</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">block_onward_input</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">block_onward_input</span>  <span class="c1"># prevents input being passed to the next scene</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">Frame</span><span class="p">,</span> <span class="n">UnitStatsFrame</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">panels</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Panel</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">current_panel</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Panel</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">Frame</span><span class="p">,</span> <span class="n">UnitStatsFrame</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_panels</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Panel</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Panel</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">temporary_instruction_text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">temporary_instruction_timer</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instruction_text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_temporary_instruction_text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_temporary_instruction_timer</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_instruction_text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">is_active</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span></div>
 
 <div class="viewcode-block" id="UI.update"><a class="viewcode-back" href="../../../../scripts.core.base_classes.html#scripts.core.base_classes.ui.UI.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">temporary_instruction_timer</span> <span class="o">-=</span> <span class="n">delta_time</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_temporary_instruction_timer</span> <span class="o">-=</span> <span class="n">delta_time</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">temporary_instruction_timer</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">temporary_instruction_text</span> <span class="o">=</span> <span class="s2">""</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_temporary_instruction_timer</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_temporary_instruction_text</span> <span class="o">=</span> <span class="s2">""</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">update_elements</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UI.process_input"><a class="viewcode-back" href="../../../../scripts.core.base_classes.html#scripts.core.base_classes.ui.UI.process_input">[docs]</a>    <span class="k">def</span> <span class="nf">process_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"toggle_dev_console"</span><span class="p">]:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"toggle_dev_console"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"toggle_dev_console"</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"toggle_dev_console"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">debug</span><span class="o">.</span><span class="n">toggle_dev_console_visibility</span><span class="p">()</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">debug</span><span class="o">.</span><span class="n">toggle_dev_console_visibility</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="UI.render"><a class="viewcode-back" href="../../../../scripts.core.base_classes.html#scripts.core.base_classes.ui.UI.render">[docs]</a>    <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">surface</span><span class="p">):</span>
+<div class="viewcode-block" id="UI.draw"><a class="viewcode-back" href="../../../../scripts.core.base_classes.html#scripts.core.base_classes.ui.UI.draw">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">surface</span><span class="p">):</span>
         <span class="k">pass</span></div>
 
 <div class="viewcode-block" id="UI.rebuild_ui"><a class="viewcode-back" href="../../../../scripts.core.base_classes.html#scripts.core.base_classes.ui.UI.rebuild_ui">[docs]</a>    <span class="k">def</span> <span class="nf">rebuild_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">elements</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">panels</span> <span class="o">=</span> <span class="p">{}</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_panels</span> <span class="o">=</span> <span class="p">{}</span></div>
 
 <div class="viewcode-block" id="UI.activate"><a class="viewcode-back" href="../../../../scripts.core.base_classes.html#scripts.core.base_classes.ui.UI.activate">[docs]</a>    <span class="k">def</span> <span class="nf">activate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
@@ -345,10 +352,10 @@
 
 <div class="viewcode-block" id="UI.set_instruction_text"><a class="viewcode-back" href="../../../../scripts.core.base_classes.html#scripts.core.base_classes.ui.UI.set_instruction_text">[docs]</a>    <span class="k">def</span> <span class="nf">set_instruction_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">temporary</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">temporary</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">temporary_instruction_text</span> <span class="o">=</span> <span class="n">text</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">temporary_instruction_timer</span> <span class="o">=</span> <span class="mi">2</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_temporary_instruction_text</span> <span class="o">=</span> <span class="n">text</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_temporary_instruction_timer</span> <span class="o">=</span> <span class="mi">2</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">instruction_text</span> <span class="o">=</span> <span class="n">text</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_instruction_text</span> <span class="o">=</span> <span class="n">text</span></div>
 
 <div class="viewcode-block" id="UI.rebuild_resource_elements"><a class="viewcode-back" href="../../../../scripts.core.base_classes.html#scripts.core.base_classes.ui.UI.rebuild_resource_elements">[docs]</a>    <span class="k">def</span> <span class="nf">rebuild_resource_elements</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
@@ -360,24 +367,24 @@
         <span class="c1"># key : [value, icon]</span>
         <span class="n">resources</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">"gold"</span><span class="p">:</span> <span class="p">[</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">"stats"</span><span class="p">,</span> <span class="s2">"gold"</span><span class="p">,</span> <span class="n">icon_size</span><span class="p">),</span>
-                <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">gold</span><span class="p">),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">"stats"</span><span class="p">,</span> <span class="s2">"gold"</span><span class="p">,</span> <span class="n">icon_size</span><span class="p">),</span>
+                <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">gold</span><span class="p">),</span>
             <span class="p">],</span>
             <span class="s2">"rations"</span><span class="p">:</span> <span class="p">[</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">"stats"</span><span class="p">,</span> <span class="s2">"rations"</span><span class="p">,</span> <span class="n">icon_size</span><span class="p">),</span>
-                <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">rations</span><span class="p">),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">"stats"</span><span class="p">,</span> <span class="s2">"rations"</span><span class="p">,</span> <span class="n">icon_size</span><span class="p">),</span>
+                <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">rations</span><span class="p">),</span>
             <span class="p">],</span>
             <span class="s2">"morale"</span><span class="p">:</span> <span class="p">[</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">"stats"</span><span class="p">,</span> <span class="s2">"morale"</span><span class="p">,</span> <span class="n">icon_size</span><span class="p">),</span>
-                <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">morale</span><span class="p">),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">"stats"</span><span class="p">,</span> <span class="s2">"morale"</span><span class="p">,</span> <span class="n">icon_size</span><span class="p">),</span>
+                <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">morale</span><span class="p">),</span>
             <span class="p">],</span>
             <span class="s2">"charisma"</span><span class="p">:</span> <span class="p">[</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">"stats"</span><span class="p">,</span> <span class="s2">"charisma"</span><span class="p">,</span> <span class="n">icon_size</span><span class="p">),</span>
-                <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">commander</span><span class="o">.</span><span class="n">charisma_remaining</span><span class="p">),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">"stats"</span><span class="p">,</span> <span class="s2">"charisma"</span><span class="p">,</span> <span class="n">icon_size</span><span class="p">),</span>
+                <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">commander</span><span class="o">.</span><span class="n">charisma_remaining</span><span class="p">),</span>
             <span class="p">],</span>
             <span class="s2">"leadership"</span><span class="p">:</span> <span class="p">[</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">"stats"</span><span class="p">,</span> <span class="s2">"leadership"</span><span class="p">,</span> <span class="n">icon_size</span><span class="p">),</span>
-                <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">leadership</span><span class="p">),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">"stats"</span><span class="p">,</span> <span class="s2">"leadership"</span><span class="p">,</span> <span class="n">icon_size</span><span class="p">),</span>
+                <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">leadership</span><span class="p">),</span>
             <span class="p">],</span>
         <span class="p">}</span>
 
@@ -390,7 +397,7 @@
         <span class="n">current_y</span> <span class="o">=</span> <span class="n">start_y</span>
 
         <span class="c1"># create frames</span>
-        <span class="n">create_font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">create_font</span>
+        <span class="n">create_font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">create_font</span>
         <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">resources</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
                 <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span>
@@ -398,7 +405,7 @@
                 <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DISABLED</span><span class="p">,</span> <span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
                 <span class="n">is_selectable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
             <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="sa">f</span><span class="s2">"resource_</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="sa">f</span><span class="s2">"resource_</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
             <span class="n">panel_elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
 
             <span class="c1"># increment position</span>
@@ -407,27 +414,27 @@
         <span class="c1"># create panel</span>
         <span class="n">panel</span> <span class="o">=</span> <span class="n">Panel</span><span class="p">(</span><span class="n">panel_elements</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
         <span class="n">panel</span><span class="o">.</span><span class="n">unselect_all_elements</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">panels</span><span class="p">[</span><span class="s2">"resources"</span><span class="p">]</span> <span class="o">=</span> <span class="n">panel</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_panels</span><span class="p">[</span><span class="s2">"resources"</span><span class="p">]</span> <span class="o">=</span> <span class="n">panel</span></div>
 
-<div class="viewcode-block" id="UI.draw_instruction"><a class="viewcode-back" href="../../../../scripts.core.base_classes.html#scripts.core.base_classes.ui.UI.draw_instruction">[docs]</a>    <span class="k">def</span> <span class="nf">draw_instruction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">surface</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">temporary_instruction_text</span><span class="p">:</span>
-            <span class="n">text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">temporary_instruction_text</span>
-            <span class="n">font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">NEGATIVE</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_draw_instruction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">surface</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_temporary_instruction_text</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_temporary_instruction_text</span>
+            <span class="n">font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">NEGATIVE</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instruction_text</span>
-            <span class="n">font</span> <span class="o">=</span> <span class="n">font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">INSTRUCTION</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_instruction_text</span>
+            <span class="n">font</span> <span class="o">=</span> <span class="n">font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">INSTRUCTION</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
 
-        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">width</span> <span class="o">-</span> <span class="n">font</span><span class="o">.</span><span class="n">width</span> <span class="o">-</span> <span class="mi">2</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">width</span> <span class="o">-</span> <span class="n">font</span><span class="o">.</span><span class="n">width</span> <span class="o">-</span> <span class="mi">2</span>
         <span class="n">y</span> <span class="o">=</span> <span class="mi">2</span>
         <span class="n">font</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-        <span class="n">font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span></div>
+        <span class="n">font</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>
 
-<div class="viewcode-block" id="UI.draw_elements"><a class="viewcode-back" href="../../../../scripts.core.base_classes.html#scripts.core.base_classes.ui.UI.draw_elements">[docs]</a>    <span class="k">def</span> <span class="nf">draw_elements</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">surface</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">element</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span></div>
+    <span class="k">def</span> <span class="nf">_draw_elements</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">surface</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">element</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>
 
 <div class="viewcode-block" id="UI.update_elements"><a class="viewcode-back" href="../../../../scripts.core.base_classes.html#scripts.core.base_classes.ui.UI.update_elements">[docs]</a>    <span class="k">def</span> <span class="nf">update_elements</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="n">element</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UI.add_panel"><a class="viewcode-back" href="../../../../scripts.core.base_classes.html#scripts.core.base_classes.ui.UI.add_panel">[docs]</a>    <span class="k">def</span> <span class="nf">add_panel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">panel</span><span class="p">:</span> <span class="n">Panel</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
@@ -435,16 +442,16 @@
 <span class="sd">        Adds panel to the panel dict. If it is the first panel then also sets it to the current panel and selects the</span>
 <span class="sd">         first element.</span>
 <span class="sd">        """</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">panels</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">panel</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_panels</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">panel</span>
 
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">panels</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">current_panel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">panels</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">current_panel</span><span class="o">.</span><span class="n">select_first_element</span><span class="p">()</span></div>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_panels</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_panels</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">select_first_element</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="UI.add_exit_button"><a class="viewcode-back" href="../../../../scripts.core.base_classes.html#scripts.core.base_classes.ui.UI.add_exit_button">[docs]</a>    <span class="k">def</span> <span class="nf">add_exit_button</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">button_text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"Onwards"</span><span class="p">):</span>
-        <span class="n">window_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">width</span>
-        <span class="n">window_height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">height</span>
-        <span class="n">font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="n">button_text</span><span class="p">)</span>
+        <span class="n">window_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">width</span>
+        <span class="n">window_height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">height</span>
+        <span class="n">font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="n">button_text</span><span class="p">)</span>
 
         <span class="c1"># get position info</span>
         <span class="n">confirm_width</span> <span class="o">=</span> <span class="n">font</span><span class="o">.</span><span class="n">get_text_width</span><span class="p">(</span><span class="n">button_text</span><span class="p">)</span>
@@ -452,7 +459,7 @@
         <span class="n">current_y</span> <span class="o">=</span> <span class="n">window_height</span> <span class="o">-</span> <span class="p">(</span><span class="n">font</span><span class="o">.</span><span class="n">line_height</span> <span class="o">+</span> <span class="n">GAP_SIZE</span><span class="p">)</span>
 
         <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">((</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span> <span class="n">font</span><span class="o">=</span><span class="n">font</span><span class="p">,</span> <span class="n">is_selectable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="s2">"exit"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="s2">"exit"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
         <span class="n">panel</span> <span class="o">=</span> <span class="n">Panel</span><span class="p">([</span><span class="n">frame</span><span class="p">],</span> <span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_panel</span><span class="p">(</span><span class="n">panel</span><span class="p">,</span> <span class="s2">"exit"</span><span class="p">)</span></div>
 
@@ -461,23 +468,23 @@
 <span class="sd">        Unselect the current panel and move the selection to the specified panel.</span>
 <span class="sd">        """</span>
         <span class="c1"># unselect current</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">current_panel</span><span class="o">.</span><span class="n">unselect_all_elements</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">unselect_all_elements</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="n">hide_old_panel</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">current_panel</span><span class="o">.</span><span class="n">is_active</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">is_active</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="c1"># select new</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">current_panel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">panels</span><span class="p">[</span><span class="n">panel_name</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_panels</span><span class="p">[</span><span class="n">panel_name</span><span class="p">]</span>
 
         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
                 <span class="sa">f</span><span class="s2">"Tried to change to </span><span class="si">{</span><span class="n">panel_name</span><span class="si">}</span><span class="s2"> panel, but does not exist. Selected first panel "</span> <span class="sa">f</span><span class="s2">"instead."</span>
             <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">current_panel</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">panels</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_panels</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">current_panel</span><span class="o">.</span><span class="n">select_first_element</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">current_panel</span><span class="o">.</span><span class="n">is_active</span> <span class="o">=</span> <span class="kc">True</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">select_first_element</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">is_active</span> <span class="o">=</span> <span class="kc">True</span></div></div>
 </pre></div>
 
           </article>
