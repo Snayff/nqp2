@@ -17,10 +17,10 @@ Last updated on |today| for version |version|.
 
 
 
-**Developer Notes**
+**Developer Information**
 
 
 ..  toctree::
     :maxdepth: 1
 
-    developer_notes/_developer_notes
+    developer/_developer
