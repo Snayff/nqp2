@@ -98,5 +98,8 @@
         "gold_min": 10,
         "gold_max": 50,
         "gold_level_multiplier": 1.1
+    },
+    "unit_properties": {
+        "injuries_before_death": 3
     }
 }

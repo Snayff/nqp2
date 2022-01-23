@@ -44,6 +44,9 @@ class WorldScene(Scene):
         self.projectiles: ProjectileManager = ProjectileManager(self._game)
         self.particles: ParticleManager = ParticleManager()
         self.combat_category: str = "basic"
+        self._combat_ending_timer: float = -1
+
+        self._game_log: List[str] = []  # list of str describing what has happened during the game
 
         # record duration
         end_time = time.time()
@@ -56,6 +59,14 @@ class WorldScene(Scene):
         # update all troupes
         for troupe in self._game.memory.troupes.values():
             troupe.update(delta_time)
+            
+        self.particles.update(delta_time)
+            
+        if self.state == WorldState.IDLE:
+            self._update_idle_state(delta_time)
+            
+        elif self.state == WorldState.COMBAT:
+            self._update_combat_state(delta_time)
 
     def activate(self):
         super().activate()
@@ -133,10 +144,11 @@ class WorldScene(Scene):
         # assign positions and add to combat
         for id_ in ids:
             unit = enemy_troupe.units[id_]
-
             unit.pos = positions.pop(0)
 
         self._game.memory.add_troupe(enemy_troupe)
+
+        self._combat_ending_timer = -1
 
     def _get_random_combat(self) -> Dict[str, Any]:
         if len(self._game.data.combats) > 0:
@@ -157,3 +169,121 @@ class WorldScene(Scene):
         else:
             combat_ = {}
         return combat_
+
+    def _update_idle_state(self, delta_time):
+        """
+        Make updates for the idle state
+        """
+        pass
+        
+
+    def _update_combat_state(self, delta_time):
+        """
+        Make updates for the combat state
+        """
+        self.projectiles.update(delta_time)
+
+        self.ui.forced_idle = False
+
+        # if combat ending
+        if self._combat_ending_timer != -1:
+            self._combat_ending_timer += delta_time
+            self._game.memory.set_game_speed(0.3 - (0.05 * self._combat_ending_timer))
+            self.ui.camera.zoom = 1 + (self._combat_ending_timer / 2)
+            self.ui.forced_idle = True
+
+            # TODO - what is last death?
+            if self.last_unit_death:
+                # average the last positions of the last entity to die and the killer of that entity
+                focus_point = (
+                    (self.last_unit_death[0].pos[0] + self.last_unit_death[1].pos[0]) / 2,
+                    (self.last_unit_death[0].pos[1] + self.last_unit_death[1].pos[1]) / 2,
+                )
+                # gradually move camera
+                self.ui.camera.pos[0] += (
+                        ((focus_point[0] - self._game.window.display.get_width() // 2) - self.ui.camera.pos[0])
+                        / 10
+                        * (self._game.window.delta_time * 60)
+                )
+                self.ui.camera.pos[1] += (
+                        ((focus_point[1] - self._game.window.display.get_height() // 2) - self.ui.camera.pos[1])
+                        / 10
+                        * (self._game.window.delta_time * 60)
+                )
+
+            if self._combat_ending_timer > 4:
+                self._end_combat()
+                # TODO - add post combat
+
+        # end combat when either side is empty
+        if (self.state == WorldState.COMBAT) and (self._combat_ending_timer == -1):
+            all_entities = self._game.memory.get_all_entities()
+            player_entities = [e for e in all_entities if e.team == "player"]
+            if len(player_entities) == 0:
+                self._process_defeat()
+
+            elif len(player_entities) == len(all_entities):
+                self._process_victory()
+
+
+    def _process_defeat(self):
+        """
+        Process the defeat, such as removing morale.
+        """
+        self.combat_ending_timer = 0
+
+        morale_removed = -999
+        self._game.memory.amend_morale(morale_removed)
+
+        # TODO - add post combat
+
+    def _process_victory(self):
+        """
+        Process victory,
+        """
+        self.combat_ending_timer = 0
+
+        # transition to post-combat
+        # TODO - add post combat
+
+    def end_combat(self):
+        """
+        End the combat
+        """
+        self._game.memory.set_game_speed(1)
+        self.ui.forced_idle = True
+        self.state = WorldState.IDLE  # TODO - add post combat
+
+        self._process_new_injuries()
+
+    def _process_new_injuries(self):
+        """
+        Process new injuries and resulting deaths
+        """
+        remove_units = []
+        combat_end_data = []
+        for i, unit in enumerate(self._game.memory.player_troupe.units.values()):
+
+            # do an update to ensure unit.alive is updated
+            unit.update(0.0001)
+
+            # add injury for units killed in combat
+            if not unit.alive:
+                unit.injuries += 1
+                # remove unit from troupe if the unit took too many injuries
+                if unit.injuries >= self._game.data.config["unit_properties"]["injuries_before_death"]:
+                    remove_units.append(unit.id)
+                    combat_end_data[i].append(unit.injuries)
+                    combat_end_data[i].append("Died")
+                else:
+                    combat_end_data[i].append(unit.injuries)
+                    combat_end_data[i].append("Injured")
+            else:
+                combat_end_data[i].append(unit.injuries)
+                combat_end_data[i].append("")
+
+        # remove units after since they can't be removed during iteration
+        for unit in remove_units:
+            self._game.memory.player_troupe.remove_unit(unit)
+
+        self._game_log.extend(combat_end_data)

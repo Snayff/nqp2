@@ -58,7 +58,7 @@ class Memory:
         self._seen_bosses: List[str] = []
 
         # in memory config
-        self.game_speed: float = 0
+        self._game_speed: float = 0
 
         # record duration
         end_time = time.time()
@@ -294,3 +294,13 @@ class Memory:
         except KeyError:
             logging.warning(f"Tried to remove troupe id ({id_} but not found. Troupes:({self.troupes})")
             raise Exception
+
+    def set_game_speed(self, speed: float):
+        """
+        Set the game speed. 1 is default.
+        """
+        self._game_speed = speed
+
+    @property
+    def game_speed(self) -> float:
+        return self._game_speed

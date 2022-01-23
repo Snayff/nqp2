@@ -44,13 +44,6 @@ class CombatState(IntEnum):
     WATCH = auto()
 
 
-class OverworldState(IntEnum):
-    LOADING = auto()
-    READY = auto()
-    TRAVELLING = auto()
-    BOSS_APPROACHING = auto()
-
-
 class TrainingState(IntEnum):
     CHOOSE_UPGRADE = auto()
     CHOOSE_TARGET_UNIT = auto()
@@ -65,20 +58,12 @@ class PostCombatState(IntEnum):
 class WorldState(IntEnum):
     IDLE = auto()
     OTHER_SCENE_ACTIVE = auto()
+    COMBAT = auto()
 
 
 class EventState(IntEnum):
     MAKE_DECISION = auto()
     RESULT = auto()
-
-
-class NodeType(IntEnum):
-    COMBAT = auto()
-    EVENT = auto()
-    INN = auto()
-    TRAINING = auto()
-    BLANK = auto()
-    BOSS_COMBAT = auto()
 
 
 class SceneType(IntEnum):
