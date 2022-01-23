@@ -179,7 +179,6 @@ class WorldScene(Scene):
         Make updates for the idle state
         """
         pass
-        
 
     def _update_combat_state(self, delta_time):
         """

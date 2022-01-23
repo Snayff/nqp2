@@ -300,6 +300,7 @@ class Memory:
         Set the game speed. 1 is default.
         """
         self._game_speed = speed
+        logging.debug(f"Game speed set to {self._game_speed}")
 
     @property
     def game_speed(self) -> float:

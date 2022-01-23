@@ -89,9 +89,13 @@ class Game:
         self.master_clock += delta_time
 
         self.input.update(delta_time)
+        if self.input.states["tab"]:
+            self.debug.toggle_debug_info()
+
         for scene in self.scene_stack:
             if scene.ui.is_active:
                 scene.update(delta_time)
+
         self.debug.update(delta_time)
 
     def _render(self):
@@ -103,7 +107,7 @@ class Game:
             if scene.ui.is_active:
                 scene.ui.draw(surface)
 
-        self.debug.draw()  # always last so it is on top
+        self.debug.draw(surface)  # always last so it is on top
 
     def run(self):
         self._update()
