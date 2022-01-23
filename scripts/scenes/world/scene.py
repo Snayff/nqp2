@@ -59,12 +59,12 @@ class WorldScene(Scene):
         # update all troupes
         for troupe in self._game.memory.troupes.values():
             troupe.update(delta_time)
-            
+
         self.particles.update(delta_time)
-            
+
         if self.state == WorldState.IDLE:
             self._update_idle_state(delta_time)
-            
+
         elif self.state == WorldState.COMBAT:
             self._update_combat_state(delta_time)
 
@@ -207,14 +207,14 @@ class WorldScene(Scene):
                 )
                 # gradually move camera
                 self.ui.camera.pos[0] += (
-                        ((focus_point[0] - self._game.window.display.get_width() // 2) - self.ui.camera.pos[0])
-                        / 10
-                        * (self._game.window.delta_time * 60)
+                    ((focus_point[0] - self._game.window.display.get_width() // 2) - self.ui.camera.pos[0])
+                    / 10
+                    * (self._game.window.delta_time * 60)
                 )
                 self.ui.camera.pos[1] += (
-                        ((focus_point[1] - self._game.window.display.get_height() // 2) - self.ui.camera.pos[1])
-                        / 10
-                        * (self._game.window.delta_time * 60)
+                    ((focus_point[1] - self._game.window.display.get_height() // 2) - self.ui.camera.pos[1])
+                    / 10
+                    * (self._game.window.delta_time * 60)
                 )
 
             if self._combat_ending_timer > 4:
@@ -230,7 +230,6 @@ class WorldScene(Scene):
 
             elif len(player_entities) == len(all_entities):
                 self._process_victory()
-
 
     def _process_defeat(self):
         """

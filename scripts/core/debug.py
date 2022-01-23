@@ -303,4 +303,3 @@ class Debugger:
         current_y = start_y + 10
         text = f"Game speed:{self._game.memory.game_speed} ; WorldState: {self._game.world.state.name}"
         self._fonts.append(self._game.assets.create_font(FontType.DEFAULT, text, (start_x, current_y)))
-

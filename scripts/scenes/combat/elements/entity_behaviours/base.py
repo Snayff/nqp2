@@ -48,7 +48,9 @@ class Base(Behaviour):
             self.update_target()
 
         if self.target_entity:
-            if (self.target_entity not in self.entity._parent_unit.behaviour.valid_targets) or (not self.target_entity.alive):
+            if (self.target_entity not in self.entity._parent_unit.behaviour.valid_targets) or (
+                not self.target_entity.alive
+            ):
                 self.update_target()
 
         if self.target_entity:

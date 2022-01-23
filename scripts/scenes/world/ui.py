@@ -183,9 +183,5 @@ class WorldUI(UI):
             target_pos[0] -= self._game.window.base_resolution[0] // 2
             target_pos[1] -= self._game.window.base_resolution[1] // 2
 
-        self.camera.pos[0] += (
-                (target_pos[0] - self.camera.pos[0]) / 10 * (delta_time * 60)
-        )
-        self.camera.pos[1] += (
-                (target_pos[1] - self.camera.pos[1]) / 10 * (delta_time * 60)
-        )
+        self.camera.pos[0] += (target_pos[0] - self.camera.pos[0]) / 10 * (delta_time * 60)
+        self.camera.pos[1] += (target_pos[1] - self.camera.pos[1]) / 10 * (delta_time * 60)

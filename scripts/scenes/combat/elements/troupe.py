@@ -199,4 +199,3 @@ class Troupe:
         """
         for unit in self.units.values():
             unit.forced_idle = active
-
