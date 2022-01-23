@@ -1,18 +1,16 @@
 from __future__ import annotations
 
-import logging
 from typing import TYPE_CHECKING
 
 import pygame
 
 from scripts.core.base_classes.ui import UI
-from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, GAP_SIZE, PostCombatState, RewardType, SceneType
-from scripts.scenes.combat.elements.unit import Unit
+from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, PostCombatState, RewardType, SceneType
+from scripts.scene_elements.unit import Unit
 from scripts.ui_elements.frame import Frame
-from scripts.ui_elements.panel import Panel
 
 if TYPE_CHECKING:
-    from typing import Dict, List, Optional, Type, Union
+    from typing import Optional
 
     from scripts.core.game import Game
     from scripts.scenes.post_combat.scene import PostCombatScene

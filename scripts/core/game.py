@@ -15,7 +15,6 @@ from scripts.core.input import Input
 from scripts.core.memory import Memory
 from scripts.core.rng import RNG
 from scripts.core.window import Window
-from scripts.scenes.combat.scene import CombatScene
 from scripts.scenes.event.scene import EventScene
 from scripts.scenes.gallery.scene import GalleryScene
 from scripts.scenes.inn.scene import InnScene

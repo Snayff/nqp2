@@ -6,13 +6,12 @@ import pygame
 
 from scripts.core.base_classes.ui import UI
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, SceneType, WorldState
-from scripts.scenes.combat.elements.camera import Camera
-from scripts.scenes.combat.elements.terrain import Terrain
+from scripts.scene_elements.camera import Camera
+from scripts.scene_elements.terrain import Terrain
 from scripts.ui_elements.frame import Frame
-from scripts.ui_elements.panel import Panel
 
 if TYPE_CHECKING:
-    from typing import Dict, List, Optional, Tuple, Type, Union
+    from typing import List, Optional, Tuple
 
     from scripts.core.game import Game
     from scripts.scenes.world.scene import WorldScene
@@ -157,16 +156,15 @@ class WorldUI(UI):
 
             frame = Frame(
                 (current_x, current_y),
+                image=defeat_icon,
                 font=create_font(FontType.DEFAULT, "Press Enter to return to the main menu."),
                 is_selectable=False,
             )
             self._elements["defeat_instruction"] = frame
 
         if self._parent_scene.state == WorldState.COMBAT_VICTORY:
-            defeat_icon = self._game.assets.get_image("ui", "arrow_button", icon_size)
             frame = Frame(
                 (current_x, current_y),
-                image=defeat_icon,
                 font=create_font(FontType.POSITIVE, "Victory"),
                 is_selectable=False,
             )

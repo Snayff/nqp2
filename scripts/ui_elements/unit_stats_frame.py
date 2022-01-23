@@ -6,11 +6,10 @@ import pygame
 
 from scripts.core.base_classes.ui_element import UIElement
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, GAP_SIZE, StatModifiedStatus
-from scripts.scenes.combat.elements.unit import Unit
-from scripts.ui_elements.font import Font
+from scripts.scene_elements.unit import Unit
 
 if TYPE_CHECKING:
-    from typing import List, Tuple
+    from typing import Tuple
 
     from scripts.core.game import Game
 

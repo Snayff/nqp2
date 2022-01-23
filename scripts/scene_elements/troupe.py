@@ -1,15 +1,13 @@
 from __future__ import annotations
 
 import logging
-import random
 from typing import TYPE_CHECKING
 
-from scripts.scenes.combat.elements.commander import Commander
-from scripts.scenes.combat.elements.entity import Entity
-from scripts.scenes.combat.elements.unit import Unit
+from scripts.scene_elements.entity import Entity
+from scripts.scene_elements.unit import Unit
 
 if TYPE_CHECKING:
-    from typing import Dict, List, Optional, Tuple
+    from typing import Dict, List
 
     from scripts.core.game import Game
 

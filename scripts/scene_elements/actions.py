@@ -1,4 +1,4 @@
-from scripts.scenes.combat.elements.hitbox import Hitbox
+from scripts.scene_elements.hitbox import Hitbox
 
 
 class Action:

@@ -6,13 +6,13 @@ from typing import Any, TYPE_CHECKING
 
 from scripts.core.base_classes.scene import Scene
 from scripts.core.constants import SceneType, WorldState
-from scripts.scenes.combat.elements.particles import ParticleManager
-from scripts.scenes.combat.elements.projectile_manager import ProjectileManager
-from scripts.scenes.combat.elements.troupe import Troupe
+from scripts.scene_elements.particle_manager import ParticleManager
+from scripts.scene_elements.projectile_manager import ProjectileManager
+from scripts.scene_elements.troupe import Troupe
 from scripts.scenes.world.ui import WorldUI
 
 if TYPE_CHECKING:
-    from typing import Dict, List, Optional, Type, Union
+    from typing import Dict, List
 
     from scripts.core.game import Game
 

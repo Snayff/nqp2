@@ -6,13 +6,13 @@ import pygame
 
 from scripts.core.base_classes.ui import UI
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, GAP_SIZE, SceneType, TrainingState
-from scripts.scenes.combat.elements.unit import Unit
+from scripts.scene_elements.unit import Unit
 from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.panel import Panel
 from scripts.ui_elements.unit_stats_frame import UnitStatsFrame
 
 if TYPE_CHECKING:
-    from typing import Dict, List, Optional, Tuple, Type, Union
+    from typing import Dict, Optional, Tuple
 
     from scripts.core.game import Game
     from scripts.scenes.training.scene import TrainingScene

@@ -8,7 +8,7 @@ from scripts.core.constants import DEFENSE_SCALE, PUSH_FORCE, WEIGHT_SCALE
 from scripts.core.utility import offset
 
 if TYPE_CHECKING:
-    from scripts.scenes.combat.elements.unit import Unit
+    from scripts.scene_elements.unit import Unit
 
 __all__ = ["Entity"]
 

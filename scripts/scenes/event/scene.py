@@ -1,14 +1,13 @@
 from __future__ import annotations
 
 import logging
-import random
 import time
 from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.scene import Scene
 from scripts.core.constants import EventState, SceneType
-from scripts.scenes.combat.elements.troupe import Troupe
-from scripts.scenes.combat.elements.unit import Unit
+from scripts.scene_elements.troupe import Troupe
+from scripts.scene_elements.unit import Unit
 from scripts.scenes.event.ui import EventUI
 
 if TYPE_CHECKING:

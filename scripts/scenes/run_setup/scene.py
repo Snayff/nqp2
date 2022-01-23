@@ -7,13 +7,11 @@ from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.scene import Scene
 from scripts.core.constants import SceneType
-from scripts.scenes.combat.elements.commander import Commander
-from scripts.scenes.combat.elements.troupe import Troupe
+from scripts.scene_elements.commander import Commander
+from scripts.scene_elements.troupe import Troupe
 from scripts.scenes.run_setup.ui import RunSetupUI
 
 if TYPE_CHECKING:
-    from typing import Dict, List, Optional, Tuple, Union
-
     from scripts.core.game import Game
 
 __all__ = ["RunSetupScene"]

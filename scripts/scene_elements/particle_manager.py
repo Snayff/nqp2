@@ -1,25 +1,17 @@
+from __future__ import annotations
+
+import logging
 import math
 import random
 
+from typing import TYPE_CHECKING
 
-class Particle:
-    def __init__(self, loc, vel, dur, colour):
-        self.loc = list(loc)
-        self.vel = list(vel)
-        self.dur = dur
-        self.colour = colour
+from scripts.scene_elements.particle import Particle
 
-    def update(self, dt):
-        self.loc[0] += self.vel[0] * dt
-        self.loc[1] += self.vel[1] * dt
+if TYPE_CHECKING:
+    from typing import List, Optional, Tuple, Union, Dict
 
-        self.dur -= dt
-        if self.dur < 0:
-            return False
-        return True
-
-    def draw(self, surf, offset=(0, 0)):
-        surf.set_at((int(self.loc[0] + offset[0]), int(self.loc[1] + offset[1])), self.colour)
+__all__ = []
 
 
 class ParticleManager:

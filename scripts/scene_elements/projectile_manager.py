@@ -1,4 +1,4 @@
-from scripts.scenes.combat.elements.projectile import Projectile
+from scripts.scene_elements.projectile import Projectile
 
 
 class ProjectileManager:

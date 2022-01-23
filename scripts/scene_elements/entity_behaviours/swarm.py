@@ -1,7 +1,7 @@
 import math
 import random
 
-from scripts.scenes.combat.elements.entity_behaviours.behaviour import Behaviour
+from scripts.scene_elements.entity_behaviours.behaviour import Behaviour
 
 
 class Swarm(Behaviour):
