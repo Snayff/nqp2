@@ -75,7 +75,7 @@ class Unit:
         self.dead_entities: List[Entity] = []
         self.pos: Tuple[int, int] = [0, 0]
         self.placed: bool = False
-        self.forced_idle: bool = False
+        self.forced_idle: bool = True  # forces idle state to prevent action
 
         # visual
         self.border_surface_timer: float = 0

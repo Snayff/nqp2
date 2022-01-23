@@ -76,7 +76,7 @@ class RunSetupScene(Scene):
         logging.info(f"Run starting now!")
 
         # change scene
-        self._game.change_scene([SceneType.WORLD])
+        self._game.change_scene(SceneType.WORLD)
         self._game.add_scene(SceneType.EVENT, False)
 
     def reset(self):

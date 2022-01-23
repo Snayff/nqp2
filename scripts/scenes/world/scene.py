@@ -32,7 +32,7 @@ class WorldScene(Scene):
 
         self.ui: WorldUI = WorldUI(game, self)
 
-        self.state = WorldState.IDLE
+        self.state: WorldState = WorldState.IDLE
         self.unit_grid: List = []
         self.last_unit_death = None
 
@@ -53,20 +53,23 @@ class WorldScene(Scene):
         logging.debug(f"WorldScene: initialised in {format(end_time - start_time, '.2f')}s.")
 
     def update(self, delta_time: float):
-        super().update(delta_time)
-        self.ui.update(delta_time)
+        # amend delta time by game speed adn cascade down
+        mod_delta_time = self._game.memory.game_speed * delta_time
+
+        super().update(mod_delta_time)
+        self.ui.update(mod_delta_time)
 
         # update all troupes
         for troupe in self._game.memory.troupes.values():
-            troupe.update(delta_time)
+            troupe.update(mod_delta_time)
 
-        self.particles.update(delta_time)
+        self.particles.update(mod_delta_time)
 
         if self.state == WorldState.IDLE:
-            self._update_idle_state(delta_time)
+            self._update_idle_state(mod_delta_time)
 
         elif self.state == WorldState.COMBAT:
-            self._update_combat_state(delta_time)
+            self._update_combat_state(mod_delta_time)
 
     def activate(self):
         super().activate()
@@ -79,7 +82,22 @@ class WorldScene(Scene):
 
     def reset(self):
         self.ui = WorldUI(self._game, self)
+
+        self.state = WorldState.IDLE
         self.unit_grid = []
+        self.last_unit_death = None
+
+        # unit selection grid dimensions
+        self.grid_size = [3, 8]  # col, row
+        self.grid_cell_size = 32
+        self.grid_margin = 32
+
+        self.projectiles = ProjectileManager(self._game)
+        self.particles = ParticleManager()
+        self.combat_category = "basic"
+        self._combat_ending_timer = -1
+
+        self._game_log = []  # list of str describing what has happened during the game
 
     def _align_unit_pos_to_unit_grid(self):
         """
@@ -237,10 +255,8 @@ class WorldScene(Scene):
         """
         self.combat_ending_timer = 0
 
-        morale_removed = -999
-        self._game.memory.amend_morale(morale_removed)
-
-        # TODO - add post combat
+        self.state = WorldState.DEFEAT
+        self.ui.rebuild_ui()
 
     def _process_victory(self):
         """
@@ -293,3 +309,5 @@ class WorldScene(Scene):
             self._game.memory.player_troupe.remove_unit(unit)
 
         self._game_log.extend(combat_end_data)
+
+

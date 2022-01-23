@@ -30,7 +30,7 @@ class Memory:
 
         # units
         self._last_id = 0
-        self.troupes: Dict[int, Troupe] = {self.generate_id(): Troupe(self._game, "player", [])}
+        self.troupes: Dict[int, Troupe] = {}
 
         # player choices
         self.commander: Optional[Commander] = None
@@ -304,3 +304,39 @@ class Memory:
     @property
     def game_speed(self) -> float:
         return self._game_speed
+
+    def reset(self):
+        """
+        Reset to initial values
+        """
+        # units
+        self._last_id = 0
+        self.troupes = {}
+
+        # player choices
+        self.commander = None
+
+        # events
+        self._event_deck = self._load_events([1])  # all available events
+        self._priority_events= {}  # events to be prioritised
+        self._turns_since_priority_event = 0
+
+        # resources
+        self.gold = 0
+        self.rations = 0
+        self.charisma = 0
+        self.leadership = 0
+        self.morale = 0
+
+        # progress
+        self.level = 1
+        self.flags = []
+
+        # generated values for later user
+        self.level_boss = ""
+
+        # history
+        self._seen_bosses = []
+
+        # in memory config
+        self._game_speed = 1

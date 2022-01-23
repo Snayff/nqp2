@@ -79,7 +79,7 @@ class GalleryUI(UI):
                 self._game.input.states["select"] = False
 
                 # return to previous scene
-                self._game.change_scene([self._game.dev_gallery.previous_scene_type])
+                self._game.change_scene(self._game.dev_gallery.previous_scene_type)
 
     def draw(self, surface: pygame.surface):
         default_font = self.default_font

@@ -48,7 +48,7 @@ class EventUI(UI):
 
         # view troupe
         if self._game.input.states["view_troupe"]:
-            self._game.change_scene([SceneType.VIEW_TROUPE])
+            self._game.change_scene(SceneType.VIEW_TROUPE)
 
         # panel specific input
         if self._current_panel == self._panels["options"]:

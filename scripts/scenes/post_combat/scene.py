@@ -41,8 +41,8 @@ class PostCombatScene(Scene):
 
         # reward options
         self.gold_reward: int = 0
-        player_troupe = self._game.memory.player_troupe
-        self.troupe_rewards: Troupe = Troupe(self._game, "reward", player_troupe.allies)
+
+        self.troupe_rewards: Optional[Troupe] = None
         self.resource_rewards = None
         self.upgrade_rewards = None
         self.action_rewards = None

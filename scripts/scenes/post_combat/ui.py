@@ -321,7 +321,7 @@ class PostCombatUI(UI):
                 self._game.input.states["select"] = False
 
                 # there's only 1 thing to select so we know it is the exit button
-                self._game.change_scene([SceneType.OVERWORLD])
+                self._game.change_scene(SceneType.OVERWORLD)
 
     def handle_defeat_input(self):
         if self.selected_ui_row == 1:
@@ -333,17 +333,17 @@ class PostCombatUI(UI):
                 if morale <= 0:
                     # game over
                     self._game.run_setup.reset()
-                    self._game.change_scene([SceneType.MAIN_MENU])
+                    self._game.change_scene(SceneType.MAIN_MENU)
                 else:
                     # bakc to overworld
-                    self._game.change_scene([SceneType.OVERWORLD])
+                    self._game.change_scene(SceneType.OVERWORLD)
 
     def handle_boss_victory_input(self):
         if self._game.input.states["select"]:
             self._game.input.states["select"] = False
 
             # there's only 1 thing to select so we know it is the exit button
-            self._game.change_scene([SceneType.MAIN_MENU])
+            self._game.change_scene(SceneType.MAIN_MENU)
 
     def _rebuild_boss_victory_ui(self):
         start_y = 40

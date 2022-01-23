@@ -211,12 +211,13 @@ class Game:
 
         return scene
 
-    def change_scene(self, scene_types: List[SceneType]):
+    def change_scene(self, scene_type: SceneType):
         """
-        Deactivate all active scenes and activate the given scenes.
+        Deactivate all active scenes and activate the given scene.
         """
         for scene in self.scene_stack:
+            scene.reset()
             self.remove_scene(scene.type)
 
-        for scene_type in scene_types:
-            self.add_scene(scene_type)
+
+        self.add_scene(scene_type)

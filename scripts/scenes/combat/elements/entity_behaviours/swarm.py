@@ -55,18 +55,18 @@ class Swarm(Behaviour):
             elif not self.priority_target.alive:
                 self.priority_target = None
 
-        elif self.entity.unit.behaviour.target:
-            angle = self.entity.angle(self.entity.unit.behaviour.target)
+        elif self.entity._parent_unit.behaviour.target:
+            angle = self.entity.angle(self.entity._parent_unit.behaviour.target)
 
             if self.loop_around > 0:
                 self.entity.advance(angle + (math.pi / 1.7) * self.loop_direction, self.entity.move_speed * dt)
 
             else:
-                dis = self.entity.dis(self.entity.unit.behaviour.target) - (
-                    self.entity.size + self.entity.unit.behaviour.target.size
+                dis = self.entity.dis(self.entity._parent_unit.behaviour.target) - (
+                    self.entity.size + self.entity._parent_unit.behaviour.target.size
                 )
                 if dis > self.entity.range:
                     self.entity.advance(angle, self.entity.move_speed * dt)
 
                 # always try to attack
-                self.entity.attempt_attack(self.entity.unit.behaviour.target)
+                self.entity.attempt_attack(self.entity._parent_unit.behaviour.target)
