@@ -24,7 +24,7 @@ class ViewTroupeUI(UI):
 
     def __init__(self, game: Game, parent_scene: ViewTroupeScene):
         super().__init__(game, True)
-        self.parent_scene: ViewTroupeScene = parent_scene
+        self._parent_scene: ViewTroupeScene = parent_scene
 
         self.set_instruction_text(f"Press X to exit the troupe overview.")
 
@@ -35,33 +35,33 @@ class ViewTroupeUI(UI):
         super().process_input(delta_time)
 
         # generic input
-        if self.game.input.states["down"]:
-            self.game.input.states["down"] = False
+        if self._game.input.states["down"]:
+            self._game.input.states["down"] = False
 
-            self.current_panel.select_next_element()
+            self._current_panel.select_next_element()
 
-        if self.game.input.states["up"]:
-            self.game.input.states["up"] = False
+        if self._game.input.states["up"]:
+            self._game.input.states["up"] = False
 
-            self.current_panel.select_previous_element()
+            self._current_panel.select_previous_element()
 
-        if self.game.input.states["cancel"]:
-            self.game.input.states["cancel"] = False
+        if self._game.input.states["cancel"]:
+            self._game.input.states["cancel"] = False
 
             # return to previous scene
-            self.game.change_scene([self.game.troupe.previous_scene_type])
+            self._game.change_scene(self._game.troupe.previous_scene_type)
 
-    def render(self, surface: pygame.surface):
+    def draw(self, surface: pygame.surface):
         # show core info
-        self.draw_instruction(surface)
+        self._draw_instruction(surface)
 
         # draw elements
-        self.draw_elements(surface)
+        self._draw_elements(surface)
 
     def rebuild_ui(self):
         super().rebuild_ui()
 
-        units = self.game.memory.player_troupe.units
+        units = self._game.memory.player_troupe.units
 
         # positions
         start_x = 20
@@ -72,8 +72,8 @@ class ViewTroupeUI(UI):
         current_y = start_y
         for count, unit in enumerate(units.values()):
 
-            frame = UnitStatsFrame(self.game, (current_x, current_y), unit, False)
-            self.elements[f"{unit.id}"] = frame
+            frame = UnitStatsFrame(self._game, (current_x, current_y), unit, False)
+            self._elements[f"{unit.id}"] = frame
             # if we need to refer back to this we will need to change key
 
             current_x += 70

@@ -25,9 +25,6 @@ WEIGHT_SCALE = 5
 DEFENSE_SCALE = 10
 PUSH_FORCE = 14
 
-# other
-DAYS_UNTIL_BOSS = 30
-
 # UI customisation
 TEXT_FADE_OUT_SPEED = 0.5  # N.B. make sure it is slower than the fade in
 TEXT_FADE_IN_SPEED = 2
@@ -47,13 +44,6 @@ class CombatState(IntEnum):
     WATCH = auto()
 
 
-class OverworldState(IntEnum):
-    LOADING = auto()
-    READY = auto()
-    TRAVELLING = auto()
-    BOSS_APPROACHING = auto()
-
-
 class TrainingState(IntEnum):
     CHOOSE_UPGRADE = auto()
     CHOOSE_TARGET_UNIT = auto()
@@ -67,7 +57,9 @@ class PostCombatState(IntEnum):
 
 class WorldState(IntEnum):
     IDLE = auto()
-    OTHER_SCENE_ACTIVE = auto()
+    COMBAT = auto()
+    DEFEAT = auto()
+    COMBAT_VICTORY = auto()
 
 
 class EventState(IntEnum):
@@ -75,18 +67,7 @@ class EventState(IntEnum):
     RESULT = auto()
 
 
-class NodeType(IntEnum):
-    COMBAT = auto()
-    EVENT = auto()
-    INN = auto()
-    TRAINING = auto()
-    BLANK = auto()
-    BOSS_COMBAT = auto()
-
-
 class SceneType(IntEnum):
-    COMBAT = auto()
-    BOSS_COMBAT = auto()
     POST_COMBAT = auto()
     EVENT = auto()
     INN = auto()

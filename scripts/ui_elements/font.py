@@ -157,7 +157,7 @@ class Font:
 
         return num_lines
 
-    def render(self, surface: pygame.Surface):
+    def draw(self, surface: pygame.Surface):
         text = self.text
         line_width = self.line_width
         pos = self.pos
@@ -165,7 +165,7 @@ class Font:
         x_offset = 0
         y_offset = 0
 
-        # text wrapping; breaks are on spaces. This can cause some render/clipping issues.
+        # text wrapping; breaks are on spaces. This can cause some draw/clipping issues.
         spaces = []
         x = 0
         for i, char in enumerate(text):

@@ -9,7 +9,7 @@ from scripts.core.constants import SceneType, TrainingState
 from scripts.scenes.training.ui import TrainingUI
 
 if TYPE_CHECKING:
-    from typing import Dict, List
+    from typing import Dict, List, Optional, Tuple, Union
 
     from scripts.core.game import Game
 
@@ -36,7 +36,7 @@ class TrainingScene(Scene):
         self.state: TrainingState = TrainingState.CHOOSE_UPGRADE
 
         self.upgrades_offered: List = []
-        self.upgrades_available: Dict[str, bool] = {}  # upgrade.type : is available
+        self.upgrades_available: Dict[str, bool] = {}  # upgrade.type : is_available
 
         # record duration
         end_time = time.time()
@@ -47,7 +47,7 @@ class TrainingScene(Scene):
         self.ui.update(delta_time)
 
     def reset(self):
-        self.ui = TrainingUI(self.game, self)
+        self.ui = TrainingUI(self._game, self)
         self.state = TrainingState.CHOOSE_UPGRADE
         self.upgrades_offered = []
         self.upgrades_available = {}
@@ -56,15 +56,15 @@ class TrainingScene(Scene):
         """
         Generate upgrades to sell. NOTE: currently hard coded.
         """
-        self.upgrades_offered = [self.game.data.upgrades["minor_attack"], self.game.data.upgrades["minor_defence"]]
+        self.upgrades_offered = [self._game.data.upgrades["minor_attack"], self._game.data.upgrades["minor_defence"]]
         self.upgrades_available = {"minor_attack": True, "minor_defence": True}
 
     def calculate_upgrade_cost(self, tier: int):
         """
         Calculate the cost of the upgrade based on the tier of the upgrade.
         """
-        tier_multiplier = self.game.data.config["upgrade"]["tier_cost_multiplier"]
-        upgrade_cost = self.game.data.config["upgrade"]["cost"]
+        tier_multiplier = self._game.data.config["upgrade"]["tier_cost_multiplier"]
+        upgrade_cost = self._game.data.config["upgrade"]["cost"]
 
         # only apply multiplier post tier 1
         if tier > 1:

@@ -82,7 +82,7 @@
         "tier_cost_multiplier": 1.2,
         "cost":25
     },
-    "overworld": {
+    "world": {
         "node_weights": {
             "combat": 0.5,
             "inn": 0.1,
@@ -98,5 +98,8 @@
         "gold_min": 10,
         "gold_max": 50,
         "gold_level_multiplier": 1.1
+    },
+    "unit_properties": {
+        "injuries_before_death": 3
     }
 }

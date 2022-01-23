@@ -11,8 +11,11 @@ import time
 import timeit
 from typing import TYPE_CHECKING
 
+import pygame
+
 from scripts.core.constants import DEBUGGING_PATH, FontType, INFINITE, LOGGING_PATH, PROFILING_PATH, VERSION
 from scripts.ui_elements.dev_console import DevConsole
+from scripts.ui_elements.font import Font
 
 if TYPE_CHECKING:
     from typing import Callable, List, Optional, Tuple, TYPE_CHECKING, Union
@@ -27,7 +30,7 @@ class Debugger:
         # start timer
         start_time = time.time()
 
-        self.game = game
+        self._game = game
 
         # create required folders
         self._create_folders()
@@ -44,13 +47,16 @@ class Debugger:
         self.profile_duration_remaining: int = INFINITE
 
         # flags
-        self.is_fps_visible: bool = False
         self.is_profiling: bool = True
         self.is_logging: bool = True
         self.debug_mode: bool = False
+        self._show_debug_info: bool = False
 
         # values
         self._num_frames_considered_recent: int = 600
+
+        # ui
+        self._fonts: List[Font] = []
 
         self.initialise_logging()
 
@@ -82,26 +88,19 @@ class Debugger:
         if self._dev_console is not None:
             self._dev_console.update(delta_time)
 
-    def render(self):
+        if self._show_debug_info:
+            self._refresh_debug_info()
+
+    def draw(self, surface: pygame.surface):
         """
         Draw debug info
         """
-        surface = self.game.window.display
-
-        # draw fps
-        if self.is_fps_visible:
-            current_fps = f"FPS: C={format(self.current_fps, '.2f')}, "
-            recent_fps = f"R_Avg={format(self.recent_average_fps, '.2f')}, "
-            avg_fps = f"Avg={format(self.average_fps, '.2f')}"
-
-            start_x = 1
-            start_y = 1
-
-            text = f"{current_fps} | {recent_fps} | {avg_fps}"
-            self.game.assets.create_font(FontType.DISABLED, text, (start_x, start_y))
+        if self._show_debug_info:
+            for font in self._fonts:
+                font.draw(surface)
 
         if self._dev_console is not None:
-            self._dev_console.render(surface)
+            self._dev_console.draw(surface)
 
     @staticmethod
     def _create_folders():
@@ -120,12 +119,12 @@ class Debugger:
 
     def toggle_dev_console_visibility(self):
         if self._dev_console is None:
-            self._dev_console = DevConsole(self.game)
+            self._dev_console = DevConsole(self._game)
             self._dev_console.focus()
-            self.game.input.mode = "typing"
+            self._game.input.mode = "typing"
         else:
             self._dev_console = None
-            self.game.input.mode = "default"
+            self._game.input.mode = "default"
 
     def initialise_logging(self):
         """
@@ -280,3 +279,27 @@ class Debugger:
         Print the debuggers stats.
         """
         print(f"Avg FPS: {format(self.average_fps, '.2f')}, R_Avg: {format(self.recent_average_fps, '.2f')}")
+
+    def toggle_debug_info(self):
+        """
+        Toggle whether the debug info is shown
+        """
+        if self._show_debug_info:
+            self._show_debug_info = False
+        else:
+            self._show_debug_info = True
+
+    def _refresh_debug_info(self):
+        current_fps = f"FPS: C={format(self.current_fps, '.2f')}, "
+        recent_fps = f"R_Avg={format(self.recent_average_fps, '.2f')}, "
+        avg_fps = f"Avg={format(self.average_fps, '.2f')}"
+
+        start_x = 1
+        start_y = 1
+
+        text = f"{current_fps} ; {recent_fps} ;{avg_fps}"
+        self._fonts.append(self._game.assets.create_font(FontType.DEFAULT, text, (start_x, start_y)))
+
+        current_y = start_y + 10
+        text = f"Game speed:{self._game.memory.game_speed} ; WorldState: {self._game.world.state.name}"
+        self._fonts.append(self._game.assets.create_font(FontType.DEFAULT, text, (start_x, current_y)))

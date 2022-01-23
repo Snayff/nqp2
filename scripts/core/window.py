@@ -19,7 +19,7 @@ class Window:
         # start timer
         start_time = time.time()
 
-        self.game: Game = game
+        self._game: Game = game
 
         self.base_resolution = [640, 360]
         self.scaled_resolution = [1280, 720]

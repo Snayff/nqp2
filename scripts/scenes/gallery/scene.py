@@ -2,11 +2,9 @@ from __future__ import annotations
 
 import logging
 import time
-from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.scene import Scene
-from scripts.core.base_classes.ui import UI
 from scripts.core.constants import SceneType
 from scripts.scenes.gallery.ui import GalleryUI
 
@@ -40,4 +38,4 @@ class GalleryScene(Scene):
         self.ui.update(delta_time)
 
     def reset(self):
-        self.ui = GalleryUI(self.game, self)
+        self.ui = GalleryUI(self._game, self)

@@ -29,14 +29,14 @@ class GalleryUI(UI):
 
     def __init__(self, game: Game, parent_scene: GalleryScene):
         super().__init__(game, True)
-        self.parent_scene: GalleryScene = parent_scene
+        self._parent_scene: GalleryScene = parent_scene
 
         self._frame_timer: float = 0
         self._start_index: int = 0
         self._end_index: int = 47  # 47 is max that can be shown on screen, -1 for index
         self._amount_per_col: int = 16
         self._filters = ["all"]
-        for faction in self.game.data.factions:
+        for faction in self._game.data.factions:
             self._filters.append(faction)
         self._current_filter = "all"
 
@@ -54,42 +54,42 @@ class GalleryUI(UI):
     def process_input(self, delta_time: float):
         super().process_input(delta_time)
 
-        max_units = len(self.game.assets.unit_animations)
+        max_units = len(self._game.assets.unit_animations)
 
-        if self.game.input.states["left"]:
-            self.game.input.states["left"] = False
+        if self._game.input.states["left"]:
+            self._game.input.states["left"] = False
             self._start_index = max(self._start_index - 16, 0)
             self._end_index = max(self._end_index - 16, 47)
 
-        if self.game.input.states["right"]:
-            self.game.input.states["right"] = False
+        if self._game.input.states["right"]:
+            self._game.input.states["right"] = False
             self._start_index = min(self._start_index + 16, max_units - 47)
             self._end_index = min(self._end_index + 16, max_units)
 
-        if self.game.input.states["tab"]:
-            self.game.input.states["tab"] = False
+        if self._game.input.states["tab"]:
+            self._game.input.states["tab"] = False
 
             current_filter_index = self._filters.index(self._current_filter)
             next_index = next_number_in_loop(current_filter_index, len(self._filters))
             self._current_filter = self._filters[next_index]
 
         # exit
-        if self.current_panel == self.panels["exit"]:
-            if self.game.input.states["select"]:
-                self.game.input.states["select"] = False
+        if self._current_panel == self._panels["exit"]:
+            if self._game.input.states["select"]:
+                self._game.input.states["select"] = False
 
                 # return to previous scene
-                self.game.change_scene([self.game.dev_gallery.previous_scene_type])
+                self._game.change_scene(self._game.dev_gallery.previous_scene_type)
 
-    def render(self, surface: pygame.surface):
+    def draw(self, surface: pygame.surface):
         default_font = self.default_font
         positive_font = self.positive_font
         disabled_font = self.disabled_font
-        units = self.game.data.units
-        animations = self.game.assets.unit_animations
+        units = self._game.data.units
+        animations = self._game.assets.unit_animations
         start_index = self._start_index
         end_index = self._end_index
-        window_width = self.game.window.width
+        window_width = self._game.window.width
 
         start_x = 10
         start_y = 10
@@ -105,10 +105,10 @@ class GalleryUI(UI):
 
         # draw headers
         anim_states = ["icon", "idle", "walk", "attack", "hit", "death"]
-        disabled_font.render("name", surface, (current_x, current_y))
+        disabled_font.draw("name", surface, (current_x, current_y))
         current_x += name_col_width
         for header in anim_states:
-            disabled_font.render(header, surface, (current_x, current_y))
+            disabled_font.draw(header, surface, (current_x, current_y))
             current_x += sprite_col_width
 
         # increment y
@@ -129,7 +129,7 @@ class GalleryUI(UI):
             current_x = start_x + (j // self._amount_per_col) * 200
             current_y = start_y + row_height + (j % self._amount_per_col) * 20
 
-            default_font.render(name, surface, (current_x, current_y))
+            default_font.draw(name, surface, (current_x, current_y))
             current_x += name_col_width
 
             for animation in anim_states:
@@ -156,11 +156,11 @@ class GalleryUI(UI):
 
         # draw filter and result number
         num_shown = j
-        positive_font.render(
+        positive_font.draw(
             f"{self._current_filter}. {num_shown}/{num_in_filter}", surface, (window_width - 200, start_y)
         )
 
-        self.draw_elements(surface)
+        self._draw_elements(surface)
 
     def rebuild_ui(self):
         super().rebuild_ui()

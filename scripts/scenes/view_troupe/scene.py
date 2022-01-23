@@ -9,7 +9,7 @@ from scripts.core.constants import SceneType
 from scripts.scenes.view_troupe.ui import ViewTroupeUI
 
 if TYPE_CHECKING:
-    from typing import Dict
+    from typing import Dict, List, Optional, Tuple, Union
 
     from scripts.core.game import Game
 
@@ -41,5 +41,5 @@ class ViewTroupeScene(Scene):
         self.ui.update(delta_time)
 
     def reset(self):
-        self.ui = ViewTroupeUI(self.game, self)
+        self.ui = ViewTroupeUI(self._game, self)
         self.previous_scene_type = SceneType.VIEW_TROUPE

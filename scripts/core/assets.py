@@ -9,7 +9,7 @@ from typing import TYPE_CHECKING
 import pygame
 
 from scripts.core.constants import ASSET_PATH, DEFAULT_IMAGE_SIZE, FontEffects, FontType
-from scripts.core.utility import clamp
+from scripts.core.utility import clamp, clip
 from scripts.ui_elements.fancy_font import FancyFont
 from scripts.ui_elements.font import Font
 
@@ -22,26 +22,8 @@ __all__ = ["Assets"]
 
 
 ######### TO DO LIST  ##########
-# TODO - either move functions to utility or make methods
+
 # TODO - update get_image to be easier to use and support animations - use name, with optional action and frame?
-
-
-def clip(surf, pos, size):
-    x, y = pos
-    x_size, y_size = size
-
-    handle_surf = surf.copy()
-    clip_r = pygame.Rect(x, y, x_size, y_size)
-    handle_surf.set_clip(clip_r)
-    image = surf.subsurface(handle_surf.get_clip())
-    return image.copy()
-
-
-def json_read(path):
-    f = open(path, "r")
-    data = json.load(f)
-    f.close()
-    return data
 
 
 class Assets:
@@ -49,7 +31,7 @@ class Assets:
         # start timer
         start_time = time.time()
 
-        self.game: Game = game
+        self._game: Game = game
 
         self.fonts = {
             FontType.NEGATIVE: (str(ASSET_PATH / "fonts/small_font.png"), (255, 0, 0)),
@@ -61,7 +43,7 @@ class Assets:
         }
 
         # used to hold images so only one copy per dimension ever exists.
-        self.images: Dict[str, Dict[str, pygame.Surface]] = self._load_images()
+        self._images: Dict[str, Dict[str, pygame.Surface]] = self._load_images()
 
         self.unit_animations = {
             unit: {
@@ -114,7 +96,7 @@ class Assets:
             if projectiles_image.split(".")[-1] == "png"
         }
 
-        self.maps = {map.split(".")[0]: json_read("data/maps/" + map) for map in os.listdir("data/maps")}
+        self.maps = {map.split(".")[0]: self.json_read("data/maps/" + map) for map in os.listdir("data/maps")}
 
         # record duration
         end_time = time.time()
@@ -146,7 +128,7 @@ class Assets:
 
         # check if exists already
         try:
-            image = self.images[folder_name][internal_name]
+            image = self._images[folder_name][internal_name]
 
         except KeyError:
             # try and get the image specified
@@ -158,18 +140,18 @@ class Assets:
                     image = pygame.transform.smoothscale(image, desired_dimensions)
 
                 # add new image to storage
-                self.images[folder_name][internal_name] = image
+                self._images[folder_name][internal_name] = image
 
             except FileNotFoundError:
                 # didnt find image requested so use not found image
                 not_found_name = f"not_found@{desired_width}x{desired_height}"
-                if not_found_name in self.images["debug"]:
-                    image = self.images["debug"][not_found_name]
+                if not_found_name in self._images["debug"]:
+                    image = self._images["debug"][not_found_name]
                 else:
                     image = pygame.image.load(str(ASSET_PATH / "debug/image_not_found.png")).convert_alpha()
 
                     # add new image to storage
-                    self.images["debug"][internal_name] = image
+                    self._images["debug"][internal_name] = image
 
                 logging.warning(
                     f"Get_image: Tried to use {folder_name}/{image_name} but it wasn't found. "
@@ -186,7 +168,7 @@ class Assets:
         """
         Create a font instance.
         """
-        line_width = clamp(line_width, 0, self.game.window.width)
+        line_width = clamp(line_width, 0, self._game.window.width)
         path, colour = self.fonts[font_type]
         font = Font(path, colour, text, line_width, pos)
         return font
@@ -201,7 +183,7 @@ class Assets:
         """
         Create a FancyFont instance. If line_width isnt given then will default to full screen.
         """
-        line_width = clamp(line_width, 0, self.game.window.width)
+        line_width = clamp(line_width, 0, self._game.window.width)
 
         # handle mutable default
         if font_effects is None:
@@ -224,8 +206,10 @@ class Assets:
                 tileset_data[-1].append(
                     clip(
                         spritesheet,
-                        [x * DEFAULT_IMAGE_SIZE, y * DEFAULT_IMAGE_SIZE],
-                        [DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE],
+                        x * DEFAULT_IMAGE_SIZE,
+                        y * DEFAULT_IMAGE_SIZE,
+                        DEFAULT_IMAGE_SIZE,
+                        DEFAULT_IMAGE_SIZE,
                     )
                 )
 
@@ -261,7 +245,7 @@ class Assets:
         images = {}
 
         # specify folders in assets that need to be loaded
-        folders = ["nodes", "stats", "ui", "buttons"]
+        folders = ["rooms", "stats", "ui", "buttons"]
 
         for folder in folders:
             path = ASSET_PATH / folder
@@ -287,3 +271,9 @@ class Assets:
         logging.debug(f"Assets: All images loaded.")
 
         return images
+
+    def json_read(self, path):
+        f = open(path, "r")
+        data = json.load(f)
+        f.close()
+        return data

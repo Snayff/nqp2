@@ -113,7 +113,7 @@ class FancyFont:
         else:
             self._end_char_index = self.length
 
-    def render(self, surface: pygame.Surface):
+    def draw(self, surface: pygame.Surface):
 
         start_x = self.pos[0]
         start_y = self.pos[1]
@@ -122,7 +122,7 @@ class FancyFont:
         for line in self._characters:
             for char in line:
                 if (self._visible_range[0] <= char.index < self._visible_range[1]) or (char.index == -1):
-                    char.render(surface, (start_x + x_offset, start_y + y_offset))
+                    char.draw(surface, (start_x + x_offset, start_y + y_offset))
                 x_offset += char.width
             y_offset += self.line_height + self._line_gap
             x_offset = 0
@@ -328,7 +328,7 @@ class Character:
     def __repr__(self):
         return "<char: " + self.character + ">"
 
-    def render(self, surf, offset=(0, 0)):
+    def draw(self, surf, offset=(0, 0)):
         if self.character not in ["\n", " "]:
             img = self.font.letters[self.font.font_order.index(self.character)]
             if self.alpha != 255:

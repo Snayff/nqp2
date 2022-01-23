@@ -1,7 +1,6 @@
 from __future__ import annotations
 
-import logging
-from typing import Dict, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 import pygame
 
@@ -11,6 +10,8 @@ from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.panel import Panel
 
 if TYPE_CHECKING:
+    from typing import Dict, List, Optional, Tuple, Union
+
     from scripts.core.game import Game
     from scripts.scenes.main_menu.scene import MainMenuScene
 
@@ -25,7 +26,7 @@ class MainMenuUI(UI):
 
     def __init__(self, game: Game, parent_scene: MainMenuScene):
         super().__init__(game, True)
-        self.parent_scene: MainMenuScene = parent_scene
+        self._parent_scene: MainMenuScene = parent_scene
 
     def update(self, delta_time: float):
         super().update(delta_time)
@@ -34,45 +35,45 @@ class MainMenuUI(UI):
         super().process_input(delta_time)
 
         # generic input
-        if self.game.input.states["down"]:
-            self.game.input.states["down"] = False
+        if self._game.input.states["down"]:
+            self._game.input.states["down"] = False
 
-            self.current_panel.select_next_element()
+            self._current_panel.select_next_element()
 
-        if self.game.input.states["up"]:
-            self.game.input.states["up"] = False
+        if self._game.input.states["up"]:
+            self._game.input.states["up"] = False
 
-            self.current_panel.select_previous_element()
+            self._current_panel.select_previous_element()
 
-        if self.game.input.states["select"]:
-            self.game.input.states["select"] = False
+        if self._game.input.states["select"]:
+            self._game.input.states["select"] = False
 
-            selected_element = self.current_panel.selected_element
-            if selected_element == self.elements["new_game"]:
-                self.parent_scene.new_game()
+            selected_element = self._current_panel.selected_element
+            if selected_element == self._elements["new_game"]:
+                self._parent_scene._new_game()
 
-            elif selected_element == self.elements["exit"]:
-                self.game.state = GameState.EXITING
+            elif selected_element == self._elements["exit"]:
+                self._game.state = GameState.EXITING
 
-    def render(self, surface: pygame.surface):
+    def draw(self, surface: pygame.surface):
         # N.B. dont draw instruction
-        self.draw_elements(surface)
+        self._draw_elements(surface)
 
     def rebuild_ui(self):
         super().rebuild_ui()
 
-        create_font = self.game.assets.create_font
-        window_width = self.game.window.width
-        window_height = self.game.window.height
+        create_font = self._game.assets.create_font
+        window_width = self._game.window.width
+        window_height = self._game.window.height
 
         # positions
         start_x = 10
         start_y = window_height - 100
 
         # draw background
-        background = self.game.assets.get_image("ui", "town", (window_width, window_height))
+        background = self._game.assets.get_image("ui", "town", (window_width, window_height))
         frame = Frame((0, 0), background)
-        self.elements["background"] = frame
+        self._elements["background"] = frame
 
         # draw options
         current_x = start_x
@@ -81,25 +82,25 @@ class MainMenuUI(UI):
 
         # new game
         frame = Frame((current_x, current_y), font=create_font(FontType.DEFAULT, "New Game"), is_selectable=True)
-        self.elements["new_game"] = frame
+        self._elements["new_game"] = frame
         panel_elements.append(frame)
 
         # load
         current_y += frame.height + GAP_SIZE
         frame = Frame((current_x, current_y), font=create_font(FontType.DEFAULT, "Load Game"), is_selectable=False)
-        self.elements["load_game"] = frame
+        self._elements["load_game"] = frame
         panel_elements.append(frame)
 
         # options
         current_y += frame.height + GAP_SIZE
         frame = Frame((current_x, current_y), font=create_font(FontType.DEFAULT, "Settings"), is_selectable=False)
-        self.elements["settings"] = frame
+        self._elements["settings"] = frame
         panel_elements.append(frame)
 
         # exit
         current_y += frame.height + GAP_SIZE
         frame = Frame((current_x, current_y), font=create_font(FontType.DEFAULT, "Exit"), is_selectable=True)
-        self.elements["exit"] = frame
+        self._elements["exit"] = frame
         panel_elements.append(frame)
 
         # add panel

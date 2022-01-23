@@ -28,22 +28,22 @@ class UnitDataUI(UI):
 
     def __init__(self, game: Game, parent_scene: UnitDataScene):
         super().__init__(game, True)
-        self.parent_scene: UnitDataScene = parent_scene
+        self._parent_scene: UnitDataScene = parent_scene
 
-        window_width = self.game.window.width
-        window_height = self.game.window.height
+        window_width = self._game.window.width
+        window_height = self._game.window.height
 
         self.buttons: Dict[str, Button] = {
             "left_arrow": Button(
-                game, pygame.transform.flip(self.game.assets.get_image("ui", "arrow_button"), True, False), (10, 10)
+                game, pygame.transform.flip(self._game.assets.get_image("ui", "arrow_button"), True, False), (10, 10)
             ),
-            "right_arrow": Button(game, self.game.assets.get_image("ui", "arrow_button"), (120, 10)),
+            "right_arrow": Button(game, self._game.assets.get_image("ui", "arrow_button"), (120, 10)),
             "save": Button(game, "save", (window_width - 32, window_height - 22), size=[30, 20]),
             "cancel": Button(game, "cancel", (2, window_height - 22), size=[30, 20]),
         }
 
         self.fields = {}
-        self.unit_list = list(self.game.data.units)
+        self.unit_list = list(self._game.data.units)
         self.unit_index = 0
         self.current_unit = 0
         self.current_unit_data = {}
@@ -116,12 +116,12 @@ class UnitDataUI(UI):
 
                 if button == buttons["cancel"]:
                     # go back to previous scene
-                    self.game.change_scene([self.game.dev_unit_data.previous_scene_type])
+                    self._game.change_scene(self._game.dev_unit_data.previous_scene_type)
 
-    def render(self, surface: pygame.surface):
-        window_width = self.game.window.width
-        window_height = self.game.window.height
-        create_font = self.game.assets.create_font
+    def draw(self, surface: pygame.surface):
+        window_width = self._game.window.width
+        window_height = self._game.window.height
+        create_font = self._game.assets.create_font
 
         metric_col_width = 80
         metric_second_row_start_y = window_height // 2
@@ -129,15 +129,15 @@ class UnitDataUI(UI):
         # draw fields and their titles
         font = create_font(FontType.DEFAULT, str(self.current_unit))
         font.pos = (76 - font.width // 2, 15)
-        font.render(surface)
+        font.draw(surface)
         for field in self.current_unit_data:
             font = create_font(
                 FontType.DEFAULT,
                 str(self.current_unit),
                 (self.fields[field].pos[0] - 90, self.fields[field].pos[1] + 3),
             )
-            font.render(surface)
-            self.fields[field].render(surface)
+            font.draw(surface)
+            self.fields[field].draw(surface)
 
         # draw unit animations
         frame = self.frame_counter
@@ -146,9 +146,9 @@ class UnitDataUI(UI):
         unit_type = self.current_unit_data["type"]
         try:
             for animation_name in ["icon", "idle", "walk", "attack", "hit", "death"]:
-                num_frames = len(self.game.assets.unit_animations[unit_type][animation_name])
+                num_frames = len(self._game.assets.unit_animations[unit_type][animation_name])
                 frame_ = min(frame, num_frames - 1)
-                img = self.game.assets.unit_animations[unit_type][animation_name][frame_]
+                img = self._game.assets.unit_animations[unit_type][animation_name][frame_]
                 img_ = pygame.transform.scale(img, (DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE))
                 surface.blit(img_, (current_img_x, current_img_y))
 
@@ -158,7 +158,7 @@ class UnitDataUI(UI):
 
         # draw buttons
         for button in self.buttons.values():
-            button.render(surface)
+            button.draw(surface)
 
         # show confirmation message
         if self.show_confirmation:
@@ -166,7 +166,7 @@ class UnitDataUI(UI):
             font = create_font(FontType.POSITIVE, msg)
             font.pos = (window_width - font.width - 35, window_height - font.height)
             # N.B. 32 = button width + 3
-            font.render(surface)
+            font.draw(surface)
 
         # set positions
         start_x = int(window_width - (window_width / 2.8))
@@ -177,7 +177,7 @@ class UnitDataUI(UI):
         current_y = start_y
         for tier_title in ["Tier 1", "Tier 2"]:
             font = create_font(FontType.DISABLED, tier_title, (current_x, current_y))
-            font.render(surface)
+            font.draw(surface)
             current_x += metric_col_width
 
         # draw second row headers
@@ -185,7 +185,7 @@ class UnitDataUI(UI):
         current_y = metric_second_row_start_y
         for tier_title in ["Tier 3", "Tier 4"]:
             font = create_font(FontType.DISABLED, tier_title, (current_x, current_y))
-            font.render(surface)
+            font.draw(surface)
             current_x += metric_col_width
 
         # draw stat list
@@ -193,7 +193,7 @@ class UnitDataUI(UI):
         current_y = start_y + font.height
         for stat in self.tier1_metrics.keys():
             font = create_font(FontType.DISABLED, stat, (current_x, current_y))
-            font.render(surface)
+            font.draw(surface)
             current_y += font.height
 
         # draw stat list for second row
@@ -201,7 +201,7 @@ class UnitDataUI(UI):
         current_y = metric_second_row_start_y + font.height
         for stat in self.tier1_metrics.keys():
             font = create_font(FontType.DISABLED, stat, (current_x, current_y))
-            font.render(surface)
+            font.draw(surface)
             current_y += font.height
 
         # show info regarding other units
@@ -210,7 +210,7 @@ class UnitDataUI(UI):
         for tier in [self.tier1_metrics, self.tier2_metrics]:
             for stat_value in tier.values():
                 font = create_font(FontType.DISABLED, stat_value, (current_x, current_y))
-                font.render(surface)
+                font.draw(surface)
                 current_y += font.height
 
             current_x += metric_col_width
@@ -222,7 +222,7 @@ class UnitDataUI(UI):
         for tier in [self.tier3_metrics, self.tier4_metrics]:
             for stat_value in tier.values():
                 font = create_font(FontType.DISABLED, stat_value, (current_x, current_y))
-                font.render(surface)
+                font.draw(surface)
                 current_y += font.height
 
             current_x += metric_col_width
@@ -230,15 +230,15 @@ class UnitDataUI(UI):
 
     def refresh_unit_fields(self, unit_id):
         self.current_unit = unit_id
-        self.current_unit_data = self.game.data.units[unit_id]
-        self.game.input.mode = "default"
+        self.current_unit_data = self._game.data.units[unit_id]
+        self._game.input.mode = "default"
 
         self.fields = {}
         for i, field in enumerate(self.current_unit_data):
             y = i % 15  # this is the rows in the col
             x = i // 15  # must match int used for y
             self.fields[field] = InputBox(
-                self.game,
+                self._game,
                 [80, 16],
                 pos=[100 + x * 200, 30 + y * 20],
                 input_type="detect",
@@ -270,7 +270,7 @@ class UnitDataUI(UI):
         tier4 = {}
 
         # get data sorted by stat
-        for unit in self.game.data.units.values():
+        for unit in self._game.data.units.values():
             if unit["tier"] == 1:
                 current_dict = tier1
             elif unit["tier"] == 2:

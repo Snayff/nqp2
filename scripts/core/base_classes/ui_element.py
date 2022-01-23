@@ -26,7 +26,7 @@ class UIElement(ABC):
     def update(self, delta_time: float):
         pass
 
-    def render(self, surface: pygame.Surface):
+    def draw(self, surface: pygame.Surface):
         if self.is_active:
             surface.blit(self.surface, self.pos)
 

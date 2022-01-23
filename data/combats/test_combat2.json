@@ -2,9 +2,7 @@
     "type": "test_combat2",
     "category": "basic",
     "units": [
-        "peasant_spearman",
-        "peasant_spearman",
-        "conscript_bowman"
+        "goblin"
     ],
     "level_available": 1,
     "tier": 1,

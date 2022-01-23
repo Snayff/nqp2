@@ -18,7 +18,7 @@ class Tooltip:
     """
 
     def __init__(self, game, text, font_id, rect_reference, width=200, padding=2, margin=2, alpha=100, visible_delay=1):
-        self.game = game
+        self._game = game
         self.text = text
         self.font_id = font_id
         self.rect_reference = rect_reference
@@ -37,26 +37,26 @@ class Tooltip:
 
     def generate_text_surf(self):
         text_block = TextBlock(
-            self.text, self.game.assets.enhanced_fonts[self.font_id], max_width=self.width - self.padding * 2
+            self.text, self._game.assets.enhanced_fonts[self.font_id], max_width=self.width - self.padding * 2
         )
         self.text_surf = pygame.Surface(
             (text_block.used_width + self.padding * 2, text_block.height + self.padding * 2)
         )
         self.text_surf.fill((0, 0, 2))
         self.text_surf.set_colorkey((0, 0, 2))
-        text_block.render(self.text_surf, (self.padding, self.padding))
+        text_block.draw(self.text_surf, (self.padding, self.padding))
 
     def update(self, delta_time):
-        mouse_pos = self.game.input.mouse_pos
+        mouse_pos = self._game.input.mouse_pos
         if self.rect_reference.collidepoint(mouse_pos):
             self.rect_hover_timer += delta_time
         else:
             self.rect_hover_timer = 0
 
-    def render(self, surf):
+    def draw(self, surf):
         if self.rect_hover_timer >= self.visible_delay:
-            mouse_pos = self.game.input.mouse_pos
-            display_size = self.game.window.base_resolution
+            mouse_pos = self._game.input.mouse_pos
+            display_size = self._game.window.base_resolution
 
             # prioritize placing the tooltip centered above the mouse
             base_pos = [
@@ -72,7 +72,7 @@ class Tooltip:
             if base_pos[1] < self.margin:
                 base_pos[1] = mouse_pos[1] + self.margin + self.cursor_height
 
-            # just render an image instead if you don't want a rectangle background
+            # just draw an image instead if you don't want a rectangle background
             bg_surf = pygame.Surface(self.text_surf.get_size())
             bg_surf.set_alpha(self.alpha)
 

@@ -2,16 +2,14 @@ from __future__ import annotations
 
 import logging
 import time
-from datetime import datetime
 from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.scene import Scene
 from scripts.core.constants import SceneType
-from scripts.scenes.combat.elements.commander import Commander
 from scripts.scenes.main_menu.ui import MainMenuUI
 
 if TYPE_CHECKING:
-    from typing import Dict
+    from typing import Dict, List, Optional, Tuple, Union
 
     from scripts.core.game import Game
 
@@ -43,10 +41,10 @@ class MainMenuScene(Scene):
         self.ui.update(delta_time)
 
     def reset(self):
-        self.ui = MainMenuUI(self.game, self)
+        self.ui = MainMenuUI(self._game, self)
 
-    def new_game(self):
+    def _new_game(self):
         """
         Prep the game for a new, fresh game and move to run setup scene.
         """
-        self.game.change_scene([SceneType.RUN_SETUP])
+        self._game.change_scene(SceneType.RUN_SETUP)

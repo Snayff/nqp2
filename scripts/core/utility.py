@@ -1,11 +1,14 @@
 from __future__ import annotations
 
 import logging
-from typing import List, TypeVar
+from typing import TYPE_CHECKING, TypeVar
 
 import pygame
 
-from scripts.core.constants import NodeType, SceneType
+from scripts.core.constants import SceneType
+
+if TYPE_CHECKING:
+    from typing import Dict, List, Optional, Tuple
 
 _V = TypeVar("_V", int, float)  # to represent where we don't know which type is being used
 
@@ -70,12 +73,11 @@ def scene_to_scene_type(scene) -> SceneType:
     """
     Take a Scene and return the relevant SceneType
     """
-    from scripts.scenes.combat.scene import CombatScene
+
     from scripts.scenes.event.scene import EventScene
     from scripts.scenes.gallery.scene import GalleryScene
     from scripts.scenes.inn.scene import InnScene
     from scripts.scenes.main_menu.scene import MainMenuScene
-    from scripts.scenes.overworld.scene import OverworldScene
     from scripts.scenes.post_combat.scene import PostCombatScene
     from scripts.scenes.run_setup.scene import RunSetupScene
     from scripts.scenes.training.scene import TrainingScene
@@ -90,12 +92,10 @@ def scene_to_scene_type(scene) -> SceneType:
         scene = SceneType.TRAINING
     elif type(scene) is InnScene:
         scene = SceneType.INN
-    elif type(scene) is OverworldScene:
-        scene = SceneType.OVERWORLD
     elif type(scene) is EventScene:
         scene = SceneType.EVENT
     elif type(scene) is PostCombatScene:
-        scene = SceneType.REWARD
+        scene = SceneType.POST_COMBAT
     elif type(scene) is RunSetupScene:
         scene = SceneType.RUN_SETUP
     elif type(scene) is UnitDataScene:
@@ -106,25 +106,6 @@ def scene_to_scene_type(scene) -> SceneType:
         scene = SceneType.DEV_GALLERY
     else:
         logging.error(f"scene_to_scene_type: Scene ({scene}) not found.")
-
-    return scene
-
-
-def node_type_to_scene_type(node_type: NodeType) -> SceneType:
-    if node_type == NodeType.COMBAT:
-        scene = SceneType.COMBAT
-    elif node_type == NodeType.INN:
-        scene = SceneType.INN
-    elif node_type == NodeType.TRAINING:
-        scene = SceneType.TRAINING
-    elif node_type == NodeType.EVENT:
-        scene = SceneType.EVENT
-    elif node_type == NodeType.BLANK:
-        scene = SceneType.OVERWORLD
-
-    else:
-        logging.error(f"node_type_to_scene_type: Node type ({node_type} not found. Default to Combat.")
-        scene = SceneType.COMBAT
 
     return scene
 

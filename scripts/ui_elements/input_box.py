@@ -1,14 +1,21 @@
+from typing import TYPE_CHECKING
+
 import pygame
 
-# TODO - add numpad support
-# TODO - add special character support, particularly - .
-# TODO - handle blank input fields
 from scripts.core.constants import FontType
+
+if TYPE_CHECKING:
+    from scripts.core.game import Game
+
+
+# TODO - add numpad support
+# TODO - add special character support, particularly - | .
+# TODO - handle blank input fields
 
 
 class InputBox:
     def __init__(self, game, size, pos=[0, 0], colour=(255, 255, 255), input_type="all", text="", font=None):
-        self.game = game
+        self._game: Game = game
         self.size = list(size)
         self.pos = list(pos)
         self.colour = colour
@@ -28,7 +35,7 @@ class InputBox:
         self.focused = False
 
         if not font:
-            font = self.game.assets.create_font(FontType.DEFAULT, str(text))
+            font = self._game.assets.create_font(FontType.DEFAULT, str(text))
         self.font = font
 
         # assign font pos
@@ -47,34 +54,34 @@ class InputBox:
     def should_focus(self, offset=(0, 0)):
         if not self.focused:
             r = pygame.Rect(self.pos[0] - offset[0], self.pos[1] - offset[1], self.size[0], self.size[1])
-            if r.collidepoint(self.game.input.mouse_pos):
-                if self.game.input.mouse_state["left"]:
+            if r.collidepoint(self._game.input.mouse_pos):
+                if self._game.input.mouse_state["left"]:
                     return True
 
             return False
 
         else:
             r = pygame.Rect(self.pos[0] - offset[0], self.pos[1] - offset[1], self.size[0], self.size[1])
-            if not r.collidepoint(self.game.input.mouse_pos):
-                if self.game.input.mouse_state["left"]:
+            if not r.collidepoint(self._game.input.mouse_pos):
+                if self._game.input.mouse_state["left"]:
                     return False
 
             return True
 
     def focus(self):
         if not self.focused:
-            self.previous_input_mode = self.game.input.mode
-            self.game.input.mode = "typing"
+            self.previous_input_mode = self._game.input.mode
+            self._game.input.mode = "typing"
             self.focused = True
 
     def unfocus(self):
         if self.focused:
-            self.game.input.mode = self.previous_input_mode
+            self._game.input.mode = self.previous_input_mode
             self.focused = False
 
     def update(self, delta_time: float):
         if self.focused:
-            new_chars = self.game.input.unload_chars()
+            new_chars = self._game.input.unload_chars()
             for char in new_chars:
                 if char == "backspace":
                     self.font.text = self.font.text[:-1]
@@ -120,13 +127,13 @@ class InputBox:
                     ]:
                         self.font.text += char
 
-    def render(self, surf, offset=(0, 0)):
+    def draw(self, surf, offset=(0, 0)):
         base_pos = (self.pos[0] - offset[0], self.pos[1] - offset[1])
         border_r = pygame.Rect(*base_pos, *self.size)
         pygame.draw.rect(surf, self.colour, border_r, width=1)
-        self.font.render(surf)
+        self.font.draw(surf)
         text_width = self.font.width
-        if self.focused and (self.game.master_clock % 1 > 0.2):
+        if self.focused and (self._game.master_clock % 1 > 0.2):
             pygame.draw.line(
                 surf,
                 self.colour,

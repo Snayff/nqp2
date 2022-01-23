@@ -4,10 +4,10 @@ import json
 import logging
 import os
 import time
-from typing import Any, TYPE_CHECKING, Union
+from typing import Any, TYPE_CHECKING
 
 from scripts.core.constants import DATA_PATH
-from scripts.scenes.combat.elements.behavior_manager import BehaviourManager
+from scripts.scene_elements.behavior_manager import BehaviourManager
 
 if TYPE_CHECKING:
     from typing import Dict, List
@@ -26,11 +26,11 @@ class Data:
         # start timer
         start_time = time.time()
 
-        self.game: Game = game
+        self._game: Game = game
 
         self.commanders: Dict[str, Any] = self._load_commanders()
         self.units: Dict[str, Any] = self._load_unit_info()
-        self.behaviours = BehaviourManager()
+        self.behaviours = BehaviourManager()  # TODO - this isnt data and should be elsewhere
         self.tiles = self._load_tile_info()
         self.factions: List[str] = self._create_homes_list()
         self.events: Dict[str, Any] = self._load_events()

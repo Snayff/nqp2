@@ -31,40 +31,40 @@ class UI(ABC):
     """
 
     def __init__(self, game: Game, block_onward_input: bool):
-        self.game: Game = game
+        self._game: Game = game
         self.block_onward_input: bool = block_onward_input  # prevents input being passed to the next scene
 
-        self.elements: Dict[str, Union[Frame, UnitStatsFrame]] = {}
-        self.panels: Dict[str, Panel] = {}
-        self.current_panel: Optional[Panel] = None
+        self._elements: Dict[str, Union[Frame, UnitStatsFrame]] = {}
+        self._panels: Dict[str, Panel] = {}
+        self._current_panel: Optional[Panel] = None
 
-        self.temporary_instruction_text: str = ""
-        self.temporary_instruction_timer: float = 0.0
-        self.instruction_text: str = ""
+        self._temporary_instruction_text: str = ""
+        self._temporary_instruction_timer: float = 0.0
+        self._instruction_text: str = ""
 
         self.is_active: bool = False
 
     def update(self, delta_time: float):
-        self.temporary_instruction_timer -= delta_time
+        self._temporary_instruction_timer -= delta_time
 
-        if self.temporary_instruction_timer <= 0:
-            self.temporary_instruction_text = ""
+        if self._temporary_instruction_timer <= 0:
+            self._temporary_instruction_text = ""
 
         self.update_elements(delta_time)
 
     def process_input(self, delta_time: float):
-        if self.game.input.states["toggle_dev_console"]:
-            self.game.input.states["toggle_dev_console"] = False
+        if self._game.input.states["toggle_dev_console"]:
+            self._game.input.states["toggle_dev_console"] = False
 
-            self.game.debug.toggle_dev_console_visibility()
+            self._game.debug.toggle_dev_console_visibility()
 
     @abstractmethod
-    def render(self, surface: pygame.surface):
+    def draw(self, surface: pygame.surface):
         pass
 
     def rebuild_ui(self):
-        self.elements = {}
-        self.panels = {}
+        self._elements = {}
+        self._panels = {}
 
     def activate(self):
         """
@@ -84,10 +84,10 @@ class UI(ABC):
 
     def set_instruction_text(self, text: str, temporary: bool = False):
         if temporary:
-            self.temporary_instruction_text = text
-            self.temporary_instruction_timer = 2
+            self._temporary_instruction_text = text
+            self._temporary_instruction_timer = 2
         else:
-            self.instruction_text = text
+            self._instruction_text = text
 
     def rebuild_resource_elements(self):
         """
@@ -99,24 +99,24 @@ class UI(ABC):
         # key : [value, icon]
         resources = {
             "gold": [
-                self.game.assets.get_image("stats", "gold", icon_size),
-                str(self.game.memory.gold),
+                self._game.assets.get_image("stats", "gold", icon_size),
+                str(self._game.memory.gold),
             ],
             "rations": [
-                self.game.assets.get_image("stats", "rations", icon_size),
-                str(self.game.memory.rations),
+                self._game.assets.get_image("stats", "rations", icon_size),
+                str(self._game.memory.rations),
             ],
             "morale": [
-                self.game.assets.get_image("stats", "morale", icon_size),
-                str(self.game.memory.morale),
+                self._game.assets.get_image("stats", "morale", icon_size),
+                str(self._game.memory.morale),
             ],
             "charisma": [
-                self.game.assets.get_image("stats", "charisma", icon_size),
-                str(self.game.memory.commander.charisma_remaining),
+                self._game.assets.get_image("stats", "charisma", icon_size),
+                str(self._game.memory.commander.charisma_remaining),
             ],
             "leadership": [
-                self.game.assets.get_image("stats", "leadership", icon_size),
-                str(self.game.memory.leadership),
+                self._game.assets.get_image("stats", "leadership", icon_size),
+                str(self._game.memory.leadership),
             ],
         }
 
@@ -129,7 +129,7 @@ class UI(ABC):
         current_y = start_y
 
         # create frames
-        create_font = self.game.assets.create_font
+        create_font = self._game.assets.create_font
         for key, value in resources.items():
             frame = Frame(
                 (current_x, current_y),
@@ -137,7 +137,7 @@ class UI(ABC):
                 font=create_font(FontType.DISABLED, value[1]),
                 is_selectable=False,
             )
-            self.elements[f"resource_{key}"] = frame
+            self._elements[f"resource_{key}"] = frame
             panel_elements.append(frame)
 
             # increment position
@@ -146,27 +146,27 @@ class UI(ABC):
         # create panel
         panel = Panel(panel_elements, True)
         panel.unselect_all_elements()
-        self.panels["resources"] = panel
+        self._panels["resources"] = panel
 
-    def draw_instruction(self, surface: pygame.surface):
-        if self.temporary_instruction_text:
-            text = self.temporary_instruction_text
-            font = self.game.assets.create_font(FontType.NEGATIVE, text)
+    def _draw_instruction(self, surface: pygame.surface):
+        if self._temporary_instruction_text:
+            text = self._temporary_instruction_text
+            font = self._game.assets.create_font(FontType.NEGATIVE, text)
         else:
-            text = self.instruction_text
-            font = font = self.game.assets.create_font(FontType.INSTRUCTION, text)
+            text = self._instruction_text
+            font = font = self._game.assets.create_font(FontType.INSTRUCTION, text)
 
-        x = self.game.window.width - font.width - 2
+        x = self._game.window.width - font.width - 2
         y = 2
         font.pos = (x, y)
-        font.render(surface)
+        font.draw(surface)
 
-    def draw_elements(self, surface: pygame.surface):
-        for name, element in self.elements.items():
-            element.render(surface)
+    def _draw_elements(self, surface: pygame.surface):
+        for name, element in self._elements.items():
+            element.draw(surface)
 
     def update_elements(self, delta_time: float):
-        for element in self.elements.values():
+        for element in self._elements.values():
             element.update(delta_time)
 
     def add_panel(self, panel: Panel, name: str):
@@ -174,16 +174,16 @@ class UI(ABC):
         Adds panel to the panel dict. If it is the first panel then also sets it to the current panel and selects the
          first element.
         """
-        self.panels[name] = panel
+        self._panels[name] = panel
 
-        if len(self.panels) == 1:
-            self.current_panel = self.panels[name]
-            self.current_panel.select_first_element()
+        if len(self._panels) == 1:
+            self._current_panel = self._panels[name]
+            self._current_panel.select_first_element()
 
     def add_exit_button(self, button_text: str = "Onwards"):
-        window_width = self.game.window.width
-        window_height = self.game.window.height
-        font = self.game.assets.create_font(FontType.DEFAULT, button_text)
+        window_width = self._game.window.width
+        window_height = self._game.window.height
+        font = self._game.assets.create_font(FontType.DEFAULT, button_text)
 
         # get position info
         confirm_width = font.get_text_width(button_text)
@@ -191,7 +191,7 @@ class UI(ABC):
         current_y = window_height - (font.line_height + GAP_SIZE)
 
         frame = Frame((current_x, current_y), font=font, is_selectable=True)
-        self.elements["exit"] = frame
+        self._elements["exit"] = frame
         panel = Panel([frame], True)
         self.add_panel(panel, "exit")
 
@@ -200,20 +200,20 @@ class UI(ABC):
         Unselect the current panel and move the selection to the specified panel.
         """
         # unselect current
-        self.current_panel.unselect_all_elements()
+        self._current_panel.unselect_all_elements()
 
         if hide_old_panel:
-            self.current_panel.is_active = False
+            self._current_panel.is_active = False
 
         # select new
         try:
-            self.current_panel = self.panels[panel_name]
+            self._current_panel = self._panels[panel_name]
 
         except KeyError:
             logging.critical(
                 f"Tried to change to {panel_name} panel, but does not exist. Selected first panel " f"instead."
             )
-            self.current_panel = list(self.panels)[0]
+            self._current_panel = list(self._panels)[0]
 
-        self.current_panel.select_first_element()
-        self.current_panel.is_active = True
+        self._current_panel.select_first_element()
+        self._current_panel.is_active = True
