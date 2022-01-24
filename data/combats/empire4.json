@@ -1,0 +1,17 @@
+{
+    "type": "empire4",
+    "category": "basic",
+    "units": [
+        "infantryman",
+        "infantryman",
+        "sword_of_the_empire",
+        "imperial_guard"
+    ],
+    "level_available": 1,
+    "biome": "ilan",
+    "tier": 2,
+    "gold_reward": [
+        50,
+        110
+    ]
+}

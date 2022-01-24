@@ -1,6 +1,80 @@
 Adding New Content
 ====================
 
+Combat
+-------------------
+
+Adding New
+^^^^^^^^^^^^^^^^^^^^^^^
+To add a new commander you need to add 1 thing:
+1. a json with the combat's name in the ``data/combat`` folder
+
+json Explained
+^^^^^^^^^^^^^^^^^^^^^^^
+.. code-block:: json
+
+    {
+        "type": "test_combat",  # str, must match the file name
+        "category": "basic",  # str, "basic" or "boss"
+        "units": [  # list of str. strs must match the unit type as per data/units
+            "goblin",
+            "gremlin"
+        ],
+        "level_available": 1,  # int, the level number at which the combat is available
+        "biome": "plains",  # str, the level in which the combat can occur
+        "tier": 1,  # int, 1-4. How likely the combat is, with 1 being easiest.
+        "gold_reward": [  # list of ints. Must contain only 2 values, indicating the lower and upper reward bounds.
+            50,
+            110
+        ]
+    }
+
+
+json Example
+^^^^^^^^^^^^^^^^^^^^^^^
+Basic combat
+
+.. code-block:: json
+
+    {
+        "type": "test_combat",
+        "category": "basic",
+        "units": [
+            "goblin",
+            "gremlin"
+        ],
+        "level_available": 1,
+        "biome": "plains",
+        "tier": 1,
+        "gold_reward": [
+            50,
+            110
+        ]
+    }
+
+Boss Combat
+
+.. code-block:: json
+    {
+        "type": "test_boss_combat",
+        "category": "boss",
+        "units": [
+            "peasant_spearman",
+            "peasant_spearman",
+            "conscript_bowman"
+        ],
+        "level_available": 1,
+        "tier": 1,
+        "gold_reward": [
+            700,
+            900
+        ],
+        "upgrades_for_scaling": [
+            "minor_attack",
+            "minor_defence"
+        ],
+        "boss_type": "test_boss"
+    }
 
 Commanders
 -------------------

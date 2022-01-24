@@ -1,0 +1,17 @@
+{
+    "type": "empire3",
+    "category": "basic",
+    "units": [
+        "infantryman",
+        "infantryman",
+        "skirmisher",
+        "skirmisher"
+    ],
+    "level_available": 1,
+    "biome": "ilan",
+    "tier": 1,
+    "gold_reward": [
+        50,
+        110
+    ]
+}
