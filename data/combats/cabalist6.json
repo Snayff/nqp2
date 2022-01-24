@@ -1,0 +1,15 @@
+{
+    "type": "cabalist1",
+    "category": "basic",
+    "units": [
+        "sage",
+        "apprentice_magi"
+    ],
+    "level_available": 1,
+    "biome": "esteria",
+    "tier": 2,
+    "gold_reward": [
+        50,
+        110
+    ]
+}

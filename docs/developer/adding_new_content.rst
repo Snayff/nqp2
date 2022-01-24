@@ -20,7 +20,7 @@ json Explained
             "goblin",
             "gremlin"
         ],
-        "level_available": 1,  # to be deprecated
+        "level_available": 1,  # int, the level number at which the combat is available
         "biome": "plains",  # str, the level in which the combat can occur
         "tier": 1,  # int, 1-4. How likely the combat is, with 1 being easiest.
         "gold_reward": [  # list of ints. Must contain only 2 values, indicating the lower and upper reward bounds.
@@ -32,6 +32,8 @@ json Explained
 
 json Example
 ^^^^^^^^^^^^^^^^^^^^^^^
+Basic combat
+
 .. code-block:: json
 
     {
@@ -50,6 +52,29 @@ json Example
         ]
     }
 
+Boss Combat
+
+.. code-block:: json
+    {
+        "type": "test_boss_combat",
+        "category": "boss",
+        "units": [
+            "peasant_spearman",
+            "peasant_spearman",
+            "conscript_bowman"
+        ],
+        "level_available": 1,
+        "tier": 1,
+        "gold_reward": [
+            700,
+            900
+        ],
+        "upgrades_for_scaling": [
+            "minor_attack",
+            "minor_defence"
+        ],
+        "boss_type": "test_boss"
+    }
 
 Commanders
 -------------------

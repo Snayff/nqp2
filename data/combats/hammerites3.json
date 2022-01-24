@@ -1,0 +1,16 @@
+{
+    "type": "hammerites3",
+    "category": "basic",
+    "units": [
+        "disciple_of_the_hammer",
+        "disciple_of_the_hammer",
+        "worked_stone"
+    ],
+    "level_available": 1,
+    "biome": "esteria",
+    "tier": 1,
+    "gold_reward": [
+        50,
+        110
+    ]
+}

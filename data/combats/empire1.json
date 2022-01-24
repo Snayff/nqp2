@@ -1,0 +1,18 @@
+{
+    "type": "empire1",
+    "category": "basic",
+    "units": [
+        "infantryman",
+        "infantryman",
+        "infantryman",
+        "infantryman",
+        "infantryman"
+    ],
+    "level_available": 1,
+    "biome": "ilan",
+    "tier": 1,
+    "gold_reward": [
+        50,
+        110
+    ]
+}
