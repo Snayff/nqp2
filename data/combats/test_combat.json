@@ -6,6 +6,7 @@
         "gremlin"
     ],
     "level_available": 1,
+    "biome": "plains",
     "tier": 1,
     "gold_reward": [
         50,
