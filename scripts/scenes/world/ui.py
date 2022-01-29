@@ -6,8 +6,8 @@ import pygame
 
 from scripts.core.base_classes.ui import UI
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, SceneType, WorldState
-from scripts.ui_elements.frame import Frame
 from scripts.scene_elements.world.view import WorldView
+from scripts.ui_elements.frame import Frame
 
 if TYPE_CHECKING:
     from scripts.core.game import Game
@@ -23,6 +23,7 @@ class WorldUI(UI):
     Represent the UI of the WorldScene
 
     """
+
     def __init__(
         self,
         game: Game,

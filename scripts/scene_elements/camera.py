@@ -16,6 +16,7 @@ class Camera:
     * World units are equal to pixels at zoom level of 0.0
 
     """
+
     def __init__(self, size: PointLike):
         self._pos = pygame.Vector2()
         self._size = pygame.Vector2(size)

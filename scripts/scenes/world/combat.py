@@ -23,6 +23,7 @@ class CombatController:
     * Do not draw anything
 
     """
+
     def __init__(self, game: Game, model: WorldModel):
         with Timer("WorldModel initialized"):
             self._game = game
@@ -69,10 +70,8 @@ class CombatController:
             if self.last_unit_death:
                 # average the last positions of the last entity to die and the killer of that entity
                 focus_point = (
-                    (self.last_unit_death[0].pos[0] + self.last_unit_death[1].pos[
-                        0]) / 2,
-                    (self.last_unit_death[0].pos[1] + self.last_unit_death[1].pos[
-                        1]) / 2,
+                    (self.last_unit_death[0].pos[0] + self.last_unit_death[1].pos[0]) / 2,
+                    (self.last_unit_death[0].pos[1] + self.last_unit_death[1].pos[1]) / 2,
                 )
                 # TODO: decouple this
                 self._game.world.ui._worldview.camera.move_to_position(focus_point)

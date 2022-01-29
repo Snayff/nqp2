@@ -1,12 +1,12 @@
 import math
 import random
-from typing import List, Optional, Tuple, Dict
+from typing import Dict, List, Optional, Tuple
 
 import pygame
 
+from ..core.constants import BARRIER_SIZE, TILE_SIZE
 from .pathfinder import Pathfinder
 from .tile import Tile
-from ..core.constants import TILE_SIZE, BARRIER_SIZE
 
 
 def grid_walk(start, end):
@@ -133,6 +133,7 @@ class Terrain:
     Draw and manage tiles
 
     """
+
     def __init__(self, game, biome):
         self._game = game
         self._biome = biome
@@ -225,12 +226,7 @@ class Terrain:
         return True
 
     def tile_rect(self, loc):
-        return pygame.Rect(
-            loc[0] * self.tile_size,
-            loc[1] * self.tile_size,
-            self.tile_size,
-            self.tile_size
-        )
+        return pygame.Rect(loc[0] * self.tile_size, loc[1] * self.tile_size, self.tile_size, self.tile_size)
 
     def tile_rect_px(self, pos):
         loc = self.px_to_loc(pos)

@@ -29,6 +29,7 @@ class WorldView:
     user.
 
     """
+
     def __init__(self, game: Game, model: WorldModel):
         self._game = game
         self._model = model

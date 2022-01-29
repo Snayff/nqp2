@@ -8,6 +8,7 @@ class Pathfinder:
 
     def set_map(self, map_data):
         import numpy as np
+
         m = np.asarray(map_data, dtype=np.dtype(np.int16))
         self.tcod_map = tcod.path.AStar(m, diagonal=0)
 

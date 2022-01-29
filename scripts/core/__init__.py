@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Union, Tuple, List
+from typing import List, Tuple, Union
 
 from pygame import Vector2
 

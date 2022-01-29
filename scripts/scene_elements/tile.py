@@ -6,6 +6,7 @@ class Tile:
     Single Tile as part of a Terrain
 
     """
+
     def __init__(self, tile_type, tile_config):
         self.type = tile_type
         self.config = deepcopy(tile_config[("default", 0, 0)])

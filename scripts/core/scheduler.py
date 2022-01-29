@@ -1,8 +1,8 @@
 import collections
 import dataclasses
 import time
-from heapq import heappush, heapify, heappop, heappushpop
-from typing import Callable, Optional, List
+from heapq import heapify, heappop, heappush, heappushpop
+from typing import Callable, List, Optional
 
 __all__ = ("ScheduledItem", "Scheduler")
 
@@ -28,6 +28,7 @@ class ScheduledItem:
     Describes a scheduled callback.
 
     """
+
     func: Callable
     last_ts: float
     next_ts: float
@@ -64,6 +65,7 @@ class Scheduler:
     interval slightly modified.
 
     """
+
     def __init__(self, time_function: Callable = time.perf_counter):
         """
         Initialise a Scheduler, with optional custom time function.
@@ -80,12 +82,7 @@ class Scheduler:
         self._current_interval_item: Optional[ScheduledItem] = None
         self.cumulative_time: float = self._last_ts
 
-    def schedule_once(
-        self,
-        func: Callable,
-        delay: float=0.0,
-        soft: bool = False
-    ) -> ScheduledItem:
+    def schedule_once(self, func: Callable, delay: float = 0.0, soft: bool = False) -> ScheduledItem:
         """
         Schedule a function to be run once sometime in the future.
 
@@ -135,14 +132,7 @@ class Scheduler:
         """
         return self._schedule(func, delay, interval, True, soft)
 
-    def _schedule(
-        self,
-        func: Callable,
-        delay: float,
-        interval: float,
-        repeat: bool,
-        soft: bool
-    ):
+    def _schedule(self, func: Callable, delay: float, interval: float, repeat: bool, soft: bool):
         assert delay >= 0.0
         assert interval >= 0.0
         if interval:

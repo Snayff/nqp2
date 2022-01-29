@@ -7,14 +7,7 @@ import pygame
 from pygame import SRCALPHA
 
 from scripts.core.base_classes.ui import UI
-from scripts.core.constants import (
-    DEFAULT_IMAGE_SIZE,
-    EventState,
-    FontEffects,
-    FontType,
-    GAP_SIZE,
-    SceneType,
-)
+from scripts.core.constants import DEFAULT_IMAGE_SIZE, EventState, FontEffects, FontType, GAP_SIZE, SceneType
 from scripts.core.debug import Timer
 from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.panel import Panel
@@ -74,11 +67,7 @@ class NextRoomUI(UI):
         frame_line_width = window_width - (start_x * 2)
 
         # draw background
-        bg_surface = pygame.Surface(
-            (frame_line_width, window_height - (start_y * 2)), SRCALPHA
-        )
+        bg_surface = pygame.Surface((frame_line_width, window_height - (start_y * 2)), SRCALPHA)
         bg_surface.fill((0, 0, 0, 150))
-        frame = Frame(
-            (start_x, start_y), image=bg_surface, is_selectable=False
-        )
+        frame = Frame((start_x, start_y), image=bg_surface, is_selectable=False)
         self.elements[f"background"] = frame
