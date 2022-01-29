@@ -4,6 +4,8 @@ import logging
 import time
 from typing import TYPE_CHECKING
 
+import pygame
+
 from scripts.scene_elements.commander import Commander
 from scripts.scene_elements.entity import Entity
 from scripts.scene_elements.troupe import Troupe
@@ -344,3 +346,19 @@ class Memory:
 
         # in memory config
         self._game_speed = 1
+
+    def get_team_center(self, team) -> Optional[pygame.Vector2]:
+        """
+        Get centre coordinates for the team
+
+        """
+        count = 0
+        pos_totals = pygame.Vector2()
+        for unit in self._game.memory.get_all_units():
+            if unit.team == team:
+                pos_totals += unit.pos
+                count += 1
+        if count:
+            return pygame.Vector2(pos_totals / count)
+        else:
+            return None

@@ -1,13 +1,12 @@
 import math
 import random
+from typing import List, Optional, Tuple, Dict
 
 import pygame
 
 from .pathfinder import Pathfinder
 from .tile import Tile
-
-TILE_SIZE = 16
-BARRIER_SIZE = 10
+from ..core.constants import TILE_SIZE, BARRIER_SIZE
 
 
 def grid_walk(start, end):
@@ -85,12 +84,12 @@ def generate(game, terrain, biome):
     for x in range(combat_area_size[0] + terrain.barrier_size * 2):
         for y in range(combat_area_size[1] + terrain.barrier_size * 2):
             loc = (x - terrain.barrier_size - 1, y - terrain.barrier_size - 1)
-            terrain.terrain[loc] = [Tile([biome, 0, 1], loc, game.data.tiles)]
+            terrain.terrain[loc] = [Tile([biome, 0, 1], game.data.tiles)]
             if (terrain.barrier_size < x <= (combat_area_size[0] + terrain.barrier_size)) and (
                 terrain.barrier_size < y <= (combat_area_size[1] + terrain.barrier_size)
             ):
                 if random.random() < 0.3:
-                    terrain.terrain[loc].append(Tile([biome, *random_foliage()], loc, game.data.tiles))
+                    terrain.terrain[loc].append(Tile([biome, *random_foliage()], game.data.tiles))
                 if random.random() < 0.025:
                     tree_bases.append(loc)
                 # place traps
@@ -101,7 +100,7 @@ def generate(game, terrain, biome):
                 #     )
             else:
                 # place trees around border
-                terrain.terrain[loc].append(Tile(["trees", 0, 1], loc, game.data.tiles))
+                terrain.terrain[loc].append(Tile(["trees", 0, 1], game.data.tiles))
 
     # place trees randomly
     # for base in tree_bases:
@@ -130,20 +129,30 @@ def generate(game, terrain, biome):
 
 
 class Terrain:
-    def __init__(self, game):
+    """
+    Draw and manage tiles
+
+    """
+    def __init__(self, game, biome):
         self._game = game
-        self.terrain = {}
+        self._biome = biome
+        self.terrain: Dict[Tuple[int, int], List[Tile]] = {}
         self.tile_size = TILE_SIZE
         self.barrier_size = BARRIER_SIZE
         self.size = (20, 20)
         self.pixel_size = (self.size[0] * TILE_SIZE, self.size[1] * TILE_SIZE)
+        self.tile_boundaries = [[], []]
+        self.pathfinding_array = list()
         self.boundaries = pygame.Rect(0, 0, 2, 2)
         self.pathfinder = Pathfinder(self)
         self.traps = []
         self.trap_density = 0.02
         self.trap_types = ["spinning_blades", "spinning_blades", "pit"]
 
-    def debug_map(self, overlay_data=[]):
+    def debug_map(self, overlay_data: Optional[List] = None):
+        if overlay_data is None:
+            overlay_data = list()
+
         return "\n".join(
             [
                 "".join(
@@ -187,18 +196,20 @@ class Terrain:
         return True
 
     def loc_to_path(self, loc):
-        return (loc[0] - self.tile_boundaries[0][0], loc[1] - self.tile_boundaries[1][0])
+        return (
+            loc[0] - self.tile_boundaries[0][0],
+            loc[1] - self.tile_boundaries[1][0],
+        )
 
-    def px_to_loc(self, pos):
+    def px_to_loc(self, pos) -> Tuple[int, int]:
         loc = (int(pos[0] // self.tile_size), int(pos[1] // self.tile_size))
         return loc
 
     def check_tile_solid(self, pos):
         loc = self.px_to_loc(pos)
-        if loc in self.terrain:
-            for tile in self.terrain[loc]:
-                if tile.config["solid"]:
-                    return True
+        for tile in self.terrain[loc]:
+            if tile.config["solid"]:
+                return True
 
         return False
 
@@ -214,26 +225,35 @@ class Terrain:
         return True
 
     def tile_rect(self, loc):
-        if loc in self.terrain:
-            return pygame.Rect(loc[0] * self.tile_size, loc[1] * self.tile_size, self.tile_size, self.tile_size)
-        return None
+        return pygame.Rect(
+            loc[0] * self.tile_size,
+            loc[1] * self.tile_size,
+            self.tile_size,
+            self.tile_size
+        )
 
     def tile_rect_px(self, pos):
         loc = self.px_to_loc(pos)
         return self.tile_rect(loc)
 
-    def generate(self, biome):
-        generate(self._game, self, biome)
+    def generate(self):
+        generate(self._game, self, self._biome)
         self.gen_pathfinding_map()
 
     def update(self, dt):
         for trap in self.traps:
             trap.update(dt)
 
-    def draw(self, surface: pygame.Surface, offset=(0, 0)):
+    def draw(self, surface: pygame.Surface, offset: pygame.Vector2):
+        tile_size = self.tile_size
+
         for loc in self.terrain:
+            tile_offset = (
+                loc[0] * tile_size + offset[0],
+                loc[1] * tile_size + offset[1],
+            )
             for tile in self.terrain[loc]:
-                tile.draw(self._game, surface, self._game.world.ui.camera.pos)
+                tile.draw(self._game, surface, tile_offset)
 
         for trap in self.traps:
-            trap.draw(surface, self._game.combat.camera.render_offset())
+            trap.draw(surface, offset)

@@ -12,11 +12,10 @@ class Projectile:
         self.img = owner.projectile_data["img"]
         self.speed = owner.projectile_data["speed"]
         self.pos = self.owner.pos.copy()
+        self.damage = self.owner.attack
 
         # move base firing position towards center of entity
         self.pos[1] -= 5
-
-        self.damage = self.owner.attack
 
     def update(self, dt):
         remaining_dis = self.speed * dt
@@ -39,7 +38,7 @@ class Projectile:
 
         return True
 
-    def draw(self, surf, offset=(0, 0)):
+    def draw(self, surf, offset: pygame.Vector2):
         img = self._game.assets.projectiles[self.img]
         rotated_img = pygame.transform.rotate(img, -math.degrees(self.angle))
         surf.blit(

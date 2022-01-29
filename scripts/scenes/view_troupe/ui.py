@@ -51,7 +51,7 @@ class ViewTroupeUI(UI):
             # return to previous scene
             self._game.change_scene(self._game.troupe.previous_scene_type)
 
-    def draw(self, surface: pygame.surface):
+    def draw(self, surface: pygame.Surface):
         # show core info
         self._draw_instruction(surface)
 

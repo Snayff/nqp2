@@ -79,6 +79,7 @@ class SceneType(IntEnum):
     DEV_DATA_EDITOR = auto()
     DEV_GALLERY = auto()
     WORLD = auto()
+    NEXT_ROOM = auto()
 
 
 class RewardType(IntEnum):
@@ -142,3 +143,7 @@ class GamepadAxes(IntEnum):
     RIGHT_Y = auto()
     DPAD_X = auto()
     DPAD_Y = auto()
+
+
+TILE_SIZE = 16
+BARRIER_SIZE = 10

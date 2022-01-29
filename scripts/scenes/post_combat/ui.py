@@ -77,7 +77,7 @@ class PostCombatUI(UI):
         elif self._game.post_combat.state == PostCombatState.BOSS_VICTORY:
             self.handle_boss_victory_input()
 
-    def draw(self, surface: pygame.surface):
+    def draw(self, surface: pygame.Surface):
         combat_data = self._game.combat.end_data
         create_font = self._game.assets.create_font
 
@@ -243,7 +243,7 @@ class PostCombatUI(UI):
             # draw exit button
             self.add_exit_button()
 
-    def _render_unit_rewards(self, surface: pygame.surface):
+    def _render_unit_rewards(self, surface: pygame.Surface):
         pass
         # # FIXME - this no longer works
         # reward_units = list(self._game.reward.troupe_rewards.units.values())

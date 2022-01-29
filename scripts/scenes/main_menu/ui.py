@@ -55,7 +55,7 @@ class MainMenuUI(UI):
             elif selected_element == self._elements["exit"]:
                 self._game.state = GameState.EXITING
 
-    def draw(self, surface: pygame.surface):
+    def draw(self, surface: pygame.Surface):
         # N.B. dont draw instruction
         self._draw_elements(surface)
 

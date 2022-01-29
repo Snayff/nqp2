@@ -62,7 +62,7 @@ class Base(Behaviour):
 
             if self.leader:
                 # TODO - remove reliance on scene
-                loc = self._game.world.ui.terrain.px_to_loc(self.leader.pos.copy())
+                loc = self._game.world.model.px_to_loc(self.leader.pos.copy())
                 if loc not in self.position_log:
                     self.position_log.append(loc)
                     self.position_log = self.position_log[-50:]
