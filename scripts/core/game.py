@@ -57,6 +57,7 @@ class Game:
         self.sounds: Sounds = Sounds(self)
 
         # scenes
+        # TODO - should these be private?
         self.main_menu: MainMenuScene = MainMenuScene(self)
         self.run_setup: RunSetupScene = RunSetupScene(self)
         self.post_combat: PostCombatScene = PostCombatScene(self)
@@ -93,6 +94,8 @@ class Game:
         self.input.update(delta_time)
         if self.input.states["tab"]:
             self.debug.toggle_debug_info()
+
+        self.sounds.update(delta_time)
 
         for scene in self.scene_stack:
             if scene.ui.is_active:

@@ -67,7 +67,7 @@ class Sounds:
         allow_duplicates: bool = True,
     ):
         """
-        Play sound.
+        Play sound. Set loops = -1 to make the sound loop infinitely. Can still be stopped.
         """
         # check if currently blocked as unique
         if sound_name in self._unique_sounds.keys():
