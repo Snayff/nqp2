@@ -311,6 +311,11 @@
 <div class="viewcode-block" id="MainMenuScene.reset"><a class="viewcode-back" href="../../../../scripts.scenes.main_menu.html#scripts.scenes.main_menu.scene.MainMenuScene.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="n">MainMenuUI</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span></div>
 
+<div class="viewcode-block" id="MainMenuScene.activate"><a class="viewcode-back" href="../../../../scripts.scenes.main_menu.html#scripts.scenes.main_menu.scene.MainMenuScene.activate">[docs]</a>    <span class="k">def</span> <span class="nf">activate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">activate</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">sounds</span><span class="o">.</span><span class="n">play_sound</span><span class="p">(</span><span class="s2">"fanfare"</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="MainMenuScene._new_game"><a class="viewcode-back" href="../../../../api/scenes/main_menu.html#scripts.scenes.main_menu.scene.MainMenuScene._new_game">[docs]</a>    <span class="k">def</span> <span class="nf">_new_game</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Prep the game for a new, fresh game and move to run setup scene.</span>
