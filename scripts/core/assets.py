@@ -282,5 +282,3 @@ class Assets:
         data = json.load(f)
         f.close()
         return data
-
-

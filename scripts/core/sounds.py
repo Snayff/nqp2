@@ -39,7 +39,6 @@ class Sounds:
         for sound_name, time_remaining in self._unique_sounds.items():
             self._unique_sounds[sound_name] = time_remaining - delta_time
 
-
     @staticmethod
     def _load_sounds() -> Dict[str, pygame.mixer.Sound]:
         """
@@ -60,12 +59,13 @@ class Sounds:
         return sounds
 
     def play_sound(
-            self,
-            sound_name: str,
-            loops: int = 0,
-            max_time: float = -1,
-            fade_in_ms: float = -1,
-            allow_duplicates: bool = True):
+        self,
+        sound_name: str,
+        loops: int = 0,
+        max_time: float = -1,
+        fade_in_ms: float = -1,
+        allow_duplicates: bool = True,
+    ):
         """
         Play sound.
         """
@@ -95,4 +95,3 @@ class Sounds:
 
         except KeyError:
             logging.warning(f"Sound [{sound_name} not found.")
-
