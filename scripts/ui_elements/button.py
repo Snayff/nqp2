@@ -36,13 +36,13 @@ class Button:
         else:
             r = pygame.Rect(self.pos[0] + offset[0], self.pos[1] + offset[1], *self.size)
             pygame.draw.rect(surf, self.colour, r, width=1)
-            self._game.assets.fonts["default"].draw(
+            self._game.assets._fonts["default"].draw(
                 self.content,
                 surf,
                 (
                     self.pos[0]
                     + offset[0]
-                    + (self.size[0] - self._game.assets.fonts["default"].width(self.content)) // 2,
-                    self.pos[1] + offset[1] + (self.size[1] - self._game.assets.fonts["default"].line_height) // 2,
+                    + (self.size[0] - self._game.assets._fonts["default"].width(self.content)) // 2,
+                    self.pos[1] + offset[1] + (self.size[1] - self._game.assets._fonts["default"].line_height) // 2,
                 ),
             )

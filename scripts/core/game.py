@@ -14,6 +14,7 @@ from scripts.core.debug import Debugger
 from scripts.core.input import Input
 from scripts.core.memory import Memory
 from scripts.core.rng import RNG
+from scripts.core.sounds import Sounds
 from scripts.core.window import Window
 from scripts.scenes.event.scene import EventScene
 from scripts.scenes.gallery.scene import GalleryScene
@@ -42,6 +43,7 @@ class Game:
 
         # init libraries
         pygame.init()
+        pygame.mixer.init()
         pygame.joystick.init()
 
         # managers
@@ -52,8 +54,10 @@ class Game:
         self.assets: Assets = Assets(self)
         self.input: Input = Input(self)
         self.rng: RNG = RNG(self)
+        self.sounds: Sounds = Sounds(self)
 
         # scenes
+        # TODO - should these be private?
         self.main_menu: MainMenuScene = MainMenuScene(self)
         self.run_setup: RunSetupScene = RunSetupScene(self)
         self.post_combat: PostCombatScene = PostCombatScene(self)
@@ -90,6 +94,8 @@ class Game:
         self.input.update(delta_time)
         if self.input.states["tab"]:
             self.debug.toggle_debug_info()
+
+        self.sounds.update(delta_time)
 
         for scene in self.scene_stack:
             if scene.ui.is_active:

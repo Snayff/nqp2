@@ -4,7 +4,7 @@ import json
 import logging
 import os
 import time
-from typing import TYPE_CHECKING
+from typing import Any, TYPE_CHECKING
 
 import pygame
 
@@ -33,7 +33,7 @@ class Assets:
 
         self._game: Game = game
 
-        self.fonts = {
+        self._fonts = {
             FontType.NEGATIVE: (str(ASSET_PATH / "fonts/small_font.png"), (255, 0, 0)),
             FontType.DISABLED: (str(ASSET_PATH / "fonts/small_font.png"), (128, 128, 128)),
             FontType.DEFAULT: (str(ASSET_PATH / "fonts/small_font.png"), (255, 255, 255)),
@@ -169,7 +169,7 @@ class Assets:
         Create a font instance.
         """
         line_width = clamp(line_width, 0, self._game.window.width)
-        path, colour = self.fonts[font_type]
+        path, colour = self._fonts[font_type]
         font = Font(path, colour, text, line_width, pos)
         return font
 
@@ -252,6 +252,11 @@ class Assets:
             images[folder] = {}
             for image_name in os.listdir(path):
                 if image_name.split(".")[-1] == "png":
+
+                    # avoid duplicates
+                    if image_name in images[folder].keys():
+                        logging.warning(f"{image_name} already loaded, non-unique file name.")
+
                     image = pygame.image.load(str(path / image_name)).convert_alpha()
                     width = image.get_width()
                     height = image.get_height()

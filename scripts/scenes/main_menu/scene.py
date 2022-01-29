@@ -43,6 +43,11 @@ class MainMenuScene(Scene):
     def reset(self):
         self.ui = MainMenuUI(self._game, self)
 
+    def activate(self):
+        super().activate()
+
+        self._game.sounds.play_sound("fanfare")
+
     def _new_game(self):
         """
         Prep the game for a new, fresh game and move to run setup scene.

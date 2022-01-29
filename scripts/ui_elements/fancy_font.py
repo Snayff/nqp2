@@ -38,7 +38,7 @@ class FancyFont:
 
         self._fonts: List[Font] = self._create_fonts()
 
-        # transform text and identify where to swap fonts.
+        # transform text and identify where to swap _fonts.
         parsed_text, font_swap_markers = self._parse_text(text)
 
         self._parsed_text: str = parsed_text
@@ -133,7 +133,7 @@ class FancyFont:
         """
         self._fonts: List[Font] = self._create_fonts()
 
-        # transform text and identify where to swap fonts.
+        # transform text and identify where to swap _fonts.
         parsed_text, font_swap_markers = self._parse_text(self.raw_text)
 
         self._parsed_text = parsed_text
@@ -250,9 +250,9 @@ class FancyFont:
 
     @staticmethod
     def _create_fonts() -> List[Font]:
-        default_font = Font(str(ASSET_PATH / "fonts/small_font.png"), (255, 255, 255), "")
-        big_font = Font(str(ASSET_PATH / "fonts/large_font.png"), (255, 255, 255), "")
-        red_font = Font(str(ASSET_PATH / "fonts/small_font.png"), (255, 0, 0), "")
+        default_font = Font(str(ASSET_PATH / "_fonts/small_font.png"), (255, 255, 255), "")
+        big_font = Font(str(ASSET_PATH / "_fonts/large_font.png"), (255, 255, 255), "")
+        red_font = Font(str(ASSET_PATH / "_fonts/small_font.png"), (255, 0, 0), "")
 
         fonts = [default_font, big_font, red_font]
         return fonts
