@@ -15,6 +15,7 @@ from scripts.core.input import Input
 from scripts.core.memory import Memory
 from scripts.core.rng import RNG
 from scripts.core.sounds import Sounds
+from scripts.core.visuals import Visuals
 from scripts.core.window import Window
 from scripts.scenes.event.scene import EventScene
 from scripts.scenes.gallery.scene import GalleryScene
@@ -55,6 +56,7 @@ class Game:
         self.input: Input = Input(self)
         self.rng: RNG = RNG(self)
         self.sounds: Sounds = Sounds(self)
+        self.visuals: Visuals = Visuals(self)
 
         # scenes
         # TODO - should these be private?
