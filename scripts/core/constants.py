@@ -67,7 +67,7 @@ class EventState(IntEnum):
     RESULT = auto()
 
 
-class AnimationState (IntEnum):
+class AnimationState(IntEnum):
     PLAYING = auto()
     PAUSED = auto()
     FINISHED = auto()

@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import logging
-
 from typing import TYPE_CHECKING
 
 import pygame
@@ -10,7 +9,7 @@ from scripts.core.base_classes.image import Image
 from scripts.core.constants import AnimationState, DEFAULT_IMAGE_SIZE
 
 if TYPE_CHECKING:
-    from typing import List, Optional, Tuple, Union, Dict
+    from typing import Dict, List, Optional, Tuple, Union
 
 __all__ = ["Animation"]
 
@@ -19,6 +18,7 @@ class Animation:
     """
     Class to hold visual information for a series of images
     """
+
     def __init__(self, frames: List[Image], frame_duration: float, pos: Tuple[int, int], loop: bool = True):
         self._frames: List[Image] = frames
         self._frame_duration: float = max(frame_duration, 0.1)  # must be greater than 1
@@ -95,7 +95,7 @@ class Animation:
 
     @property
     def is_finished(self) -> bool:
-        """"
+        """ "
         Return True if this animation has finished playing.
         """
         if self._state == AnimationState.FINISHED:
@@ -119,5 +119,3 @@ class Animation:
     @property
     def pos(self) -> Tuple[int, int]:
         return self._pos
-
-
