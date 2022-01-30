@@ -76,7 +76,7 @@ class Sounds:
         try:
             sound = self._sounds[sound_name]
 
-            # normalise values to pygames expected defaults
+            # normalise values to pygame's expected defaults
             if max_time == -1:
                 max_time = 0
             if fade_in_ms == -1:
