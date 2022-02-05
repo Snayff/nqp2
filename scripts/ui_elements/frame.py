@@ -67,7 +67,7 @@ class Frame(UIElement):
                 redraw_font = True
 
             # Animation changes each frame
-            if isinstance(self._image, Animation):
+            if isinstance(self._new_image, Animation):
                 is_dirty = True
 
             # rebuild surface first
@@ -91,8 +91,8 @@ class Frame(UIElement):
             height += image.get_height()
 
         if new_image is not None:
-            width += image.width
-            height += image.height
+            width += new_image.width
+            height += new_image.height
 
         if font is not None:
             width += font.width + GAP_SIZE
@@ -127,7 +127,7 @@ class Frame(UIElement):
             surface.blit(image, (0, 0))
 
         if new_image is not None:
-            surface.blit(image.image, (0, 0))
+            surface.blit(new_image.surface, (0, 0))
 
         # draw text
         if font is not None:
@@ -208,3 +208,31 @@ class Frame(UIElement):
         self._image = bg
 
         self._rebuild_surface()
+
+    def pause_animation(self):
+        """
+        Pause the animation, if there is one
+        """
+        if isinstance(self._new_image, Animation):
+            self._new_image.pause()
+
+    def play_animation(self):
+        """
+        Play the animation, if there is one
+        """
+        if isinstance(self._new_image, Animation):
+            self._new_image.play()
+
+    def reset_animation(self):
+        """
+        Reset the animation, if there is one
+        """
+        if isinstance(self._new_image, Animation):
+            self._new_image.reset()
+
+    def stop_animation(self):
+        """
+        Stop the animation, if there is one
+        """
+        if isinstance(self._new_image, Animation):
+            self._new_image.stop()

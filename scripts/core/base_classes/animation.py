@@ -19,7 +19,7 @@ class Animation:
     Class to hold visual information for a series of images
     """
 
-    def __init__(self, frames: List[Image], frame_duration: float = 0.3, loop: bool = True):
+    def __init__(self, frames: List[Image], frame_duration: float = 0.6, loop: bool = True):
         self._frames: List[Image] = frames
         self._frame_duration: float = max(frame_duration, 0.1)  # must be greater than 1
         self._is_looping: bool = loop
@@ -48,6 +48,7 @@ class Animation:
         # update frame
         self._current_frame = int(self._duration / self._frame_duration * self._num_frames) % self._num_frames
 
+
     def play(self):
         """
         Resume the animation
@@ -66,6 +67,14 @@ class Animation:
         """
         self._state = AnimationState.FINISHED
 
+    def reset(self):
+        """
+        Reset and pause the animation
+        """
+        self._state = AnimationState.PAUSED
+        self._duration = 0
+        self._current_frame = 0
+
     def get_frame(self, frame_num: int) -> Image:
         """
         Return the Image of the nth frame
@@ -75,7 +84,7 @@ class Animation:
 
         except IndexError:
             logging.debug(f"Asked for frame {frame_num} but only have {len(self._frames)}.")
-            frame = Image(pygame.Surface((DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE)), (0, 0))
+            frame = Image(image=pygame.Surface((DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE)))
 
         return frame
 
@@ -85,6 +94,13 @@ class Animation:
         Return the current frame.
         """
         return self.get_frame(self._current_frame)
+
+    @property
+    def surface(self) -> pygame.Surface:
+        """
+        Return the current frame's surface.
+        """
+        return self.get_frame(self._current_frame).surface
 
     @property
     def is_finished(self) -> bool:

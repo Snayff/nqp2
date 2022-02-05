@@ -68,7 +68,6 @@ class RunSetupUI(UI):
         start_x = 0
         start_y = 0
         default_font = self._game.assets.create_font(FontType.DEFAULT, "")
-        font_height = default_font.line_height
 
         # draw background
         current_x = start_x
@@ -83,14 +82,16 @@ class RunSetupUI(UI):
         current_y = start_y + 20
         panel_elements = []
         for selection_counter, commander in enumerate(commanders.values()):
-            icon = self._game.assets.commander_animations[commander["type"]]["icon"][0]
-            icon_width = icon.get_width()
-            frame = Frame((current_x, current_y), icon, is_selectable=True)
+            icon = self._game.visuals.create_animation(commander["type"], "move")
+            icon.pause()
+            icon_width = icon.width
+            frame = Frame((current_x, current_y), new_image=icon, is_selectable=True)
             self._elements[commander["type"]] = frame
 
             # highlight selected commander
             if commander["type"] == selected_commander or selected_commander is None:
                 frame.is_selected = True
+                frame.play_animation()
 
             panel_elements.append(frame)
 
@@ -195,25 +196,33 @@ class RunSetupUI(UI):
         elements["allies"].set_text(allies)
 
     def _handle_select_commander_input(self):
+        is_dirty = False
+        current_selected_commander = list(self._game.data.commanders)[self._current_panel.selected_index]
+
         # selections within panel
         if self._game.input.states["left"]:
             self._game.input.states["left"] = False
 
             self._current_panel.select_previous_element()
 
-            # update selected commander and shown info
-            selected_commander = list(self._game.data.commanders)[self._current_panel.selected_index]
-            self._game.run_setup.selected_commander = selected_commander
-            self.refresh_info()
+            is_dirty = True
 
         if self._game.input.states["right"]:
             self._game.input.states["right"] = False
 
             self._current_panel.select_next_element()
 
-            # update selected commander and shown info
-            selected_commander = list(self._game.data.commanders)[self._current_panel.selected_index]
-            self._game.run_setup.selected_commander = selected_commander
+            is_dirty = True
+
+        # update selected commander and shown info
+        if is_dirty:
+            # pause current commander's animation
+            self._elements[current_selected_commander].reset_animation()
+
+            # update selection and start new animation
+            new_selected_commander = list(self._game.data.commanders)[self._current_panel.selected_index]
+            self._parent_scene.selected_commander = new_selected_commander
+            self._elements[new_selected_commander].play_animation()
             self.refresh_info()
 
         # select option and move to exit

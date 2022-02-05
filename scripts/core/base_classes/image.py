@@ -22,7 +22,7 @@ class Image(pygame.sprite.Sprite):
         self._image: pygame.Surface = image
 
     @property
-    def image(self) -> pygame.Surface:
+    def surface(self) -> pygame.Surface:
         return self._image
 
     @property

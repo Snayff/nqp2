@@ -168,7 +168,6 @@ class Visuals:
     def get_image(
         self,
         image_name: str,
-        pos: Tuple[int, int],
         size: Tuple[int, int] = (DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE),
         copy: bool = False,
     ) -> Image:
@@ -208,7 +207,7 @@ class Visuals:
             if image is None:
                 logging.warning(f"Image requested [{image_name}] not found.")
                 image_ = self.get_image("not_found")
-                image = image_.image
+                image = image_.surface
             else:
                 # resize and store resized image
                 assert isinstance(image, pygame.Surface)
