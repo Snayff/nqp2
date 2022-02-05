@@ -31,7 +31,7 @@ class Data:
         self.commanders: Dict[str, Any] = self._load_commanders()
         self.units: Dict[str, Any] = self._load_unit_info()
         self.behaviours = BehaviourManager()  # TODO - this isnt data and should be elsewhere
-        self.tiles = self._load_tile_info()
+        self.tiles = self._load_tile_info()  # TODO - can we get rid of this?
         self.factions: List[str] = self._create_homes_list()
         self.events: Dict[str, Any] = self._load_events()
         self.upgrades: Dict[str, Any] = self._load_upgrades()

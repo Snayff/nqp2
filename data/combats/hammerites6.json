@@ -1,0 +1,16 @@
+{
+    "type": "hammerites6",
+    "category": "basic",
+    "units": [
+        "disciple_of_the_hammer",
+        "copper_golem",
+        "steam_golem"
+    ],
+    "level_available": 1,
+    "biome": "esteria",
+    "tier": 3,
+    "gold_reward": [
+        50,
+        110
+    ]
+}

@@ -203,7 +203,7 @@ class UI(ABC):
         self._current_panel.unselect_all_elements()
 
         if hide_old_panel:
-            self._current_panel.is_active = False
+            self._current_panel._is_active = False
 
         # select new
         try:
@@ -216,4 +216,4 @@ class UI(ABC):
             self._current_panel = list(self._panels)[0]
 
         self._current_panel.select_first_element()
-        self._current_panel.is_active = True
+        self._current_panel._is_active = True

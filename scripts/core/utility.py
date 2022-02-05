@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 _V = TypeVar("_V", int, float)  # to represent where we don't know which type is being used
 
-__all__ = ["swap_colour", "clip", "offset", "lerp", "clamp", "itr", "scene_to_scene_type"]
+__all__ = ["swap_colour", "clip", "offset", "lerp", "clamp", "itr", "scene_to_scene_type", "next_number_in_loop"]
 
 
 def swap_colour(img, old_c, new_c):
@@ -84,9 +84,7 @@ def scene_to_scene_type(scene) -> SceneType:
     from scripts.scenes.unit_data.scene import UnitDataScene
     from scripts.scenes.view_troupe.scene import ViewTroupeScene
 
-    if type(scene) is CombatScene:
-        scene = SceneType.COMBAT
-    elif type(scene) is ViewTroupeScene:
+    if type(scene) is ViewTroupeScene:
         scene = SceneType.VIEW_TROUPE
     elif type(scene) is TrainingScene:
         scene = SceneType.TRAINING

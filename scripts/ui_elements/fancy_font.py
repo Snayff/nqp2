@@ -38,7 +38,7 @@ class FancyFont:
 
         self._fonts: List[Font] = self._create_fonts()
 
-        # transform text and identify where to swap fonts.
+        # transform text and identify where to swap _fonts.
         parsed_text, font_swap_markers = self._parse_text(text)
 
         self._parsed_text: str = parsed_text
@@ -133,7 +133,7 @@ class FancyFont:
         """
         self._fonts: List[Font] = self._create_fonts()
 
-        # transform text and identify where to swap fonts.
+        # transform text and identify where to swap _fonts.
         parsed_text, font_swap_markers = self._parse_text(self.raw_text)
 
         self._parsed_text = parsed_text

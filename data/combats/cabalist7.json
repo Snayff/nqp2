@@ -1,0 +1,16 @@
+{
+    "type": "cabalist1",
+    "category": "basic",
+    "units": [
+        "apprentice_magi",
+        "djinn",
+        "djinn"
+    ],
+    "level_available": 1,
+    "biome": "esteria",
+    "tier": 2,
+    "gold_reward": [
+        50,
+        110
+    ]
+}

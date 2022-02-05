@@ -1,0 +1,17 @@
+{
+    "type": "empire5",
+    "category": "basic",
+    "units": [
+        "imperial_guard",
+        "imperial_guard",
+        "imperial_musician",
+        "imperial_enforcer"
+    ],
+    "level_available": 1,
+    "biome": "ilan",
+    "tier": 3,
+    "gold_reward": [
+        50,
+        110
+    ]
+}
