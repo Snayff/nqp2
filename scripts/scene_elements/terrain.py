@@ -1,15 +1,13 @@
 import math
 import random
-from typing import (
-    Dict, List, Optional, Tuple, Callable, Sequence, TYPE_CHECKING
-)
+from typing import Callable, Dict, List, Optional, Sequence, Tuple, TYPE_CHECKING
 
 import pygame
 
-from .pathfinder import Pathfinder
-from .tile import Tile
 from ..core.constants import BARRIER_SIZE, TILE_SIZE
 from ..core.game import Game
+from .pathfinder import Pathfinder
+from .tile import Tile
 
 
 def grid_walk(start, end):

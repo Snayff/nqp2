@@ -33,6 +33,7 @@ class WorldModel:
           and future work should clarify what each should handle.
 
     """
+
     def __init__(self, game: Game):
         with Timer("WorldModel initialized"):
             self._game = game
