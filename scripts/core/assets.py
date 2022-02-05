@@ -23,7 +23,7 @@ __all__ = ["Assets"]
 
 ######### TO DO LIST  ##########
 
-# TODO - update get_image to be easier to use and support animations - use name, with optional action and frame?
+# TODO - Delete module when all classes updates to use new Visuals
 
 
 class Assets:
