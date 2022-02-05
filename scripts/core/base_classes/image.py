@@ -26,8 +26,8 @@ class Image(pygame.sprite.Sprite):
         """
         Draw the Image to the given surface. If image pos == (-1, -1) does nothing.
         """
-        if self.pos == (-1, -1):
-            return
+        # if self.pos == (-1, -1):
+        #     return
 
         surface.blit(self._image, self._pos)
 
@@ -52,8 +52,8 @@ class Image(pygame.sprite.Sprite):
 
     @property
     def width(self) -> int:
-        return self.rect.width
+        return self._image.get_width()
 
     @property
     def height(self) -> int:
-        return self.rect.height
+        return self._image.get_height()

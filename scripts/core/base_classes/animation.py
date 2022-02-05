@@ -119,3 +119,11 @@ class Animation:
     @property
     def pos(self) -> Tuple[int, int]:
         return self._pos
+
+    @property
+    def width(self) -> int:
+        return self._frames[0].width
+
+    @property
+    def height(self) -> int:
+        return self._frames[0].height

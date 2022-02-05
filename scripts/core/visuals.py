@@ -34,7 +34,7 @@ class Visuals:
 
         self._game: Game = game
 
-        self._image_folders: List[str] = ["rooms", "stats", "ui", "buttons"]
+        self._image_folders: List[str] = ["stats", "ui", "buttons"]
         self._animation_folders: List[str] = ["bosses", "commanders", "units"]
 
         self._images: Dict[str, pygame.Surface] = self._load_images()  # image_name: surface
@@ -83,15 +83,15 @@ class Visuals:
                 if image_name.split(".")[-1] == "png":
 
                     # warn about duplicates
-                    if image_name in images[folder].keys():
+                    if image_name in images.keys():
                         logging.warning(f"{image_name} already loaded, non-unique file name.")
 
                     # load image
                     image = pygame.image.load(str(path / image_name)).convert_alpha()
 
                     # store image
-                    width = image.width
-                    height = image.height
+                    width = image.get_width()
+                    height = image.get_height()
                     images[f"{image_name.split('.')[0]}@{width}x{height}"] = image  # split to remove extension
 
         # add not found image

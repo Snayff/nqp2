@@ -5,6 +5,8 @@ from typing import TYPE_CHECKING
 import pygame
 from pygame import SRCALPHA
 
+from scripts.core.base_classes.animation import Animation
+from scripts.core.base_classes.image import Image
 from scripts.core.base_classes.ui_element import UIElement
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, GAP_SIZE
 from scripts.core.utility import clamp
@@ -65,8 +67,12 @@ class Frame(UIElement):
         height = 0
 
         if image is not None:
-            width += image.get_width()
-            height += image.get_height()
+            if isinstance(image, Image) or isinstance(image, Animation):
+                width += image.width
+                height += image.height
+            else:
+                width += image.get_width()
+                height += image.get_height()
 
         if font is not None:
             width += font.width + GAP_SIZE
@@ -97,7 +103,12 @@ class Frame(UIElement):
 
         # draw image
         if image:
-            surface.blit(image, (0, 0))
+            if isinstance(image, Image):
+                surface.blit(image.image, (0, 0))
+            elif isinstance(image, Animation):
+                surface.blit(image.get_current_frame().image, (0, 0))
+            else:
+                surface.blit(image, (0, 0))
 
         # draw text
         if font:

@@ -106,3 +106,14 @@ class MainMenuUI(UI):
         # add panel
         panel = Panel(panel_elements, True)
         self.add_panel(panel, "options")
+
+        x = 300
+        y = 100
+        icon = self._game.visuals.create_animation("albrom", "icon", (0, 0))
+        frame = Frame((x, y), icon, is_selectable=False)
+        self._elements["test"] = frame
+
+        move = self._game.visuals.create_animation("albrom", "move", (0, 0))
+        frame = Frame((x + 50, y), move, is_selectable=False)
+        self._elements["test2"] = frame
+
