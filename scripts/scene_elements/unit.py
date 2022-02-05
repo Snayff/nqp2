@@ -73,7 +73,7 @@ class Unit:
         self.colour = (0, 0, 255)
         self.entities: List[Entity] = []
         self.dead_entities: List[Entity] = []
-        self.pos: List[int, int] = [0, 0]
+        self.pos: List[int, int] = [300, 200]
         self.placed: bool = False
         self.forced_idle: bool = True  # forces idle state to prevent action
 

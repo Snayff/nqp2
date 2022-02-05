@@ -52,8 +52,7 @@ class WorldView:
         offset = self.camera.render_offset()
         self._model.terrain.draw(surface, offset)
         if not self.clamp_primary_terrain:
-            x = self._model.terrain.boundaries.width
-            next_offset = offset + (x, 0)
+            next_offset = offset + (self._model.terrain.boundaries.width, 0)
             self._model.next_terrain.draw(surface, next_offset)
         self._draw_units(surface, offset)
         self._model.projectiles.draw(surface, offset)

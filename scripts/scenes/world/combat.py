@@ -79,16 +79,31 @@ class CombatController:
         if self.state == WorldState.MOVING_NEXT_ROOM:
             # move entities
             for i in self._game.memory.get_all_entities():
-                i.move((5, 0))
+                # cannot use move here because it is very buggy when entities are touching
+                i.pos[0] += 5
 
+            # TODO: find better way to calculate this value
+            final = self._game.window.base_resolution[0] + 320 + 100
+            terrain_offset = self._game.window.base_resolution[0] + 320
+
+            # this is a giant hack because the game only supports
+            # "one room" at a time, and everything needs to be in the
+            # "primary" terrain.  to remove hack, one way to fix would
+            # be to make sure game can support more than one terrain
+            # and all game entities coordinates are independent of the
+            # terrain.
             # when entities are in next room, swap terrains and idle
-            if i.pos[0] >= 1000:
+            if i.pos[0] >= final:
+                for i in self._game.memory.get_all_entities():
+                    # cannot use move here because it is very buggy when entities are touching
+                    i.pos[0] -= terrain_offset
                 # TODO: decouple this
                 self._game.world.ui._worldview.clamp_primary_terrain = True
+                self._game.world.ui._worldview.camera.reset_movement()
                 self._model.terrain.ignore_boundaries = False
                 self._model.next_terrain.ignore_boundaries = False
                 self._model.swap_terrains()
-                self.state = WorldState.IDLE
+                self.reset()
 
     def force_idle(self):
         self._model.align_unit_pos_to_unit_grid()
@@ -113,6 +128,8 @@ class CombatController:
         """
         if self.state == WorldState.IDLE:
             self.state = WorldState.MOVING_NEXT_ROOM
+
+            # TODO: prepare next room type here
 
             # allow camera to pan past terrain boundaries
             # TODO: decouple this

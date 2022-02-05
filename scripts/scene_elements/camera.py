@@ -29,8 +29,7 @@ class Camera:
         Immediately centre the camera on a world point
 
         """
-        self._pos.x = pos[0]
-        self._pos.y = pos[1]
+        self._pos.update(pos)
 
     def move(self, x: int = 0, y: int = 0):
         """
@@ -89,8 +88,7 @@ class Camera:
 
         """
         clamped = self.get_rect().clamp(rect)
-        self._pos.x = clamped.centerx
-        self._pos.y = clamped.centery
+        self._pos.update(clamped.center)
 
     def get_size(self) -> pygame.Vector2:
         """
@@ -109,6 +107,17 @@ class Camera:
         size = round(size.x), round(size.y)
         pos = self._origin()
         return pygame.Rect(pos, size)
+
+    def reset_movement(self):
+        """
+        Immediately move camera to tracked position
+
+        """
+        if self._target_entity:
+            self.move_to_position(self._target_entity.pos)
+
+        if self._target_position:
+            self.centre(self._target_position)
 
     def _origin(self) -> pygame.Vector2:
         """
