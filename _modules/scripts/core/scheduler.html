@@ -1,0 +1,684 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="lang:clipboard.copy" content="Copy to clipboard">
+  <meta name="lang:clipboard.copied" content="Copied to clipboard">
+  <meta name="lang:search.language" content="en">
+  <meta name="lang:search.pipeline.stopwords" content="True">
+  <meta name="lang:search.pipeline.trimmer" content="True">
+  <meta name="lang:search.result.none" content="No matching documents">
+  <meta name="lang:search.result.one" content="1 matching document">
+  <meta name="lang:search.result.other" content="# matching documents">
+  <meta name="lang:search.tokenizer" content="[\s\-]+">
+
+  
+    <link href="https://fonts.gstatic.com/" rel="preconnect" crossorigin>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700|Roboto:300,400,400i,700&display=fallback" rel="stylesheet">
+
+    <style>
+      body,
+      input {
+        font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif
+      }
+
+      code,
+      kbd,
+      pre {
+        font-family: "Roboto Mono", "Courier New", Courier, monospace
+      }
+    </style>
+  
+
+  <link rel="stylesheet" href="../../../_static/stylesheets/application.css"/>
+  <link rel="stylesheet" href="../../../_static/stylesheets/application-palette.css"/>
+  <link rel="stylesheet" href="../../../_static/stylesheets/application-fixes.css"/>
+  
+  <link rel="stylesheet" href="../../../_static/fonts/material-icons.css"/>
+  
+  <meta name="theme-color" content="#3f51b5">
+  <script src="../../../_static/javascripts/modernizr.js"></script>
+  
+  
+  
+    <title>scripts.core.scheduler &#8212; NotQuiteParadise2  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/material.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  
+   
+
+  </head>
+  <body dir=ltr
+        data-md-color-primary=deep-purple data-md-color-accent=deep-orange>
+  
+  <svg class="md-svg">
+    <defs data-children-count="0">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+      
+    </defs>
+  </svg>
+  
+  <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer">
+  <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search">
+  <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+  <a href="#_modules/scripts/core/scheduler" tabindex="1" class="md-skip"> Skip to content </a>
+  <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex navheader">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../../../index.html" title="NotQuiteParadise2  documentation"
+           class="md-header-nav__button md-logo">
+          
+            <i class="md-icon">&#xe869</i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          <span class="md-header-nav__topic">Not Quite Paradise 2</span>
+          <span class="md-header-nav__topic"> scripts.core.scheduler </span>
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+        
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" action="../../../search.html" method="get" name="search">
+      <input type="text" class="md-search__input" name="q" placeholder="Search"
+             autocapitalize="off" autocomplete="off" spellcheck="false"
+             data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            <a href="https://github.com/Snayff/nqp2" title="Go to repository" class="md-source" data-md-source="github">
+
+    <div class="md-source__icon">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    Not Quite Paradise
+  </div>
+</a>
+          </div>
+        </div>
+      
+      
+  
+  <script src="../../../_static/javascripts/version_dropdown.js"></script>
+  <script>
+    var json_loc = "../../../"versions.json"",
+        target_loc = "../../../../",
+        text = "Versions";
+    $( document ).ready( add_version_dropdown(json_loc, target_loc, text));
+  </script>
+  
+
+    </div>
+  </nav>
+</header>
+
+  
+  <div class="md-container">
+    
+    
+    
+  <nav class="md-tabs" data-md-component="tabs">
+    <div class="md-tabs__inner md-grid">
+      <ul class="md-tabs__list">
+          <li class="md-tabs__item"><a href="../../../index.html" class="md-tabs__link">NotQuiteParadise2  documentation</a></li>
+          <li class="md-tabs__item"><a href="../../index.html" class="md-tabs__link">Module code</a></li>
+      </ul>
+    </div>
+  </nav>
+    <main class="md-main">
+      <div class="md-main__inner md-grid" data-md-component="container">
+        
+          <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+            <div class="md-sidebar__scrollwrap">
+              <div class="md-sidebar__inner">
+                <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../../../index.html" title="NotQuiteParadise2 documentation" class="md-nav__button md-logo">
+      
+        <i class="md-icon">&#xe869</i>
+      
+    </a>
+    <a href="../../../index.html"
+       title="NotQuiteParadise2 documentation">Not Quite Paradise 2</a>
+  </label>
+    <div class="md-nav__source">
+      <a href="https://github.com/Snayff/nqp2" title="Go to repository" class="md-source" data-md-source="github">
+
+    <div class="md-source__icon">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    Not Quite Paradise
+  </div>
+</a>
+    </div>
+  
+  
+
+  
+  <ul class="md-nav__list">
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../api/core/_core.html" class="md-nav__link">Core</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../api/scenes/_scenes.html" class="md-nav__link">Scenes</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../api/scene_elements/_scene_elements.html" class="md-nav__link">Scene Elements</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../api/ui_elements/ui_elements.html" class="md-nav__link">UI Elements</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../developer/_developer.html" class="md-nav__link">Developer</a>
+      
+    
+    </li>
+  </ul>
+  
+
+</nav>
+              </div>
+            </div>
+          </div>
+          <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+            <div class="md-sidebar__scrollwrap">
+              <div class="md-sidebar__inner">
+                
+<nav class="md-nav md-nav--secondary">
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+
+<li id="searchbox" class="md-nav__item"></li>
+
+  </ul>
+</nav>
+              </div>
+            </div>
+          </div>
+        
+        <div class="md-content">
+          <article class="md-content__inner md-typeset" role="main">
+            
+  <h1 id="modules-scripts-core-scheduler--page-root">Source code for scripts.core.scheduler</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">import</span> <span class="nn">dataclasses</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">heapq</span> <span class="kn">import</span> <span class="n">heapify</span><span class="p">,</span> <span class="n">heappop</span><span class="p">,</span> <span class="n">heappush</span><span class="p">,</span> <span class="n">heappushpop</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"ScheduledItem"</span><span class="p">,</span> <span class="s2">"Scheduler"</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="remove"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.scheduler.remove">[docs]</a><span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Remove scheduled items with func ``func`` from list</span>
+<span class="sd">    ``remove_from`` and return True if it was removed</span>
+
+<span class="sd">    """</span>
+    <span class="n">removed</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">remove_</span> <span class="o">=</span> <span class="n">items</span><span class="o">.</span><span class="n">remove</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">items</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">func</span> <span class="ow">is</span> <span class="n">func</span><span class="p">):</span>
+        <span class="n">remove_</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">removed</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="n">removed</span></div>
+
+
+<span class="c1"># after py 3.10, add slots=True</span>
+<div class="viewcode-block" id="ScheduledItem"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.scheduler.ScheduledItem">[docs]</a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span><span class="p">()</span>
+<span class="k">class</span> <span class="nc">ScheduledItem</span><span class="p">:</span>
+    <span class="sd">"""</span>
+<span class="sd">    Describes a scheduled callback.</span>
+
+<span class="sd">    """</span>
+
+    <span class="n">func</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="n">last_ts</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">next_ts</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">interval</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">repeat</span><span class="p">:</span> <span class="nb">bool</span>
+
+    <span class="k">def</span> <span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">next_ts</span> <span class="o">&lt;</span> <span class="n">other</span><span class="o">.</span><span class="n">next_ts</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">next_ts</span> <span class="o">&lt;</span> <span class="n">other</span></div>
+
+
+<div class="viewcode-block" id="Scheduler"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.scheduler.Scheduler">[docs]</a><span class="k">class</span> <span class="nc">Scheduler</span><span class="p">:</span>
+    <span class="sd">"""</span>
+<span class="sd">    Class for scheduling functions.</span>
+
+<span class="sd">    Probably not thread safe.</span>
+
+<span class="sd">    The function should have a prototype that includes ``dt`` as the</span>
+<span class="sd">    first argument, which gives the elapsed time, in time units,</span>
+<span class="sd">    since the last clock tick.</span>
+
+<span class="sd">        def callback(dt):</span>
+<span class="sd">            pass</span>
+
+
+<span class="sd">    Soft Scheduling</span>
+<span class="sd">    ===============</span>
+
+<span class="sd">    Items will be scheduled and rescheduled in such a way to prevent</span>
+<span class="sd">    several items from running during the same tick.  Enabling a</span>
+<span class="sd">    "soft" reschedule means that item is tolerant to having the</span>
+<span class="sd">    interval slightly modified.</span>
+
+<span class="sd">    """</span>
+
+<div class="viewcode-block" id="Scheduler.__init__"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.scheduler.Scheduler.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_function</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Initialise a Scheduler, with optional custom time function.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            time_function: Return the elapsed time</span>
+
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_time</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="n">time_function</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_last_ts</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_times</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">deque</span><span class="p">(</span><span class="n">maxlen</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_scheduled_items</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ScheduledItem</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_next_tick_items</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ScheduledItem</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_interval_item</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ScheduledItem</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cumulative_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_last_ts</span></div>
+
+<div class="viewcode-block" id="Scheduler.schedule_once"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.scheduler.Scheduler.schedule_once">[docs]</a>    <span class="k">def</span> <span class="nf">schedule_once</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">delay</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">soft</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ScheduledItem</span><span class="p">:</span>
+        <span class="sd">"""</span>
+<span class="sd">        Schedule a function to be run once sometime in the future.</span>
+
+<span class="sd">        If the delay is not specified, the function will be executed</span>
+<span class="sd">        during the next tick.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            func: Function to be called</span>
+<span class="sd">            delay: Delay in time unit until it is called</span>
+<span class="sd">            soft: See notes about Soft Scheduling</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Reference to scheduled item.</span>
+
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_schedule</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">delay</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">soft</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Scheduler.schedule_interval"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.scheduler.Scheduler.schedule_interval">[docs]</a>    <span class="k">def</span> <span class="nf">schedule_interval</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span>
+        <span class="n">interval</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+        <span class="n">delay</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+        <span class="n">soft</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Schedule a function to run on an interval.</span>
+
+<span class="sd">        Items are rescheduled after they are executed.  That means that</span>
+<span class="sd">        by default, the interval of items may not be consistent with</span>
+<span class="sd">        the initial time with was scheduled.</span>
+
+<span class="sd">        If the delay is not specified, the function will be executed</span>
+<span class="sd">        during the next tick.</span>
+
+<span class="sd">        If the interval is not specified, the function will be executed</span>
+<span class="sd">        every time the scheduler is ticked.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            func: Function to be called</span>
+<span class="sd">            interval: If repeating, repeat on this interval</span>
+<span class="sd">            delay: Delay in time unit until it is called</span>
+<span class="sd">            soft: See notes about Soft Scheduling</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Reference to scheduled item</span>
+
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_schedule</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">delay</span><span class="p">,</span> <span class="n">interval</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">soft</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_schedule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">delay</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">interval</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">repeat</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">soft</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">delay</span> <span class="o">&gt;=</span> <span class="mf">0.0</span>
+        <span class="k">assert</span> <span class="n">interval</span> <span class="o">&gt;=</span> <span class="mf">0.0</span>
+        <span class="k">if</span> <span class="n">interval</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">repeat</span>
+
+        <span class="n">last_ts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_nearest_ts</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">soft</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">delay</span> <span class="o">&gt;</span> <span class="mf">0.0</span>
+            <span class="n">next_ts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_soft_next_ts</span><span class="p">(</span><span class="n">last_ts</span><span class="p">,</span> <span class="n">delay</span><span class="p">)</span>
+            <span class="n">last_ts</span> <span class="o">=</span> <span class="n">next_ts</span> <span class="o">-</span> <span class="n">delay</span>
+        <span class="n">next_ts</span> <span class="o">=</span> <span class="n">last_ts</span> <span class="o">+</span> <span class="n">delay</span>
+
+        <span class="n">item</span> <span class="o">=</span> <span class="n">ScheduledItem</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">last_ts</span><span class="p">,</span> <span class="n">next_ts</span><span class="p">,</span> <span class="n">interval</span><span class="p">,</span> <span class="n">repeat</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">repeat</span> <span class="ow">and</span> <span class="p">(</span><span class="n">interval</span> <span class="o">==</span> <span class="n">next_ts</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_next_tick_items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_next_tick_items</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">:</span>
+                <span class="c1"># TODO: warning only!</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">heappush</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_scheduled_items</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">item</span>
+
+<div class="viewcode-block" id="Scheduler.unschedule"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.scheduler.Scheduler.unschedule">[docs]</a>    <span class="k">def</span> <span class="nf">unschedule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">"""</span>
+<span class="sd">        Remove a function from the schedule.</span>
+
+<span class="sd">        NOTE: do not unschedule own function during function call</span>
+
+<span class="sd">        If the function appears in the schedule more than once, all</span>
+<span class="sd">        occurrences are removed.  If the function was not scheduled,</span>
+<span class="sd">        no error is raised.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            func: The function to remove from the schedule.</span>
+
+<span class="sd">        """</span>
+        <span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_next_tick_items</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_scheduled_items</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+            <span class="n">heapify</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_scheduled_items</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Scheduler.tick"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.scheduler.Scheduler.tick">[docs]</a>    <span class="k">def</span> <span class="nf">tick</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">"""</span>
+<span class="sd">        Cause clock to update and call scheduled functions.</span>
+
+<span class="sd">        This updates the clock's internal measure of time and returns</span>
+<span class="sd">        the difference since the last update (or since the clock was</span>
+<span class="sd">        created).</span>
+
+<span class="sd">        Will call any scheduled functions that have elapsed.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The number of time units since the last "tick", or 0 if this</span>
+<span class="sd">            was the first tick.</span>
+
+<span class="sd">        """</span>
+        <span class="n">delta_t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">set_time</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_time</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">delta_t</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">call_scheduled_functions</span><span class="p">(</span><span class="n">delta_t</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">delta_t</span></div>
+
+<div class="viewcode-block" id="Scheduler.call_scheduled_functions"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.scheduler.Scheduler.call_scheduled_functions">[docs]</a>    <span class="k">def</span> <span class="nf">call_scheduled_functions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Call scheduled functions that elapsed on the last `update_time`.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            dt: The elapsed time since the last update to pass to each</span>
+<span class="sd">            scheduled function.</span>
+
+<span class="sd">        """</span>
+        <span class="n">now</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_last_ts</span>
+
+        <span class="c1"># handle items scheduled for each tick</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_next_tick_items</span><span class="p">:</span>
+            <span class="c1"># make copy of list in case event removes itself</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_next_tick_items</span><span class="p">):</span>
+                <span class="n">item</span><span class="o">.</span><span class="n">func</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
+
+        <span class="n">item</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">get_soft_next_ts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_soft_next_ts</span>
+        <span class="n">scheduled_items</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scheduled_items</span>
+        <span class="k">while</span> <span class="n">scheduled_items</span><span class="p">:</span>
+
+            <span class="c1"># if next item is scheduled in the future then exit</span>
+            <span class="k">if</span> <span class="n">scheduled_items</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">next_ts</span> <span class="o">&gt;</span> <span class="n">now</span><span class="p">:</span>
+                <span class="k">break</span>
+
+            <span class="c1"># the scheduler will hold onto a reference to an item in</span>
+            <span class="c1"># case it needs to be rescheduled.  it is more efficient</span>
+            <span class="c1"># to push and pop the heap in one call than to make two</span>
+            <span class="c1"># operations.</span>
+            <span class="k">if</span> <span class="n">item</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">item</span> <span class="o">=</span> <span class="n">heappop</span><span class="p">(</span><span class="n">scheduled_items</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">item</span> <span class="o">=</span> <span class="n">heappushpop</span><span class="p">(</span><span class="n">scheduled_items</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+
+            <span class="c1"># call the function associated with the scheduled item</span>
+            <span class="n">item</span><span class="o">.</span><span class="n">func</span><span class="p">(</span><span class="n">now</span> <span class="o">-</span> <span class="n">item</span><span class="o">.</span><span class="n">last_ts</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">repeat</span><span class="p">:</span>
+                <span class="n">item</span><span class="o">.</span><span class="n">next_ts</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">last_ts</span> <span class="o">+</span> <span class="n">item</span><span class="o">.</span><span class="n">interval</span>
+                <span class="n">item</span><span class="o">.</span><span class="n">last_ts</span> <span class="o">=</span> <span class="n">now</span>
+
+                <span class="c1"># the execution time of this item has already passed,</span>
+                <span class="c1"># so it must be rescheduled</span>
+                <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">next_ts</span> <span class="o">&lt;=</span> <span class="n">now</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">now</span> <span class="o">-</span> <span class="n">item</span><span class="o">.</span><span class="n">next_ts</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">:</span>
+                        <span class="c1"># reschedule</span>
+                        <span class="n">item</span><span class="o">.</span><span class="n">next_ts</span> <span class="o">=</span> <span class="n">now</span> <span class="o">+</span> <span class="n">item</span><span class="o">.</span><span class="n">interval</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="c1"># missed by significant amount; soft reschedule</span>
+                        <span class="c1"># to avoid lumping everything together. in this</span>
+                        <span class="c1"># case, the next dt will not be accurate.</span>
+                        <span class="n">item</span><span class="o">.</span><span class="n">next_ts</span> <span class="o">=</span> <span class="n">get_soft_next_ts</span><span class="p">(</span><span class="n">now</span><span class="p">,</span> <span class="n">item</span><span class="o">.</span><span class="n">interval</span><span class="p">)</span>
+                        <span class="n">item</span><span class="o">.</span><span class="n">last_ts</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">next_ts</span> <span class="o">-</span> <span class="n">item</span><span class="o">.</span><span class="n">interval</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># this item will not be rescheduled</span>
+                <span class="n">item</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="n">item</span><span class="p">:</span>
+            <span class="n">heappush</span><span class="p">(</span><span class="n">scheduled_items</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Scheduler.get_running_time"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.scheduler.Scheduler.get_running_time">[docs]</a>    <span class="k">def</span> <span class="nf">get_running_time</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">"""</span>
+<span class="sd">        Get time clock has been running</span>
+
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cumulative_time</span></div>
+
+<div class="viewcode-block" id="Scheduler.get_counter"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.scheduler.Scheduler.get_counter">[docs]</a>    <span class="k">def</span> <span class="nf">get_counter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">"""</span>
+<span class="sd">        Get internal counter value</span>
+
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_last_ts</span></div>
+
+<div class="viewcode-block" id="Scheduler.get_interval"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.scheduler.Scheduler.get_interval">[docs]</a>    <span class="k">def</span> <span class="nf">get_interval</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">"""</span>
+<span class="sd">        Get the average amount of time passed between each tick.</span>
+
+<span class="sd">        Useful for calculating FPS if this clock is used with the</span>
+<span class="sd">        display.  Returned value is averaged from last 10 ticks.</span>
+
+<span class="sd">        Value will be 0.0 if before 1st tick.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Average amount of time passed between each tick</span>
+
+<span class="sd">        """</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_times</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_times</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ZeroDivisionError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mf">0.0</span></div>
+
+<div class="viewcode-block" id="Scheduler.get_schedule"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.scheduler.Scheduler.get_schedule">[docs]</a>    <span class="k">def</span> <span class="nf">get_schedule</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ScheduledItem</span><span class="p">]:</span>
+        <span class="sd">"""</span>
+<span class="sd">        Return copy of the schedule.</span>
+
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_next_tick_items</span> <span class="o">+</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_scheduled_items</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Scheduler.set_time"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.scheduler.Scheduler.set_time">[docs]</a>    <span class="k">def</span> <span class="nf">set_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_stamp</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">"""</span>
+<span class="sd">        Set the clock manually and do not call scheduled functions.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            time_stamp: This will become the new value of the clock.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The number of time units since the last update, or 0.0 if</span>
+<span class="sd">            this was the first update.</span>
+
+<span class="sd">        """</span>
+        <span class="c1"># self._last_ts will be -1 before first time set</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_last_ts</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">delta_t</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">delta_t</span> <span class="o">=</span> <span class="n">time_stamp</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_last_ts</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cumulative_time</span> <span class="o">+=</span> <span class="n">delta_t</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_last_ts</span> <span class="o">=</span> <span class="n">time_stamp</span>
+        <span class="k">return</span> <span class="n">delta_t</span></div>
+
+<div class="viewcode-block" id="Scheduler.get_idle_time"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.scheduler.Scheduler.get_idle_time">[docs]</a>    <span class="k">def</span> <span class="nf">get_idle_time</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">"""</span>
+<span class="sd">        Get the time until the next item is scheduled.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Time until the next scheduled event in time units, or</span>
+<span class="sd">            ``None`` if there is no events scheduled.</span>
+
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_next_tick_items</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mf">0.0</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">next_ts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scheduled_items</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">next_ts</span>
+            <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">next_ts</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_time</span><span class="p">(),</span> <span class="mf">0.0</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span></div>
+
+    <span class="k">def</span> <span class="nf">_get_nearest_ts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Schedule from now, unless now is sufficiently close to last_ts,</span>
+<span class="sd">        in which case use last_ts.  This clusters together scheduled</span>
+<span class="sd">        items that probably want to be scheduled together.</span>
+<span class="sd">        """</span>
+        <span class="n">last_ts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_last_ts</span>
+        <span class="n">ts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_time</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">ts</span> <span class="o">-</span> <span class="n">last_ts</span> <span class="o">&gt;</span> <span class="mf">0.2</span><span class="p">:</span>
+            <span class="n">last_ts</span> <span class="o">=</span> <span class="n">ts</span>
+        <span class="k">return</span> <span class="n">last_ts</span>
+
+    <span class="k">def</span> <span class="nf">_get_soft_next_ts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">last_ts</span><span class="p">,</span> <span class="n">interval</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">taken</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">e</span><span class="p">):</span>
+            <span class="sd">"""Return True if the given time has already got an item</span>
+<span class="sd">            scheduled nearby.</span>
+<span class="sd">            """</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scheduled_items</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">next_ts</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="k">elif</span> <span class="nb">abs</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">next_ts</span> <span class="o">-</span> <span class="n">ts</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">True</span>
+                <span class="k">elif</span> <span class="n">item</span><span class="o">.</span><span class="n">next_ts</span> <span class="o">&gt;</span> <span class="n">ts</span> <span class="o">+</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="n">next_ts</span> <span class="o">=</span> <span class="n">last_ts</span> <span class="o">+</span> <span class="n">interval</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">taken</span><span class="p">(</span><span class="n">next_ts</span><span class="p">,</span> <span class="n">interval</span> <span class="o">/</span> <span class="mi">4</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">next_ts</span>
+
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">interval</span>
+        <span class="n">divs</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">next_ts</span> <span class="o">=</span> <span class="n">last_ts</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">divs</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="n">next_ts</span> <span class="o">+=</span> <span class="n">dt</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">taken</span><span class="p">(</span><span class="n">next_ts</span><span class="p">,</span> <span class="n">dt</span> <span class="o">/</span> <span class="mf">4.0</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="n">next_ts</span>
+            <span class="n">dt</span> <span class="o">/=</span> <span class="mi">2</span>
+            <span class="n">divs</span> <span class="o">*=</span> <span class="mi">2</span>
+
+            <span class="c1"># Avoid infinite loop in pathological case</span>
+            <span class="k">if</span> <span class="n">divs</span> <span class="o">&gt;</span> <span class="mi">16</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">next_ts</span></div>
+</pre></div>
+
+          </article>
+        </div>
+      </div>
+    </main>
+  </div>
+  <footer class="md-footer">
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+          
+          
+        </a>
+        
+      </nav>
+    </div>
+    <div class="md-footer-meta md-typeset">
+      <div class="md-footer-meta__inner md-grid">
+        <div class="md-footer-copyright">
+          <div class="md-footer-copyright__highlight">
+              &#169; Copyright 2019-2022, Josh Snaith.
+              
+          </div>
+            Created using
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+             and
+            <a href="https://github.com/bashtage/sphinx-material/">Material for
+              Sphinx</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="../../../_static/javascripts/application.js"></script>
+  <script>app.initialize({version: "1.0.4", url: {base: ".."}})</script>
+  </body>
+</html>

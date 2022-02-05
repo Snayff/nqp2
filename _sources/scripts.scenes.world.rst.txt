@@ -4,6 +4,14 @@ scripts.scenes.world package
 Submodules
 ----------
 
+scripts.scenes.world.combat module
+----------------------------------
+
+.. automodule:: scripts.scenes.world.combat
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 scripts.scenes.world.scene module
 ---------------------------------
 

@@ -11,6 +11,7 @@ Subpackages
    scripts.scenes.gallery
    scripts.scenes.inn
    scripts.scenes.main_menu
+   scripts.scenes.next_room
    scripts.scenes.post_combat
    scripts.scenes.run_setup
    scripts.scenes.training

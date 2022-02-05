@@ -268,20 +268,16 @@
   <h1 id="modules-scripts-scenes-world-scene--page-root">Source code for scripts.scenes.world.scene</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
 <span class="kn">from</span> <span class="nn">scripts.core.base_classes.scene</span> <span class="kn">import</span> <span class="n">Scene</span>
-<span class="kn">from</span> <span class="nn">scripts.core.constants</span> <span class="kn">import</span> <span class="n">SceneType</span><span class="p">,</span> <span class="n">WorldState</span>
-<span class="kn">from</span> <span class="nn">scripts.scene_elements.particle_manager</span> <span class="kn">import</span> <span class="n">ParticleManager</span>
-<span class="kn">from</span> <span class="nn">scripts.scene_elements.projectile_manager</span> <span class="kn">import</span> <span class="n">ProjectileManager</span>
-<span class="kn">from</span> <span class="nn">scripts.scene_elements.troupe</span> <span class="kn">import</span> <span class="n">Troupe</span>
+<span class="kn">from</span> <span class="nn">scripts.core.constants</span> <span class="kn">import</span> <span class="n">SceneType</span>
+<span class="kn">from</span> <span class="nn">scripts.core.debug</span> <span class="kn">import</span> <span class="n">Timer</span>
+<span class="kn">from</span> <span class="nn">scripts.scene_elements.world.model</span> <span class="kn">import</span> <span class="n">WorldModel</span>
+<span class="kn">from</span> <span class="nn">scripts.scenes.world.combat</span> <span class="kn">import</span> <span class="n">CombatController</span>
 <span class="kn">from</span> <span class="nn">scripts.scenes.world.ui</span> <span class="kn">import</span> <span class="n">WorldUI</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span>
-
     <span class="kn">from</span> <span class="nn">scripts.core.game</span> <span class="kn">import</span> <span class="n">Game</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"WorldScene"</span><span class="p">]</span>
@@ -289,288 +285,25 @@
 
 <div class="viewcode-block" id="WorldScene"><a class="viewcode-back" href="../../../../scripts.scenes.world.html#scripts.scenes.world.scene.WorldScene">[docs]</a><span class="k">class</span> <span class="nc">WorldScene</span><span class="p">(</span><span class="n">Scene</span><span class="p">):</span>
     <span class="sd">"""</span>
-<span class="sd">    Handles WorldScene interactions and consolidates the rendering. Draws the underlying map present in most Scenes.</span>
+<span class="sd">    Handles WorldScene interactions and consolidates the rendering.</span>
+<span class="sd">    Draws the underlying map present in most Scenes.</span>
 <span class="sd">    """</span>
 
 <div class="viewcode-block" id="WorldScene.__init__"><a class="viewcode-back" href="../../../../scripts.scenes.world.html#scripts.scenes.world.scene.WorldScene.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">game</span><span class="p">:</span> <span class="n">Game</span><span class="p">):</span>
-        <span class="c1"># start timer</span>
-        <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">WORLD</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="p">:</span> <span class="n">WorldUI</span> <span class="o">=</span> <span class="n">WorldUI</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="p">:</span> <span class="n">WorldState</span> <span class="o">=</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">IDLE</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">unit_grid</span><span class="p">:</span> <span class="n">List</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">last_unit_death</span> <span class="o">=</span> <span class="kc">None</span>
-
-        <span class="c1"># unit selection grid dimensions</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">grid_size</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>  <span class="c1"># col, row</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">grid_cell_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">32</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">grid_margin</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">32</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">projectiles</span><span class="p">:</span> <span class="n">ProjectileManager</span> <span class="o">=</span> <span class="n">ProjectileManager</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">particles</span><span class="p">:</span> <span class="n">ParticleManager</span> <span class="o">=</span> <span class="n">ParticleManager</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">combat_category</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"basic"</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_combat_ending_timer</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">enemy_troupe_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_game_log</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># list of str describing what has happened during the game</span>
-
-        <span class="c1"># record duration</span>
-        <span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"WorldScene: initialised in </span><span class="si">{</span><span class="nb">format</span><span class="p">(</span><span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">,</span> <span class="s1">'.2f'</span><span class="p">)</span><span class="si">}</span><span class="s2">s."</span><span class="p">)</span></div>
+        <span class="k">with</span> <span class="n">Timer</span><span class="p">(</span><span class="s2">"WorldScene initialised"</span><span class="p">):</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">WORLD</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">:</span> <span class="n">WorldModel</span> <span class="o">=</span> <span class="n">WorldModel</span><span class="p">(</span><span class="n">game</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">controller</span> <span class="o">=</span> <span class="n">CombatController</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="p">:</span> <span class="n">WorldUI</span> <span class="o">=</span> <span class="n">WorldUI</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="WorldScene.update"><a class="viewcode-back" href="../../../../scripts.scenes.world.html#scripts.scenes.world.scene.WorldScene.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
-        <span class="c1"># amend delta time by game speed adn cascade down</span>
         <span class="n">mod_delta_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">game_speed</span> <span class="o">*</span> <span class="n">delta_time</span>
-
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">mod_delta_time</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">mod_delta_time</span><span class="p">)</span>
-
-        <span class="c1"># update all troupes</span>
-        <span class="k">for</span> <span class="n">troupe</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">troupes</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-            <span class="n">troupe</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">mod_delta_time</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">particles</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">mod_delta_time</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">IDLE</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_update_idle_state</span><span class="p">(</span><span class="n">mod_delta_time</span><span class="p">)</span>
-
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">COMBAT</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_update_combat_state</span><span class="p">(</span><span class="n">mod_delta_time</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="WorldScene.activate"><a class="viewcode-back" href="../../../../scripts.scenes.world.html#scripts.scenes.world.scene.WorldScene.activate">[docs]</a>    <span class="k">def</span> <span class="nf">activate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">activate</span><span class="p">()</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">align_unit_pos_to_unit_grid</span><span class="p">()</span>
-
-        <span class="c1"># force idle</span>
-        <span class="k">for</span> <span class="n">troupe</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">troupes</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-            <span class="n">troupe</span><span class="o">.</span><span class="n">set_force_idle</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">mod_delta_time</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">mod_delta_time</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="WorldScene.reset"><a class="viewcode-back" href="../../../../scripts.scenes.world.html#scripts.scenes.world.scene.WorldScene.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="n">WorldUI</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">IDLE</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">unit_grid</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">last_unit_death</span> <span class="o">=</span> <span class="kc">None</span>
-
-        <span class="c1"># unit selection grid dimensions</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">grid_size</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>  <span class="c1"># col, row</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">grid_cell_size</span> <span class="o">=</span> <span class="mi">32</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">grid_margin</span> <span class="o">=</span> <span class="mi">32</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">projectiles</span> <span class="o">=</span> <span class="n">ProjectileManager</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">particles</span> <span class="o">=</span> <span class="n">ParticleManager</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">combat_category</span> <span class="o">=</span> <span class="s2">"basic"</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_combat_ending_timer</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">enemy_troupe_id</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_game_log</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># list of str describing what has happened during the game</span></div>
-
-<div class="viewcode-block" id="WorldScene.align_unit_pos_to_unit_grid"><a class="viewcode-back" href="../../../../scripts.scenes.world.html#scripts.scenes.world.scene.WorldScene.align_unit_pos_to_unit_grid">[docs]</a>    <span class="k">def</span> <span class="nf">align_unit_pos_to_unit_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
-<span class="sd">        Add player's units to the unit_grid and align their positions.</span>
-<span class="sd">        """</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">unit_grid</span> <span class="o">=</span> <span class="p">[]</span>
-
-        <span class="n">units</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">player_troupe</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">unit</span> <span class="ow">in</span> <span class="n">units</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">unit_grid</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">unit</span><span class="p">)</span>
-
-        <span class="n">max_rows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">grid_margin</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_margin</span>
-        <span class="n">grid_cell_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_cell_size</span>
-
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">unit</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unit_grid</span><span class="p">):</span>
-            <span class="n">x</span> <span class="o">=</span> <span class="n">i</span> <span class="o">//</span> <span class="n">max_rows</span>
-            <span class="n">y</span> <span class="o">=</span> <span class="n">i</span> <span class="o">%</span> <span class="n">max_rows</span>
-            <span class="n">unit</span><span class="o">.</span><span class="n">set_position</span><span class="p">([</span><span class="n">grid_margin</span> <span class="o">+</span> <span class="n">x</span> <span class="o">*</span> <span class="n">grid_cell_size</span><span class="p">,</span> <span class="n">grid_margin</span> <span class="o">+</span> <span class="n">y</span> <span class="o">*</span> <span class="n">grid_cell_size</span><span class="p">])</span></div>
-
-<div class="viewcode-block" id="WorldScene.move_to_new_room"><a class="viewcode-back" href="../../../../scripts.scenes.world.html#scripts.scenes.world.scene.WorldScene.move_to_new_room">[docs]</a>    <span class="k">def</span> <span class="nf">move_to_new_room</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
-<span class="sd">        Move Units to a new room.</span>
-<span class="sd">        """</span>
-        <span class="c1"># TODO - write method</span>
-
-        <span class="c1"># TEST assume room is combat</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">generate_combat</span><span class="p">()</span>
-
-        <span class="c1"># once new room ready but not active</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">roll_for_event</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">IDLE</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">load_random_event</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">activate_scene</span><span class="p">(</span><span class="n">SceneType</span><span class="o">.</span><span class="n">EVENT</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="WorldScene.generate_combat"><a class="viewcode-back" href="../../../../scripts.scenes.world.html#scripts.scenes.world.scene.WorldScene.generate_combat">[docs]</a>    <span class="k">def</span> <span class="nf">generate_combat</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
-<span class="sd">        Generate a random combat</span>
-<span class="sd">        """</span>
-        <span class="n">rng</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">rng</span>
-
-        <span class="n">combat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_random_combat</span><span class="p">()</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">combat</span><span class="p">[</span><span class="s1">'type'</span><span class="p">]</span><span class="si">}</span><span class="s2"> combat chosen."</span><span class="p">)</span>
-        <span class="n">num_units</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">combat</span><span class="p">[</span><span class="s2">"units"</span><span class="p">])</span>
-
-        <span class="n">enemy_troupe</span> <span class="o">=</span> <span class="n">Troupe</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="s2">"enemy"</span><span class="p">,</span> <span class="p">[])</span>
-
-        <span class="c1"># generate positions</span>
-        <span class="n">positions</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_units</span><span class="p">):</span>
-            <span class="c1"># choose a random spot on the right side of the map</span>
-            <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-                <span class="n">pos</span> <span class="o">=</span> <span class="p">[</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">base_resolution</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="mi">4</span> <span class="o">*</span> <span class="mi">3</span>
-                    <span class="o">+</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">base_resolution</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="mi">4</span><span class="p">),</span>
-                    <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">base_resolution</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-                <span class="p">]</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">terrain</span><span class="o">.</span><span class="n">check_tile_solid</span><span class="p">(</span><span class="n">pos</span><span class="p">):</span>
-                    <span class="k">break</span>
-            <span class="n">positions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
-
-        <span class="c1"># generate units</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">debug</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
-            <span class="n">ids</span> <span class="o">=</span> <span class="n">enemy_troupe</span><span class="o">.</span><span class="n">debug_init_units</span><span class="p">()</span>
-            <span class="n">ids</span> <span class="o">=</span> <span class="n">ids</span><span class="p">[:</span><span class="n">num_units</span><span class="p">]</span>
-        <span class="k">else</span><span class="p">:</span>
-
-            <span class="n">ids</span> <span class="o">=</span> <span class="n">enemy_troupe</span><span class="o">.</span><span class="n">generate_specific_units</span><span class="p">(</span><span class="n">unit_types</span><span class="o">=</span><span class="n">combat</span><span class="p">[</span><span class="s2">"units"</span><span class="p">])</span>
-
-        <span class="c1"># assign positions and add to combat</span>
-        <span class="k">for</span> <span class="n">id_</span> <span class="ow">in</span> <span class="n">ids</span><span class="p">:</span>
-            <span class="n">unit</span> <span class="o">=</span> <span class="n">enemy_troupe</span><span class="o">.</span><span class="n">units</span><span class="p">[</span><span class="n">id_</span><span class="p">]</span>
-            <span class="n">unit</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="n">positions</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-
-        <span class="n">troupe_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">add_troupe</span><span class="p">(</span><span class="n">enemy_troupe</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">enemy_troupe_id</span> <span class="o">=</span> <span class="n">troupe_id</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_combat_ending_timer</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span></div>
-
-    <span class="k">def</span> <span class="nf">_get_random_combat</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">combats</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">level</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">level</span>
-            <span class="n">combats</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">combats</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
-
-            <span class="c1"># get possible combats</span>
-            <span class="n">possible_combats</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="n">possible_combats_occur_rates</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="k">for</span> <span class="n">combat</span> <span class="ow">in</span> <span class="n">combats</span><span class="p">:</span>
-                <span class="c1"># ensure only combat for this level or lower and of desired type</span>
-                <span class="k">if</span> <span class="n">combat</span><span class="p">[</span><span class="s2">"level_available"</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">level</span> <span class="ow">and</span> <span class="n">combat</span><span class="p">[</span><span class="s2">"category"</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">combat_category</span><span class="p">:</span>
-                    <span class="n">possible_combats</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">combat</span><span class="p">)</span>
-                    <span class="n">occur_rate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get_combat_occur_rate</span><span class="p">(</span><span class="n">combat</span><span class="p">[</span><span class="s2">"type"</span><span class="p">])</span>
-                    <span class="n">possible_combats_occur_rates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">occur_rate</span><span class="p">)</span>
-
-            <span class="n">combat_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">rng</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">possible_combats</span><span class="p">,</span> <span class="n">possible_combats_occur_rates</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">combat_</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">return</span> <span class="n">combat_</span>
-
-<div class="viewcode-block" id="WorldScene._update_idle_state"><a class="viewcode-back" href="../../../../api/scenes/world.html#scripts.scenes.world.scene.WorldScene._update_idle_state">[docs]</a>    <span class="k">def</span> <span class="nf">_update_idle_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_time</span><span class="p">):</span>
-        <span class="sd">"""</span>
-<span class="sd">        Make updates for the idle state</span>
-<span class="sd">        """</span>
-        <span class="k">pass</span></div>
-
-<div class="viewcode-block" id="WorldScene._update_combat_state"><a class="viewcode-back" href="../../../../api/scenes/world.html#scripts.scenes.world.scene.WorldScene._update_combat_state">[docs]</a>    <span class="k">def</span> <span class="nf">_update_combat_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_time</span><span class="p">):</span>
-        <span class="sd">"""</span>
-<span class="sd">        Make updates for the combat state</span>
-<span class="sd">        """</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">projectiles</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span>
-
-        <span class="c1"># if combat ending</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_combat_ending_timer</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_combat_ending_timer</span> <span class="o">+=</span> <span class="n">delta_time</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">set_game_speed</span><span class="p">(</span><span class="mf">0.3</span> <span class="o">-</span> <span class="p">(</span><span class="mf">0.05</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_combat_ending_timer</span><span class="p">))</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">zoom</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_combat_ending_timer</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">troupe</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">troupes</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-                <span class="n">troupe</span><span class="o">.</span><span class="n">set_force_idle</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-
-            <span class="c1"># TODO - what is last death?</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_unit_death</span><span class="p">:</span>
-                <span class="c1"># average the last positions of the last entity to die and the killer of that entity</span>
-                <span class="n">focus_point</span> <span class="o">=</span> <span class="p">(</span>
-                    <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_unit_death</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_unit_death</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
-                    <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_unit_death</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_unit_death</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
-                <span class="p">)</span>
-                <span class="c1"># gradually move camera</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="p">(</span>
-                    <span class="p">((</span><span class="n">focus_point</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-                    <span class="o">/</span> <span class="mi">10</span>
-                    <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">delta_time</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
-                <span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="p">(</span>
-                    <span class="p">((</span><span class="n">focus_point</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-                    <span class="o">/</span> <span class="mi">10</span>
-                    <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">delta_time</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
-                <span class="p">)</span>
-
-        <span class="c1"># end combat when either side is empty</span>
-        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">COMBAT</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_combat_ending_timer</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
-            <span class="n">all_entities</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">get_all_entities</span><span class="p">()</span>
-            <span class="n">player_entities</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">all_entities</span> <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">team</span> <span class="o">==</span> <span class="s2">"player"</span><span class="p">]</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">player_entities</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_process_defeat</span><span class="p">()</span>
-
-            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">player_entities</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_entities</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_process_victory</span><span class="p">()</span></div>
-
-<div class="viewcode-block" id="WorldScene._process_defeat"><a class="viewcode-back" href="../../../../api/scenes/world.html#scripts.scenes.world.scene.WorldScene._process_defeat">[docs]</a>    <span class="k">def</span> <span class="nf">_process_defeat</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
-<span class="sd">        Process the defeat, such as removing morale.</span>
-<span class="sd">        """</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">combat_ending_timer</span> <span class="o">=</span> <span class="mi">0</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">DEFEAT</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rebuild_ui</span><span class="p">()</span></div>
-
-<div class="viewcode-block" id="WorldScene._process_victory"><a class="viewcode-back" href="../../../../api/scenes/world.html#scripts.scenes.world.scene.WorldScene._process_victory">[docs]</a>    <span class="k">def</span> <span class="nf">_process_victory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
-<span class="sd">        Process victory,</span>
-<span class="sd">        """</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">combat_ending_timer</span> <span class="o">=</span> <span class="mi">0</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">victory_timer</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">COMBAT_VICTORY</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rebuild_ui</span><span class="p">()</span></div>
-
-<div class="viewcode-block" id="WorldScene.end_combat"><a class="viewcode-back" href="../../../../scripts.scenes.world.html#scripts.scenes.world.scene.WorldScene.end_combat">[docs]</a>    <span class="k">def</span> <span class="nf">end_combat</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
-<span class="sd">        End the combat</span>
-<span class="sd">        """</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">set_game_speed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">troupe</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">troupes</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-            <span class="n">troupe</span><span class="o">.</span><span class="n">set_force_idle</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_process_new_injuries</span><span class="p">()</span></div>
-
-<div class="viewcode-block" id="WorldScene._process_new_injuries"><a class="viewcode-back" href="../../../../api/scenes/world.html#scripts.scenes.world.scene.WorldScene._process_new_injuries">[docs]</a>    <span class="k">def</span> <span class="nf">_process_new_injuries</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
-<span class="sd">        Process new injuries and resulting deaths</span>
-<span class="sd">        """</span>
-        <span class="n">remove_units</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">combat_end_data</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">unit</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">player_troupe</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
-
-            <span class="c1"># do an update to ensure unit.alive is updated</span>
-            <span class="n">unit</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="mf">0.0001</span><span class="p">)</span>
-
-            <span class="c1"># add injury for units killed in combat</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">unit</span><span class="o">.</span><span class="n">alive</span><span class="p">:</span>
-                <span class="n">unit</span><span class="o">.</span><span class="n">injuries</span> <span class="o">+=</span> <span class="mi">1</span>
-                <span class="c1"># remove unit from troupe if the unit took too many injuries</span>
-                <span class="k">if</span> <span class="n">unit</span><span class="o">.</span><span class="n">injuries</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">"unit_properties"</span><span class="p">][</span><span class="s2">"injuries_before_death"</span><span class="p">]:</span>
-                    <span class="n">remove_units</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">unit</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
-                    <span class="n">combat_end_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">unit</span><span class="o">.</span><span class="n">type</span><span class="si">}</span><span class="s2"> died due to their injuries."</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">combat_end_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">unit</span><span class="o">.</span><span class="n">type</span><span class="si">}</span><span class="s2"> was injured in battle."</span><span class="p">)</span>
-
-        <span class="c1"># remove units after since they can't be removed during iteration</span>
-        <span class="k">for</span> <span class="n">unit</span> <span class="ow">in</span> <span class="n">remove_units</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">player_troupe</span><span class="o">.</span><span class="n">remove_unit</span><span class="p">(</span><span class="n">unit</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_game_log</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">combat_end_data</span><span class="p">)</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="n">WorldUI</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="p">)</span></div></div>
 </pre></div>
 
           </article>

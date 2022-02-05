@@ -9,6 +9,7 @@ Subpackages
 
    scripts.scene_elements.entity_behaviours
    scripts.scene_elements.unit_behaviours
+   scripts.scene_elements.world
 
 Submodules
 ----------

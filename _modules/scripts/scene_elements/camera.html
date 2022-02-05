@@ -266,32 +266,137 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <h1 id="modules-scripts-scene-elements-camera--page-root">Source code for scripts.scene_elements.camera</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span>
+<span></span><span class="kn">import</span> <span class="nn">weakref</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
 
-<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">import</span> <span class="nn">pygame</span>
+
+<span class="kn">from</span> <span class="nn">scripts.core</span> <span class="kn">import</span> <span class="n">PointLike</span>
 
 
 <div class="viewcode-block" id="Camera"><a class="viewcode-back" href="../../../scripts.scene_elements.html#scripts.scene_elements.camera.Camera">[docs]</a><span class="k">class</span> <span class="nc">Camera</span><span class="p">:</span>
-<div class="viewcode-block" id="Camera.__init__"><a class="viewcode-back" href="../../../scripts.scene_elements.html#scripts.scene_elements.camera.Camera.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">zoom</span> <span class="o">=</span> <span class="mi">1</span></div>
+    <span class="sd">"""</span>
+<span class="sd">    Basic math for getting view of game world</span>
 
-<div class="viewcode-block" id="Camera.render_offset"><a class="viewcode-back" href="../../../scripts.scene_elements.html#scripts.scene_elements.camera.Camera.render_offset">[docs]</a>    <span class="k">def</span> <span class="nf">render_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="n">List</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-        <span class="c1"># handle mutable arg</span>
-        <span class="k">if</span> <span class="n">pos</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">pos</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        zoom: positive numbers "zoom out", negative numbers "zoom in"</span>
 
-        <span class="c1"># make a copy or conver to list if tuple</span>
-        <span class="n">pos</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
+<span class="sd">    * World units are equal to pixels at zoom level of 0.0</span>
 
-        <span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">pos</span></div>
+<span class="sd">    """</span>
 
-<div class="viewcode-block" id="Camera.bind"><a class="viewcode-back" href="../../../scripts.scene_elements.html#scripts.scene_elements.camera.Camera.bind">[docs]</a>    <span class="k">def</span> <span class="nf">bind</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rect</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">rect</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">rect</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">rect</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">rect</span><span class="o">.</span><span class="n">bottom</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span></div></div>
+<div class="viewcode-block" id="Camera.__init__"><a class="viewcode-back" href="../../../scripts.scene_elements.html#scripts.scene_elements.camera.Camera.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="n">PointLike</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pos</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_size</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_target_position</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_target_entity</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">zoom</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span></div>
+
+<div class="viewcode-block" id="Camera.centre"><a class="viewcode-back" href="../../../scripts.scene_elements.html#scripts.scene_elements.camera.Camera.centre">[docs]</a>    <span class="k">def</span> <span class="nf">centre</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="n">PointLike</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Immediately centre the camera on a world point</span>
+
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pos</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Camera.move"><a class="viewcode-back" href="../../../scripts.scene_elements.html#scripts.scene_elements.camera.Camera.move">[docs]</a>    <span class="k">def</span> <span class="nf">move</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Immediately move the camera by relative amount</span>
+
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pos</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pos</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="n">y</span></div>
+
+<div class="viewcode-block" id="Camera.move_to_position"><a class="viewcode-back" href="../../../scripts.scene_elements.html#scripts.scene_elements.camera.Camera.move_to_position">[docs]</a>    <span class="k">def</span> <span class="nf">move_to_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="n">PointLike</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Move camera to position over time</span>
+
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_target_position</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Camera.follow"><a class="viewcode-back" href="../../../scripts.scene_elements.html#scripts.scene_elements.camera.Camera.follow">[docs]</a>    <span class="k">def</span> <span class="nf">follow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entity</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Smoothly track a game entity</span>
+
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_target_entity</span> <span class="o">=</span> <span class="n">weakref</span><span class="o">.</span><span class="n">ref</span><span class="p">(</span><span class="n">entity</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Camera.get_centre"><a class="viewcode-back" href="../../../scripts.scene_elements.html#scripts.scene_elements.camera.Camera.get_centre">[docs]</a>    <span class="k">def</span> <span class="nf">get_centre</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">:</span>
+        <span class="sd">"""</span>
+<span class="sd">        Get copy of the position</span>
+
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_pos</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Camera.update"><a class="viewcode-back" href="../../../scripts.scene_elements.html#scripts.scene_elements.camera.Camera.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Update camera movements</span>
+
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_target_entity</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">move_to_position</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_target_entity</span><span class="o">.</span><span class="n">pos</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_target_position</span><span class="p">:</span>
+            <span class="n">centre</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_centre</span><span class="p">()</span>
+            <span class="n">offset</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_target_position</span> <span class="o">-</span> <span class="n">centre</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span> <span class="o">*</span> <span class="p">(</span><span class="n">delta_time</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">centre</span><span class="p">(</span><span class="n">centre</span> <span class="o">+</span> <span class="n">offset</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Camera.render_offset"><a class="viewcode-back" href="../../../scripts.scene_elements.html#scripts.scene_elements.camera.Camera.render_offset">[docs]</a>    <span class="k">def</span> <span class="nf">render_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">:</span>
+        <span class="sd">"""</span>
+<span class="sd">        Return vector for drawing offset</span>
+
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_origin</span><span class="p">()</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span></div>
+
+<div class="viewcode-block" id="Camera.clamp"><a class="viewcode-back" href="../../../scripts.scene_elements.html#scripts.scene_elements.camera.Camera.clamp">[docs]</a>    <span class="k">def</span> <span class="nf">clamp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rect</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Move camera so that it is contained in the rect</span>
+
+<span class="sd">        Has same behaviour as `pygame.Rect.clamp`</span>
+
+<span class="sd">        """</span>
+        <span class="n">clamped</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_rect</span><span class="p">()</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pos</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">clamped</span><span class="o">.</span><span class="n">center</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Camera.get_size"><a class="viewcode-back" href="../../../scripts.scene_elements.html#scripts.scene_elements.camera.Camera.get_size">[docs]</a>    <span class="k">def</span> <span class="nf">get_size</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">:</span>
+        <span class="sd">"""</span>
+<span class="sd">        Return vector of the size after zoom is applied</span>
+
+<span class="sd">        """</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_size</span> <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_size</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">zoom</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span> <span class="nb">round</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">])))</span></div>
+
+<div class="viewcode-block" id="Camera.get_rect"><a class="viewcode-back" href="../../../scripts.scene_elements.html#scripts.scene_elements.camera.Camera.get_rect">[docs]</a>    <span class="k">def</span> <span class="nf">get_rect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">:</span>
+        <span class="sd">"""</span>
+<span class="sd">        Return Pygame Rect representing the visible area of the camera</span>
+
+<span class="sd">        """</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_size</span><span class="p">()</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">size</span><span class="o">.</span><span class="n">x</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">size</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_origin</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Camera.reset_movement"><a class="viewcode-back" href="../../../scripts.scene_elements.html#scripts.scene_elements.camera.Camera.reset_movement">[docs]</a>    <span class="k">def</span> <span class="nf">reset_movement</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Immediately move camera to tracked position</span>
+
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_target_entity</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">move_to_position</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_target_entity</span><span class="o">.</span><span class="n">pos</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_target_position</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">centre</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_target_position</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Camera._origin"><a class="viewcode-back" href="../../../api/scene_elements/camera.html#scripts.scene_elements.camera.Camera._origin">[docs]</a>    <span class="k">def</span> <span class="nf">_origin</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">:</span>
+        <span class="sd">"""</span>
+<span class="sd">        Return vector representing top left corner of the view</span>
+
+<span class="sd">        """</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_size</span> <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_size</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">zoom</span><span class="p">)</span>
+        <span class="n">size</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">size</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">size</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">size</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pos</span> <span class="o">-</span> <span class="p">(</span><span class="n">size</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">offset</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">round</span><span class="p">(</span><span class="n">offset</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span></div></div>
 </pre></div>
 
           </article>

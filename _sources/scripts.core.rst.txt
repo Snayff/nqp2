@@ -76,6 +76,14 @@ scripts.core.rng module
    :undoc-members:
    :show-inheritance:
 
+scripts.core.scheduler module
+-----------------------------
+
+.. automodule:: scripts.core.scheduler
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 scripts.core.sounds module
 --------------------------
 

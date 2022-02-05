@@ -345,7 +345,7 @@
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">post_combat</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="n">PostCombatState</span><span class="o">.</span><span class="n">BOSS_VICTORY</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">handle_boss_victory_input</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="PostCombatUI.draw"><a class="viewcode-back" href="../../../../scripts.scenes.post_combat.html#scripts.scenes.post_combat.ui.PostCombatUI.draw">[docs]</a>    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">surface</span><span class="p">):</span>
+<div class="viewcode-block" id="PostCombatUI.draw"><a class="viewcode-back" href="../../../../scripts.scenes.post_combat.html#scripts.scenes.post_combat.ui.PostCombatUI.draw">[docs]</a>    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">):</span>
         <span class="n">combat_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">combat</span><span class="o">.</span><span class="n">end_data</span>
         <span class="n">create_font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">create_font</span>
 
@@ -511,7 +511,7 @@
             <span class="c1"># draw exit button</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">add_exit_button</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">_render_unit_rewards</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">surface</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_render_unit_rewards</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">):</span>
         <span class="k">pass</span>
         <span class="c1"># # FIXME - this no longer works</span>
         <span class="c1"># reward_units = list(self._game.reward.troupe_rewards.units.values())</span>

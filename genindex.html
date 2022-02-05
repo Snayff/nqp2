@@ -292,6 +292,7 @@
  | <a href="#U"><strong>U</strong></a>
  | <a href="#V"><strong>V</strong></a>
  | <a href="#W"><strong>W</strong></a>
+ | <a href="#Z"><strong>Z</strong></a>
  
 </div>
 <h2 id="_">_</h2>
@@ -310,9 +311,11 @@
 </li>
         <li><a href="scripts.ui_elements.html#scripts.ui_elements.button.Button.__init__">(Button method)</a>
 </li>
-        <li><a href="scripts.scene_elements.html#scripts.scene_elements.camera.Camera.__init__">(Camera method)</a>
+        <li><a href="api/scene_elements/camera.html#scripts.scene_elements.camera.Camera.__init__">(Camera method)</a>, <a href="scripts.scene_elements.html#scripts.scene_elements.camera.Camera.__init__">[1]</a>
 </li>
         <li><a href="scripts.ui_elements.html#scripts.ui_elements.fancy_font.Character.__init__">(Character method)</a>
+</li>
+        <li><a href="scripts.scenes.world.html#scripts.scenes.world.combat.CombatController.__init__">(CombatController method)</a>
 </li>
         <li><a href="scripts.scene_elements.html#scripts.scene_elements.commander.Commander.__init__">(Commander method)</a>
 </li>
@@ -362,6 +365,10 @@
 </li>
         <li><a href="api/core/memory.html#scripts.core.memory.Memory.__init__">(Memory method)</a>, <a href="scripts.core.html#scripts.core.memory.Memory.__init__">[1]</a>
 </li>
+        <li><a href="scripts.scenes.next_room.html#scripts.scenes.next_room.scene.NextRoomScene.__init__">(NextRoomScene method)</a>
+</li>
+        <li><a href="scripts.scenes.next_room.html#scripts.scenes.next_room.ui.NextRoomUI.__init__">(NextRoomUI method)</a>
+</li>
         <li><a href="api/ui_elements/ui_elements.html#scripts.ui_elements.panel.Panel.__init__">(Panel method)</a>, <a href="scripts.ui_elements.html#scripts.ui_elements.panel.Panel.__init__">[1]</a>
 </li>
         <li><a href="scripts.scene_elements.html#scripts.scene_elements.particle.Particle.__init__">(Particle method)</a>
@@ -388,13 +395,19 @@
 </li>
         <li><a href="api/core/base_classes/scene.html#scripts.core.base_classes.scene.Scene.__init__">(Scene method)</a>, <a href="scripts.core.base_classes.html#scripts.core.base_classes.scene.Scene.__init__">[1]</a>
 </li>
+        <li><a href="scripts.core.html#scripts.core.scheduler.ScheduledItem.__init__">(ScheduledItem method)</a>
+</li>
+        <li><a href="scripts.core.html#scripts.core.scheduler.Scheduler.__init__">(Scheduler method)</a>
+</li>
         <li><a href="api/core/sounds.html#scripts.core.sounds.Sounds.__init__">(Sounds method)</a>, <a href="scripts.core.html#scripts.core.sounds.Sounds.__init__">[1]</a>
 </li>
         <li><a href="scripts.scene_elements.html#scripts.scene_elements.traps.SpinningBlades.__init__">(SpinningBlades method)</a>
 </li>
-        <li><a href="scripts.scene_elements.html#scripts.scene_elements.terrain.Terrain.__init__">(Terrain method)</a>
+        <li><a href="api/scene_elements/terrain.html#scripts.scene_elements.terrain.Terrain.__init__">(Terrain method)</a>, <a href="scripts.scene_elements.html#scripts.scene_elements.terrain.Terrain.__init__">[1]</a>
 </li>
-        <li><a href="scripts.scene_elements.html#scripts.scene_elements.tile.Tile.__init__">(Tile method)</a>
+        <li><a href="api/scene_elements/tile.html#scripts.scene_elements.tile.Tile.__init__">(Tile method)</a>, <a href="scripts.scene_elements.html#scripts.scene_elements.tile.Tile.__init__">[1]</a>
+</li>
+        <li><a href="api/core/debug.html#scripts.core.debug.Timer.__init__">(Timer method)</a>, <a href="scripts.core.html#scripts.core.debug.Timer.__init__">[1]</a>
 </li>
         <li><a href="api/ui_elements/ui_elements.html#scripts.ui_elements.tooltip.Tooltip.__init__">(Tooltip method)</a>, <a href="scripts.ui_elements.html#scripts.ui_elements.tooltip.Tooltip.__init__">[1]</a>
 </li>
@@ -426,9 +439,13 @@
 </li>
         <li><a href="scripts.core.html#scripts.core.window.Window.__init__">(Window method)</a>
 </li>
+        <li><a href="scripts.scene_elements.world.html#scripts.scene_elements.world.model.WorldModel.__init__">(WorldModel method)</a>
+</li>
         <li><a href="api/scenes/world.html#scripts.scenes.world.scene.WorldScene.__init__">(WorldScene method)</a>, <a href="scripts.scenes.world.html#scripts.scenes.world.scene.WorldScene.__init__">[1]</a>
 </li>
         <li><a href="api/scenes/world.html#scripts.scenes.world.ui.WorldUI.__init__">(WorldUI method)</a>, <a href="scripts.scenes.world.html#scripts.scenes.world.ui.WorldUI.__init__">[1]</a>
+</li>
+        <li><a href="scripts.scene_elements.world.html#scripts.scene_elements.world.view.WorldView.__init__">(WorldView method)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -457,8 +474,6 @@
 </li>
       <li><a href="api/scenes/world.html#scripts.scenes.world.ui.WorldUI._draw_grid">_draw_grid() (WorldUI method)</a>
 </li>
-      <li><a href="api/scenes/world.html#scripts.scenes.world.ui.WorldUI._draw_path_debug">_draw_path_debug() (WorldUI method)</a>
-</li>
       <li><a href="api/scenes/post_combat.html#scripts.scenes.post_combat.scene.PostCombatScene._generate_action_rewards">_generate_action_rewards() (PostCombatScene method)</a>
 </li>
       <li><a href="api/ui_elements/ui_elements.html#scripts.ui_elements.fancy_font.FancyFont._generate_characters">_generate_characters() (FancyFont method)</a>
@@ -483,27 +498,17 @@
 </li>
       <li><a href="api/scenes/main_menu.html#scripts.scenes.main_menu.scene.MainMenuScene._new_game">_new_game() (MainMenuScene method)</a>
 </li>
+      <li><a href="api/scene_elements/camera.html#scripts.scene_elements.camera.Camera._origin">_origin() (Camera method)</a>
+</li>
       <li><a href="api/ui_elements/ui_elements.html#scripts.ui_elements.frame.Frame._override_font_attrs">_override_font_attrs() (Frame method)</a>
 </li>
       <li><a href="api/ui_elements/ui_elements.html#scripts.ui_elements.fancy_font.FancyFont._parse_text">_parse_text() (FancyFont method)</a>
 </li>
-      <li><a href="api/scenes/world.html#scripts.scenes.world.scene.WorldScene._process_defeat">_process_defeat() (WorldScene method)</a>
-</li>
       <li><a href="api/ui_elements/ui_elements.html#scripts.ui_elements.fancy_font.FancyFont._process_effect_flags">_process_effect_flags() (FancyFont method)</a>
-</li>
-      <li><a href="api/scenes/world.html#scripts.scenes.world.scene.WorldScene._process_new_injuries">_process_new_injuries() (WorldScene method)</a>
-</li>
-      <li><a href="api/scenes/world.html#scripts.scenes.world.scene.WorldScene._process_victory">_process_victory() (WorldScene method)</a>
 </li>
       <li><a href="api/scenes/inn.html#scripts.scenes.inn.scene.InnScene._purchase_unit">_purchase_unit() (InnScene method)</a>
 </li>
       <li><a href="api/scenes/event.html#scripts.scenes.event.scene.EventScene._trigger_result">_trigger_result() (EventScene method)</a>
-</li>
-      <li><a href="api/scenes/world.html#scripts.scenes.world.ui.WorldUI._update_camera_pos">_update_camera_pos() (WorldUI method)</a>
-</li>
-      <li><a href="api/scenes/world.html#scripts.scenes.world.scene.WorldScene._update_combat_state">_update_combat_state() (WorldScene method)</a>
-</li>
-      <li><a href="api/scenes/world.html#scripts.scenes.world.scene.WorldScene._update_idle_state">_update_idle_state() (WorldScene method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -526,8 +531,6 @@
 </li>
         <li><a href="api/core/base_classes/ui.html#scripts.core.base_classes.ui.UI.activate">(UI method)</a>, <a href="scripts.core.base_classes.html#scripts.core.base_classes.ui.UI.activate">[1]</a>
 </li>
-        <li><a href="api/scenes/world.html#scripts.scenes.world.scene.WorldScene.activate">(WorldScene method)</a>, <a href="scripts.scenes.world.html#scripts.scenes.world.scene.WorldScene.activate">[1]</a>
-</li>
       </ul></li>
       <li><a href="scripts.core.html#scripts.core.game.Game.activate_scene">activate_scene() (Game method)</a>
 </li>
@@ -547,11 +550,11 @@
 </li>
       <li><a href="api/scene_elements/troupe.html#scripts.scene_elements.troupe.Troupe.add_unit">add_unit() (Troupe method)</a>, <a href="scripts.scene_elements.html#scripts.scene_elements.troupe.Troupe.add_unit">[1]</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="scripts.scene_elements.html#scripts.scene_elements.entity.Entity.advance">advance() (Entity method)</a>
 </li>
-      <li><a href="api/scenes/world.html#scripts.scenes.world.scene.WorldScene.align_unit_pos_to_unit_grid">align_unit_pos_to_unit_grid() (WorldScene method)</a>, <a href="scripts.scenes.world.html#scripts.scenes.world.scene.WorldScene.align_unit_pos_to_unit_grid">[1]</a>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="scripts.scene_elements.world.html#scripts.scene_elements.world.model.WorldModel.align_unit_pos_to_unit_grid">align_unit_pos_to_unit_grid() (WorldModel method)</a>
 </li>
       <li><a href="api/core/memory.html#scripts.core.memory.Memory.amend_charisma">amend_charisma() (Memory method)</a>, <a href="scripts.core.html#scripts.core.memory.Memory.amend_charisma">[1]</a>
 </li>
@@ -597,6 +600,10 @@
         <li><a href="scripts.scene_elements.unit_behaviours.html#scripts.scene_elements.unit_behaviours.base.Base">(class in scripts.scene_elements.unit_behaviours.base)</a>
 </li>
       </ul></li>
+      <li><a href="scripts.scenes.world.html#scripts.scenes.world.combat.CombatController.begin_combat">begin_combat() (CombatController method)</a>
+</li>
+      <li><a href="scripts.scenes.world.html#scripts.scenes.world.combat.CombatController.begin_move_to_new_room">begin_move_to_new_room() (CombatController method)</a>
+</li>
       <li><a href="scripts.scene_elements.entity_behaviours.html#scripts.scene_elements.entity_behaviours.behaviour.Behaviour">Behaviour (class in scripts.scene_elements.entity_behaviours.behaviour)</a>
 
       <ul>
@@ -607,9 +614,9 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="scripts.scene_elements.html#scripts.scene_elements.behavior_manager.BehaviourManager">BehaviourManager (class in scripts.scene_elements.behavior_manager)</a>
 </li>
-      <li><a href="scripts.scene_elements.html#scripts.scene_elements.camera.Camera.bind">bind() (Camera method)</a>
-</li>
       <li><a href="scripts.core.html#scripts.core.constants.PostCombatState.BOSS_VICTORY">BOSS_VICTORY (PostCombatState attribute)</a>
+</li>
+      <li><a href="scripts.scene_elements.world.html#scripts.scene_elements.world.model.WorldModel.boundaries">boundaries (WorldModel property)</a>
 </li>
       <li><a href="scripts.ui_elements.html#scripts.ui_elements.button.Button">Button (class in scripts.ui_elements.button)</a>
 </li>
@@ -625,9 +632,15 @@
 </li>
       <li><a href="api/scenes/training.html#scripts.scenes.training.scene.TrainingScene.calculate_upgrade_cost">calculate_upgrade_cost() (TrainingScene method)</a>, <a href="scripts.scenes.training.html#scripts.scenes.training.scene.TrainingScene.calculate_upgrade_cost">[1]</a>
 </li>
-      <li><a href="scripts.scene_elements.html#scripts.scene_elements.camera.Camera">Camera (class in scripts.scene_elements.camera)</a>
+      <li><a href="scripts.core.html#scripts.core.scheduler.Scheduler.call_scheduled_functions">call_scheduled_functions() (Scheduler method)</a>
+</li>
+      <li><a href="api/scene_elements/camera.html#scripts.scene_elements.camera.Camera">Camera (class in scripts.scene_elements.camera)</a>, <a href="scripts.scene_elements.html#scripts.scene_elements.camera.Camera">[1]</a>
+</li>
+      <li><a href="scripts.scene_elements.world.html#scripts.scene_elements.world.view.WorldView.camera">camera (WorldView attribute)</a>
 </li>
       <li><a href="scripts.core.html#scripts.core.window.Window.centre">centre (Window property)</a>
+</li>
+      <li><a href="api/scene_elements/camera.html#scripts.scene_elements.camera.Camera.centre">centre() (Camera method)</a>, <a href="scripts.scene_elements.html#scripts.scene_elements.camera.Camera.centre">[1]</a>
 </li>
       <li><a href="scripts.core.html#scripts.core.game.Game.change_scene">change_scene() (Game method)</a>
 </li>
@@ -647,15 +660,21 @@
 </li>
       <li><a href="scripts.core.html#scripts.core.constants.TrainingState.CHOOSE_UPGRADE">CHOOSE_UPGRADE (TrainingState attribute)</a>
 </li>
-      <li><a href="api/core/utility.html#scripts.core.utility.clamp">clamp() (in module scripts.core.utility)</a>, <a href="scripts.core.html#scripts.core.utility.clamp">[1]</a>
+      <li><a href="api/scene_elements/camera.html#scripts.scene_elements.camera.Camera.clamp">clamp() (Camera method)</a>, <a href="scripts.scene_elements.html#scripts.scene_elements.camera.Camera.clamp">[1]</a>
+
+      <ul>
+        <li><a href="api/core/utility.html#scripts.core.utility.clamp">(in module scripts.core.utility)</a>, <a href="scripts.core.html#scripts.core.utility.clamp">[1]</a>
 </li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core/utility.html#scripts.core.utility.clip">clip() (in module scripts.core.utility)</a>, <a href="scripts.core.html#scripts.core.utility.clip">[1]</a>
 </li>
       <li><a href="scripts.core.html#scripts.core.constants.WorldState.COMBAT">COMBAT (WorldState attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="scripts.core.html#scripts.core.constants.WorldState.COMBAT_VICTORY">COMBAT_VICTORY (WorldState attribute)</a>
+</li>
+      <li><a href="scripts.scenes.world.html#scripts.scenes.world.combat.CombatController">CombatController (class in scripts.scenes.world.combat)</a>
 </li>
       <li><a href="api/core/constants.html#scripts.core.constants.CombatState">CombatState (class in scripts.core.constants)</a>, <a href="scripts.core.html#scripts.core.constants.CombatState">[1]</a>
 </li>
@@ -780,6 +799,8 @@
 </li>
         <li><a href="scripts.scenes.main_menu.html#scripts.scenes.main_menu.ui.MainMenuUI.draw">(MainMenuUI method)</a>
 </li>
+        <li><a href="scripts.scenes.next_room.html#scripts.scenes.next_room.ui.NextRoomUI.draw">(NextRoomUI method)</a>
+</li>
         <li><a href="scripts.ui_elements.html#scripts.ui_elements.panel.Panel.draw">(Panel method)</a>
 </li>
         <li><a href="scripts.scene_elements.html#scripts.scene_elements.particle.Particle.draw">(Particle method)</a>
@@ -818,6 +839,8 @@
 </li>
         <li><a href="scripts.scenes.world.html#scripts.scenes.world.ui.WorldUI.draw">(WorldUI method)</a>
 </li>
+        <li><a href="scripts.scene_elements.world.html#scripts.scene_elements.world.view.WorldView.draw">(WorldView method)</a>
+</li>
       </ul></li>
   </ul></td>
 </tr></table>
@@ -829,7 +852,7 @@
 </li>
       <li><a href="scripts.core.html#scripts.core.debug.Debugger.enable_profiling">enable_profiling() (Debugger method)</a>
 </li>
-      <li><a href="api/scenes/world.html#scripts.scenes.world.scene.WorldScene.end_combat">end_combat() (WorldScene method)</a>, <a href="scripts.scenes.world.html#scripts.scenes.world.scene.WorldScene.end_combat">[1]</a>
+      <li><a href="scripts.scenes.world.html#scripts.scenes.world.combat.CombatController.end_combat">end_combat() (CombatController method)</a>
 </li>
       <li><a href="scripts.scene_elements.html#scripts.scene_elements.troupe.Troupe.entities">entities (Troupe property)</a>
 </li>
@@ -867,11 +890,13 @@
       </ul></li>
       <li><a href="scripts.core.html#scripts.core.constants.AnimationState.FINISHED">FINISHED (AnimationState attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="scripts.scene_elements.html#scripts.scene_elements.actions.Fireball">Fireball (class in scripts.scene_elements.actions)</a>
 </li>
       <li><a href="scripts.ui_elements.html#scripts.ui_elements.input_box.InputBox.focus">focus() (InputBox method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/scene_elements/camera.html#scripts.scene_elements.camera.Camera.follow">follow() (Camera method)</a>, <a href="scripts.scene_elements.html#scripts.scene_elements.camera.Camera.follow">[1]</a>
 </li>
       <li><a href="scripts.ui_elements.html#scripts.ui_elements.font.Font">Font (class in scripts.ui_elements.font)</a>
 </li>
@@ -879,7 +904,15 @@
 </li>
       <li><a href="api/core/constants.html#scripts.core.constants.FontType">FontType (class in scripts.core.constants)</a>, <a href="scripts.core.html#scripts.core.constants.FontType">[1]</a>
 </li>
+      <li><a href="scripts.scenes.world.html#scripts.scenes.world.combat.CombatController.force_idle">force_idle() (CombatController method)</a>
+
+      <ul>
+        <li><a href="scripts.scene_elements.world.html#scripts.scene_elements.world.model.WorldModel.force_idle">(WorldModel method)</a>
+</li>
+      </ul></li>
       <li><a href="api/ui_elements/ui_elements.html#scripts.ui_elements.frame.Frame">Frame (class in scripts.ui_elements.frame)</a>, <a href="scripts.ui_elements.html#scripts.ui_elements.frame.Frame">[1]</a>
+</li>
+      <li><a href="scripts.core.html#scripts.core.scheduler.ScheduledItem.func">func (ScheduledItem attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -913,7 +946,7 @@
         <li><a href="scripts.scene_elements.html#scripts.scene_elements.terrain.Terrain.generate">(Terrain method)</a>
 </li>
       </ul></li>
-      <li><a href="api/scenes/world.html#scripts.scenes.world.scene.WorldScene.generate_combat">generate_combat() (WorldScene method)</a>, <a href="scripts.scenes.world.html#scripts.scenes.world.scene.WorldScene.generate_combat">[1]</a>
+      <li><a href="scripts.scenes.world.html#scripts.scenes.world.combat.CombatController.generate_combat">generate_combat() (CombatController method)</a>
 </li>
       <li><a href="api/core/memory.html#scripts.core.memory.Memory.generate_id">generate_id() (Memory method)</a>, <a href="scripts.core.html#scripts.core.memory.Memory.generate_id">[1]</a>
 </li>
@@ -927,17 +960,21 @@
 </li>
       <li><a href="api/scene_elements/troupe.html#scripts.scene_elements.troupe.Troupe.generate_units">generate_units() (Troupe method)</a>, <a href="scripts.scene_elements.html#scripts.scene_elements.troupe.Troupe.generate_units">[1]</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/scenes/training.html#scripts.scenes.training.scene.TrainingScene.generate_upgrades">generate_upgrades() (TrainingScene method)</a>, <a href="scripts.scenes.training.html#scripts.scenes.training.scene.TrainingScene.generate_upgrades">[1]</a>
 </li>
       <li><a href="api/core/memory.html#scripts.core.memory.Memory.get_all_entities">get_all_entities() (Memory method)</a>, <a href="scripts.core.html#scripts.core.memory.Memory.get_all_entities">[1]</a>
 </li>
       <li><a href="api/core/memory.html#scripts.core.memory.Memory.get_all_units">get_all_units() (Memory method)</a>, <a href="scripts.core.html#scripts.core.memory.Memory.get_all_units">[1]</a>
 </li>
+      <li><a href="api/scene_elements/camera.html#scripts.scene_elements.camera.Camera.get_centre">get_centre() (Camera method)</a>, <a href="scripts.scene_elements.html#scripts.scene_elements.camera.Camera.get_centre">[1]</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="scripts.ui_elements.html#scripts.ui_elements.fancy_font.FancyFont.get_character_width">get_character_width() (FancyFont static method)</a>
 </li>
       <li><a href="api/core/data.html#scripts.core.data.Data.get_combat_occur_rate">get_combat_occur_rate() (Data method)</a>, <a href="scripts.core.html#scripts.core.data.Data.get_combat_occur_rate">[1]</a>
+</li>
+      <li><a href="scripts.core.html#scripts.core.scheduler.Scheduler.get_counter">get_counter() (Scheduler method)</a>
 </li>
       <li><a href="api/core/memory.html#scripts.core.memory.Memory.get_event">get_event() (Memory method)</a>, <a href="scripts.core.html#scripts.core.memory.Memory.get_event">[1]</a>
 </li>
@@ -945,17 +982,31 @@
 </li>
       <li><a href="api/core/base_classes/animation.html#scripts.core.base_classes.animation.Animation.get_frame">get_frame() (Animation method)</a>, <a href="scripts.core.base_classes.html#scripts.core.base_classes.animation.Animation.get_frame">[1]</a>
 </li>
+      <li><a href="scripts.core.html#scripts.core.scheduler.Scheduler.get_idle_time">get_idle_time() (Scheduler method)</a>
+</li>
       <li><a href="scripts.core.html#scripts.core.assets.Assets.get_image">get_image() (Assets method)</a>
 
       <ul>
         <li><a href="api/core/visuals.html#scripts.core.visuals.Visuals.get_image">(Visuals method)</a>, <a href="scripts.core.html#scripts.core.visuals.Visuals.get_image">[1]</a>
 </li>
       </ul></li>
+      <li><a href="scripts.core.html#scripts.core.scheduler.Scheduler.get_interval">get_interval() (Scheduler method)</a>
+</li>
       <li><a href="scripts.scene_elements.html#scripts.scene_elements.unit.Unit.get_modified_status">get_modified_status() (Unit method)</a>
 </li>
       <li><a href="api/core/memory.html#scripts.core.memory.Memory.get_random_event">get_random_event() (Memory method)</a>, <a href="scripts.core.html#scripts.core.memory.Memory.get_random_event">[1]</a>
 </li>
       <li><a href="api/scene_elements/troupe.html#scripts.scene_elements.troupe.Troupe.get_random_unit">get_random_unit() (Troupe method)</a>, <a href="scripts.scene_elements.html#scripts.scene_elements.troupe.Troupe.get_random_unit">[1]</a>
+</li>
+      <li><a href="api/scene_elements/camera.html#scripts.scene_elements.camera.Camera.get_rect">get_rect() (Camera method)</a>, <a href="scripts.scene_elements.html#scripts.scene_elements.camera.Camera.get_rect">[1]</a>
+</li>
+      <li><a href="scripts.core.html#scripts.core.scheduler.Scheduler.get_running_time">get_running_time() (Scheduler method)</a>
+</li>
+      <li><a href="scripts.core.html#scripts.core.scheduler.Scheduler.get_schedule">get_schedule() (Scheduler method)</a>
+</li>
+      <li><a href="api/scene_elements/camera.html#scripts.scene_elements.camera.Camera.get_size">get_size() (Camera method)</a>, <a href="scripts.scene_elements.html#scripts.scene_elements.camera.Camera.get_size">[1]</a>
+</li>
+      <li><a href="api/core/memory.html#scripts.core.memory.Memory.get_team_center">get_team_center() (Memory method)</a>, <a href="scripts.core.html#scripts.core.memory.Memory.get_team_center">[1]</a>
 </li>
       <li><a href="scripts.ui_elements.html#scripts.ui_elements.font.Font.get_text_width">get_text_width() (Font method)</a>
 </li>
@@ -1039,6 +1090,8 @@
 </li>
       <li><a href="scripts.core.html#scripts.core.constants.FontType.INSTRUCTION">INSTRUCTION (FontType attribute)</a>
 </li>
+      <li><a href="scripts.core.html#scripts.core.scheduler.ScheduledItem.interval">interval (ScheduledItem attribute)</a>
+</li>
       <li><a href="scripts.ui_elements.html#scripts.ui_elements.panel.Panel.is_active">is_active (Panel property)</a>
 </li>
       <li><a href="api/core/base_classes/animation.html#scripts.core.base_classes.animation.Animation.is_finished">is_finished (Animation property)</a>, <a href="scripts.core.base_classes.html#scripts.core.base_classes.animation.Animation.is_finished">[1]</a>
@@ -1071,6 +1124,8 @@
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="scripts.core.html#scripts.core.scheduler.ScheduledItem.last_ts">last_ts (ScheduledItem attribute)</a>
+</li>
       <li><a href="scripts.scene_elements.unit_behaviours.html#scripts.scene_elements.unit_behaviours.base.Base.leader">leader (Base property)</a>
 </li>
       <li><a href="scripts.core.html#scripts.core.constants.Direction.LEFT">LEFT (Direction attribute)</a>
@@ -1163,6 +1218,8 @@
 </li>
         <li><a href="api/core/rng.html#module-scripts.core.rng">scripts.core.rng</a>, <a href="scripts.core.html#module-scripts.core.rng">[1]</a>
 </li>
+        <li><a href="scripts.core.html#module-scripts.core.scheduler">scripts.core.scheduler</a>
+</li>
         <li><a href="api/core/sounds.html#module-scripts.core.sounds">scripts.core.sounds</a>, <a href="scripts.core.html#module-scripts.core.sounds">[1]</a>
 </li>
         <li><a href="api/core/utility.html#module-scripts.core.utility">scripts.core.utility</a>, <a href="scripts.core.html#module-scripts.core.utility">[1]</a>
@@ -1229,6 +1286,12 @@
 </li>
         <li><a href="scripts.scene_elements.unit_behaviours.html#module-scripts.scene_elements.unit_behaviours.swarm">scripts.scene_elements.unit_behaviours.swarm</a>
 </li>
+        <li><a href="scripts.scene_elements.world.html#module-scripts.scene_elements.world">scripts.scene_elements.world</a>
+</li>
+        <li><a href="scripts.scene_elements.world.html#module-scripts.scene_elements.world.model">scripts.scene_elements.world.model</a>
+</li>
+        <li><a href="scripts.scene_elements.world.html#module-scripts.scene_elements.world.view">scripts.scene_elements.world.view</a>
+</li>
         <li><a href="scripts.scenes.html#module-scripts.scenes">scripts.scenes</a>
 </li>
         <li><a href="scripts.scenes.event.html#module-scripts.scenes.event">scripts.scenes.event</a>
@@ -1254,6 +1317,12 @@
         <li><a href="api/scenes/main_menu.html#module-scripts.scenes.main_menu.scene">scripts.scenes.main_menu.scene</a>, <a href="scripts.scenes.main_menu.html#module-scripts.scenes.main_menu.scene">[1]</a>
 </li>
         <li><a href="api/scenes/main_menu.html#module-scripts.scenes.main_menu.ui">scripts.scenes.main_menu.ui</a>, <a href="scripts.scenes.main_menu.html#module-scripts.scenes.main_menu.ui">[1]</a>
+</li>
+        <li><a href="scripts.scenes.next_room.html#module-scripts.scenes.next_room">scripts.scenes.next_room</a>
+</li>
+        <li><a href="scripts.scenes.next_room.html#module-scripts.scenes.next_room.scene">scripts.scenes.next_room.scene</a>
+</li>
+        <li><a href="scripts.scenes.next_room.html#module-scripts.scenes.next_room.ui">scripts.scenes.next_room.ui</a>
 </li>
         <li><a href="scripts.scenes.post_combat.html#module-scripts.scenes.post_combat">scripts.scenes.post_combat</a>
 </li>
@@ -1287,6 +1356,8 @@
 </li>
         <li><a href="scripts.scenes.world.html#module-scripts.scenes.world">scripts.scenes.world</a>
 </li>
+        <li><a href="scripts.scenes.world.html#module-scripts.scenes.world.combat">scripts.scenes.world.combat</a>
+</li>
         <li><a href="api/scenes/world.html#module-scripts.scenes.world.scene">scripts.scenes.world.scene</a>, <a href="scripts.scenes.world.html#module-scripts.scenes.world.scene">[1]</a>
 </li>
         <li><a href="api/scenes/world.html#module-scripts.scenes.world.ui">scripts.scenes.world.ui</a>, <a href="scripts.scenes.world.html#module-scripts.scenes.world.ui">[1]</a>
@@ -1314,11 +1385,17 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="scripts.scene_elements.html#scripts.scene_elements.entity.Entity.move">move() (Entity method)</a>
+      <li><a href="api/scene_elements/camera.html#scripts.scene_elements.camera.Camera.move">move() (Camera method)</a>, <a href="scripts.scene_elements.html#scripts.scene_elements.camera.Camera.move">[1]</a>
+
+      <ul>
+        <li><a href="scripts.scene_elements.html#scripts.scene_elements.entity.Entity.move">(Entity method)</a>
 </li>
+      </ul></li>
       <li><a href="scripts.scene_elements.html#scripts.scene_elements.unit.Unit.move_speed">move_speed (Unit property)</a>
 </li>
-      <li><a href="api/scenes/world.html#scripts.scenes.world.scene.WorldScene.move_to_new_room">move_to_new_room() (WorldScene method)</a>, <a href="scripts.scenes.world.html#scripts.scenes.world.scene.WorldScene.move_to_new_room">[1]</a>
+      <li><a href="api/scene_elements/camera.html#scripts.scene_elements.camera.Camera.move_to_position">move_to_position() (Camera method)</a>, <a href="scripts.scene_elements.html#scripts.scene_elements.camera.Camera.move_to_position">[1]</a>
+</li>
+      <li><a href="scripts.core.html#scripts.core.constants.WorldState.MOVING_NEXT_ROOM">MOVING_NEXT_ROOM (WorldState attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -1334,8 +1411,16 @@
       </ul></li>
       <li><a href="scripts.core.html#scripts.core.utility.next_number_in_loop">next_number_in_loop() (in module scripts.core.utility)</a>
 </li>
+      <li><a href="scripts.core.html#scripts.core.constants.SceneType.NEXT_ROOM">NEXT_ROOM (SceneType attribute)</a>
+</li>
+      <li><a href="scripts.core.html#scripts.core.scheduler.ScheduledItem.next_ts">next_ts (ScheduledItem attribute)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="scripts.scenes.next_room.html#scripts.scenes.next_room.scene.NextRoomScene">NextRoomScene (class in scripts.scenes.next_room.scene)</a>
+</li>
+      <li><a href="scripts.scenes.next_room.html#scripts.scenes.next_room.ui.NextRoomUI">NextRoomUI (class in scripts.scenes.next_room.ui)</a>
+</li>
       <li><a href="scripts.core.html#scripts.core.constants.StatModifiedStatus.NONE">NONE (StatModifiedStatus attribute)</a>
 </li>
       <li><a href="scripts.core.html#scripts.core.constants.GamepadButton.NORTH">NORTH (GamepadButton attribute)</a>
@@ -1414,10 +1499,10 @@
 </li>
       <li><a href="api/scenes/post_combat.html#scripts.scenes.post_combat.ui.PostCombatUI">PostCombatUI (class in scripts.scenes.post_combat.ui)</a>, <a href="scripts.scenes.post_combat.html#scripts.scenes.post_combat.ui.PostCombatUI">[1]</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="scripts.ui_elements.html#scripts.ui_elements.button.Button.pressed">pressed (Button property)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core/utility.html#scripts.core.utility.previous_number_in_loop">previous_number_in_loop() (in module scripts.core.utility)</a>, <a href="scripts.core.html#scripts.core.utility.previous_number_in_loop">[1]</a>
 </li>
       <li><a href="scripts.core.html#scripts.core.debug.Debugger.print_values_to_console">print_values_to_console() (Debugger method)</a>
@@ -1445,6 +1530,8 @@
 </li>
         <li><a href="scripts.scenes.main_menu.html#scripts.scenes.main_menu.ui.MainMenuUI.process_input">(MainMenuUI method)</a>
 </li>
+        <li><a href="scripts.scenes.next_room.html#scripts.scenes.next_room.ui.NextRoomUI.process_input">(NextRoomUI method)</a>
+</li>
         <li><a href="scripts.scenes.post_combat.html#scripts.scenes.post_combat.ui.PostCombatUI.process_input">(PostCombatUI method)</a>
 </li>
         <li><a href="scripts.scenes.run_setup.html#scripts.scenes.run_setup.ui.RunSetupUI.process_input">(RunSetupUI method)</a>
@@ -1467,7 +1554,11 @@
       <li><a href="scripts.scene_elements.html#scripts.scene_elements.pathfinder.Pathfinder.px_route">px_route() (Pathfinder method)</a>
 </li>
       <li><a href="scripts.scene_elements.html#scripts.scene_elements.terrain.Terrain.px_to_loc">px_to_loc() (Terrain method)</a>
+
+      <ul>
+        <li><a href="scripts.scene_elements.world.html#scripts.scene_elements.world.model.WorldModel.px_to_loc">(WorldModel method)</a>
 </li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -1498,6 +1589,8 @@
         <li><a href="scripts.scenes.inn.html#scripts.scenes.inn.ui.InnUI.rebuild_ui">(InnUI method)</a>
 </li>
         <li><a href="scripts.scenes.main_menu.html#scripts.scenes.main_menu.ui.MainMenuUI.rebuild_ui">(MainMenuUI method)</a>
+</li>
+        <li><a href="scripts.scenes.next_room.html#scripts.scenes.next_room.ui.NextRoomUI.rebuild_ui">(NextRoomUI method)</a>
 </li>
         <li><a href="scripts.scenes.post_combat.html#scripts.scenes.post_combat.ui.PostCombatUI.rebuild_ui">(PostCombatUI method)</a>
 </li>
@@ -1530,6 +1623,8 @@
       </ul></li>
       <li><a href="scripts.scenes.unit_data.html#scripts.scenes.unit_data.ui.UnitDataUI.refresh_unit_fields">refresh_unit_fields() (UnitDataUI method)</a>
 </li>
+      <li><a href="scripts.core.html#scripts.core.scheduler.remove">remove() (in module scripts.core.scheduler)</a>
+</li>
       <li><a href="api/scene_elements/troupe.html#scripts.scene_elements.troupe.Troupe.remove_all_units">remove_all_units() (Troupe method)</a>, <a href="scripts.scene_elements.html#scripts.scene_elements.troupe.Troupe.remove_all_units">[1]</a>
 </li>
       <li><a href="scripts.core.html#scripts.core.game.Game.remove_scene">remove_scene() (Game method)</a>
@@ -1538,11 +1633,15 @@
 </li>
       <li><a href="scripts.scene_elements.html#scripts.scene_elements.troupe.Troupe.remove_unit">remove_unit() (Troupe method)</a>
 </li>
-      <li><a href="scripts.scene_elements.html#scripts.scene_elements.camera.Camera.render_offset">render_offset() (Camera method)</a>
+      <li><a href="api/scene_elements/camera.html#scripts.scene_elements.camera.Camera.render_offset">render_offset() (Camera method)</a>, <a href="scripts.scene_elements.html#scripts.scene_elements.camera.Camera.render_offset">[1]</a>
+</li>
+      <li><a href="scripts.core.html#scripts.core.scheduler.ScheduledItem.repeat">repeat (ScheduledItem attribute)</a>
 </li>
       <li><a href="api/core/base_classes/animation.html#scripts.core.base_classes.animation.Animation.reset">reset() (Animation method)</a>, <a href="scripts.core.base_classes.html#scripts.core.base_classes.animation.Animation.reset">[1]</a>
 
       <ul>
+        <li><a href="scripts.scenes.world.html#scripts.scenes.world.combat.CombatController.reset">(CombatController method)</a>
+</li>
         <li><a href="scripts.scenes.event.html#scripts.scenes.event.scene.EventScene.reset">(EventScene method)</a>
 </li>
         <li><a href="scripts.scenes.gallery.html#scripts.scenes.gallery.scene.GalleryScene.reset">(GalleryScene method)</a>
@@ -1554,6 +1653,8 @@
         <li><a href="scripts.scenes.main_menu.html#scripts.scenes.main_menu.scene.MainMenuScene.reset">(MainMenuScene method)</a>
 </li>
         <li><a href="api/core/memory.html#scripts.core.memory.Memory.reset">(Memory method)</a>, <a href="scripts.core.html#scripts.core.memory.Memory.reset">[1]</a>
+</li>
+        <li><a href="scripts.scenes.next_room.html#scripts.scenes.next_room.scene.NextRoomScene.reset">(NextRoomScene method)</a>
 </li>
         <li><a href="scripts.scenes.post_combat.html#scripts.scenes.post_combat.scene.PostCombatScene.reset">(PostCombatScene method)</a>
 </li>
@@ -1567,6 +1668,8 @@
 </li>
         <li><a href="scripts.scenes.view_troupe.html#scripts.scenes.view_troupe.scene.ViewTroupeScene.reset">(ViewTroupeScene method)</a>
 </li>
+        <li><a href="scripts.scene_elements.world.html#scripts.scene_elements.world.model.WorldModel.reset">(WorldModel method)</a>
+</li>
         <li><a href="scripts.scenes.world.html#scripts.scenes.world.scene.WorldScene.reset">(WorldScene method)</a>
 </li>
       </ul></li>
@@ -1575,6 +1678,8 @@
       <li><a href="api/ui_elements/ui_elements.html#scripts.ui_elements.frame.Frame.reset_animation">reset_animation() (Frame method)</a>, <a href="scripts.ui_elements.html#scripts.ui_elements.frame.Frame.reset_animation">[1]</a>
 </li>
       <li><a href="scripts.scene_elements.html#scripts.scene_elements.unit.Unit.reset_for_combat">reset_for_combat() (Unit method)</a>
+</li>
+      <li><a href="api/scene_elements/camera.html#scripts.scene_elements.camera.Camera.reset_movement">reset_movement() (Camera method)</a>, <a href="scripts.scene_elements.html#scripts.scene_elements.camera.Camera.reset_movement">[1]</a>
 </li>
       <li><a href="scripts.core.html#scripts.core.constants.RewardType.RESOURCE">RESOURCE (RewardType attribute)</a>
 </li>
@@ -1627,6 +1732,14 @@
       <li><a href="api/core/utility.html#scripts.core.utility.scene_to_scene_type">scene_to_scene_type() (in module scripts.core.utility)</a>, <a href="scripts.core.html#scripts.core.utility.scene_to_scene_type">[1]</a>
 </li>
       <li><a href="api/core/constants.html#scripts.core.constants.SceneType">SceneType (class in scripts.core.constants)</a>, <a href="scripts.core.html#scripts.core.constants.SceneType">[1]</a>
+</li>
+      <li><a href="scripts.core.html#scripts.core.scheduler.Scheduler.schedule_interval">schedule_interval() (Scheduler method)</a>
+</li>
+      <li><a href="scripts.core.html#scripts.core.scheduler.Scheduler.schedule_once">schedule_once() (Scheduler method)</a>
+</li>
+      <li><a href="scripts.core.html#scripts.core.scheduler.ScheduledItem">ScheduledItem (class in scripts.core.scheduler)</a>
+</li>
+      <li><a href="scripts.core.html#scripts.core.scheduler.Scheduler">Scheduler (class in scripts.core.scheduler)</a>
 </li>
       <li>
     scripts
@@ -1738,6 +1851,13 @@
 
       <ul>
         <li><a href="api/core/rng.html#module-scripts.core.rng">module</a>, <a href="scripts.core.html#module-scripts.core.rng">[1]</a>
+</li>
+      </ul></li>
+      <li>
+    scripts.core.scheduler
+
+      <ul>
+        <li><a href="scripts.core.html#module-scripts.core.scheduler">module</a>
 </li>
       </ul></li>
       <li>
@@ -1972,6 +2092,27 @@
 </li>
       </ul></li>
       <li>
+    scripts.scene_elements.world
+
+      <ul>
+        <li><a href="scripts.scene_elements.world.html#module-scripts.scene_elements.world">module</a>
+</li>
+      </ul></li>
+      <li>
+    scripts.scene_elements.world.model
+
+      <ul>
+        <li><a href="scripts.scene_elements.world.html#module-scripts.scene_elements.world.model">module</a>
+</li>
+      </ul></li>
+      <li>
+    scripts.scene_elements.world.view
+
+      <ul>
+        <li><a href="scripts.scene_elements.world.html#module-scripts.scene_elements.world.view">module</a>
+</li>
+      </ul></li>
+      <li>
     scripts.scenes
 
       <ul>
@@ -2062,6 +2203,27 @@
 
       <ul>
         <li><a href="api/scenes/main_menu.html#module-scripts.scenes.main_menu.ui">module</a>, <a href="scripts.scenes.main_menu.html#module-scripts.scenes.main_menu.ui">[1]</a>
+</li>
+      </ul></li>
+      <li>
+    scripts.scenes.next_room
+
+      <ul>
+        <li><a href="scripts.scenes.next_room.html#module-scripts.scenes.next_room">module</a>
+</li>
+      </ul></li>
+      <li>
+    scripts.scenes.next_room.scene
+
+      <ul>
+        <li><a href="scripts.scenes.next_room.html#module-scripts.scenes.next_room.scene">module</a>
+</li>
+      </ul></li>
+      <li>
+    scripts.scenes.next_room.ui
+
+      <ul>
+        <li><a href="scripts.scenes.next_room.html#module-scripts.scenes.next_room.ui">module</a>
 </li>
       </ul></li>
       <li>
@@ -2174,6 +2336,13 @@
 
       <ul>
         <li><a href="scripts.scenes.world.html#module-scripts.scenes.world">module</a>
+</li>
+      </ul></li>
+      <li>
+    scripts.scenes.world.combat
+
+      <ul>
+        <li><a href="scripts.scenes.world.html#module-scripts.scenes.world.combat">module</a>
 </li>
       </ul></li>
       <li>
@@ -2294,6 +2463,8 @@
 </li>
       <li><a href="api/ui_elements/ui_elements.html#scripts.ui_elements.frame.Frame.set_text">set_text() (Frame method)</a>, <a href="scripts.ui_elements.html#scripts.ui_elements.frame.Frame.set_text">[1]</a>
 </li>
+      <li><a href="scripts.core.html#scripts.core.scheduler.Scheduler.set_time">set_time() (Scheduler method)</a>
+</li>
       <li><a href="scripts.ui_elements.html#scripts.ui_elements.unit_stats_frame.UnitStatsFrame.set_unit">set_unit() (UnitStatsFrame method)</a>
 </li>
       <li><a href="scripts.ui_elements.html#scripts.ui_elements.input_box.InputBox.should_focus">should_focus (InputBox property)</a>
@@ -2334,6 +2505,8 @@
       </ul></li>
       <li><a href="scripts.core.html#scripts.core.utility.swap_colour">swap_colour() (in module scripts.core.utility)</a>
 </li>
+      <li><a href="scripts.scene_elements.world.html#scripts.scene_elements.world.model.WorldModel.swap_terrains">swap_terrains() (WorldModel method)</a>
+</li>
       <li><a href="scripts.scene_elements.entity_behaviours.html#scripts.scene_elements.entity_behaviours.swarm.Swarm">Swarm (class in scripts.scene_elements.entity_behaviours.swarm)</a>
 
       <ul>
@@ -2346,13 +2519,17 @@
 <h2 id="T">T</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="scripts.scene_elements.html#scripts.scene_elements.terrain.Terrain">Terrain (class in scripts.scene_elements.terrain)</a>
+      <li><a href="api/scene_elements/terrain.html#scripts.scene_elements.terrain.Terrain">Terrain (class in scripts.scene_elements.terrain)</a>, <a href="scripts.scene_elements.html#scripts.scene_elements.terrain.Terrain">[1]</a>
 </li>
-      <li><a href="scripts.scene_elements.html#scripts.scene_elements.tile.Tile">Tile (class in scripts.scene_elements.tile)</a>
+      <li><a href="scripts.core.html#scripts.core.scheduler.Scheduler.tick">tick() (Scheduler method)</a>
+</li>
+      <li><a href="api/scene_elements/tile.html#scripts.scene_elements.tile.Tile">Tile (class in scripts.scene_elements.tile)</a>, <a href="scripts.scene_elements.html#scripts.scene_elements.tile.Tile">[1]</a>
 </li>
       <li><a href="scripts.scene_elements.html#scripts.scene_elements.terrain.Terrain.tile_rect">tile_rect() (Terrain method)</a>
 </li>
       <li><a href="scripts.scene_elements.html#scripts.scene_elements.terrain.Terrain.tile_rect_px">tile_rect_px() (Terrain method)</a>
+</li>
+      <li><a href="api/core/debug.html#scripts.core.debug.Timer">Timer (class in scripts.core.debug)</a>, <a href="scripts.core.html#scripts.core.debug.Timer">[1]</a>
 </li>
       <li><a href="scripts.core.html#scripts.core.debug.Debugger.toggle_debug_info">toggle_debug_info() (Debugger method)</a>
 </li>
@@ -2360,10 +2537,10 @@
 </li>
       <li><a href="api/ui_elements/ui_elements.html#scripts.ui_elements.tooltip.Tooltip">Tooltip (class in scripts.ui_elements.tooltip)</a>, <a href="scripts.ui_elements.html#scripts.ui_elements.tooltip.Tooltip">[1]</a>
 </li>
-      <li><a href="scripts.core.html#scripts.core.constants.SceneType.TRAINING">TRAINING (SceneType attribute)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="scripts.core.html#scripts.core.constants.SceneType.TRAINING">TRAINING (SceneType attribute)</a>
+</li>
       <li><a href="api/scenes/training.html#scripts.scenes.training.scene.TrainingScene">TrainingScene (class in scripts.scenes.training.scene)</a>, <a href="scripts.scenes.training.html#scripts.scenes.training.scene.TrainingScene">[1]</a>
 </li>
       <li><a href="api/core/constants.html#scripts.core.constants.TrainingState">TrainingState (class in scripts.core.constants)</a>, <a href="scripts.core.html#scripts.core.constants.TrainingState">[1]</a>
@@ -2412,6 +2589,8 @@
 </li>
       <li><a href="scripts.core.html#scripts.core.input.Input.unload_chars">unload_chars() (Input method)</a>
 </li>
+      <li><a href="scripts.core.html#scripts.core.scheduler.Scheduler.unschedule">unschedule() (Scheduler method)</a>
+</li>
       <li><a href="api/ui_elements/ui_elements.html#scripts.ui_elements.panel.Panel.unselect_all_elements">unselect_all_elements() (Panel method)</a>, <a href="scripts.ui_elements.html#scripts.ui_elements.panel.Panel.unselect_all_elements">[1]</a>
 </li>
       <li><a href="scripts.core.html#scripts.core.constants.Direction.UP">UP (Direction attribute)</a>
@@ -2425,7 +2604,11 @@
       <ul>
         <li><a href="scripts.ui_elements.html#scripts.ui_elements.button.Button.update">(Button method)</a>
 </li>
+        <li><a href="api/scene_elements/camera.html#scripts.scene_elements.camera.Camera.update">(Camera method)</a>, <a href="scripts.scene_elements.html#scripts.scene_elements.camera.Camera.update">[1]</a>
+</li>
         <li><a href="scripts.ui_elements.html#scripts.ui_elements.fancy_font.Character.update">(Character method)</a>
+</li>
+        <li><a href="scripts.scenes.world.html#scripts.scenes.world.combat.CombatController.update">(CombatController method)</a>
 </li>
         <li><a href="scripts.core.html#scripts.core.debug.Debugger.update">(Debugger method)</a>
 </li>
@@ -2456,6 +2639,8 @@
         <li><a href="scripts.scenes.main_menu.html#scripts.scenes.main_menu.scene.MainMenuScene.update">(MainMenuScene method)</a>
 </li>
         <li><a href="scripts.scenes.main_menu.html#scripts.scenes.main_menu.ui.MainMenuUI.update">(MainMenuUI method)</a>
+</li>
+        <li><a href="scripts.scenes.next_room.html#scripts.scenes.next_room.scene.NextRoomScene.update">(NextRoomScene method)</a>
 </li>
         <li><a href="scripts.ui_elements.html#scripts.ui_elements.panel.Panel.update">(Panel method)</a>
 </li>
@@ -2511,9 +2696,13 @@
 </li>
         <li><a href="scripts.core.html#scripts.core.window.Window.update">(Window method)</a>
 </li>
+        <li><a href="scripts.scene_elements.world.html#scripts.scene_elements.world.model.WorldModel.update">(WorldModel method)</a>
+</li>
         <li><a href="scripts.scenes.world.html#scripts.scenes.world.scene.WorldScene.update">(WorldScene method)</a>
 </li>
         <li><a href="scripts.scenes.world.html#scripts.scenes.world.ui.WorldUI.update">(WorldUI method)</a>
+</li>
+        <li><a href="scripts.scene_elements.world.html#scripts.scene_elements.world.view.WorldView.update">(WorldView method)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -2590,11 +2779,23 @@
 </li>
       <li><a href="scripts.core.html#scripts.core.constants.SceneType.WORLD">WORLD (SceneType attribute)</a>
 </li>
+      <li><a href="scripts.scene_elements.world.html#scripts.scene_elements.world.model.WorldModel">WorldModel (class in scripts.scene_elements.world.model)</a>
+</li>
       <li><a href="api/scenes/world.html#scripts.scenes.world.scene.WorldScene">WorldScene (class in scripts.scenes.world.scene)</a>, <a href="scripts.scenes.world.html#scripts.scenes.world.scene.WorldScene">[1]</a>
 </li>
       <li><a href="api/core/constants.html#scripts.core.constants.WorldState">WorldState (class in scripts.core.constants)</a>, <a href="scripts.core.html#scripts.core.constants.WorldState">[1]</a>
 </li>
       <li><a href="api/scenes/world.html#scripts.scenes.world.ui.WorldUI">WorldUI (class in scripts.scenes.world.ui)</a>, <a href="scripts.scenes.world.html#scripts.scenes.world.ui.WorldUI">[1]</a>
+</li>
+      <li><a href="scripts.scene_elements.world.html#scripts.scene_elements.world.view.WorldView">WorldView (class in scripts.scene_elements.world.view)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="Z">Z</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/scene_elements/camera.html#scripts.scene_elements.camera.Camera.zoom">zoom (Camera attribute)</a>, <a href="scripts.scene_elements.html#scripts.scene_elements.camera.Camera.zoom">[1]</a>
 </li>
   </ul></td>
 </tr></table>

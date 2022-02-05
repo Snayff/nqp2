@@ -272,6 +272,8 @@
 <span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
+<span class="kn">import</span> <span class="nn">pygame</span>
+
 <span class="kn">from</span> <span class="nn">scripts.scene_elements.commander</span> <span class="kn">import</span> <span class="n">Commander</span>
 <span class="kn">from</span> <span class="nn">scripts.scene_elements.entity</span> <span class="kn">import</span> <span class="n">Entity</span>
 <span class="kn">from</span> <span class="nn">scripts.scene_elements.troupe</span> <span class="kn">import</span> <span class="n">Troupe</span>
@@ -611,7 +613,23 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_seen_bosses</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="c1"># in memory config</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_game_speed</span> <span class="o">=</span> <span class="mi">1</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_game_speed</span> <span class="o">=</span> <span class="mi">1</span></div>
+
+<div class="viewcode-block" id="Memory.get_team_center"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.memory.Memory.get_team_center">[docs]</a>    <span class="k">def</span> <span class="nf">get_team_center</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">team</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">]:</span>
+        <span class="sd">"""</span>
+<span class="sd">        Get centre coordinates for the team</span>
+
+<span class="sd">        """</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">pos_totals</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">unit</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">get_all_units</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">unit</span><span class="o">.</span><span class="n">team</span> <span class="o">==</span> <span class="n">team</span><span class="p">:</span>
+                <span class="n">pos_totals</span> <span class="o">+=</span> <span class="n">unit</span><span class="o">.</span><span class="n">pos</span>
+                <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">count</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="n">pos_totals</span> <span class="o">/</span> <span class="n">count</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span></div></div>
 </pre></div>
 
           </article>

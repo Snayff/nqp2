@@ -275,6 +275,8 @@
         </li>
         <li class="md-nav__item"><a href="#module-scripts.core.rng" class="md-nav__link">scripts.core.rng module</a>
         </li>
+        <li class="md-nav__item"><a href="#module-scripts.core.scheduler" class="md-nav__link">scripts.core.scheduler module</a>
+        </li>
         <li class="md-nav__item"><a href="#module-scripts.core.sounds" class="md-nav__link">scripts.core.sounds module</a>
         </li>
         <li class="md-nav__item"><a href="#module-scripts.core.utility" class="md-nav__link">scripts.core.utility module</a>
@@ -671,6 +673,10 @@
 <span class="sig-name descname"><span class="pre">MAIN_MENU</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6</span></em><a class="headerlink" href="#scripts.core.constants.SceneType.MAIN_MENU" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py attribute">
+<dt class="sig sig-object py" id="scripts.core.constants.SceneType.NEXT_ROOM">
+<span class="sig-name descname"><span class="pre">NEXT_ROOM</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">12</span></em><a class="headerlink" href="#scripts.core.constants.SceneType.NEXT_ROOM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py attribute">
 <dt class="sig sig-object py" id="scripts.core.constants.SceneType.OVERWORLD">
 <span class="sig-name descname"><span class="pre">OVERWORLD</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#scripts.core.constants.SceneType.OVERWORLD" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -752,6 +758,10 @@
 <dt class="sig sig-object py" id="scripts.core.constants.WorldState.IDLE">
 <span class="sig-name descname"><span class="pre">IDLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#scripts.core.constants.WorldState.IDLE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scripts.core.constants.WorldState.MOVING_NEXT_ROOM">
+<span class="sig-name descname"><span class="pre">MOVING_NEXT_ROOM</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#scripts.core.constants.WorldState.MOVING_NEXT_ROOM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 </dd></dl>
 </section>
 <section id="module-scripts.core.data">
@@ -804,7 +814,7 @@
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="scripts.core.debug.Debugger.draw">
-<span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">surface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pygame.surface</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/debug.html#Debugger.draw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.debug.Debugger.draw" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">surface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://www.pygame.org/docs/ref/surface.html#pygame.Surface" title="(in pygame v2.1.1)"><span class="pre">pygame.Surface</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/debug.html#Debugger.draw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.debug.Debugger.draw" title="Permalink to this definition">¶</a></dt>
 <dd><p>Draw debug info</p>
 </dd></dl>
 <dl class="py method">
@@ -861,6 +871,16 @@ print( performance_test(method_descs, old_methods, new_methods) )</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="scripts.core.debug.Debugger.update">
 <span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/debug.html#Debugger.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.debug.Debugger.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="scripts.core.debug.Timer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Timer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/debug.html#Timer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.debug.Timer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Context manager to document program time</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.debug.Timer.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/debug.html#Timer.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.debug.Timer.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 </dd></dl>
 </section>
@@ -1040,6 +1060,11 @@ events.</p>
 <span class="sig-name descname"><span class="pre">get_random_event</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Dict</span></span></span><a class="reference internal" href="_modules/scripts/core/memory.html#Memory.get_random_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.memory.Memory.get_random_event" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a random event from those available. This event is then removed from the list of possible events.</p>
 </dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.memory.Memory.get_team_center">
+<span class="sig-name descname"><span class="pre">get_team_center</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">team</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">pygame.Vector2</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/scripts/core/memory.html#Memory.get_team_center"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.memory.Memory.get_team_center" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get centre coordinates for the team</p>
+</dd></dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="scripts.core.memory.Memory.player_troupe">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">player_troupe</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="scripts.scene_elements.html#scripts.scene_elements.troupe.Troupe" title="scripts.scene_elements.troupe.Troupe"><span class="pre">scripts.scene_elements.troupe.Troupe</span></a></em><a class="headerlink" href="#scripts.core.memory.Memory.player_troupe" title="Permalink to this definition">¶</a></dt>
@@ -1090,6 +1115,220 @@ events.</p>
 <span class="sig-name descname"><span class="pre">set_seed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/rng.html#RNG.set_seed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.rng.RNG.set_seed" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the seed for randomness.</p>
 </dd></dl>
+</dd></dl>
+</section>
+<section id="module-scripts.core.scheduler">
+<span id="scripts-core-scheduler-module"></span><h2 id="module-scripts.core.scheduler">scripts.core.scheduler module<a class="headerlink" href="#module-scripts.core.scheduler" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="scripts.core.scheduler.ScheduledItem">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ScheduledItem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.10)"><span class="pre">Callable</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_ts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">next_ts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">repeat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/scheduler.html#ScheduledItem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.scheduler.ScheduledItem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Describes a scheduled callback.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.scheduler.ScheduledItem.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.10)"><span class="pre">Callable</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_ts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">next_ts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">repeat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#scripts.core.scheduler.ScheduledItem.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scripts.core.scheduler.ScheduledItem.func">
+<span class="sig-name descname"><span class="pre">func</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Callable</span></em><a class="headerlink" href="#scripts.core.scheduler.ScheduledItem.func" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scripts.core.scheduler.ScheduledItem.interval">
+<span class="sig-name descname"><span class="pre">interval</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#scripts.core.scheduler.ScheduledItem.interval" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scripts.core.scheduler.ScheduledItem.last_ts">
+<span class="sig-name descname"><span class="pre">last_ts</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#scripts.core.scheduler.ScheduledItem.last_ts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scripts.core.scheduler.ScheduledItem.next_ts">
+<span class="sig-name descname"><span class="pre">next_ts</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#scripts.core.scheduler.ScheduledItem.next_ts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scripts.core.scheduler.ScheduledItem.repeat">
+<span class="sig-name descname"><span class="pre">repeat</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#scripts.core.scheduler.ScheduledItem.repeat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="scripts.core.scheduler.Scheduler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Scheduler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time_function:</span> <span class="pre">typing.Callable</span> <span class="pre">=</span> <span class="pre">&lt;built-in</span> <span class="pre">function</span> <span class="pre">perf_counter&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/scheduler.html#Scheduler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.scheduler.Scheduler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Class for scheduling functions.</p>
+<p>Probably not thread safe.</p>
+<p>The function should have a prototype that includes <code class="docutils literal notranslate"><span class="pre">dt</span></code> as the
+first argument, which gives the elapsed time, in time units,
+since the last clock tick.</p>
+<blockquote>
+<div><dl class="simple">
+<dt>def callback(dt):</dt><dd><p>pass</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>Items will be scheduled and rescheduled in such a way to prevent
+several items from running during the same tick.  Enabling a
+“soft” reschedule means that item is tolerant to having the
+interval slightly modified.</p>
+<p>Initialise a Scheduler, with optional custom time function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>time_function</strong> – Return the elapsed time</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.scheduler.Scheduler.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time_function:</span> <span class="pre">typing.Callable</span> <span class="pre">=</span> <span class="pre">&lt;built-in</span> <span class="pre">function</span> <span class="pre">perf_counter&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/scheduler.html#Scheduler.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.scheduler.Scheduler.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialise a Scheduler, with optional custom time function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>time_function</strong> – Return the elapsed time</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.scheduler.Scheduler.call_scheduled_functions">
+<span class="sig-name descname"><span class="pre">call_scheduled_functions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/scheduler.html#Scheduler.call_scheduled_functions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.scheduler.Scheduler.call_scheduled_functions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call scheduled functions that elapsed on the last <cite>update_time</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dt</strong> – The elapsed time since the last update to pass to each</p></li>
+<li><p><strong>function.</strong> (<em>scheduled</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.scheduler.Scheduler.get_counter">
+<span class="sig-name descname"><span class="pre">get_counter</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></span><a class="reference internal" href="_modules/scripts/core/scheduler.html#Scheduler.get_counter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.scheduler.Scheduler.get_counter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get internal counter value</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.scheduler.Scheduler.get_idle_time">
+<span class="sig-name descname"><span class="pre">get_idle_time</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/scripts/core/scheduler.html#Scheduler.get_idle_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.scheduler.Scheduler.get_idle_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the time until the next item is scheduled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Time until the next scheduled event in time units, or
+<code class="docutils literal notranslate"><span class="pre">None</span></code> if there is no events scheduled.</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.scheduler.Scheduler.get_interval">
+<span class="sig-name descname"><span class="pre">get_interval</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></span><a class="reference internal" href="_modules/scripts/core/scheduler.html#Scheduler.get_interval"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.scheduler.Scheduler.get_interval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the average amount of time passed between each tick.</p>
+<p>Useful for calculating FPS if this clock is used with the
+display.  Returned value is averaged from last 10 ticks.</p>
+<p>Value will be 0.0 if before 1st tick.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Average amount of time passed between each tick</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.scheduler.Scheduler.get_running_time">
+<span class="sig-name descname"><span class="pre">get_running_time</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></span><a class="reference internal" href="_modules/scripts/core/scheduler.html#Scheduler.get_running_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.scheduler.Scheduler.get_running_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get time clock has been running</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.scheduler.Scheduler.get_schedule">
+<span class="sig-name descname"><span class="pre">get_schedule</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scripts.core.scheduler.ScheduledItem" title="scripts.core.scheduler.ScheduledItem"><span class="pre">scripts.core.scheduler.ScheduledItem</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/scripts/core/scheduler.html#Scheduler.get_schedule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.scheduler.Scheduler.get_schedule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return copy of the schedule.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.scheduler.Scheduler.schedule_interval">
+<span class="sig-name descname"><span class="pre">schedule_interval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.10)"><span class="pre">Callable</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">soft</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/scheduler.html#Scheduler.schedule_interval"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.scheduler.Scheduler.schedule_interval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Schedule a function to run on an interval.</p>
+<p>Items are rescheduled after they are executed.  That means that
+by default, the interval of items may not be consistent with
+the initial time with was scheduled.</p>
+<p>If the delay is not specified, the function will be executed
+during the next tick.</p>
+<p>If the interval is not specified, the function will be executed
+every time the scheduler is ticked.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> – Function to be called</p></li>
+<li><p><strong>interval</strong> – If repeating, repeat on this interval</p></li>
+<li><p><strong>delay</strong> – Delay in time unit until it is called</p></li>
+<li><p><strong>soft</strong> – See notes about Soft Scheduling</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Reference to scheduled item</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.scheduler.Scheduler.schedule_once">
+<span class="sig-name descname"><span class="pre">schedule_once</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.10)"><span class="pre">Callable</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">soft</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="#scripts.core.scheduler.ScheduledItem" title="scripts.core.scheduler.ScheduledItem"><span class="pre">scripts.core.scheduler.ScheduledItem</span></a></span></span><a class="reference internal" href="_modules/scripts/core/scheduler.html#Scheduler.schedule_once"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.scheduler.Scheduler.schedule_once" title="Permalink to this definition">¶</a></dt>
+<dd><p>Schedule a function to be run once sometime in the future.</p>
+<p>If the delay is not specified, the function will be executed
+during the next tick.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> – Function to be called</p></li>
+<li><p><strong>delay</strong> – Delay in time unit until it is called</p></li>
+<li><p><strong>soft</strong> – See notes about Soft Scheduling</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Reference to scheduled item.</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.scheduler.Scheduler.set_time">
+<span class="sig-name descname"><span class="pre">set_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time_stamp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></span><a class="reference internal" href="_modules/scripts/core/scheduler.html#Scheduler.set_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.scheduler.Scheduler.set_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the clock manually and do not call scheduled functions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>time_stamp</strong> – This will become the new value of the clock.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The number of time units since the last update, or 0.0 if
+this was the first update.</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.scheduler.Scheduler.tick">
+<span class="sig-name descname"><span class="pre">tick</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></span><a class="reference internal" href="_modules/scripts/core/scheduler.html#Scheduler.tick"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.scheduler.Scheduler.tick" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cause clock to update and call scheduled functions.</p>
+<p>This updates the clock’s internal measure of time and returns
+the difference since the last update (or since the clock was
+created).</p>
+<p>Will call any scheduled functions that have elapsed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The number of time units since the last “tick”, or 0 if this
+was the first tick.</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.scheduler.Scheduler.unschedule">
+<span class="sig-name descname"><span class="pre">unschedule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><a class="reference internal" href="_modules/scripts/core/scheduler.html#Scheduler.unschedule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.scheduler.Scheduler.unschedule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove a function from the schedule.</p>
+<p>NOTE: do not unschedule own function during function call</p>
+<p>If the function appears in the schedule more than once, all
+occurrences are removed.  If the function was not scheduled,
+no error is raised.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>func</strong> – The function to remove from the schedule.</p>
+</dd>
+</dl>
+</dd></dl>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.core.scheduler.remove">
+<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/scheduler.html#remove"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.scheduler.remove" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove scheduled items with func <code class="docutils literal notranslate"><span class="pre">func</span></code> from list
+<code class="docutils literal notranslate"><span class="pre">remove_from</span></code> and return True if it was removed</p>
 </dd></dl>
 </section>
 <section id="module-scripts.core.sounds">
