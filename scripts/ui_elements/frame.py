@@ -29,13 +29,15 @@ class Frame(UIElement):
         is_selectable: bool = False,
         max_width: Optional[int] = None,
         max_height: Optional[int] = None,
+        new_image: Optional[Union[Image, Animation]] = None,
     ):
         super().__init__(pos, is_selectable)
 
-        self.image: Optional[pygame.surface] = image
-        self.font: Optional[Union[Font, FancyFont]] = font
-        self.max_width: Optional[int] = max_width
-        self.max_height: Optional[int] = max_height
+        self._new_image: Optional[Union[Image, Animation]] = new_image
+        self._image: Optional[pygame.surface] = image
+        self._font: Optional[Union[Font, FancyFont]] = font
+        self._max_width: Optional[int] = max_width
+        self._max_height: Optional[int] = max_height
 
         self._override_font_attrs()
         self._recalculate_size()
@@ -47,32 +49,50 @@ class Frame(UIElement):
 
         if self.is_active:
             # FancyFont changes each frame so needs redrawing
-            if isinstance(self.font, FancyFont):
-                self.font.update(delta_time)
+            if isinstance(self._font, FancyFont):
+                self._font.update(delta_time)
+
+            # N.B. Animation is updates centrally so doesnt need to be updated here
 
     def draw(self, surface: pygame.Surface):
         super().draw(surface)
 
+        is_dirty = False
+        redraw_font = False
+
         if self.is_active:
             # FancyFont changes each frame so needs redrawing
-            if isinstance(self.font, FancyFont):
+            if isinstance(self._font, FancyFont):
+                is_dirty = True
+                redraw_font = True
+
+            # Animation changes each frame
+            if isinstance(self._image, Animation):
+                is_dirty = True
+
+            # rebuild surface first
+            if is_dirty:
                 self._rebuild_surface()
-                self.font.draw(self.surface)
+
+            if redraw_font:
+                self._font.draw(self.surface)
+
 
     def _recalculate_size(self):
-        image = self.image
-        font = self.font
+        image = self._image
+        font = self._font
+        new_image = self._new_image
 
         width = 0
         height = 0
 
         if image is not None:
-            if isinstance(image, Image) or isinstance(image, Animation):
-                width += image.width
-                height += image.height
-            else:
-                width += image.get_width()
-                height += image.get_height()
+            width += image.get_width()
+            height += image.get_height()
+
+        if new_image is not None:
+            width += image.width
+            height += image.height
 
         if font is not None:
             width += font.width + GAP_SIZE
@@ -85,12 +105,12 @@ class Frame(UIElement):
                 height += font.height
 
         # respect max height
-        if self.max_height is not None:
-            height = min(height, self.max_height)
+        if self._max_height is not None:
+            height = min(height, self._max_height)
 
         # respect max width
-        if self.max_width is not None:
-            width = min(width, self.max_width)
+        if self._max_width is not None:
+            width = min(width, self._max_width)
 
         self.size = (width, height)
 
@@ -98,21 +118,20 @@ class Frame(UIElement):
         self.surface = pygame.Surface(self.size, SRCALPHA)
 
         surface = self.surface
-        image = self.image
-        font = self.font
+        image = self._image
+        font = self._font
+        new_image = self._new_image
 
         # draw image
-        if image:
-            if isinstance(image, Image):
-                surface.blit(image.image, (0, 0))
-            elif isinstance(image, Animation):
-                surface.blit(image.get_current_frame().image, (0, 0))
-            else:
-                surface.blit(image, (0, 0))
+        if image is not None:
+            surface.blit(image, (0, 0))
+
+        if new_image is not None:
+            surface.blit(image.image, (0, 0))
 
         # draw text
-        if font:
-            # Font can be drawn once (FancyFont needs constant redrawing)
+        if font is not None:
+            # Font can be drawn once (FancyFont needs constant redrawing so is handled in the draw method)
             if isinstance(font, Font):
                 font.draw(surface)
 
@@ -120,8 +139,8 @@ class Frame(UIElement):
         """
         Force the font to use the frame's pos and max sizes.
         """
-        image = self.image
-        font = self.font
+        image = self._image
+        font = self._font
 
         if not font:
             return
@@ -139,8 +158,8 @@ class Frame(UIElement):
         font.pos = (x, y)
 
         # update font size
-        if self.max_width is not None:
-            new_line_width = max(self.max_width - image_width, font.line_width)
+        if self._max_width is not None:
+            new_line_width = max(self._max_width - image_width, font.line_width)
         else:
             self._recalculate_size()
             new_line_width = max(self.width - image_width, font.line_width)
@@ -155,7 +174,7 @@ class Frame(UIElement):
         """
         Update the font text.
         """
-        font = self.font
+        font = self._font
 
         text = str(text)
 
@@ -183,9 +202,9 @@ class Frame(UIElement):
         tier = clamp(tier, 1, 4)
 
         # create background and blit image onto it
-        bg = pygame.Surface(self.image.get_size())
+        bg = pygame.Surface(self._image.get_size())
         bg.fill(tier_colours[tier])
-        bg.blit(self.image, (0, 0))
-        self.image = bg
+        bg.blit(self._image, (0, 0))
+        self._image = bg
 
         self._rebuild_surface()

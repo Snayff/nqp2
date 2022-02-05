@@ -155,13 +155,13 @@ class Visuals:
         return animation_frames
 
     def create_animation(
-        self, animation_name: str, frame_name: str, pos: Tuple[int, int], loop: bool = True
+        self, animation_name: str, frame_name: str, loop: bool = True
     ) -> Animation:
         """
         Create a new animation and add it to the internal update list.
         """
         frames = self._animation_frames[animation_name + "_" + frame_name]
-        anim = Animation(frames, pos, loop=loop)
+        anim = Animation(frames, loop=loop)
         self._active_animations.append(anim)
         return anim
 
@@ -218,9 +218,9 @@ class Visuals:
 
         # return a copy if requested
         if copy:
-            final_image = Image(image=image.copy(), pos=pos)
+            final_image = Image(image=image.copy())
         else:
-            final_image = Image(image=image, pos=pos)
+            final_image = Image(image=image)
 
         return final_image
 
