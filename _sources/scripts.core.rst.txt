@@ -92,6 +92,14 @@ scripts.core.utility module
    :undoc-members:
    :show-inheritance:
 
+scripts.core.visuals module
+---------------------------
+
+.. automodule:: scripts.core.visuals
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 scripts.core.window module
 --------------------------
 

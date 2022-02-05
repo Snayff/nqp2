@@ -4,6 +4,22 @@ scripts.core.base\_classes package
 Submodules
 ----------
 
+scripts.core.base\_classes.animation module
+-------------------------------------------
+
+.. automodule:: scripts.core.base_classes.animation
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.core.base\_classes.image module
+---------------------------------------
+
+.. automodule:: scripts.core.base_classes.image
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 scripts.core.base\_classes.scene module
 ---------------------------------------
 

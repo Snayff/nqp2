@@ -280,7 +280,7 @@
 
 <span class="n">_V</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">"_V"</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>  <span class="c1"># to represent where we don't know which type is being used</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"swap_colour"</span><span class="p">,</span> <span class="s2">"clip"</span><span class="p">,</span> <span class="s2">"offset"</span><span class="p">,</span> <span class="s2">"lerp"</span><span class="p">,</span> <span class="s2">"clamp"</span><span class="p">,</span> <span class="s2">"itr"</span><span class="p">,</span> <span class="s2">"scene_to_scene_type"</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"swap_colour"</span><span class="p">,</span> <span class="s2">"clip"</span><span class="p">,</span> <span class="s2">"offset"</span><span class="p">,</span> <span class="s2">"lerp"</span><span class="p">,</span> <span class="s2">"clamp"</span><span class="p">,</span> <span class="s2">"itr"</span><span class="p">,</span> <span class="s2">"scene_to_scene_type"</span><span class="p">,</span> <span class="s2">"next_number_in_loop"</span><span class="p">]</span>
 
 
 <div class="viewcode-block" id="swap_colour"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.utility.swap_colour">[docs]</a><span class="k">def</span> <span class="nf">swap_colour</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">old_c</span><span class="p">,</span> <span class="n">new_c</span><span class="p">):</span>
@@ -352,9 +352,7 @@
     <span class="kn">from</span> <span class="nn">scripts.scenes.unit_data.scene</span> <span class="kn">import</span> <span class="n">UnitDataScene</span>
     <span class="kn">from</span> <span class="nn">scripts.scenes.view_troupe.scene</span> <span class="kn">import</span> <span class="n">ViewTroupeScene</span>
 
-    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">scene</span><span class="p">)</span> <span class="ow">is</span> <span class="n">CombatScene</span><span class="p">:</span>
-        <span class="n">scene</span> <span class="o">=</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">COMBAT</span>
-    <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">scene</span><span class="p">)</span> <span class="ow">is</span> <span class="n">ViewTroupeScene</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">scene</span><span class="p">)</span> <span class="ow">is</span> <span class="n">ViewTroupeScene</span><span class="p">:</span>
         <span class="n">scene</span> <span class="o">=</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">VIEW_TROUPE</span>
     <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">scene</span><span class="p">)</span> <span class="ow">is</span> <span class="n">TrainingScene</span><span class="p">:</span>
         <span class="n">scene</span> <span class="o">=</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">TRAINING</span>

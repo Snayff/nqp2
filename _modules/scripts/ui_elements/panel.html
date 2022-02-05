@@ -286,30 +286,34 @@
 
 <div class="viewcode-block" id="Panel.__init__"><a class="viewcode-back" href="../../../scripts.ui_elements.html#scripts.ui_elements.panel.Panel.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elements</span><span class="p">:</span> <span class="n">List</span><span class="p">,</span> <span class="n">is_active</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">:</span> <span class="n">List</span> <span class="o">=</span> <span class="n">elements</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">:</span> <span class="n">List</span> <span class="o">=</span> <span class="n">elements</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">is_active</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">is_active</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_active</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">is_active</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">set_active</span><span class="p">(</span><span class="n">is_active</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Panel.update"><a class="viewcode-back" href="../../../scripts.ui_elements.html#scripts.ui_elements.panel.Panel.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">:</span>
             <span class="n">element</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Panel.draw"><a class="viewcode-back" href="../../../scripts.ui_elements.html#scripts.ui_elements.panel.Panel.draw">[docs]</a>    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">surface</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">:</span>
             <span class="n">element</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span></div>
 
     <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">is_active</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_active</span>
+
+    <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">selected_element</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span><span class="p">]</span>
 
 <div class="viewcode-block" id="Panel.set_active"><a class="viewcode-back" href="../../../scripts.ui_elements.html#scripts.ui_elements.panel.Panel.set_active">[docs]</a>    <span class="k">def</span> <span class="nf">set_active</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_active</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">:</span>
             <span class="n">element</span><span class="o">.</span><span class="n">set_active</span><span class="p">(</span><span class="n">is_active</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Panel.set_selectable"><a class="viewcode-back" href="../../../scripts.ui_elements.html#scripts.ui_elements.panel.Panel.set_selectable">[docs]</a>    <span class="k">def</span> <span class="nf">set_selectable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_selectable</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">:</span>
             <span class="n">element</span><span class="o">.</span><span class="n">is_selectable</span> <span class="o">=</span> <span class="n">is_selectable</span></div>
 
 <div class="viewcode-block" id="Panel.select_first_element"><a class="viewcode-back" href="../../../scripts.ui_elements.html#scripts.ui_elements.panel.Panel.select_first_element">[docs]</a>    <span class="k">def</span> <span class="nf">select_first_element</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -317,8 +321,8 @@
 <span class="sd">        Selects the first element and sets the rest to unselected.</span>
 <span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">unselect_all_elements</span><span class="p">()</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">is_selected</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">is_selected</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Tried to select first element but no element to select in panel."</span><span class="p">)</span></div>
 
@@ -326,27 +330,27 @@
         <span class="sd">"""</span>
 <span class="sd">        Sets all elements is_selected to False and resets current_selected_index.</span>
 <span class="sd">        """</span>
-        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">:</span>
             <span class="n">element</span><span class="o">.</span><span class="n">is_selected</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span> <span class="o">=</span> <span class="mi">0</span></div>
 
 <div class="viewcode-block" id="Panel.select_next_element"><a class="viewcode-back" href="../../../scripts.ui_elements.html#scripts.ui_elements.panel.Panel.select_next_element">[docs]</a>    <span class="k">def</span> <span class="nf">select_next_element</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># unselect current</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span><span class="p">]</span><span class="o">.</span><span class="n">is_selected</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span><span class="p">]</span><span class="o">.</span><span class="n">is_selected</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="n">starting_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span>
 
-        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">)):</span>
 
             <span class="c1"># increment position</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span> <span class="o">=</span> <span class="mi">0</span>
 
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span><span class="p">]</span><span class="o">.</span><span class="n">is_selectable</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span><span class="p">]</span><span class="o">.</span><span class="n">is_selectable</span><span class="p">:</span>
                 <span class="c1"># select</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span><span class="p">]</span><span class="o">.</span><span class="n">is_selected</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span><span class="p">]</span><span class="o">.</span><span class="n">is_selected</span> <span class="o">=</span> <span class="kc">True</span>
 
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span> <span class="o">==</span> <span class="n">starting_index</span><span class="p">:</span>
                     <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Panel: Looped all the way back to the starting index. No others selectable."</span><span class="p">)</span>
@@ -355,20 +359,20 @@
 
 <div class="viewcode-block" id="Panel.select_previous_element"><a class="viewcode-back" href="../../../scripts.ui_elements.html#scripts.ui_elements.panel.Panel.select_previous_element">[docs]</a>    <span class="k">def</span> <span class="nf">select_previous_element</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># unselect current</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span><span class="p">]</span><span class="o">.</span><span class="n">is_selected</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span><span class="p">]</span><span class="o">.</span><span class="n">is_selected</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="n">starting_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span>
 
-        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">)):</span>
 
             <span class="c1"># increment position</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span> <span class="o">-=</span> <span class="mi">1</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
 
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span><span class="p">]</span><span class="o">.</span><span class="n">is_selectable</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span><span class="p">]</span><span class="o">.</span><span class="n">is_selectable</span><span class="p">:</span>
                 <span class="c1"># select</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span><span class="p">]</span><span class="o">.</span><span class="n">is_selected</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span><span class="p">]</span><span class="o">.</span><span class="n">is_selected</span> <span class="o">=</span> <span class="kc">True</span>
 
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span> <span class="o">==</span> <span class="n">starting_index</span><span class="p">:</span>
                     <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Panel: Looped all the way back to the starting index. No others selectable."</span><span class="p">)</span>

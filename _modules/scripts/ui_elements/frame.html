@@ -273,6 +273,8 @@
 <span class="kn">import</span> <span class="nn">pygame</span>
 <span class="kn">from</span> <span class="nn">pygame</span> <span class="kn">import</span> <span class="n">SRCALPHA</span>
 
+<span class="kn">from</span> <span class="nn">scripts.core.base_classes.animation</span> <span class="kn">import</span> <span class="n">Animation</span>
+<span class="kn">from</span> <span class="nn">scripts.core.base_classes.image</span> <span class="kn">import</span> <span class="n">Image</span>
 <span class="kn">from</span> <span class="nn">scripts.core.base_classes.ui_element</span> <span class="kn">import</span> <span class="n">UIElement</span>
 <span class="kn">from</span> <span class="nn">scripts.core.constants</span> <span class="kn">import</span> <span class="n">DEFAULT_IMAGE_SIZE</span><span class="p">,</span> <span class="n">GAP_SIZE</span>
 <span class="kn">from</span> <span class="nn">scripts.core.utility</span> <span class="kn">import</span> <span class="n">clamp</span>
@@ -295,13 +297,15 @@
         <span class="n">is_selectable</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">max_width</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">max_height</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">new_image</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Image</span><span class="p">,</span> <span class="n">Animation</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">is_selectable</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">pygame</span><span class="o">.</span><span class="n">surface</span><span class="p">]</span> <span class="o">=</span> <span class="n">image</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Font</span><span class="p">,</span> <span class="n">FancyFont</span><span class="p">]]</span> <span class="o">=</span> <span class="n">font</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">max_width</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">max_width</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">max_height</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">max_height</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_new_image</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Image</span><span class="p">,</span> <span class="n">Animation</span><span class="p">]]</span> <span class="o">=</span> <span class="n">new_image</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_image</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">pygame</span><span class="o">.</span><span class="n">surface</span><span class="p">]</span> <span class="o">=</span> <span class="n">image</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_font</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Font</span><span class="p">,</span> <span class="n">FancyFont</span><span class="p">]]</span> <span class="o">=</span> <span class="n">font</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_max_width</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">max_width</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_max_height</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">max_height</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_override_font_attrs</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_recalculate_size</span><span class="p">()</span>
@@ -313,21 +317,38 @@
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_active</span><span class="p">:</span>
             <span class="c1"># FancyFont changes each frame so needs redrawing</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="p">,</span> <span class="n">FancyFont</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span></div>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_font</span><span class="p">,</span> <span class="n">FancyFont</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_font</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span></div>
+
+            <span class="c1"># N.B. Animation is updates centrally so doesnt need to be updated here</span>
 
 <div class="viewcode-block" id="Frame.draw"><a class="viewcode-back" href="../../../scripts.ui_elements.html#scripts.ui_elements.frame.Frame.draw">[docs]</a>    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>
 
+        <span class="n">is_dirty</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">redraw_font</span> <span class="o">=</span> <span class="kc">False</span>
+
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_active</span><span class="p">:</span>
             <span class="c1"># FancyFont changes each frame so needs redrawing</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="p">,</span> <span class="n">FancyFont</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_font</span><span class="p">,</span> <span class="n">FancyFont</span><span class="p">):</span>
+                <span class="n">is_dirty</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">redraw_font</span> <span class="o">=</span> <span class="kc">True</span>
+
+            <span class="c1"># Animation changes each frame</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_new_image</span><span class="p">,</span> <span class="n">Animation</span><span class="p">):</span>
+                <span class="n">is_dirty</span> <span class="o">=</span> <span class="kc">True</span>
+
+            <span class="c1"># rebuild surface first</span>
+            <span class="k">if</span> <span class="n">is_dirty</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_rebuild_surface</span><span class="p">()</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">surface</span><span class="p">)</span></div>
+
+            <span class="k">if</span> <span class="n">redraw_font</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_font</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">surface</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_recalculate_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span>
-        <span class="n">font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">font</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_image</span>
+        <span class="n">font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_font</span>
+        <span class="n">new_image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new_image</span>
 
         <span class="n">width</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">height</span> <span class="o">=</span> <span class="mi">0</span>
@@ -335,6 +356,10 @@
         <span class="k">if</span> <span class="n">image</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">width</span> <span class="o">+=</span> <span class="n">image</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span>
             <span class="n">height</span> <span class="o">+=</span> <span class="n">image</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">new_image</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">width</span> <span class="o">+=</span> <span class="n">new_image</span><span class="o">.</span><span class="n">width</span>
+            <span class="n">height</span> <span class="o">+=</span> <span class="n">new_image</span><span class="o">.</span><span class="n">height</span>
 
         <span class="k">if</span> <span class="n">font</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">width</span> <span class="o">+=</span> <span class="n">font</span><span class="o">.</span><span class="n">width</span> <span class="o">+</span> <span class="n">GAP_SIZE</span>
@@ -347,12 +372,12 @@
                 <span class="n">height</span> <span class="o">+=</span> <span class="n">font</span><span class="o">.</span><span class="n">height</span>
 
         <span class="c1"># respect max height</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_height</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">height</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">height</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_height</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_height</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">height</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">height</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_height</span><span class="p">)</span>
 
         <span class="c1"># respect max width</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_width</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">width</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_width</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_width</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">width</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_width</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
 
@@ -360,16 +385,20 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">surface</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">SRCALPHA</span><span class="p">)</span>
 
         <span class="n">surface</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">surface</span>
-        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span>
-        <span class="n">font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">font</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_image</span>
+        <span class="n">font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_font</span>
+        <span class="n">new_image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new_image</span>
 
         <span class="c1"># draw image</span>
-        <span class="k">if</span> <span class="n">image</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">image</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
 
+        <span class="k">if</span> <span class="n">new_image</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">new_image</span><span class="o">.</span><span class="n">surface</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
         <span class="c1"># draw text</span>
-        <span class="k">if</span> <span class="n">font</span><span class="p">:</span>
-            <span class="c1"># Font can be drawn once (FancyFont needs constant redrawing)</span>
+        <span class="k">if</span> <span class="n">font</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Font can be drawn once (FancyFont needs constant redrawing so is handled in the draw method)</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">font</span><span class="p">,</span> <span class="n">Font</span><span class="p">):</span>
                 <span class="n">font</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>
 
@@ -377,8 +406,8 @@
         <span class="sd">"""</span>
 <span class="sd">        Force the font to use the frame's pos and max sizes.</span>
 <span class="sd">        """</span>
-        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span>
-        <span class="n">font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">font</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_image</span>
+        <span class="n">font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_font</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">font</span><span class="p">:</span>
             <span class="k">return</span>
@@ -396,8 +425,8 @@
         <span class="n">font</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 
         <span class="c1"># update font size</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_width</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">new_line_width</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_width</span> <span class="o">-</span> <span class="n">image_width</span><span class="p">,</span> <span class="n">font</span><span class="o">.</span><span class="n">line_width</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_width</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">new_line_width</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_max_width</span> <span class="o">-</span> <span class="n">image_width</span><span class="p">,</span> <span class="n">font</span><span class="o">.</span><span class="n">line_width</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_recalculate_size</span><span class="p">()</span>
             <span class="n">new_line_width</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">-</span> <span class="n">image_width</span><span class="p">,</span> <span class="n">font</span><span class="o">.</span><span class="n">line_width</span><span class="p">)</span>
@@ -412,7 +441,7 @@
         <span class="sd">"""</span>
 <span class="sd">        Update the font text.</span>
 <span class="sd">        """</span>
-        <span class="n">font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">font</span>
+        <span class="n">font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_font</span>
 
         <span class="n">text</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
 
@@ -440,12 +469,40 @@
         <span class="n">tier</span> <span class="o">=</span> <span class="n">clamp</span><span class="p">(</span><span class="n">tier</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
 
         <span class="c1"># create background and blit image onto it</span>
-        <span class="n">bg</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">get_size</span><span class="p">())</span>
+        <span class="n">bg</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_image</span><span class="o">.</span><span class="n">get_size</span><span class="p">())</span>
         <span class="n">bg</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">tier_colours</span><span class="p">[</span><span class="n">tier</span><span class="p">])</span>
-        <span class="n">bg</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">bg</span>
+        <span class="n">bg</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_image</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_image</span> <span class="o">=</span> <span class="n">bg</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_rebuild_surface</span><span class="p">()</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_rebuild_surface</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Frame.pause_animation"><a class="viewcode-back" href="../../../scripts.ui_elements.html#scripts.ui_elements.frame.Frame.pause_animation">[docs]</a>    <span class="k">def</span> <span class="nf">pause_animation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Pause the animation, if there is one</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_new_image</span><span class="p">,</span> <span class="n">Animation</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_new_image</span><span class="o">.</span><span class="n">pause</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Frame.play_animation"><a class="viewcode-back" href="../../../scripts.ui_elements.html#scripts.ui_elements.frame.Frame.play_animation">[docs]</a>    <span class="k">def</span> <span class="nf">play_animation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Play the animation, if there is one</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_new_image</span><span class="p">,</span> <span class="n">Animation</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_new_image</span><span class="o">.</span><span class="n">play</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Frame.reset_animation"><a class="viewcode-back" href="../../../scripts.ui_elements.html#scripts.ui_elements.frame.Frame.reset_animation">[docs]</a>    <span class="k">def</span> <span class="nf">reset_animation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Reset the animation, if there is one</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_new_image</span><span class="p">,</span> <span class="n">Animation</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_new_image</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Frame.stop_animation"><a class="viewcode-back" href="../../../scripts.ui_elements.html#scripts.ui_elements.frame.Frame.stop_animation">[docs]</a>    <span class="k">def</span> <span class="nf">stop_animation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Stop the animation, if there is one</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_new_image</span><span class="p">,</span> <span class="n">Animation</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_new_image</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span></div></div>
 </pre></div>
 
           </article>

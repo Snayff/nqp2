@@ -283,6 +283,7 @@
 <span class="kn">from</span> <span class="nn">scripts.core.memory</span> <span class="kn">import</span> <span class="n">Memory</span>
 <span class="kn">from</span> <span class="nn">scripts.core.rng</span> <span class="kn">import</span> <span class="n">RNG</span>
 <span class="kn">from</span> <span class="nn">scripts.core.sounds</span> <span class="kn">import</span> <span class="n">Sounds</span>
+<span class="kn">from</span> <span class="nn">scripts.core.visuals</span> <span class="kn">import</span> <span class="n">Visuals</span>
 <span class="kn">from</span> <span class="nn">scripts.core.window</span> <span class="kn">import</span> <span class="n">Window</span>
 <span class="kn">from</span> <span class="nn">scripts.scenes.event.scene</span> <span class="kn">import</span> <span class="n">EventScene</span>
 <span class="kn">from</span> <span class="nn">scripts.scenes.gallery.scene</span> <span class="kn">import</span> <span class="n">GalleryScene</span>
@@ -323,6 +324,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="p">:</span> <span class="n">Input</span> <span class="o">=</span> <span class="n">Input</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rng</span><span class="p">:</span> <span class="n">RNG</span> <span class="o">=</span> <span class="n">RNG</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sounds</span><span class="p">:</span> <span class="n">Sounds</span> <span class="o">=</span> <span class="n">Sounds</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">visuals</span><span class="p">:</span> <span class="n">Visuals</span> <span class="o">=</span> <span class="n">Visuals</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
         <span class="c1"># scenes</span>
         <span class="c1"># TODO - should these be private?</span>
@@ -356,22 +358,27 @@
         <span class="c1"># update delta time first</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
         <span class="n">delta_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">delta_time</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">master_clock</span> <span class="o">+=</span> <span class="n">delta_time</span>  <span class="c1"># TODO - is this needed?</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">master_clock</span> <span class="o">+=</span> <span class="n">delta_time</span>
-
+        <span class="c1"># update input</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span>
+        <span class="c1"># global handling of input to show debug info</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"tab"</span><span class="p">]:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="o">.</span><span class="n">toggle_debug_info</span><span class="p">()</span>
 
+        <span class="c1"># update internal assets</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sounds</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">visuals</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span>
 
+        <span class="c1"># update image ui</span>
         <span class="k">for</span> <span class="n">scene</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene_stack</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">scene</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">is_active</span><span class="p">:</span>
                 <span class="n">scene</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span>
 
+        <span class="c1"># update debug last</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_render</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_draw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># always refresh first</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 
@@ -385,7 +392,7 @@
 <div class="viewcode-block" id="Game.run"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.game.Game.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_process_input</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_render</span><span class="p">()</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_draw</span><span class="p">()</span></div>
 
     <span class="k">def</span> <span class="nf">_process_input</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">delta_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">delta_time</span>
