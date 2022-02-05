@@ -16,7 +16,7 @@ class Image(pygame.sprite.Sprite):
     Class to hold visual information for static images
     """
 
-    def __init__(self, *args: pygame.sprite.Group, image: pygame.Surface, pos: Tuple[int, int]):
+    def __init__(self, *args: pygame.sprite.Group, image: pygame.Surface, pos: Tuple[int, int] = (-1, -1)):
         super().__init__(*args)
 
         self._image: pygame.Surface = image
@@ -24,8 +24,11 @@ class Image(pygame.sprite.Sprite):
 
     def draw(self, surface: pygame.Surface):
         """
-        Draw the Image to the given surface
+        Draw the Image to the given surface. If image pos == (-1, -1) does nothing.
         """
+        if self.pos == (-1, -1):
+            return
+
         surface.blit(self._image, self._pos)
 
     def set_pos(self, pos: Tuple[int, int]):

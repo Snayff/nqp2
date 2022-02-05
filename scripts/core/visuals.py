@@ -35,10 +35,11 @@ class Visuals:
         self._game: Game = game
 
         self._image_folders: List[str] = ["rooms", "stats", "ui", "buttons"]
-        self._animation_folders: List[str] = []
+        self._animation_folders: List[str] = ["bosses", "commanders", "units"]
 
         self._images: Dict[str, Dict[str, Image]] = {}  # folder_name: name, Image
-        self._animations: Dict[str, Dict[str, Animation]] = {}  # folder_name: name, Animation
+        self._animation_frames: Dict[str, List[Image]] = self._load_animation_frames()  # folder_name: name,
+        # [frames]
         self._fonts: Dict[FontType, Tuple[str, Tuple[int, int, int]]] = self._load_fonts()  # FontType: path, colour
 
         self._active_animations: List[Animation] = []
@@ -108,14 +109,51 @@ class Visuals:
 
         return images
 
-    def _load_animations(self) -> Dict[str, Dict[str, Animation]]:
+    def _load_animation_frames(self) -> Dict[str, List[Image]]:
         """
-        Load all images by folder.
+        Load all animation frames by folder.
         """
-        images = {}
-        folders = self._image_folders
+        animation_frames = {}
+        folders = self._animation_folders
 
         # TODO - Animations should be held in a dict with the top level folder as the key and then the name of each
         #  sub folder as a joined string for the animation name, to use as the nested key. The images in the final
         #  folder should be loaded into the Animation
         #  e.g. {bosses: {test_boss_move: <Animation>}} from /bosses/test_boss/move/*.png
+
+
+        for folder in folders:
+            path = ASSET_PATH / folder
+
+            directory_contents = os.listdir(path)
+            for anim_folder_name in directory_contents:
+
+                # we expect a sub folder for the item e.g. bosses/test_boss
+                anim_path = path / anim_folder_name
+                if os.path.isdir(anim_path):
+
+                    # ...and then sub folders for each set of frames, e.g. bosses/test_boss/move
+                    frame_folders = os.listdir(anim_path)
+                    for frame_folder_name in frame_folders:
+                        frame_folder_path = anim_path / frame_folder_name
+                        if os.path.isdir(frame_folder_path):
+
+                            # load the frames
+                            animation_frames_folder = os.listdir(frame_folder_path)
+                            for frame_name in animation_frames_folder:
+                                if frame_name.split(".")[-1] == "png":
+                                    frame_path = path / anim_folder_name / frame_folder_name / frame_name
+                                    image = pygame.image.load(str(frame_path)).convert_alpha()
+                                    image_ = Image(image=image)
+
+                                    # record the frame
+                                    try:
+                                        animation_frames[anim_folder_name + "_" + frame_folder_name].append(image_)
+                                    except KeyError:
+                                        animation_frames[anim_folder_name + "_" + frame_folder_name] = [image_]
+
+
+        return animation_frames
+
+
+
