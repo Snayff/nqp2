@@ -15,6 +15,7 @@ from scripts.core.input import Input
 from scripts.core.memory import Memory
 from scripts.core.rng import RNG
 from scripts.core.sounds import Sounds
+from scripts.core.visuals import Visuals
 from scripts.core.window import Window
 from scripts.scenes.event.scene import EventScene
 from scripts.scenes.gallery.scene import GalleryScene
@@ -55,6 +56,7 @@ class Game:
         self.input: Input = Input(self)
         self.rng: RNG = RNG(self)
         self.sounds: Sounds = Sounds(self)
+        self.visuals: Visuals = Visuals(self)
 
         # scenes
         # TODO - should these be private?
@@ -88,22 +90,27 @@ class Game:
         # update delta time first
         self.window.update()
         delta_time = self.window.delta_time
+        self.master_clock += delta_time  # TODO - is this needed?
 
-        self.master_clock += delta_time
-
+        # update input
         self.input.update(delta_time)
+        # global handling of input to show debug info
         if self.input.states["tab"]:
             self.debug.toggle_debug_info()
 
+        # update internal assets
         self.sounds.update(delta_time)
+        self.visuals.update(delta_time)
 
+        # update image ui
         for scene in self.scene_stack:
             if scene.ui.is_active:
                 scene.update(delta_time)
 
+        # update debug last
         self.debug.update(delta_time)
 
-    def _render(self):
+    def _draw(self):
         # always refresh first
         self.window.refresh()
 
@@ -117,7 +124,7 @@ class Game:
     def run(self):
         self._update()
         self._process_input()
-        self._render()
+        self._draw()
 
     def _process_input(self):
         delta_time = self.window.delta_time

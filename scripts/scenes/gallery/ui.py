@@ -28,6 +28,7 @@ class GalleryUI(UI):
     """
 
     def __init__(self, game: Game, parent_scene: GalleryScene):
+        # TODO - this is long out of date and no longer works. Fix !
         super().__init__(game, True)
         self._parent_scene: GalleryScene = parent_scene
 

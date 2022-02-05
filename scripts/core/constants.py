@@ -67,6 +67,12 @@ class EventState(IntEnum):
     RESULT = auto()
 
 
+class AnimationState(IntEnum):
+    PLAYING = auto()
+    PAUSED = auto()
+    FINISHED = auto()
+
+
 class SceneType(IntEnum):
     POST_COMBAT = auto()
     EVENT = auto()
