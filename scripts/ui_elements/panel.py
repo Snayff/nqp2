@@ -28,8 +28,8 @@ class Panel:
         for element in self._elements:
             element.update(delta_time)
 
-    def draw(self, surface: pygame.surface):
-        for element in self._elements:
+    def draw(self, surface: pygame.Surface):
+        for element in self.elements:
             element.draw(surface)
 
     @property

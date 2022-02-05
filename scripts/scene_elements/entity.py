@@ -4,7 +4,9 @@ from typing import TYPE_CHECKING
 
 import pygame
 
+from scripts.core import PointLike
 from scripts.core.constants import DEFENSE_SCALE, PUSH_FORCE, WEIGHT_SCALE
+from scripts.core.game import Game
 from scripts.core.utility import offset
 
 if TYPE_CHECKING:
@@ -18,7 +20,7 @@ class Entity:
         injury_deduction = 1 - 0.1 * parent_unit.injuries
 
         self._parent_unit: Unit = parent_unit
-        self._game = self._parent_unit._game
+        self._game: Game = self._parent_unit._game
 
         self.pos = self._parent_unit.pos.copy()
         self.team = self._parent_unit.team
@@ -61,32 +63,37 @@ class Entity:
         # temp
         self.colour = self._parent_unit.colour
 
-    def move(self, movement):
+    def move(self, movement: PointLike):
         """
         Splits the movement operation into smaller amounts to prevent issues with high speed movement.
         Calls the move sub-process anywhere from one to several times depending on the speed.
         """
         # TODO - remove reliance on Scenes
-        move_count = int(abs(movement[0]) // self._game.world.ui.terrain.tile_size + 1)
-        move_count = max(int(abs(movement[1]) // self._game.world.ui.terrain.tile_size + 1), move_count)
+        tile_size = self._game.world.model.tile_size
+        move_count = int(abs(movement[0]) // tile_size + 1)
+        move_count = max(int(abs(movement[1]) // tile_size + 1), move_count)
         move_amount = [movement[0] / move_count, movement[1] / move_count]
         for i in range(move_count):
             self.sub_move(move_amount)
 
-    def sub_move(self, movement):
+    def sub_move(self, movement: PointLike):
+        # TODO - remove reliance on Scenes
+        check_tile_solid = self._game.world.model.terrain.check_tile_solid
+        tile_rect_px = self._game.world.model.terrain.tile_rect_px
+
         self.pos[0] += movement[0]
-        if self._game.world.ui.terrain.check_tile_solid(self.pos):
+        if check_tile_solid(self.pos):
             if movement[0] > 0:
-                self.pos[0] = self._game.world.ui.terrain.tile_rect_px(self.pos).left - 1
+                self.pos[0] = tile_rect_px(self.pos).left - 1
             if movement[0] < 0:
-                self.pos[0] = self._game.world.ui.terrain.tile_rect_px(self.pos).right + 1
+                self.pos[0] = tile_rect_px(self.pos).right + 1
 
         self.pos[1] += movement[1]
-        if self._game.world.ui.terrain.check_tile_solid(self.pos):
+        if check_tile_solid(self.pos):
             if movement[1] > 0:
-                self.pos[1] = self._game.world.ui.terrain.tile_rect_px(self.pos).top - 1
+                self.pos[1] = tile_rect_px(self.pos).top - 1
             if movement[1] < 0:
-                self.pos[1] = self._game.world.ui.terrain.tile_rect_px(self.pos).bottom + 1
+                self.pos[1] = tile_rect_px(self.pos).bottom + 1
 
     def dis(self, entity):
         """
@@ -109,6 +116,7 @@ class Entity:
 
     def deal_damage(self, amount, owner=None):
         # TODO - remove reliance on Scenes
+        create_particle_burst = self._game.world.model.particles.create_particle_burst
 
         # prevent damage if in godmode
         dmg_amt = 0
@@ -128,14 +136,16 @@ class Entity:
                 self.action = "hit"
                 self.frame_timer = 0
 
-            self._game.world.particles.create_particle_burst(self.pos.copy(), (255, 50, 100), random.randint(10, 16))
+            create_particle_burst(self.pos.copy(), (255, 50, 100), random.randint(10, 16))
 
             self.damaged_by_log = (self.damaged_by_log + [owner])[-30:]
 
-        return (self.alive, dmg_amt)
+        return self.alive, dmg_amt
 
     def attempt_attack(self, entity):
         # TODO - remove reliance on Scenes
+        add_projectile = self._game.world.model.projectiles.add_projectile
+
         if (not self.use_ammo) or (self.ammo > 0):
             if self.dis(entity) - (entity.size + self.size) < self.range:
                 self.is_attacking = True
@@ -150,7 +160,7 @@ class Entity:
 
                 if self.use_ammo:
                     self.ammo -= 1
-                    self._game.world.projectiles.add_projectile(self, entity)
+                    add_projectile(self, entity)
                     if self.ammo <= 0:
                         # switch to melee when out of ammo
                         self.use_ammo = False

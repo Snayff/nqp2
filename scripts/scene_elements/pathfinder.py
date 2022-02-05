@@ -7,7 +7,10 @@ class Pathfinder:
         self.terrain = terrain
 
     def set_map(self, map_data):
-        self.tcod_map = tcod.path.AStar(map_data, diagonal=0)
+        import numpy as np
+
+        m = np.asarray(map_data, dtype=np.dtype(np.int16))
+        self.tcod_map = tcod.path.AStar(m, diagonal=0)
 
     def route(self, start, end):
         if self.tcod_map:

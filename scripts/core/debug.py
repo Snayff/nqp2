@@ -22,7 +22,7 @@ if TYPE_CHECKING:
 
     from scripts.core.game import Game
 
-__all__ = ["Debugger"]
+__all__ = ["Debugger", "Timer"]
 
 
 class Debugger:
@@ -91,7 +91,7 @@ class Debugger:
         if self._show_debug_info:
             self._refresh_debug_info()
 
-    def draw(self, surface: pygame.surface):
+    def draw(self, surface: pygame.Surface):
         """
         Draw debug info
         """
@@ -303,3 +303,26 @@ class Debugger:
         current_y = start_y + 10
         text = f"Game speed:{self._game.memory.game_speed} ; WorldState: {self._game.world.state.name}"
         self._fonts.append(self._game.assets.create_font(FontType.DEFAULT, text, (start_x, current_y)))
+
+
+class Timer:
+    """
+    Context manager to document program time
+
+    """
+
+    def __init__(self, label=None):
+        self.label = label
+        self.start = None
+        self.duration = None
+
+    def __enter__(self):
+        self.start = time.perf_counter()
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.duration = time.perf_counter() - self.start
+        if self.label:
+            logging.debug("%s took %.2f seconds", self.label, self.duration)
+        else:
+            logging.debug("took %.2f seconds", self.duration)
