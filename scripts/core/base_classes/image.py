@@ -49,3 +49,11 @@ class Image(pygame.sprite.Sprite):
     @property
     def image(self) -> pygame.Surface:
         return self._image
+
+    @property
+    def width(self) -> int:
+        return self.rect.width
+
+    @property
+    def height(self) -> int:
+        return self.rect.height

@@ -250,9 +250,9 @@ class FancyFont:
 
     @staticmethod
     def _create_fonts() -> List[Font]:
-        default_font = Font(str(ASSET_PATH / "_fonts/small_font.png"), (255, 255, 255), "")
-        big_font = Font(str(ASSET_PATH / "_fonts/large_font.png"), (255, 255, 255), "")
-        red_font = Font(str(ASSET_PATH / "_fonts/small_font.png"), (255, 0, 0), "")
+        default_font = Font(str(ASSET_PATH / "fonts/small_font.png"), (255, 255, 255), "")
+        big_font = Font(str(ASSET_PATH / "fonts/large_font.png"), (255, 255, 255), "")
+        red_font = Font(str(ASSET_PATH / "fonts/small_font.png"), (255, 0, 0), "")
 
         fonts = [default_font, big_font, red_font]
         return fonts

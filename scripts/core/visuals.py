@@ -37,9 +37,9 @@ class Visuals:
         self._image_folders: List[str] = ["rooms", "stats", "ui", "buttons"]
         self._animation_folders: List[str] = ["bosses", "commanders", "units"]
 
-        self._images: Dict[str, Dict[str, Image]] = {}  # folder_name: name, Image
-        self._animation_frames: Dict[str, List[Image]] = self._load_animation_frames()  # folder_name: name,
-        # [frames]
+        self._images: Dict[str, pygame.Surface] = {}  # image_name: surface
+        self._animation_frames: Dict[str, List[Image]] = self._load_animation_frames()
+        # folder_name + "_" +  frame_name, [animation_frames]
         self._fonts: Dict[FontType, Tuple[str, Tuple[int, int, int]]] = self._load_fonts()  # FontType: path, colour
 
         self._active_animations: List[Animation] = []
@@ -70,58 +70,51 @@ class Visuals:
             FontType.NOTIFICATION: (str(ASSET_PATH / "fonts/large_font.png"), (117, 50, 168)),
         }
 
-    def _load_images(self) -> Dict[str, Dict[str, Image]]:
+    def _load_images(self) -> Dict[str, Dict[str, pygame.Surface]]:
         """
-        Load all images by folder.
+        Load all images specified in self._image_folders
         """
         images = {}
         folders = self._image_folders
 
-        # TODO - Images should be held in a dict with the top level folder as the key and then the image name as the
-        #  nested key. e.g. {actions: {fireball: <Image>}} from /actions/fireball.png
-
         for folder in folders:
             path = ASSET_PATH / folder
-            images[folder] = {}
             for image_name in os.listdir(path):
                 if image_name.split(".")[-1] == "png":
 
-                    # avoid duplicates
+                    # warn about duplicates
                     if image_name in images[folder].keys():
                         logging.warning(f"{image_name} already loaded, non-unique file name.")
 
+                    # load image
                     image = pygame.image.load(str(path / image_name)).convert_alpha()
-                    width = image.get_width()
-                    height = image.get_height()
-                    images[folder][f"{image_name.split('.')[0]}@{width}x{height}"] = image  # split to remove extension
 
-        # add not found image to debug
-        images["debug"] = {}
+                    # store image
+                    width = image.width
+                    height = image.height
+                    images[f"{image_name.split('.')[0]}@{width}x{height}"] = image  # split to remove extension
+
+        # add not found image
         image = pygame.image.load(str(ASSET_PATH / "debug/image_not_found.png")).convert_alpha()
         width = image.get_width()
         height = image.get_height()
-        images["debug"][f"not_found@{width}x{height}"] = image
+        images[f"not_found@{width}x{height}"] = image
 
-        # add transparent surface to debug
+        # add transparent surface
         image = pygame.Surface((DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE))
         image.set_alpha(0)
-        images["debug"][f"blank@{DEFAULT_IMAGE_SIZE}x{DEFAULT_IMAGE_SIZE}"] = image
+        images[f"blank@{DEFAULT_IMAGE_SIZE}x{DEFAULT_IMAGE_SIZE}"] = image
 
         return images
 
     def _load_animation_frames(self) -> Dict[str, List[Image]]:
         """
-        Load all animation frames by folder.
+        Load all animation frames specified in self._animation_folders
         """
         animation_frames = {}
         folders = self._animation_folders
 
-        # TODO - Animations should be held in a dict with the top level folder as the key and then the name of each
-        #  sub folder as a joined string for the animation name, to use as the nested key. The images in the final
-        #  folder should be loaded into the Animation
-        #  e.g. {bosses: {test_boss_move: <Animation>}} from /bosses/test_boss/move/*.png
-
-
+        # loop all specified folders
         for folder in folders:
             path = ASSET_PATH / folder
 
@@ -142,6 +135,12 @@ class Visuals:
                             animation_frames_folder = os.listdir(frame_folder_path)
                             for frame_name in animation_frames_folder:
                                 if frame_name.split(".")[-1] == "png":
+
+                                    # warn about duplicates
+                                    if frame_name in animation_frames.keys():
+                                        logging.warning(f"Animation [{frame_name}] already loaded; non-unique file "
+                                                        f"name.")
+
                                     frame_path = path / anim_folder_name / frame_folder_name / frame_name
                                     image = pygame.image.load(str(frame_path)).convert_alpha()
                                     image_ = Image(image=image)
@@ -152,8 +151,75 @@ class Visuals:
                                     except KeyError:
                                         animation_frames[anim_folder_name + "_" + frame_folder_name] = [image_]
 
-
         return animation_frames
 
+    def create_animation(self, animation_name: str, frame_name: str, pos: Tuple[int, int],
+            loop: bool = True) -> Animation:
+        """
+        Create a new animation and add it to the internal update list.
+        """
+        frames = self._animation_frames[animation_name + "_" + frame_name]
+        anim = Animation(frames, pos, loop=loop)
+        self._active_animations.append(anim)
+        return anim
+
+    def get_image(self,
+            image_name: str,
+            pos: Tuple[int, int],
+            size: Tuple[int, int] = (DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE),
+            copy: bool = False) -> Image:
+        """
+        Get an image from the library.
+        If a size is specified and it differs to the size held then the image is resized before returning.
+        If copy = True then a copy of the image held in the library is provided. Remember to use a copy if you want
+        to amend the image, otherwise the copy in the library is amended.
+
+        A transparent surface is available with the name "blank".
+        """
+
+        # normalise size
+        desired_width, desired_height = size
+
+        # ensure numbers arent negative
+        if desired_width <= 0 or desired_height <= 0:
+            logging.warning(
+                f"Get_image: Tried to use dimensions of {size}, which are negative. Default size "
+                f"used instead."
+            )
+            size = (DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE)
+
+        internal_name = f"{image_name}@{desired_width}x{desired_height}"
+
+        # check if exists already
+        try:
+            image = self._images[internal_name]
+
+        except KeyError:
+            image = None
+            for held_image_name in self._images.keys():
+                if image_name in held_image_name:
+                    image = held_image_name
+                    break
+
+            # if no image found replace with not found
+            if image is None:
+                logging.warning(f"Image requested [{image_name}] not found.")
+                image_ = self.get_image("not_found")
+                image = image_.image
+            else:
+                # resize and store resized image
+                assert isinstance(image, pygame.Surface)
+                image = pygame.transform.smoothscale(image.copy(), size)
+
+                self._images[f"not_found@{desired_width}x{desired_height}"] = image
+
+
+        # return a copy if requested
+        if copy:
+            final_image = Image(image=image.copy(), pos=pos)
+        else:
+            final_image = Image(image=image, pos=pos)
+
+        return final_image
 
 

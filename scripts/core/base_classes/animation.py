@@ -19,7 +19,7 @@ class Animation:
     Class to hold visual information for a series of images
     """
 
-    def __init__(self, frames: List[Image], frame_duration: float, pos: Tuple[int, int], loop: bool = True):
+    def __init__(self, frames: List[Image], pos: Tuple[int, int], frame_duration: float = 0.3, loop: bool = True):
         self._frames: List[Image] = frames
         self._frame_duration: float = max(frame_duration, 0.1)  # must be greater than 1
         self._pos: Tuple[int, int] = pos
