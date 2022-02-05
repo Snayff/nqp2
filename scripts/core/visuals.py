@@ -154,9 +154,7 @@ class Visuals:
 
         return animation_frames
 
-    def create_animation(
-        self, animation_name: str, frame_name: str, loop: bool = True
-    ) -> Animation:
+    def create_animation(self, animation_name: str, frame_name: str, loop: bool = True) -> Animation:
         """
         Create a new animation and add it to the internal update list.
         """

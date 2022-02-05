@@ -48,7 +48,6 @@ class Animation:
         # update frame
         self._current_frame = int(self._duration / self._frame_duration * self._num_frames) % self._num_frames
 
-
     def play(self):
         """
         Resume the animation

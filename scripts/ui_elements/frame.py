@@ -77,7 +77,6 @@ class Frame(UIElement):
             if redraw_font:
                 self._font.draw(self.surface)
 
-
     def _recalculate_size(self):
         image = self._image
         font = self._font
