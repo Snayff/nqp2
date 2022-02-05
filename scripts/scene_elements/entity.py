@@ -4,7 +4,9 @@ from typing import TYPE_CHECKING
 
 import pygame
 
+from scripts.core import PointLike
 from scripts.core.constants import DEFENSE_SCALE, PUSH_FORCE, WEIGHT_SCALE
+from scripts.core.game import Game
 from scripts.core.utility import offset
 
 if TYPE_CHECKING:
@@ -18,7 +20,7 @@ class Entity:
         injury_deduction = 1 - 0.1 * parent_unit.injuries
 
         self._parent_unit: Unit = parent_unit
-        self._game = self._parent_unit._game
+        self._game: Game = self._parent_unit._game
 
         self.pos = self._parent_unit.pos.copy()
         self.team = self._parent_unit.team
@@ -61,7 +63,7 @@ class Entity:
         # temp
         self.colour = self._parent_unit.colour
 
-    def move(self, movement):
+    def move(self, movement: PointLike):
         """
         Splits the movement operation into smaller amounts to prevent issues with high speed movement.
         Calls the move sub-process anywhere from one to several times depending on the speed.
@@ -74,7 +76,7 @@ class Entity:
         for i in range(move_count):
             self.sub_move(move_amount)
 
-    def sub_move(self, movement):
+    def sub_move(self, movement: PointLike):
         # TODO - remove reliance on Scenes
         check_tile_solid = self._game.world.model.terrain.check_tile_solid
         tile_rect_px = self._game.world.model.terrain.tile_rect_px

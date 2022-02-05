@@ -22,15 +22,17 @@ class WorldModel:
     * No drawing should be done here
     * Include common operations for game world state
 
-    The model is list a chess set.  Something else (a controller)
+    The model is like a chess set.  Something else (a controller)
     needs to query the state and *ask* the model to make changes.
 
     The model should be unaware of what combat is, and instead should
     offer an API that combat, or anything else, can change the state
     of the model without actually being aware of how the model works.
 
-    """
+    NOTE: There is some overlap in responsibility with the "Memory",
+          and future work should clarify what each should handle.
 
+    """
     def __init__(self, game: Game):
         with Timer("WorldModel initialized"):
             self._game = game
@@ -44,6 +46,8 @@ class WorldModel:
             self.particles: ParticleManager = ParticleManager()
             self.terrain: Terrain = Terrain(self._game, "plains")
             self.terrain.generate()
+            self.next_terrain: Terrain = Terrain(self._game, "plains")
+            self.next_terrain.generate()
 
     @property
     def boundaries(self):
@@ -71,6 +75,15 @@ class WorldModel:
         self.particles = ParticleManager()
         self.projectiles = ProjectileManager(self._game)
         self.unit_grid = []
+
+    def swap_terrains(self):
+        """
+        Swap primary and next terrains
+
+        """
+        temp = self.terrain
+        self.terrain = self.next_terrain
+        self.next_terrain = temp
 
     def force_idle(self):
         self.align_unit_pos_to_unit_grid()

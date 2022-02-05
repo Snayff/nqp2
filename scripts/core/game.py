@@ -12,22 +12,11 @@ from scripts.core.constants import GameState, SceneType
 from scripts.core.data import Data
 from scripts.core.debug import Debugger
 from scripts.core.input import Input
-from scripts.core.memory import Memory
 from scripts.core.rng import RNG
 from scripts.core.window import Window
-from scripts.scenes.event.scene import EventScene
-from scripts.scenes.gallery.scene import GalleryScene
-from scripts.scenes.inn.scene import InnScene
-from scripts.scenes.main_menu.scene import MainMenuScene
-from scripts.scenes.post_combat.scene import PostCombatScene
-from scripts.scenes.run_setup.scene import RunSetupScene
-from scripts.scenes.training.scene import TrainingScene
-from scripts.scenes.unit_data.scene import UnitDataScene
-from scripts.scenes.view_troupe.scene import ViewTroupeScene
-from scripts.scenes.world.scene import WorldScene
 
 if TYPE_CHECKING:
-    from typing import Dict, List, Optional, Tuple, Union
+    from typing import List, Optional
 
 __all__ = ["Game"]
 
@@ -37,6 +26,20 @@ __all__ = ["Game"]
 
 class Game:
     def __init__(self):
+        # imports here to avoid circular references since their core and
+        # components require ``Game`` imports for typing.
+        from scripts.core.memory import Memory
+        from scripts.scenes.event.scene import EventScene
+        from scripts.scenes.gallery.scene import GalleryScene
+        from scripts.scenes.inn.scene import InnScene
+        from scripts.scenes.main_menu.scene import MainMenuScene
+        from scripts.scenes.post_combat.scene import PostCombatScene
+        from scripts.scenes.run_setup.scene import RunSetupScene
+        from scripts.scenes.training.scene import TrainingScene
+        from scripts.scenes.unit_data.scene import UnitDataScene
+        from scripts.scenes.view_troupe.scene import ViewTroupeScene
+        from scripts.scenes.world.scene import WorldScene
+
         # start timer
         start_time = time.time()
 

@@ -60,6 +60,7 @@ class WorldState(IntEnum):
     COMBAT = auto()
     DEFEAT = auto()
     COMBAT_VICTORY = auto()
+    MOVING_NEXT_ROOM = auto()
 
 
 class EventState(IntEnum):

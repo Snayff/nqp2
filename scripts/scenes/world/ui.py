@@ -50,24 +50,25 @@ class WorldUI(UI):
         # TODO  - replace when new room choice is in.
         if self._controller.state == WorldState.IDLE:
             if self._game.input.states["backspace"]:
-                self._controller.move_to_new_room()
+                self._controller.begin_move_to_new_room()
             if self._game.input.states["select"]:
                 self._controller.state = WorldState.COMBAT
                 for troupe in self._game.memory.troupes.values():
                     troupe.set_force_idle(False)
 
-        if self._game.input.states["up"]:
-            self._game.input.states["up"] = False
-            self._worldview.camera.move(y=-32)
-        if self._game.input.states["down"]:
-            self._game.input.states["down"] = False
-            self._worldview.camera.move(y=32)
-        if self._game.input.states["left"]:
-            self._game.input.states["left"] = False
-            self._worldview.camera.move(x=-32)
-        if self._game.input.states["right"]:
-            self._game.input.states["right"] = False
-            self._worldview.camera.move(x=32)
+        # manual camera control for debugging
+        # if self._game.input.states["up"]:
+        #     self._game.input.states["up"] = False
+        #     self._worldview.camera.move(y=-32)
+        # if self._game.input.states["down"]:
+        #     self._game.input.states["down"] = False
+        #     self._worldview.camera.move(y=32)
+        # if self._game.input.states["left"]:
+        #     self._game.input.states["left"] = False
+        #     self._worldview.camera.move(x=-32)
+        # if self._game.input.states["right"]:
+        #     self._game.input.states["right"] = False
+        #     self._worldview.camera.move(x=32)
 
         #############################################
 

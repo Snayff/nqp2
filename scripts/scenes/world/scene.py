@@ -24,7 +24,7 @@ class WorldScene(Scene):
     def __init__(self, game: Game):
         with Timer("WorldScene initialised"):
             super().__init__(game, SceneType.WORLD)
-            self.model = WorldModel(game)
+            self.model: WorldModel = WorldModel(game)
             self.controller = CombatController(game, self.model)
             self.ui: WorldUI = WorldUI(game, self.model, self.controller)
 

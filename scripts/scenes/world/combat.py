@@ -3,7 +3,7 @@ from __future__ import annotations
 import logging
 from typing import Any, Dict, List, TYPE_CHECKING
 
-from scripts.core.constants import SceneType, WorldState
+from scripts.core.constants import WorldState
 from scripts.core.debug import Timer
 from scripts.scene_elements.troupe import Troupe
 
@@ -33,8 +33,8 @@ class CombatController:
             self.last_unit_death: List = list()
 
             # state
-            self.combat_category = "basic"
-            self.enemy_troupe_id = -1
+            self.combat_category: str = "basic"
+            self.enemy_troupe_id: int = -1
             self.state: WorldState = WorldState.IDLE
 
     def update(self, delta_time: float):
@@ -76,6 +76,20 @@ class CombatController:
                 # TODO: decouple this
                 self._game.world.ui._worldview.camera.move_to_position(focus_point)
 
+        if self.state == WorldState.MOVING_NEXT_ROOM:
+            # move entities
+            for i in self._game.memory.get_all_entities():
+                i.move((5, 0))
+
+            # when entities are in next room, swap terrains and idle
+            if i.pos[0] >= 1000:
+                # TODO: decouple this
+                self._game.world.ui._worldview.clamp_primary_terrain = True
+                self._model.terrain.ignore_boundaries = False
+                self._model.next_terrain.ignore_boundaries = False
+                self._model.swap_terrains()
+                self.state = WorldState.IDLE
+
     def force_idle(self):
         self._model.align_unit_pos_to_unit_grid()
         for troupe in self._game.memory.troupes.values():
@@ -92,18 +106,24 @@ class CombatController:
         self._combat_ending_timer = -1
         self.enemy_troupe_id = -1
 
-    def move_to_new_room(self):
+    def begin_move_to_new_room(self):
         """
         Move Units to a new room
 
         """
-        return
+        if self.state == WorldState.IDLE:
+            self.state = WorldState.MOVING_NEXT_ROOM
 
-        # once new room ready but not active
-        if self._game.event.roll_for_event():
-            self.state = WorldState.IDLE
-            self._game.event.load_random_event()
-            self._game.activate_scene(SceneType.EVENT)
+            # allow camera to pan past terrain boundaries
+            # TODO: decouple this
+            self._game.world.ui._worldview.clamp_primary_terrain = False
+
+            # ignore walls
+            self._model.terrain.ignore_boundaries = True
+            self._model.next_terrain.ignore_boundaries = True
+
+        else:
+            raise Exception("bad state change")
 
     def generate_combat(self):
         """
@@ -111,11 +131,9 @@ class CombatController:
 
         """
         rng = self._game.rng
-
         combat = self._get_random_combat()
         logging.debug(f"{combat['type']} combat chosen.")
         num_units = len(combat["units"])
-
         enemy_troupe = Troupe(self._game, "enemy", [])
 
         # generate positions

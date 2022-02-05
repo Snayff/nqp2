@@ -46,7 +46,7 @@ class NextRoomUI(UI):
 
         if self._game.input.states["select"]:
             self._game.input.states["select"] = False
-            self._game.world.controller.move_to_new_room()
+            self._game.world.controller.begin_move_to_new_room()
             self._game.deactivate_scene(SceneType.NEXT_ROOM)
 
     def draw(self, surface: pygame.Surface):

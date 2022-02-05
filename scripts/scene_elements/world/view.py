@@ -29,18 +29,19 @@ class WorldView:
     user.
 
     """
-
     def __init__(self, game: Game, model: WorldModel):
         self._game = game
         self._model = model
         self.camera = Camera(game.window.base_resolution)
         self.debug_pathfinding: bool = False
+        self.clamp_primary_terrain: bool = True
 
     def update(self, delta_time: float):
         self._update_camera(delta_time)
 
     def draw(self, surface: pygame.Surface):
-        self.camera.clamp(self._model.boundaries)
+        if self.clamp_primary_terrain:
+            self.camera.clamp(self._model.boundaries)
 
         _surface = None
         if self.camera.zoom != 0.0:
@@ -50,6 +51,10 @@ class WorldView:
 
         offset = self.camera.render_offset()
         self._model.terrain.draw(surface, offset)
+        if not self.clamp_primary_terrain:
+            x = self._model.terrain.boundaries.width
+            next_offset = offset + (x, 0)
+            self._model.next_terrain.draw(surface, next_offset)
         self._draw_units(surface, offset)
         self._model.projectiles.draw(surface, offset)
         self._model.particles.draw(surface, offset)
