@@ -116,4 +116,3 @@ class MainMenuUI(UI):
         move = self._game.visuals.create_animation("albrom", "move", (0, 0))
         frame = Frame((x + 50, y), move, is_selectable=False)
         self._elements["test2"] = frame
-

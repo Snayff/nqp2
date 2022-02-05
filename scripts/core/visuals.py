@@ -138,8 +138,9 @@ class Visuals:
 
                                     # warn about duplicates
                                     if frame_name in animation_frames.keys():
-                                        logging.warning(f"Animation [{frame_name}] already loaded; non-unique file "
-                                                        f"name.")
+                                        logging.warning(
+                                            f"Animation [{frame_name}] already loaded; non-unique file " f"name."
+                                        )
 
                                     frame_path = path / anim_folder_name / frame_folder_name / frame_name
                                     image = pygame.image.load(str(frame_path)).convert_alpha()
@@ -153,8 +154,9 @@ class Visuals:
 
         return animation_frames
 
-    def create_animation(self, animation_name: str, frame_name: str, pos: Tuple[int, int],
-            loop: bool = True) -> Animation:
+    def create_animation(
+        self, animation_name: str, frame_name: str, pos: Tuple[int, int], loop: bool = True
+    ) -> Animation:
         """
         Create a new animation and add it to the internal update list.
         """
@@ -163,11 +165,13 @@ class Visuals:
         self._active_animations.append(anim)
         return anim
 
-    def get_image(self,
-            image_name: str,
-            pos: Tuple[int, int],
-            size: Tuple[int, int] = (DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE),
-            copy: bool = False) -> Image:
+    def get_image(
+        self,
+        image_name: str,
+        pos: Tuple[int, int],
+        size: Tuple[int, int] = (DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE),
+        copy: bool = False,
+    ) -> Image:
         """
         Get an image from the library.
         If a size is specified and it differs to the size held then the image is resized before returning.
@@ -183,8 +187,7 @@ class Visuals:
         # ensure numbers arent negative
         if desired_width <= 0 or desired_height <= 0:
             logging.warning(
-                f"Get_image: Tried to use dimensions of {size}, which are negative. Default size "
-                f"used instead."
+                f"Get_image: Tried to use dimensions of {size}, which are negative. Default size " f"used instead."
             )
             size = (DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE)
 
@@ -213,7 +216,6 @@ class Visuals:
 
                 self._images[f"not_found@{desired_width}x{desired_height}"] = image
 
-
         # return a copy if requested
         if copy:
             final_image = Image(image=image.copy(), pos=pos)
@@ -221,7 +223,6 @@ class Visuals:
             final_image = Image(image=image, pos=pos)
 
         return final_image
-
 
     def create_font(self, font_type: FontType, text: str, pos: Tuple[int, int] = (0, 0), line_width: int = 0) -> Font:
         """
@@ -233,11 +234,11 @@ class Visuals:
         return font
 
     def create_fancy_font(
-            self,
-            text: str,
-            pos: Tuple[int, int] = (0, 0),
-            line_width: int = 0,
-            font_effects: Optional[List[FontEffects]] = None,
+        self,
+        text: str,
+        pos: Tuple[int, int] = (0, 0),
+        line_width: int = 0,
+        font_effects: Optional[List[FontEffects]] = None,
     ) -> FancyFont:
         """
         Create a FancyFont instance. If line_width isnt given then will default to full screen.
