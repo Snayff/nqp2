@@ -37,7 +37,7 @@ class Visuals:
         self._image_folders: List[str] = ["rooms", "stats", "ui", "buttons"]
         self._animation_folders: List[str] = ["bosses", "commanders", "units"]
 
-        self._images: Dict[str, pygame.Surface] = {}  # image_name: surface
+        self._images: Dict[str, pygame.Surface] = self._load_images()  # image_name: surface
         self._animation_frames: Dict[str, List[Image]] = self._load_animation_frames()
         # folder_name + "_" +  frame_name, [animation_frames]
         self._fonts: Dict[FontType, Tuple[str, Tuple[int, int, int]]] = self._load_fonts()  # FontType: path, colour
@@ -70,7 +70,7 @@ class Visuals:
             FontType.NOTIFICATION: (str(ASSET_PATH / "fonts/large_font.png"), (117, 50, 168)),
         }
 
-    def _load_images(self) -> Dict[str, Dict[str, pygame.Surface]]:
+    def _load_images(self) -> Dict[str, pygame.Surface]:
         """
         Load all images specified in self._image_folders
         """
@@ -223,3 +223,30 @@ class Visuals:
         return final_image
 
 
+    def create_font(self, font_type: FontType, text: str, pos: Tuple[int, int] = (0, 0), line_width: int = 0) -> Font:
+        """
+        Create a font instance.
+        """
+        line_width = clamp(line_width, 0, self._game.window.width)
+        path, colour = self._fonts[font_type]
+        font = Font(path, colour, text, line_width, pos)
+        return font
+
+    def create_fancy_font(
+            self,
+            text: str,
+            pos: Tuple[int, int] = (0, 0),
+            line_width: int = 0,
+            font_effects: Optional[List[FontEffects]] = None,
+    ) -> FancyFont:
+        """
+        Create a FancyFont instance. If line_width isnt given then will default to full screen.
+        """
+        line_width = clamp(line_width, 0, self._game.window.width)
+
+        # handle mutable default
+        if font_effects is None:
+            font_effects = []
+
+        font = FancyFont(text, pos, line_width, font_effects)
+        return font
