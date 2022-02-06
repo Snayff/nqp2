@@ -39,10 +39,7 @@ class WorldModel:
             self._game = game
             self.tile_size = TILE_SIZE
             self.unit_grid: List = []
-            # grid is col, row
-            self.grid_size: List[int, int] = [3, 8]
-            self.grid_cell_size: int = 32
-            self.grid_margin: int = 32
+
             self.projectiles: ProjectileManager = ProjectileManager(self._game)
             self.particles: ParticleManager = ParticleManager()
             self.terrain: Terrain = Terrain(self._game, "plains")

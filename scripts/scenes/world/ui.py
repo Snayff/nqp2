@@ -6,6 +6,7 @@ import pygame
 
 from scripts.core.base_classes.ui import UI
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, SceneType, WorldState
+from scripts.scene_elements.unit import Unit
 from scripts.scene_elements.world.view import WorldView
 from scripts.ui_elements.frame import Frame
 
@@ -13,6 +14,7 @@ if TYPE_CHECKING:
     from scripts.core.game import Game
     from scripts.scene_elements.world.model import WorldModel
     from scripts.scenes.world.combat import CombatController
+    from typing import List, Optional
 
 
 __all__ = ["WorldUI"]
@@ -21,7 +23,6 @@ __all__ = ["WorldUI"]
 class WorldUI(UI):
     """
     Represent the UI of the WorldScene
-
     """
 
     def __init__(
@@ -35,6 +36,7 @@ class WorldUI(UI):
         self._controller = controller
         self._worldview = WorldView(game, model)
         self._victory_duration: float = 0.0
+        self._grid: Optional[UnitGrid] = None
 
     def update(self, delta_time: float):
         self._worldview.update(delta_time)
@@ -51,10 +53,6 @@ class WorldUI(UI):
         if self._controller.state == WorldState.IDLE:
             if self._game.input.states["backspace"]:
                 self._controller.begin_move_to_new_room()
-            if self._game.input.states["select"]:
-                self._controller.state = WorldState.COMBAT
-                for troupe in self._game.memory.troupes.values():
-                    troupe.set_force_idle(False)
 
         # manual camera control for debugging
         # if self._game.input.states["up"]:
@@ -77,12 +75,21 @@ class WorldUI(UI):
                 self._game.memory.reset()
                 self._game.change_scene(SceneType.MAIN_MENU)
 
+        if self._grid:
+            self._grid.process_input()
+
     def draw(self, surface: pygame.Surface):
         self._worldview.draw(surface)
 
         # TODO: create and move to mouse tool system
         if self._controller.state == WorldState.IDLE:
-            self._draw_grid(surface)
+            # init grid if not yet done so. It's not done on init because the grid depends on parent_scene objects
+            # that are not yet initialised
+            if not self._grid:
+                self._grid = UnitGrid(self._game)
+                self._grid.move_units_to_grid()
+            else:
+                self._grid.draw(surface)
 
         self._draw_instruction(surface)
         self._draw_elements(surface)
@@ -130,27 +137,140 @@ class WorldUI(UI):
             )
             self._elements["victory_notification"] = frame
 
-    def _draw_grid(self, surface: pygame.Surface):
-        """
-        Draw the unit selection grid
-        """
-        grid_size = self._model.grid_size
-        grid_cell_size = self._model.grid_cell_size
-        grid_margin = self._model.grid_margin
-        line_colour = (0, 0, 0)
 
-        # draw horizontal lines
-        for h_line in range(grid_size[1] + 1):
-            start_x = grid_margin
-            start_y = h_line * grid_cell_size + grid_margin
-            end_x = grid_size[0] * grid_cell_size + grid_margin
-            end_y = h_line * grid_cell_size + grid_margin
-            pygame.draw.line(surface, line_colour, (start_x, start_y), (end_x, end_y))
+class GridCell:
+    """
+    A representation of the smallest discrete space in a Grid.
+    """
+    def __init__(self, rect: pygame.Rect, unit: Unit = None):
+        self.rect = rect
+        self.unit = unit
 
-        # draw vertical lines
-        for v_line in range(grid_size[0] + 1):
-            start_x = v_line * grid_cell_size + grid_margin
-            start_y = grid_margin
-            end_x = v_line * grid_cell_size + grid_margin
-            end_y = grid_size[1] * grid_cell_size + grid_margin
-            pygame.draw.line(surface, line_colour, (start_x, start_y), (end_x, end_y))
+
+class UnitGrid:
+    """
+    An organised layout of rows and columns for Unit placement.
+    """
+    def __init__(self, game: Game):
+        self.cell_size: int = 32  # Size of each cell
+        self.cells_x_size: int = 3
+        self.cells_y_size: int = 6  # Number of vertical and horizontal cells
+        self.units: List[Unit] = game.memory.get_all_units()  # Troupe units for placement
+        self._game = game
+        # TODO:
+        #  - get margin from parent_scene
+        #  - check if there are unnecessary variables/functions related to grid in world/scene.py
+        #  - get the grid to move with the camera
+        #  - support gamepad
+        #  - show units moving on screen instead of setting their positions
+        #  - there's still a bug somewhere that keeps units from switching placement
+        self.margin_x = 16 * 5
+        self.margin_y = 16 * 6
+        self.moved_units_to_grid = False
+        self.selected_cell = None
+        self.hover_cell = None
+
+        # Initializes grid cells
+        self.cells = [
+            GridCell(pygame.Rect((self.margin_x + x, self.margin_y + y, self.cell_size, self.cell_size)))
+            for y in range(0, self.cells_y_size * self.cell_size, self.cell_size)
+            for x in range(0, self.cells_x_size * self.cell_size, self.cell_size)
+        ]
+
+        line_colour = (0, 100, 0)
+        line_colour_hover = (0, 140, 0)
+        line_colour_selected = (0, 180, 0)
+
+        selected_hover_border_width = 3
+
+        cell_rect = pygame.Rect((0, 0, self.cell_size, self.cell_size))
+
+        # Surface for cells that were not selected, under current mouse position or gamepad selection
+        self.cell_surface = pygame.Surface((self.cell_size, self.cell_size), pygame.SRCALPHA)
+        pygame.draw.rect(self.cell_surface, line_colour, cell_rect, 1, 1)
+
+        # Surface for the cell that's under the current mouse position or gamepad selection, but not selected
+        self.cell_surface_hover = pygame.Surface((self.cell_size, self.cell_size), pygame.SRCALPHA)
+        pygame.draw.rect(self.cell_surface_hover, line_colour_hover, cell_rect, selected_hover_border_width, 1)
+
+        # Surface for the cell that was selected
+        self.cell_surface_selected = pygame.Surface((self.cell_size, self.cell_size), pygame.SRCALPHA)
+        pygame.draw.rect(self.cell_surface_selected, line_colour_selected, cell_rect, selected_hover_border_width, 1)
+
+    def move_unit_to_cell(self, unit: Unit, cell: GridCell):
+        cell_center_x, cell_center_y = cell.rect.x + self.cell_size // 2, cell.rect.y + self.cell_size // 2
+        cell.unit = unit
+        # TODO: fix the following calculation, unit.size is NOT the size of the unit so this is wrong
+        unit.set_position([cell_center_x + unit.size // 2, cell_center_y + unit.size // 2])
+
+    def move_units_to_grid(self):
+        """
+        Moves each unit to the position of a grid cell and assigns a reference to the unit in each cell, so that
+        the units can be switched after two of them are selected
+        """
+        if not self.moved_units_to_grid:
+            for i, unit_cell in enumerate(zip(self.units, self.cells)):
+                unit, cell = unit_cell
+                self.move_unit_to_cell(unit, cell)
+            self.moved_units_to_grid = True
+
+    def process_input(self):
+        """
+        Check if there are changes in mouse position, click or gamepad input and change the selected_cell  and
+        hover_cell variables accordingly
+        """
+
+        mouse_x, mouse_y = self._game.input.mouse_pos
+        clicked = self._game.input.mouse_state["left"]
+
+        cell_x_index, cell_y_index = (int(mouse_x) - self.margin_x) // self.cell_size, \
+            (int(mouse_y) - self.margin_y) // self.cell_size
+
+        mouse_x_is_out_of_placement_area = cell_x_index < 0 or cell_x_index >= self.cells_x_size
+        mouse_y_is_out_of_placement_area = cell_y_index < 0 or cell_y_index >= self.cells_y_size
+
+        if mouse_x_is_out_of_placement_area or mouse_y_is_out_of_placement_area:
+            return
+
+        # Converts 2d x and y position to a single position with the index of the cell in the array
+        cell = self.cells[cell_y_index * self.cells_x_size + cell_x_index]
+
+        if not clicked:  # Mouse/gamepad is hovering over cell, but it was not selected
+            self.hover_cell = cell
+
+        elif not self.selected_cell:  # The current cell was selected and there is no previously selected cell
+            self.selected_cell = cell
+
+        elif self.selected_cell is cell:  # The cell was unselected by the user
+            self.selected_cell = None
+
+        elif self.selected_cell is not cell:  # Two cells were selected, attempt unit position switching
+            # Both cells have units, so we switch their positions
+            if self.selected_cell.unit and cell.unit:
+                selected_unit_pos = self.selected_cell.unit.pos
+                self.selected_cell.unit.set_position(cell.unit.pos)
+                cell.unit.set_position(selected_unit_pos)
+
+            # Only selected_cell has a unit, so we assign it to cell.unit and set selected_cell's unit to None
+            elif self.selected_cell.unit and not cell.unit:
+                cell.unit = self.selected_cell.unit
+                self.move_unit_to_cell(cell.unit, cell)
+                self.selected_cell.unit = None
+
+            # Only cell.unit has a unit, so we assign it to selected_cell and set cell's unit to None
+            elif cell.unit and not self.selected_cell.unit:
+                self.selected_cell.unit = cell.unit
+                self.move_unit_to_cell(self.selected_cell.unit, self.selected_cell)
+                cell.unit = None
+
+            self.hover_cell = self.selected_cell = None
+
+    def draw(self, surface: pygame.Surface):
+        for i, cell in enumerate(self.cells):
+            if cell is self.selected_cell:
+                grid_surface = self.cell_surface_selected
+            elif cell is self.hover_cell:
+                grid_surface = self.cell_surface_hover
+            else:
+                grid_surface = self.cell_surface
+            surface.blit(grid_surface, cell.rect)
