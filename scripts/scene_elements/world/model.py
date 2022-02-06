@@ -11,6 +11,7 @@ from scripts.scene_elements.terrain import Terrain
 
 if TYPE_CHECKING:
     from scripts.core.game import Game
+    from scripts.scenes.world.scene import WorldScene
 
 __all__ = ["WorldModel"]
 
@@ -34,11 +35,11 @@ class WorldModel:
 
     """
 
-    def __init__(self, game: Game):
+    def __init__(self, game: Game, parent_scene: WorldScene):
         with Timer("WorldModel initialized"):
             self._game = game
+            self._parent_scene = parent_scene
             self.tile_size = TILE_SIZE
-            self.unit_grid: List = []
 
             self.projectiles: ProjectileManager = ProjectileManager(self._game)
             self.particles: ParticleManager = ParticleManager()
@@ -67,12 +68,8 @@ class WorldModel:
             troupe.update(delta_time)
 
     def reset(self):
-        self.grid_cell_size = 32
-        self.grid_margin = 32
-        self.grid_size = [3, 8]
         self.particles = ParticleManager()
         self.projectiles = ProjectileManager(self._game)
-        self.unit_grid = []
 
     def swap_terrains(self):
         """
@@ -84,31 +81,6 @@ class WorldModel:
         self.next_terrain = temp
 
     def force_idle(self):
-        self.align_unit_pos_to_unit_grid()
+        self._parent_scene.ui.grid.move_units_to_grid()
         for troupe in self._game.memory.troupes.values():
             troupe.set_force_idle(True)
-
-    def align_unit_pos_to_unit_grid(self):
-        """
-        Add player's units to the unit_grid and align their positions.
-
-        """
-        self.unit_grid = []
-
-        units = self._game.memory.player_troupe.units.values()
-        for unit in units:
-            self.unit_grid.append(unit)
-
-        max_rows = self.grid_size[1]
-        grid_margin = self.grid_margin
-        grid_cell_size = self.grid_cell_size
-
-        for i, unit in enumerate(self.unit_grid):
-            x = i // max_rows
-            y = i % max_rows
-            unit.set_position(
-                [
-                    grid_margin + x * grid_cell_size,
-                    grid_margin + y * grid_cell_size,
-                ]
-            )

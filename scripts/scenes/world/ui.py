@@ -32,14 +32,20 @@ class WorldUI(UI):
         controller: CombatController,
     ):
         super().__init__(game, False)
-        self._model = model
+        self._model = model   # TODO - is this needed? Shouldnt it be model -> UI?
         self._controller = controller
         self._worldview = WorldView(game, model)
         self._victory_duration: float = 0.0
-        self._grid: Optional[UnitGrid] = None
+        self.grid: Optional[UnitGrid] = None
 
     def update(self, delta_time: float):
         self._worldview.update(delta_time)
+
+        # need to call here as otherwise units dont align to grid
+        # TODO - fix need to call after init
+        if self.grid is None:
+            self.grid = UnitGrid(self._game)
+            self.grid.move_units_to_grid()
 
         if self._controller.state == WorldState.COMBAT_VICTORY:
             self._victory_duration += delta_time
@@ -75,21 +81,16 @@ class WorldUI(UI):
                 self._game.memory.reset()
                 self._game.change_scene(SceneType.MAIN_MENU)
 
-        if self._grid:
-            self._grid.process_input()
+        if self.grid:
+            self.grid.process_input()
 
     def draw(self, surface: pygame.Surface):
         self._worldview.draw(surface)
 
         # TODO: create and move to mouse tool system
         if self._controller.state == WorldState.IDLE:
-            # init grid if not yet done so. It's not done on init because the grid depends on parent_scene objects
-            # that are not yet initialised
-            if not self._grid:
-                self._grid = UnitGrid(self._game)
-                self._grid.move_units_to_grid()
-            else:
-                self._grid.draw(surface)
+            if self.grid:
+                self.grid.draw(surface)
 
         self._draw_instruction(surface)
         self._draw_elements(surface)
@@ -158,15 +159,13 @@ class UnitGrid:
         self.units: List[Unit] = game.memory.get_all_units()  # Troupe units for placement
         self._game = game
         # TODO:
-        #  - get margin from parent_scene
-        #  - check if there are unnecessary variables/functions related to grid in world/scene.py
         #  - get the grid to move with the camera
         #  - support gamepad
         #  - show units moving on screen instead of setting their positions
         #  - there's still a bug somewhere that keeps units from switching placement
         self.margin_x = 16 * 5
         self.margin_y = 16 * 6
-        self.moved_units_to_grid = False
+        self.are_units_aligned_to_grid = False
         self.selected_cell = None
         self.hover_cell = None
 
@@ -197,7 +196,7 @@ class UnitGrid:
         self.cell_surface_selected = pygame.Surface((self.cell_size, self.cell_size), pygame.SRCALPHA)
         pygame.draw.rect(self.cell_surface_selected, line_colour_selected, cell_rect, selected_hover_border_width, 1)
 
-    def move_unit_to_cell(self, unit: Unit, cell: GridCell):
+    def _move_unit_to_cell(self, unit: Unit, cell: GridCell):
         cell_center_x, cell_center_y = cell.rect.x + self.cell_size // 2, cell.rect.y + self.cell_size // 2
         cell.unit = unit
         # TODO: fix the following calculation, unit.size is NOT the size of the unit so this is wrong
@@ -208,11 +207,11 @@ class UnitGrid:
         Moves each unit to the position of a grid cell and assigns a reference to the unit in each cell, so that
         the units can be switched after two of them are selected
         """
-        if not self.moved_units_to_grid:
+        if not self.are_units_aligned_to_grid:
             for i, unit_cell in enumerate(zip(self.units, self.cells)):
                 unit, cell = unit_cell
-                self.move_unit_to_cell(unit, cell)
-            self.moved_units_to_grid = True
+                self._move_unit_to_cell(unit, cell)
+            self.are_units_aligned_to_grid = True
 
     def process_input(self):
         """
@@ -254,13 +253,13 @@ class UnitGrid:
             # Only selected_cell has a unit, so we assign it to cell.unit and set selected_cell's unit to None
             elif self.selected_cell.unit and not cell.unit:
                 cell.unit = self.selected_cell.unit
-                self.move_unit_to_cell(cell.unit, cell)
+                self._move_unit_to_cell(cell.unit, cell)
                 self.selected_cell.unit = None
 
             # Only cell.unit has a unit, so we assign it to selected_cell and set cell's unit to None
             elif cell.unit and not self.selected_cell.unit:
                 self.selected_cell.unit = cell.unit
-                self.move_unit_to_cell(self.selected_cell.unit, self.selected_cell)
+                self._move_unit_to_cell(self.selected_cell.unit, self.selected_cell)
                 cell.unit = None
 
             self.hover_cell = self.selected_cell = None

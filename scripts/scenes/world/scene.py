@@ -17,14 +17,19 @@ __all__ = ["WorldScene"]
 
 class WorldScene(Scene):
     """
-    Handles WorldScene interactions and consolidates the rendering.
-    Draws the underlying map present in most Scenes.
+    The WorldScene works differently to other Scenes and is composed of a Model, UI and Controller. The Model holds
+    the data and logic, the Controller handles the changes in state and the UI handles display and input.
+
+    Relationships between the elements are:
+    Controller <-> Model
+    Model <-> UI
+    UI -> Controller
     """
 
     def __init__(self, game: Game):
         with Timer("WorldScene initialised"):
             super().__init__(game, SceneType.WORLD)
-            self.model: WorldModel = WorldModel(game)
+            self.model: WorldModel = WorldModel(game, self)
             self.controller = CombatController(game, self.model)
             self.ui: WorldUI = WorldUI(game, self.model, self.controller)
 

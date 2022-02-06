@@ -21,7 +21,7 @@ __all__ = ["Memory"]
 
 class Memory:
     """
-    Game related values that persist outside of individual “scenes”. E.g. money.
+    Game related values that persist outside of individual “scenes”. E.g. achievements.
     """
 
     def __init__(self, game: Game):

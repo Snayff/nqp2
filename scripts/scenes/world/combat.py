@@ -25,7 +25,7 @@ class CombatController:
     """
 
     def __init__(self, game: Game, model: WorldModel):
-        with Timer("WorldModel initialized"):
+        with Timer("CombatController initialized"):
             self._game = game
             self._model = model
             self._victory_duration = 0
