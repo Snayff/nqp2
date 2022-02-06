@@ -54,6 +54,15 @@ class WorldModel:
     def boundaries(self):
         return self.terrain.boundaries
 
+    @property
+    def next_boundaries(self):
+        # TODO: change this if rooms can move to other sides
+        return self.next_terrain.boundaries.move(self.boundaries.width, 0)
+
+    @property
+    def total_boundaries(self):
+        return self.boundaries.union(self.next_boundaries)
+
     def px_to_loc(self, pos: PointLike):
         """
         Convert map coordinates to tile coordinate
