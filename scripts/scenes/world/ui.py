@@ -12,9 +12,8 @@ from scripts.ui_elements.frame import Frame
 
 if TYPE_CHECKING:
     from scripts.core.game import Game
-    from scripts.scene_elements.world.model import WorldModel
-    from scripts.scenes.world.combat import CombatController
     from typing import List, Optional
+    from scripts.scenes.world.scene import WorldScene
 
 
 __all__ = ["WorldUI"]
@@ -25,16 +24,10 @@ class WorldUI(UI):
     Receive and handle player input, passing off to the controller as required.
     """
 
-    def __init__(
-        self,
-        game: Game,
-        model: WorldModel,
-        controller: CombatController,
-    ):
+    def __init__(self, game: Game, parent_scene: WorldScene):
         super().__init__(game, False)
-        self._model = model   # TODO - is this needed? Shouldnt it be model -> UI?
-        self._controller = controller
-        self._worldview = WorldView(game, model)
+        self._parent_scene = parent_scene
+        self._worldview = WorldView(game, parent_scene.model)
         self._victory_duration: float = 0.0
         self.grid: Optional[UnitGrid] = None
 
@@ -47,7 +40,7 @@ class WorldUI(UI):
             self.grid = UnitGrid(self._game)
             self.grid.move_units_to_grid()
 
-        if self._controller.state == WorldState.COMBAT_VICTORY:
+        if self._parent_scene.model.state == WorldState.COMBAT_VICTORY:
             self._victory_duration += delta_time
             if self._victory_duration >= 3:
                 self.rebuild_ui()
@@ -56,9 +49,9 @@ class WorldUI(UI):
         super().process_input(delta_time)
 
         # TODO  - replace when new room choice is in.
-        if self._controller.state == WorldState.IDLE:
+        if self._parent_scene.model.state == WorldState.IDLE:
             if self._game.input.states["backspace"]:
-                self._controller.begin_move_to_new_room()
+                self._parent_scene.combat.begin_move_to_new_room()
 
         # manual camera control for debugging
         # if self._game.input.states["up"]:
@@ -76,7 +69,7 @@ class WorldUI(UI):
 
         #############################################
 
-        if self._controller.state == WorldState.DEFEAT:
+        if self._parent_scene.model.state == WorldState.DEFEAT:
             if self._game.input.states["select"]:
                 self._game.memory.reset()
                 self._game.change_scene(SceneType.MAIN_MENU)
@@ -88,7 +81,7 @@ class WorldUI(UI):
         self._worldview.draw(surface)
 
         # TODO: create and move to mouse tool system
-        if self._controller.state == WorldState.IDLE:
+        if self._parent_scene.model.state == WorldState.IDLE:
             if self.grid:
                 self.grid.draw(surface)
 
@@ -110,7 +103,7 @@ class WorldUI(UI):
         current_x = start_x
         current_y = start_y
 
-        if self._controller.state == WorldState.DEFEAT:
+        if self._parent_scene.model.state == WorldState.DEFEAT:
             defeat_icon = self._game.assets.get_image("ui", "arrow_button", icon_size)
             frame = Frame(
                 (current_x, current_y),
@@ -130,7 +123,7 @@ class WorldUI(UI):
             )
             self._elements["defeat_instruction"] = frame
 
-        if self._controller.state == WorldState.COMBAT_VICTORY:
+        if self._parent_scene.model.state == WorldState.COMBAT_VICTORY:
             frame = Frame(
                 (current_x, current_y),
                 font=create_font(FontType.POSITIVE, "Victory"),

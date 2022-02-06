@@ -81,7 +81,6 @@ class WorldView:
     def _update_camera(self, delta_time: float):
         """
         Update the camera's position to follow the player's Units
-
         """
         target_pos = self._game.memory.get_team_center("player")
         if target_pos:
@@ -115,7 +114,6 @@ class WorldView:
     def _draw_path_debug(self, surface: pygame.Surface):
         """
         Draw lines to indicate the pathfinding
-
         """
         for entity in self._game.memory.get_all_entities():
             if entity._parent_unit.default_behaviour != "swarm":

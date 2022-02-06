@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import List, TYPE_CHECKING
 
 from scripts.core import PointLike
-from scripts.core.constants import TILE_SIZE
+from scripts.core.constants import TILE_SIZE, WorldState
 from scripts.core.debug import Timer
 from scripts.scene_elements.particle_manager import ParticleManager
 from scripts.scene_elements.projectile_manager import ProjectileManager
@@ -32,13 +32,14 @@ class WorldModel:
 
     NOTE: There is some overlap in responsibility with the "Memory",
           and future work should clarify what each should handle.
-
     """
 
     def __init__(self, game: Game, parent_scene: WorldScene):
-        with Timer("WorldModel initialized"):
+        with Timer("WorldModel initialised"):
             self._game = game
             self._parent_scene = parent_scene
+
+            self.state: WorldState = WorldState.IDLE
 
             self.projectiles: ProjectileManager = ProjectileManager(self._game)
             self.particles: ParticleManager = ParticleManager()
@@ -65,7 +66,6 @@ class WorldModel:
         Convert map coordinates to tile coordinate
 
         * NOTE: map units are "pixels"
-
         """
         return self.terrain.px_to_loc(pos)
 
@@ -82,7 +82,6 @@ class WorldModel:
     def swap_terrains(self):
         """
         Swap primary and next terrains
-
         """
         temp = self.terrain
         self.terrain = self.next_terrain
