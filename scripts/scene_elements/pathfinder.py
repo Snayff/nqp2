@@ -4,6 +4,8 @@ from numpy import asarray, int32
 
 __all__ = ["Pathfinder"]
 
+from scripts.core.constants import TILE_SIZE
+
 
 class Pathfinder:
     def __init__(self, terrain):
@@ -27,18 +29,18 @@ class Pathfinder:
 
     def px_route(self, start, end):
         start = (
-            int(start[0] // self.terrain.tile_size) - self.terrain.tile_boundaries[0][0],
-            int(start[1] // self.terrain.tile_size) - self.terrain.tile_boundaries[1][0],
+            int(start[0] // TILE_SIZE) - self.terrain.tile_boundaries[0][0],
+            int(start[1] // TILE_SIZE) - self.terrain.tile_boundaries[1][0],
         )
         end = (
-            int(end[0] // self.terrain.tile_size) - self.terrain.tile_boundaries[0][0],
-            int(end[1] // self.terrain.tile_size) - self.terrain.tile_boundaries[1][0],
+            int(end[0] // TILE_SIZE) - self.terrain.tile_boundaries[0][0],
+            int(end[1] // TILE_SIZE) - self.terrain.tile_boundaries[1][0],
         )
         tcod_path = self.route(start, end)
         return [
             (
-                point[0] * self.terrain.tile_size + self.terrain.tile_size // 2,
-                point[1] * self.terrain.tile_size + self.terrain.tile_size // 2,
+                point[0] * TILE_SIZE + self.terrain.tile_size // 2,
+                point[1] * TILE_SIZE + self.terrain.tile_size // 2,
             )
             for point in tcod_path
         ]

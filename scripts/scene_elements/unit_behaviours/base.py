@@ -1,6 +1,7 @@
 import random
 
 from .behaviour import Behaviour
+from ...core.constants import TILE_SIZE
 
 REGROUP_RANGE = 32
 RETREAT_AMT = 16
@@ -93,8 +94,8 @@ class Base(Behaviour):
                         if self.force_retreat:
                             self.retreating = True
                             self.retreat_target = (
-                                self.position_log[-RETREAT_AMT][0] * self._game.combat.terrain.tile_size,
-                                self.position_log[-RETREAT_AMT][1] * self._game.combat.terrain.tile_size,
+                                self.position_log[-RETREAT_AMT][0] * TILE_SIZE,
+                                self.position_log[-RETREAT_AMT][1] * TILE_SIZE,
                             )
                         for entity in self.unit.entities:
                             entity.behaviour.state = "path"

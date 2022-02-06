@@ -22,7 +22,7 @@ __all__ = ["WorldUI"]
 
 class WorldUI(UI):
     """
-    Represent the UI of the WorldScene
+    Receive and handle player input, passing off to the controller as required.
     """
 
     def __init__(

@@ -2,6 +2,7 @@ import math
 import random
 
 from .behaviour import Behaviour
+from ...core.constants import TILE_SIZE
 
 PATH_UPDATE_FREQ = 0.4
 
@@ -29,7 +30,7 @@ class Base(Behaviour):
         self.walk_towards(next_point, self.entity.move_speed * dt)
         if (
             math.sqrt((next_point[0] - self.entity.pos[0]) ** 2 + (next_point[1] - self.entity.pos[1]) ** 2)
-            < self._game.world.ui.terrain.tile_size // 3
+            < TILE_SIZE // 3
         ):
             self.current_path.pop(0)
 

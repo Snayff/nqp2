@@ -39,7 +39,6 @@ class WorldModel:
         with Timer("WorldModel initialized"):
             self._game = game
             self._parent_scene = parent_scene
-            self.tile_size = TILE_SIZE
 
             self.projectiles: ProjectileManager = ProjectileManager(self._game)
             self.particles: ParticleManager = ParticleManager()
