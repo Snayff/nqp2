@@ -25,6 +25,8 @@ class Memory:
     """
 
     def __init__(self, game: Game):
+        # TODO - migrate all info that can now be contained in world to WorldModel
+
         # start timer
         start_time = time.time()
 
@@ -347,18 +349,4 @@ class Memory:
         # in memory config
         self._game_speed = 1
 
-    def get_team_center(self, team) -> Optional[pygame.Vector2]:
-        """
-        Get centre coordinates for the team
 
-        """
-        count = 0
-        pos_totals = pygame.Vector2()
-        for unit in self._game.memory.get_all_units():
-            if unit.team == team:
-                pos_totals += unit.pos
-                count += 1
-        if count:
-            return pygame.Vector2(pos_totals / count)
-        else:
-            return None

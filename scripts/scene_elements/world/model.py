@@ -22,6 +22,7 @@ class WorldModel:
 
     * No drawing should be done here
     * Include common operations for game world state
+    * Store data for the World Scene
 
     The model is like a chess set.  Something else (a controller)
     needs to query the state and *ask* the model to make changes.

@@ -18,13 +18,13 @@ __all__ = ["WorldScene"]
 
 class WorldScene(Scene):
     """
-    The WorldScene works differently to other Scenes and is composed of a Model, UI and Controller. The Model holds
-    the data and logic, the Controller handles the changes in state and the UI handles display and input.
+    The WorldScene works differently to other Scenes and is composed of a Model, UI and Controller. There are several
+    different controllers, 1 per "room".
 
-    Relationships between the elements are:
-    Controller <-> Model
-    Model <-> UI
-    UI -> Controller
+    * Model is data
+    * Controller is logic
+    * UI is player input to logic and display
+    * This Scene is the container for the above.
     """
 
     def __init__(self, game: Game):
