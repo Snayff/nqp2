@@ -83,7 +83,7 @@ class CombatController:
                 i.pos[0] += 5
 
             # TODO: find better way to calculate this value
-            final = self._game.window.base_resolution[0] + 320 + 100
+            final = self._game.window.base_resolution[0] + 320 + 320
             terrain_offset = self._game.window.base_resolution[0] + 320
 
             # this is a giant hack because the game only supports
@@ -99,7 +99,7 @@ class CombatController:
                     i.pos[0] -= terrain_offset
                 # TODO: decouple this
                 self._game.world.ui._worldview.clamp_primary_terrain = True
-                self._game.world.ui._worldview.camera.reset_movement()
+                self._game.world.ui._worldview.camera.move(-terrain_offset - 148, 0)
                 self._model.terrain.ignore_boundaries = False
                 self._model.next_terrain.ignore_boundaries = False
                 self._model.swap_terrains()

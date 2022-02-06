@@ -33,6 +33,9 @@ class WorldView:
     def __init__(self, game: Game, model: WorldModel):
         self._game = game
         self._model = model
+        self._has_centered_camera: bool = False
+
+        # interface
         self.camera = Camera(game.window.base_resolution)
         self.debug_pathfinding: bool = False
         self.clamp_primary_terrain: bool = True
@@ -43,6 +46,12 @@ class WorldView:
     def draw(self, surface: pygame.Surface):
         if self.clamp_primary_terrain:
             self.camera.clamp(self._model.boundaries)
+        else:
+            next_boundaries = self._model.next_boundaries
+            if next_boundaries.contains(self.camera.get_rect()):
+                self.camera.clamp(next_boundaries)
+            else:
+                self.camera.clamp(self._model.total_boundaries)
 
         _surface = None
         if self.camera.zoom != 0.0:
@@ -65,14 +74,23 @@ class WorldView:
         if _surface is not None:
             pygame.transform.scale(surface, _surface.get_size(), _surface)
 
+    def reset_camera(self):
+        self._has_centered_camera = False
+        self._update_camera(0)
+
     def _update_camera(self, delta_time: float):
         """
         Update the camera's position to follow the player's Units
 
         """
         target_pos = self._game.memory.get_team_center("player")
-        self.camera.move_to_position(target_pos)
-        self.camera.update(delta_time)
+        if target_pos:
+            self.camera.move_to_position(target_pos)
+            self.camera.update(delta_time)
+            # prevent camera from panning from 0,0
+            if not self._has_centered_camera:
+                self.camera.reset_movement()
+                self._has_centered_camera = True
 
     def _draw_units(self, surface: pygame.Surface, offset: pygame.Vector2):
         units = self._game.memory.get_all_units()
