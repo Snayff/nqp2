@@ -322,6 +322,15 @@
     <span class="k">def</span> <span class="nf">boundaries</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">terrain</span><span class="o">.</span><span class="n">boundaries</span>
 
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">next_boundaries</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># TODO: change this if rooms can move to other sides</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">next_terrain</span><span class="o">.</span><span class="n">boundaries</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">boundaries</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">total_boundaries</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">boundaries</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">next_boundaries</span><span class="p">)</span>
+
 <div class="viewcode-block" id="WorldModel.px_to_loc"><a class="viewcode-back" href="../../../../scripts.scene_elements.world.html#scripts.scene_elements.world.model.WorldModel.px_to_loc">[docs]</a>    <span class="k">def</span> <span class="nf">px_to_loc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="n">PointLike</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Convert map coordinates to tile coordinate</span>
