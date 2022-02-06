@@ -149,7 +149,7 @@ class UnitGrid:
         self.cell_size: int = 32  # Size of each cell
         self.cells_x_size: int = 3
         self.cells_y_size: int = 6  # Number of vertical and horizontal cells
-        self.units: List[Unit] = game.memory.get_all_units()  # Troupe units for placement
+        self.units: List[Unit] = game.world.model.get_all_units()  # Troupe units for placement
         self._game = game
         # TODO:
         #  - get the grid to move with the camera

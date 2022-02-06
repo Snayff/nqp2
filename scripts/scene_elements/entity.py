@@ -206,7 +206,7 @@ class Entity:
 
         # handle collision
         if self.alive:
-            for entity in self._game.memory.get_all_entities():
+            for entity in self._game.world.model.get_all_entities():
                 if (entity != self) and (entity.alive):
                     combined_size = self.size + entity.size
                     # horizontal scan

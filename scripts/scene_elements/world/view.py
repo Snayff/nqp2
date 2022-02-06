@@ -115,7 +115,7 @@ class WorldView:
         """
         Draw lines to indicate the pathfinding
         """
-        for entity in self._game.memory.get_all_entities():
+        for entity in self._game.world.model.get_all_entities():
             if entity._parent_unit.default_behaviour != "swarm":
                 if entity.behaviour.current_path and len(entity.behaviour.current_path):
                     points = [

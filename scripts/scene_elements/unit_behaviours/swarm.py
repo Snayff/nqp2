@@ -12,7 +12,7 @@ class Swarm(Behaviour):
         Find the nearest enemy from a different team and update the target.
         """
         nearest = [None, 9999999]
-        for entity in self._game.memory.get_all_entities():
+        for entity in self._game.world.model.get_all_entities():
             if entity.team != self.unit.team:
                 dis = entity.dis(self.unit)
                 if dis < nearest[1]:

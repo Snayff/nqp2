@@ -80,7 +80,7 @@ class Base(Behaviour):
 
             if not self.visibility_line:
                 if self.entity._parent_unit.behaviour.smart_range_retarget:
-                    for entity in self._game.memory.get_all_entities():
+                    for entity in self._game.world.model.get_all_entities():
                         if entity.team != self.entity.team:
                             if entity.dis(self.entity) < self.entity.range + self.entity.size + self.target_entity.size:
                                 if self._game.world.ui.terrain.sight_line(entity.pos.copy(), self.entity.pos.copy()):

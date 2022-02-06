@@ -300,15 +300,10 @@ class Debugger:
         text = f"{current_fps} ; {recent_fps} ;{avg_fps}"
         self._fonts.append(self._game.assets.create_font(FontType.DEFAULT, text, (start_x, start_y)))
 
-        current_y = start_y + 10
-        text = f"Game speed:{self._game.memory.game_speed} ; WorldState: {self._game.world.state.name}"
-        self._fonts.append(self._game.assets.create_font(FontType.DEFAULT, text, (start_x, current_y)))
-
 
 class Timer:
     """
     Context manager to document program time
-
     """
 
     def __init__(self, label=None):
@@ -323,6 +318,6 @@ class Timer:
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.duration = time.perf_counter() - self.start
         if self.label:
-            logging.debug("%s took %.2f seconds", self.label, self.duration)
+            logging.debug("%s in %.2f seconds.", self.label, self.duration)
         else:
-            logging.debug("took %.2f seconds", self.duration)
+            logging.debug("took %.2f seconds.", self.duration)

@@ -12,6 +12,7 @@ from scripts.scenes.world.ui import WorldUI
 
 if TYPE_CHECKING:
     from scripts.core.game import Game
+    from typing import List, Optional, Tuple, Union, Dict
 
 __all__ = ["WorldScene"]
 

@@ -53,7 +53,7 @@ class CombatController(Controller):
 
         # end combat when either side is empty
         if (self._parent_scene.model.state == WorldState.COMBAT) and (self._combat_ending_timer == -1):
-            all_entities = self._game.memory.get_all_entities()
+            all_entities = self._parent_scene.model.get_all_entities()
             player_entities = [e for e in all_entities if e.team == "player"]
             if len(player_entities) == 0:
                 self._process_defeat()
@@ -82,7 +82,7 @@ class CombatController(Controller):
 
         if self._parent_scene.model.state == WorldState.MOVING_NEXT_ROOM:
             # move entities
-            for i in self._game.memory.get_all_entities():
+            for i in self._parent_scene.model.get_all_entities():
                 # cannot use move here because it is very buggy when entities are touching
                 i.pos[0] += 5
 
@@ -98,7 +98,7 @@ class CombatController(Controller):
             # terrain.
             # when entities are in next room, swap terrains and idle
             if i.pos[0] >= final:
-                for i in self._game.memory.get_all_entities():
+                for i in self._parent_scene.model.get_all_entities():
                     # cannot use move here because it is very buggy when entities are touching
                     i.pos[0] -= terrain_offset
                 # TODO: decouple this

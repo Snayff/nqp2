@@ -65,11 +65,11 @@ class Game:
         # TODO - should these be private?
         self.main_menu: MainMenuScene = MainMenuScene(self)
         self.run_setup: RunSetupScene = RunSetupScene(self)
-        self.post_combat: PostCombatScene = PostCombatScene(self)
-        self.event: EventScene = EventScene(self)
-        self.training: TrainingScene = TrainingScene(self)
-        self.inn: InnScene = InnScene(self)
-        self.troupe: ViewTroupeScene = ViewTroupeScene(self)
+        # self.post_combat: PostCombatScene = PostCombatScene(self)  # TODO - to be removed
+        # self.event: EventScene = EventScene(self)
+        # self.training: TrainingScene = TrainingScene(self)
+        # self.inn: InnScene = InnScene(self)
+        # self.troupe: ViewTroupeScene = ViewTroupeScene(self)
         self.world: WorldScene = WorldScene(self)
 
         # dev scenes
