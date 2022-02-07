@@ -28,3 +28,7 @@ class Controller(ABC):
     @abstractmethod
     def update(self, delta_time: float):
         pass
+
+    @abstractmethod
+    def reset(self):
+        pass

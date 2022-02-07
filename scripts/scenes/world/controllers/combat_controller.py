@@ -30,7 +30,7 @@ class CombatController(Controller):
     def __init__(self, game: Game, parent_scene: WorldScene):
         with Timer("CombatController initialised"):
             super().__init__(game, parent_scene)
-            self._victory_duration = 0
+            self.victory_duration: float = 0.0
             self._combat_ending_timer: float = -1
             self.last_unit_death: List = list()
 
@@ -61,9 +61,9 @@ class CombatController(Controller):
             elif len(player_entities) == len(all_entities):
                 self._process_victory()
 
-        if self._parent_scene.model.state == WorldState.COMBAT_VICTORY:
-            self._victory_duration += delta_time
-            if self._victory_duration > 3:
+        if self._parent_scene.model.state == WorldState.VICTORY:
+            self.victory_duration += delta_time
+            if self.victory_duration > 3:
                 self._game.memory.remove_troupe(self.enemy_troupe_id)
                 for troupe in self._game.memory.troupes.values():
                     troupe.set_force_idle(False)
@@ -218,7 +218,7 @@ class CombatController(Controller):
 
         """
         self.combat_ending_timer = 0
-        self.state = WorldState.COMBAT_VICTORY
+        self.state = WorldState.VICTORY
 
     def end_combat(self):
         """

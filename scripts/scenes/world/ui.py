@@ -28,60 +28,62 @@ class WorldUI(UI):
         super().__init__(game, False)
         self._parent_scene = parent_scene
         self._worldview = WorldView(game, parent_scene.model)
-        self._victory_duration: float = 0.0
+
         self.grid: Optional[UnitGrid] = None
 
     def update(self, delta_time: float):
         self._worldview.update(delta_time)
 
+        state = self._parent_scene.model.state
+
+        if state == WorldState.IDLE:
+            self._update_idle(delta_time)
+        elif state == WorldState.VICTORY:
+            self._update_victory(delta_time)
+
+
+    def _update_idle(self, delta_time: float):
         # need to call here as otherwise units dont align to grid
-        # TODO - fix need to call after init
+        # TODO - remove the need to call after init
         if self.grid is None:
             self.grid = UnitGrid(self._game)
             self.grid.move_units_to_grid()
 
-        if self._parent_scene.model.state == WorldState.COMBAT_VICTORY:
-            self._victory_duration += delta_time
-            if self._victory_duration >= 3:
-                self.rebuild_ui()
+    def _update_victory(self, delta_time: float):
+        self._parent_scene.combat.victory_duration += delta_time
+        if self._parent_scene.combat.victory_duration >= 3:
+            self.rebuild_ui()
 
     def process_input(self, delta_time: float):
         super().process_input(delta_time)
 
+        state = self._parent_scene.model.state
+
+        if state == WorldState.IDLE:
+            self._process_idle_input()
+        elif state == WorldState.DEFEAT:
+            self._process_defeat_input()
+
+    def _process_idle_input(self):
         # TODO  - replace when new room choice is in.
-        if self._parent_scene.model.state == WorldState.IDLE:
-            if self._game.input.states["backspace"]:
-                self._parent_scene.combat.begin_move_to_new_room()
-
-        # manual camera control for debugging
-        # if self._game.input.states["up"]:
-        #     self._game.input.states["up"] = False
-        #     self._worldview.camera.move(y=-32)
-        # if self._game.input.states["down"]:
-        #     self._game.input.states["down"] = False
-        #     self._worldview.camera.move(y=32)
-        # if self._game.input.states["left"]:
-        #     self._game.input.states["left"] = False
-        #     self._worldview.camera.move(x=-32)
-        # if self._game.input.states["right"]:
-        #     self._game.input.states["right"] = False
-        #     self._worldview.camera.move(x=32)
-
-        #############################################
-
-        if self._parent_scene.model.state == WorldState.DEFEAT:
-            if self._game.input.states["select"]:
-                self._game.memory.reset()
-                self._game.change_scene(SceneType.MAIN_MENU)
+        if self._game.input.states["backspace"]:
+            self._parent_scene.combat.begin_move_to_new_room()
 
         if self.grid:
             self.grid.process_input()
 
+    def _process_defeat_input(self):
+        if self._game.input.states["select"]:
+            self._game.memory.reset()
+            self._game.change_scene(SceneType.MAIN_MENU)
+
     def draw(self, surface: pygame.Surface):
+        state = self._parent_scene.model.state
+
         self._worldview.draw(surface)
 
         # TODO: create and move to mouse tool system
-        if self._parent_scene.model.state == WorldState.IDLE:
+        if state == WorldState.IDLE:
             if self.grid:
                 self.grid.draw(surface)
 
@@ -91,6 +93,20 @@ class WorldUI(UI):
     def rebuild_ui(self):
         super().rebuild_ui()
 
+        state = self._parent_scene.model.state
+
+        if state == WorldState.IDLE:
+            self._rebuild_idle_ui()
+        elif state == WorldState.DEFEAT:
+            self._rebuild_defeat_ui()
+        elif state == WorldState.VICTORY:
+            self._rebuild_victory_ui()
+
+
+    def _rebuild_idle_ui(self):
+        pass
+
+    def _rebuild_defeat_ui(self):
         create_font = self._game.assets.create_font
 
         icon_width = DEFAULT_IMAGE_SIZE
@@ -102,34 +118,41 @@ class WorldUI(UI):
         # draw upgrades
         current_x = start_x
         current_y = start_y
+        defeat_icon = self._game.assets.get_image("ui", "arrow_button", icon_size)
+        frame = Frame(
+            (current_x, current_y),
+            image=defeat_icon,
+            font=create_font(FontType.NEGATIVE, "Defeated"),
+            is_selectable=False,
+        )
+        self._elements["defeat_notification"] = frame
 
-        if self._parent_scene.model.state == WorldState.DEFEAT:
-            defeat_icon = self._game.assets.get_image("ui", "arrow_button", icon_size)
-            frame = Frame(
-                (current_x, current_y),
-                image=defeat_icon,
-                font=create_font(FontType.NEGATIVE, "Defeated"),
-                is_selectable=False,
-            )
-            self._elements["defeat_notification"] = frame
+        current_y += 100
 
-            current_y += 100
+        frame = Frame(
+            (current_x, current_y),
+            image=defeat_icon,
+            font=create_font(FontType.DEFAULT, "Press Enter to return to the main menu."),
+            is_selectable=False,
+        )
+        self._elements["defeat_instruction"] = frame
 
-            frame = Frame(
-                (current_x, current_y),
-                image=defeat_icon,
-                font=create_font(FontType.DEFAULT, "Press Enter to return to the main menu."),
-                is_selectable=False,
-            )
-            self._elements["defeat_instruction"] = frame
+    def _rebuild_victory_ui(self):
+        create_font = self._game.assets.create_font
 
-        if self._parent_scene.model.state == WorldState.COMBAT_VICTORY:
-            frame = Frame(
-                (current_x, current_y),
-                font=create_font(FontType.POSITIVE, "Victory"),
-                is_selectable=False,
-            )
-            self._elements["victory_notification"] = frame
+        start_x = self._game.window.centre[0]
+        start_y = self._game.window.centre[1]
+
+        # draw upgrades
+        current_x = start_x
+        current_y = start_y
+
+        frame = Frame(
+            (current_x, current_y),
+            font=create_font(FontType.POSITIVE, "Victory"),
+            is_selectable=False,
+        )
+        self._elements["victory_notification"] = frame
 
 
 class GridCell:

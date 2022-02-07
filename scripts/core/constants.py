@@ -59,7 +59,7 @@ class WorldState(IntEnum):
     IDLE = auto()
     COMBAT = auto()
     DEFEAT = auto()
-    COMBAT_VICTORY = auto()
+    VICTORY = auto()
     MOVING_NEXT_ROOM = auto()
     TRAINING = auto()
 
