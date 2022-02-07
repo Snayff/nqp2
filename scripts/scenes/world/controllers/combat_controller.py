@@ -20,7 +20,7 @@ __all__ = ["CombatController"]
 
 class CombatController(Controller):
     """
-    Combat game functionality
+    Combat game functionality and combat only data.
 
     * Modify game state in accordance with game rules
     * Do not draw anything

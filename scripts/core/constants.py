@@ -61,6 +61,7 @@ class WorldState(IntEnum):
     DEFEAT = auto()
     COMBAT_VICTORY = auto()
     MOVING_NEXT_ROOM = auto()
+    TRAINING = auto()
 
 
 class EventState(IntEnum):
@@ -75,18 +76,12 @@ class AnimationState(IntEnum):
 
 
 class SceneType(IntEnum):
-    POST_COMBAT = auto()
-    EVENT = auto()
-    INN = auto()
-    TRAINING = auto()
-    OVERWORLD = auto()
     MAIN_MENU = auto()
     VIEW_TROUPE = auto()
     RUN_SETUP = auto()
     DEV_DATA_EDITOR = auto()
     DEV_GALLERY = auto()
     WORLD = auto()
-    NEXT_ROOM = auto()
 
 
 class RewardType(IntEnum):

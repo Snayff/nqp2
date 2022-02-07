@@ -5,6 +5,7 @@ import logging
 from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.controller import Controller
+from scripts.core.constants import TrainingState
 from scripts.core.debug import Timer
 
 if TYPE_CHECKING:
@@ -17,7 +18,7 @@ __all__ = ["TrainingController"]
 
 class TrainingController(Controller):
     """
-    Training game functionality
+    Training game functionality and training only data.
 
     * Modify game state in accordance with game rules
     * Do not draw anything
@@ -25,8 +26,10 @@ class TrainingController(Controller):
     """
 
     def __init__(self, game: Game, parent_scene: WorldScene):
-        with Timer("GeneralController initialised"):
+        with Timer("TrainingController initialised"):
             super().__init__(game, parent_scene)
+
+            self.state: TrainingState = TrainingState.CHOOSE_UPGRADE
 
     def update(self, delta_time: float):
         pass
