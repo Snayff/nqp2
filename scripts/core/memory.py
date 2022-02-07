@@ -25,6 +25,7 @@ class Memory:
             self._game: Game = game
 
             self.flags: List[str] = []  # event, game or other flags to note key happenings
+            self._last_id: int = 0
 
 
 
@@ -42,3 +43,11 @@ class Memory:
         self._game.world.model.amend_morale(morale)
         self._game.world.model.amend_charisma(charisma)
         self._game.world.model.amend_leadership(leadership)
+
+
+    def generate_id(self) -> int:
+        """
+        Create unique ID for an instance, such as a unit.
+        """
+        self._last_id += 1
+        return self._last_id

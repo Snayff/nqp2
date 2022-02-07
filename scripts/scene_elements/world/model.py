@@ -55,7 +55,6 @@ class WorldModel:
             self.next_terrain.generate()
 
             # units
-            self._last_id = 0
             self.troupes: Dict[int, Troupe] = {}
 
             # player choices
@@ -116,7 +115,7 @@ class WorldModel:
     def update(self, delta_time: float):
         self.particles.update(delta_time)
         self.projectiles.update(delta_time)
-        for troupe in self._game.memory.troupes.values():
+        for troupe in self.troupes.values():
             troupe.update(delta_time)
 
     def reset(self):
@@ -124,7 +123,6 @@ class WorldModel:
         self.projectiles = ProjectileManager(self._game)
 
         # units
-        self._last_id = 0
         self.troupes = {}
 
         # player choices
@@ -201,13 +199,6 @@ class WorldModel:
         """
         self.morale = max(0, self.morale + amount)
         return self.morale
-
-    def generate_id(self) -> int:
-        """
-        Create unique ID for an instance, such as a unit.
-        """
-        self._last_id += 1
-        return self._last_id
 
     def get_random_event(self) -> Dict:
         """
@@ -321,7 +312,7 @@ class WorldModel:
             self._priority_events[event_type] = event
 
         except KeyError:
-            logging.critical(f"Event ({event_type}) specified not found in Memory.event_deck and was ignored.")
+            logging.critical(f"Event ({event_type}) specified not found in event_deck and was ignored.")
 
     def generate_level_boss(self):
         """
@@ -382,16 +373,16 @@ class WorldModel:
 
     def add_troupe(self, troupe: Troupe) -> int:
         """
-        Add a Troupe to Memory. Returns Troupe ID
+        Add a Troupe. Returns Troupe ID
         """
-        id_ = self.generate_id()
+        id_ = self._game.memory.generate_id()
         self.troupes[id_] = troupe
 
         return id_
 
     def remove_troupe(self, id_: int):
         """
-        Remove a Troupe from Memory. Deletes Troupe.
+        Remove a Troupe from the game. Deletes Troupe.
         """
         try:
             troupe = self.troupes.pop(id_)

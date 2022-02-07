@@ -69,7 +69,7 @@ class Game:
         # self.event: EventScene = EventScene(self)
         # self.training: TrainingScene = TrainingScene(self)
         # self.inn: InnScene = InnScene(self)
-        # self.troupe: ViewTroupeScene = ViewTroupeScene(self)
+        self.troupe: ViewTroupeScene = ViewTroupeScene(self)
         self.world: WorldScene = WorldScene(self)
 
         # dev scenes
@@ -201,18 +201,6 @@ class Game:
 
         elif scene_type == SceneType.RUN_SETUP:
             scene = self.run_setup
-
-        elif scene_type == SceneType.POST_COMBAT:
-            scene = self.post_combat
-
-        elif scene_type == SceneType.TRAINING:
-            scene = self.training
-
-        elif scene_type == SceneType.INN:
-            scene = self.inn
-
-        elif scene_type == SceneType.EVENT:
-            scene = self.event
 
         elif scene_type == SceneType.VIEW_TROUPE:
             scene = self.troupe

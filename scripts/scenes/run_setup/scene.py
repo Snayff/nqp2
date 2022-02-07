@@ -61,22 +61,19 @@ class RunSetupScene(Scene):
         charisma = starting_values["charisma"] + commander["charisma"]
         leadership = starting_values["leadership"] + commander["leadership"]
 
+        # prep player troupe
+        if self._game.debug.debug_mode:
+            troupe.debug_init_units()
+        else:
+            troupe.generate_specific_units(commander["starting_units"])
+
+        # pass starting values to memory
         self._game.memory.initialise_run(troupe, gold, rations, morale, charisma, leadership)
 
-        logging.info(f"Player chose {self.selected_commander} as their commander.")
-
-        # prep player troupe
-        player_troupe = self._game.memory.player_troupe
-        if self._game.debug.debug_mode:
-            player_troupe.debug_init_units()
-        else:
-            player_troupe.generate_specific_units(commander["starting_units"])
-
-        logging.info(f"Run starting now!")
+        logging.info(f"Player chose {self.selected_commander} as their commander. Run starting now!")
 
         # change scene
         self._game.change_scene(SceneType.WORLD)
-        self._game.add_scene(SceneType.EVENT, False)
 
     def reset(self):
         """

@@ -92,7 +92,7 @@ class WorldView:
                 self._has_centered_camera = True
 
     def _draw_units(self, surface: pygame.Surface, offset: pygame.Vector2):
-        units = self._game.memory.get_all_units()
+        units = self._model.get_all_units()
 
         for unit in units:
             unit.draw(surface, shift=offset)
@@ -115,7 +115,7 @@ class WorldView:
         """
         Draw lines to indicate the pathfinding
         """
-        for entity in self._game.world.model.get_all_entities():
+        for entity in self._model.get_all_entities():
             if entity._parent_unit.default_behaviour != "swarm":
                 if entity.behaviour.current_path and len(entity.behaviour.current_path):
                     points = [
@@ -130,7 +130,7 @@ class WorldView:
         """
         count = 0
         pos_totals = pygame.Vector2()
-        for unit in self._game.memory.get_all_units():
+        for unit in self._model.get_all_units():
             if unit.team == team:
                 pos_totals += unit.pos
                 count += 1

@@ -37,7 +37,8 @@ class WorldScene(Scene):
             self.training: TrainingController = TrainingController(game, self)
 
     def update(self, delta_time: float):
-        mod_delta_time = self._game.memory.game_speed * delta_time
+        mod_delta_time = self.model.game_speed * delta_time
+
         self.model.update(mod_delta_time)
         self.combat.update(mod_delta_time)
         self.ui.update(delta_time)
