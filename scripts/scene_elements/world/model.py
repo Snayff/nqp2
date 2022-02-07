@@ -1,23 +1,24 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-import pygame
 import logging
+from typing import TYPE_CHECKING
+
+import pygame
 
 from scripts.core import PointLike
 from scripts.core.constants import TILE_SIZE, WorldState
 from scripts.core.debug import Timer
+from scripts.scene_elements.commander import Commander
+from scripts.scene_elements.entity import Entity
 from scripts.scene_elements.particle_manager import ParticleManager
 from scripts.scene_elements.projectile_manager import ProjectileManager
 from scripts.scene_elements.terrain import Terrain
-from scripts.scene_elements.commander import Commander
-from scripts.scene_elements.entity import Entity
 from scripts.scene_elements.troupe import Troupe
 from scripts.scene_elements.unit import Unit
 
-
 if TYPE_CHECKING:
-    from typing import List, Optional, Tuple, Union, Dict
+    from typing import Dict, List, Optional, Tuple, Union
+
     from scripts.core.game import Game
     from scripts.scenes.world.scene import WorldScene
 
@@ -96,7 +97,6 @@ class WorldModel:
     @property
     def total_boundaries(self):
         return self.boundaries.union(self.next_boundaries)
-
 
     @property
     def charisma_remaining(self) -> int:

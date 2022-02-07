@@ -129,4 +129,3 @@ class Camera:
         size.y = abs(size.y)
         offset = self._pos - (size / 2)
         return pygame.Vector2(round(offset[0]), round(offset[1]))
-

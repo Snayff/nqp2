@@ -5,11 +5,11 @@ from typing import TYPE_CHECKING
 
 from scripts.core.debug import Timer
 
-
 if TYPE_CHECKING:
-    from typing import List, Optional, Tuple, Union, Dict
-    from scripts.scene_elements.troupe import Troupe
+    from typing import Dict, List, Optional, Tuple, Union
+
     from scripts.core.game import Game
+    from scripts.scene_elements.troupe import Troupe
 
 __all__ = ["Memory"]
 
@@ -27,8 +27,6 @@ class Memory:
             self.flags: List[str] = []  # event, game or other flags to note key happenings
             self._last_id: int = 0
 
-
-
     def initialise_run(self, troupe: Troupe, gold: int, rations: int, morale: int, charisma: int, leadership: int):
         """
         Initialise the run's values.
@@ -43,7 +41,6 @@ class Memory:
         self._game.world.model.amend_morale(morale)
         self._game.world.model.amend_charisma(charisma)
         self._game.world.model.amend_leadership(leadership)
-
 
     def generate_id(self) -> int:
         """

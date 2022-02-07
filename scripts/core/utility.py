@@ -79,7 +79,6 @@ def scene_to_scene_type(scene) -> SceneType:
     from scripts.scenes.unit_data.scene import UnitDataScene
     from scripts.scenes.view_troupe.scene import ViewTroupeScene
 
-
     if type(scene) is ViewTroupeScene:
         scene = SceneType.VIEW_TROUPE
     elif type(scene) is RunSetupScene:

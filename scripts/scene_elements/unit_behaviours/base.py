@@ -1,7 +1,7 @@
 import random
 
-from .behaviour import Behaviour
 from ...core.constants import TILE_SIZE
+from .behaviour import Behaviour
 
 REGROUP_RANGE = 32
 RETREAT_AMT = 16

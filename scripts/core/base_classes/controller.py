@@ -2,11 +2,11 @@ from __future__ import annotations
 
 import logging
 from abc import ABC, abstractmethod
-
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing import List, Optional, Tuple, Union, Dict
+    from typing import Dict, List, Optional, Tuple, Union
+
     from scripts.core.game import Game
     from scripts.scenes.world.scene import WorldScene
 
@@ -21,6 +21,7 @@ class Controller(ABC):
     * Do not draw anything
 
     """
+
     def __init__(self, game: Game, parent_scene: WorldScene):
         self._game = game
         self._parent_scene = parent_scene

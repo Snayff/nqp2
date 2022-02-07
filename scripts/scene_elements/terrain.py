@@ -192,7 +192,7 @@ def generate(game: Game, terrain: Terrain, biome: str):
             loc = (x - BARRIER_SIZE - 1, y - BARRIER_SIZE - 1)
             terrain.tiles[loc] = [Tile([biome, 0, 1], game.data.tiles)]
             if (BARRIER_SIZE < x <= (combat_area_size[0] + BARRIER_SIZE)) and (
-                    BARRIER_SIZE < y <= (combat_area_size[1] + BARRIER_SIZE)
+                BARRIER_SIZE < y <= (combat_area_size[1] + BARRIER_SIZE)
             ):
                 if random.random() < 0.3:
                     terrain.tiles[loc].append(Tile([biome, *random_foliage()], game.data.tiles))

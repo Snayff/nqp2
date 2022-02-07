@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import logging
-
 from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.controller import Controller
@@ -9,7 +8,8 @@ from scripts.core.constants import TrainingState
 from scripts.core.debug import Timer
 
 if TYPE_CHECKING:
-    from typing import List, Optional, Tuple, Union, Dict, Any
+    from typing import Any, Dict, List, Optional, Tuple, Union
+
     from scripts.core.game import Game
     from scripts.scenes.world.scene import WorldScene
 
@@ -32,10 +32,8 @@ class TrainingController(Controller):
             self.upgrades_offered: List[Dict[str, Any]] = []
             self.upgrades_available: Dict[str, bool] = {}  # upgrade.type : is_available
 
-
     def update(self, delta_time: float):
         pass
-
 
     def reset(self):
         self.upgrades_offered = []

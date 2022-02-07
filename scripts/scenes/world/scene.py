@@ -11,8 +11,9 @@ from scripts.scenes.world.controllers.training_controller import TrainingControl
 from scripts.scenes.world.ui import WorldUI
 
 if TYPE_CHECKING:
+    from typing import Dict, List, Optional, Tuple, Union
+
     from scripts.core.game import Game
-    from typing import List, Optional, Tuple, Union, Dict
 
 __all__ = ["WorldScene"]
 

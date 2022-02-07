@@ -8,9 +8,9 @@ from scripts.core.constants import WorldState
 from scripts.core.debug import Timer
 from scripts.scene_elements.troupe import Troupe
 
-
 if TYPE_CHECKING:
-    from typing import List, Optional, Tuple, Union, Dict, Any
+    from typing import Any, Dict, List, Optional, Tuple, Union
+
     from scripts.core.game import Game
     from scripts.scenes.world.scene import WorldScene
 
@@ -39,7 +39,6 @@ class CombatController(Controller):
             self.enemy_troupe_id: int = -1
 
             self._game_log: List[str] = []  # TODO - needs moving to model
-
 
     def update(self, delta_time: float):
         # if combat ending

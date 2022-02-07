@@ -1,7 +1,6 @@
 import tcod
 from numpy import asarray, int32
 
-
 __all__ = ["Pathfinder"]
 
 from scripts.core.constants import TILE_SIZE

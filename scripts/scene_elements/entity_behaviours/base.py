@@ -1,8 +1,8 @@
 import math
 import random
 
-from .behaviour import Behaviour
 from ...core.constants import TILE_SIZE
+from .behaviour import Behaviour
 
 PATH_UPDATE_FREQ = 0.4
 

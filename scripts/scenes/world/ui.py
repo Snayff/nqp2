@@ -11,8 +11,9 @@ from scripts.scene_elements.world.view import WorldView
 from scripts.ui_elements.frame import Frame
 
 if TYPE_CHECKING:
-    from scripts.core.game import Game
     from typing import List, Optional
+
+    from scripts.core.game import Game
     from scripts.scenes.world.scene import WorldScene
 
 
@@ -40,7 +41,6 @@ class WorldUI(UI):
             self._update_idle(delta_time)
         elif state == WorldState.VICTORY:
             self._update_victory(delta_time)
-
 
     def _update_idle(self, delta_time: float):
         # need to call here as otherwise units dont align to grid
@@ -102,7 +102,6 @@ class WorldUI(UI):
         elif state == WorldState.VICTORY:
             self._rebuild_victory_ui()
 
-
     def _rebuild_idle_ui(self):
         pass
 
@@ -159,6 +158,7 @@ class GridCell:
     """
     A representation of the smallest discrete space in a Grid.
     """
+
     def __init__(self, rect: pygame.Rect, unit: Unit = None):
         self.rect = rect
         self.unit = unit
@@ -168,6 +168,7 @@ class UnitGrid:
     """
     An organised layout of rows and columns for Unit placement.
     """
+
     def __init__(self, game: Game):
         self.cell_size: int = 32  # Size of each cell
         self.cells_x_size: int = 3
@@ -238,8 +239,9 @@ class UnitGrid:
         mouse_x, mouse_y = self._game.input.mouse_pos
         clicked = self._game.input.mouse_state["left"]
 
-        cell_x_index, cell_y_index = (int(mouse_x) - self.margin_x) // self.cell_size, \
-            (int(mouse_y) - self.margin_y) // self.cell_size
+        cell_x_index, cell_y_index = (int(mouse_x) - self.margin_x) // self.cell_size, (
+            int(mouse_y) - self.margin_y
+        ) // self.cell_size
 
         mouse_x_is_out_of_placement_area = cell_x_index < 0 or cell_x_index >= self.cells_x_size
         mouse_y_is_out_of_placement_area = cell_y_index < 0 or cell_y_index >= self.cells_y_size
