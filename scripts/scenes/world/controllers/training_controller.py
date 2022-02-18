@@ -36,7 +36,6 @@ class TrainingController(Controller):
     #  - input for selecting and applying upgrade to unit
     #  - upgrade confirmation (animation?)
 
-
     def __init__(self, game: Game, parent_scene: WorldScene):
         with Timer("TrainingController initialised"):
             super().__init__(game, parent_scene)

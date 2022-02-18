@@ -183,8 +183,6 @@ class WorldUI(UI):
         panel = Panel(panel_list, True)
         self.add_panel(panel, "upgrades")
 
-
-
     def _rebuild_defeat_ui(self):
         create_font = self._game.assets.create_font
         icon_width = DEFAULT_IMAGE_SIZE
