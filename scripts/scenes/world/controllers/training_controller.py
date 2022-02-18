@@ -25,26 +25,44 @@ class TrainingController(Controller):
 
     """
 
+    # TODO:
+    #  - draw upgrades on screen
+    #  - when transitioning to training state show prompt for selecting upgrades
+    #  - input for toggling selection of units and upgrades
+    #  - show upgrade details only when upgrade is hovered
+    #  - input for selecting upgrade
+    #  - when upgrade selected move to units, update local state
+    #  - input for navigating units
+    #  - input for selecting and applying upgrade to unit
+    #  - upgrade confirmation (animation?)
+
+
     def __init__(self, game: Game, parent_scene: WorldScene):
         with Timer("TrainingController initialised"):
             super().__init__(game, parent_scene)
 
-            self.upgrades_offered: List[Dict[str, Any]] = []
-            self.upgrades_available: Dict[str, bool] = {}  # upgrade.type : is_available
+            self.upgrades_available: Dict[int, Optional[Any]] = {}  # position: None/upgrade dict
+            self.num_upgrades: int = 2
 
     def update(self, delta_time: float):
         pass
 
     def reset(self):
-        self.upgrades_offered = []
         self.upgrades_available = {}
 
     def generate_upgrades(self):
         """
         Generate upgrades to sell. NOTE: currently hard coded.
         """
-        self.upgrades_offered = [self._game.data.upgrades["minor_attack"], self._game.data.upgrades["minor_defence"]]
-        self.upgrades_available = {"minor_attack": True, "minor_defence": True}
+        # reset existing upgrades
+        self.upgrades_available = {}
+
+        # TODO - replace with proc gen
+        upgrades_offered = [self._game.data.upgrades["minor_attack"], self._game.data.upgrades["minor_defence"]]
+
+        # set all positions in dict to None
+        for i in range(self.num_upgrades):
+            self.upgrades_available[i] = upgrades_offered[i]
 
     def calculate_upgrade_cost(self, tier: int):
         """

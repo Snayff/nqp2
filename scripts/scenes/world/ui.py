@@ -5,10 +5,11 @@ from typing import TYPE_CHECKING
 import pygame
 
 from scripts.core.base_classes.ui import UI
-from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, SceneType, WorldState
+from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, GAP_SIZE, SceneType, WorldState
 from scripts.scene_elements.unit import Unit
 from scripts.scene_elements.world.view import WorldView
 from scripts.ui_elements.frame import Frame
+from scripts.ui_elements.panel import Panel
 
 if TYPE_CHECKING:
     from typing import List, Optional
@@ -32,6 +33,19 @@ class WorldUI(UI):
 
         self.grid: Optional[UnitGrid] = None
 
+    def draw(self, surface: pygame.Surface):
+        state = self._parent_scene.model.state
+
+        self._worldview.draw(surface)
+
+        # TODO: create and move to mouse tool system
+        if state == WorldState.IDLE:
+            if self.grid:
+                self.grid.draw(surface)
+
+        self._draw_instruction(surface)
+        self._draw_elements(surface)
+
     def update(self, delta_time: float):
         self._worldview.update(delta_time)
 
@@ -41,6 +55,8 @@ class WorldUI(UI):
             self._update_idle(delta_time)
         elif state == WorldState.VICTORY:
             self._update_victory(delta_time)
+        elif state == WorldState.TRAINING:
+            self._update_training(delta_time)
 
     def _update_idle(self, delta_time: float):
         # need to call here as otherwise units dont align to grid
@@ -54,6 +70,9 @@ class WorldUI(UI):
         if self._parent_scene.combat.victory_duration >= 3:
             self.rebuild_ui()
 
+    def _update_training(self, delta_time: float):
+        pass
+
     def process_input(self, delta_time: float):
         super().process_input(delta_time)
 
@@ -63,6 +82,8 @@ class WorldUI(UI):
             self._process_idle_input()
         elif state == WorldState.DEFEAT:
             self._process_defeat_input()
+        elif state == WorldState.TRAINING:
+            self._process_training_input()
 
     def _process_idle_input(self):
         # TODO  - replace when new room choice is in.
@@ -77,18 +98,8 @@ class WorldUI(UI):
             self._game.memory.reset()
             self._game.change_scene(SceneType.MAIN_MENU)
 
-    def draw(self, surface: pygame.Surface):
-        state = self._parent_scene.model.state
-
-        self._worldview.draw(surface)
-
-        # TODO: create and move to mouse tool system
-        if state == WorldState.IDLE:
-            if self.grid:
-                self.grid.draw(surface)
-
-        self._draw_instruction(surface)
-        self._draw_elements(surface)
+    def _process_training_input(self):
+        pass
 
     def rebuild_ui(self):
         super().rebuild_ui()
@@ -101,18 +112,85 @@ class WorldUI(UI):
             self._rebuild_defeat_ui()
         elif state == WorldState.VICTORY:
             self._rebuild_victory_ui()
+        elif state == WorldState.TRAINING:
+            self._rebuild_training_ui()
 
     def _rebuild_idle_ui(self):
         pass
 
-    def _rebuild_defeat_ui(self):
+    def _rebuild_training_ui(self):
         create_font = self._game.assets.create_font
-
         icon_width = DEFAULT_IMAGE_SIZE
         icon_height = DEFAULT_IMAGE_SIZE
         icon_size = (icon_width, icon_height)
-        start_x = self._game.window.centre[0]
-        start_y = self._game.window.centre[1]
+        start_x, start_y = self._game.window.centre
+        controller = self._parent_scene.training
+        model = self._parent_scene.model
+
+        # draw upgrades
+        current_x = start_x
+        current_y = start_y
+        panel_list = []
+        for i, upgrade in controller.upgrades_available.items():
+            # check if available
+            if upgrade is not None:
+                text = f"{upgrade['stat']} +{upgrade['mod_amount']}"
+                font_type = FontType.DEFAULT
+                is_selectable = True
+
+                # check can afford
+                upgrade_cost = controller.calculate_upgrade_cost(upgrade["tier"])
+                can_afford = model.gold > upgrade_cost
+                if can_afford:
+                    gold_font_type = FontType.DEFAULT
+                else:
+                    gold_font_type = FontType.NEGATIVE
+
+                # draw gold cost
+                gold_icon = self._game.assets.get_image("stats", "gold", icon_size)
+                frame = Frame(
+                    (current_x, current_y),
+                    image=gold_icon,
+                    font=create_font(gold_font_type, str(upgrade_cost)),
+                    is_selectable=False,
+                )
+                self._elements["cost" + str(i)] = frame
+
+            else:
+                text = f"Sold out"
+                font_type = FontType.DISABLED
+                is_selectable = False
+
+            # draw upgrade icon and details
+            upgrade_x = current_x + 50
+            stat_icon = self._game.assets.get_image("stats", upgrade["stat"], icon_size)
+            frame = Frame(
+                (upgrade_x, current_y), image=stat_icon, font=create_font(font_type, text), is_selectable=is_selectable
+            )
+            # capture frame
+            self._elements[upgrade["type"] + str(i)] = frame
+            panel_list.append(frame)
+
+            # highlight selected upgrade
+            if self._selected_upgrade is None:
+                self._selected_upgrade = upgrade["type"]
+            if upgrade["type"] == self._selected_upgrade:
+                frame.is_selected = True
+
+            # increment
+            current_y += icon_height + GAP_SIZE
+
+        panel = Panel(panel_list, True)
+        self.add_panel(panel, "upgrades")
+
+
+
+    def _rebuild_defeat_ui(self):
+        create_font = self._game.assets.create_font
+        icon_width = DEFAULT_IMAGE_SIZE
+        icon_height = DEFAULT_IMAGE_SIZE
+        icon_size = (icon_width, icon_height)
+        start_x, start_y = self._game.window.centre
 
         # draw upgrades
         current_x = start_x
@@ -138,9 +216,7 @@ class WorldUI(UI):
 
     def _rebuild_victory_ui(self):
         create_font = self._game.assets.create_font
-
-        start_x = self._game.window.centre[0]
-        start_y = self._game.window.centre[1]
+        start_x, start_y = self._game.window.centre
 
         # draw upgrades
         current_x = start_x

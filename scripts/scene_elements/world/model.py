@@ -33,12 +33,12 @@ class WorldModel:
     * Include common operations for game world state
     * Store data for the World Scene
 
-    The model is like a chess set.  Something else (a controller)
-    needs to query the state and *ask* the model to make changes.
+    The model is like a chess set.  Something else (a controller) needs to query the state and *ask* the model to
+    make changes.
 
-    The model should be unaware of what combat is, and instead should
-    offer an API that combat, or anything else, can change the state
-    of the model without actually being aware of how the model works.
+    The model should be unaware of what combat is, and instead should offer an API that combat, or anything else,
+    can change the state of the model without actually being aware of how the model works. This provides
+    for cross-controller (room) needs.
     """
 
     def __init__(self, game: Game, parent_scene: WorldScene):
