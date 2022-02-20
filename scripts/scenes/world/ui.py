@@ -54,13 +54,13 @@ class WorldUI(UI):
         state = self._parent_scene.model.state
 
         if state == WorldState.CHOOSE_NEXT_ROOM:
-            self._update_idle(delta_time)
+            self._update_choose_room(delta_time)
         elif state == WorldState.VICTORY:
             self._update_victory(delta_time)
         elif state == WorldState.TRAINING:
             self._update_training(delta_time)
 
-    def _update_idle(self, delta_time: float):
+    def _update_choose_room(self, delta_time: float):
         # need to call here as otherwise units dont align to grid
         # TODO - remove the need to call after init
         if self.grid is None:
@@ -110,10 +110,9 @@ class WorldUI(UI):
             # frame selection
             if self._game.input.states["up"]:
                 self._current_panel.select_previous_element()
-                is_ui_dirty = True
+
             if self._game.input.states["down"]:
                 self._current_panel.select_next_element()
-                is_ui_dirty = True
 
             # select upgrade
             if self._game.input.states["select"]:
@@ -124,7 +123,6 @@ class WorldUI(UI):
             # cancel
             if self._game.input.states["cancel"]:
                 controller.state = TrainingState.IDLE
-                is_ui_dirty = True
 
         if local_state == TrainingState.CHOOSE_TARGET_UNIT:
             # cancel
@@ -172,26 +170,33 @@ class WorldUI(UI):
             # move to select room
             if self._game.input.states["shift"]:
                 controller.state = ChooseRoomState.CHOOSE_ROOM
-                is_ui_dirty = True
+                self._current_panel.set_selectable(True)
 
         if local_state == ChooseRoomState.CHOOSE_ROOM:
             # frame selection
+            current_index = controller.current_index
+            new_index = current_index
             if self._game.input.states["up"]:
                 self._current_panel.select_previous_element()
-                is_ui_dirty = True
+                new_index = utility.previous_number_in_loop(current_index, len(controller.choices))
+
             if self._game.input.states["down"]:
                 self._current_panel.select_next_element()
-                is_ui_dirty = True
+                new_index = utility.next_number_in_loop(current_index, len(controller.choices))
+
+            # set new index to track selection
+            controller.current_index = new_index
 
             # select upgrade
             if self._game.input.states["select"]:
+                controller.selected_room = controller.choices[controller.current_index][0]
                 controller.begin_move_to_new_room()
                 is_ui_dirty = True
 
             # cancel
             if self._game.input.states["cancel"]:
                 controller.state = ChooseRoomState.IDLE
-                is_ui_dirty = True
+                self._current_panel.set_selectable(False)
 
         if is_ui_dirty:
             self.rebuild_ui()
@@ -216,9 +221,9 @@ class WorldUI(UI):
         icon_width = DEFAULT_IMAGE_SIZE
         icon_height = DEFAULT_IMAGE_SIZE
         icon_size = (icon_width, icon_height)
-        start_x, start_y = self._game.window.centre
+        start_x = self._game.window.centre[0]
+        start_y = 100
         controller = self._parent_scene.choose_room
-        model = self._parent_scene.model
 
         # draw room choices
         current_x = start_x
@@ -238,32 +243,27 @@ class WorldUI(UI):
                 (current_x, current_y),
                 new_image=icon,
                 font=create_font(FontType.DEFAULT, text),
-                is_selectable=True,
             )
 
             # register elements
-            self._elements[room_type] = frame
+            self._elements[f"{room_type}_{i}"] = frame
             panel_list.append(frame)
 
+            current_y += 100
+
         # build panel
-        panel = Panel(panel_list)
+        panel = Panel(panel_list, True)
         self.add_panel(panel, "room_choices")
 
-        # handle instructions and selectability for different states
+        # handle instructions  for different states
         if controller.state == ChooseRoomState.CHOOSE_ROOM:
-            panel.set_selectable(True)
             self.set_instruction_text("Press X to cancel.")
 
             # ensure an room is selected
             if controller.selected_room is None:
                 controller.selected_room = controller.choices[0][0]
 
-            # highlight selected room
-            highlighted_frame = self._elements[controller.selected_room]
-            highlighted_frame.is_selected = True
-
         elif controller.state == ChooseRoomState.IDLE:
-            panel.set_selectable(False)
             self.set_instruction_text("Press shift to select a room.")
 
     def _rebuild_training_ui(self):
@@ -339,7 +339,6 @@ class WorldUI(UI):
 
             # highlight selected upgrade
             highlighted_frame = self._elements[controller.selected_upgrade["type"]]
-            highlighted_frame.is_selected = True
 
             # show info pane
             info_x = highlighted_frame.x + highlighted_frame.width + 20
@@ -505,7 +504,8 @@ class UnitGrid:
 
         elif not self.selected_cell:  # The current cell was selected and there is no previously selected cell
             self.selected_cell = cell
-            cell.unit.is_selected = True
+            if cell.unit:
+                cell.unit.is_selected = True
 
         elif self.selected_cell is cell:  # The cell was unselected by the user
             self.selected_cell = None

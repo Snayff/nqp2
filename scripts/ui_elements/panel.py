@@ -5,6 +5,8 @@ from typing import TYPE_CHECKING
 
 import pygame
 
+from scripts.core.base_classes.ui_element import UIElement
+
 if TYPE_CHECKING:
     from typing import List, Optional, Tuple
 
@@ -37,7 +39,7 @@ class Panel:
         return self._is_active
 
     @property
-    def selected_element(self):
+    def selected_element(self) -> UIElement:
         return self._elements[self.selected_index]
 
     def set_active(self, is_active: bool):

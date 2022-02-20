@@ -34,6 +34,9 @@ class ChooseRoomController(Controller):
             self.num_choices: int = 2
             self.choices: List[Tuple[str, bool]] = []  # (room_type, is_hidden)
             self.selected_room: Optional[str] = None
+            self.current_index: int = 0
+
+            self._generate_room_choices()
 
     def update(self, delta_time: float):
         if self._parent_scene.model.state == WorldState.MOVING_NEXT_ROOM:
@@ -42,17 +45,28 @@ class ChooseRoomController(Controller):
     def reset(self):
         self.state = ChooseRoomState.IDLE
 
-        self.num_choices = 2
+        self.num_choices = 3
         self.choices = []  # (room_type, is_hidden)
         self.selected_room = None
 
-    def generate_room_choices(self):
+        self._generate_room_choices()
+
+    def _generate_room_choices(self):
         # reset existing
         self.choices = []
 
-        # pick rooms
+        # pick unique rooms
         room_weights = self._game.data.config["world"]["room_weights"]
-        room_types = self._game.rng.choices(list(room_weights.keys()), list(room_weights.values()), k=self.num_choices)
+        room_types = []
+        for i in range(1000):
+            room_type = self._game.rng.choices(list(room_weights.keys()), list(room_weights.values()), k=1)[0]
+
+            if room_type not in room_types:
+                room_types.append(room_type)
+
+                # check if we have enough rooms
+                if len(room_types) >= self.num_choices:
+                    break
 
         # check for hidden
         chance_hidden = self._game.data.config["world"]["chance_room_type_hidden"]
@@ -70,6 +84,8 @@ class ChooseRoomController(Controller):
 
         """
         if self._parent_scene.model.state == WorldState.CHOOSE_NEXT_ROOM:
+            logging.info(f"Moving to new room ({self.selected_room}).")
+
             self._parent_scene.model.state = WorldState.MOVING_NEXT_ROOM
 
             # allow camera to pan past terrain boundaries
@@ -109,9 +125,9 @@ class ChooseRoomController(Controller):
             self._parent_scene.model.terrain.ignore_boundaries = False
             self._parent_scene.model.next_terrain.ignore_boundaries = False
             self._parent_scene.model.swap_terrains()
+            self._assign_room_state()
             self.reset()
 
-            self._assign_room_state()
 
     def _assign_room_state(self):
         """
@@ -120,9 +136,13 @@ class ChooseRoomController(Controller):
         room = self.selected_room
 
         if room == "training":
-            self._parent_scene.model.state = WorldState.TRAINING
+            new_state = WorldState.TRAINING
         elif room == "combat":
-            self._parent_scene.model.state = WorldState.COMBAT
+            new_state = WorldState.COMBAT
+        else:
+            raise Exception(f"_assign_room_state: room type ({room}) not handled.")
 
+        self._parent_scene.model.state = new_state
+        logging.debug(f"WorldState updated to {new_state}.")
 
 
