@@ -13,8 +13,16 @@ from typing import TYPE_CHECKING
 
 import pygame
 
-from scripts.core.constants import DEBUGGING_PATH, FontType, INFINITE, LOGGING_PATH, PROFILING_PATH, SceneType, VERSION, \
-    WorldState
+from scripts.core.constants import (
+    DEBUGGING_PATH,
+    FontType,
+    INFINITE,
+    LOGGING_PATH,
+    PROFILING_PATH,
+    SceneType,
+    VERSION,
+    WorldState,
+)
 from scripts.ui_elements.dev_console import DevConsole
 from scripts.ui_elements.font import Font
 

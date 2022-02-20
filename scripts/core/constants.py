@@ -62,7 +62,7 @@ class WorldState(IntEnum):
     MOVING_NEXT_ROOM = auto()
     COMBAT = auto()
     DEFEAT = auto()  # TODO - move to controller as local state
-    VICTORY = auto() # TODO - move to controller as local state
+    VICTORY = auto()  # TODO - move to controller as local state
     TRAINING = auto()
 
 
