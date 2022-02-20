@@ -12,6 +12,7 @@ if TYPE_CHECKING:
 
     from scripts.core.game import Game
     from scripts.scenes.world.scene import WorldScene
+    from scripts.scene_elements.unit import Unit
 
 __all__ = ["TrainingController"]
 
@@ -44,6 +45,7 @@ class TrainingController(Controller):
             self.upgrades_available: Dict[int, Optional[Any]] = {}  # position: None/upgrade dict
             self.selected_upgrade: Optional[Dict] = None  # None/upgrade dict
             self.num_upgrades: int = 2
+            self.selected_target_unit: Optional[Unit] = None
 
     def update(self, delta_time: float):
         pass
