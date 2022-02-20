@@ -4,7 +4,7 @@ import logging
 from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.controller import Controller
-from scripts.core.constants import WorldState
+from scripts.core.constants import CombatState, WorldState
 from scripts.core.debug import Timer
 from scripts.scene_elements.troupe import Troupe
 
@@ -37,10 +37,15 @@ class CombatController(Controller):
             # state
             self.combat_category: str = "basic"
             self.enemy_troupe_id: int = -1
+            self.state: CombatState = CombatState.IDLE
 
             self._game_log: List[str] = []  # TODO - needs moving to model
 
     def update(self, delta_time: float):
+        # do nothing if in idle
+        if self.state == CombatState.IDLE:
+            return
+
         # if combat ending
         if self._combat_ending_timer != -1:
             self._combat_ending_timer += delta_time
@@ -79,11 +84,19 @@ class CombatController(Controller):
                 # TODO: decouple this
                 self._parent_scene.ui._worldview.camera.move_to_position(focus_point)
 
-    def begin_combat(self):
+    def prepare_combat(self):
+        """
+        Complete combat preparation steps.
+        """
         self.generate_combat()
-        self._parent_scene.model.state = WorldState.COMBAT
         for troupe in self._game.memory.troupes.values():
             troupe.set_force_idle(False)
+
+    def begin_combat(self):
+        """
+        Start active combat.
+        """
+        self.state = CombatState.WATCH
 
     def reset(self):
         self._parent_scene.model.state = WorldState.CHOOSE_NEXT_ROOM
@@ -93,7 +106,6 @@ class CombatController(Controller):
     def generate_combat(self):
         """
         Generate a random combat
-
         """
         rng = self._game.rng
         combat = self._get_random_combat()
@@ -134,7 +146,6 @@ class CombatController(Controller):
     def _get_random_combat(self) -> Dict[str, Any]:
         """
         Return dictionary of data for a random combat
-
         """
         if not self._game.data.combats:
             return {}
@@ -156,7 +167,6 @@ class CombatController(Controller):
     def _process_defeat(self):
         """
         Process the defeat, such as removing morale
-
         """
         self.combat_ending_timer = 0
         self.state = WorldState.DEFEAT
@@ -164,7 +174,6 @@ class CombatController(Controller):
     def _process_victory(self):
         """
         Process victory
-
         """
         self.combat_ending_timer = 0
         self.state = WorldState.VICTORY
@@ -172,7 +181,6 @@ class CombatController(Controller):
     def end_combat(self):
         """
         End the combat
-
         """
         self._game.memory.set_game_speed(1)
         for troupe in self._game.memory.troupes.values():
@@ -183,7 +191,6 @@ class CombatController(Controller):
     def _process_new_injuries(self):
         """
         Process new injuries and resulting deaths
-
         """
         remove_units = []
         injuries_before_death = self._game.data.config["unit_properties"]["injuries_before_death"]

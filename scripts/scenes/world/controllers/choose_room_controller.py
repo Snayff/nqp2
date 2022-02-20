@@ -89,6 +89,8 @@ class ChooseRoomController(Controller):
 
             self._parent_scene.model.state = WorldState.MOVING_NEXT_ROOM
 
+            self._parent_scene.model.set_game_speed(2)
+
             # allow camera to pan past terrain boundaries
             self._parent_scene.ui._worldview.clamp_primary_terrain = False
 
@@ -128,6 +130,7 @@ class ChooseRoomController(Controller):
             self._parent_scene.model.swap_terrains()
             self._assign_room_state()
             self.reset()
+            self._parent_scene.model.set_game_speed(1)
 
     def _assign_room_state(self):
         """

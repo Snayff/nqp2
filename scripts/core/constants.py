@@ -37,6 +37,7 @@ class GameState(IntEnum):
 
 
 class CombatState(IntEnum):
+    IDLE = auto()
     UNIT_CHOOSE_CARD = auto()
     UNIT_SELECT_TARGET = auto()
     ACTION_CHOOSE_CARD = auto()
@@ -60,8 +61,8 @@ class WorldState(IntEnum):
     CHOOSE_NEXT_ROOM = auto()
     MOVING_NEXT_ROOM = auto()
     COMBAT = auto()
-    DEFEAT = auto()
-    VICTORY = auto()
+    DEFEAT = auto()  # TODO - move to controller as local state
+    VICTORY = auto() # TODO - move to controller as local state
     TRAINING = auto()
 
 
