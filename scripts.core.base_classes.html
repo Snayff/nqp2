@@ -259,6 +259,8 @@
         </li>
         <li class="md-nav__item"><a href="#module-scripts.core.base_classes.animation" class="md-nav__link">scripts.core.base_classes.animation module</a>
         </li>
+        <li class="md-nav__item"><a href="#module-scripts.core.base_classes.controller" class="md-nav__link">scripts.core.base_classes.controller module</a>
+        </li>
         <li class="md-nav__item"><a href="#module-scripts.core.base_classes.image" class="md-nav__link">scripts.core.base_classes.image module</a>
         </li>
         <li class="md-nav__item"><a href="#module-scripts.core.base_classes.scene" class="md-nav__link">scripts.core.base_classes.scene module</a>
@@ -353,6 +355,31 @@ Return True if this animation has finished playing.</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="scripts.core.base_classes.animation.Animation.width">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">width</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></em><a class="headerlink" href="#scripts.core.base_classes.animation.Animation.width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
+</section>
+<section id="module-scripts.core.base_classes.controller">
+<span id="scripts-core-base-classes-controller-module"></span><h2 id="module-scripts.core.base_classes.controller">scripts.core.base_classes.controller module<a class="headerlink" href="#module-scripts.core.base_classes.controller" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="scripts.core.base_classes.controller.Controller">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Controller</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scripts.core.html#scripts.core.game.Game" title="scripts.core.game.Game"><span class="pre">Game</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_scene</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scripts.scenes.world.html#scripts.scenes.world.scene.WorldScene" title="scripts.scenes.world.scene.WorldScene"><span class="pre">WorldScene</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/base_classes/controller.html#Controller"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.base_classes.controller.Controller" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/abc.html#abc.ABC" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></a></p>
+<p>Manage game functionality for a specific context</p>
+<ul class="simple">
+<li><p>Modify game state in accordance with game rules</p></li>
+<li><p>Do not draw anything</p></li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.base_classes.controller.Controller.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scripts.core.html#scripts.core.game.Game" title="scripts.core.game.Game"><span class="pre">Game</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_scene</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scripts.scenes.world.html#scripts.scenes.world.scene.WorldScene" title="scripts.scenes.world.scene.WorldScene"><span class="pre">WorldScene</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/base_classes/controller.html#Controller.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.base_classes.controller.Controller.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.base_classes.controller.Controller.reset">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/base_classes/controller.html#Controller.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.base_classes.controller.Controller.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.base_classes.controller.Controller.update">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/core/base_classes/controller.html#Controller.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.base_classes.controller.Controller.update" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 </dd></dl>
 </section>

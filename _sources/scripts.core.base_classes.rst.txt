@@ -12,6 +12,14 @@ scripts.core.base\_classes.animation module
    :undoc-members:
    :show-inheritance:
 
+scripts.core.base\_classes.controller module
+--------------------------------------------
+
+.. automodule:: scripts.core.base_classes.controller
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 scripts.core.base\_classes.image module
 ---------------------------------------
 

@@ -273,7 +273,7 @@
 <span class="kn">import</span> <span class="nn">pygame</span>
 
 <span class="kn">from</span> <span class="nn">scripts.core</span> <span class="kn">import</span> <span class="n">PointLike</span>
-<span class="kn">from</span> <span class="nn">scripts.core.constants</span> <span class="kn">import</span> <span class="n">DEFENSE_SCALE</span><span class="p">,</span> <span class="n">PUSH_FORCE</span><span class="p">,</span> <span class="n">WEIGHT_SCALE</span>
+<span class="kn">from</span> <span class="nn">scripts.core.constants</span> <span class="kn">import</span> <span class="n">DEFENSE_SCALE</span><span class="p">,</span> <span class="n">PUSH_FORCE</span><span class="p">,</span> <span class="n">TILE_SIZE</span><span class="p">,</span> <span class="n">WEIGHT_SCALE</span>
 <span class="kn">from</span> <span class="nn">scripts.core.game</span> <span class="kn">import</span> <span class="n">Game</span>
 <span class="kn">from</span> <span class="nn">scripts.core.utility</span> <span class="kn">import</span> <span class="n">offset</span>
 
@@ -337,9 +337,8 @@
 <span class="sd">        Calls the move sub-process anywhere from one to several times depending on the speed.</span>
 <span class="sd">        """</span>
         <span class="c1"># TODO - remove reliance on Scenes</span>
-        <span class="n">tile_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">tile_size</span>
-        <span class="n">move_count</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">movement</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">//</span> <span class="n">tile_size</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="n">move_count</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">movement</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">//</span> <span class="n">tile_size</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">move_count</span><span class="p">)</span>
+        <span class="n">move_count</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">movement</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">//</span> <span class="n">TILE_SIZE</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">move_count</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">movement</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">//</span> <span class="n">TILE_SIZE</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">move_count</span><span class="p">)</span>
         <span class="n">move_amount</span> <span class="o">=</span> <span class="p">[</span><span class="n">movement</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">move_count</span><span class="p">,</span> <span class="n">movement</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">move_count</span><span class="p">]</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">move_count</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">sub_move</span><span class="p">(</span><span class="n">move_amount</span><span class="p">)</span></div>
@@ -475,7 +474,7 @@
 
         <span class="c1"># handle collision</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">alive</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">get_all_entities</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">get_all_entities</span><span class="p">():</span>
                 <span class="k">if</span> <span class="p">(</span><span class="n">entity</span> <span class="o">!=</span> <span class="bp">self</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">alive</span><span class="p">):</span>
                     <span class="n">combined_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">+</span> <span class="n">entity</span><span class="o">.</span><span class="n">size</span>
                     <span class="c1"># horizontal scan</span>

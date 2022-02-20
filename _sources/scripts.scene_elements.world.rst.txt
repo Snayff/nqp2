@@ -4,10 +4,34 @@ scripts.scene\_elements.world package
 Submodules
 ----------
 
+scripts.scene\_elements.world.choose\_room\_controller module
+-------------------------------------------------------------
+
+.. automodule:: scripts.scene_elements.world.choose_room_controller
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scene\_elements.world.combat\_controller module
+-------------------------------------------------------
+
+.. automodule:: scripts.scene_elements.world.combat_controller
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 scripts.scene\_elements.world.model module
 ------------------------------------------
 
 .. automodule:: scripts.scene_elements.world.model
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scene\_elements.world.training\_controller module
+---------------------------------------------------------
+
+.. automodule:: scripts.scene_elements.world.training_controller
    :members:
    :undoc-members:
    :show-inheritance:

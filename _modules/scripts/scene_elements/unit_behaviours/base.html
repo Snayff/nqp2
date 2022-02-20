@@ -268,6 +268,7 @@
   <h1 id="modules-scripts-scene-elements-unit-behaviours-base--page-root">Source code for scripts.scene_elements.unit_behaviours.base</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">random</span>
 
+<span class="kn">from</span> <span class="nn">...core.constants</span> <span class="kn">import</span> <span class="n">TILE_SIZE</span>
 <span class="kn">from</span> <span class="nn">.behaviour</span> <span class="kn">import</span> <span class="n">Behaviour</span>
 
 <span class="n">REGROUP_RANGE</span> <span class="o">=</span> <span class="mi">32</span>
@@ -303,7 +304,7 @@
 <span class="sd">        Find the nearest enemy from a different team and update the target.</span>
 <span class="sd">        """</span>
         <span class="n">nearest</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="mi">9999999</span><span class="p">]</span>
-        <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">get_all_entities</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">get_all_entities</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">entity</span><span class="o">.</span><span class="n">team</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">unit</span><span class="o">.</span><span class="n">team</span><span class="p">:</span>
                 <span class="n">dis</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">dis</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unit</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">dis</span> <span class="o">&lt;</span> <span class="n">nearest</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
@@ -361,8 +362,8 @@
                         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">force_retreat</span><span class="p">:</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">retreating</span> <span class="o">=</span> <span class="kc">True</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">retreat_target</span> <span class="o">=</span> <span class="p">(</span>
-                                <span class="bp">self</span><span class="o">.</span><span class="n">position_log</span><span class="p">[</span><span class="o">-</span><span class="n">RETREAT_AMT</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">combat</span><span class="o">.</span><span class="n">terrain</span><span class="o">.</span><span class="n">tile_size</span><span class="p">,</span>
-                                <span class="bp">self</span><span class="o">.</span><span class="n">position_log</span><span class="p">[</span><span class="o">-</span><span class="n">RETREAT_AMT</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">combat</span><span class="o">.</span><span class="n">terrain</span><span class="o">.</span><span class="n">tile_size</span><span class="p">,</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">position_log</span><span class="p">[</span><span class="o">-</span><span class="n">RETREAT_AMT</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">TILE_SIZE</span><span class="p">,</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">position_log</span><span class="p">[</span><span class="o">-</span><span class="n">RETREAT_AMT</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">TILE_SIZE</span><span class="p">,</span>
                             <span class="p">)</span>
                         <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">unit</span><span class="o">.</span><span class="n">entities</span><span class="p">:</span>
                             <span class="n">entity</span><span class="o">.</span><span class="n">behaviour</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="s2">"path"</span>

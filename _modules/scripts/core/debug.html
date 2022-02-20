@@ -281,7 +281,16 @@
 
 <span class="kn">import</span> <span class="nn">pygame</span>
 
-<span class="kn">from</span> <span class="nn">scripts.core.constants</span> <span class="kn">import</span> <span class="n">DEBUGGING_PATH</span><span class="p">,</span> <span class="n">FontType</span><span class="p">,</span> <span class="n">INFINITE</span><span class="p">,</span> <span class="n">LOGGING_PATH</span><span class="p">,</span> <span class="n">PROFILING_PATH</span><span class="p">,</span> <span class="n">VERSION</span>
+<span class="kn">from</span> <span class="nn">scripts.core.constants</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">DEBUGGING_PATH</span><span class="p">,</span>
+    <span class="n">FontType</span><span class="p">,</span>
+    <span class="n">INFINITE</span><span class="p">,</span>
+    <span class="n">LOGGING_PATH</span><span class="p">,</span>
+    <span class="n">PROFILING_PATH</span><span class="p">,</span>
+    <span class="n">SceneType</span><span class="p">,</span>
+    <span class="n">VERSION</span><span class="p">,</span>
+    <span class="n">WorldState</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">scripts.ui_elements.dev_console</span> <span class="kn">import</span> <span class="n">DevConsole</span>
 <span class="kn">from</span> <span class="nn">scripts.ui_elements.font</span> <span class="kn">import</span> <span class="n">Font</span>
 
@@ -318,7 +327,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">is_profiling</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">is_logging</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_show_debug_info</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_show_debug_info</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
 
         <span class="c1"># values</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_num_frames_considered_recent</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">600</span>
@@ -558,25 +567,47 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_show_debug_info</span> <span class="o">=</span> <span class="kc">True</span></div>
 
     <span class="k">def</span> <span class="nf">_refresh_debug_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">current_fps</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"FPS: C=</span><span class="si">{</span><span class="nb">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_fps</span><span class="p">,</span> <span class="s1">'.2f'</span><span class="p">)</span><span class="si">}</span><span class="s2">, "</span>
-        <span class="n">recent_fps</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"R_Avg=</span><span class="si">{</span><span class="nb">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">recent_average_fps</span><span class="p">,</span> <span class="s1">'.2f'</span><span class="p">)</span><span class="si">}</span><span class="s2">, "</span>
-        <span class="n">avg_fps</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"Avg=</span><span class="si">{</span><span class="nb">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">average_fps</span><span class="p">,</span> <span class="s1">'.2f'</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
-
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fonts</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">start_x</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="n">start_y</span> <span class="o">=</span> <span class="mi">1</span>
 
-        <span class="n">text</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">current_fps</span><span class="si">}</span><span class="s2"> ; </span><span class="si">{</span><span class="n">recent_fps</span><span class="si">}</span><span class="s2"> ;</span><span class="si">{</span><span class="n">avg_fps</span><span class="si">}</span><span class="s2">"</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_fonts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="p">(</span><span class="n">start_x</span><span class="p">,</span> <span class="n">start_y</span><span class="p">)))</span>
+        <span class="c1"># FPS</span>
+        <span class="c1"># TODO - add back in when working</span>
+        <span class="n">current_x</span> <span class="o">=</span> <span class="n">start_x</span>
+        <span class="n">current_y</span> <span class="o">=</span> <span class="n">start_y</span>
+        <span class="c1"># current_fps = f"FPS: C={format(self.current_fps, '.2f')}, "</span>
+        <span class="c1"># recent_fps = f"R_Avg={format(self.recent_average_fps, '.2f')}, "</span>
+        <span class="c1"># avg_fps = f"Avg={format(self.average_fps, '.2f')}"</span>
+        <span class="c1"># text = f"{current_fps}; {recent_fps};{avg_fps}"</span>
+        <span class="c1"># self._fonts.append(self._game.assets.create_font(FontType.DEFAULT, text, (current_x, current_y)))</span>
 
-        <span class="n">current_y</span> <span class="o">=</span> <span class="n">start_y</span> <span class="o">+</span> <span class="mi">10</span>
-        <span class="n">text</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"Game speed:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">game_speed</span><span class="si">}</span><span class="s2"> ; WorldState: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_fonts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="p">(</span><span class="n">start_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">)))</span></div>
+        <span class="c1"># current state</span>
+        <span class="n">current_y</span> <span class="o">+=</span> <span class="mi">0</span>
+        <span class="n">world</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">world</span>
+        <span class="n">world_state</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">state</span>
+        <span class="n">sub_state_name</span> <span class="o">=</span> <span class="s2">"not found"</span>
+        <span class="k">if</span> <span class="n">world_state</span> <span class="o">==</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">COMBAT</span><span class="p">:</span>
+            <span class="n">sub_state_name</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">combat</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">name</span>
+        <span class="k">elif</span> <span class="n">world_state</span> <span class="o">==</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">TRAINING</span><span class="p">:</span>
+            <span class="n">sub_state_name</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">training</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">name</span>
+        <span class="k">elif</span> <span class="n">world_state</span> <span class="o">==</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">CHOOSE_NEXT_ROOM</span><span class="p">:</span>
+            <span class="n">sub_state_name</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">choose_room</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">name</span>
+        <span class="k">elif</span> <span class="n">world_state</span> <span class="o">==</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">MOVING_NEXT_ROOM</span><span class="p">:</span>
+            <span class="n">sub_state_name</span> <span class="o">=</span> <span class="s2">"n/a"</span>
+
+        <span class="n">text</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"World state is [</span><span class="si">{</span><span class="n">world_state</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">]; room state is [</span><span class="si">{</span><span class="n">sub_state_name</span><span class="si">}</span><span class="s2">]."</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fonts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">)))</span>
+
+        <span class="c1"># game speed</span>
+        <span class="n">current_y</span> <span class="o">+=</span> <span class="mi">10</span>
+        <span class="n">game_speed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">game_speed</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"Game speed = </span><span class="si">{</span><span class="n">game_speed</span><span class="si">}</span><span class="s2">."</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fonts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">)))</span></div>
 
 
 <div class="viewcode-block" id="Timer"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.debug.Timer">[docs]</a><span class="k">class</span> <span class="nc">Timer</span><span class="p">:</span>
     <span class="sd">"""</span>
 <span class="sd">    Context manager to document program time</span>
-
 <span class="sd">    """</span>
 
 <div class="viewcode-block" id="Timer.__init__"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.debug.Timer.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -591,9 +622,9 @@
     <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_type</span><span class="p">,</span> <span class="n">exc_val</span><span class="p">,</span> <span class="n">exc_tb</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">duration</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">:</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2"> took </span><span class="si">%.2f</span><span class="s2"> seconds"</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">duration</span><span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2"> in </span><span class="si">%.2f</span><span class="s2"> seconds."</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">duration</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"took </span><span class="si">%.2f</span><span class="s2"> seconds"</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">duration</span><span class="p">)</span></div>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"took </span><span class="si">%.2f</span><span class="s2"> seconds."</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">duration</span><span class="p">)</span></div>
 </pre></div>
 
           </article>

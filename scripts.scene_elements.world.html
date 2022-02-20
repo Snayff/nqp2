@@ -257,7 +257,13 @@
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#submodules" class="md-nav__link">Submodules</a>
         </li>
+        <li class="md-nav__item"><a href="#module-scripts.scene_elements.world.choose_room_controller" class="md-nav__link">scripts.scene_elements.world.choose_room_controller module</a>
+        </li>
+        <li class="md-nav__item"><a href="#module-scripts.scene_elements.world.combat_controller" class="md-nav__link">scripts.scene_elements.world.combat_controller module</a>
+        </li>
         <li class="md-nav__item"><a href="#module-scripts.scene_elements.world.model" class="md-nav__link">scripts.scene_elements.world.model module</a>
+        </li>
+        <li class="md-nav__item"><a href="#module-scripts.scene_elements.world.training_controller" class="md-nav__link">scripts.scene_elements.world.training_controller module</a>
         </li>
         <li class="md-nav__item"><a href="#module-scripts.scene_elements.world.view" class="md-nav__link">scripts.scene_elements.world.view module</a>
         </li>
@@ -284,47 +290,187 @@
 <section id="submodules">
 <h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </section>
+<section id="module-scripts.scene_elements.world.choose_room_controller">
+<span id="scripts-scene-elements-world-choose-room-controller-module"></span><h2 id="module-scripts.scene_elements.world.choose_room_controller">scripts.scene_elements.world.choose_room_controller module<a class="headerlink" href="#module-scripts.scene_elements.world.choose_room_controller" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="scripts.scene_elements.world.choose_room_controller.ChooseRoomController">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ChooseRoomController</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scripts.core.html#scripts.core.game.Game" title="scripts.core.game.Game"><span class="pre">Game</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_scene</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scripts.scenes.world.html#scripts.scenes.world.scene.WorldScene" title="scripts.scenes.world.scene.WorldScene"><span class="pre">WorldScene</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scene_elements/world/choose_room_controller.html#ChooseRoomController"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.choose_room_controller.ChooseRoomController" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="scripts.core.base_classes.html#scripts.core.base_classes.controller.Controller" title="scripts.core.base_classes.controller.Controller"><code class="xref py py-class docutils literal notranslate"><span class="pre">scripts.core.base_classes.controller.Controller</span></code></a></p>
+<p>Choose next room functionality and  data.</p>
+<ul class="simple">
+<li><p>Modify game state in accordance with game rules</p></li>
+<li><p>Do not draw anything</p></li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.world.choose_room_controller.ChooseRoomController.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scripts.core.html#scripts.core.game.Game" title="scripts.core.game.Game"><span class="pre">Game</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_scene</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scripts.scenes.world.html#scripts.scenes.world.scene.WorldScene" title="scripts.scenes.world.scene.WorldScene"><span class="pre">WorldScene</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scene_elements/world/choose_room_controller.html#ChooseRoomController.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.choose_room_controller.ChooseRoomController.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.world.choose_room_controller.ChooseRoomController.begin_move_to_new_room">
+<span class="sig-name descname"><span class="pre">begin_move_to_new_room</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scene_elements/world/choose_room_controller.html#ChooseRoomController.begin_move_to_new_room"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.choose_room_controller.ChooseRoomController.begin_move_to_new_room" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move Units to a new room</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.world.choose_room_controller.ChooseRoomController.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scene_elements/world/choose_room_controller.html#ChooseRoomController.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.choose_room_controller.ChooseRoomController.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.world.choose_room_controller.ChooseRoomController.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scene_elements/world/choose_room_controller.html#ChooseRoomController.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.choose_room_controller.ChooseRoomController.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
+</section>
+<section id="module-scripts.scene_elements.world.combat_controller">
+<span id="scripts-scene-elements-world-combat-controller-module"></span><h2 id="module-scripts.scene_elements.world.combat_controller">scripts.scene_elements.world.combat_controller module<a class="headerlink" href="#module-scripts.scene_elements.world.combat_controller" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="scripts.scene_elements.world.combat_controller.CombatController">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CombatController</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scripts.core.html#scripts.core.game.Game" title="scripts.core.game.Game"><span class="pre">Game</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_scene</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scripts.scenes.world.html#scripts.scenes.world.scene.WorldScene" title="scripts.scenes.world.scene.WorldScene"><span class="pre">WorldScene</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scene_elements/world/combat_controller.html#CombatController"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.combat_controller.CombatController" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="scripts.core.base_classes.html#scripts.core.base_classes.controller.Controller" title="scripts.core.base_classes.controller.Controller"><code class="xref py py-class docutils literal notranslate"><span class="pre">scripts.core.base_classes.controller.Controller</span></code></a></p>
+<p>Combat game functionality and combat only data.</p>
+<ul class="simple">
+<li><p>Modify game state in accordance with game rules</p></li>
+<li><p>Do not draw anything</p></li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.world.combat_controller.CombatController.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scripts.core.html#scripts.core.game.Game" title="scripts.core.game.Game"><span class="pre">Game</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_scene</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scripts.scenes.world.html#scripts.scenes.world.scene.WorldScene" title="scripts.scenes.world.scene.WorldScene"><span class="pre">WorldScene</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scene_elements/world/combat_controller.html#CombatController.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.combat_controller.CombatController.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.world.combat_controller.CombatController.begin_combat">
+<span class="sig-name descname"><span class="pre">begin_combat</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scene_elements/world/combat_controller.html#CombatController.begin_combat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.combat_controller.CombatController.begin_combat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start active combat.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.world.combat_controller.CombatController.end_combat">
+<span class="sig-name descname"><span class="pre">end_combat</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scene_elements/world/combat_controller.html#CombatController.end_combat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.combat_controller.CombatController.end_combat" title="Permalink to this definition">¶</a></dt>
+<dd><p>End the combat</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.world.combat_controller.CombatController.generate_combat">
+<span class="sig-name descname"><span class="pre">generate_combat</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scene_elements/world/combat_controller.html#CombatController.generate_combat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.combat_controller.CombatController.generate_combat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a random combat</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.world.combat_controller.CombatController.prepare_combat">
+<span class="sig-name descname"><span class="pre">prepare_combat</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scene_elements/world/combat_controller.html#CombatController.prepare_combat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.combat_controller.CombatController.prepare_combat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Complete combat preparation steps.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.world.combat_controller.CombatController.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scene_elements/world/combat_controller.html#CombatController.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.combat_controller.CombatController.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.world.combat_controller.CombatController.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scene_elements/world/combat_controller.html#CombatController.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.combat_controller.CombatController.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
+</section>
 <section id="module-scripts.scene_elements.world.model">
 <span id="scripts-scene-elements-world-model-module"></span><h2 id="module-scripts.scene_elements.world.model">scripts.scene_elements.world.model module<a class="headerlink" href="#module-scripts.scene_elements.world.model" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="scripts.scene_elements.world.model.WorldModel">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">WorldModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scripts.core.html#scripts.core.game.Game" title="scripts.core.game.Game"><span class="pre">Game</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scene_elements/world/model.html#WorldModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.model.WorldModel" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">WorldModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scripts.core.html#scripts.core.game.Game" title="scripts.core.game.Game"><span class="pre">Game</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_scene</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scripts.scenes.world.html#scripts.scenes.world.scene.WorldScene" title="scripts.scenes.world.scene.WorldScene"><span class="pre">WorldScene</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scene_elements/world/model.html#WorldModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.model.WorldModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Manage Terrain and game entities</p>
 <ul class="simple">
 <li><p>No drawing should be done here</p></li>
 <li><p>Include common operations for game world state</p></li>
+<li><p>Store data for the World Scene</p></li>
 </ul>
-<p>The model is like a chess set.  Something else (a controller)
-needs to query the state and <em>ask</em> the model to make changes.</p>
-<p>The model should be unaware of what combat is, and instead should
-offer an API that combat, or anything else, can change the state
-of the model without actually being aware of how the model works.</p>
-<dl class="simple">
-<dt>NOTE: There is some overlap in responsibility with the “Memory”,</dt><dd><p>and future work should clarify what each should handle.</p>
-</dd>
-</dl>
+<p>The model is like a chess set.  Something else (a controller) needs to query the state and <em>ask</em> the model to
+make changes.</p>
+<p>The model should be unaware of what combat is, and instead should offer an API that combat, or anything else,
+can change the state of the model without actually being aware of how the model works. This provides
+for cross-controller (room) needs.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="scripts.scene_elements.world.model.WorldModel.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scripts.core.html#scripts.core.game.Game" title="scripts.core.game.Game"><span class="pre">Game</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scene_elements/world/model.html#WorldModel.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.model.WorldModel.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scripts.core.html#scripts.core.game.Game" title="scripts.core.game.Game"><span class="pre">Game</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_scene</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scripts.scenes.world.html#scripts.scenes.world.scene.WorldScene" title="scripts.scenes.world.scene.WorldScene"><span class="pre">WorldScene</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scene_elements/world/model.html#WorldModel.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.model.WorldModel.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="scripts.scene_elements.world.model.WorldModel.align_unit_pos_to_unit_grid">
-<span class="sig-name descname"><span class="pre">align_unit_pos_to_unit_grid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scene_elements/world/model.html#WorldModel.align_unit_pos_to_unit_grid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.model.WorldModel.align_unit_pos_to_unit_grid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add player’s units to the unit_grid and align their positions.</p>
+<dt class="sig sig-object py" id="scripts.scene_elements.world.model.WorldModel.add_troupe">
+<span class="sig-name descname"><span class="pre">add_troupe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">troupe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scripts.scene_elements.html#scripts.scene_elements.troupe.Troupe" title="scripts.scene_elements.troupe.Troupe"><span class="pre">scripts.scene_elements.troupe.Troupe</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></span><a class="reference internal" href="_modules/scripts/scene_elements/world/model.html#WorldModel.add_troupe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.model.WorldModel.add_troupe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a Troupe. Returns Troupe ID</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.world.model.WorldModel.amend_charisma">
+<span class="sig-name descname"><span class="pre">amend_charisma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></span><a class="reference internal" href="_modules/scripts/scene_elements/world/model.html#WorldModel.amend_charisma"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.model.WorldModel.amend_charisma" title="Permalink to this definition">¶</a></dt>
+<dd><p>Amend the current charisma value by the given amount. Return remaining amount.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.world.model.WorldModel.amend_gold">
+<span class="sig-name descname"><span class="pre">amend_gold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></span><a class="reference internal" href="_modules/scripts/scene_elements/world/model.html#WorldModel.amend_gold"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.model.WorldModel.amend_gold" title="Permalink to this definition">¶</a></dt>
+<dd><p>Amend the current gold value by the given amount. Return remaining amount.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.world.model.WorldModel.amend_leadership">
+<span class="sig-name descname"><span class="pre">amend_leadership</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></span><a class="reference internal" href="_modules/scripts/scene_elements/world/model.html#WorldModel.amend_leadership"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.model.WorldModel.amend_leadership" title="Permalink to this definition">¶</a></dt>
+<dd><p>Amend the current leadership value by the given amount. Return remaining amount.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.world.model.WorldModel.amend_morale">
+<span class="sig-name descname"><span class="pre">amend_morale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></span><a class="reference internal" href="_modules/scripts/scene_elements/world/model.html#WorldModel.amend_morale"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.model.WorldModel.amend_morale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Amend the current morale value by the given amount. Return remaining amount.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.world.model.WorldModel.amend_rations">
+<span class="sig-name descname"><span class="pre">amend_rations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></span><a class="reference internal" href="_modules/scripts/scene_elements/world/model.html#WorldModel.amend_rations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.model.WorldModel.amend_rations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Amend the current rations value by the given amount. Return remaining amount.</p>
 </dd></dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="scripts.scene_elements.world.model.WorldModel.boundaries">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">boundaries</span></span><a class="headerlink" href="#scripts.scene_elements.world.model.WorldModel.boundaries" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="scripts.scene_elements.world.model.WorldModel.charisma_remaining">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">charisma_remaining</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></em><a class="headerlink" href="#scripts.scene_elements.world.model.WorldModel.charisma_remaining" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="scripts.scene_elements.world.model.WorldModel.force_idle">
 <span class="sig-name descname"><span class="pre">force_idle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scene_elements/world/model.html#WorldModel.force_idle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.model.WorldModel.force_idle" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py property">
+<dt class="sig sig-object py" id="scripts.scene_elements.world.model.WorldModel.game_speed">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">game_speed</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#scripts.scene_elements.world.model.WorldModel.game_speed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.world.model.WorldModel.generate_level_boss">
+<span class="sig-name descname"><span class="pre">generate_level_boss</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scene_elements/world/model.html#WorldModel.generate_level_boss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.model.WorldModel.generate_level_boss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate the boss for the current level.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.world.model.WorldModel.get_all_entities">
+<span class="sig-name descname"><span class="pre">get_all_entities</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scripts.scene_elements.html#scripts.scene_elements.entity.Entity" title="scripts.scene_elements.entity.Entity"><span class="pre">Entity</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/scripts/scene_elements/world/model.html#WorldModel.get_all_entities"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.model.WorldModel.get_all_entities" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all entities</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.world.model.WorldModel.get_all_units">
+<span class="sig-name descname"><span class="pre">get_all_units</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scripts.scene_elements.html#scripts.scene_elements.unit.Unit" title="scripts.scene_elements.unit.Unit"><span class="pre">Unit</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/scripts/scene_elements/world/model.html#WorldModel.get_all_units"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.model.WorldModel.get_all_units" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all Units</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.world.model.WorldModel.get_event">
+<span class="sig-name descname"><span class="pre">get_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_from_pool</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scene_elements/world/model.html#WorldModel.get_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.model.WorldModel.get_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a specific event. remove_from_pool determines whether the event is removed from the list of possible
+events.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.world.model.WorldModel.get_random_event">
+<span class="sig-name descname"><span class="pre">get_random_event</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Dict</span></span></span><a class="reference internal" href="_modules/scripts/scene_elements/world/model.html#WorldModel.get_random_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.model.WorldModel.get_random_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a random event from those available. This event is then removed from the list of possible events.</p>
+</dd></dl>
+<dl class="py property">
 <dt class="sig sig-object py" id="scripts.scene_elements.world.model.WorldModel.next_boundaries">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">next_boundaries</span></span><a class="headerlink" href="#scripts.scene_elements.world.model.WorldModel.next_boundaries" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="scripts.scene_elements.world.model.WorldModel.player_troupe">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">player_troupe</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="scripts.scene_elements.html#scripts.scene_elements.troupe.Troupe" title="scripts.scene_elements.troupe.Troupe"><span class="pre">scripts.scene_elements.troupe.Troupe</span></a></em><a class="headerlink" href="#scripts.scene_elements.world.model.WorldModel.player_troupe" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.world.model.WorldModel.prioritise_event">
+<span class="sig-name descname"><span class="pre">prioritise_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scene_elements/world/model.html#WorldModel.prioritise_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.model.WorldModel.prioritise_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move an event from the event_deck to the priority events.</p>
+</dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="scripts.scene_elements.world.model.WorldModel.px_to_loc">
 <span class="sig-name descname"><span class="pre">px_to_loc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://www.pygame.org/docs/ref/math.html#pygame.math.Vector2" title="(in pygame v2.1.1)"><span class="pre">pygame.math.Vector2</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scene_elements/world/model.html#WorldModel.px_to_loc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.model.WorldModel.px_to_loc" title="Permalink to this definition">¶</a></dt>
@@ -334,9 +480,19 @@ of the model without actually being aware of how the model works.</p>
 </ul>
 </dd></dl>
 <dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.world.model.WorldModel.remove_troupe">
+<span class="sig-name descname"><span class="pre">remove_troupe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scene_elements/world/model.html#WorldModel.remove_troupe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.model.WorldModel.remove_troupe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove a Troupe from the game. Deletes Troupe.</p>
+</dd></dl>
+<dl class="py method">
 <dt class="sig sig-object py" id="scripts.scene_elements.world.model.WorldModel.reset">
 <span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scene_elements/world/model.html#WorldModel.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.model.WorldModel.reset" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.world.model.WorldModel.set_game_speed">
+<span class="sig-name descname"><span class="pre">set_game_speed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">speed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scene_elements/world/model.html#WorldModel.set_game_speed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.model.WorldModel.set_game_speed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the game speed. 1 is default.</p>
+</dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="scripts.scene_elements.world.model.WorldModel.swap_terrains">
 <span class="sig-name descname"><span class="pre">swap_terrains</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scene_elements/world/model.html#WorldModel.swap_terrains"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.model.WorldModel.swap_terrains" title="Permalink to this definition">¶</a></dt>
@@ -350,6 +506,46 @@ of the model without actually being aware of how the model works.</p>
 <dt class="sig sig-object py" id="scripts.scene_elements.world.model.WorldModel.update">
 <span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scene_elements/world/model.html#WorldModel.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.model.WorldModel.update" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+</dd></dl>
+</section>
+<section id="module-scripts.scene_elements.world.training_controller">
+<span id="scripts-scene-elements-world-training-controller-module"></span><h2 id="module-scripts.scene_elements.world.training_controller">scripts.scene_elements.world.training_controller module<a class="headerlink" href="#module-scripts.scene_elements.world.training_controller" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="scripts.scene_elements.world.training_controller.TrainingController">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">TrainingController</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scripts.core.html#scripts.core.game.Game" title="scripts.core.game.Game"><span class="pre">Game</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_scene</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scripts.scenes.world.html#scripts.scenes.world.scene.WorldScene" title="scripts.scenes.world.scene.WorldScene"><span class="pre">WorldScene</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scene_elements/world/training_controller.html#TrainingController"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.training_controller.TrainingController" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="scripts.core.base_classes.html#scripts.core.base_classes.controller.Controller" title="scripts.core.base_classes.controller.Controller"><code class="xref py py-class docutils literal notranslate"><span class="pre">scripts.core.base_classes.controller.Controller</span></code></a></p>
+<p>Training game functionality and training-only data.</p>
+<ul class="simple">
+<li><p>Modify game state in accordance with game rules</p></li>
+<li><p>Do not draw anything</p></li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.world.training_controller.TrainingController.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scripts.core.html#scripts.core.game.Game" title="scripts.core.game.Game"><span class="pre">Game</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_scene</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scripts.scenes.world.html#scripts.scenes.world.scene.WorldScene" title="scripts.scenes.world.scene.WorldScene"><span class="pre">WorldScene</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scene_elements/world/training_controller.html#TrainingController.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.training_controller.TrainingController.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.world.training_controller.TrainingController.calculate_upgrade_cost">
+<span class="sig-name descname"><span class="pre">calculate_upgrade_cost</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tier</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scene_elements/world/training_controller.html#TrainingController.calculate_upgrade_cost"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.training_controller.TrainingController.calculate_upgrade_cost" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the cost of the upgrade based on the tier of the upgrade.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.world.training_controller.TrainingController.generate_upgrades">
+<span class="sig-name descname"><span class="pre">generate_upgrades</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scene_elements/world/training_controller.html#TrainingController.generate_upgrades"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.training_controller.TrainingController.generate_upgrades" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate upgrades to sell. NOTE: currently hard coded.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.world.training_controller.TrainingController.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scene_elements/world/training_controller.html#TrainingController.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.training_controller.TrainingController.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.world.training_controller.TrainingController.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scene_elements/world/training_controller.html#TrainingController.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.training_controller.TrainingController.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.world.training_controller.TrainingController.upgrade_unit">
+<span class="sig-name descname"><span class="pre">upgrade_unit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scripts.scene_elements.html#scripts.scene_elements.unit.Unit" title="scripts.scene_elements.unit.Unit"><span class="pre">Unit</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scene_elements/world/training_controller.html#TrainingController.upgrade_unit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.training_controller.TrainingController.upgrade_unit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Upgrade the unit.</p>
+</dd></dl>
 </dd></dl>
 </section>
 <section id="module-scripts.scene_elements.world.view">
@@ -379,6 +575,11 @@ user.</p>
 <dt class="sig sig-object py" id="scripts.scene_elements.world.view.WorldView.draw">
 <span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">surface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://www.pygame.org/docs/ref/surface.html#pygame.Surface" title="(in pygame v2.1.1)"><span class="pre">pygame.Surface</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scene_elements/world/view.html#WorldView.draw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.view.WorldView.draw" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.world.view.WorldView.get_team_center">
+<span class="sig-name descname"><span class="pre">get_team_center</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">team</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://www.pygame.org/docs/ref/math.html#pygame.math.Vector2" title="(in pygame v2.1.1)"><span class="pre">pygame.math.Vector2</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/scripts/scene_elements/world/view.html#WorldView.get_team_center"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.view.WorldView.get_team_center" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get centre coordinates for the team</p>
+</dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="scripts.scene_elements.world.view.WorldView.reset_camera">
 <span class="sig-name descname"><span class="pre">reset_camera</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scene_elements/world/view.html#WorldView.reset_camera"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.world.view.WorldView.reset_camera" title="Permalink to this definition">¶</a></dt>

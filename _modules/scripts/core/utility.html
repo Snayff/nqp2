@@ -341,27 +341,14 @@
     <span class="sd">"""</span>
 <span class="sd">    Take a Scene and return the relevant SceneType</span>
 <span class="sd">    """</span>
-
-    <span class="kn">from</span> <span class="nn">scripts.scenes.event.scene</span> <span class="kn">import</span> <span class="n">EventScene</span>
     <span class="kn">from</span> <span class="nn">scripts.scenes.gallery.scene</span> <span class="kn">import</span> <span class="n">GalleryScene</span>
-    <span class="kn">from</span> <span class="nn">scripts.scenes.inn.scene</span> <span class="kn">import</span> <span class="n">InnScene</span>
     <span class="kn">from</span> <span class="nn">scripts.scenes.main_menu.scene</span> <span class="kn">import</span> <span class="n">MainMenuScene</span>
-    <span class="kn">from</span> <span class="nn">scripts.scenes.post_combat.scene</span> <span class="kn">import</span> <span class="n">PostCombatScene</span>
     <span class="kn">from</span> <span class="nn">scripts.scenes.run_setup.scene</span> <span class="kn">import</span> <span class="n">RunSetupScene</span>
-    <span class="kn">from</span> <span class="nn">scripts.scenes.training.scene</span> <span class="kn">import</span> <span class="n">TrainingScene</span>
     <span class="kn">from</span> <span class="nn">scripts.scenes.unit_data.scene</span> <span class="kn">import</span> <span class="n">UnitDataScene</span>
     <span class="kn">from</span> <span class="nn">scripts.scenes.view_troupe.scene</span> <span class="kn">import</span> <span class="n">ViewTroupeScene</span>
 
     <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">scene</span><span class="p">)</span> <span class="ow">is</span> <span class="n">ViewTroupeScene</span><span class="p">:</span>
         <span class="n">scene</span> <span class="o">=</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">VIEW_TROUPE</span>
-    <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">scene</span><span class="p">)</span> <span class="ow">is</span> <span class="n">TrainingScene</span><span class="p">:</span>
-        <span class="n">scene</span> <span class="o">=</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">TRAINING</span>
-    <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">scene</span><span class="p">)</span> <span class="ow">is</span> <span class="n">InnScene</span><span class="p">:</span>
-        <span class="n">scene</span> <span class="o">=</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">INN</span>
-    <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">scene</span><span class="p">)</span> <span class="ow">is</span> <span class="n">EventScene</span><span class="p">:</span>
-        <span class="n">scene</span> <span class="o">=</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">EVENT</span>
-    <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">scene</span><span class="p">)</span> <span class="ow">is</span> <span class="n">PostCombatScene</span><span class="p">:</span>
-        <span class="n">scene</span> <span class="o">=</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">POST_COMBAT</span>
     <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">scene</span><span class="p">)</span> <span class="ow">is</span> <span class="n">RunSetupScene</span><span class="p">:</span>
         <span class="n">scene</span> <span class="o">=</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">RUN_SETUP</span>
     <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">scene</span><span class="p">)</span> <span class="ow">is</span> <span class="n">UnitDataScene</span><span class="p">:</span>

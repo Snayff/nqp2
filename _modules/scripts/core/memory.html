@@ -269,367 +269,53 @@
 <span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
-<span class="kn">import</span> <span class="nn">pygame</span>
-
-<span class="kn">from</span> <span class="nn">scripts.scene_elements.commander</span> <span class="kn">import</span> <span class="n">Commander</span>
-<span class="kn">from</span> <span class="nn">scripts.scene_elements.entity</span> <span class="kn">import</span> <span class="n">Entity</span>
-<span class="kn">from</span> <span class="nn">scripts.scene_elements.troupe</span> <span class="kn">import</span> <span class="n">Troupe</span>
-<span class="kn">from</span> <span class="nn">scripts.scene_elements.unit</span> <span class="kn">import</span> <span class="n">Unit</span>
+<span class="kn">from</span> <span class="nn">scripts.core.debug</span> <span class="kn">import</span> <span class="n">Timer</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
     <span class="kn">from</span> <span class="nn">scripts.core.game</span> <span class="kn">import</span> <span class="n">Game</span>
+    <span class="kn">from</span> <span class="nn">scripts.scene_elements.troupe</span> <span class="kn">import</span> <span class="n">Troupe</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Memory"</span><span class="p">]</span>
 
 
 <div class="viewcode-block" id="Memory"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.memory.Memory">[docs]</a><span class="k">class</span> <span class="nc">Memory</span><span class="p">:</span>
     <span class="sd">"""</span>
-<span class="sd">    Game related values that persist outside of individual “scenes”. E.g. money.</span>
+<span class="sd">    Game related values that persist outside of individual “scenes”. E.g. achievements.</span>
 <span class="sd">    """</span>
 
 <div class="viewcode-block" id="Memory.__init__"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.memory.Memory.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">game</span><span class="p">:</span> <span class="n">Game</span><span class="p">):</span>
-        <span class="c1"># start timer</span>
-        <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="k">with</span> <span class="n">Timer</span><span class="p">(</span><span class="s2">"WorldModel initialised"</span><span class="p">):</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">:</span> <span class="n">Game</span> <span class="o">=</span> <span class="n">game</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">:</span> <span class="n">Game</span> <span class="o">=</span> <span class="n">game</span>
 
-        <span class="c1"># units</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_last_id</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">troupes</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Troupe</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">flags</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># event, game or other flags to note key happenings</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_last_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span></div>
 
-        <span class="c1"># player choices</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">commander</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Commander</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-
-        <span class="c1"># events</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_event_deck</span><span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_events</span><span class="p">([</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># all available events</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_priority_events</span><span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># events to be prioritised</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_turns_since_priority_event</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
-
-        <span class="c1"># resources</span>
-        <span class="c1"># TODO - should these be under commander?</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">gold</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">charisma</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">leadership</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">morale</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
-
-        <span class="c1"># progress</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">flags</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-
-        <span class="c1"># generated values for later user</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">level_boss</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>
-
-        <span class="c1"># history</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_seen_bosses</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-
-        <span class="c1"># in memory config</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_game_speed</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span>
-
-        <span class="c1"># record duration</span>
-        <span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Memory: initialised in </span><span class="si">{</span><span class="nb">format</span><span class="p">(</span><span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">,</span> <span class="s1">'.2f'</span><span class="p">)</span><span class="si">}</span><span class="s2">s."</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="Memory.amend_gold"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.memory.Memory.amend_gold">[docs]</a>    <span class="k">def</span> <span class="nf">amend_gold</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<div class="viewcode-block" id="Memory.initialise_run"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.memory.Memory.initialise_run">[docs]</a>    <span class="k">def</span> <span class="nf">initialise_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">troupe</span><span class="p">:</span> <span class="n">Troupe</span><span class="p">,</span> <span class="n">gold</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">rations</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">morale</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">charisma</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">leadership</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        Amend the current gold value by the given amount. Return remaining amount.</span>
+<span class="sd">        Initialise the run's values.</span>
 <span class="sd">        """</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">gold</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gold</span> <span class="o">+</span> <span class="n">amount</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">gold</span></div>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">world</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Tried to initialise a run but WorldScene doesnt exist."</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">Exception</span>
 
-<div class="viewcode-block" id="Memory.amend_rations"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.memory.Memory.amend_rations">[docs]</a>    <span class="k">def</span> <span class="nf">amend_rations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="sd">"""</span>
-<span class="sd">        Amend the current rations value by the given amount. Return remaining amount.</span>
-<span class="sd">        """</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rations</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rations</span> <span class="o">+</span> <span class="n">amount</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rations</span></div>
-
-<div class="viewcode-block" id="Memory.amend_charisma"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.memory.Memory.amend_charisma">[docs]</a>    <span class="k">def</span> <span class="nf">amend_charisma</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="sd">"""</span>
-<span class="sd">        Amend the current charisma value by the given amount. Return remaining amount.</span>
-<span class="sd">        """</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">charisma</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">charisma</span> <span class="o">+</span> <span class="n">amount</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">charisma</span></div>
-
-<div class="viewcode-block" id="Memory.amend_leadership"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.memory.Memory.amend_leadership">[docs]</a>    <span class="k">def</span> <span class="nf">amend_leadership</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="sd">"""</span>
-<span class="sd">        Amend the current leadership value by the given amount. Return remaining amount.</span>
-<span class="sd">        """</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">leadership</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">leadership</span> <span class="o">+</span> <span class="n">amount</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">leadership</span></div>
-
-<div class="viewcode-block" id="Memory.amend_morale"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.memory.Memory.amend_morale">[docs]</a>    <span class="k">def</span> <span class="nf">amend_morale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="sd">"""</span>
-<span class="sd">        Amend the current morale value by the given amount. Return remaining amount.</span>
-<span class="sd">        """</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">morale</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">morale</span> <span class="o">+</span> <span class="n">amount</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">morale</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">add_troupe</span><span class="p">(</span><span class="n">troupe</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">amend_gold</span><span class="p">(</span><span class="n">gold</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">amend_rations</span><span class="p">(</span><span class="n">rations</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">amend_morale</span><span class="p">(</span><span class="n">morale</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">amend_charisma</span><span class="p">(</span><span class="n">charisma</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">amend_leadership</span><span class="p">(</span><span class="n">leadership</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Memory.generate_id"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.memory.Memory.generate_id">[docs]</a>    <span class="k">def</span> <span class="nf">generate_id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="sd">"""</span>
 <span class="sd">        Create unique ID for an instance, such as a unit.</span>
 <span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_last_id</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_last_id</span></div>
-
-<div class="viewcode-block" id="Memory.get_random_event"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.memory.Memory.get_random_event">[docs]</a>    <span class="k">def</span> <span class="nf">get_random_event</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
-        <span class="sd">"""</span>
-<span class="sd">        Get a random event from those available. This event is then removed from the list of possible events.</span>
-<span class="sd">        """</span>
-        <span class="n">possible_events</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">possible_events_occur_rates</span> <span class="o">=</span> <span class="p">[]</span>
-
-        <span class="c1"># priority or non-priority</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_priority_events</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">chance_of_priority</span> <span class="o">=</span> <span class="mi">33</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_turns_since_priority_event</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">rng</span><span class="o">.</span><span class="n">roll</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">chance_of_priority</span><span class="p">:</span>
-                <span class="n">events</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_priority_events</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_turns_since_priority_event</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># reset count</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">events</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_event_deck</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_turns_since_priority_event</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># increment count</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">events</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_event_deck</span>
-
-        <span class="c1"># grab events and occur rate</span>
-        <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_event_conditions</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
-                <span class="n">possible_events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
-                <span class="n">occur_rate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get_event_occur_rate</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="s2">"type"</span><span class="p">])</span>
-                <span class="n">possible_events_occur_rates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">occur_rate</span><span class="p">)</span>
-
-        <span class="c1"># choose an event</span>
-        <span class="n">event_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">rng</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">possible_events</span><span class="p">,</span> <span class="n">possible_events_occur_rates</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-
-        <span class="n">events</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">event_</span><span class="p">[</span><span class="s2">"type"</span><span class="p">])</span>
-
-        <span class="k">return</span> <span class="n">event_</span></div>
-
-<div class="viewcode-block" id="Memory.get_event"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.memory.Memory.get_event">[docs]</a>    <span class="k">def</span> <span class="nf">get_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">remove_from_pool</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
-        <span class="sd">"""</span>
-<span class="sd">        Get a specific event. remove_from_pool determines whether the event is removed from the list of possible</span>
-<span class="sd">        events.</span>
-<span class="sd">        """</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">remove_from_pool</span><span class="p">:</span>
-                <span class="n">event</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_event_deck</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">event_id</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">event</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_event_deck</span><span class="p">[</span><span class="n">event_id</span><span class="p">]</span>
-
-            <span class="k">return</span> <span class="n">event</span>
-        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Event ID (</span><span class="si">{</span><span class="n">event_id</span><span class="si">}</span><span class="s2">) not found."</span><span class="p">)</span>
-            <span class="k">raise</span> <span class="ne">Exception</span></div>
-
-    <span class="k">def</span> <span class="nf">_load_events</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">levels</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
-        <span class="c1"># handle mutable default</span>
-        <span class="k">if</span> <span class="n">levels</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">levels</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>  <span class="c1"># all levels</span>
-
-        <span class="n">event_deck</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">events</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">events</span>
-
-        <span class="c1"># add events</span>
-        <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">event</span><span class="p">[</span><span class="s2">"level_available"</span><span class="p">]</span> <span class="ow">in</span> <span class="n">levels</span><span class="p">:</span>
-                <span class="n">event_deck</span><span class="p">[</span><span class="n">event</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]]</span> <span class="o">=</span> <span class="n">event</span>
-
-        <span class="k">return</span> <span class="n">event_deck</span>
-
-<div class="viewcode-block" id="Memory._check_event_conditions"><a class="viewcode-back" href="../../../api/core/memory.html#scripts.core.memory.Memory._check_event_conditions">[docs]</a>    <span class="k">def</span> <span class="nf">_check_event_conditions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">"""</span>
-<span class="sd">        Return true if all an event's conditions are met.</span>
-<span class="sd">        """</span>
-        <span class="n">conditions</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="s2">"conditions"</span><span class="p">]</span>
-        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
-
-        <span class="k">for</span> <span class="n">condition</span> <span class="ow">in</span> <span class="n">conditions</span><span class="p">:</span>
-            <span class="n">key</span><span class="p">,</span> <span class="n">condition_remainder</span> <span class="o">=</span> <span class="n">condition</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">":"</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-            <span class="k">if</span> <span class="s2">"@"</span> <span class="ow">in</span> <span class="n">condition_remainder</span><span class="p">:</span>
-                <span class="n">value</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">condition_remainder</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"@"</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">value</span> <span class="o">=</span> <span class="n">condition_remainder</span>
-                <span class="n">target</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_check_event_condition</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">target</span><span class="p">))</span>
-
-        <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">results</span><span class="p">):</span>
-            <span class="n">outcome</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">outcome</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="k">return</span> <span class="n">outcome</span></div>
-
-<div class="viewcode-block" id="Memory._check_event_condition"><a class="viewcode-back" href="../../../api/core/memory.html#scripts.core.memory.Memory._check_event_condition">[docs]</a>    <span class="k">def</span> <span class="nf">_check_event_condition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">condition_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">condition_value</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">"""</span>
-<span class="sd">        Check the condition given. Not all conditions use a target and in those cases the target is ignored.</span>
-<span class="sd">        """</span>
-        <span class="n">outcome</span> <span class="o">=</span> <span class="kc">False</span>
-
-        <span class="k">if</span> <span class="n">condition_key</span> <span class="o">==</span> <span class="s2">"flag"</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">condition_value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">flags</span><span class="p">:</span>
-                <span class="n">outcome</span> <span class="o">=</span> <span class="kc">True</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">outcome</span> <span class="o">=</span> <span class="kc">False</span>
-
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Condition key specified (</span><span class="si">{</span><span class="n">condition_key</span><span class="si">}</span><span class="s2">) is not known and was ignored."</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">outcome</span></div>
-
-<div class="viewcode-block" id="Memory.prioritise_event"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.memory.Memory.prioritise_event">[docs]</a>    <span class="k">def</span> <span class="nf">prioritise_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="sd">"""</span>
-<span class="sd">        Move an event from the event_deck to the priority events.</span>
-<span class="sd">        """</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">event</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_event_deck</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">event_type</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_priority_events</span><span class="p">[</span><span class="n">event_type</span><span class="p">]</span> <span class="o">=</span> <span class="n">event</span>
-
-        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Event (</span><span class="si">{</span><span class="n">event_type</span><span class="si">}</span><span class="s2">) specified not found in Memory.event_deck and was ignored."</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="Memory.generate_level_boss"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.memory.Memory.generate_level_boss">[docs]</a>    <span class="k">def</span> <span class="nf">generate_level_boss</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
-<span class="sd">        Generate the boss for the current level.</span>
-<span class="sd">        """</span>
-        <span class="n">available_bosses</span> <span class="o">=</span> <span class="p">[]</span>
-
-        <span class="k">for</span> <span class="n">boss</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">bosses</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">boss</span><span class="p">[</span><span class="s2">"level_available"</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">level</span> <span class="ow">and</span> <span class="n">boss</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seen_bosses</span><span class="p">:</span>
-                <span class="n">available_bosses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">boss</span><span class="p">[</span><span class="s2">"type"</span><span class="p">])</span>
-
-        <span class="n">chosen_boss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">available_bosses</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">level_boss</span> <span class="o">=</span> <span class="n">chosen_boss</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_seen_bosses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">chosen_boss</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="Memory.get_all_entities"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.memory.Memory.get_all_entities">[docs]</a>    <span class="k">def</span> <span class="nf">get_all_entities</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Entity</span><span class="p">]:</span>
-        <span class="sd">"""</span>
-<span class="sd">        Get a list of all entities</span>
-<span class="sd">        """</span>
-        <span class="n">entities</span> <span class="o">=</span> <span class="p">[]</span>
-
-        <span class="k">for</span> <span class="n">troupe</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">troupes</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-            <span class="n">entities</span> <span class="o">+=</span> <span class="n">troupe</span><span class="o">.</span><span class="n">entities</span>
-
-        <span class="k">return</span> <span class="n">entities</span></div>
-
-<div class="viewcode-block" id="Memory.get_all_units"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.memory.Memory.get_all_units">[docs]</a>    <span class="k">def</span> <span class="nf">get_all_units</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Unit</span><span class="p">]:</span>
-        <span class="sd">"""</span>
-<span class="sd">        Get a list of all Units</span>
-<span class="sd">        """</span>
-        <span class="n">units</span> <span class="o">=</span> <span class="p">[]</span>
-
-        <span class="k">for</span> <span class="n">troupe</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">troupes</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-            <span class="k">for</span> <span class="n">unit</span> <span class="ow">in</span> <span class="n">troupe</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-                <span class="n">units</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">unit</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">units</span></div>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">player_troupe</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Troupe</span><span class="p">:</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="c1"># player troupe should be in index 1</span>
-            <span class="n">troupe</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">troupes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">troupe</span><span class="o">.</span><span class="n">team</span> <span class="o">==</span> <span class="s2">"player"</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">troupe</span>
-        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Player Troupe not at index 1 as expected."</span><span class="p">)</span>
-
-        <span class="c1"># in case it isnt in index 0</span>
-        <span class="k">for</span> <span class="n">troupe</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">troupes</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">troupe</span><span class="o">.</span><span class="n">team</span> <span class="o">==</span> <span class="s2">"player"</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">troupe</span>
-
-        <span class="c1"># in case we cant find it at all!</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Tried to get player troupe but couldnt find it!"</span><span class="p">)</span>
-        <span class="k">raise</span> <span class="ne">Exception</span>
-
-<div class="viewcode-block" id="Memory.add_troupe"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.memory.Memory.add_troupe">[docs]</a>    <span class="k">def</span> <span class="nf">add_troupe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">troupe</span><span class="p">:</span> <span class="n">Troupe</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="sd">"""</span>
-<span class="sd">        Add a Troupe to Memory. Returns Troupe ID</span>
-<span class="sd">        """</span>
-        <span class="n">id_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_id</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">troupes</span><span class="p">[</span><span class="n">id_</span><span class="p">]</span> <span class="o">=</span> <span class="n">troupe</span>
-
-        <span class="k">return</span> <span class="n">id_</span></div>
-
-<div class="viewcode-block" id="Memory.remove_troupe"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.memory.Memory.remove_troupe">[docs]</a>    <span class="k">def</span> <span class="nf">remove_troupe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">id_</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-        <span class="sd">"""</span>
-<span class="sd">        Remove a Troupe from Memory. Deletes Troupe.</span>
-<span class="sd">        """</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">troupe</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">troupes</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">id_</span><span class="p">)</span>
-            <span class="n">troupe</span><span class="o">.</span><span class="n">remove_all_units</span><span class="p">()</span>
-
-        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Tried to remove troupe id (</span><span class="si">{</span><span class="n">id_</span><span class="si">}</span><span class="s2"> but not found. Troupes:(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">troupes</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
-            <span class="k">raise</span> <span class="ne">Exception</span></div>
-
-<div class="viewcode-block" id="Memory.set_game_speed"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.memory.Memory.set_game_speed">[docs]</a>    <span class="k">def</span> <span class="nf">set_game_speed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">speed</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
-        <span class="sd">"""</span>
-<span class="sd">        Set the game speed. 1 is default.</span>
-<span class="sd">        """</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_game_speed</span> <span class="o">=</span> <span class="n">speed</span></div>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">game_speed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game_speed</span>
-
-<div class="viewcode-block" id="Memory.reset"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.memory.Memory.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
-<span class="sd">        Reset to initial values</span>
-<span class="sd">        """</span>
-        <span class="c1"># units</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_last_id</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">troupes</span> <span class="o">=</span> <span class="p">{}</span>
-
-        <span class="c1"># player choices</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">commander</span> <span class="o">=</span> <span class="kc">None</span>
-
-        <span class="c1"># events</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_event_deck</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_events</span><span class="p">([</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># all available events</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_priority_events</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># events to be prioritised</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_turns_since_priority_event</span> <span class="o">=</span> <span class="mi">0</span>
-
-        <span class="c1"># resources</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">gold</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rations</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">charisma</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">leadership</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">morale</span> <span class="o">=</span> <span class="mi">0</span>
-
-        <span class="c1"># progress</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">level</span> <span class="o">=</span> <span class="mi">1</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">flags</span> <span class="o">=</span> <span class="p">[]</span>
-
-        <span class="c1"># generated values for later user</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">level_boss</span> <span class="o">=</span> <span class="s2">""</span>
-
-        <span class="c1"># history</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_seen_bosses</span> <span class="o">=</span> <span class="p">[]</span>
-
-        <span class="c1"># in memory config</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_game_speed</span> <span class="o">=</span> <span class="mi">1</span></div>
-
-<div class="viewcode-block" id="Memory.get_team_center"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.memory.Memory.get_team_center">[docs]</a>    <span class="k">def</span> <span class="nf">get_team_center</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">team</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">]:</span>
-        <span class="sd">"""</span>
-<span class="sd">        Get centre coordinates for the team</span>
-
-<span class="sd">        """</span>
-        <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">pos_totals</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">unit</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">get_all_units</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">unit</span><span class="o">.</span><span class="n">team</span> <span class="o">==</span> <span class="n">team</span><span class="p">:</span>
-                <span class="n">pos_totals</span> <span class="o">+=</span> <span class="n">unit</span><span class="o">.</span><span class="n">pos</span>
-                <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">if</span> <span class="n">count</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="n">pos_totals</span> <span class="o">/</span> <span class="n">count</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">None</span></div></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_last_id</span></div></div>
 </pre></div>
 
           </article>

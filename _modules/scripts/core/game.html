@@ -299,13 +299,9 @@
         <span class="c1"># imports here to avoid circular references since their core and</span>
         <span class="c1"># components require ``Game`` imports for typing.</span>
         <span class="kn">from</span> <span class="nn">scripts.core.memory</span> <span class="kn">import</span> <span class="n">Memory</span>
-        <span class="kn">from</span> <span class="nn">scripts.scenes.event.scene</span> <span class="kn">import</span> <span class="n">EventScene</span>
         <span class="kn">from</span> <span class="nn">scripts.scenes.gallery.scene</span> <span class="kn">import</span> <span class="n">GalleryScene</span>
-        <span class="kn">from</span> <span class="nn">scripts.scenes.inn.scene</span> <span class="kn">import</span> <span class="n">InnScene</span>
         <span class="kn">from</span> <span class="nn">scripts.scenes.main_menu.scene</span> <span class="kn">import</span> <span class="n">MainMenuScene</span>
-        <span class="kn">from</span> <span class="nn">scripts.scenes.post_combat.scene</span> <span class="kn">import</span> <span class="n">PostCombatScene</span>
         <span class="kn">from</span> <span class="nn">scripts.scenes.run_setup.scene</span> <span class="kn">import</span> <span class="n">RunSetupScene</span>
-        <span class="kn">from</span> <span class="nn">scripts.scenes.training.scene</span> <span class="kn">import</span> <span class="n">TrainingScene</span>
         <span class="kn">from</span> <span class="nn">scripts.scenes.unit_data.scene</span> <span class="kn">import</span> <span class="n">UnitDataScene</span>
         <span class="kn">from</span> <span class="nn">scripts.scenes.view_troupe.scene</span> <span class="kn">import</span> <span class="n">ViewTroupeScene</span>
         <span class="kn">from</span> <span class="nn">scripts.scenes.world.scene</span> <span class="kn">import</span> <span class="n">WorldScene</span>
@@ -323,7 +319,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">:</span> <span class="n">Window</span> <span class="o">=</span> <span class="n">Window</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">:</span> <span class="n">Data</span> <span class="o">=</span> <span class="n">Data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">memory</span><span class="p">:</span> <span class="n">Memory</span> <span class="o">=</span> <span class="n">Memory</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assets</span><span class="p">:</span> <span class="n">Assets</span> <span class="o">=</span> <span class="n">Assets</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assets</span><span class="p">:</span> <span class="n">Assets</span> <span class="o">=</span> <span class="n">Assets</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>  <span class="c1"># TODO - deprecate</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="p">:</span> <span class="n">Input</span> <span class="o">=</span> <span class="n">Input</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rng</span><span class="p">:</span> <span class="n">RNG</span> <span class="o">=</span> <span class="n">RNG</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sounds</span><span class="p">:</span> <span class="n">Sounds</span> <span class="o">=</span> <span class="n">Sounds</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -333,10 +329,6 @@
         <span class="c1"># TODO - should these be private?</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">main_menu</span><span class="p">:</span> <span class="n">MainMenuScene</span> <span class="o">=</span> <span class="n">MainMenuScene</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">run_setup</span><span class="p">:</span> <span class="n">RunSetupScene</span> <span class="o">=</span> <span class="n">RunSetupScene</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">post_combat</span><span class="p">:</span> <span class="n">PostCombatScene</span> <span class="o">=</span> <span class="n">PostCombatScene</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">event</span><span class="p">:</span> <span class="n">EventScene</span> <span class="o">=</span> <span class="n">EventScene</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">training</span><span class="p">:</span> <span class="n">TrainingScene</span> <span class="o">=</span> <span class="n">TrainingScene</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">inn</span><span class="p">:</span> <span class="n">InnScene</span> <span class="o">=</span> <span class="n">InnScene</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">troupe</span><span class="p">:</span> <span class="n">ViewTroupeScene</span> <span class="o">=</span> <span class="n">ViewTroupeScene</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">world</span><span class="p">:</span> <span class="n">WorldScene</span> <span class="o">=</span> <span class="n">WorldScene</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
@@ -345,9 +337,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">dev_gallery</span><span class="p">:</span> <span class="n">GalleryScene</span> <span class="o">=</span> <span class="n">GalleryScene</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">scene_stack</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Scene</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="p">:</span> <span class="n">GameState</span> <span class="o">=</span> <span class="n">GameState</span><span class="o">.</span><span class="n">PLAYING</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">master_clock</span> <span class="o">=</span> <span class="mi">0</span>
 
         <span class="c1"># activate main men</span>
@@ -469,18 +459,6 @@
 
         <span class="k">elif</span> <span class="n">scene_type</span> <span class="o">==</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">RUN_SETUP</span><span class="p">:</span>
             <span class="n">scene</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_setup</span>
-
-        <span class="k">elif</span> <span class="n">scene_type</span> <span class="o">==</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">POST_COMBAT</span><span class="p">:</span>
-            <span class="n">scene</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">post_combat</span>
-
-        <span class="k">elif</span> <span class="n">scene_type</span> <span class="o">==</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">TRAINING</span><span class="p">:</span>
-            <span class="n">scene</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">training</span>
-
-        <span class="k">elif</span> <span class="n">scene_type</span> <span class="o">==</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">INN</span><span class="p">:</span>
-            <span class="n">scene</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inn</span>
-
-        <span class="k">elif</span> <span class="n">scene_type</span> <span class="o">==</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">EVENT</span><span class="p">:</span>
-            <span class="n">scene</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">event</span>
 
         <span class="k">elif</span> <span class="n">scene_type</span> <span class="o">==</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">VIEW_TROUPE</span><span class="p">:</span>
             <span class="n">scene</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">troupe</span>
