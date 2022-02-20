@@ -79,7 +79,6 @@ class CombatController(Controller):
                 # TODO: decouple this
                 self._parent_scene.ui._worldview.camera.move_to_position(focus_point)
 
-
     def begin_combat(self):
         self.generate_combat()
         self._parent_scene.model.state = WorldState.COMBAT

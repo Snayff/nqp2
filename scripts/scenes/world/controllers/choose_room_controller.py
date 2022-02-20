@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import logging
-
 from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.controller import Controller
@@ -9,7 +8,8 @@ from scripts.core.constants import ChooseRoomState, WorldState
 from scripts.core.debug import Timer
 
 if TYPE_CHECKING:
-    from typing import List, Optional, Tuple, Union, Dict
+    from typing import Dict, List, Optional, Tuple, Union
+
     from scripts.core.game import Game
     from scripts.scenes.world.scene import WorldScene
 
@@ -25,6 +25,7 @@ class ChooseRoomController(Controller):
     * Do not draw anything
 
     """
+
     def __init__(self, game: Game, parent_scene: WorldScene):
         with Timer("TrainingController initialised"):
             super().__init__(game, parent_scene)
@@ -128,7 +129,6 @@ class ChooseRoomController(Controller):
             self._assign_room_state()
             self.reset()
 
-
     def _assign_room_state(self):
         """
         Assign state to WorldModel based on room selected
@@ -144,5 +144,3 @@ class ChooseRoomController(Controller):
 
         self._parent_scene.model.state = new_state
         logging.debug(f"WorldState updated to {new_state}.")
-
-

@@ -6,8 +6,15 @@ import pygame
 
 from scripts.core import utility
 from scripts.core.base_classes.ui import UI
-from scripts.core.constants import ChooseRoomState, DEFAULT_IMAGE_SIZE, FontType, GAP_SIZE, SceneType, TrainingState, \
-    WorldState
+from scripts.core.constants import (
+    ChooseRoomState,
+    DEFAULT_IMAGE_SIZE,
+    FontType,
+    GAP_SIZE,
+    SceneType,
+    TrainingState,
+    WorldState,
+)
 from scripts.scene_elements.unit import Unit
 from scripts.scene_elements.world.view import WorldView
 from scripts.ui_elements.frame import Frame
@@ -214,7 +221,6 @@ class WorldUI(UI):
             self._rebuild_victory_ui()
         elif state == WorldState.TRAINING:
             self._rebuild_training_ui()
-
 
     def _rebuild_choose_next_room_ui(self):
         create_font = self._game.visuals.create_font
