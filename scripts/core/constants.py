@@ -45,6 +45,7 @@ class CombatState(IntEnum):
 
 
 class TrainingState(IntEnum):
+    VIEW_UNITS = auto()
     CHOOSE_UPGRADE = auto()
     CHOOSE_TARGET_UNIT = auto()
 

@@ -51,7 +51,7 @@ class Game:
         self.window: Window = Window(self)
         self.data: Data = Data(self)
         self.memory: Memory = Memory(self)
-        self.assets: Assets = Assets(self)
+        self.assets: Assets = Assets(self)  # TODO - deprecate
         self.input: Input = Input(self)
         self.rng: RNG = RNG(self)
         self.sounds: Sounds = Sounds(self)

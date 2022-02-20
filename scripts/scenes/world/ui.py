@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import pygame
 
 from scripts.core.base_classes.ui import UI
-from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, GAP_SIZE, SceneType, WorldState
+from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, GAP_SIZE, SceneType, TrainingState, WorldState
 from scripts.scene_elements.unit import Unit
 from scripts.scene_elements.world.view import WorldView
 from scripts.ui_elements.frame import Frame
@@ -99,7 +99,36 @@ class WorldUI(UI):
             self._game.change_scene(SceneType.MAIN_MENU)
 
     def _process_training_input(self):
-        pass
+        local_state = self._parent_scene.training.state
+        state_changed = False
+
+        # toggle select upgrade or view units
+        if self._game.input.states["shift"]:
+            if local_state == TrainingState.VIEW_UNITS:
+                self._parent_scene.training.state = TrainingState.CHOOSE_UPGRADE
+                state_changed = True
+            elif local_state == TrainingState.CHOOSE_UPGRADE:
+                self._parent_scene.training.state = TrainingState.VIEW_UNITS
+                state_changed = True
+
+            if state_changed:
+                self.rebuild_ui()
+
+        if local_state == TrainingState.CHOOSE_UPGRADE:
+            if self._game.input.states["up"]:
+                self._current_panel.select_previous_element()
+                state_changed = True
+            if self._game.input.states["down"]:
+                self._current_panel.select_next_element()
+                state_changed = True
+
+            if self._game.input.states["select"]:
+                self._parent_scene.training.state = TrainingState.CHOOSE_TARGET_UNIT
+
+            if state_changed:
+                self.rebuild_ui()
+
+
 
     def rebuild_ui(self):
         super().rebuild_ui()
@@ -119,7 +148,7 @@ class WorldUI(UI):
         pass
 
     def _rebuild_training_ui(self):
-        create_font = self._game.assets.create_font
+        create_font = self._game.visuals.create_font
         icon_width = DEFAULT_IMAGE_SIZE
         icon_height = DEFAULT_IMAGE_SIZE
         icon_size = (icon_width, icon_height)
@@ -147,10 +176,10 @@ class WorldUI(UI):
                     gold_font_type = FontType.NEGATIVE
 
                 # draw gold cost
-                gold_icon = self._game.assets.get_image("stats", "gold", icon_size)
+                gold_icon = self._game.visuals.get_image("gold", icon_size)
                 frame = Frame(
                     (current_x, current_y),
-                    image=gold_icon,
+                    new_image=gold_icon,
                     font=create_font(gold_font_type, str(upgrade_cost)),
                     is_selectable=False,
                 )
@@ -163,19 +192,14 @@ class WorldUI(UI):
 
             # draw upgrade icon and details
             upgrade_x = current_x + 50
-            stat_icon = self._game.assets.get_image("stats", upgrade["stat"], icon_size)
+            upgrade_icon = self._game.visuals.get_image(upgrade["type"], icon_size)
             frame = Frame(
-                (upgrade_x, current_y), image=stat_icon, font=create_font(font_type, text), is_selectable=is_selectable
+                (upgrade_x, current_y), new_image=upgrade_icon, font=create_font(font_type, text),
+                is_selectable=is_selectable
             )
             # capture frame
-            self._elements[upgrade["type"] + str(i)] = frame
+            self._elements[upgrade["type"]] = frame
             panel_list.append(frame)
-
-            # highlight selected upgrade
-            if self._selected_upgrade is None:
-                self._selected_upgrade = upgrade["type"]
-            if upgrade["type"] == self._selected_upgrade:
-                frame.is_selected = True
 
             # increment
             current_y += icon_height + GAP_SIZE
@@ -183,8 +207,35 @@ class WorldUI(UI):
         panel = Panel(panel_list, True)
         self.add_panel(panel, "upgrades")
 
+        # handle instructions and selectability for different states
+        if controller.state == TrainingState.CHOOSE_UPGRADE:
+            panel.set_selectable(True)
+            self.set_instruction_text("Press shift to view units.")
+
+            # ensure an upgrade is selected
+            if controller.selected_upgrade is None:
+                controller.selected_upgrade = controller.upgrades_available[1].copy()
+
+            # highlight selected upgrade
+            highlighted_frame = self._elements[controller.selected_upgrade["type"]]
+            highlighted_frame.is_selected = True
+
+            # show info pane
+            info_x = highlighted_frame.x + highlighted_frame.width + 20
+            font_type = FontType.DEFAULT
+            upgrade = controller.selected_upgrade
+
+            frame = Frame(
+                (info_x, highlighted_frame.y), font=create_font(font_type, upgrade["desc"])
+            )
+            self._elements["info_pane"] = frame
+
+        elif controller.state == TrainingState.VIEW_UNITS:
+            panel.set_selectable(False)
+            self.set_instruction_text("Press shift to select upgrades.")
+
     def _rebuild_defeat_ui(self):
-        create_font = self._game.assets.create_font
+        create_font = self._game.visuals.create_font
         icon_width = DEFAULT_IMAGE_SIZE
         icon_height = DEFAULT_IMAGE_SIZE
         icon_size = (icon_width, icon_height)
@@ -193,10 +244,10 @@ class WorldUI(UI):
         # draw upgrades
         current_x = start_x
         current_y = start_y
-        defeat_icon = self._game.assets.get_image("ui", "arrow_button", icon_size)
+        defeat_icon = self._game.visuals.get_image("arrow_button", icon_size)
         frame = Frame(
             (current_x, current_y),
-            image=defeat_icon,
+            new_image=defeat_icon,
             font=create_font(FontType.NEGATIVE, "Defeated"),
             is_selectable=False,
         )
@@ -206,14 +257,14 @@ class WorldUI(UI):
 
         frame = Frame(
             (current_x, current_y),
-            image=defeat_icon,
+            new_image=defeat_icon,
             font=create_font(FontType.DEFAULT, "Press Enter to return to the main menu."),
             is_selectable=False,
         )
         self._elements["defeat_instruction"] = frame
 
     def _rebuild_victory_ui(self):
-        create_font = self._game.assets.create_font
+        create_font = self._game.visuals.create_font
         start_x, start_y = self._game.window.centre
 
         # draw upgrades

@@ -18,7 +18,7 @@ __all__ = ["TrainingController"]
 
 class TrainingController(Controller):
     """
-    Training game functionality and training only data.
+    Training game functionality and training-only data.
 
     * Modify game state in accordance with game rules
     * Do not draw anything
@@ -26,11 +26,11 @@ class TrainingController(Controller):
     """
 
     # TODO:
-    #  - draw upgrades on screen
-    #  - when transitioning to training state show prompt for selecting upgrades
-    #  - input for toggling selection of units and upgrades
-    #  - show upgrade details only when upgrade is hovered
-    #  - input for selecting upgrade
+    #  - draw upgrades on screen - X
+    #  - when transitioning to training state show prompt for selecting upgrades - X
+    #  - input for toggling selection of units and upgrades - X
+    #  - show upgrade details only when upgrade is hovered - X
+    #  - input for selecting upgrade - X
     #  - when upgrade selected move to units, update local state
     #  - input for navigating units
     #  - input for selecting and applying upgrade to unit
@@ -40,7 +40,9 @@ class TrainingController(Controller):
         with Timer("TrainingController initialised"):
             super().__init__(game, parent_scene)
 
+            self.state: TrainingState = TrainingState.VIEW_UNITS
             self.upgrades_available: Dict[int, Optional[Any]] = {}  # position: None/upgrade dict
+            self.selected_upgrade: Optional[Dict] = None  # None/upgrade dict
             self.num_upgrades: int = 2
 
     def update(self, delta_time: float):
