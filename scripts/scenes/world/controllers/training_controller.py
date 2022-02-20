@@ -34,8 +34,9 @@ class TrainingController(Controller):
     #  - input for selecting upgrade - X
     #  - when upgrade selected move to units, update local state - X
     #  - input for navigating units - X
-    #  - input for selecting and applying upgrade to unit
-    #  - upgrade confirmation (animation?)
+    #  - input for selecting and applying upgrade to unit - X
+    #  - upgrade confirmation (animation?) - X
+    #  - trigger training room
 
     def __init__(self, game: Game, parent_scene: WorldScene):
         with Timer("TrainingController initialised"):
@@ -83,3 +84,22 @@ class TrainingController(Controller):
         cost = int(mod * upgrade_cost)
 
         return cost
+
+    def upgrade_unit(self, unit: Unit):
+        """
+        Upgrade the unit.
+        """
+        # can we afford
+        id_ = unit.id
+        upgrade = self.selected_upgrade
+        upgrade_cost = self.calculate_upgrade_cost(upgrade["tier"])
+
+        # pay for the upgrade and execute it
+        self._parent_scene.model.amend_gold(-upgrade_cost)  # remove gold cost
+        self._parent_scene.model.player_troupe.upgrade_unit(id_, upgrade["type"])
+
+        # clear upgrade option from list
+        key = list(self.upgrades_available.keys())[list(self.upgrades_available.values()).index(
+            self.selected_upgrade)]
+        self.upgrades_available[key] = None
+

@@ -104,19 +104,12 @@ class WorldUI(UI):
         local_state = controller.state
         state_changed = False
 
-        # toggle select upgrade or view units
-        if self._game.input.states["shift"]:
-            if local_state == TrainingState.VIEW_UNITS:
+        if local_state == TrainingState.VIEW_UNITS:
+            # toggle select upgrade or view units
+            if self._game.input.states["shift"]:
                 controller.state = TrainingState.CHOOSE_UPGRADE
                 state_changed = True
-            elif local_state == TrainingState.CHOOSE_UPGRADE:
-                controller.state = TrainingState.VIEW_UNITS
-                state_changed = True
 
-            if state_changed:
-                self.rebuild_ui()
-
-        # choose upgrade input
         if local_state == TrainingState.CHOOSE_UPGRADE:
             # frame selection
             if self._game.input.states["up"]:
@@ -126,13 +119,16 @@ class WorldUI(UI):
                 self._current_panel.select_next_element()
                 state_changed = True
 
+            # select upgrade
             if self._game.input.states["select"]:
                 controller.state = TrainingState.CHOOSE_TARGET_UNIT
                 controller.current_grid_index = 0
                 state_changed = True
 
-            if state_changed:
-                self.rebuild_ui()
+            # cancel
+            if self._game.input.states["cancel"]:
+                controller.state = TrainingState.VIEW_UNITS
+                state_changed = True
 
         if local_state == TrainingState.CHOOSE_TARGET_UNIT:
             # cancel
@@ -155,9 +151,21 @@ class WorldUI(UI):
             controller.current_grid_index = new_index
             self.grid.units[new_index].is_selected = True
 
-            if state_changed:
-                self.rebuild_ui()
+            # apply upgrade
+            if self._game.input.states["select"]:
+                controller.upgrade_unit(self.grid.units[current_index])
 
+                # confirm
+                self.set_instruction_text("Unit upgraded.", True)
+
+                # revert to previous state
+                self.grid.units[current_index].is_selected = False
+                controller.state = TrainingState.CHOOSE_UPGRADE
+
+                state_changed = True
+
+        if state_changed:
+            self.rebuild_ui()
 
     def rebuild_ui(self):
         super().rebuild_ui()
@@ -239,7 +247,7 @@ class WorldUI(UI):
         # handle instructions and selectability for different states
         if controller.state == TrainingState.CHOOSE_UPGRADE:
             panel.set_selectable(True)
-            self.set_instruction_text("Press shift to view units.")
+            self.set_instruction_text("Press X to cancel.")
 
             # ensure an upgrade is selected
             if controller.selected_upgrade is None:
