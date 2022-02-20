@@ -49,10 +49,10 @@ class CombatController(Controller):
         # if combat ending
         if self._combat_ending_timer != -1:
             self._combat_ending_timer += delta_time
-            self._game.memory.set_game_speed(0.3 - (0.05 * self._combat_ending_timer))
+            self._parent_scene.model.set_game_speed(0.3 - (0.05 * self._combat_ending_timer))
             # self.ui.camera.zoom = 1 + (self._combat_ending_timer / 2)
 
-            for troupe in self._game.memory.troupes.values():
+            for troupe in self._parent_scene.model.troupes.values():
                 troupe.set_force_idle(True)
 
         # end combat when either side is empty
@@ -68,8 +68,8 @@ class CombatController(Controller):
         if self._parent_scene.model.state == WorldState.VICTORY:
             self.victory_duration += delta_time
             if self.victory_duration > 3:
-                self._game.memory.remove_troupe(self.enemy_troupe_id)
-                for troupe in self._game.memory.troupes.values():
+                self._parent_scene.model.remove_troupe(self.enemy_troupe_id)
+                for troupe in self._parent_scene.model.troupes.values():
                     troupe.set_force_idle(False)
                 self._parent_scene.ui.grid.move_units_to_grid()
                 self.end_combat()
@@ -89,7 +89,7 @@ class CombatController(Controller):
         Complete combat preparation steps.
         """
         self.generate_combat()
-        for troupe in self._game.memory.troupes.values():
+        for troupe in self._parent_scene.model.troupes.values():
             troupe.set_force_idle(False)
 
     def begin_combat(self):
@@ -139,7 +139,7 @@ class CombatController(Controller):
             unit = enemy_troupe.units[id_]
             unit.pos = positions.pop(0)
 
-        troupe_id = self._game.memory.add_troupe(enemy_troupe)
+        troupe_id = self._parent_scene.model.add_troupe(enemy_troupe)
         self.enemy_troupe_id = troupe_id
         self._combat_ending_timer = -1
 
@@ -151,7 +151,7 @@ class CombatController(Controller):
             return {}
 
         # get possible combats
-        level = self._game.memory.level
+        level = self._parent_scene.model.level
         combats = self._game.data.combats.values()
         possible_combats = []
         possible_combats_occur_rates = []
@@ -182,8 +182,8 @@ class CombatController(Controller):
         """
         End the combat
         """
-        self._game.memory.set_game_speed(1)
-        for troupe in self._game.memory.troupes.values():
+        self._parent_scene.model.set_game_speed(1)
+        for troupe in self._parent_scene.model.troupes.values():
             troupe.set_force_idle(True)
         self._process_new_injuries()
         self._parent_scene.model.state = WorldState.CHOOSE_NEXT_ROOM
@@ -196,7 +196,7 @@ class CombatController(Controller):
         injuries_before_death = self._game.data.config["unit_properties"]["injuries_before_death"]
         log = self._game_log.append
 
-        for i, unit in enumerate(self._game.memory.player_troupe.units.values()):
+        for i, unit in enumerate(self._parent_scene.model.player_troupe.units.values()):
 
             # do an update to ensure unit.alive is updated
             unit.update(0.0001)
@@ -214,4 +214,4 @@ class CombatController(Controller):
 
         # remove units after since they can't be removed during iteration
         for unit in remove_units:
-            self._game.memory.player_troupe.remove_unit(unit)
+            self._parent_scene.model.player_troupe.remove_unit(unit)

@@ -420,7 +420,7 @@ class WorldUI(UI):
         self._elements["victory_notification"] = frame
 
     def _rebuild_combat_ui(self):
-        self.set_instruction_text("")
+        self.set_instruction_text("Press shift to start combat.")
 
 
 class GridCell:

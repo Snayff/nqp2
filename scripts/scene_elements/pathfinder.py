@@ -38,8 +38,8 @@ class Pathfinder:
         tcod_path = self.route(start, end)
         return [
             (
-                point[0] * TILE_SIZE + self.terrain.tile_size // 2,
-                point[1] * TILE_SIZE + self.terrain.tile_size // 2,
+                point[0] * TILE_SIZE + TILE_SIZE // 2,
+                point[1] * TILE_SIZE + TILE_SIZE // 2,
             )
             for point in tcod_path
         ]

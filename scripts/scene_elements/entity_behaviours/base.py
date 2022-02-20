@@ -72,7 +72,7 @@ class Base(Behaviour):
             self.last_path_update -= PATH_UPDATE_FREQ
 
             if self.target_entity:
-                self.visibility_line = self._game.world.ui.terrain.sight_line(
+                self.visibility_line = self._game.world.model.terrain.sight_line(
                     self.entity.pos.copy(), self.target_entity.pos.copy()
                 )
             else:
@@ -83,7 +83,7 @@ class Base(Behaviour):
                     for entity in self._game.world.model.get_all_entities():
                         if entity.team != self.entity.team:
                             if entity.dis(self.entity) < self.entity.range + self.entity.size + self.target_entity.size:
-                                if self._game.world.ui.terrain.sight_line(entity.pos.copy(), self.entity.pos.copy()):
+                                if self._game.world.model.terrain.sight_line(entity.pos.copy(), self.entity.pos.copy()):
                                     self.target_entity = entity
                                     self.target_pos = self.target_entity.pos.copy()
                                     break
@@ -94,7 +94,7 @@ class Base(Behaviour):
                 if self.entity._parent_unit.behaviour.retreating:
                     self.target_pos = list(self.entity._parent_unit.behaviour.retreat_target)
                 if self.target_pos:
-                    self.current_path = self._game.world.ui.terrain.pathfinder.px_route(
+                    self.current_path = self._game.world.model.terrain.pathfinder.px_route(
                         self.entity.pos.copy(), self.target_pos.copy()
                     )
 

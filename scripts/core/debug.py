@@ -13,7 +13,8 @@ from typing import TYPE_CHECKING
 
 import pygame
 
-from scripts.core.constants import DEBUGGING_PATH, FontType, INFINITE, LOGGING_PATH, PROFILING_PATH, VERSION
+from scripts.core.constants import DEBUGGING_PATH, FontType, INFINITE, LOGGING_PATH, PROFILING_PATH, SceneType, VERSION, \
+    WorldState
 from scripts.ui_elements.dev_console import DevConsole
 from scripts.ui_elements.font import Font
 
@@ -290,15 +291,42 @@ class Debugger:
             self._show_debug_info = True
 
     def _refresh_debug_info(self):
-        current_fps = f"FPS: C={format(self.current_fps, '.2f')}, "
-        recent_fps = f"R_Avg={format(self.recent_average_fps, '.2f')}, "
-        avg_fps = f"Avg={format(self.average_fps, '.2f')}"
-
+        self._fonts = []
         start_x = 1
         start_y = 1
 
-        text = f"{current_fps} ; {recent_fps} ;{avg_fps}"
-        self._fonts.append(self._game.assets.create_font(FontType.DEFAULT, text, (start_x, start_y)))
+        # FPS
+        # TODO - add back in when working
+        current_x = start_x
+        current_y = start_y
+        # current_fps = f"FPS: C={format(self.current_fps, '.2f')}, "
+        # recent_fps = f"R_Avg={format(self.recent_average_fps, '.2f')}, "
+        # avg_fps = f"Avg={format(self.average_fps, '.2f')}"
+        # text = f"{current_fps}; {recent_fps};{avg_fps}"
+        # self._fonts.append(self._game.assets.create_font(FontType.DEFAULT, text, (current_x, current_y)))
+
+        # current state
+        current_y += 0
+        world = self._game.world
+        world_state = world.model.state
+        sub_state_name = "not found"
+        if world_state == WorldState.COMBAT:
+            sub_state_name = world.combat.state.name
+        elif world_state == WorldState.TRAINING:
+            sub_state_name = world.training.state.name
+        elif world_state == WorldState.CHOOSE_NEXT_ROOM:
+            sub_state_name = world.choose_room.state.name
+        elif world_state == WorldState.MOVING_NEXT_ROOM:
+            sub_state_name = "n/a"
+
+        text = f"World state is [{world_state.name}]; room state is [{sub_state_name}]."
+        self._fonts.append(self._game.assets.create_font(FontType.DEFAULT, text, (current_x, current_y)))
+
+        # game speed
+        current_y += 10
+        game_speed = self._game.world.model.game_speed
+        text = f"Game speed = {game_speed}."
+        self._fonts.append(self._game.assets.create_font(FontType.DEFAULT, text, (current_x, current_y)))
 
 
 class Timer:
