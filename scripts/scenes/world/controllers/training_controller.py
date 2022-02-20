@@ -31,7 +31,7 @@ class TrainingController(Controller):
             super().__init__(game, parent_scene)
 
             self.state: TrainingState = TrainingState.IDLE
-            self.upgrades_available: Dict[int, Optional[Any]] = {}  # position: None/upgrade dict
+            self.upgrades_available: List[Optional[Dict]] = []  # None/upgrade dict
             self.selected_upgrade: Optional[Dict] = None  # None/upgrade dict
             self.num_upgrades: int = 2
             self.current_grid_index: int = 0  # which unit index is selected
@@ -40,21 +40,17 @@ class TrainingController(Controller):
         pass
 
     def reset(self):
-        self.upgrades_available = {}
+        self.upgrades_available = []
 
     def generate_upgrades(self):
         """
         Generate upgrades to sell. NOTE: currently hard coded.
         """
         # reset existing upgrades
-        self.upgrades_available = {}
+        self.upgrades_available = []
 
         # TODO - replace with proc gen
-        upgrades_offered = [self._game.data.upgrades["minor_attack"], self._game.data.upgrades["minor_defence"]]
-
-        # set all positions in dict to None
-        for i in range(self.num_upgrades):
-            self.upgrades_available[i] = upgrades_offered[i]
+        self.upgrades_available = [self._game.data.upgrades["minor_attack"], self._game.data.upgrades["minor_defence"]]
 
     def calculate_upgrade_cost(self, tier: int):
         """
@@ -87,5 +83,5 @@ class TrainingController(Controller):
         self._parent_scene.model.player_troupe.upgrade_unit(id_, upgrade["type"])
 
         # clear upgrade option from list
-        key = list(self.upgrades_available.keys())[list(self.upgrades_available.values()).index(self.selected_upgrade)]
-        self.upgrades_available[key] = None
+        index = self.upgrades_available.index(self.selected_upgrade)
+        self.upgrades_available[index] = None

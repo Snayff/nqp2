@@ -87,6 +87,9 @@ class WorldUI(UI):
         elif state == WorldState.TRAINING:
             self._process_training_input()
 
+        if self.grid:
+            self.grid.process_input()
+
     def _process_defeat_input(self):
         if self._game.input.states["select"]:
             self._game.memory.reset()
@@ -161,13 +164,6 @@ class WorldUI(UI):
             self.rebuild_ui()
 
     def _process_choose_next_room_input(self):
-        # TODO  - replace when new room choice is in.
-        if self._game.input.states["backspace"]:
-            self._parent_scene.combat.begin_move_to_new_room()
-
-        if self.grid:
-            self.grid.process_input()
-
         controller = self._parent_scene.choose_room
         local_state = controller.state
         is_ui_dirty = False
@@ -189,7 +185,6 @@ class WorldUI(UI):
 
             # select upgrade
             if self._game.input.states["select"]:
-                controller.state = ChooseRoomState.IDLE
                 controller.begin_move_to_new_room()
                 is_ui_dirty = True
 
@@ -222,8 +217,54 @@ class WorldUI(UI):
         icon_height = DEFAULT_IMAGE_SIZE
         icon_size = (icon_width, icon_height)
         start_x, start_y = self._game.window.centre
-        controller = self._parent_scene.training
+        controller = self._parent_scene.choose_room
         model = self._parent_scene.model
+
+        # draw room choices
+        current_x = start_x
+        current_y = start_y
+        panel_list = []
+        for i, room_and_if_hidden in enumerate(controller.choices):
+            room_type, is_hidden = room_and_if_hidden
+
+            # get icon
+            if is_hidden:
+                icon = self._game.visuals.get_image("unknown_room", icon_size)
+                text = "Unknown"
+            else:
+                icon = self._game.visuals.get_image(room_type, icon_size)
+                text = room_type
+            frame = Frame(
+                (current_x, current_y),
+                new_image=icon,
+                font=create_font(FontType.DEFAULT, text),
+                is_selectable=True,
+            )
+
+            # register elements
+            self._elements[room_type] = frame
+            panel_list.append(frame)
+
+        # build panel
+        panel = Panel(panel_list)
+        self.add_panel(panel, "room_choices")
+
+        # handle instructions and selectability for different states
+        if controller.state == ChooseRoomState.CHOOSE_ROOM:
+            panel.set_selectable(True)
+            self.set_instruction_text("Press X to cancel.")
+
+            # ensure an room is selected
+            if controller.selected_room is None:
+                controller.selected_room = controller.choices[0][0]
+
+            # highlight selected room
+            highlighted_frame = self._elements[controller.selected_room]
+            highlighted_frame.is_selected = True
+
+        elif controller.state == ChooseRoomState.IDLE:
+            panel.set_selectable(False)
+            self.set_instruction_text("Press shift to select a room.")
 
     def _rebuild_training_ui(self):
         create_font = self._game.visuals.create_font
@@ -238,7 +279,7 @@ class WorldUI(UI):
         current_x = start_x
         current_y = start_y
         panel_list = []
-        for i, upgrade in controller.upgrades_available.items():
+        for i, upgrade in enumerate(controller.upgrades_available):
             # check if available
             if upgrade is not None:
                 text = f"{upgrade['stat']} +{upgrade['mod_amount']}"
@@ -294,7 +335,7 @@ class WorldUI(UI):
 
             # ensure an upgrade is selected
             if controller.selected_upgrade is None:
-                controller.selected_upgrade = controller.upgrades_available[1].copy()
+                controller.selected_upgrade = controller.upgrades_available[0].copy()
 
             # highlight selected upgrade
             highlighted_frame = self._elements[controller.selected_upgrade["type"]]

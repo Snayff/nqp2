@@ -58,10 +58,10 @@ class PostCombatState(IntEnum):
 
 class WorldState(IntEnum):
     CHOOSE_NEXT_ROOM = auto()
+    MOVING_NEXT_ROOM = auto()
     COMBAT = auto()
     DEFEAT = auto()
     VICTORY = auto()
-    MOVING_NEXT_ROOM = auto()
     TRAINING = auto()
 
 

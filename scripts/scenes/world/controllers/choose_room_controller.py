@@ -33,12 +33,18 @@ class ChooseRoomController(Controller):
 
             self.num_choices: int = 2
             self.choices: List[Tuple[str, bool]] = []  # (room_type, is_hidden)
+            self.selected_room: Optional[str] = None
 
     def update(self, delta_time: float):
-        pass
+        if self._parent_scene.model.state == WorldState.MOVING_NEXT_ROOM:
+            self._process_moving_to_new_room()
 
     def reset(self):
-        pass
+        self.state = ChooseRoomState.IDLE
+
+        self.num_choices = 2
+        self.choices = []  # (room_type, is_hidden)
+        self.selected_room = None
 
     def generate_room_choices(self):
         # reset existing
@@ -75,6 +81,48 @@ class ChooseRoomController(Controller):
 
         else:
             raise Exception("begin_move_to_new_room: Not in expected state.")
+
+    def _process_moving_to_new_room(self):
+        # move entities
+        for i in self._parent_scene.model.get_all_entities():
+            # cannot use move here because it is very buggy when entities are touching
+            i.pos[0] += 5
+
+        # TODO: find better way to calculate this value
+        final = self._game.window.base_resolution[0] + 320 + 320
+        terrain_offset = self._game.window.base_resolution[0] + 320
+
+        # this is a giant hack because the game only supports
+        # "one room" at a time, and everything needs to be in the
+        # "primary" terrain.  to remove hack, one way to fix would
+        # be to make sure game can support more than one terrain
+        # and all game entities coordinates are independent of the
+        # terrain.
+        # when entities are in next room, swap terrains and idle
+        if i.pos[0] >= final:
+            for i in self._parent_scene.model.get_all_entities():
+                # cannot use move here because it is very buggy when entities are touching
+                i.pos[0] -= terrain_offset
+            # TODO: decouple this
+            self._parent_scene.ui._worldview.clamp_primary_terrain = True
+            self._parent_scene.ui._worldview.camera.move(-terrain_offset - 148, 0)
+            self._parent_scene.model.terrain.ignore_boundaries = False
+            self._parent_scene.model.next_terrain.ignore_boundaries = False
+            self._parent_scene.model.swap_terrains()
+            self.reset()
+
+            self._assign_room_state()
+
+    def _assign_room_state(self):
+        """
+        Assign state to WorldModel based on room selected
+        """
+        room = self.selected_room
+
+        if room == "training":
+            self._parent_scene.model.state = WorldState.TRAINING
+        elif room == "combat":
+            self._parent_scene.model.state = WorldState.COMBAT
 
 
 
