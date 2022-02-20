@@ -32,8 +32,8 @@ class TrainingController(Controller):
     #  - input for toggling selection of units and upgrades - X
     #  - show upgrade details only when upgrade is hovered - X
     #  - input for selecting upgrade - X
-    #  - when upgrade selected move to units, update local state
-    #  - input for navigating units
+    #  - when upgrade selected move to units, update local state - X
+    #  - input for navigating units - X
     #  - input for selecting and applying upgrade to unit
     #  - upgrade confirmation (animation?)
 
@@ -45,7 +45,7 @@ class TrainingController(Controller):
             self.upgrades_available: Dict[int, Optional[Any]] = {}  # position: None/upgrade dict
             self.selected_upgrade: Optional[Dict] = None  # None/upgrade dict
             self.num_upgrades: int = 2
-            self.selected_target_unit: Optional[Unit] = None
+            self.current_grid_index: int = 0  # which unit index is selected
 
     def update(self, delta_time: float):
         pass

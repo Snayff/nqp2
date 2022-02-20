@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING
 
 import pygame
 
+from scripts.core import utility
 from scripts.core.base_classes.ui import UI
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, GAP_SIZE, SceneType, TrainingState, WorldState
 from scripts.scene_elements.unit import Unit
@@ -99,16 +100,17 @@ class WorldUI(UI):
             self._game.change_scene(SceneType.MAIN_MENU)
 
     def _process_training_input(self):
-        local_state = self._parent_scene.training.state
+        controller = self._parent_scene.training
+        local_state = controller.state
         state_changed = False
 
         # toggle select upgrade or view units
         if self._game.input.states["shift"]:
             if local_state == TrainingState.VIEW_UNITS:
-                self._parent_scene.training.state = TrainingState.CHOOSE_UPGRADE
+                controller.state = TrainingState.CHOOSE_UPGRADE
                 state_changed = True
             elif local_state == TrainingState.CHOOSE_UPGRADE:
-                self._parent_scene.training.state = TrainingState.VIEW_UNITS
+                controller.state = TrainingState.VIEW_UNITS
                 state_changed = True
 
             if state_changed:
@@ -125,8 +127,8 @@ class WorldUI(UI):
                 state_changed = True
 
             if self._game.input.states["select"]:
-                self._parent_scene.training.state = TrainingState.CHOOSE_TARGET_UNIT
-                # TODO - select first unit
+                controller.state = TrainingState.CHOOSE_TARGET_UNIT
+                controller.current_grid_index = 0
                 state_changed = True
 
             if state_changed:
@@ -135,16 +137,26 @@ class WorldUI(UI):
         if local_state == TrainingState.CHOOSE_TARGET_UNIT:
             # cancel
             if self._game.input.states["cancel"]:
-                self._parent_scene.training.state = TrainingState.CHOOSE_UPGRADE
+                controller.state = TrainingState.CHOOSE_UPGRADE
+                self.grid.units[controller.current_grid_index].is_selected = False
                 state_changed = True
 
-            if self._game.input.states[""]
+            # unit selection
+            # TODO - update to allow moving around the grid rather than jumping indices
+            current_index = controller.current_grid_index
+            new_index = current_index
+            if self._game.input.states["up"]:
+                self.grid.units[current_index].is_selected = False
+                new_index = utility.next_number_in_loop(current_index, len(self.grid.units))
+            elif self._game.input.states["down"]:
+                self.grid.units[current_index].is_selected = False
+                new_index = utility.previous_number_in_loop(current_index, len(self.grid.units))
 
+            controller.current_grid_index = new_index
+            self.grid.units[new_index].is_selected = True
 
             if state_changed:
                 self.rebuild_ui()
-
-
 
 
     def rebuild_ui(self):
