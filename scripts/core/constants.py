@@ -37,6 +37,7 @@ class GameState(IntEnum):
 
 
 class CombatState(IntEnum):
+    IDLE = auto()
     UNIT_CHOOSE_CARD = auto()
     UNIT_SELECT_TARGET = auto()
     ACTION_CHOOSE_CARD = auto()
@@ -45,6 +46,7 @@ class CombatState(IntEnum):
 
 
 class TrainingState(IntEnum):
+    IDLE = auto()
     CHOOSE_UPGRADE = auto()
     CHOOSE_TARGET_UNIT = auto()
 
@@ -56,11 +58,17 @@ class PostCombatState(IntEnum):
 
 
 class WorldState(IntEnum):
-    IDLE = auto()
-    COMBAT = auto()
-    DEFEAT = auto()
-    COMBAT_VICTORY = auto()
+    CHOOSE_NEXT_ROOM = auto()
     MOVING_NEXT_ROOM = auto()
+    COMBAT = auto()
+    DEFEAT = auto()  # TODO - move to controller as local state
+    VICTORY = auto()  # TODO - move to controller as local state
+    TRAINING = auto()
+
+
+class ChooseRoomState(IntEnum):
+    IDLE = auto()
+    CHOOSE_ROOM = auto()
 
 
 class EventState(IntEnum):
@@ -75,18 +83,12 @@ class AnimationState(IntEnum):
 
 
 class SceneType(IntEnum):
-    POST_COMBAT = auto()
-    EVENT = auto()
-    INN = auto()
-    TRAINING = auto()
-    OVERWORLD = auto()
     MAIN_MENU = auto()
     VIEW_TROUPE = auto()
     RUN_SETUP = auto()
     DEV_DATA_EDITOR = auto()
     DEV_GALLERY = auto()
     WORLD = auto()
-    NEXT_ROOM = auto()
 
 
 class RewardType(IntEnum):

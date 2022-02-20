@@ -52,30 +52,28 @@ class RunSetupScene(Scene):
 
         # create player troupe
         troupe = Troupe(self._game, "player", commander["allies"])
-        self._game.memory.add_troupe(troupe)
 
         # register commander values
         starting_values = self._game.data.config["starting_values"]
-        self._game.memory.amend_gold(starting_values["gold"] + commander["gold"])
-        self._game.memory.amend_rations(starting_values["rations"] + commander["rations"])
-        self._game.memory.amend_morale(starting_values["morale"] + commander["morale"])
-        self._game.memory.amend_charisma(starting_values["charisma"] + commander["charisma"])
-        self._game.memory.amend_leadership(starting_values["leadership"] + commander["leadership"])
-
-        logging.info(f"Player chose {self.selected_commander} as their commander.")
+        gold = starting_values["gold"] + commander["gold"]
+        rations = starting_values["rations"] + commander["rations"]
+        morale = starting_values["morale"] + commander["morale"]
+        charisma = starting_values["charisma"] + commander["charisma"]
+        leadership = starting_values["leadership"] + commander["leadership"]
 
         # prep player troupe
-        player_troupe = self._game.memory.player_troupe
         if self._game.debug.debug_mode:
-            player_troupe.debug_init_units()
+            troupe.debug_init_units()
         else:
-            player_troupe.generate_specific_units(commander["starting_units"])
+            troupe.generate_specific_units(commander["starting_units"])
 
-        logging.info(f"Run starting now!")
+        # pass starting values to memory
+        self._game.memory.initialise_run(troupe, gold, rations, morale, charisma, leadership)
+
+        logging.info(f"Player chose {self.selected_commander} as their commander. Run starting now!")
 
         # change scene
         self._game.change_scene(SceneType.WORLD)
-        self._game.add_scene(SceneType.EVENT, False)
 
     def reset(self):
         """

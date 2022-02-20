@@ -73,27 +73,14 @@ def scene_to_scene_type(scene) -> SceneType:
     """
     Take a Scene and return the relevant SceneType
     """
-
-    from scripts.scenes.event.scene import EventScene
     from scripts.scenes.gallery.scene import GalleryScene
-    from scripts.scenes.inn.scene import InnScene
     from scripts.scenes.main_menu.scene import MainMenuScene
-    from scripts.scenes.post_combat.scene import PostCombatScene
     from scripts.scenes.run_setup.scene import RunSetupScene
-    from scripts.scenes.training.scene import TrainingScene
     from scripts.scenes.unit_data.scene import UnitDataScene
     from scripts.scenes.view_troupe.scene import ViewTroupeScene
 
     if type(scene) is ViewTroupeScene:
         scene = SceneType.VIEW_TROUPE
-    elif type(scene) is TrainingScene:
-        scene = SceneType.TRAINING
-    elif type(scene) is InnScene:
-        scene = SceneType.INN
-    elif type(scene) is EventScene:
-        scene = SceneType.EVENT
-    elif type(scene) is PostCombatScene:
-        scene = SceneType.POST_COMBAT
     elif type(scene) is RunSetupScene:
         scene = SceneType.RUN_SETUP
     elif type(scene) is UnitDataScene:

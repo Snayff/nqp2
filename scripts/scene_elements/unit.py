@@ -27,6 +27,7 @@ class Unit:
         self.id = id_
         self.type: str = unit_type
         self.team: str = team  # this is derived from the Troupe but can be overridden in combat
+        self.is_selected: bool = False
 
         # stats that dont use base values
         self.type: str = unit_data["type"]
@@ -250,7 +251,7 @@ class Unit:
                 self.dead_entities.append(entity)
 
     def draw(self, surface: pygame.Surface, shift=(0, 0)):
-        if self.team == "player":
+        if self.team == "player" and self.is_selected:
             for d in [(-1, 0), (1, 0), (0, 1), (0, -1)]:
                 surface.blit(
                     self.border_surface_outline_black,

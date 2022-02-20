@@ -60,8 +60,6 @@ class Terrain:
         self._game = game
         self._biome = biome
         self.tiles: Dict[Tuple[int, int], List[Tile]] = {}
-        self.tile_size = TILE_SIZE
-        self.barrier_size = BARRIER_SIZE
         self.size = (20, 20)
         self.pixel_size = (self.size[0] * TILE_SIZE, self.size[1] * TILE_SIZE)
         self.tile_boundaries = [[], []]
@@ -127,7 +125,7 @@ class Terrain:
         )
 
     def px_to_loc(self, pos) -> Tuple[int, int]:
-        loc = (int(pos[0] // self.tile_size), int(pos[1] // self.tile_size))
+        loc = (int(pos[0] // TILE_SIZE), int(pos[1] // TILE_SIZE))
         return loc
 
     def check_tile_solid(self, pos):
@@ -156,7 +154,7 @@ class Terrain:
         return True
 
     def tile_rect(self, loc):
-        return pygame.Rect(loc[0] * self.tile_size, loc[1] * self.tile_size, self.tile_size, self.tile_size)
+        return pygame.Rect(loc[0] * TILE_SIZE, loc[1] * TILE_SIZE, TILE_SIZE, TILE_SIZE)
 
     def tile_rect_px(self, pos):
         loc = self.px_to_loc(pos)
@@ -171,12 +169,11 @@ class Terrain:
             trap.update(dt)
 
     def draw(self, surface: pygame.Surface, offset: pygame.Vector2):
-        tile_size = self.tile_size
 
         for loc in self.tiles:
             tile_offset = (
-                loc[0] * tile_size + offset[0],
-                loc[1] * tile_size + offset[1],
+                loc[0] * TILE_SIZE + offset[0],
+                loc[1] * TILE_SIZE + offset[1],
             )
             for tile in self.tiles[loc]:
                 tile.draw(self._game, surface, tile_offset)
@@ -187,15 +184,15 @@ class Terrain:
 
 def generate(game: Game, terrain: Terrain, biome: str):
     screen_size = game.window.base_resolution.copy()
-    combat_area_size = [int(screen_size[0] // terrain.tile_size), int(screen_size[1] // terrain.tile_size)]
+    combat_area_size = [int(screen_size[0] // TILE_SIZE), int(screen_size[1] // TILE_SIZE)]
     placement_width = math.ceil(combat_area_size[0] / 4)
     tree_bases = []
-    for x in range(combat_area_size[0] + terrain.barrier_size * 2):
-        for y in range(combat_area_size[1] + terrain.barrier_size * 2):
-            loc = (x - terrain.barrier_size - 1, y - terrain.barrier_size - 1)
+    for x in range(combat_area_size[0] + BARRIER_SIZE * 2):
+        for y in range(combat_area_size[1] + BARRIER_SIZE * 2):
+            loc = (x - BARRIER_SIZE - 1, y - BARRIER_SIZE - 1)
             terrain.tiles[loc] = [Tile([biome, 0, 1], game.data.tiles)]
-            if (terrain.barrier_size < x <= (combat_area_size[0] + terrain.barrier_size)) and (
-                terrain.barrier_size < y <= (combat_area_size[1] + terrain.barrier_size)
+            if (BARRIER_SIZE < x <= (combat_area_size[0] + BARRIER_SIZE)) and (
+                BARRIER_SIZE < y <= (combat_area_size[1] + BARRIER_SIZE)
             ):
                 if random.random() < 0.3:
                     terrain.tiles[loc].append(Tile([biome, *random_foliage()], game.data.tiles))
@@ -205,7 +202,7 @@ def generate(game: Game, terrain: Terrain, biome: str):
                 # elif random.random() < terrain.trap_density:
                 #     trap_type = random.choice(terrain.trap_types)
                 #     terrain.traps.append(
-                #         traps.trap_types[trap_type](game, (loc[0] * terrain.tile_size, loc[1] * terrain.tile_size))
+                #         traps.trap_types[trap_type](game, (loc[0] * TILE_SIZE, loc[1] * TILE_SIZE))
                 #     )
             else:
                 # place trees around border
@@ -231,10 +228,10 @@ def generate(game: Game, terrain: Terrain, biome: str):
                 if tile.config["solid"]:
                     terrain.tiles[loc].remove(tile)
 
-    terrain.boundaries.x = -terrain.barrier_size * terrain.tile_size
-    terrain.boundaries.y = -terrain.barrier_size * terrain.tile_size
-    terrain.boundaries.width = (terrain.barrier_size * 2 + combat_area_size[0]) * terrain.tile_size
-    terrain.boundaries.height = (terrain.barrier_size * 2 + combat_area_size[1]) * terrain.tile_size
+    terrain.boundaries.x = -BARRIER_SIZE * TILE_SIZE
+    terrain.boundaries.y = -BARRIER_SIZE * TILE_SIZE
+    terrain.boundaries.width = (BARRIER_SIZE * 2 + combat_area_size[0]) * TILE_SIZE
+    terrain.boundaries.height = (BARRIER_SIZE * 2 + combat_area_size[1]) * TILE_SIZE
 
 
 def gen_blob(

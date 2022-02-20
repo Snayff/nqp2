@@ -27,6 +27,10 @@ __all__ = ["Assets"]
 
 
 class Assets:
+    """
+    DO NOT USE. Use visuals.py instead
+    """
+
     def __init__(self, game: Game):
         # start timer
         start_time = time.time()

@@ -13,7 +13,16 @@ from typing import TYPE_CHECKING
 
 import pygame
 
-from scripts.core.constants import DEBUGGING_PATH, FontType, INFINITE, LOGGING_PATH, PROFILING_PATH, VERSION
+from scripts.core.constants import (
+    DEBUGGING_PATH,
+    FontType,
+    INFINITE,
+    LOGGING_PATH,
+    PROFILING_PATH,
+    SceneType,
+    VERSION,
+    WorldState,
+)
 from scripts.ui_elements.dev_console import DevConsole
 from scripts.ui_elements.font import Font
 
@@ -50,7 +59,7 @@ class Debugger:
         self.is_profiling: bool = True
         self.is_logging: bool = True
         self.debug_mode: bool = False
-        self._show_debug_info: bool = False
+        self._show_debug_info: bool = True
 
         # values
         self._num_frames_considered_recent: int = 600
@@ -290,25 +299,47 @@ class Debugger:
             self._show_debug_info = True
 
     def _refresh_debug_info(self):
-        current_fps = f"FPS: C={format(self.current_fps, '.2f')}, "
-        recent_fps = f"R_Avg={format(self.recent_average_fps, '.2f')}, "
-        avg_fps = f"Avg={format(self.average_fps, '.2f')}"
-
+        self._fonts = []
         start_x = 1
         start_y = 1
 
-        text = f"{current_fps} ; {recent_fps} ;{avg_fps}"
-        self._fonts.append(self._game.assets.create_font(FontType.DEFAULT, text, (start_x, start_y)))
+        # FPS
+        # TODO - add back in when working
+        current_x = start_x
+        current_y = start_y
+        # current_fps = f"FPS: C={format(self.current_fps, '.2f')}, "
+        # recent_fps = f"R_Avg={format(self.recent_average_fps, '.2f')}, "
+        # avg_fps = f"Avg={format(self.average_fps, '.2f')}"
+        # text = f"{current_fps}; {recent_fps};{avg_fps}"
+        # self._fonts.append(self._game.assets.create_font(FontType.DEFAULT, text, (current_x, current_y)))
 
-        current_y = start_y + 10
-        text = f"Game speed:{self._game.memory.game_speed} ; WorldState: {self._game.world.state.name}"
-        self._fonts.append(self._game.assets.create_font(FontType.DEFAULT, text, (start_x, current_y)))
+        # current state
+        current_y += 0
+        world = self._game.world
+        world_state = world.model.state
+        sub_state_name = "not found"
+        if world_state == WorldState.COMBAT:
+            sub_state_name = world.combat.state.name
+        elif world_state == WorldState.TRAINING:
+            sub_state_name = world.training.state.name
+        elif world_state == WorldState.CHOOSE_NEXT_ROOM:
+            sub_state_name = world.choose_room.state.name
+        elif world_state == WorldState.MOVING_NEXT_ROOM:
+            sub_state_name = "n/a"
+
+        text = f"World state is [{world_state.name}]; room state is [{sub_state_name}]."
+        self._fonts.append(self._game.assets.create_font(FontType.DEFAULT, text, (current_x, current_y)))
+
+        # game speed
+        current_y += 10
+        game_speed = self._game.world.model.game_speed
+        text = f"Game speed = {game_speed}."
+        self._fonts.append(self._game.assets.create_font(FontType.DEFAULT, text, (current_x, current_y)))
 
 
 class Timer:
     """
     Context manager to document program time
-
     """
 
     def __init__(self, label=None):
@@ -323,6 +354,6 @@ class Timer:
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.duration = time.perf_counter() - self.start
         if self.label:
-            logging.debug("%s took %.2f seconds", self.label, self.duration)
+            logging.debug("%s in %.2f seconds.", self.label, self.duration)
         else:
-            logging.debug("took %.2f seconds", self.duration)
+            logging.debug("took %.2f seconds.", self.duration)

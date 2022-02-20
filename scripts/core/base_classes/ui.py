@@ -93,6 +93,7 @@ class UI(ABC):
         """
         Build Panel and Frames for key resources on screen. Gold, Rations, Charisma, Leadership.
         """
+        # TODO - resources now in WorldModel, this needs to be moved to somewhere that can access that.
         icon_size = (DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE)
 
         # specify resources

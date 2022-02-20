@@ -10,7 +10,7 @@ from scripts.scene_elements.particle import Particle
 if TYPE_CHECKING:
     from typing import Dict, List, Optional, Tuple, Union
 
-__all__ = []
+__all__ = ["ParticleManager"]
 
 
 class ParticleManager:

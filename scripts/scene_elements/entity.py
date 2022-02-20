@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import pygame
 
 from scripts.core import PointLike
-from scripts.core.constants import DEFENSE_SCALE, PUSH_FORCE, WEIGHT_SCALE
+from scripts.core.constants import DEFENSE_SCALE, PUSH_FORCE, TILE_SIZE, WEIGHT_SCALE
 from scripts.core.game import Game
 from scripts.core.utility import offset
 
@@ -69,9 +69,8 @@ class Entity:
         Calls the move sub-process anywhere from one to several times depending on the speed.
         """
         # TODO - remove reliance on Scenes
-        tile_size = self._game.world.model.tile_size
-        move_count = int(abs(movement[0]) // tile_size + 1)
-        move_count = max(int(abs(movement[1]) // tile_size + 1), move_count)
+        move_count = int(abs(movement[0]) // TILE_SIZE + 1)
+        move_count = max(int(abs(movement[1]) // TILE_SIZE + 1), move_count)
         move_amount = [movement[0] / move_count, movement[1] / move_count]
         for i in range(move_count):
             self.sub_move(move_amount)
@@ -207,7 +206,7 @@ class Entity:
 
         # handle collision
         if self.alive:
-            for entity in self._game.memory.get_all_entities():
+            for entity in self._game.world.model.get_all_entities():
                 if (entity != self) and (entity.alive):
                     combined_size = self.size + entity.size
                     # horizontal scan

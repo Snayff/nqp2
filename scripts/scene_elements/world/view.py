@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import Optional, TYPE_CHECKING
 
 import pygame
 
@@ -81,9 +81,8 @@ class WorldView:
     def _update_camera(self, delta_time: float):
         """
         Update the camera's position to follow the player's Units
-
         """
-        target_pos = self._game.memory.get_team_center("player")
+        target_pos = self.get_team_center("player")
         if target_pos:
             self.camera.move_to_position(target_pos)
             self.camera.update(delta_time)
@@ -93,7 +92,7 @@ class WorldView:
                 self._has_centered_camera = True
 
     def _draw_units(self, surface: pygame.Surface, offset: pygame.Vector2):
-        units = self._game.memory.get_all_units()
+        units = self._model.get_all_units()
 
         for unit in units:
             unit.draw(surface, shift=offset)
@@ -115,9 +114,8 @@ class WorldView:
     def _draw_path_debug(self, surface: pygame.Surface):
         """
         Draw lines to indicate the pathfinding
-
         """
-        for entity in self._game.memory.get_all_entities():
+        for entity in self._model.get_all_entities():
             if entity._parent_unit.default_behaviour != "swarm":
                 if entity.behaviour.current_path and len(entity.behaviour.current_path):
                     points = [
@@ -125,3 +123,18 @@ class WorldView:
                         for p in ([entity.pos] + entity.behaviour.current_path)
                     ]
                     pygame.draw.lines(surface, (255, 0, 0), False, points)
+
+    def get_team_center(self, team) -> Optional[pygame.Vector2]:
+        """
+        Get centre coordinates for the team
+        """
+        count = 0
+        pos_totals = pygame.Vector2()
+        for unit in self._model.get_all_units():
+            if unit.team == team:
+                pos_totals += unit.pos
+                count += 1
+        if count:
+            return pygame.Vector2(pos_totals / count)
+        else:
+            return None

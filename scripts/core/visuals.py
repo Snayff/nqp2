@@ -34,7 +34,7 @@ class Visuals:
 
         self._game: Game = game
 
-        self._image_folders: List[str] = ["stats", "ui", "buttons"]
+        self._image_folders: List[str] = ["stats", "ui", "buttons", "rooms", "upgrades"]
         self._animation_folders: List[str] = ["bosses", "commanders", "units"]
 
         self._images: Dict[str, pygame.Surface] = self._load_images()  # image_name: surface
@@ -198,7 +198,7 @@ class Visuals:
             image = None
             for held_image_name in self._images.keys():
                 if image_name in held_image_name:
-                    image = held_image_name
+                    image = self._images[held_image_name]
                     break
 
             # if no image found replace with not found

@@ -1,5 +1,6 @@
 import random
 
+from ...core.constants import TILE_SIZE
 from .behaviour import Behaviour
 
 REGROUP_RANGE = 32
@@ -35,7 +36,7 @@ class Base(Behaviour):
         Find the nearest enemy from a different team and update the target.
         """
         nearest = [None, 9999999]
-        for entity in self._game.memory.get_all_entities():
+        for entity in self._game.world.model.get_all_entities():
             if entity.team != self.unit.team:
                 dis = entity.dis(self.unit)
                 if dis < nearest[1]:
@@ -93,8 +94,8 @@ class Base(Behaviour):
                         if self.force_retreat:
                             self.retreating = True
                             self.retreat_target = (
-                                self.position_log[-RETREAT_AMT][0] * self._game.combat.terrain.tile_size,
-                                self.position_log[-RETREAT_AMT][1] * self._game.combat.terrain.tile_size,
+                                self.position_log[-RETREAT_AMT][0] * TILE_SIZE,
+                                self.position_log[-RETREAT_AMT][1] * TILE_SIZE,
                             )
                         for entity in self.unit.entities:
                             entity.behaviour.state = "path"

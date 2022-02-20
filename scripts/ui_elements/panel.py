@@ -5,6 +5,8 @@ from typing import TYPE_CHECKING
 
 import pygame
 
+from scripts.core.base_classes.ui_element import UIElement
+
 if TYPE_CHECKING:
     from typing import List, Optional, Tuple
 
@@ -29,7 +31,7 @@ class Panel:
             element.update(delta_time)
 
     def draw(self, surface: pygame.Surface):
-        for element in self.elements:
+        for element in self._elements:
             element.draw(surface)
 
     @property
@@ -37,7 +39,7 @@ class Panel:
         return self._is_active
 
     @property
-    def selected_element(self):
+    def selected_element(self) -> UIElement:
         return self._elements[self.selected_index]
 
     def set_active(self, is_active: bool):

@@ -1,6 +1,7 @@
 import math
 import random
 
+from ...core.constants import TILE_SIZE
 from .behaviour import Behaviour
 
 PATH_UPDATE_FREQ = 0.4
@@ -29,7 +30,7 @@ class Base(Behaviour):
         self.walk_towards(next_point, self.entity.move_speed * dt)
         if (
             math.sqrt((next_point[0] - self.entity.pos[0]) ** 2 + (next_point[1] - self.entity.pos[1]) ** 2)
-            < self._game.world.ui.terrain.tile_size // 3
+            < TILE_SIZE // 3
         ):
             self.current_path.pop(0)
 
@@ -71,7 +72,7 @@ class Base(Behaviour):
             self.last_path_update -= PATH_UPDATE_FREQ
 
             if self.target_entity:
-                self.visibility_line = self._game.world.ui.terrain.sight_line(
+                self.visibility_line = self._game.world.model.terrain.sight_line(
                     self.entity.pos.copy(), self.target_entity.pos.copy()
                 )
             else:
@@ -79,10 +80,10 @@ class Base(Behaviour):
 
             if not self.visibility_line:
                 if self.entity._parent_unit.behaviour.smart_range_retarget:
-                    for entity in self._game.memory.get_all_entities():
+                    for entity in self._game.world.model.get_all_entities():
                         if entity.team != self.entity.team:
                             if entity.dis(self.entity) < self.entity.range + self.entity.size + self.target_entity.size:
-                                if self._game.world.ui.terrain.sight_line(entity.pos.copy(), self.entity.pos.copy()):
+                                if self._game.world.model.terrain.sight_line(entity.pos.copy(), self.entity.pos.copy()):
                                     self.target_entity = entity
                                     self.target_pos = self.target_entity.pos.copy()
                                     break
@@ -93,7 +94,7 @@ class Base(Behaviour):
                 if self.entity._parent_unit.behaviour.retreating:
                     self.target_pos = list(self.entity._parent_unit.behaviour.retreat_target)
                 if self.target_pos:
-                    self.current_path = self._game.world.ui.terrain.pathfinder.px_route(
+                    self.current_path = self._game.world.model.terrain.pathfinder.px_route(
                         self.entity.pos.copy(), self.target_pos.copy()
                     )
 

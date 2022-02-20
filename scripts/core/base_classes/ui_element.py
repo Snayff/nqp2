@@ -30,7 +30,7 @@ class UIElement(ABC):
         if self.is_active:
             surface.blit(self.surface, self.pos)
 
-            if self.is_selected:
+            if self.is_selected and self.is_selectable:
                 self._draw_selector(surface)
 
     @abstractmethod
