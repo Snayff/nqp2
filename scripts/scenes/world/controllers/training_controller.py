@@ -11,8 +11,8 @@ if TYPE_CHECKING:
     from typing import Any, Dict, List, Optional, Tuple, Union
 
     from scripts.core.game import Game
-    from scripts.scenes.world.scene import WorldScene
     from scripts.scene_elements.unit import Unit
+    from scripts.scenes.world.scene import WorldScene
 
 __all__ = ["TrainingController"]
 
@@ -99,7 +99,5 @@ class TrainingController(Controller):
         self._parent_scene.model.player_troupe.upgrade_unit(id_, upgrade["type"])
 
         # clear upgrade option from list
-        key = list(self.upgrades_available.keys())[list(self.upgrades_available.values()).index(
-            self.selected_upgrade)]
+        key = list(self.upgrades_available.keys())[list(self.upgrades_available.values()).index(self.selected_upgrade)]
         self.upgrades_available[key] = None
-

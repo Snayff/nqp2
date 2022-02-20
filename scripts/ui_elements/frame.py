@@ -85,7 +85,6 @@ class Frame(UIElement):
     def y(self) -> int:
         return self.pos[1]
 
-
     def _recalculate_size(self):
         image = self._image
         font = self._font

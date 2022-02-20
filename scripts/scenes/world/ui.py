@@ -231,8 +231,10 @@ class WorldUI(UI):
             upgrade_x = current_x + 50
             upgrade_icon = self._game.visuals.get_image(upgrade["type"], icon_size)
             frame = Frame(
-                (upgrade_x, current_y), new_image=upgrade_icon, font=create_font(font_type, text),
-                is_selectable=is_selectable
+                (upgrade_x, current_y),
+                new_image=upgrade_icon,
+                font=create_font(font_type, text),
+                is_selectable=is_selectable,
             )
             # capture frame
             self._elements[upgrade["type"]] = frame
@@ -262,9 +264,7 @@ class WorldUI(UI):
             font_type = FontType.DEFAULT
             upgrade = controller.selected_upgrade
 
-            frame = Frame(
-                (info_x, highlighted_frame.y), font=create_font(font_type, upgrade["desc"])
-            )
+            frame = Frame((info_x, highlighted_frame.y), font=create_font(font_type, upgrade["desc"]))
             self._elements["info_pane"] = frame
 
         elif controller.state == TrainingState.VIEW_UNITS:
@@ -274,8 +274,6 @@ class WorldUI(UI):
         elif controller.state == TrainingState.CHOOSE_TARGET_UNIT:
             panel.set_selectable(False)
             self.set_instruction_text("Press enter to apply the upgrade or X to cancel.")
-
-
 
     def _rebuild_defeat_ui(self):
         create_font = self._game.visuals.create_font
