@@ -92,7 +92,7 @@ class WorldUI(UI):
         elif state == WorldState.DEFEAT:
             self._process_defeat_input()
         elif state == WorldState.COMBAT:
-            self.process_combat_input()
+            self._process_combat_input()
         elif state == WorldState.TRAINING:
             self._process_training_input()
 
@@ -104,10 +104,9 @@ class WorldUI(UI):
             self._game.memory.reset()
             self._game.change_scene(SceneType.MAIN_MENU)
 
-    def process_combat_input(self):
+    def _process_combat_input(self):
         if self._game.input.states["shift"]:
             self._parent_scene.combat.prepare_combat()
-
 
     def _process_training_input(self):
         controller = self._parent_scene.training
@@ -125,9 +124,11 @@ class WorldUI(UI):
             # frame selection
             if self._game.input.states["up"]:
                 self._current_panel.select_previous_element()
+                self._refresh_info_pane()  # TODO - fix info pane refreshing to match selection
 
             if self._game.input.states["down"]:
                 self._current_panel.select_next_element()
+                self._refresh_info_pane()
 
             # select upgrade
             if self._game.input.states["select"]:
@@ -326,14 +327,17 @@ class WorldUI(UI):
                 )
                 self._elements["cost" + str(i)] = frame
 
+                upgrade_icon = self._game.visuals.get_image(upgrade["type"], icon_size)
+
             else:
                 text = f"Sold out"
                 font_type = FontType.DISABLED
                 is_selectable = False
 
+                upgrade_icon = None
+
             # draw upgrade icon and details
             upgrade_x = current_x + 50
-            upgrade_icon = self._game.visuals.get_image(upgrade["type"], icon_size)
             frame = Frame(
                 (upgrade_x, current_y),
                 new_image=upgrade_icon,
@@ -359,21 +363,27 @@ class WorldUI(UI):
             if controller.selected_upgrade is None:
                 controller.selected_upgrade = controller.upgrades_available[0].copy()
 
-
-            # show info pane
-            highlighted_frame = self._elements[controller.selected_upgrade["type"]]
-            info_x = highlighted_frame.x + highlighted_frame.width + 20
-            font_type = FontType.DEFAULT
-            upgrade = controller.selected_upgrade
-
-            frame = Frame((info_x, highlighted_frame.y), font=create_font(font_type, upgrade["desc"]))
-            self._elements["info_pane"] = frame
+            self._refresh_info_pane()
 
         elif controller.state == TrainingState.IDLE:
             self.set_instruction_text("Press shift to select upgrades.")
 
         elif controller.state == TrainingState.CHOOSE_TARGET_UNIT:
             self.set_instruction_text("Press enter to apply the upgrade or X to cancel.")
+
+    def _refresh_info_pane(self):
+        """
+        Refresh the info pane's info
+        """
+        create_font = self._game.visuals.create_font
+        controller = self._parent_scene.training
+        highlighted_frame = self._elements[controller.selected_upgrade["type"]]
+        info_x = highlighted_frame.x + highlighted_frame.width + 20
+        font_type = FontType.DEFAULT
+        upgrade = controller.selected_upgrade
+
+        frame = Frame((info_x, highlighted_frame.y), font=create_font(font_type, upgrade["desc"]))
+        self._elements["info_pane"] = frame
 
     def _rebuild_defeat_ui(self):
         create_font = self._game.visuals.create_font

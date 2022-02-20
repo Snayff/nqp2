@@ -36,11 +36,15 @@ class TrainingController(Controller):
             self.num_upgrades: int = 2
             self.current_grid_index: int = 0  # which unit index is selected
 
+            self.generate_upgrades()
+
     def update(self, delta_time: float):
         pass
 
     def reset(self):
         self.upgrades_available = []
+
+        self.generate_upgrades()
 
     def generate_upgrades(self):
         """

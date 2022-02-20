@@ -51,7 +51,7 @@ class Debugger:
         self.is_profiling: bool = True
         self.is_logging: bool = True
         self.debug_mode: bool = False
-        self._show_debug_info: bool = False
+        self._show_debug_info: bool = True
 
         # values
         self._num_frames_considered_recent: int = 600
