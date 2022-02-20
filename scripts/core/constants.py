@@ -45,7 +45,7 @@ class CombatState(IntEnum):
 
 
 class TrainingState(IntEnum):
-    VIEW_UNITS = auto()
+    IDLE = auto()
     CHOOSE_UPGRADE = auto()
     CHOOSE_TARGET_UNIT = auto()
 
@@ -57,12 +57,17 @@ class PostCombatState(IntEnum):
 
 
 class WorldState(IntEnum):
-    IDLE = auto()
+    CHOOSE_NEXT_ROOM = auto()
     COMBAT = auto()
     DEFEAT = auto()
     VICTORY = auto()
     MOVING_NEXT_ROOM = auto()
     TRAINING = auto()
+
+
+class ChooseRoomState(IntEnum):
+    IDLE = auto()
+    CHOOSE_ROOM = auto()
 
 
 class EventState(IntEnum):

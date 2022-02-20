@@ -26,23 +26,11 @@ class TrainingController(Controller):
 
     """
 
-    # TODO:
-    #  - draw upgrades on screen - X
-    #  - when transitioning to training state show prompt for selecting upgrades - X
-    #  - input for toggling selection of units and upgrades - X
-    #  - show upgrade details only when upgrade is hovered - X
-    #  - input for selecting upgrade - X
-    #  - when upgrade selected move to units, update local state - X
-    #  - input for navigating units - X
-    #  - input for selecting and applying upgrade to unit - X
-    #  - upgrade confirmation (animation?) - X
-    #  - trigger training room
-
     def __init__(self, game: Game, parent_scene: WorldScene):
         with Timer("TrainingController initialised"):
             super().__init__(game, parent_scene)
 
-            self.state: TrainingState = TrainingState.VIEW_UNITS
+            self.state: TrainingState = TrainingState.IDLE
             self.upgrades_available: Dict[int, Optional[Any]] = {}  # position: None/upgrade dict
             self.selected_upgrade: Optional[Dict] = None  # None/upgrade dict
             self.num_upgrades: int = 2

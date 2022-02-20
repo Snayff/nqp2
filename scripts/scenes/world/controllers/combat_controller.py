@@ -115,30 +115,9 @@ class CombatController(Controller):
             troupe.set_force_idle(False)
 
     def reset(self):
-        self._parent_scene.model.state = WorldState.IDLE
+        self._parent_scene.model.state = WorldState.CHOOSE_NEXT_ROOM
         self._combat_ending_timer = -1
         self.enemy_troupe_id = -1
-
-    def begin_move_to_new_room(self):
-        """
-        Move Units to a new room
-
-        """
-        if self._parent_scene.model.state == WorldState.IDLE:
-            self._parent_scene.model.state = WorldState.MOVING_NEXT_ROOM
-
-            # TODO: prepare next room type here
-
-            # allow camera to pan past terrain boundaries
-            # TODO: decouple this
-            self._parent_scene.ui._worldview.clamp_primary_terrain = False
-
-            # ignore walls
-            self._parent_scene.model.terrain.ignore_boundaries = True
-            self._parent_scene.model.next_terrain.ignore_boundaries = True
-
-        else:
-            raise Exception("bad state change")
 
     def generate_combat(self):
         """
@@ -228,7 +207,7 @@ class CombatController(Controller):
         for troupe in self._game.memory.troupes.values():
             troupe.set_force_idle(True)
         self._process_new_injuries()
-        self._parent_scene.model.state = WorldState.IDLE
+        self._parent_scene.model.state = WorldState.CHOOSE_NEXT_ROOM
 
     def _process_new_injuries(self):
         """

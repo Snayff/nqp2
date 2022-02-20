@@ -46,7 +46,7 @@ class WorldModel:
             self._game = game
             self._parent_scene = parent_scene
 
-            self.state: WorldState = WorldState.IDLE
+            self.state: WorldState = WorldState.CHOOSE_NEXT_ROOM
 
             self.projectiles: ProjectileManager = ProjectileManager(self._game)
             self.particles: ParticleManager = ParticleManager()

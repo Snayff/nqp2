@@ -6,7 +6,8 @@ import pygame
 
 from scripts.core import utility
 from scripts.core.base_classes.ui import UI
-from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, GAP_SIZE, SceneType, TrainingState, WorldState
+from scripts.core.constants import ChooseRoomState, DEFAULT_IMAGE_SIZE, FontType, GAP_SIZE, SceneType, TrainingState, \
+    WorldState
 from scripts.scene_elements.unit import Unit
 from scripts.scene_elements.world.view import WorldView
 from scripts.ui_elements.frame import Frame
@@ -40,7 +41,7 @@ class WorldUI(UI):
         self._worldview.draw(surface)
 
         # TODO: create and move to mouse tool system
-        if state == WorldState.IDLE:
+        if state == WorldState.CHOOSE_NEXT_ROOM:
             if self.grid:
                 self.grid.draw(surface)
 
@@ -52,7 +53,7 @@ class WorldUI(UI):
 
         state = self._parent_scene.model.state
 
-        if state == WorldState.IDLE:
+        if state == WorldState.CHOOSE_NEXT_ROOM:
             self._update_idle(delta_time)
         elif state == WorldState.VICTORY:
             self._update_victory(delta_time)
@@ -79,20 +80,12 @@ class WorldUI(UI):
 
         state = self._parent_scene.model.state
 
-        if state == WorldState.IDLE:
-            self._process_idle_input()
+        if state == WorldState.CHOOSE_NEXT_ROOM:
+            self._process_choose_next_room_input()
         elif state == WorldState.DEFEAT:
             self._process_defeat_input()
         elif state == WorldState.TRAINING:
             self._process_training_input()
-
-    def _process_idle_input(self):
-        # TODO  - replace when new room choice is in.
-        if self._game.input.states["backspace"]:
-            self._parent_scene.combat.begin_move_to_new_room()
-
-        if self.grid:
-            self.grid.process_input()
 
     def _process_defeat_input(self):
         if self._game.input.states["select"]:
@@ -102,40 +95,40 @@ class WorldUI(UI):
     def _process_training_input(self):
         controller = self._parent_scene.training
         local_state = controller.state
-        state_changed = False
+        is_ui_dirty = False
 
-        if local_state == TrainingState.VIEW_UNITS:
+        if local_state == TrainingState.IDLE:
             # toggle select upgrade or view units
             if self._game.input.states["shift"]:
                 controller.state = TrainingState.CHOOSE_UPGRADE
-                state_changed = True
+                is_ui_dirty = True
 
         if local_state == TrainingState.CHOOSE_UPGRADE:
             # frame selection
             if self._game.input.states["up"]:
                 self._current_panel.select_previous_element()
-                state_changed = True
+                is_ui_dirty = True
             if self._game.input.states["down"]:
                 self._current_panel.select_next_element()
-                state_changed = True
+                is_ui_dirty = True
 
             # select upgrade
             if self._game.input.states["select"]:
                 controller.state = TrainingState.CHOOSE_TARGET_UNIT
                 controller.current_grid_index = 0
-                state_changed = True
+                is_ui_dirty = True
 
             # cancel
             if self._game.input.states["cancel"]:
-                controller.state = TrainingState.VIEW_UNITS
-                state_changed = True
+                controller.state = TrainingState.IDLE
+                is_ui_dirty = True
 
         if local_state == TrainingState.CHOOSE_TARGET_UNIT:
             # cancel
             if self._game.input.states["cancel"]:
                 controller.state = TrainingState.CHOOSE_UPGRADE
                 self.grid.units[controller.current_grid_index].is_selected = False
-                state_changed = True
+                is_ui_dirty = True
 
             # unit selection
             # TODO - update to allow moving around the grid rather than jumping indices
@@ -162,9 +155,50 @@ class WorldUI(UI):
                 self.grid.units[current_index].is_selected = False
                 controller.state = TrainingState.CHOOSE_UPGRADE
 
-                state_changed = True
+                is_ui_dirty = True
 
-        if state_changed:
+        if is_ui_dirty:
+            self.rebuild_ui()
+
+    def _process_choose_next_room_input(self):
+        # TODO  - replace when new room choice is in.
+        if self._game.input.states["backspace"]:
+            self._parent_scene.combat.begin_move_to_new_room()
+
+        if self.grid:
+            self.grid.process_input()
+
+        controller = self._parent_scene.choose_room
+        local_state = controller.state
+        is_ui_dirty = False
+
+        if local_state == ChooseRoomState.IDLE:
+            # move to select room
+            if self._game.input.states["shift"]:
+                controller.state = ChooseRoomState.CHOOSE_ROOM
+                is_ui_dirty = True
+
+        if local_state == ChooseRoomState.CHOOSE_ROOM:
+            # frame selection
+            if self._game.input.states["up"]:
+                self._current_panel.select_previous_element()
+                is_ui_dirty = True
+            if self._game.input.states["down"]:
+                self._current_panel.select_next_element()
+                is_ui_dirty = True
+
+            # select upgrade
+            if self._game.input.states["select"]:
+                controller.state = ChooseRoomState.IDLE
+                controller.begin_move_to_new_room()
+                is_ui_dirty = True
+
+            # cancel
+            if self._game.input.states["cancel"]:
+                controller.state = ChooseRoomState.IDLE
+                is_ui_dirty = True
+
+        if is_ui_dirty:
             self.rebuild_ui()
 
     def rebuild_ui(self):
@@ -172,8 +206,8 @@ class WorldUI(UI):
 
         state = self._parent_scene.model.state
 
-        if state == WorldState.IDLE:
-            self._rebuild_idle_ui()
+        if state == WorldState.CHOOSE_NEXT_ROOM:
+            self._rebuild_choose_next_room_ui()
         elif state == WorldState.DEFEAT:
             self._rebuild_defeat_ui()
         elif state == WorldState.VICTORY:
@@ -181,8 +215,15 @@ class WorldUI(UI):
         elif state == WorldState.TRAINING:
             self._rebuild_training_ui()
 
-    def _rebuild_idle_ui(self):
-        pass
+
+    def _rebuild_choose_next_room_ui(self):
+        create_font = self._game.visuals.create_font
+        icon_width = DEFAULT_IMAGE_SIZE
+        icon_height = DEFAULT_IMAGE_SIZE
+        icon_size = (icon_width, icon_height)
+        start_x, start_y = self._game.window.centre
+        controller = self._parent_scene.training
+        model = self._parent_scene.model
 
     def _rebuild_training_ui(self):
         create_font = self._game.visuals.create_font
@@ -267,7 +308,7 @@ class WorldUI(UI):
             frame = Frame((info_x, highlighted_frame.y), font=create_font(font_type, upgrade["desc"]))
             self._elements["info_pane"] = frame
 
-        elif controller.state == TrainingState.VIEW_UNITS:
+        elif controller.state == TrainingState.IDLE:
             panel.set_selectable(False)
             self.set_instruction_text("Press shift to select upgrades.")
 

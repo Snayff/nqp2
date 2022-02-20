@@ -83,13 +83,11 @@
         "cost":25
     },
     "world": {
-        "node_weights": {
+        "room_weights": {
             "combat": 0.5,
-            "inn": 0.1,
-            "training": 0.1,
-            "blank": 0.2
+            "training": 0.1
         },
-        "chance_node_type_hidden": 10,
+        "chance_room_type_hidden": 10,
         "chance_of_event": 20,
         "max_events_per_level": 5,
         "event_notification_duration": 3.0

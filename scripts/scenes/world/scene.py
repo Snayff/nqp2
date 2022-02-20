@@ -6,6 +6,7 @@ from scripts.core.base_classes.scene import Scene
 from scripts.core.constants import SceneType
 from scripts.core.debug import Timer
 from scripts.scene_elements.world.model import WorldModel
+from scripts.scenes.world.controllers.choose_room_controller import ChooseRoomController
 from scripts.scenes.world.controllers.combat_controller import CombatController
 from scripts.scenes.world.controllers.training_controller import TrainingController
 from scripts.scenes.world.ui import WorldUI
@@ -32,17 +33,34 @@ class WorldScene(Scene):
     def __init__(self, game: Game):
         with Timer("WorldScene initialised"):
             super().__init__(game, SceneType.WORLD)
+
             self.model: WorldModel = WorldModel(game, self)
             self.ui: WorldUI = WorldUI(game, self)
+
             self.combat: CombatController = CombatController(game, self)
             self.training: TrainingController = TrainingController(game, self)
+            self.choose_room: ChooseRoomController = ChooseRoomController(game, self)
 
     def update(self, delta_time: float):
+        # get the modified delta time
         mod_delta_time = self.model.game_speed * delta_time
 
+        # update the data
         self.model.update(mod_delta_time)
+
+        # update the controllers
         self.combat.update(mod_delta_time)
+        self.training.update(mod_delta_time)
+        self.choose_room.update(mod_delta_time)
+
+        # last, to show updates
         self.ui.update(delta_time)
 
     def reset(self):
-        self.ui = WorldUI(self._game, self)
+        game = self._game
+
+        self.model = WorldModel(game, self)
+        self.ui = WorldUI(game, self)
+        self.combat = CombatController(game, self)
+        self.training = TrainingController(game, self)
+        self.choose_room = ChooseRoomController(game, self)
