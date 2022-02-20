@@ -5,9 +5,9 @@ from typing import TYPE_CHECKING
 from scripts.core.base_classes.scene import Scene
 from scripts.core.constants import SceneType
 from scripts.core.debug import Timer
-from scripts.scene_elements.world.model import WorldModel
 from scripts.scene_elements.world.choose_room_controller import ChooseRoomController
 from scripts.scene_elements.world.combat_controller import CombatController
+from scripts.scene_elements.world.model import WorldModel
 from scripts.scene_elements.world.training_controller import TrainingController
 from scripts.scenes.world.ui import WorldUI
 
