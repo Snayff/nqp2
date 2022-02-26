@@ -235,7 +235,7 @@ autodoc_default_options = {
     'special-members': '__init__',
     'show-inheritance': True,
 #     'member-order': 'bysource',
-#     'undoc-members': True,
+     'undoc-members': True,
 #     'private-members': True,  # Dont set to False. There is a bug that causes the build to break.
 }
 autoclass_content = "both"
