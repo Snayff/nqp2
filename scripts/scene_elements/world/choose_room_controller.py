@@ -148,6 +148,6 @@ class ChooseRoomController(Controller):
             raise Exception(f"_assign_room_state: room type ({room}) not handled.")
 
         self._parent_scene.model.state = new_state
-        logging.debug(f"WorldState updated to {new_state}.")
+        logging.debug(f"WorldState updated to {new_state.name}.")
 
         self._parent_scene.ui.rebuild_ui()

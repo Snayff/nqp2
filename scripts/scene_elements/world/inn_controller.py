@@ -59,12 +59,17 @@ class InnController(Controller):
 
         allies = self._parent_scene.model.player_troupe.allies
 
+        # check allies have been initialised
+        if len(allies) == 0:
+            return
+
         inn_troupe = Troupe(self._game, "inn", allies)
         inn_troupe.generate_units(self.num_units)  # TODO - add tier
         self.troupe_id = self._parent_scene.model.add_troupe(inn_troupe)
 
         for unit in inn_troupe.units.values():
             self.units_available.append(unit)
+
 
     def recruit_unit(self, unit: Unit):
         """

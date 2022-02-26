@@ -85,6 +85,9 @@ class WorldModel:
             # config
             self._game_speed: float = 1
 
+            # add empty player troupe
+            self.add_troupe(Troupe(self._game, "player", []))
+
     @property
     def boundaries(self):
         return self.terrain.boundaries
@@ -354,22 +357,12 @@ class WorldModel:
 
     @property
     def player_troupe(self) -> Troupe:
-        try:
-            # player troupe should be in index 1
-            troupe = self.troupes[1]
-            if troupe.team == "player":
-                return troupe
-        except KeyError:
-            logging.debug(f"Player Troupe not at index 1 as expected.")
-
-        # in case it isnt in index 0
         for troupe in self.troupes.values():
             if troupe.team == "player":
                 return troupe
 
         # in case we cant find it at all!
-        logging.error(f"Tried to get player troupe but couldnt find it!")
-        raise Exception
+        raise Exception("Tried to get player troupe but couldnt find it!")
 
     def add_troupe(self, troupe: Troupe) -> int:
         """

@@ -212,4 +212,6 @@ class Game:
             scene.reset()
             self.remove_scene(scene.type)
 
+
         self.add_scene(scene_type)
+

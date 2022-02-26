@@ -62,6 +62,7 @@ class WorldScene(Scene):
 
         self.model = WorldModel(game, self)
         self.ui = WorldUI(game, self)
+
         self.combat = CombatController(game, self)
         self.training = TrainingController(game, self)
         self.choose_room = ChooseRoomController(game, self)
