@@ -61,9 +61,16 @@ class WorldState(IntEnum):
     CHOOSE_NEXT_ROOM = auto()
     MOVING_NEXT_ROOM = auto()
     COMBAT = auto()
+    TRAINING = auto()
+    INN = auto()
+
     DEFEAT = auto()  # TODO - move to controller as local state
     VICTORY = auto()  # TODO - move to controller as local state
-    TRAINING = auto()
+
+
+class InnState(IntEnum):
+    IDLE = auto()
+    CHOOSE_UNIT = auto()
 
 
 class ChooseRoomState(IntEnum):
