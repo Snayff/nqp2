@@ -37,7 +37,7 @@ class InnController(Controller):
             self.num_units: int = 3
             self.troupe_id: Optional[int] = None  # inn troupe id
 
-            self.generate_upgrades()
+            self.generate_units()
 
     def update(self, delta_time: float):
         pass
@@ -47,9 +47,9 @@ class InnController(Controller):
         self.selected_unit = None
         self.units_available = []
 
-        self.generate_upgrades()
+        self.generate_units()
 
-    def generate_upgrades(self):
+    def generate_units(self):
         """
         Generate units to sell. NOTE: currently hard coded.
         """

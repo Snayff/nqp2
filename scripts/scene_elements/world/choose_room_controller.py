@@ -142,6 +142,8 @@ class ChooseRoomController(Controller):
             new_state = WorldState.TRAINING
         elif room == "combat":
             new_state = WorldState.COMBAT
+        elif room == "inn":
+            new_state = WorldState.INN
         else:
             raise Exception(f"_assign_room_state: room type ({room}) not handled.")
 
