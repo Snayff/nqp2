@@ -63,6 +63,15 @@ class Entity:
         # temp
         self.colour = self._parent_unit.colour
 
+    def reset_move_speed(self):
+        """
+        Reset move speed if it has been altered
+
+        """
+        # TODO: make system to enable generic temporary stat modifiers
+        injury_deduction = 1 - 0.1 * self._parent_unit.injuries
+        self.move_speed: int = int(self._parent_unit.move_speed * injury_deduction)
+
     def move(self, movement: PointLike):
         """
         Splits the movement operation into smaller amounts to prevent issues with high speed movement.
@@ -182,7 +191,10 @@ class Entity:
 
         # make sure the attack action can be transferred after movement
         self.is_attacking = False
-        if (not self._parent_unit.forced_idle) and self.alive:
+
+        if self._parent_unit.forced_behaviour:
+            self.behaviour.process(dt)
+        elif (not self._parent_unit.forced_idle) and self.alive:
             self.behaviour.process(dt)
 
         if not self.alive:

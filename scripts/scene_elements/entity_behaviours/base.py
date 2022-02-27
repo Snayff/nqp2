@@ -43,6 +43,13 @@ class Base(Behaviour):
     def process(self, dt):
         self.last_path_update += dt
 
+        if self.state == "path_fast":
+            # TODO: make system to enable generic temporary stat modifiers
+            self.entity.reset_move_speed()
+            self.entity.move_speed *= 10
+        else:
+            self.entity.reset_move_speed()
+
         # check for new orders
         if self.target_unit != self.entity._parent_unit.behaviour.target_unit:
             self.target_unit = self.entity._parent_unit.behaviour.target_unit
@@ -88,7 +95,7 @@ class Base(Behaviour):
                                     self.target_pos = self.target_entity.pos.copy()
                                     break
 
-            if self.state == "path":
+            if self.state == "path" or self.state == "path_fast":
                 if self.entity._parent_unit.behaviour.regrouping:
                     self.target_pos = self.entity._parent_unit.behaviour.leader.pos.copy()
                 if self.entity._parent_unit.behaviour.retreating:
@@ -98,7 +105,7 @@ class Base(Behaviour):
                         self.entity.pos.copy(), self.target_pos.copy()
                     )
 
-        if self.state == "path":
+        if self.state == "path" or self.state == "path_fast":
             if self.current_path and len(self.current_path):
                 self.walk_path(dt)
 
