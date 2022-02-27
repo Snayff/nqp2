@@ -331,6 +331,15 @@
         <span class="c1"># temp</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">colour</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent_unit</span><span class="o">.</span><span class="n">colour</span></div>
 
+<div class="viewcode-block" id="Entity.reset_move_speed"><a class="viewcode-back" href="../../../scripts.scene_elements.html#scripts.scene_elements.entity.Entity.reset_move_speed">[docs]</a>    <span class="k">def</span> <span class="nf">reset_move_speed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Reset move speed if it has been altered</span>
+
+<span class="sd">        """</span>
+        <span class="c1"># TODO: make system to enable generic temporary stat modifiers</span>
+        <span class="n">injury_deduction</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent_unit</span><span class="o">.</span><span class="n">injuries</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">move_speed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parent_unit</span><span class="o">.</span><span class="n">move_speed</span> <span class="o">*</span> <span class="n">injury_deduction</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="Entity.move"><a class="viewcode-back" href="../../../scripts.scene_elements.html#scripts.scene_elements.entity.Entity.move">[docs]</a>    <span class="k">def</span> <span class="nf">move</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">movement</span><span class="p">:</span> <span class="n">PointLike</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Splits the movement operation into smaller amounts to prevent issues with high speed movement.</span>
@@ -450,7 +459,10 @@
 
         <span class="c1"># make sure the attack action can be transferred after movement</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">is_attacking</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent_unit</span><span class="o">.</span><span class="n">forced_idle</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">alive</span><span class="p">:</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent_unit</span><span class="o">.</span><span class="n">forced_behaviour</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">behaviour</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent_unit</span><span class="o">.</span><span class="n">forced_idle</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">alive</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">behaviour</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">alive</span><span class="p">:</span>

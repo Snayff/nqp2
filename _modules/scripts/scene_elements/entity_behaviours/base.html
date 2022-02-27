@@ -311,6 +311,13 @@
 <div class="viewcode-block" id="Base.process"><a class="viewcode-back" href="../../../../scripts.scene_elements.entity_behaviours.html#scripts.scene_elements.entity_behaviours.base.Base.process">[docs]</a>    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">last_path_update</span> <span class="o">+=</span> <span class="n">dt</span>
 
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="s2">"path_fast"</span><span class="p">:</span>
+            <span class="c1"># TODO: make system to enable generic temporary stat modifiers</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">entity</span><span class="o">.</span><span class="n">reset_move_speed</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">entity</span><span class="o">.</span><span class="n">move_speed</span> <span class="o">*=</span> <span class="mi">10</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">entity</span><span class="o">.</span><span class="n">reset_move_speed</span><span class="p">()</span>
+
         <span class="c1"># check for new orders</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_unit</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">entity</span><span class="o">.</span><span class="n">_parent_unit</span><span class="o">.</span><span class="n">behaviour</span><span class="o">.</span><span class="n">target_unit</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">target_unit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">entity</span><span class="o">.</span><span class="n">_parent_unit</span><span class="o">.</span><span class="n">behaviour</span><span class="o">.</span><span class="n">target_unit</span>
@@ -356,7 +363,7 @@
                                     <span class="bp">self</span><span class="o">.</span><span class="n">target_pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_entity</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
                                     <span class="k">break</span>
 
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="s2">"path"</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="s2">"path"</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="s2">"path_fast"</span><span class="p">:</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">entity</span><span class="o">.</span><span class="n">_parent_unit</span><span class="o">.</span><span class="n">behaviour</span><span class="o">.</span><span class="n">regrouping</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">target_pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">entity</span><span class="o">.</span><span class="n">_parent_unit</span><span class="o">.</span><span class="n">behaviour</span><span class="o">.</span><span class="n">leader</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">entity</span><span class="o">.</span><span class="n">_parent_unit</span><span class="o">.</span><span class="n">behaviour</span><span class="o">.</span><span class="n">retreating</span><span class="p">:</span>
@@ -366,7 +373,7 @@
                         <span class="bp">self</span><span class="o">.</span><span class="n">entity</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_pos</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
                     <span class="p">)</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="s2">"path"</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="s2">"path"</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="s2">"path_fast"</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_path</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_path</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">walk_path</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
 
