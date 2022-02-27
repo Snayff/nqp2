@@ -161,5 +161,11 @@ class GamepadAxes(IntEnum):
     DPAD_Y = auto()
 
 
+class InputType(IntEnum):
+    NONE = auto()
+    KEYS = auto()  # keyboard/gamepad
+    MOUSE = auto()
+
+
 TILE_SIZE = 16
 BARRIER_SIZE = 10
