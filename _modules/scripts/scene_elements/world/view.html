@@ -347,7 +347,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_has_centered_camera</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_camera</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="WorldView._update_camera"><a class="viewcode-back" href="../../../../api/scene_elements/world.html#scripts.scene_elements.world.view.WorldView._update_camera">[docs]</a>    <span class="k">def</span> <span class="nf">_update_camera</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_update_camera</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Update the camera's position to follow the player's Units</span>
 <span class="sd">        """</span>
@@ -358,7 +358,7 @@
             <span class="c1"># prevent camera from panning from 0,0</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_centered_camera</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">reset_movement</span><span class="p">()</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_has_centered_camera</span> <span class="o">=</span> <span class="kc">True</span></div>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_has_centered_camera</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="k">def</span> <span class="nf">_draw_units</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">,</span> <span class="n">offset</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">):</span>
         <span class="n">units</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">get_all_units</span><span class="p">()</span>
@@ -380,7 +380,7 @@
         <span class="k">for</span> <span class="n">unit</span> <span class="ow">in</span> <span class="n">units</span><span class="p">:</span>
             <span class="n">unit</span><span class="o">.</span><span class="n">post_render</span><span class="p">(</span><span class="n">surface</span><span class="p">,</span> <span class="n">shift</span><span class="o">=</span><span class="n">offset</span><span class="p">)</span>
 
-<div class="viewcode-block" id="WorldView._draw_path_debug"><a class="viewcode-back" href="../../../../api/scene_elements/world.html#scripts.scene_elements.world.view.WorldView._draw_path_debug">[docs]</a>    <span class="k">def</span> <span class="nf">_draw_path_debug</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_draw_path_debug</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Draw lines to indicate the pathfinding</span>
 <span class="sd">        """</span>
@@ -391,7 +391,7 @@
                         <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">render_offset</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">render_offset</span><span class="p">()[</span><span class="mi">1</span><span class="p">])</span>
                         <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="p">([</span><span class="n">entity</span><span class="o">.</span><span class="n">pos</span><span class="p">]</span> <span class="o">+</span> <span class="n">entity</span><span class="o">.</span><span class="n">behaviour</span><span class="o">.</span><span class="n">current_path</span><span class="p">)</span>
                     <span class="p">]</span>
-                    <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">lines</span><span class="p">(</span><span class="n">surface</span><span class="p">,</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="kc">False</span><span class="p">,</span> <span class="n">points</span><span class="p">)</span></div>
+                    <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">lines</span><span class="p">(</span><span class="n">surface</span><span class="p">,</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="kc">False</span><span class="p">,</span> <span class="n">points</span><span class="p">)</span>
 
 <div class="viewcode-block" id="WorldView.get_team_center"><a class="viewcode-back" href="../../../../scripts.scene_elements.world.html#scripts.scene_elements.world.view.WorldView.get_team_center">[docs]</a>    <span class="k">def</span> <span class="nf">get_team_center</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">team</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">]:</span>
         <span class="sd">"""</span>

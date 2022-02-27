@@ -57,7 +57,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Commander" href="commander.html" />
-    <link rel="prev" title="Behaviour Manager" href="behaviour_manager.html" />
+    <link rel="prev" title="Actions" href="actions.html" />
   
    
 
@@ -236,13 +236,6 @@
     <li class="md-nav__item">
     
     
-      <a href="behaviour_manager.html" class="md-nav__link">Behaviour Manager</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
     <label class="md-nav__link md-nav__link--active" for="__toc"> Camera </label>
     
@@ -349,6 +342,13 @@
       <a href="unit.html" class="md-nav__link">Unit</a>
       
     
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="world.html" class="md-nav__link">World</a>
+      
+    
     </li></ul>
     
     </li>
@@ -412,11 +412,6 @@
 <dt class="sig sig-object py" id="scripts.scene_elements.camera.Camera.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://www.pygame.org/docs/ref/math.html#pygame.math.Vector2" title="(in pygame v2.1.1)"><span class="pre">pygame.math.Vector2</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scene_elements/camera.html#Camera.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.camera.Camera.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="scripts.scene_elements.camera.Camera._origin">
-<span class="sig-name descname"><span class="pre">_origin</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://www.pygame.org/docs/ref/math.html#pygame.math.Vector2" title="(in pygame v2.1.1)"><span class="pre">pygame.math.Vector2</span></a></span></span><a class="reference internal" href="../../_modules/scripts/scene_elements/camera.html#Camera._origin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.camera.Camera._origin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return vector representing top left corner of the view</p>
-</dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="scripts.scene_elements.camera.Camera.centre">
 <span class="sig-name descname"><span class="pre">centre</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://www.pygame.org/docs/ref/math.html#pygame.math.Vector2" title="(in pygame v2.1.1)"><span class="pre">pygame.math.Vector2</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scene_elements/camera.html#Camera.centre"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.camera.Camera.centre" title="Permalink to this definition">¶</a></dt>
@@ -486,7 +481,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
           
-            <a href="behaviour_manager.html" title="Behaviour Manager"
+            <a href="actions.html" title="Actions"
                class="md-flex md-footer-nav__link md-footer-nav__link--prev"
                rel="prev">
               <div class="md-flex__cell md-flex__cell--shrink">
@@ -495,7 +490,7 @@
               <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
                 <span class="md-flex__ellipsis">
                   <span
-                      class="md-footer-nav__direction"> Previous </span> Behaviour Manager </span>
+                      class="md-footer-nav__direction"> Previous </span> Actions </span>
               </div>
             </a>
           

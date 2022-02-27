@@ -348,7 +348,7 @@
                 <span class="n">event_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">active_event</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span>
                 <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Event resources (</span><span class="si">{</span><span class="n">event_type</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">) returned none and was ignored."</span><span class="p">)</span>
 
-<div class="viewcode-block" id="EventScene._generate_event_resource"><a class="viewcode-back" href="../../../../api/scenes/event.html#scripts.scenes.event.scene.EventScene._generate_event_resource">[docs]</a>    <span class="k">def</span> <span class="nf">_generate_event_resource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resource_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">resource_target</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_generate_event_resource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resource_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">resource_target</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="sd">"""</span>
 <span class="sd">        Create a resource based on the given key.</span>
 <span class="sd">        """</span>
@@ -389,9 +389,9 @@
             <span class="n">unit_id</span> <span class="o">=</span> <span class="n">troupe</span><span class="o">.</span><span class="n">generate_units</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">tiers</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
             <span class="n">resource</span> <span class="o">=</span> <span class="n">troupe</span><span class="o">.</span><span class="n">units</span><span class="p">[</span><span class="n">unit_id</span><span class="p">]</span>
 
-        <span class="k">return</span> <span class="n">resource</span></div>
+        <span class="k">return</span> <span class="n">resource</span>
 
-<div class="viewcode-block" id="EventScene._trigger_result"><a class="viewcode-back" href="../../../../api/scenes/event.html#scripts.scenes.event.scene.EventScene._trigger_result">[docs]</a>    <span class="k">def</span> <span class="nf">_trigger_result</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_trigger_result</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Trigger the result for the previously selected option.</span>
 
@@ -402,7 +402,7 @@
 <span class="sd">        """</span>
         <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">triggered_results</span><span class="p">:</span>
             <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_event_string</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_action_result</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_action_result</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
 
 <div class="viewcode-block" id="EventScene.parse_event_string"><a class="viewcode-back" href="../../../../scripts.scenes.event.html#scripts.scenes.event.scene.EventScene.parse_event_string">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">parse_event_string</span><span class="p">(</span><span class="n">result</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
@@ -421,7 +421,7 @@
 
         <span class="k">return</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">target</span></div>
 
-<div class="viewcode-block" id="EventScene._action_result"><a class="viewcode-back" href="../../../../api/scenes/event.html#scripts.scenes.event.scene.EventScene._action_result">[docs]</a>    <span class="k">def</span> <span class="nf">_action_result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">result_value</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_action_result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">result_value</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Resolve the action from the result. Not all actions need a target and in those cases the target is ignored.</span>
 <span class="sd">        """</span>
@@ -499,7 +499,7 @@
                 <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Unit type (</span><span class="si">{</span><span class="n">result_value</span><span class="si">}</span><span class="s2">) specified does not exist. No unit was added."</span><span class="p">)</span>
 
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Result key specified (</span><span class="si">{</span><span class="n">result_key</span><span class="si">}</span><span class="s2">) is not known and was ignored."</span><span class="p">)</span></div>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Result key specified (</span><span class="si">{</span><span class="n">result_key</span><span class="si">}</span><span class="s2">) is not known and was ignored."</span><span class="p">)</span>
 
 <div class="viewcode-block" id="EventScene.roll_for_event"><a class="viewcode-back" href="../../../../scripts.scenes.event.html#scripts.scenes.event.scene.EventScene.roll_for_event">[docs]</a>    <span class="k">def</span> <span class="nf">roll_for_event</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="sd">"""</span>

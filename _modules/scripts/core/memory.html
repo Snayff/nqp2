@@ -303,6 +303,8 @@
             <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Tried to initialise a run but WorldScene doesnt exist."</span><span class="p">)</span>
             <span class="k">raise</span> <span class="ne">Exception</span>
 
+        <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">add_troupe</span><span class="p">(</span><span class="n">troupe</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">amend_gold</span><span class="p">(</span><span class="n">gold</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">amend_rations</span><span class="p">(</span><span class="n">rations</span><span class="p">)</span>

@@ -338,7 +338,7 @@
             <span class="n">FontType</span><span class="o">.</span><span class="n">NOTIFICATION</span><span class="p">:</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ASSET_PATH</span> <span class="o">/</span> <span class="s2">"fonts/large_font.png"</span><span class="p">),</span> <span class="p">(</span><span class="mi">117</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">168</span><span class="p">)),</span>
         <span class="p">}</span>
 
-<div class="viewcode-block" id="Visuals._load_images"><a class="viewcode-back" href="../../../api/core/visuals.html#scripts.core.visuals.Visuals._load_images">[docs]</a>    <span class="k">def</span> <span class="nf">_load_images</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">_load_images</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">]:</span>
         <span class="sd">"""</span>
 <span class="sd">        Load all images specified in self._image_folders</span>
 <span class="sd">        """</span>
@@ -373,9 +373,9 @@
         <span class="n">image</span><span class="o">.</span><span class="n">set_alpha</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">images</span><span class="p">[</span><span class="sa">f</span><span class="s2">"blank@</span><span class="si">{</span><span class="n">DEFAULT_IMAGE_SIZE</span><span class="si">}</span><span class="s2">x</span><span class="si">{</span><span class="n">DEFAULT_IMAGE_SIZE</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">image</span>
 
-        <span class="k">return</span> <span class="n">images</span></div>
+        <span class="k">return</span> <span class="n">images</span>
 
-<div class="viewcode-block" id="Visuals._load_animation_frames"><a class="viewcode-back" href="../../../api/core/visuals.html#scripts.core.visuals.Visuals._load_animation_frames">[docs]</a>    <span class="k">def</span> <span class="nf">_load_animation_frames</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Image</span><span class="p">]]:</span>
+    <span class="k">def</span> <span class="nf">_load_animation_frames</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Image</span><span class="p">]]:</span>
         <span class="sd">"""</span>
 <span class="sd">        Load all animation frames specified in self._animation_folders</span>
 <span class="sd">        """</span>
@@ -420,7 +420,7 @@
                                     <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
                                         <span class="n">animation_frames</span><span class="p">[</span><span class="n">anim_folder_name</span> <span class="o">+</span> <span class="s2">"_"</span> <span class="o">+</span> <span class="n">frame_folder_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">image_</span><span class="p">]</span>
 
-        <span class="k">return</span> <span class="n">animation_frames</span></div>
+        <span class="k">return</span> <span class="n">animation_frames</span>
 
 <div class="viewcode-block" id="Visuals.create_animation"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.visuals.Visuals.create_animation">[docs]</a>    <span class="k">def</span> <span class="nf">create_animation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">animation_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">frame_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">loop</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Animation</span><span class="p">:</span>
         <span class="sd">"""</span>

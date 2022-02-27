@@ -56,7 +56,7 @@
     <script src="../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Behaviour Manager" href="behaviour_manager.html" />
+    <link rel="next" title="Camera" href="camera.html" />
     <link rel="prev" title="Scene Elements" href="_scene_elements.html" />
   
    
@@ -248,13 +248,6 @@
     <li class="md-nav__item">
     
     
-      <a href="behaviour_manager.html" class="md-nav__link">Behaviour Manager</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
       <a href="camera.html" class="md-nav__link">Camera</a>
       
     
@@ -349,6 +342,13 @@
       <a href="unit.html" class="md-nav__link">Unit</a>
       
     
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="world.html" class="md-nav__link">World</a>
+      
+    
     </li></ul>
     
     </li>
@@ -395,6 +395,32 @@
             
   <section id="module-scripts.scene_elements.actions">
 <span id="actions"></span><h1 id="api-scene-elements-actions--page-root">Actions<a class="headerlink" href="#api-scene-elements-actions--page-root" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="scripts.scene_elements.actions.Action">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Action</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scene_elements/actions.html#Action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.actions.Action" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.actions.Action.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scene_elements/actions.html#Action.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.actions.Action.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.actions.Action.use">
+<span class="sig-name descname"><span class="pre">use</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scene_elements/actions.html#Action.use"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.actions.Action.use" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="scripts.scene_elements.actions.Fireball">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Fireball</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scene_elements/actions.html#Fireball"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.actions.Fireball" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../scripts.scene_elements.html#scripts.scene_elements.actions.Action" title="scripts.scene_elements.actions.Action"><code class="xref py py-class docutils literal notranslate"><span class="pre">scripts.scene_elements.actions.Action</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.actions.Fireball.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scene_elements/actions.html#Fireball.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.actions.Fireball.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.actions.Fireball.use">
+<span class="sig-name descname"><span class="pre">use</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scene_elements/actions.html#Fireball.use"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.actions.Fireball.use" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
 </section>
 
 
@@ -421,12 +447,12 @@
             </a>
           
           
-            <a href="behaviour_manager.html" title="Behaviour Manager"
+            <a href="camera.html" title="Camera"
                class="md-flex md-footer-nav__link md-footer-nav__link--next"
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> Next </span> Behaviour Manager </span>
+                class="md-footer-nav__direction"> Next </span> Camera </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>

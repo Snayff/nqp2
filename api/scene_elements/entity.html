@@ -236,13 +236,6 @@
     <li class="md-nav__item">
     
     
-      <a href="behaviour_manager.html" class="md-nav__link">Behaviour Manager</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
       <a href="camera.html" class="md-nav__link">Camera</a>
       
     
@@ -349,6 +342,13 @@
       <a href="unit.html" class="md-nav__link">Unit</a>
       
     
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="world.html" class="md-nav__link">World</a>
+      
+    
     </li></ul>
     
     </li>
@@ -395,6 +395,71 @@
             
   <section id="module-scripts.scene_elements.entity">
 <span id="entity"></span><h1 id="api-scene-elements-entity--page-root">Entity<a class="headerlink" href="#api-scene-elements-entity--page-root" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="scripts.scene_elements.entity.Entity">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Entity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent_unit</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scene_elements/entity.html#Entity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.entity.Entity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.entity.Entity.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent_unit</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scene_elements/entity.html#Entity.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.entity.Entity.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.entity.Entity.advance">
+<span class="sig-name descname"><span class="pre">advance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scene_elements/entity.html#Entity.advance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.entity.Entity.advance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.entity.Entity.angle">
+<span class="sig-name descname"><span class="pre">angle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">entity</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scene_elements/entity.html#Entity.angle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.entity.Entity.angle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the angle to another entity or other object with a position.</p>
+</dd></dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="scripts.scene_elements.entity.Entity.animation_frames">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">animation_frames</span></span><a class="headerlink" href="#scripts.scene_elements.entity.Entity.animation_frames" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.entity.Entity.attempt_attack">
+<span class="sig-name descname"><span class="pre">attempt_attack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">entity</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scene_elements/entity.html#Entity.attempt_attack"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.entity.Entity.attempt_attack" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="scripts.scene_elements.entity.Entity.cycle_length">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cycle_length</span></span><a class="headerlink" href="#scripts.scene_elements.entity.Entity.cycle_length" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.entity.Entity.deal_damage">
+<span class="sig-name descname"><span class="pre">deal_damage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amount</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">owner</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scene_elements/entity.html#Entity.deal_damage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.entity.Entity.deal_damage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.entity.Entity.dis">
+<span class="sig-name descname"><span class="pre">dis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">entity</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scene_elements/entity.html#Entity.dis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.entity.Entity.dis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the distance to another entity or other object with a position.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.entity.Entity.draw">
+<span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">surface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://www.pygame.org/docs/ref/surface.html#pygame.Surface" title="(in pygame v2.1.1)"><span class="pre">pygame.Surface</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">shift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scene_elements/entity.html#Entity.draw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.entity.Entity.draw" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="scripts.scene_elements.entity.Entity.img">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">img</span></span><a class="headerlink" href="#scripts.scene_elements.entity.Entity.img" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.entity.Entity.move">
+<span class="sig-name descname"><span class="pre">move</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">movement</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://www.pygame.org/docs/ref/math.html#pygame.math.Vector2" title="(in pygame v2.1.1)"><span class="pre">pygame.math.Vector2</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scene_elements/entity.html#Entity.move"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.entity.Entity.move" title="Permalink to this definition">¶</a></dt>
+<dd><p>Splits the movement operation into smaller amounts to prevent issues with high speed movement.
+Calls the move sub-process anywhere from one to several times depending on the speed.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.entity.Entity.raw_dis">
+<span class="sig-name descname"><span class="pre">raw_dis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scene_elements/entity.html#Entity.raw_dis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.entity.Entity.raw_dis" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.entity.Entity.sub_move">
+<span class="sig-name descname"><span class="pre">sub_move</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">movement</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://www.pygame.org/docs/ref/math.html#pygame.math.Vector2" title="(in pygame v2.1.1)"><span class="pre">pygame.math.Vector2</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scene_elements/entity.html#Entity.sub_move"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.entity.Entity.sub_move" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.entity.Entity.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dt</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scene_elements/entity.html#Entity.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.entity.Entity.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
 </section>
 
 

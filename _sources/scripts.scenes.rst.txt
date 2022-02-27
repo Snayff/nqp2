@@ -9,7 +9,6 @@ Subpackages
 
    scripts.scenes.event
    scripts.scenes.gallery
-   scripts.scenes.inn
    scripts.scenes.main_menu
    scripts.scenes.post_combat
    scripts.scenes.run_setup

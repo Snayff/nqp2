@@ -290,7 +290,21 @@
     <li class="md-nav__item">
     
     
+      <a href="sounds.html" class="md-nav__link">Sounds</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="utility.html" class="md-nav__link">Utility</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="visuals.html" class="md-nav__link">Visuals</a>
       
     
     </li>
@@ -360,6 +374,80 @@
             
   <section id="module-scripts.core.debug">
 <span id="debug"></span><h1 id="api-core-debug--page-root">Debug<a class="headerlink" href="#api-core-debug--page-root" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="scripts.core.debug.Debugger">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Debugger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../scripts.core.html#scripts.core.game.Game" title="scripts.core.game.Game"><span class="pre">Game</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/core/debug.html#Debugger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.debug.Debugger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.debug.Debugger.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../scripts.core.html#scripts.core.game.Game" title="scripts.core.game.Game"><span class="pre">Game</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/core/debug.html#Debugger.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.debug.Debugger.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.debug.Debugger.disable_profiling">
+<span class="sig-name descname"><span class="pre">disable_profiling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dump_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/core/debug.html#Debugger.disable_profiling"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.debug.Debugger.disable_profiling" title="Permalink to this definition">¶</a></dt>
+<dd><p>Turn off current profiling. Dump data to file if required.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.debug.Debugger.draw">
+<span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">surface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://www.pygame.org/docs/ref/surface.html#pygame.Surface" title="(in pygame v2.1.1)"><span class="pre">pygame.Surface</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/core/debug.html#Debugger.draw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.debug.Debugger.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw debug info</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.debug.Debugger.enable_profiling">
+<span class="sig-name descname"><span class="pre">enable_profiling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">999</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/core/debug.html#Debugger.enable_profiling"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.debug.Debugger.enable_profiling" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable profiling. Create profiler if one doesnt exist</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.debug.Debugger.initialise_logging">
+<span class="sig-name descname"><span class="pre">initialise_logging</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/core/debug.html#Debugger.initialise_logging"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.debug.Debugger.initialise_logging" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialise logging.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.debug.Debugger.kill_logging">
+<span class="sig-name descname"><span class="pre">kill_logging</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/core/debug.html#Debugger.kill_logging"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.debug.Debugger.kill_logging" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kill logging resources</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.debug.Debugger.kill_profiler">
+<span class="sig-name descname"><span class="pre">kill_profiler</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/core/debug.html#Debugger.kill_profiler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.debug.Debugger.kill_profiler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kill profiling resource</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.debug.Debugger.performance_test">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">performance_test</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method_descs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">old_methods</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_methods</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_runs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repeats</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../../_modules/scripts/core/debug.html#Debugger.performance_test"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.debug.Debugger.performance_test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run performance testing on a collection of methods/functions. Returns a formatted string detailing
+performance  of old, new and % change between them.</p>
+<p>method_descs are used as descriptions only.
+old_methods/new_methods expects a list of tuples that are (method_to_test, setup). Setup can be an empty string
+but is usually an import.
+Index in each list much match, i.e. method_name[0] is the alias of the methods in old_methods[0] and
+new_methods[0].</p>
+<p>Outputs as “Access Trait: 0.00123 -&gt; 0.00036(71.00033%)”.</p>
+<p>example usage:
+method_descs = [“Set Var”, “Access Skill”]
+old_methods = [(“x = 1”, “”),(“library.get_skill_data(‘lunge’)”, “”)]
+new_methods = [(“x = ‘one’”, “”), (“library2.SKILLS.get(‘lunge’)”, “from scripts.engine import library2”)]
+print( performance_test(method_descs, old_methods, new_methods) )</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.debug.Debugger.print_values_to_console">
+<span class="sig-name descname"><span class="pre">print_values_to_console</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/core/debug.html#Debugger.print_values_to_console"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.debug.Debugger.print_values_to_console" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the debuggers stats.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.debug.Debugger.toggle_debug_info">
+<span class="sig-name descname"><span class="pre">toggle_debug_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/core/debug.html#Debugger.toggle_debug_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.debug.Debugger.toggle_debug_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Toggle whether the debug info is shown</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.debug.Debugger.toggle_dev_console_visibility">
+<span class="sig-name descname"><span class="pre">toggle_dev_console_visibility</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/core/debug.html#Debugger.toggle_dev_console_visibility"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.debug.Debugger.toggle_dev_console_visibility" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.core.debug.Debugger.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/core/debug.html#Debugger.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.debug.Debugger.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="scripts.core.debug.Timer">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Timer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/core/debug.html#Timer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.debug.Timer" title="Permalink to this definition">¶</a></dt>

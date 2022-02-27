@@ -20,6 +20,14 @@ scripts.scene\_elements.world.combat\_controller module
    :undoc-members:
    :show-inheritance:
 
+scripts.scene\_elements.world.inn\_controller module
+----------------------------------------------------
+
+.. automodule:: scripts.scene_elements.world.inn_controller
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 scripts.scene\_elements.world.model module
 ------------------------------------------
 

@@ -307,7 +307,7 @@
         <span class="k">for</span> <span class="n">sound_name</span><span class="p">,</span> <span class="n">time_remaining</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unique_sounds</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_unique_sounds</span><span class="p">[</span><span class="n">sound_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">time_remaining</span> <span class="o">-</span> <span class="n">delta_time</span></div>
 
-<div class="viewcode-block" id="Sounds._load_sounds"><a class="viewcode-back" href="../../../api/core/sounds.html#scripts.core.sounds.Sounds._load_sounds">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_load_sounds</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">Sound</span><span class="p">]:</span>
         <span class="sd">"""</span>
 <span class="sd">        Load all sounds from /assets/sounds</span>
@@ -324,7 +324,7 @@
 
                 <span class="n">sound</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">Sound</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">path</span> <span class="o">/</span> <span class="n">sound_name</span><span class="p">))</span>
                 <span class="n">sounds</span><span class="p">[</span><span class="n">sound_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"."</span><span class="p">)[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">sound</span>
-        <span class="k">return</span> <span class="n">sounds</span></div>
+        <span class="k">return</span> <span class="n">sounds</span>
 
 <div class="viewcode-block" id="Sounds.play_sound"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.sounds.Sounds.play_sound">[docs]</a>    <span class="k">def</span> <span class="nf">play_sound</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>

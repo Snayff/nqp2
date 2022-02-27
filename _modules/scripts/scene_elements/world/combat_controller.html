@@ -411,7 +411,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">enemy_troupe_id</span> <span class="o">=</span> <span class="n">troupe_id</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_combat_ending_timer</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span></div>
 
-<div class="viewcode-block" id="CombatController._get_random_combat"><a class="viewcode-back" href="../../../../api/scene_elements/world.html#scripts.scene_elements.world.combat_controller.CombatController._get_random_combat">[docs]</a>    <span class="k">def</span> <span class="nf">_get_random_combat</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">_get_random_combat</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
         <span class="sd">"""</span>
 <span class="sd">        Return dictionary of data for a random combat</span>
 <span class="sd">        """</span>
@@ -430,21 +430,21 @@
                 <span class="n">occur_rate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get_combat_occur_rate</span><span class="p">(</span><span class="n">combat</span><span class="p">[</span><span class="s2">"type"</span><span class="p">])</span>
                 <span class="n">possible_combats_occur_rates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">occur_rate</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">rng</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">possible_combats</span><span class="p">,</span> <span class="n">possible_combats_occur_rates</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">rng</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">possible_combats</span><span class="p">,</span> <span class="n">possible_combats_occur_rates</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
-<div class="viewcode-block" id="CombatController._process_defeat"><a class="viewcode-back" href="../../../../api/scene_elements/world.html#scripts.scene_elements.world.combat_controller.CombatController._process_defeat">[docs]</a>    <span class="k">def</span> <span class="nf">_process_defeat</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_process_defeat</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Process the defeat, such as removing morale</span>
 <span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">combat_ending_timer</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">DEFEAT</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">DEFEAT</span>
 
-<div class="viewcode-block" id="CombatController._process_victory"><a class="viewcode-back" href="../../../../api/scene_elements/world.html#scripts.scene_elements.world.combat_controller.CombatController._process_victory">[docs]</a>    <span class="k">def</span> <span class="nf">_process_victory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_process_victory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Process victory</span>
 <span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">combat_ending_timer</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">VICTORY</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">VICTORY</span>
 
 <div class="viewcode-block" id="CombatController.end_combat"><a class="viewcode-back" href="../../../../scripts.scene_elements.world.html#scripts.scene_elements.world.combat_controller.CombatController.end_combat">[docs]</a>    <span class="k">def</span> <span class="nf">end_combat</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
@@ -456,7 +456,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_process_new_injuries</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">CHOOSE_NEXT_ROOM</span></div>
 
-<div class="viewcode-block" id="CombatController._process_new_injuries"><a class="viewcode-back" href="../../../../api/scene_elements/world.html#scripts.scene_elements.world.combat_controller.CombatController._process_new_injuries">[docs]</a>    <span class="k">def</span> <span class="nf">_process_new_injuries</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_process_new_injuries</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Process new injuries and resulting deaths</span>
 <span class="sd">        """</span>
@@ -482,7 +482,7 @@
 
         <span class="c1"># remove units after since they can't be removed during iteration</span>
         <span class="k">for</span> <span class="n">unit</span> <span class="ow">in</span> <span class="n">remove_units</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">player_troupe</span><span class="o">.</span><span class="n">remove_unit</span><span class="p">(</span><span class="n">unit</span><span class="p">)</span></div></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">player_troupe</span><span class="o">.</span><span class="n">remove_unit</span><span class="p">(</span><span class="n">unit</span><span class="p">)</span></div>
 </pre></div>
 
           </article>

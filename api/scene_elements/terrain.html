@@ -236,13 +236,6 @@
     <li class="md-nav__item">
     
     
-      <a href="behaviour_manager.html" class="md-nav__link">Behaviour Manager</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
       <a href="camera.html" class="md-nav__link">Camera</a>
       
     
@@ -349,6 +342,13 @@
       <a href="unit.html" class="md-nav__link">Unit</a>
       
     
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="world.html" class="md-nav__link">World</a>
+      
+    
     </li></ul>
     
     </li>
@@ -404,7 +404,67 @@
 <dt class="sig sig-object py" id="scripts.scene_elements.terrain.Terrain.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../scripts.core.html#scripts.core.game.Game" title="scripts.core.game.Game"><span class="pre">scripts.core.game.Game</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">biome</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scene_elements/terrain.html#Terrain.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.terrain.Terrain.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.terrain.Terrain.check_tile_hoverable">
+<span class="sig-name descname"><span class="pre">check_tile_hoverable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scene_elements/terrain.html#Terrain.check_tile_hoverable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.terrain.Terrain.check_tile_hoverable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.terrain.Terrain.check_tile_solid">
+<span class="sig-name descname"><span class="pre">check_tile_solid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scene_elements/terrain.html#Terrain.check_tile_solid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.terrain.Terrain.check_tile_solid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.terrain.Terrain.debug_map">
+<span class="sig-name descname"><span class="pre">debug_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">overlay_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><span class="pre">List</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scene_elements/terrain.html#Terrain.debug_map"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.terrain.Terrain.debug_map" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.terrain.Terrain.draw">
+<span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">surface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://www.pygame.org/docs/ref/surface.html#pygame.Surface" title="(in pygame v2.1.1)"><span class="pre">pygame.Surface</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://www.pygame.org/docs/ref/math.html#pygame.math.Vector2" title="(in pygame v2.1.1)"><span class="pre">pygame.math.Vector2</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scene_elements/terrain.html#Terrain.draw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.terrain.Terrain.draw" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.terrain.Terrain.gen_pathfinding_map">
+<span class="sig-name descname"><span class="pre">gen_pathfinding_map</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scene_elements/terrain.html#Terrain.gen_pathfinding_map"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.terrain.Terrain.gen_pathfinding_map" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.terrain.Terrain.generate">
+<span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scene_elements/terrain.html#Terrain.generate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.terrain.Terrain.generate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.terrain.Terrain.loc_to_path">
+<span class="sig-name descname"><span class="pre">loc_to_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loc</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scene_elements/terrain.html#Terrain.loc_to_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.terrain.Terrain.loc_to_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.terrain.Terrain.px_to_loc">
+<span class="sig-name descname"><span class="pre">px_to_loc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/scripts/scene_elements/terrain.html#Terrain.px_to_loc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.terrain.Terrain.px_to_loc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.terrain.Terrain.sight_line">
+<span class="sig-name descname"><span class="pre">sight_line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scene_elements/terrain.html#Terrain.sight_line"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.terrain.Terrain.sight_line" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.terrain.Terrain.tile_rect">
+<span class="sig-name descname"><span class="pre">tile_rect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loc</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scene_elements/terrain.html#Terrain.tile_rect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.terrain.Terrain.tile_rect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.terrain.Terrain.tile_rect_px">
+<span class="sig-name descname"><span class="pre">tile_rect_px</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scene_elements/terrain.html#Terrain.tile_rect_px"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.terrain.Terrain.tile_rect_px" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.terrain.Terrain.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dt</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scene_elements/terrain.html#Terrain.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.terrain.Terrain.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 </dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.scene_elements.terrain.gen_blob">
+<span class="sig-name descname"><span class="pre">gen_blob</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">tile_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">terrain</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../scripts.scene_elements.html#scripts.scene_elements.terrain.Terrain" title="scripts.scene_elements.terrain.Terrain"><span class="pre">scripts.scene_elements.terrain.Terrain</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">floor_filter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.10)"><span class="pre">Callable</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scene_elements/terrain.html#gen_blob"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.terrain.gen_blob" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.scene_elements.terrain.generate">
+<span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../scripts.core.html#scripts.core.game.Game" title="scripts.core.game.Game"><span class="pre">scripts.core.game.Game</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">terrain</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../scripts.scene_elements.html#scripts.scene_elements.terrain.Terrain" title="scripts.scene_elements.terrain.Terrain"><span class="pre">scripts.scene_elements.terrain.Terrain</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">biome</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scene_elements/terrain.html#generate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.terrain.generate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.scene_elements.terrain.grid_walk">
+<span class="sig-name descname"><span class="pre">grid_walk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scene_elements/terrain.html#grid_walk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.terrain.grid_walk" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="scripts.scene_elements.terrain.random_foliage">
 <span class="sig-name descname"><span class="pre">random_foliage</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/scripts/scene_elements/terrain.html#random_foliage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.terrain.random_foliage" title="Permalink to this definition">¶</a></dt>

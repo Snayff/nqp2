@@ -236,13 +236,6 @@
     <li class="md-nav__item">
     
     
-      <a href="behaviour_manager.html" class="md-nav__link">Behaviour Manager</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
       <a href="camera.html" class="md-nav__link">Camera</a>
       
     
@@ -349,6 +342,13 @@
       <a href="unit.html" class="md-nav__link">Unit</a>
       
     
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="world.html" class="md-nav__link">World</a>
+      
+    
     </li></ul>
     
     </li>
@@ -405,11 +405,6 @@
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../scripts.core.html#scripts.core.game.Game" title="scripts.core.game.Game"><span class="pre">Game</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">team</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">allies</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scene_elements/troupe.html#Troupe.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.troupe.Troupe.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="scripts.scene_elements.troupe.Troupe._add_unit_from_type">
-<span class="sig-name descname"><span class="pre">_add_unit_from_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></span><a class="reference internal" href="../../_modules/scripts/scene_elements/troupe.html#Troupe._add_unit_from_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.troupe.Troupe._add_unit_from_type" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a unit based on the unit type and add the unit to the troupe. Return id.</p>
-</dd></dl>
-<dl class="py method">
 <dt class="sig sig-object py" id="scripts.scene_elements.troupe.Troupe.add_unit">
 <span class="sig-name descname"><span class="pre">add_unit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../scripts.scene_elements.html#scripts.scene_elements.unit.Unit" title="scripts.scene_elements.unit.Unit"><span class="pre">scripts.scene_elements.unit.Unit</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scene_elements/troupe.html#Troupe.add_unit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.troupe.Troupe.add_unit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a unit instance to the troupe. Used when buying an existing unit, e.g. from Inn.</p>
@@ -419,6 +414,10 @@
 <span class="sig-name descname"><span class="pre">debug_init_units</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/scripts/scene_elements/troupe.html#Troupe.debug_init_units"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.troupe.Troupe.debug_init_units" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialise all units for Troupe faction. Returns list of created ids.</p>
 </dd></dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="scripts.scene_elements.troupe.Troupe.entities">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">entities</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../../scripts.scene_elements.html#scripts.scene_elements.entity.Entity" title="scripts.scene_elements.entity.Entity"><span class="pre">Entity</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scripts.scene_elements.troupe.Troupe.entities" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="scripts.scene_elements.troupe.Troupe.generate_specific_units">
 <span class="sig-name descname"><span class="pre">generate_specific_units</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit_types</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/scripts/scene_elements/troupe.html#Troupe.generate_specific_units"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.troupe.Troupe.generate_specific_units" title="Permalink to this definition">¶</a></dt>
@@ -443,10 +442,22 @@ be chosen from any ally. Returns list of created ids.</p>
 <dd><p>Remove all units from the Troupe</p>
 </dd></dl>
 <dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.troupe.Troupe.remove_unit">
+<span class="sig-name descname"><span class="pre">remove_unit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scene_elements/troupe.html#Troupe.remove_unit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.troupe.Troupe.remove_unit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
 <dt class="sig sig-object py" id="scripts.scene_elements.troupe.Troupe.set_force_idle">
 <span class="sig-name descname"><span class="pre">set_force_idle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">active</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scene_elements/troupe.html#Troupe.set_force_idle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.troupe.Troupe.set_force_idle" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the forced_idle attr for all units in the Troupe</p>
 </dd></dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="scripts.scene_elements.troupe.Troupe.units">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">units</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../../scripts.scene_elements.html#scripts.scene_elements.unit.Unit" title="scripts.scene_elements.unit.Unit"><span class="pre">Unit</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scripts.scene_elements.troupe.Troupe.units" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scene_elements.troupe.Troupe.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scene_elements/troupe.html#Troupe.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.troupe.Troupe.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="scripts.scene_elements.troupe.Troupe.upgrade_unit">
 <span class="sig-name descname"><span class="pre">upgrade_unit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">upgrade_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scene_elements/troupe.html#Troupe.upgrade_unit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.troupe.Troupe.upgrade_unit" title="Permalink to this definition">¶</a></dt>

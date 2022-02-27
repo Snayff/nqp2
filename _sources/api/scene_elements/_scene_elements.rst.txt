@@ -20,3 +20,4 @@ Scene Elements
     traps
     troupe
     unit
+    world

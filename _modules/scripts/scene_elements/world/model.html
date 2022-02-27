@@ -314,7 +314,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_game</span> <span class="o">=</span> <span class="n">game</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span> <span class="o">=</span> <span class="n">parent_scene</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="p">:</span> <span class="n">WorldState</span> <span class="o">=</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">CHOOSE_NEXT_ROOM</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="p">:</span> <span class="n">WorldState</span> <span class="o">=</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">CHOOSE_NEXT_ROOM</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">projectiles</span><span class="p">:</span> <span class="n">ProjectileManager</span> <span class="o">=</span> <span class="n">ProjectileManager</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">particles</span><span class="p">:</span> <span class="n">ParticleManager</span> <span class="o">=</span> <span class="n">ParticleManager</span><span class="p">()</span>
@@ -351,7 +351,10 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_seen_bosses</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
             <span class="c1"># config</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_game_speed</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game_speed</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span>
+
+            <span class="c1"># add empty player troupe</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_troupe</span><span class="p">(</span><span class="n">Troupe</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="s2">"player"</span><span class="p">,</span> <span class="p">[]))</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">boundaries</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -532,7 +535,7 @@
 
         <span class="k">return</span> <span class="n">event_deck</span>
 
-<div class="viewcode-block" id="WorldModel._check_event_conditions"><a class="viewcode-back" href="../../../../api/scene_elements/world.html#scripts.scene_elements.world.model.WorldModel._check_event_conditions">[docs]</a>    <span class="k">def</span> <span class="nf">_check_event_conditions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_check_event_conditions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="sd">"""</span>
 <span class="sd">        Return true if all an event's conditions are met.</span>
 <span class="sd">        """</span>
@@ -552,9 +555,9 @@
             <span class="n">outcome</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">outcome</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="k">return</span> <span class="n">outcome</span></div>
+        <span class="k">return</span> <span class="n">outcome</span>
 
-<div class="viewcode-block" id="WorldModel._check_event_condition"><a class="viewcode-back" href="../../../../api/scene_elements/world.html#scripts.scene_elements.world.model.WorldModel._check_event_condition">[docs]</a>    <span class="k">def</span> <span class="nf">_check_event_condition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">condition_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">condition_value</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_check_event_condition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">condition_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">condition_value</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="sd">"""</span>
 <span class="sd">        Check the condition given. Not all conditions use a target and in those cases the target is ignored.</span>
 <span class="sd">        """</span>
@@ -569,7 +572,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Condition key specified (</span><span class="si">{</span><span class="n">condition_key</span><span class="si">}</span><span class="s2">) is not known and was ignored."</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">outcome</span></div>
+        <span class="k">return</span> <span class="n">outcome</span>
 
 <div class="viewcode-block" id="WorldModel.prioritise_event"><a class="viewcode-back" href="../../../../scripts.scene_elements.world.html#scripts.scene_elements.world.model.WorldModel.prioritise_event">[docs]</a>    <span class="k">def</span> <span class="nf">prioritise_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="sd">"""</span>
@@ -622,22 +625,12 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">player_troupe</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Troupe</span><span class="p">:</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="c1"># player troupe should be in index 1</span>
-            <span class="n">troupe</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">troupes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">troupe</span><span class="o">.</span><span class="n">team</span> <span class="o">==</span> <span class="s2">"player"</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">troupe</span>
-        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Player Troupe not at index 1 as expected."</span><span class="p">)</span>
-
-        <span class="c1"># in case it isnt in index 0</span>
         <span class="k">for</span> <span class="n">troupe</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">troupes</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">troupe</span><span class="o">.</span><span class="n">team</span> <span class="o">==</span> <span class="s2">"player"</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">troupe</span>
 
         <span class="c1"># in case we cant find it at all!</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Tried to get player troupe but couldnt find it!"</span><span class="p">)</span>
-        <span class="k">raise</span> <span class="ne">Exception</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">"Tried to get player troupe but couldnt find it!"</span><span class="p">)</span>
 
 <div class="viewcode-block" id="WorldModel.add_troupe"><a class="viewcode-back" href="../../../../scripts.scene_elements.world.html#scripts.scene_elements.world.model.WorldModel.add_troupe">[docs]</a>    <span class="k">def</span> <span class="nf">add_troupe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">troupe</span><span class="p">:</span> <span class="n">Troupe</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="sd">"""</span>
@@ -668,7 +661,25 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">game_speed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game_speed</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game_speed</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">state</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">WorldState</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span>
+
+    <span class="nd">@state</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">WorldState</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Change the current state. Reset the controller for the given state.</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">TRAINING</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span><span class="o">.</span><span class="n">training</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">state</span> <span class="o">==</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">INN</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span><span class="o">.</span><span class="n">inn</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">state</span> <span class="o">==</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">COMBAT</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span><span class="o">.</span><span class="n">combat</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="n">state</span></div>
 </pre></div>
 
           </article>

@@ -57,7 +57,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Post Combat" href="post_combat.html" />
-    <link rel="prev" title="Inn" href="inn.html" />
+    <link rel="prev" title="Gallery" href="gallery.html" />
   
    
 
@@ -236,13 +236,6 @@
     <li class="md-nav__item">
     
     
-      <a href="inn.html" class="md-nav__link">Inn</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
     <label class="md-nav__link md-nav__link--active" for="__toc"> Main Menu </label>
     
@@ -356,15 +349,18 @@
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../scripts.core.html#scripts.core.game.Game" title="scripts.core.game.Game"><span class="pre">Game</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scenes/main_menu/scene.html#MainMenuScene.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scenes.main_menu.scene.MainMenuScene.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="scripts.scenes.main_menu.scene.MainMenuScene._new_game">
-<span class="sig-name descname"><span class="pre">_new_game</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scenes/main_menu/scene.html#MainMenuScene._new_game"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scenes.main_menu.scene.MainMenuScene._new_game" title="Permalink to this definition">¶</a></dt>
-<dd><p>Prep the game for a new, fresh game and move to run setup scene.</p>
-</dd></dl>
-<dl class="py method">
 <dt class="sig sig-object py" id="scripts.scenes.main_menu.scene.MainMenuScene.activate">
 <span class="sig-name descname"><span class="pre">activate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scenes/main_menu/scene.html#MainMenuScene.activate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scenes.main_menu.scene.MainMenuScene.activate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Activate the Scene. Propagates to the scene’s UI.</p>
 </dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scenes.main_menu.scene.MainMenuScene.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scenes/main_menu/scene.html#MainMenuScene.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scenes.main_menu.scene.MainMenuScene.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scenes.main_menu.scene.MainMenuScene.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scenes/main_menu/scene.html#MainMenuScene.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scenes.main_menu.scene.MainMenuScene.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 </dd></dl>
 <span class="target" id="module-scripts.scenes.main_menu.ui"></span><dl class="py class">
 <dt class="sig sig-object py" id="scripts.scenes.main_menu.ui.MainMenuUI">
@@ -374,6 +370,22 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="scripts.scenes.main_menu.ui.MainMenuUI.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../scripts.core.html#scripts.core.game.Game" title="scripts.core.game.Game"><span class="pre">Game</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_scene</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../scripts.scenes.main_menu.html#scripts.scenes.main_menu.scene.MainMenuScene" title="scripts.scenes.main_menu.scene.MainMenuScene"><span class="pre">MainMenuScene</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scenes/main_menu/ui.html#MainMenuUI.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scenes.main_menu.ui.MainMenuUI.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scenes.main_menu.ui.MainMenuUI.draw">
+<span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">surface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://www.pygame.org/docs/ref/surface.html#pygame.Surface" title="(in pygame v2.1.1)"><span class="pre">pygame.Surface</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scenes/main_menu/ui.html#MainMenuUI.draw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scenes.main_menu.ui.MainMenuUI.draw" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scenes.main_menu.ui.MainMenuUI.process_input">
+<span class="sig-name descname"><span class="pre">process_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scenes/main_menu/ui.html#MainMenuUI.process_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scenes.main_menu.ui.MainMenuUI.process_input" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scenes.main_menu.ui.MainMenuUI.rebuild_ui">
+<span class="sig-name descname"><span class="pre">rebuild_ui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scenes/main_menu/ui.html#MainMenuUI.rebuild_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scenes.main_menu.ui.MainMenuUI.rebuild_ui" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scenes.main_menu.ui.MainMenuUI.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scenes/main_menu/ui.html#MainMenuUI.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scenes.main_menu.ui.MainMenuUI.update" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 </dd></dl>
 </section>
@@ -388,7 +400,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
           
-            <a href="inn.html" title="Inn"
+            <a href="gallery.html" title="Gallery"
                class="md-flex md-footer-nav__link md-footer-nav__link--prev"
                rel="prev">
               <div class="md-flex__cell md-flex__cell--shrink">
@@ -397,7 +409,7 @@
               <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
                 <span class="md-flex__ellipsis">
                   <span
-                      class="md-footer-nav__direction"> Previous </span> Inn </span>
+                      class="md-footer-nav__direction"> Previous </span> Gallery </span>
               </div>
             </a>
           

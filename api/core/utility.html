@@ -56,8 +56,8 @@
     <script src="../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Window" href="window.html" />
-    <link rel="prev" title="RNG" href="rng.html" />
+    <link rel="next" title="Visuals" href="visuals.html" />
+    <link rel="prev" title="Sounds" href="sounds.html" />
   
    
 
@@ -278,6 +278,13 @@
     <li class="md-nav__item">
     
     
+      <a href="sounds.html" class="md-nav__link">Sounds</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
     <label class="md-nav__link md-nav__link--active" for="__toc"> Utility </label>
     
@@ -291,6 +298,13 @@
 
   </ul>
 </nav>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="visuals.html" class="md-nav__link">Visuals</a>
       
     
     </li>
@@ -382,6 +396,14 @@
 as 1 to handle float imprecision.</p>
 </dd></dl>
 <dl class="py function">
+<dt class="sig sig-object py" id="scripts.core.utility.next_number_in_loop">
+<span class="sig-name descname"><span class="pre">next_number_in_loop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">loop_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></span><a class="reference internal" href="../../_modules/scripts/core/utility.html#next_number_in_loop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.utility.next_number_in_loop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.core.utility.offset">
+<span class="sig-name descname"><span class="pre">offset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">list_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset_mult</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/core/utility.html#offset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.utility.offset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py function">
 <dt class="sig sig-object py" id="scripts.core.utility.previous_number_in_loop">
 <span class="sig-name descname"><span class="pre">previous_number_in_loop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">loop_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></span><a class="reference internal" href="../../_modules/scripts/core/utility.html#previous_number_in_loop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.utility.previous_number_in_loop" title="Permalink to this definition">¶</a></dt>
 <dd><p>If at max loop size, returns loop size -1.</p>
@@ -391,6 +413,10 @@ as 1 to handle float imprecision.</p>
 <span class="sig-name descname"><span class="pre">scene_to_scene_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scene</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="../../scripts.core.html#scripts.core.constants.SceneType" title="scripts.core.constants.SceneType"><span class="pre">scripts.core.constants.SceneType</span></a></span></span><a class="reference internal" href="../../_modules/scripts/core/utility.html#scene_to_scene_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.utility.scene_to_scene_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Take a Scene and return the relevant SceneType</p>
 </dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.core.utility.swap_colour">
+<span class="sig-name descname"><span class="pre">swap_colour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">old_c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_c</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/core/utility.html#swap_colour"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.utility.swap_colour" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 </section>
 
 
@@ -403,7 +429,7 @@ as 1 to handle float imprecision.</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
           
-            <a href="rng.html" title="RNG"
+            <a href="sounds.html" title="Sounds"
                class="md-flex md-footer-nav__link md-footer-nav__link--prev"
                rel="prev">
               <div class="md-flex__cell md-flex__cell--shrink">
@@ -412,17 +438,17 @@ as 1 to handle float imprecision.</p>
               <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
                 <span class="md-flex__ellipsis">
                   <span
-                      class="md-footer-nav__direction"> Previous </span> RNG </span>
+                      class="md-footer-nav__direction"> Previous </span> Sounds </span>
               </div>
             </a>
           
           
-            <a href="window.html" title="Window"
+            <a href="visuals.html" title="Visuals"
                class="md-flex md-footer-nav__link md-footer-nav__link--next"
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> Next </span> Window </span>
+                class="md-footer-nav__direction"> Next </span> Visuals </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
