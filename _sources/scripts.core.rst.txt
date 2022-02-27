@@ -52,6 +52,14 @@ scripts.core.game module
    :undoc-members:
    :show-inheritance:
 
+scripts.core.grid module
+------------------------
+
+.. automodule:: scripts.core.grid
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 scripts.core.input module
 -------------------------
 

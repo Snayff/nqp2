@@ -275,6 +275,7 @@
 <span class="kn">from</span> <span class="nn">scripts.scene_elements.camera</span> <span class="kn">import</span> <span class="n">Camera</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">scripts.core</span> <span class="kn">import</span> <span class="n">PointLike</span>
     <span class="kn">from</span> <span class="nn">scripts.core.game</span> <span class="kn">import</span> <span class="n">Game</span>
     <span class="kn">from</span> <span class="nn">scripts.scene_elements.world.model</span> <span class="kn">import</span> <span class="n">WorldModel</span>
 
@@ -405,7 +406,18 @@
         <span class="k">if</span> <span class="n">count</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="n">pos_totals</span> <span class="o">/</span> <span class="n">count</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">None</span></div></div>
+            <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="WorldView.view_to_point"><a class="viewcode-back" href="../../../../scripts.scene_elements.world.html#scripts.scene_elements.world.view.WorldView.view_to_point">[docs]</a>    <span class="k">def</span> <span class="nf">view_to_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">:</span> <span class="n">PointLike</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Return map pixel coords under the point</span>
+
+<span class="sd">        * Point must be relative to the topleft corner of the view</span>
+
+<span class="sd">        """</span>
+        <span class="n">offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">render_offset</span><span class="p">()</span>
+        <span class="c1"># TODO: find out why coordinates are off by 10 on x axis</span>
+        <span class="k">return</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="n">point</span><span class="p">)</span> <span class="o">-</span> <span class="n">offset</span> <span class="o">+</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div></div>
 </pre></div>
 
           </article>
