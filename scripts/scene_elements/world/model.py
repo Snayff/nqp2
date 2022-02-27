@@ -46,7 +46,7 @@ class WorldModel:
             self._game = game
             self._parent_scene = parent_scene
 
-            self.state: WorldState = WorldState.CHOOSE_NEXT_ROOM
+            self._state: WorldState = WorldState.CHOOSE_NEXT_ROOM
 
             self.projectiles: ProjectileManager = ProjectileManager(self._game)
             self.particles: ParticleManager = ParticleManager()
@@ -84,6 +84,9 @@ class WorldModel:
 
             # config
             self._game_speed: float = 1
+
+            # add empty player troupe
+            self.add_troupe(Troupe(self._game, "player", []))
 
     @property
     def boundaries(self):
@@ -354,22 +357,12 @@ class WorldModel:
 
     @property
     def player_troupe(self) -> Troupe:
-        try:
-            # player troupe should be in index 1
-            troupe = self.troupes[1]
-            if troupe.team == "player":
-                return troupe
-        except KeyError:
-            logging.debug(f"Player Troupe not at index 1 as expected.")
-
-        # in case it isnt in index 0
         for troupe in self.troupes.values():
             if troupe.team == "player":
                 return troupe
 
         # in case we cant find it at all!
-        logging.error(f"Tried to get player troupe but couldnt find it!")
-        raise Exception
+        raise Exception("Tried to get player troupe but couldnt find it!")
 
     def add_troupe(self, troupe: Troupe) -> int:
         """
@@ -401,3 +394,21 @@ class WorldModel:
     @property
     def game_speed(self) -> float:
         return self._game_speed
+
+    @property
+    def state(self) -> WorldState:
+        return self._state
+
+    @state.setter
+    def state(self, state: WorldState):
+        """
+        Change the current state. Reset the controller for the given state.
+        """
+        if state == WorldState.TRAINING:
+            self._parent_scene.training.reset()
+        elif state == WorldState.INN:
+            self._parent_scene.inn.reset()
+        elif state == WorldState.COMBAT:
+            self._parent_scene.combat.reset()
+
+        self._state = state

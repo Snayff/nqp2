@@ -35,6 +35,8 @@ class Memory:
             logging.error(f"Tried to initialise a run but WorldScene doesnt exist.")
             raise Exception
 
+        self._game.world.model.reset()
+
         self._game.world.model.add_troupe(troupe)
         self._game.world.model.amend_gold(gold)
         self._game.world.model.amend_rations(rations)

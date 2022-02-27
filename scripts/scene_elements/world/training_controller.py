@@ -43,6 +43,7 @@ class TrainingController(Controller):
 
     def reset(self):
         self.upgrades_available = []
+        self.selected_upgrade = None
 
         self.generate_upgrades()
 

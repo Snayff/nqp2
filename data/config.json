@@ -85,7 +85,8 @@
     "world": {
         "room_weights": {
             "combat": 0.5,
-            "training": 0.1
+            "training": 0.1,
+            "inn": 0.1
         },
         "chance_room_type_hidden": 10,
         "chance_of_event": 20,

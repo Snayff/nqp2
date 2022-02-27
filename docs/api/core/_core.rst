@@ -13,6 +13,8 @@ Core
     input
     memory
     rng
+    sounds
     utility
+    visuals
     window
 

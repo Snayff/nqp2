@@ -11,6 +11,7 @@ from scripts.core.constants import (
     DEFAULT_IMAGE_SIZE,
     FontType,
     GAP_SIZE,
+    InnState,
     InputType,
     SceneType,
     TILE_SIZE,
@@ -93,17 +94,24 @@ class WorldUI(UI):
 
         if state == WorldState.CHOOSE_NEXT_ROOM:
             self._process_choose_next_room_input()
+
+            if self._parent_scene.choose_room.state == ChooseRoomState.IDLE:
+                if self.grid:
+                    self.grid.process_input()
+
         elif state == WorldState.DEFEAT:
             self._process_defeat_input()
         elif state == WorldState.COMBAT:
             self._process_combat_input()
         elif state == WorldState.TRAINING:
             self._process_training_input()
+        elif state == WorldState.INN:
+            self._process_inn_input()
 
-        if self.grid:
-            self.grid.process_input()
-
-        # # manual camera control for debugging
+        #################
+        # DO NOT DELETE #
+        #################
+        # manual camera control for debugging
         # if self._game.input.states["up"]:
         #     self._game.input.states["up"] = False
         #     self._worldview.camera.move(y=-32)
@@ -116,6 +124,68 @@ class WorldUI(UI):
         # if self._game.input.states["right"]:
         #     self._game.input.states["right"] = False
         #     self._worldview.camera.move(x=32)
+
+    def _process_inn_input(self):
+        controller = self._parent_scene.inn
+        local_state = controller.state
+        is_ui_dirty = False
+
+        if local_state == InnState.IDLE:
+            # toggle select upgrade or view units
+            if self._game.input.states["shift"]:
+                controller.state = InnState.CHOOSE_UNIT
+                self._current_panel.set_selectable(True)
+                is_ui_dirty = True
+
+            # move to choose room
+            if self._game.input.states["cancel"]:
+                self._parent_scene.model.state = WorldState.CHOOSE_NEXT_ROOM
+                controller.delete_troupe()
+                is_ui_dirty = True
+
+        if local_state == InnState.CHOOSE_UNIT:
+            # frame selection
+            if self._game.input.states["up"]:
+                self._current_panel.select_previous_element()
+
+                # update selected unit
+                current_index = self._current_panel.selected_index
+                controller.selected_unit = controller.units_available[current_index]
+
+                self._refresh_info_pane()
+
+            if self._game.input.states["down"]:
+                self._current_panel.select_next_element()
+
+                # update selected unit
+                current_index = self._current_panel.selected_index
+                controller.selected_unit = controller.units_available[current_index]
+
+                self._refresh_info_pane()
+
+            # select unit
+            if self._game.input.states["select"]:
+
+                # handle purchase
+                controller.recruit_unit(controller.selected_unit)
+                self.grid.move_units_to_grid()
+
+                # revert to previous state
+                controller.state = InnState.IDLE
+                self._current_panel.set_selectable(False)
+                is_ui_dirty = True
+                controller.selected_unit = None
+
+                # confirm
+                self.set_instruction_text("Unit recruited.", True)
+
+            # toggle view units
+            if self._game.input.states["shift"]:
+                controller.state = TrainingState.IDLE
+                self._current_panel.set_selectable(False)
+
+        if is_ui_dirty:
+            self.rebuild_ui()
 
     def _process_defeat_input(self):
         if self._game.input.states["select"]:
@@ -132,17 +202,22 @@ class WorldUI(UI):
         is_ui_dirty = False
 
         if local_state == TrainingState.IDLE:
-            # toggle select upgrade or view units
+            # toggle to select upgrade
             if self._game.input.states["shift"]:
                 controller.state = TrainingState.CHOOSE_UPGRADE
                 self._current_panel.set_selectable(True)
+                is_ui_dirty = True
+
+            # move to choose room
+            if self._game.input.states["cancel"]:
+                self._parent_scene.model.state = WorldState.CHOOSE_NEXT_ROOM
                 is_ui_dirty = True
 
         if local_state == TrainingState.CHOOSE_UPGRADE:
             # frame selection
             if self._game.input.states["up"]:
                 self._current_panel.select_previous_element()
-                self._refresh_info_pane()  # TODO - fix info pane refreshing to match selection
+                self._refresh_info_pane()
 
             if self._game.input.states["down"]:
                 self._current_panel.select_next_element()
@@ -155,8 +230,8 @@ class WorldUI(UI):
                 self._current_panel.set_selectable(False)
                 is_ui_dirty = True
 
-            # cancel
-            if self._game.input.states["cancel"]:
+            # toggle to view units
+            if self._game.input.states["shift"]:
                 controller.state = TrainingState.IDLE
                 self._current_panel.set_selectable(False)
 
@@ -232,9 +307,10 @@ class WorldUI(UI):
                 self.set_instruction_text("")
                 is_ui_dirty = True
 
-            # cancel
-            if self._game.input.states["cancel"]:
+            # toggle back to idle
+            if self._game.input.states["shift"]:
                 controller.state = ChooseRoomState.IDLE
+                self.grid.move_units_to_grid()
                 self._current_panel.set_selectable(False)
 
         if is_ui_dirty:
@@ -255,6 +331,8 @@ class WorldUI(UI):
             self._rebuild_victory_ui()
         elif state == WorldState.TRAINING:
             self._rebuild_training_ui()
+        elif state == WorldState.INN:
+            self._rebuild_inn_ui()
 
     def _rebuild_choose_next_room_ui(self):
         create_font = self._game.visuals.create_font
@@ -338,7 +416,7 @@ class WorldUI(UI):
                 # draw gold cost
                 gold_icon = self._game.visuals.get_image("gold", icon_size)
                 frame = Frame(
-                    (current_x, current_y),
+                    (current_x + 100, current_y),
                     new_image=gold_icon,
                     font=create_font(gold_font_type, str(upgrade_cost)),
                     is_selectable=False,
@@ -355,9 +433,8 @@ class WorldUI(UI):
                 upgrade_icon = None
 
             # draw upgrade icon and details
-            upgrade_x = current_x + 50
             frame = Frame(
-                (upgrade_x, current_y),
+                (current_x, current_y),
                 new_image=upgrade_icon,
                 font=create_font(font_type, text),
                 is_selectable=is_selectable,
@@ -375,7 +452,7 @@ class WorldUI(UI):
         # handle instructions and selectability for different states
         if controller.state == TrainingState.CHOOSE_UPGRADE:
             panel.set_selectable(True)
-            self.set_instruction_text("Press X to cancel.")
+            self.set_instruction_text("Press shift to go back to the troupe.")
 
             # ensure an upgrade is selected
             if controller.selected_upgrade is None:
@@ -384,7 +461,7 @@ class WorldUI(UI):
             self._refresh_info_pane()
 
         elif controller.state == TrainingState.IDLE:
-            self.set_instruction_text("Press shift to select upgrades.")
+            self.set_instruction_text("Press shift to select upgrades or X to go to choose the next room.")
 
         elif controller.state == TrainingState.CHOOSE_TARGET_UNIT:
             self.set_instruction_text("Press enter to apply the upgrade or X to cancel.")
@@ -393,14 +470,33 @@ class WorldUI(UI):
         """
         Refresh the info pane's info
         """
+        # TODO - fix info pane not refreshing to match selection
         create_font = self._game.visuals.create_font
-        controller = self._parent_scene.training
-        highlighted_frame = self._elements[controller.selected_upgrade["type"]]
+
+        if self._parent_scene.model.state == WorldState.TRAINING:
+            controller = self._parent_scene.training
+            upgrade = controller.selected_upgrade
+            highlighted_frame = self._elements[controller.selected_upgrade["type"]]
+            desc = upgrade["desc"]
+
+        elif self._parent_scene.model.state == WorldState.INN:
+            controller = self._parent_scene.inn
+
+            if controller.selected_unit is not None:
+                unit_index = controller.units_available.index(controller.selected_unit)
+                highlighted_frame = self._elements[f"banner{unit_index}"]
+                desc = controller.selected_unit.type
+            else:
+                highlighted_frame = list(self._elements.values())[0]
+                desc = ""
+
+        else:
+            return
+
         info_x = highlighted_frame.x + highlighted_frame.width + 20
         font_type = FontType.DEFAULT
-        upgrade = controller.selected_upgrade
 
-        frame = Frame((info_x, highlighted_frame.y), font=create_font(font_type, upgrade["desc"]))
+        frame = Frame((info_x, highlighted_frame.y), font=create_font(font_type, desc))
         self._elements["info_pane"] = frame
 
     def _rebuild_defeat_ui(self):
@@ -449,6 +545,79 @@ class WorldUI(UI):
 
     def _rebuild_combat_ui(self):
         self.set_instruction_text("Press shift to start combat.")
+
+    def _rebuild_inn_ui(self):
+        create_font = self._game.visuals.create_font
+        icon_width = DEFAULT_IMAGE_SIZE
+        icon_height = DEFAULT_IMAGE_SIZE
+        icon_size = (icon_width, icon_height)
+        start_x = self._game.window.centre[0]
+        start_y = 100
+        y_increment = 100
+        controller = self._parent_scene.inn
+        model = self._parent_scene.model
+        panel_list = []
+
+        # draw unit positions
+        for i in range(controller.num_units):
+            current_x = start_x
+            current_y = start_y + (i * y_increment)
+
+            # check available
+            if controller.units_available[i] is None:
+                continue
+
+            # check can recruit
+            upgrade_cost = controller.units_available[i].gold_cost
+            can_afford = model.gold > upgrade_cost
+            has_space = model.charisma_remaining > 0
+            if can_afford and has_space:
+                gold_font_type = FontType.DEFAULT
+                can_buy = True
+            else:
+                gold_font_type = FontType.NEGATIVE
+                can_buy = False
+
+            # draw gold cost
+            gold_icon = self._game.visuals.get_image("gold", icon_size)
+            frame = Frame(
+                (current_x + 20, current_y),
+                new_image=gold_icon,
+                font=create_font(gold_font_type, str(upgrade_cost)),
+                is_selectable=False,
+            )
+            self._elements["cost" + str(i)] = frame
+
+            # draw banner in frame, to allow selection
+            banner = self._game.visuals.get_image("banner", icon_size)
+            frame = Frame(
+                (current_x, current_y),
+                new_image=banner,
+                is_selectable=can_buy,
+            )
+            self._elements["banner" + str(i)] = frame
+            panel_list.append(frame)
+
+            # update unit pos
+            unit = controller.units_available[i]
+            unit.set_position([current_x, current_y])
+
+        panel = Panel(panel_list, True)
+        self.add_panel(panel, "units")
+
+        # handle instructions and selectability for different states
+        if controller.state == InnState.CHOOSE_UNIT:
+            panel.set_selectable(True)
+            self.set_instruction_text("Press shift to go back to the troupe.")
+
+            # ensure an upgrade is selected
+            if controller.selected_unit is None:
+                controller.selected_unit = controller.units_available[0]
+
+            self._refresh_info_pane()
+
+        elif controller.state == InnState.IDLE:
+            self.set_instruction_text("Press shift to select Units or X to choose the next room.")
 
 
 class GridCell:
