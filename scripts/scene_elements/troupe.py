@@ -196,4 +196,5 @@ class Troupe:
         Set the forced_idle attr for all units in the Troupe
         """
         for unit in self.units.values():
+            unit.forced_behaviour = False
             unit.forced_idle = active

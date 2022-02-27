@@ -76,7 +76,9 @@ class Unit:
         self.dead_entities: List[Entity] = []
         self.pos: List[int, int] = [300, 200]
         self.placed: bool = False
+        # NOTE: these "forced_xxxx" values need to be re-evaluated during a Behaviours refactor
         self.forced_idle: bool = True  # forces idle state to prevent action
+        self.forced_behaviour: bool = False  # force behaviour to run
 
         # visual
         self.border_surface_timer: float = 0
