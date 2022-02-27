@@ -11,7 +11,7 @@ from scripts.core.constants import (
     DEFAULT_IMAGE_SIZE,
     FontType,
     GAP_SIZE,
-    InnState, SceneType,
+    InnState,
     InputType,
     SceneType,
     TILE_SIZE,
@@ -94,6 +94,11 @@ class WorldUI(UI):
 
         if state == WorldState.CHOOSE_NEXT_ROOM:
             self._process_choose_next_room_input()
+
+            if self._parent_scene.choose_room.state == ChooseRoomState.IDLE:
+                if self.grid:
+                    self.grid.process_input()
+
         elif state == WorldState.DEFEAT:
             self._process_defeat_input()
         elif state == WorldState.COMBAT:
@@ -103,8 +108,6 @@ class WorldUI(UI):
         elif state == WorldState.INN:
             self._process_inn_input()
 
-        if self.grid:
-            self.grid.process_input()
 
         #################
         # DO NOT DELETE #
@@ -307,9 +310,10 @@ class WorldUI(UI):
                 self.set_instruction_text("")
                 is_ui_dirty = True
 
-            # cancel
-            if self._game.input.states["cancel"]:
+            # toggle back to idle
+            if self._game.input.states["shift"]:
                 controller.state = ChooseRoomState.IDLE
+                self.grid.move_units_to_grid()
                 self._current_panel.set_selectable(False)
 
         if is_ui_dirty:
