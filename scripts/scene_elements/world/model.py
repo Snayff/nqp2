@@ -412,4 +412,3 @@ class WorldModel:
             self._parent_scene.combat.reset()
 
         self._state = state
-

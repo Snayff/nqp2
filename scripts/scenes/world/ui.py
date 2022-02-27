@@ -108,7 +108,6 @@ class WorldUI(UI):
         elif state == WorldState.INN:
             self._process_inn_input()
 
-
         #################
         # DO NOT DELETE #
         #################
@@ -187,8 +186,6 @@ class WorldUI(UI):
 
         if is_ui_dirty:
             self.rebuild_ui()
-
-
 
     def _process_defeat_input(self):
         if self._game.input.states["select"]:

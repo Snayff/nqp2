@@ -73,7 +73,6 @@ class InnController(Controller):
         for unit in inn_troupe.units.values():
             self.units_available.append(unit)
 
-
     def recruit_unit(self, unit: Unit):
         """
         Add the unit to the player's Troupe and remove from the inn's.
@@ -94,4 +93,3 @@ class InnController(Controller):
         Delete the inn troupe.
         """
         self._parent_scene.model.remove_troupe(self.troupe_id)
-
