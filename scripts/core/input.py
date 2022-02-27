@@ -106,8 +106,10 @@ class Input:
         self.char_buffer = ""
         self.backspace_hold = 0
 
+        self.mouse_moved = False
         self.mouse_pos = [0, 0]
         self.mouse_pos_raw = self.mouse_pos.copy()
+        self._old_mouse = self.mouse_pos_raw.copy()
 
         self._gamepads = dict()
         self._scan_gamepads()
@@ -143,6 +145,8 @@ class Input:
         self.mouse_pos_raw = self.mouse_pos.copy()
         self.mouse_pos[0] *= self._game.window.base_resolution[0] / self._game.window.scaled_resolution[0]
         self.mouse_pos[1] *= self._game.window.base_resolution[1] / self._game.window.scaled_resolution[1]
+        self.mouse_moved = self.mouse_pos_raw != self._old_mouse
+        self._old_mouse = self.mouse_pos_raw.copy()
 
         chars = [
             ".",
