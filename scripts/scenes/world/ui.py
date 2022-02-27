@@ -17,7 +17,7 @@ from scripts.core.constants import (
     TrainingState,
     WorldState,
 )
-from scripts.core.grid import grid_up, grid_down, grid_left, grid_right
+from scripts.core.grid import grid_down, grid_left, grid_right, grid_up
 from scripts.scene_elements.unit import Unit
 from scripts.scene_elements.world.view import WorldView
 from scripts.ui_elements.frame import Frame
