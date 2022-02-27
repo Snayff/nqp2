@@ -7,6 +7,7 @@ import pygame
 from scripts.scene_elements.camera import Camera
 
 if TYPE_CHECKING:
+    from scripts.core import PointLike
     from scripts.core.game import Game
     from scripts.scene_elements.world.model import WorldModel
 
@@ -138,3 +139,14 @@ class WorldView:
             return pygame.Vector2(pos_totals / count)
         else:
             return None
+
+    def view_to_point(self, point: PointLike):
+        """
+        Return map pixel coords under the point
+
+        * Point must be relative to the topleft corner of the view
+
+        """
+        offset = self.camera.render_offset()
+        # TODO: find out why coordinates are off by 10 on x axis
+        return pygame.Vector2(point) - offset + (10, 0)
