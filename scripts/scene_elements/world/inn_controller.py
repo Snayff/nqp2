@@ -43,7 +43,10 @@ class InnController(Controller):
         pass
 
     def reset(self):
-        self.troupe_id = None
+        if self.troupe_id:
+            self.delete_troupe()
+            self.troupe_id = None
+
         self.selected_unit = None
         self.units_available = []
 
@@ -85,4 +88,10 @@ class InnController(Controller):
         # clear option from list
         index = self.units_available.index(self.selected_unit)
         self.units_available[index] = None
+
+    def delete_troupe(self):
+        """
+        Delete the inn troupe.
+        """
+        self._parent_scene.model.remove_troupe(self.troupe_id)
 

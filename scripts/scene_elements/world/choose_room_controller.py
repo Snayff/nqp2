@@ -73,7 +73,7 @@ class ChooseRoomController(Controller):
         chance_hidden = self._game.data.config["world"]["chance_room_type_hidden"]
         already_hidden = False
         for room_type in room_types:
-            if self._game.rng.roll() < chance_hidden or already_hidden:
+            if self._game.rng.roll() < chance_hidden and not already_hidden:
                 self.choices.append((room_type, True))
                 already_hidden = True  # only hide 1 room choice
             else:
@@ -134,7 +134,7 @@ class ChooseRoomController(Controller):
 
     def _assign_room_state(self):
         """
-        Assign state to WorldModel based on room selected
+        Assign state to WorldModel based on room selected.
         """
         room = self.selected_room
 

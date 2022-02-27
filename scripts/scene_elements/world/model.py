@@ -46,7 +46,7 @@ class WorldModel:
             self._game = game
             self._parent_scene = parent_scene
 
-            self.state: WorldState = WorldState.CHOOSE_NEXT_ROOM
+            self._state: WorldState = WorldState.CHOOSE_NEXT_ROOM
 
             self.projectiles: ProjectileManager = ProjectileManager(self._game)
             self.particles: ParticleManager = ParticleManager()
@@ -394,3 +394,22 @@ class WorldModel:
     @property
     def game_speed(self) -> float:
         return self._game_speed
+
+    @property
+    def state(self) -> WorldState:
+        return self._state
+
+    @state.setter
+    def state(self, state: WorldState):
+        """
+        Change the current state. Reset the controller for the given state.
+        """
+        if state == WorldState.TRAINING:
+            self._parent_scene.training.reset()
+        elif state == WorldState.INN:
+            self._parent_scene.inn.reset()
+        elif state == WorldState.COMBAT:
+            self._parent_scene.combat.reset()
+
+        self._state = state
+
