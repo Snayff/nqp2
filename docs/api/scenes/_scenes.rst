@@ -6,7 +6,6 @@ Scenes
 
     event
     gallery
-    inn
     main_menu
     post_combat
     run_setup

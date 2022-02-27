@@ -18,6 +18,8 @@ Controllers
 .. automodule:: scripts.scene_elements.world.combat_controller
 
 
+.. automodule:: scripts.scene_elements.world.inn_controller
+
 
 .. automodule:: scripts.scene_elements.world.training_controller
 
