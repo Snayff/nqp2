@@ -83,11 +83,13 @@ class UnitGrid:
 
         # Surface for cells that were not selected, under current mouse position or gamepad selection
         self.cell_surface = pygame.Surface(cell_rect.size, pygame.SRCALPHA)
-        pygame.draw.rect(self.cell_surface, self.line_colour, cell_rect, 1)
+        # pygame.draw.rect(self.cell_surface, self.line_colour, cell_rect, 1)
 
         # Surface for the cell that's under the current mouse position or gamepad selection, but not selected
         self.cell_surface_hover = pygame.Surface(cell_rect.size, pygame.SRCALPHA)
-        pygame.draw.rect(self.cell_surface_hover, self.line_colour_hover, cell_rect, self.focused_border_width)
+        pygame.draw.rect(self.cell_surface_hover, self.line_colour_hover, cell_rect, self.focused_border_width, 3)
+        erase = cell_rect.x + (cell_rect.width * .12), cell_rect.y, cell_rect.width * .78, cell_rect.height
+        self.cell_surface_hover.fill((0, 0, 0, 0), erase)
 
         # Surface for the cell that was selected
         self.cell_surface_selected = pygame.Surface(cell_rect.size, pygame.SRCALPHA)
@@ -103,23 +105,37 @@ class UnitGrid:
         # # TODO: fix the following calculation, unit.size is NOT the size of the unit so this is wrong
         unit.set_position([cell_center_x + unit.size // 2, cell_center_y + unit.size // 2])
 
-    def _walk_unit_to_cell(self, unit: Unit, cell: GridCell):
+    def _walk_cell_to_cell(self, unit: Unit, dest:GridCell):
         """
         Move unit to cell by setting the entities on a path
+
+        ** This does not change the unit attribute of the cell **
 
         """
         # this logic could be replaced by
         # - pathfinding leader to the cell
         # - making the others follow the leader
-        target = cell.rect.center
-        cell.unit = unit
         unit.forced_behaviour = True
+        target_px = dest.rect.center
         leader = unit.entities[0]
-        leader.behaviour.current_path = [target]
+        leader.behaviour.current_path = [target_px]
         leader.behaviour.state = "path_fast"
         for entity in unit.entities[1:]:
-            entity.behaviour.current_path = [target]
+            entity.behaviour.current_path = [target_px]
             entity.behaviour.state = "path_fast"
+
+    def _swap_cells(self, a:GridCell, b:GridCell):
+        """
+        Swap the units between two cells
+
+        """
+        if a.unit:
+            self._walk_cell_to_cell(a.unit, b)
+        if b.unit:
+            self._walk_cell_to_cell(b.unit, a)
+        a_unit = a.unit
+        a.unit = b.unit
+        b.unit = a_unit
 
     def move_units_to_grid(self):
         """
@@ -142,58 +158,36 @@ class UnitGrid:
         """
         if self.focused_cell:
             self._previous_focused = self.focused_cell
-        self.focused_cell = focused = self.get_focused_cell()
+        self.focused_cell = focused_cell = self.get_focused_cell()
 
-        if focused is None:
+        if focused_cell is None:
             return
 
         clicked = self._game.input.mouse_state["left"] or self._game.input.states["select"]
         self._game.input.states["select"] = False
 
-        # Mouse/gamepad is hovering over cell, but it was not selected
-        if not clicked:
-            self.focused_cell = focused
+        if clicked:
+            # There is no previously selected cell
+            if not self.selected_cell:
+                self.selected_cell = focused_cell
 
-        # The current cell was selected and there is no previously selected cell
-        elif not self.selected_cell:
-            self.selected_cell = focused
-            if focused.unit:
-                focused.unit.is_selected = True
-
-        # The cell was unselected by the user
-        elif self.selected_cell is focused:
-            self.selected_cell = None
-
-        # Two cells were selected, attempt unit position switching
-        elif self.selected_cell is not focused:
-            # Both cells have units, so we switch their positions
-            if self.selected_cell.unit and focused.unit:
-                selected_unit_pos = self.selected_cell.unit.pos
-                # self.selected_cell.unit.set_position(focused.unit.pos)
-                self.selected_cell.unit.is_selected = False
-                # focused.unit.set_position(selected_unit_pos)
-                focused.unit.is_selected = False
-                self._walk_unit_to_cell(self.selected_cell.unit, focused.unit.pos)
-                self._walk_unit_to_cell(focused.unit, selected_unit_pos)
-
-            # Only selected_cell has a unit, so we assign it to cell.unit and set selected_cell's unit to None
-            elif self.selected_cell.unit and not focused.unit:
-                focused.unit = self.selected_cell.unit
-                focused.unit.is_selected = False
-                self._walk_unit_to_cell(focused.unit, focused)
-                self.selected_cell.unit = None
-
-            # Only cell.unit has a unit, so we assign it to selected_cell and set cell's unit to None
-            elif focused.unit and not self.selected_cell.unit:
-                self.selected_cell.unit = focused.unit
-                self.selected_cell.unit.is_selected = False
-                self._walk_unit_to_cell(self.selected_cell.unit, self.selected_cell)
-                focused.unit = None
-
-            if self._interaction_owner == InputType.MOUSE:
-                self.focused_cell = self.selected_cell = None
-            else:
+            # The same cell was selected twice, so unselect it
+            elif self.selected_cell is focused_cell:
                 self.selected_cell = None
+                if self._interaction_owner == InputType.MOUSE:
+                    if focused_cell.unit:
+                        focused_cell.unit.is_selected = False
+
+            # Two cells were selected, attempt unit position switching
+            else:
+                self._swap_cells(self.selected_cell, focused_cell)
+                if focused_cell.unit:
+                    focused_cell.unit.is_selected = False
+                if self.selected_cell.unit:
+                    self.selected_cell.unit.is_selected = False
+                self.selected_cell = None
+                if self._interaction_owner == InputType.MOUSE:
+                    self.focused_cell = None
 
     def draw(self, surface: pygame.Surface, offset: pygame.Vector2):
         # NOTE: awkward sort because the selected/hovered cell must be drawn last
