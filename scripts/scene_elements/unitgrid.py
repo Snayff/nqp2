@@ -88,7 +88,7 @@ class UnitGrid:
         # Surface for the cell that's under the current mouse position or gamepad selection, but not selected
         self.cell_surface_hover = pygame.Surface(cell_rect.size, pygame.SRCALPHA)
         pygame.draw.rect(self.cell_surface_hover, self.line_colour_hover, cell_rect, self.focused_border_width, 3)
-        erase = cell_rect.x + (cell_rect.width * .12), cell_rect.y, cell_rect.width * .78, cell_rect.height
+        erase = cell_rect.x + (cell_rect.width * 0.12), cell_rect.y, cell_rect.width * 0.78, cell_rect.height
         self.cell_surface_hover.fill((0, 0, 0, 0), erase)
 
         # Surface for the cell that was selected
@@ -105,7 +105,7 @@ class UnitGrid:
         # # TODO: fix the following calculation, unit.size is NOT the size of the unit so this is wrong
         unit.set_position([cell_center_x + unit.size // 2, cell_center_y + unit.size // 2])
 
-    def _walk_cell_to_cell(self, unit: Unit, dest:GridCell):
+    def _walk_cell_to_cell(self, unit: Unit, dest: GridCell):
         """
         Move unit to cell by setting the entities on a path
 
@@ -124,7 +124,7 @@ class UnitGrid:
             entity.behaviour.current_path = [target_px]
             entity.behaviour.state = "path_fast"
 
-    def _swap_cells(self, a:GridCell, b:GridCell):
+    def _swap_cells(self, a: GridCell, b: GridCell):
         """
         Swap the units between two cells
 
