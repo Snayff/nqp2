@@ -148,5 +148,4 @@ class WorldView:
 
         """
         offset = self.camera.render_offset()
-        # TODO: find out why coordinates are off by 10 on x axis
-        return pygame.Vector2(point) - offset + (10, 0)
+        return pygame.Vector2(point) - offset
