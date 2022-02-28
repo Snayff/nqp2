@@ -62,7 +62,7 @@ class UnitGrid:
 
     def initialize_cells(self):
         """
-        Initializes grid cells
+        Initializes grid cells and graphics
 
         """
 
@@ -128,6 +128,8 @@ class UnitGrid:
         """
         Swap the units between two cells
 
+        Can swap empty cells with filled cells
+
         """
         if a.unit:
             self._walk_cell_to_cell(a.unit, b)
@@ -152,8 +154,7 @@ class UnitGrid:
 
     def process_input(self):
         """
-        Check if there are changes in mouse position, click or gamepad
-        input and change the selected_cell and hover_cell variables accordingly
+        Logic for gampad/mouse input to move units in grid
 
         """
         if self.focused_cell:
@@ -190,14 +191,21 @@ class UnitGrid:
                     self.focused_cell = None
 
     def draw(self, surface: pygame.Surface, offset: pygame.Vector2):
+        """
+        Draw the grid UI elements
+
+        """
         # NOTE: awkward sort because the selected/hovered cell must be drawn last
         draw_list = list()
         for i, cell in enumerate(self.cells):
+            unmodified = True
+            if cell is self.focused_cell:
+                draw_list.append((2, i, cell, self.cell_surface_hover))
+                unmodified = False
             if cell is self.selected_cell:
-                draw_list.append((2, i, cell, self.cell_surface_selected))
-            elif cell is self.focused_cell:
-                draw_list.append((1, i, cell, self.cell_surface_hover))
-            else:
+                draw_list.append((1, i, cell, self.cell_surface_selected))
+                unmodified = False
+            if unmodified:
                 draw_list.append((0, i, cell, self.cell_surface))
         draw_list.sort()
         for rank, index, cell, cell_surface in draw_list:
