@@ -1032,7 +1032,8 @@ be chosen from any ally. Returns list of created ids.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="scripts.scene_elements.unitgrid.UnitGrid.draw">
 <span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">surface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pygame.Surface</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pygame.math.Vector2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scene_elements/unitgrid.html#UnitGrid.draw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.unitgrid.UnitGrid.draw" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Draw the grid UI elements</p>
+</dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="scripts.scene_elements.unitgrid.UnitGrid.get_focused_cell">
 <span class="sig-name descname"><span class="pre">get_focused_cell</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scripts.scene_elements.unitgrid.GridCell" title="scripts.scene_elements.unitgrid.GridCell"><span class="pre">scripts.scene_elements.unitgrid.GridCell</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/scripts/scene_elements/unitgrid.html#UnitGrid.get_focused_cell"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.unitgrid.UnitGrid.get_focused_cell" title="Permalink to this definition">¶</a></dt>
@@ -1052,7 +1053,7 @@ be chosen from any ally. Returns list of created ids.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="scripts.scene_elements.unitgrid.UnitGrid.initialize_cells">
 <span class="sig-name descname"><span class="pre">initialize_cells</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scene_elements/unitgrid.html#UnitGrid.initialize_cells"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.unitgrid.UnitGrid.initialize_cells" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initializes grid cells</p>
+<dd><p>Initializes grid cells and graphics</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="scripts.scene_elements.unitgrid.UnitGrid.move_units_to_grid">
@@ -1064,8 +1065,7 @@ switched after two of them are selected.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="scripts.scene_elements.unitgrid.UnitGrid.process_input">
 <span class="sig-name descname"><span class="pre">process_input</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scene_elements/unitgrid.html#UnitGrid.process_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scene_elements.unitgrid.UnitGrid.process_input" title="Permalink to this definition">¶</a></dt>
-<dd><p>Check if there are changes in mouse position, click or gamepad
-input and change the selected_cell and hover_cell variables accordingly</p>
+<dd><p>Logic for gampad/mouse input to move units in grid</p>
 </dd></dl>
 </dd></dl>
 </section>
