@@ -19,6 +19,9 @@ PROFILING_PATH = DEBUGGING_PATH / "profiling"
 # sizes
 DEFAULT_IMAGE_SIZE = 16
 GAP_SIZE = 10
+TILE_SIZE = 16
+BARRIER_SIZE = 10
+
 
 # algorithm/formula constants
 WEIGHT_SCALE = 5
@@ -35,6 +38,18 @@ class GameState(IntEnum):
     LOADING = auto()
     PLAYING = auto()
     EXITING = auto()
+
+
+class WorldState(IntEnum):
+    CHOOSE_NEXT_ROOM = auto()
+    MOVING_NEXT_ROOM = auto()
+    COMBAT = auto()
+    TRAINING = auto()
+    INN = auto()
+    EVENT = auto()
+
+    DEFEAT = auto()  # TODO - move to controller as local state
+    VICTORY = auto()  # TODO - move to controller as local state
 
 
 class CombatState(IntEnum):
@@ -58,20 +73,10 @@ class PostCombatState(IntEnum):
     BOSS_VICTORY = auto()
 
 
-class WorldState(IntEnum):
-    CHOOSE_NEXT_ROOM = auto()
-    MOVING_NEXT_ROOM = auto()
-    COMBAT = auto()
-    TRAINING = auto()
-    INN = auto()
-
-    DEFEAT = auto()  # TODO - move to controller as local state
-    VICTORY = auto()  # TODO - move to controller as local state
-
-
 class InnState(IntEnum):
     IDLE = auto()
     CHOOSE_UNIT = auto()
+    SHOW_RESULT = auto()
 
 
 class EventState(IntEnum):
@@ -82,11 +87,6 @@ class EventState(IntEnum):
 class ChooseRoomState(IntEnum):
     IDLE = auto()
     CHOOSE_ROOM = auto()
-
-
-class EventState(IntEnum):
-    MAKE_DECISION = auto()
-    RESULT = auto()
 
 
 class AnimationState(IntEnum):
@@ -173,5 +173,3 @@ class InputType(IntEnum):
     MOUSE = auto()
 
 
-TILE_SIZE = 16
-BARRIER_SIZE = 10

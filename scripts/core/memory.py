@@ -25,6 +25,7 @@ class Memory:
             self._game: Game = game
 
             self.flags: List[str] = []  # event, game or other flags to note key happenings
+            # TODO  - do we need to distinguish between in-run flags and permanent ones?
             self._last_id: int = 0
 
     def initialise_run(self, troupe: Troupe, gold: int, rations: int, morale: int, charisma: int, leadership: int):

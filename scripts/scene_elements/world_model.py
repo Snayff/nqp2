@@ -75,6 +75,7 @@ class WorldModel:
 
             # progress
             self.level: int = 1
+            self.events_triggered_this_level: int = 0
 
             # generated values for later user
             self.level_boss: str = ""
