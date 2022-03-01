@@ -9,7 +9,7 @@ from scripts.scene_elements.camera import Camera
 if TYPE_CHECKING:
     from scripts.core import PointLike
     from scripts.core.game import Game
-    from scripts.scene_elements.world.model import WorldModel
+    from scripts.scene_elements.world_model import WorldModel
 
 
 __all__ = ["WorldView"]

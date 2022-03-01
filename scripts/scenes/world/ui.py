@@ -17,7 +17,7 @@ from scripts.core.constants import (
     WorldState,
 )
 from scripts.scene_elements.unitgrid import UnitGrid
-from scripts.scene_elements.world.view import WorldView
+from scripts.scene_elements.world_view import WorldView
 from scripts.ui_elements.frame import Frame
 from scripts.ui_elements.panel import Panel
 

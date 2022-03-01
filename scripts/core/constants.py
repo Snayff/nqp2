@@ -32,6 +32,7 @@ TEXT_FADE_IN_SPEED = 2
 
 # states
 class GameState(IntEnum):
+    LOADING = auto()
     PLAYING = auto()
     EXITING = auto()
 
@@ -71,6 +72,11 @@ class WorldState(IntEnum):
 class InnState(IntEnum):
     IDLE = auto()
     CHOOSE_UNIT = auto()
+
+
+class EventState(IntEnum):
+    IDLE = auto()
+    CHOOSE_OPTION = auto()
 
 
 class ChooseRoomState(IntEnum):
