@@ -8,8 +8,8 @@ from scripts.core.debug import Timer
 from scripts.scene_elements.controllers.choose_room_controller import ChooseRoomController
 from scripts.scene_elements.controllers.combat_controller import CombatController
 from scripts.scene_elements.controllers.inn_controller import InnController
-from scripts.scene_elements.world_model import WorldModel
 from scripts.scene_elements.controllers.training_controller import TrainingController
+from scripts.scene_elements.world_model import WorldModel
 from scripts.scenes.world.ui import WorldUI
 
 if TYPE_CHECKING:

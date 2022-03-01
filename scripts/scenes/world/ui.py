@@ -625,4 +625,3 @@ class WorldUI(UI):
 
     def _rebuild_event_ui(self):
         pass
-    

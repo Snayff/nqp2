@@ -76,7 +76,6 @@ class Game:
             # update state to allow action
             self.state = GameState.PLAYING
 
-
     def _update(self):
         # update delta time first
         self.window.update()

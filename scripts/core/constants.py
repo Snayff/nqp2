@@ -171,5 +171,3 @@ class InputType(IntEnum):
     NONE = auto()
     KEYS = auto()  # keyboard/gamepad
     MOUSE = auto()
-
-

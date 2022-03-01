@@ -169,14 +169,17 @@ class EventController(Controller):
         elif result_key == "charisma":
             original_value = self._parent_scene.model.charisma
             self._parent_scene.model.amend_charisma(int(result_value))
-            logging.info(f"Charisma changed by {result_value};  {original_value} -> "
-                         f"{self._parent_scene.model.charisma}. ")
+            logging.info(
+                f"Charisma changed by {result_value};  {original_value} -> " f"{self._parent_scene.model.charisma}. "
+            )
 
         elif result_key == "leadership":
             original_value = self._parent_scene.model.leadership
             self._parent_scene.model.amend_leadership(int(result_value))
-            logging.info(f"Leadership changed by {result_value};  {original_value} -> "
-                         f"{self._parent_scene.model.leadership}. ")
+            logging.info(
+                f"Leadership changed by {result_value};  {original_value} -> "
+                f"{self._parent_scene.model.leadership}. "
+            )
 
         elif result_key == "injury":
             try:
@@ -234,7 +237,10 @@ class EventController(Controller):
         Roll to see if an event will be triggered when transitioning between rooms. True for event due.
         """
         # check if we have hit the limit of events
-        if self._parent_scene.model.events_triggered_this_level >= self._game.data.config["world"]["max_events_per_level"]:
+        if (
+            self._parent_scene.model.events_triggered_this_level
+            >= self._game.data.config["world"]["max_events_per_level"]
+        ):
             return False
 
         if self._game.rng.roll() < self._game.data.config["world"]["chance_of_event"]:
@@ -242,5 +248,3 @@ class EventController(Controller):
 
         # safety catch
         return False
-
-
