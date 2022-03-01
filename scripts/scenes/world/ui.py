@@ -104,6 +104,8 @@ class WorldUI(UI):
             self._process_training_input()
         elif state == WorldState.INN:
             self._process_inn_input()
+        elif state == WorldState.EVENT:
+            self._process_event_input()
 
         #################
         # DO NOT DELETE #
@@ -313,6 +315,9 @@ class WorldUI(UI):
         if is_ui_dirty:
             self.rebuild_ui()
 
+    def _process_event_input(self):
+        pass
+
     def rebuild_ui(self):
         super().rebuild_ui()
 
@@ -330,6 +335,8 @@ class WorldUI(UI):
             self._rebuild_training_ui()
         elif state == WorldState.INN:
             self._rebuild_inn_ui()
+        elif state == WorldState.EVENT:
+            self._rebuild_event_ui()
 
     def _rebuild_choose_next_room_ui(self):
         create_font = self._game.visuals.create_font
@@ -615,3 +622,7 @@ class WorldUI(UI):
 
         elif controller.state == InnState.IDLE:
             self.set_instruction_text("Press shift to select Units or X to choose the next room.")
+
+    def _rebuild_event_ui(self):
+        pass
+    
