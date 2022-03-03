@@ -7,6 +7,7 @@
     "gold": 250,
     "rations": 1,
     "morale": 1,
+    "items": ["lurents_signature"],
     "allies": [
         "members_of_the_court"
     ],
