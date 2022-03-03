@@ -1,0 +1,8 @@
+---
+name: Albrom's Signature Item
+is_signature: true
+effects:
+  - name: UnitsAttributeModifier
+    unit_type: ranged
+    attribute: attack
+    mod_amount: 20%

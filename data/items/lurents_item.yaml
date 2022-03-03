@@ -1,0 +1,11 @@
+---
+name: Lurent's Signature Item
+is_signature: true
+effects:
+  - name: UnitsAttributeModifier
+    unit_type: all
+    attribute: health
+    mod_amount: 15%
+  - name: AttributeModifier
+    attribute: morale
+    mod_amount: 50%

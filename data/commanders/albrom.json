@@ -6,6 +6,7 @@
     "leadership": 7,
     "gold": 400,
     "rations": 1,
+    "items": ["albroms_signature"],
     "morale": 1,
     "allies": [
         "hammerites",
