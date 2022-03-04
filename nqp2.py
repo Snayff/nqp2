@@ -6,6 +6,7 @@ import logging
 import pytweening
 import statistics
 import pygame
+import tcod
 from pygame.locals import *
 
 from scripts import __main__
