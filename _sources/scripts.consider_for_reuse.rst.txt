@@ -1,0 +1,37 @@
+scripts.consider\_for\_reuse package
+====================================
+
+Submodules
+----------
+
+scripts.consider\_for\_reuse.ecs\_stuff module
+----------------------------------------------
+
+.. automodule:: scripts.consider_for_reuse.ecs_stuff
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.consider\_for\_reuse.pub\_hub\_sub\_stuff module
+--------------------------------------------------------
+
+.. automodule:: scripts.consider_for_reuse.pub_hub_sub_stuff
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.consider\_for\_reuse.skill\_stuff module
+------------------------------------------------
+
+.. automodule:: scripts.consider_for_reuse.skill_stuff
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: scripts.consider_for_reuse
+   :members:
+   :undoc-members:
+   :show-inheritance:

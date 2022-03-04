@@ -7,6 +7,7 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
+   scripts.consider_for_reuse
    scripts.core
    scripts.scene_elements
    scripts.scenes
