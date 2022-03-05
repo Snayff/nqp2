@@ -1,10 +1,10 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, List
+
+from scripts.scene_elements.item import create_item, Item
 
 if TYPE_CHECKING:
-    from typing import Dict
-
     from scripts.core.game import Game
 
 
@@ -20,4 +20,5 @@ class Commander:
         # N.B. allies not stored here as they are held in the Troupe
 
         data = self._game.data.commanders[type_]
-        self.name = data["name"]
+        self.name: str = data["name"]
+        self.items:List[Item] = [create_item(game.data, name) for name in data["items"]]

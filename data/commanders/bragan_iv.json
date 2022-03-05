@@ -7,7 +7,7 @@
     "gold": 1000,
     "rations": 1,
     "morale": 1,
-    "items": ["bragans_signature"],
+    "items": ["bragans_item"],
     "allies": [
         "imperial_forces"
     ],

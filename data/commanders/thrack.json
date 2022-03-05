@@ -7,7 +7,7 @@
     "gold": 350,
     "rations": 1,
     "morale": 1,
-    "items": ["thracks_signature"],
+    "items": ["thracks_item"],
     "allies": [
         "swarm"
     ],

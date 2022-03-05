@@ -7,7 +7,7 @@
     "gold": 300,
     "rations": 1,
     "morale": 1,
-    "items": ["sildreths_signature"],
+    "items": ["sildreths_item"],
     "allies": [
         "chivalric_order"
     ],

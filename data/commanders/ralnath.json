@@ -7,7 +7,7 @@
     "gold": 200,
     "rations": 1,
     "morale": 1,
-    "items": ["ralnaths_signature"],
+    "items": ["ralnaths_item"],
     "allies": [
         "wasters"
     ],
