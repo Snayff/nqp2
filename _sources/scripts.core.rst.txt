@@ -8,6 +8,7 @@ Subpackages
    :maxdepth: 4
 
    scripts.core.base_classes
+   scripts.core.effects
 
 Submodules
 ----------
@@ -40,6 +41,14 @@ scripts.core.debug module
 -------------------------
 
 .. automodule:: scripts.core.debug
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.core.effect module
+--------------------------
+
+.. automodule:: scripts.core.effect
    :members:
    :undoc-members:
    :show-inheritance:

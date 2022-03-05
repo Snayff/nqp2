@@ -372,50 +372,8 @@
         <div class="md-content">
           <article class="md-content__inner md-typeset" role="main">
             
-  <section id="module-scripts.core.game">
-<span id="game"></span><h1 id="api-core-game--page-root">Game<a class="headerlink" href="#api-core-game--page-root" title="Permalink to this headline">¶</a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="scripts.core.game.Game">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Game</span></span><a class="reference internal" href="../../_modules/scripts/core/game.html#Game"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.game.Game" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="scripts.core.game.Game.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/core/game.html#Game.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.game.Game.__init__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="scripts.core.game.Game.activate_scene">
-<span class="sig-name descname"><span class="pre">activate_scene</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scene_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../scripts.core.html#scripts.core.constants.SceneType" title="scripts.core.constants.SceneType"><span class="pre">scripts.core.constants.SceneType</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/core/game.html#Game.activate_scene"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.game.Game.activate_scene" title="Permalink to this definition">¶</a></dt>
-<dd><p>Activate a scene. If specified scene isnt in the scene stack it is added.</p>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="scripts.core.game.Game.add_scene">
-<span class="sig-name descname"><span class="pre">add_scene</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scene_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../scripts.core.html#scripts.core.constants.SceneType" title="scripts.core.constants.SceneType"><span class="pre">scripts.core.constants.SceneType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">activate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/core/game.html#Game.add_scene"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.game.Game.add_scene" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add a scene to the scene stack</p>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="scripts.core.game.Game.change_scene">
-<span class="sig-name descname"><span class="pre">change_scene</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scene_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../scripts.core.html#scripts.core.constants.SceneType" title="scripts.core.constants.SceneType"><span class="pre">scripts.core.constants.SceneType</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/core/game.html#Game.change_scene"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.game.Game.change_scene" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deactivate all active scenes and activate the given scene.</p>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="scripts.core.game.Game.deactivate_scene">
-<span class="sig-name descname"><span class="pre">deactivate_scene</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scene_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../scripts.core.html#scripts.core.constants.SceneType" title="scripts.core.constants.SceneType"><span class="pre">scripts.core.constants.SceneType</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/core/game.html#Game.deactivate_scene"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.game.Game.deactivate_scene" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deactivate a scene</p>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="scripts.core.game.Game.quit">
-<span class="sig-name descname"><span class="pre">quit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/core/game.html#Game.quit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.game.Game.quit" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="scripts.core.game.Game.remove_scene">
-<span class="sig-name descname"><span class="pre">remove_scene</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scene_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../scripts.core.html#scripts.core.constants.SceneType" title="scripts.core.constants.SceneType"><span class="pre">scripts.core.constants.SceneType</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/core/game.html#Game.remove_scene"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.game.Game.remove_scene" title="Permalink to this definition">¶</a></dt>
-<dd><p>Remove a scene from the scene stack. Also deactivates</p>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="scripts.core.game.Game.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/core/game.html#Game.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.core.game.Game.run" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-</dd></dl>
+  <section id="game">
+<h1 id="api-core-game--page-root">Game<a class="headerlink" href="#api-core-game--page-root" title="Permalink to this headline">¶</a></h1>
 </section>
 
 

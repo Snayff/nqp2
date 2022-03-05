@@ -1,0 +1,37 @@
+scripts.core.effects package
+============================
+
+Submodules
+----------
+
+scripts.core.effects.add\_item module
+-------------------------------------
+
+.. automodule:: scripts.core.effects.add_item
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.core.effects.attribute\_modifier module
+-----------------------------------------------
+
+.. automodule:: scripts.core.effects.attribute_modifier
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.core.effects.sildreths\_signature module
+------------------------------------------------
+
+.. automodule:: scripts.core.effects.sildreths_signature
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: scripts.core.effects
+   :members:
+   :undoc-members:
+   :show-inheritance:

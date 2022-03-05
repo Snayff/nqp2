@@ -62,6 +62,14 @@ scripts.scene\_elements.hitbox module
    :undoc-members:
    :show-inheritance:
 
+scripts.scene\_elements.item module
+-----------------------------------
+
+.. automodule:: scripts.scene_elements.item
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 scripts.scene\_elements.particle module
 ---------------------------------------
 
