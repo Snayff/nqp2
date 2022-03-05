@@ -1,5 +1,5 @@
 import dataclasses
-from typing import List, Dict
+from typing import Dict, List
 
 import snecs
 
@@ -13,6 +13,7 @@ class ItemData:
     Schema for the YAML Item data files
 
     """
+
     name: str
     is_signature: bool
     effects: List[Dict[str, str]]
@@ -23,6 +24,7 @@ class Item(snecs.RegisteredComponent):
     Item component -- WIP
 
     """
+
     def __init__(self, name, is_signature, effects):
         self.name: str = name
         self.is_signature = is_signature
@@ -45,5 +47,5 @@ def create_item(data: Data, name: str):
     return Item(
         name=item_data.name,
         is_signature=item_data.is_signature,
-        effects=[load_effect(data) for data in item_data.effects]
+        effects=[load_effect(data) for data in item_data.effects],
     )

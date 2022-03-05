@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, List
+from typing import List, TYPE_CHECKING
 
 from scripts.scene_elements.item import create_item, Item
 
@@ -21,4 +21,4 @@ class Commander:
 
         data = self._game.data.commanders[type_]
         self.name: str = data["name"]
-        self.items:List[Item] = [create_item(game.data, name) for name in data["items"]]
+        self.items: List[Item] = [create_item(game.data, name) for name in data["items"]]

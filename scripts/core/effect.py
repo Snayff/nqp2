@@ -1,5 +1,5 @@
 import logging
-from typing import Dict, Any
+from typing import Any, Dict
 
 log = logging.getLogger(__name__)
 
@@ -18,9 +18,9 @@ from scripts.core.effects.sildreths_signature import SildrethsSignatureEffect
 
 effect_classes: Dict[str, Any] = dict()
 for klass in (
-        AddItemEffect,
-        AttributeModifierEffect,
-        SildrethsSignatureEffect,
+    AddItemEffect,
+    AttributeModifierEffect,
+    SildrethsSignatureEffect,
 ):
     effect_classes[str(klass.__name__)] = klass
 

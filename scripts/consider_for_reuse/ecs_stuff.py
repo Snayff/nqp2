@@ -1,11 +1,10 @@
 from __future__ import annotations
 
 import logging
-
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing import List, Optional, Tuple, Union, Dict
+    from typing import Dict, List, Optional, Tuple, Union
 
 __all__ = []
 
@@ -25,6 +24,7 @@ class NQPComponent(RegisteredComponent):
     def on_delete(self):
         pass
 
+
 ############
 # component classes
 #############
@@ -43,7 +43,6 @@ class Exists(NQPComponent):
     @classmethod
     def deserialize(cls, serialised):
         return Exists()
-
 
 
 class Position(NQPComponent):
@@ -130,11 +129,11 @@ class Aesthetic(NQPComponent):
     """
 
     def __init__(
-            self,
-            sprites: TraitSpritesData,
-            sprite_paths: List[TraitSpritePathsData],
-            render_layer: RenderLayer,
-            draw_pos: Tuple[float, float],
+        self,
+        sprites: TraitSpritesData,
+        sprite_paths: List[TraitSpritePathsData],
+        render_layer: RenderLayer,
+        draw_pos: Tuple[float, float],
     ):
         self._sprite_paths: List[TraitSpritePathsData] = sprite_paths
         self.sprites: TraitSpritesData = sprites
@@ -234,6 +233,7 @@ class Resources(NQPComponent):
     def deserialize(cls, serialised):
         return Resources(*serialised)
 
+
 class Identity(NQPComponent):
     """
     An entity's identity, such as name and description.
@@ -249,6 +249,7 @@ class Identity(NQPComponent):
     @classmethod
     def deserialize(cls, serialised):
         return cls(*serialised)
+
 
 class Thought(NQPComponent):
     """
@@ -637,10 +638,10 @@ class CombatStats(NQPComponent):
         return max(1, self._get_secondary_stat(SecondaryStat.RUSH))
 
 
-
 ###############################
 # SYSTEMS
 #############################
+
 
 def reduce_skill_cooldowns():
     """
@@ -671,14 +672,15 @@ def reduce_affliction_durations():
                 scripts.engine.core.matter.remove_affliction(entity, affliction)
                 logging.debug(f"Removed {affliction.name} from '{scripts.engine.core.matter.get_name(entity)}'.")
 
+
 def _process_aesthetic_update(time_delta: float):
     """
     Update aesthetics, such as entity animations and draw positions.
     """
     # move entities screen position towards target
     for entity, (
-            _,
-            aesthetic,
+        _,
+        aesthetic,
     ) in query.active_and_aesthetic:
         assert isinstance(aesthetic, Aesthetic)
 
@@ -704,9 +706,6 @@ def _process_aesthetic_update(time_delta: float):
         if time_exceeded:
             aesthetic.set_draw_to_target()
             aesthetic.set_current_sprite(SpriteCategory.IDLE)
-
-
-
 
 
 ##############################

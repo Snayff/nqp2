@@ -188,7 +188,7 @@ class Data:
         return config
 
     @staticmethod
-    def _load_items() -> Dict[str: ItemData]:
+    def _load_items() -> Dict[str:ItemData]:
         from scripts.scene_elements.item import ItemData
 
         items = {}
