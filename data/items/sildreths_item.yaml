@@ -1,0 +1,7 @@
+---
+name: Sildreth's Signature Item
+is_signature: true
+effects:
+  - name: SildrethsSignatureEffect
+    # Unit's gain +X% defence for every other Unit that starts Combat next to them.
+    mod_amount: 2%

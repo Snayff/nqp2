@@ -6,6 +6,8 @@ import os
 import time
 from typing import Any, TYPE_CHECKING
 
+import yaml
+
 from scripts.core.constants import DATA_PATH
 from scripts.scene_elements.behavior_manager import BehaviourManager
 
@@ -13,6 +15,7 @@ if TYPE_CHECKING:
     from typing import Dict, List
 
     from scripts.core.game import Game
+    from scripts.scene_elements.item import ItemData
 
 __all__ = ["Data"]
 
@@ -38,6 +41,7 @@ class Data:
         self.combats: Dict[str, Any] = self._load_combats()
         self.bosses: Dict[str, Any] = self._load_bosses()
         self.skills: Dict[str, Any] = self._load_skills()
+        self.items: Dict[str, ItemData] = self._load_items()
 
         self.config: Dict[str, Any] = self._load_config()
         self.options: Dict[str, Any] = self._load_options()
@@ -182,6 +186,21 @@ class Data:
         logging.debug(f"Data: Options data loaded.")
 
         return config
+
+    @staticmethod
+    def _load_items() -> Dict[str:ItemData]:
+        from scripts.scene_elements.item import ItemData
+
+        items = {}
+        for filename in os.listdir("data/items"):
+            with open(str(DATA_PATH / "items" / filename), "r") as fp:
+                data = yaml.load(fp, Loader=yaml.SafeLoader)
+                item_data = ItemData(**data)
+                items[filename.split(".")[0]] = item_data
+
+        logging.debug(f"Data: All items data loaded.")
+
+        return items
 
     def get_units_by_category(self, factions: List[str], tiers: List[int] = None) -> List[str]:
         """

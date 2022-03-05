@@ -1,11 +1,10 @@
 from __future__ import annotations
 
 import logging
-
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing import List, Optional, Tuple, Union, Dict
+    from typing import Dict, List, Optional, Tuple, Union
 
 __all__ = []
 
@@ -19,12 +18,12 @@ class Effect(ABC):
     """
 
     def __init__(
-            self,
-            origin: EntityID,
-            target: EntityID,
-            success_effects: List[Effect],
-            failure_effects: List[Effect],
-            potency: float = 1.0,
+        self,
+        origin: EntityID,
+        target: EntityID,
+        success_effects: List[Effect],
+        failure_effects: List[Effect],
+        potency: float = 1.0,
     ):
         self.origin = origin
         self.target = target
@@ -39,13 +38,14 @@ class Effect(ABC):
         """
         pass
 
+
 class AftershockEffect(Effect):
     def __init__(
-            self,
-            origin: EntityID,
-            target: EntityID,
-            success_effects: List[Effect],
-            failure_effects: List[Effect],
+        self,
+        origin: EntityID,
+        target: EntityID,
+        success_effects: List[Effect],
+        failure_effects: List[Effect],
     ):
         super().__init__(origin, target, success_effects, failure_effects)
 
@@ -75,20 +75,21 @@ class AftershockEffect(Effect):
 
         return True, self.success_effects
 
+
 class DamageEffect(Effect):
     def __init__(
-            self,
-            origin: EntityID,
-            target: EntityID,
-            success_effects: List[Effect],
-            failure_effects: List[Effect],
-            stat_to_target: PrimaryStatType,
-            accuracy: int,
-            damage: int,
-            damage_type: DamageTypeType,
-            mod_stat: PrimaryStatType,
-            mod_amount: float,
-            potency: float = 1.0,
+        self,
+        origin: EntityID,
+        target: EntityID,
+        success_effects: List[Effect],
+        failure_effects: List[Effect],
+        stat_to_target: PrimaryStatType,
+        accuracy: int,
+        damage: int,
+        damage_type: DamageTypeType,
+        mod_stat: PrimaryStatType,
+        mod_amount: float,
+        potency: float = 1.0,
     ):
 
         super().__init__(origin, target, success_effects, failure_effects, potency)
@@ -170,13 +171,13 @@ class DamageEffect(Effect):
 
 class MoveSelfEffect(Effect):
     def __init__(
-            self,
-            origin: EntityID,
-            target: EntityID,
-            success_effects: List[Effect],
-            failure_effects: List[Effect],
-            direction: DirectionType,
-            move_amount: int,
+        self,
+        origin: EntityID,
+        target: EntityID,
+        success_effects: List[Effect],
+        failure_effects: List[Effect],
+        direction: DirectionType,
+        move_amount: int,
     ):
 
         super().__init__(origin, target, success_effects, failure_effects)
@@ -243,13 +244,13 @@ class MoveSelfEffect(Effect):
 
 class MoveOtherEffect(Effect):
     def __init__(
-            self,
-            origin: EntityID,
-            target: EntityID,
-            success_effects: List[Effect],
-            failure_effects: List[Effect],
-            direction: DirectionType,
-            move_amount: int,
+        self,
+        origin: EntityID,
+        target: EntityID,
+        success_effects: List[Effect],
+        failure_effects: List[Effect],
+        direction: DirectionType,
+        move_amount: int,
     ):
 
         super().__init__(origin, target, success_effects, failure_effects)
@@ -314,14 +315,14 @@ class MoveOtherEffect(Effect):
 
 class AffectStatEffect(Effect):
     def __init__(
-            self,
-            origin: EntityID,
-            target: EntityID,
-            success_effects: List[Effect],
-            failure_effects: List[Effect],
-            cause_name: str,
-            stat_to_target: PrimaryStatType,
-            affect_amount: int,
+        self,
+        origin: EntityID,
+        target: EntityID,
+        success_effects: List[Effect],
+        failure_effects: List[Effect],
+        cause_name: str,
+        stat_to_target: PrimaryStatType,
+        affect_amount: int,
     ):
 
         super().__init__(origin, target, success_effects, failure_effects)
@@ -360,13 +361,13 @@ class AffectStatEffect(Effect):
 
 class ApplyAfflictionEffect(Effect):
     def __init__(
-            self,
-            origin: EntityID,
-            target: EntityID,
-            success_effects: List[Effect],
-            failure_effects: List[Effect],
-            affliction_name: str,
-            duration: int,
+        self,
+        origin: EntityID,
+        target: EntityID,
+        success_effects: List[Effect],
+        failure_effects: List[Effect],
+        affliction_name: str,
+        duration: int,
     ):
         super().__init__(origin, target, success_effects, failure_effects)
 
@@ -418,13 +419,13 @@ class ApplyAfflictionEffect(Effect):
 
 class AffectCooldownEffect(Effect):
     def __init__(
-            self,
-            origin: EntityID,
-            target: EntityID,
-            success_effects: List[Effect],
-            failure_effects: List[Effect],
-            skill_name: str,
-            affect_amount: int,
+        self,
+        origin: EntityID,
+        target: EntityID,
+        success_effects: List[Effect],
+        failure_effects: List[Effect],
+        skill_name: str,
+        affect_amount: int,
     ):
         super().__init__(origin, target, success_effects, failure_effects)
 
@@ -460,16 +461,6 @@ class AffectCooldownEffect(Effect):
         return False, self.failure_effects
 
 
-
-
-
-
-
-
-
-
-
-
 ############################################################
 # AFFLICTIONS
 # These were status effects
@@ -485,12 +476,8 @@ class AffectCooldownEffect(Effect):
         "description": "It weakens mundane defence and makes you a little bit slower.",
         "icon_path": "skills/root.png",
         "name": "bogged down",
-        "identity_tags": [
-            "affect_stat"
-        ],
-        "triggers": [
-            "movement"
-        ]
+        "identity_tags": ["affect_stat"],
+        "triggers": ["movement"],
     },
     "Flaming": {
         "__dataclass__": "AfflictionData",
@@ -498,13 +485,9 @@ class AffectCooldownEffect(Effect):
         "description": "It does damage.",
         "icon_path": "skills/torch.png",
         "name": "flaming",
-        "identity_tags": [
-            "damage"
-        ],
-        "triggers": [
-            "movement"
-        ]
-    }
+        "identity_tags": ["damage"],
+        "triggers": ["movement"],
+    },
 }
 
 ############
@@ -534,6 +517,7 @@ class Action(ABC):
         Build the effects of this skill applying to a single entity. Must be overridden in subclass.
         """
         pass
+
 
 class Affliction(Action):
     """
@@ -602,6 +586,7 @@ class Affliction(Action):
         """
         yield self.affected_entity, self._build_effects(self.affected_entity)
 
+
 ################
 # affliction classes
 ################
@@ -654,8 +639,6 @@ class Flaming(Affliction):
         return [damage_effect]
 
 
-
-
 ############################################################
 # SKILLS
 # These were the active skills
@@ -672,7 +655,7 @@ class Flaming(Affliction):
         "resource_cost": 0,
         "resource_type": "stamina",
         "types": ["all", "self"],
-        "time_cost": 20
+        "time_cost": 20,
     },
     "BasicAttack": {
         "__dataclass__": "SkillData",
@@ -683,7 +666,7 @@ class Flaming(Affliction):
         "resource_cost": 10,
         "resource_type": "stamina",
         "types": ["all", "attack"],
-        "time_cost": 20
+        "time_cost": 20,
     },
     "Lunge": {
         "__dataclass__": "SkillData",
@@ -694,8 +677,8 @@ class Flaming(Affliction):
         "resource_cost": 15,
         "resource_type": "stamina",
         "types": ["all", "attack"],
-        "time_cost": 30
-    }
+        "time_cost": 30,
+    },
 }
 
 ############
@@ -810,7 +793,7 @@ class Skill(Action):
         """
         entity_names = []
         for entity in matter.get_affected_entities(
-                (self.target_tile.x, self.target_tile.y), self.shape, self.shape_size, self.direction
+            (self.target_tile.x, self.target_tile.y), self.shape, self.shape_size, self.direction
         ):
             yield entity, [
                 effect
@@ -888,7 +871,6 @@ class Skill(Action):
         Build the effects of this skill applying to a single entity. Must be overridden in subclass.
         """
         pass
-
 
 
 ###############
