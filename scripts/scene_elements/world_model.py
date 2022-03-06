@@ -206,54 +206,6 @@ class WorldModel:
         self.morale = max(0, self.morale + amount)
         return self.morale
 
-    def get_random_event(self) -> Dict:
-        """
-        Get a random event from those available. This event is then removed from the list of possible events.
-        """
-        possible_events = []
-        possible_events_occur_rates = []
-
-        # priority or non-priority
-        if len(self._priority_events) >= 1:
-            chance_of_priority = 33 * self._turns_since_priority_event
-            if self._game.rng.roll() < chance_of_priority:
-                events = self._priority_events
-                self._turns_since_priority_event = 0  # reset count
-            else:
-                events = self._event_deck
-                self._turns_since_priority_event += 1  # increment count
-        else:
-            events = self._event_deck
-
-        # grab events and occur rate
-        for event in events.values():
-            if self._check_event_conditions(event):
-                possible_events.append(event)
-                occur_rate = self._game.data.get_event_occur_rate(event["type"])
-                possible_events_occur_rates.append(occur_rate)
-
-        # choose an event
-        event_ = self._game.rng.choices(possible_events, possible_events_occur_rates)[0]
-
-        events.pop(event_["type"])
-
-        return event_
-
-    def get_event(self, event_id: str, remove_from_pool: bool):
-        """
-        Get a specific event. remove_from_pool determines whether the event is removed from the list of possible
-        events.
-        """
-        try:
-            if remove_from_pool:
-                event = self._event_deck.pop(event_id)
-            else:
-                event = self._event_deck[event_id]
-
-            return event
-        except KeyError:
-            logging.error(f"Event ID ({event_id}) not found.")
-            raise Exception
 
     def _load_events(self, levels: Optional[List[int]] = None) -> Dict:
         # handle mutable default
@@ -269,56 +221,6 @@ class WorldModel:
                 event_deck[event["type"]] = event
 
         return event_deck
-
-    def _check_event_conditions(self, event: Dict) -> bool:
-        """
-        Return true if all an event's conditions are met.
-        """
-        conditions = event["conditions"]
-        results = []
-
-        for condition in conditions:
-            key, condition_remainder = condition.split(":", 1)
-            if "@" in condition_remainder:
-                value, target = condition_remainder.split("@", 1)
-            else:
-                value = condition_remainder
-                target = None
-            results.append(self._check_event_condition(key, value, target))
-
-        if all(results):
-            outcome = True
-        else:
-            outcome = False
-        return outcome
-
-    def _check_event_condition(self, condition_key: str, condition_value: str, target: str) -> bool:
-        """
-        Check the condition given. Not all conditions use a target and in those cases the target is ignored.
-        """
-        outcome = False
-
-        if condition_key == "flag":
-            if condition_value in self._game.memory.flags:
-                outcome = True
-            else:
-                outcome = False
-
-        else:
-            logging.critical(f"Condition key specified ({condition_key}) is not known and was ignored.")
-
-        return outcome
-
-    def prioritise_event(self, event_type: str):
-        """
-        Move an event from the event_deck to the priority events.
-        """
-        try:
-            event = self._event_deck.pop(event_type)
-            self._priority_events[event_type] = event
-
-        except KeyError:
-            logging.critical(f"Event ({event_type}) specified not found in event_deck and was ignored.")
 
     def generate_level_boss(self):
         """
