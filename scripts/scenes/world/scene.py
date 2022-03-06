@@ -7,6 +7,7 @@ from scripts.core.constants import SceneType
 from scripts.core.debug import Timer
 from scripts.scene_elements.controllers.choose_room_controller import ChooseRoomController
 from scripts.scene_elements.controllers.combat_controller import CombatController
+from scripts.scene_elements.controllers.event_controller import EventController
 from scripts.scene_elements.controllers.inn_controller import InnController
 from scripts.scene_elements.controllers.training_controller import TrainingController
 from scripts.scene_elements.world_model import WorldModel
@@ -40,6 +41,7 @@ class WorldScene(Scene):
             self.training: TrainingController = TrainingController(game, self)
             self.choose_room: ChooseRoomController = ChooseRoomController(game, self)
             self.inn: InnController = InnController(game, self)
+            self.event: EventController = EventController(game, self)
 
     def update(self, delta_time: float):
         # get the modified delta time
@@ -53,6 +55,7 @@ class WorldScene(Scene):
         self.training.update(mod_delta_time)
         self.choose_room.update(mod_delta_time)
         self.inn.update(mod_delta_time)
+        self.event.update(mod_delta_time)
 
         # last, to show updates
         self.ui.update(delta_time)
@@ -67,3 +70,4 @@ class WorldScene(Scene):
         self.training = TrainingController(game, self)
         self.choose_room = ChooseRoomController(game, self)
         self.inn = InnController(game, self)
+        self.event = EventController(game, self)

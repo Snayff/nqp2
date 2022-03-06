@@ -3,13 +3,14 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 import pygame
+from pygame import SRCALPHA
 
 from scripts.core import utility
 from scripts.core.base_classes.ui import UI
 from scripts.core.constants import (
     ChooseRoomState,
     DEFAULT_IMAGE_SIZE,
-    FontType,
+    EventState, FontEffects, FontType,
     GAP_SIZE,
     InnState,
     SceneType,
@@ -624,4 +625,153 @@ class WorldUI(UI):
             self.set_instruction_text("Press shift to select Units or X to choose the next room.")
 
     def _rebuild_event_ui(self):
-        pass
+        create_font = self._game.visuals.create_font
+        icon_width = DEFAULT_IMAGE_SIZE
+        icon_height = DEFAULT_IMAGE_SIZE
+        icon_size = (icon_width, icon_height)
+        window_width = self._game.window.width
+        window_height = self._game.window.height
+        start_x = 100
+        start_y = 100
+        frame_line_width = window_width - (start_x * 2)
+        event = self._parent_scene.event.active_event
+        show_event_result = self._game.data.options["show_event_option_result"]
+        state = self._parent_scene.event.state
+        controller = self._parent_scene.event
+        model = self._parent_scene.model
+        panel_list = []
+
+        # draw background
+        bg_width = window_width - (start_x * 2)
+        bg_height = window_height - (start_y * 2)
+        bg = pygame.Surface((bg_width, bg_height), SRCALPHA)
+        bg.fill((0, 0, 0, 150))
+        frame = Frame((start_x, start_y), image=bg)
+        self._elements[f"background"] = frame
+
+        # draw description
+        current_x = start_x + 2
+        current_y = start_y
+        fancy_font = self._game.assets.create_fancy_font(event["description"], font_effects=[FontEffects.FADE_IN])
+        font_height = fancy_font.line_height
+        max_height = ((window_height // 2) - current_y) - font_height
+        frame = Frame(
+            (current_x, current_y),
+            font=fancy_font,
+            max_height=max_height,
+            max_width=frame_line_width,
+            is_selectable=False,
+        )
+        self._elements["description"] = frame
+
+        # move to half way down screen
+        current_y = window_height // 2
+
+        # draw separator
+        offset = 80
+        line_width = window_width - (offset * 2)
+        surface = pygame.Surface((line_width, 1))
+        pygame.draw.line(surface, (117, 50, 168), (0, 0), (line_width, 0))
+        frame = Frame((offset, current_y), surface)
+        self._elements["separator"] = frame
+
+        is_panel_active = False
+        if state == EventState.CHOOSE_OPTION:
+            is_panel_active = True
+
+            for counter, option in enumerate(event["options"]):
+                # get option text
+                if show_event_result:
+                    option_text = option["text"] + " [" + option["displayed_result"] + "]"
+                else:
+                    option_text = option["text"]
+
+                # build frame
+                frame = Frame(
+                    (current_x, current_y), font=create_font(FontType.DEFAULT, option_text), is_selectable=True
+                )
+                self._elements[f"option_{counter}"] = frame
+                panel_list.append(frame)
+
+                # increment position
+                current_y += frame.height + GAP_SIZE
+
+        # create panel
+        panel = Panel(panel_list, is_panel_active)
+        self.add_panel(panel, "options")
+
+        # show results
+        panel_list = []
+        is_panel_active = False
+        if state == EventState.SHOW_RESULT:
+            is_panel_active = True
+
+            # indent x
+            current_x = window_width // 4
+
+            # draw option chosen
+            selected_option = controller.selected_option
+            frame = Frame(
+                (current_x, current_y), font=create_font(FontType.DEFAULT, selected_option), is_selectable=True
+            )
+            self._elements["selected_option"] = frame
+
+            # increment position
+            current_y += frame.height + (GAP_SIZE * 2)
+
+            # centre results
+            current_x = (window_width // 2) - (DEFAULT_IMAGE_SIZE // 2)
+
+            # draw results
+            results = self._parent_scene.event.triggered_results
+            for counter, result in enumerate(results):
+                key, value, target = self._parent_scene.event.parse_event_string(result)
+
+                # only show results we want the player to be aware of
+                if key in ["unlock_event"]:
+                    continue
+
+                # get image
+                result_image = controller.get_result_image(key, value, target)
+
+                # get font
+                try:
+                    if int(value) > 0:
+                        # more injuries is bad, unlike other resources
+                        if key not in ["injury"]:
+                            font_type = FontType.POSITIVE
+                        else:
+                            font_type = FontType.NEGATIVE
+                    else:
+                        # less injuries is good, unlike other resources
+                        if key in ["injury"]:
+                            font_type = FontType.POSITIVE
+                        else:
+                            font_type = FontType.NEGATIVE
+
+                    # we know its a number, so take as value
+                    text = value
+                except ValueError:
+                    # string could not be converted to int
+                    font_type = FontType.POSITIVE
+
+                    # generic message to handle adding units
+                    text = "recruited."
+
+                # create the frame
+                frame = Frame(
+                    (current_x, current_y), image=result_image, font=create_font(font_type, text), is_selectable=False
+                )
+                self._elements[f"result_{counter}"] = frame
+                panel_list.append(frame)
+
+                # increment position
+                current_y += frame.height + GAP_SIZE
+
+            # only draw exit button once decision made
+            self.add_exit_button()
+
+        # create panel
+        panel = Panel(panel_list, is_panel_active)
+        self.add_panel(panel, "results")
+

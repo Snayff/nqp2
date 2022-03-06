@@ -3,8 +3,12 @@ from __future__ import annotations
 import logging
 from typing import TYPE_CHECKING
 
+import pygame
+
+from scripts.core.base_classes.animation import Animation
 from scripts.core.base_classes.controller import Controller
-from scripts.core.constants import EventState
+from scripts.core.base_classes.image import Image
+from scripts.core.constants import DEFAULT_IMAGE_SIZE, EventState
 from scripts.core.debug import Timer
 from scripts.scene_elements.troupe import Troupe
 from scripts.scene_elements.unit import Unit
@@ -35,6 +39,7 @@ class EventController(Controller):
             self.active_event: Dict = {}
             self.event_resources: Dict = {}  # resources needed for the event
             self.triggered_results: List[str] = []  # the list of result strings from the selected option
+            self.selected_option: str = ""  # the event options chosen
 
     def update(self, delta_time: float):
         pass
@@ -44,6 +49,7 @@ class EventController(Controller):
         self.active_event = {}
         self.event_resources = {}
         self.triggered_results = []
+        self.selected_option = ""
 
     def load_random_event(self):
         self.active_event = self._parent_scene.model.get_random_event()
@@ -248,3 +254,40 @@ class EventController(Controller):
 
         # safety catch
         return False
+
+    def get_result_image(self, result_key: str, result_value: str, result_target: str) -> Union[Image, Animation]:
+        """
+        Get an image for the result key given.
+        """
+        icon_size = (DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE)
+
+        if result_key == "gold":
+            image = self._game.visuals.get_image( "gold", icon_size)
+
+        elif result_key == "rations":
+            image = self._game.visuals.get_image( "rations", icon_size)
+
+        elif result_key == "morale":
+            image = self._game.visuals.get_image( "morale", icon_size)
+
+        elif result_key == "charisma":
+            image = self._game.visuals.get_image( "charisma", icon_size)
+
+        elif result_key == "leadership":
+            image = self._game.visuals.get_image( "leadership", icon_size)
+
+        elif result_key == "injury":
+            image = self._game.visuals.get_image( "injury", icon_size)
+
+        elif result_key == "add_unit_resource":
+            unit = self.event_resources[result_value]
+            image = self._game.visuals.create_animation(unit.type, "icon")
+
+        elif result_key == "add_specific_unit":
+            image = self._game.visuals.create_animation(result_value, "icon")
+
+        else:
+            logging.warning(f"Result key not recognised. Image not found used.")
+            image = self._game.visuals.get_image("not_found", icon_size)
+
+        return image

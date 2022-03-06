@@ -76,12 +76,12 @@ class PostCombatState(IntEnum):
 class InnState(IntEnum):
     IDLE = auto()
     CHOOSE_UNIT = auto()
-    SHOW_RESULT = auto()
 
 
 class EventState(IntEnum):
     IDLE = auto()
     CHOOSE_OPTION = auto()
+    SHOW_RESULT = auto()
 
 
 class ChooseRoomState(IntEnum):
