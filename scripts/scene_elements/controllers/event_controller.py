@@ -246,22 +246,22 @@ class EventController(Controller):
         icon_size = (DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE)
 
         if result_key == "gold":
-            image = self._game.visuals.get_image( "gold", icon_size)
+            image = self._game.visuals.get_image("gold", icon_size)
 
         elif result_key == "rations":
-            image = self._game.visuals.get_image( "rations", icon_size)
+            image = self._game.visuals.get_image("rations", icon_size)
 
         elif result_key == "morale":
-            image = self._game.visuals.get_image( "morale", icon_size)
+            image = self._game.visuals.get_image("morale", icon_size)
 
         elif result_key == "charisma":
-            image = self._game.visuals.get_image( "charisma", icon_size)
+            image = self._game.visuals.get_image("charisma", icon_size)
 
         elif result_key == "leadership":
-            image = self._game.visuals.get_image( "leadership", icon_size)
+            image = self._game.visuals.get_image("leadership", icon_size)
 
         elif result_key == "injury":
-            image = self._game.visuals.get_image( "injury", icon_size)
+            image = self._game.visuals.get_image("injury", icon_size)
 
         elif result_key == "add_unit_resource":
             unit = self.event_resources[result_value]
@@ -275,7 +275,6 @@ class EventController(Controller):
             image = self._game.visuals.get_image("not_found", icon_size)
 
         return image
-
 
     def get_random_event(self) -> Dict:
         """
@@ -375,4 +374,3 @@ class EventController(Controller):
 
         except KeyError:
             logging.critical(f"Event ({event_type}) specified not found in event_deck and was ignored.")
-

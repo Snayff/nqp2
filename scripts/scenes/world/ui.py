@@ -10,7 +10,9 @@ from scripts.core.base_classes.ui import UI
 from scripts.core.constants import (
     ChooseRoomState,
     DEFAULT_IMAGE_SIZE,
-    EventState, FontEffects, FontType,
+    EventState,
+    FontEffects,
+    FontType,
     GAP_SIZE,
     InnState,
     SceneType,
@@ -808,4 +810,3 @@ class WorldUI(UI):
         # create panel
         panel = Panel(panel_list, is_panel_active)
         self.add_panel(panel, "results")
-

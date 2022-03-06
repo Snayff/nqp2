@@ -206,7 +206,6 @@ class WorldModel:
         self.morale = max(0, self.morale + amount)
         return self.morale
 
-
     def _load_events(self, levels: Optional[List[int]] = None) -> Dict:
         # handle mutable default
         if levels is None:
@@ -344,16 +343,12 @@ class WorldModel:
     def previous_state(self) -> WorldState:
         return self._previous_state
 
-
     def roll_for_event(self) -> bool:
         """
         Roll to see if an event will be triggered when transitioning between rooms. True if event due.
         """
         # check if we have hit the limit of events
-        if (
-                self.events_triggered_this_level
-                >= self._game.data.config["world"]["max_events_per_level"]
-        ):
+        if self.events_triggered_this_level >= self._game.data.config["world"]["max_events_per_level"]:
             return False
 
         if self._game.rng.roll() < self._game.data.config["world"]["chance_of_event"]:
