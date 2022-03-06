@@ -7,9 +7,9 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
+   scripts.scene_elements.controllers
    scripts.scene_elements.entity_behaviours
    scripts.scene_elements.unit_behaviours
-   scripts.scene_elements.world
 
 Submodules
 ----------
@@ -154,6 +154,22 @@ scripts.scene\_elements.unitgrid module
 ---------------------------------------
 
 .. automodule:: scripts.scene_elements.unitgrid
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scene\_elements.world\_model module
+-------------------------------------------
+
+.. automodule:: scripts.scene_elements.world_model
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scene\_elements.world\_view module
+------------------------------------------
+
+.. automodule:: scripts.scene_elements.world_view
    :members:
    :undoc-members:
    :show-inheritance:

@@ -1,0 +1,53 @@
+scripts.scene\_elements.controllers package
+===========================================
+
+Submodules
+----------
+
+scripts.scene\_elements.controllers.choose\_room\_controller module
+-------------------------------------------------------------------
+
+.. automodule:: scripts.scene_elements.controllers.choose_room_controller
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scene\_elements.controllers.combat\_controller module
+-------------------------------------------------------------
+
+.. automodule:: scripts.scene_elements.controllers.combat_controller
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scene\_elements.controllers.event\_controller module
+------------------------------------------------------------
+
+.. automodule:: scripts.scene_elements.controllers.event_controller
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scene\_elements.controllers.inn\_controller module
+----------------------------------------------------------
+
+.. automodule:: scripts.scene_elements.controllers.inn_controller
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.scene\_elements.controllers.training\_controller module
+---------------------------------------------------------------
+
+.. automodule:: scripts.scene_elements.controllers.training_controller
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: scripts.scene_elements.controllers
+   :members:
+   :undoc-members:
+   :show-inheritance:

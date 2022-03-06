@@ -287,6 +287,9 @@
 <span class="c1"># sizes</span>
 <span class="n">DEFAULT_IMAGE_SIZE</span> <span class="o">=</span> <span class="mi">16</span>
 <span class="n">GAP_SIZE</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">TILE_SIZE</span> <span class="o">=</span> <span class="mi">16</span>
+<span class="n">BARRIER_SIZE</span> <span class="o">=</span> <span class="mi">10</span>
+
 
 <span class="c1"># algorithm/formula constants</span>
 <span class="n">WEIGHT_SCALE</span> <span class="o">=</span> <span class="mi">5</span>
@@ -300,8 +303,18 @@
 
 <span class="c1"># states</span>
 <div class="viewcode-block" id="GameState"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.constants.GameState">[docs]</a><span class="k">class</span> <span class="nc">GameState</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
+    <span class="n">LOADING</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
     <span class="n">PLAYING</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
     <span class="n">EXITING</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="WorldState"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.constants.WorldState">[docs]</a><span class="k">class</span> <span class="nc">WorldState</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
+    <span class="n">CHOOSE_NEXT_ROOM</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+    <span class="n">MOVING_NEXT_ROOM</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+    <span class="n">COMBAT</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+    <span class="n">TRAINING</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+    <span class="n">INN</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+    <span class="n">EVENT</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="CombatState"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.constants.CombatState">[docs]</a><span class="k">class</span> <span class="nc">CombatState</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
@@ -310,7 +323,9 @@
     <span class="n">UNIT_SELECT_TARGET</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
     <span class="n">ACTION_CHOOSE_CARD</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
     <span class="n">ACTION_SELECT_TARGET_FREE</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
-    <span class="n">WATCH</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span></div>
+    <span class="n">WATCH</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+    <span class="n">DEFEAT</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+    <span class="n">VICTORY</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="TrainingState"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.constants.TrainingState">[docs]</a><span class="k">class</span> <span class="nc">TrainingState</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
@@ -325,30 +340,19 @@
     <span class="n">BOSS_VICTORY</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="WorldState"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.constants.WorldState">[docs]</a><span class="k">class</span> <span class="nc">WorldState</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
-    <span class="n">CHOOSE_NEXT_ROOM</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
-    <span class="n">MOVING_NEXT_ROOM</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
-    <span class="n">COMBAT</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
-    <span class="n">TRAINING</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
-    <span class="n">INN</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
-
-    <span class="n">DEFEAT</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>  <span class="c1"># TODO - move to controller as local state</span>
-    <span class="n">VICTORY</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>  <span class="c1"># TODO - move to controller as local state</span></div>
-
-
 <div class="viewcode-block" id="InnState"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.constants.InnState">[docs]</a><span class="k">class</span> <span class="nc">InnState</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
     <span class="n">IDLE</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
     <span class="n">CHOOSE_UNIT</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span></div>
 
 
+<div class="viewcode-block" id="EventState"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.constants.EventState">[docs]</a><span class="k">class</span> <span class="nc">EventState</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
+    <span class="n">IDLE</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+    <span class="n">SHOW_RESULT</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span></div>
+
+
 <div class="viewcode-block" id="ChooseRoomState"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.constants.ChooseRoomState">[docs]</a><span class="k">class</span> <span class="nc">ChooseRoomState</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
     <span class="n">IDLE</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
     <span class="n">CHOOSE_ROOM</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span></div>
-
-
-<div class="viewcode-block" id="EventState"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.constants.EventState">[docs]</a><span class="k">class</span> <span class="nc">EventState</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
-    <span class="n">MAKE_DECISION</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
-    <span class="n">RESULT</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="AnimationState"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.constants.AnimationState">[docs]</a><span class="k">class</span> <span class="nc">AnimationState</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
@@ -433,10 +437,6 @@
     <span class="n">NONE</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
     <span class="n">KEYS</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>  <span class="c1"># keyboard/gamepad</span>
     <span class="n">MOUSE</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span></div>
-
-
-<span class="n">TILE_SIZE</span> <span class="o">=</span> <span class="mi">16</span>
-<span class="n">BARRIER_SIZE</span> <span class="o">=</span> <span class="mi">10</span>
 </pre></div>
 
           </article>

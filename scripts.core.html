@@ -429,6 +429,10 @@
 <span class="sig-name descname"><span class="pre">ACTION_SELECT_TARGET_FREE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#scripts.core.constants.CombatState.ACTION_SELECT_TARGET_FREE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py attribute">
+<dt class="sig sig-object py" id="scripts.core.constants.CombatState.DEFEAT">
+<span class="sig-name descname"><span class="pre">DEFEAT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">7</span></em><a class="headerlink" href="#scripts.core.constants.CombatState.DEFEAT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py attribute">
 <dt class="sig sig-object py" id="scripts.core.constants.CombatState.IDLE">
 <span class="sig-name descname"><span class="pre">IDLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#scripts.core.constants.CombatState.IDLE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -439,6 +443,10 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="scripts.core.constants.CombatState.UNIT_SELECT_TARGET">
 <span class="sig-name descname"><span class="pre">UNIT_SELECT_TARGET</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#scripts.core.constants.CombatState.UNIT_SELECT_TARGET" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scripts.core.constants.CombatState.VICTORY">
+<span class="sig-name descname"><span class="pre">VICTORY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8</span></em><a class="headerlink" href="#scripts.core.constants.CombatState.VICTORY" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="scripts.core.constants.CombatState.WATCH">
@@ -473,12 +481,12 @@
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.IntEnum" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.IntEnum</span></code></a></p>
 <p>An enumeration.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="scripts.core.constants.EventState.MAKE_DECISION">
-<span class="sig-name descname"><span class="pre">MAKE_DECISION</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#scripts.core.constants.EventState.MAKE_DECISION" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="scripts.core.constants.EventState.IDLE">
+<span class="sig-name descname"><span class="pre">IDLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#scripts.core.constants.EventState.IDLE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="scripts.core.constants.EventState.RESULT">
-<span class="sig-name descname"><span class="pre">RESULT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#scripts.core.constants.EventState.RESULT" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="scripts.core.constants.EventState.SHOW_RESULT">
+<span class="sig-name descname"><span class="pre">SHOW_RESULT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#scripts.core.constants.EventState.SHOW_RESULT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 </dd></dl>
 <dl class="py class">
@@ -532,11 +540,15 @@
 <p>An enumeration.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="scripts.core.constants.GameState.EXITING">
-<span class="sig-name descname"><span class="pre">EXITING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#scripts.core.constants.GameState.EXITING" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">EXITING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#scripts.core.constants.GameState.EXITING" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scripts.core.constants.GameState.LOADING">
+<span class="sig-name descname"><span class="pre">LOADING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#scripts.core.constants.GameState.LOADING" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="scripts.core.constants.GameState.PLAYING">
-<span class="sig-name descname"><span class="pre">PLAYING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#scripts.core.constants.GameState.PLAYING" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">PLAYING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#scripts.core.constants.GameState.PLAYING" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 </dd></dl>
 <dl class="py class">
@@ -795,8 +807,8 @@
 <span class="sig-name descname"><span class="pre">COMBAT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#scripts.core.constants.WorldState.COMBAT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="scripts.core.constants.WorldState.DEFEAT">
-<span class="sig-name descname"><span class="pre">DEFEAT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6</span></em><a class="headerlink" href="#scripts.core.constants.WorldState.DEFEAT" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="scripts.core.constants.WorldState.EVENT">
+<span class="sig-name descname"><span class="pre">EVENT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6</span></em><a class="headerlink" href="#scripts.core.constants.WorldState.EVENT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="scripts.core.constants.WorldState.INN">
@@ -809,10 +821,6 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="scripts.core.constants.WorldState.TRAINING">
 <span class="sig-name descname"><span class="pre">TRAINING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#scripts.core.constants.WorldState.TRAINING" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="scripts.core.constants.WorldState.VICTORY">
-<span class="sig-name descname"><span class="pre">VICTORY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">7</span></em><a class="headerlink" href="#scripts.core.constants.WorldState.VICTORY" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 </dd></dl>
 </section>
