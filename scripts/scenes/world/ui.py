@@ -9,7 +9,8 @@ from scripts.core import utility
 from scripts.core.base_classes.ui import UI
 from scripts.core.constants import (
     ChooseRoomState,
-    CombatState, DEFAULT_IMAGE_SIZE,
+    CombatState,
+    DEFAULT_IMAGE_SIZE,
     EventState,
     FontEffects,
     FontType,
@@ -560,7 +561,6 @@ class WorldUI(UI):
         current_x = start_x
         current_y = start_y
 
-
         if local_state == CombatState.IDLE:
             self.set_instruction_text("Press shift to start combat.")
 
@@ -607,7 +607,6 @@ class WorldUI(UI):
             self.set_instruction_text("Press Enter to return to main menu.")
             self.add_exit_button()
             self.select_panel("exit")
-
 
     def _rebuild_inn_ui(self):
         create_font = self._game.visuals.create_font
@@ -813,8 +812,10 @@ class WorldUI(UI):
 
                 # create the frame
                 frame = Frame(
-                    (current_x, current_y), new_image=result_image, font=create_font(font_type, text),
-                    is_selectable=False
+                    (current_x, current_y),
+                    new_image=result_image,
+                    font=create_font(font_type, text),
+                    is_selectable=False,
                 )
                 self._elements[f"result_{counter}"] = frame
                 panel_list.append(frame)

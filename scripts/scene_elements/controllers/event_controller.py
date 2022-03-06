@@ -130,8 +130,9 @@ class EventController(Controller):
         Example:
             ["Gold:10","Gold:10"] - would add 10 gold twice.
         """
-        logging.info(f"Choose option {self.current_index}, "
-                     f"{self.active_event['options'][self.current_index]['text']}.")
+        logging.info(
+            f"Choose option {self.current_index}, " f"{self.active_event['options'][self.current_index]['text']}."
+        )
         for result in self.active_event["options"][self.current_index]["result"]:
             key, value, target = self.parse_event_string(result)
             self._action_result(key, value, target)

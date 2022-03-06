@@ -187,7 +187,6 @@ class CombatController(Controller):
             troupe.set_force_idle(True)
         self._process_new_injuries()
 
-
     def _process_new_injuries(self):
         """
         Process new injuries and resulting deaths
