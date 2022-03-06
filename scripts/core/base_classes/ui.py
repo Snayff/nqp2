@@ -181,7 +181,10 @@ class UI(ABC):
             self._current_panel = self._panels[name]
             self._current_panel.select_first_element()
 
-    def add_exit_button(self, button_text: str = "Onwards"):
+    def add_exit_button(self, button_text: str = "Onwards") -> Panel:
+        """
+        Add an exit button to the ui. Returns the panel containing the exit button.
+        """
         window_width = self._game.window.width
         window_height = self._game.window.height
         font = self._game.assets.create_font(FontType.DEFAULT, button_text)
@@ -195,6 +198,8 @@ class UI(ABC):
         self._elements["exit"] = frame
         panel = Panel([frame], True)
         self.add_panel(panel, "exit")
+
+        return panel
 
     def select_panel(self, panel_name: str, hide_old_panel: bool = False):
         """

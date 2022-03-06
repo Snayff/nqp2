@@ -48,9 +48,6 @@ class WorldState(IntEnum):
     INN = auto()
     EVENT = auto()
 
-    DEFEAT = auto()  # TODO - move to controller as local state
-    VICTORY = auto()  # TODO - move to controller as local state
-
 
 class CombatState(IntEnum):
     IDLE = auto()
@@ -59,6 +56,8 @@ class CombatState(IntEnum):
     ACTION_CHOOSE_CARD = auto()
     ACTION_SELECT_TARGET_FREE = auto()
     WATCH = auto()
+    DEFEAT = auto()
+    VICTORY = auto()
 
 
 class TrainingState(IntEnum):

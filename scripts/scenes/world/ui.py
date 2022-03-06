@@ -9,7 +9,7 @@ from scripts.core import utility
 from scripts.core.base_classes.ui import UI
 from scripts.core.constants import (
     ChooseRoomState,
-    DEFAULT_IMAGE_SIZE,
+    CombatState, DEFAULT_IMAGE_SIZE,
     EventState,
     FontEffects,
     FontType,
@@ -68,8 +68,8 @@ class WorldUI(UI):
         state = self._parent_scene.model.state
         if state == WorldState.CHOOSE_NEXT_ROOM:
             self._update_choose_room(delta_time)
-        elif state == WorldState.VICTORY:
-            self._update_victory(delta_time)
+        elif state == WorldState.COMBAT:
+            self._update_combat(delta_time)
         elif state == WorldState.TRAINING:
             self._update_training(delta_time)
 
@@ -80,10 +80,14 @@ class WorldUI(UI):
             self.grid = UnitGrid(self._game, pygame.Rect(3, 2, 3, 6))
             self.grid.move_units_to_grid()
 
-    def _update_victory(self, delta_time: float):
-        self._parent_scene.combat.victory_duration += delta_time
-        if self._parent_scene.combat.victory_duration >= 3:
-            self.rebuild_ui()
+    def _update_combat(self, delta_time: float):
+        controller = self._parent_scene.combat
+        local_state = controller.state
+
+        if local_state == CombatState.VICTORY:
+            self._parent_scene.combat.victory_duration += delta_time
+            if self._parent_scene.combat.victory_duration >= 3:
+                self.rebuild_ui()
 
     def _update_training(self, delta_time: float):
         pass
@@ -100,8 +104,6 @@ class WorldUI(UI):
                 if self.grid:
                     self.grid.process_input()
 
-        elif state == WorldState.DEFEAT:
-            self._process_defeat_input()
         elif state == WorldState.COMBAT:
             self._process_combat_input()
         elif state == WorldState.TRAINING:
@@ -190,14 +192,22 @@ class WorldUI(UI):
         if is_ui_dirty:
             self.rebuild_ui()
 
-    def _process_defeat_input(self):
-        if self._game.input.states["select"]:
-            self._game.memory.reset()
-            self._game.change_scene(SceneType.MAIN_MENU)
-
     def _process_combat_input(self):
-        if self._game.input.states["shift"]:
-            self._parent_scene.combat.prepare_combat()
+        controller = self._parent_scene.combat
+        local_state = controller.state
+
+        if local_state == CombatState.IDLE:
+            if self._game.input.states["shift"]:
+                self._parent_scene.combat.prepare_combat()
+
+        elif local_state == CombatState.DEFEAT:
+            if self._game.input.states["select"]:
+                self._game.memory.reset()
+                self._game.change_scene(SceneType.MAIN_MENU)
+
+        elif local_state == CombatState.VICTORY:
+            if self._game.input.states["select"]:
+                self._parent_scene.model.state = WorldState.CHOOSE_NEXT_ROOM
 
     def _process_training_input(self):
         controller = self._parent_scene.training
@@ -368,10 +378,6 @@ class WorldUI(UI):
             self._rebuild_choose_next_room_ui()
         elif state == WorldState.COMBAT:
             self._rebuild_combat_ui()
-        elif state == WorldState.DEFEAT:
-            self._rebuild_defeat_ui()
-        elif state == WorldState.VICTORY:
-            self._rebuild_victory_ui()
         elif state == WorldState.TRAINING:
             self._rebuild_training_ui()
         elif state == WorldState.INN:
@@ -544,52 +550,64 @@ class WorldUI(UI):
         frame = Frame((info_x, highlighted_frame.y), font=create_font(font_type, desc))
         self._elements["info_pane"] = frame
 
-    def _rebuild_defeat_ui(self):
-        create_font = self._game.visuals.create_font
-        icon_width = DEFAULT_IMAGE_SIZE
-        icon_height = DEFAULT_IMAGE_SIZE
-        icon_size = (icon_width, icon_height)
-        start_x, start_y = self._game.window.centre
-
-        # draw upgrades
-        current_x = start_x
-        current_y = start_y
-        defeat_icon = self._game.visuals.get_image("arrow_button", icon_size)
-        frame = Frame(
-            (current_x, current_y),
-            new_image=defeat_icon,
-            font=create_font(FontType.NEGATIVE, "Defeated"),
-            is_selectable=False,
-        )
-        self._elements["defeat_notification"] = frame
-
-        current_y += 100
-
-        frame = Frame(
-            (current_x, current_y),
-            new_image=defeat_icon,
-            font=create_font(FontType.DEFAULT, "Press Enter to return to the main menu."),
-            is_selectable=False,
-        )
-        self._elements["defeat_instruction"] = frame
-
-    def _rebuild_victory_ui(self):
-        create_font = self._game.visuals.create_font
-        start_x, start_y = self._game.window.centre
-
-        # draw upgrades
-        current_x = start_x
-        current_y = start_y
-
-        frame = Frame(
-            (current_x, current_y),
-            font=create_font(FontType.POSITIVE, "Victory"),
-            is_selectable=False,
-        )
-        self._elements["victory_notification"] = frame
-
     def _rebuild_combat_ui(self):
-        self.set_instruction_text("Press shift to start combat.")
+        controller = self._parent_scene.combat
+        local_state = controller.state
+        create_font = self._game.visuals.create_font
+        start_x, start_y = self._game.window.centre
+
+        # draw upgrades
+        current_x = start_x
+        current_y = start_y
+
+
+        if local_state == CombatState.IDLE:
+            self.set_instruction_text("Press shift to start combat.")
+
+        elif local_state == CombatState.VICTORY:
+            frame = Frame(
+                (current_x, current_y),
+                font=create_font(FontType.POSITIVE, "Victory"),
+                is_selectable=False,
+            )
+            self._elements["victory_notification"] = frame
+
+            self.set_instruction_text("Press Enter to continue.")
+            self.add_exit_button()
+            self.select_panel("exit")
+
+        elif local_state == CombatState.DEFEAT:
+
+            icon_width = DEFAULT_IMAGE_SIZE
+            icon_height = DEFAULT_IMAGE_SIZE
+            icon_size = (icon_width, icon_height)
+
+            # draw upgrades
+            current_x = start_x
+            current_y = start_y
+            defeat_icon = self._game.visuals.get_image("arrow_button", icon_size)
+            frame = Frame(
+                (current_x, current_y),
+                new_image=defeat_icon,
+                font=create_font(FontType.NEGATIVE, "Defeated"),
+                is_selectable=False,
+            )
+            self._elements["defeat_notification"] = frame
+
+            current_y += 100
+
+            frame = Frame(
+                (current_x, current_y),
+                new_image=defeat_icon,
+                font=create_font(FontType.DEFAULT, "Press Enter to return to the main menu."),
+                is_selectable=False,
+            )
+            self._elements["defeat_instruction"] = frame
+
+            self.set_instruction_text("Press Enter to return to main menu.")
+            self.add_exit_button()
+            self.select_panel("exit")
+
 
     def _rebuild_inn_ui(self):
         create_font = self._game.visuals.create_font
@@ -806,7 +824,7 @@ class WorldUI(UI):
 
             # only draw exit button once decision made
             self.add_exit_button()
-            self._panels["exit"].set_active(True)
+            self.select_panel("exit")
 
             # create panel
             panel = Panel(panel_list, True)

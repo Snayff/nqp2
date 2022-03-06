@@ -65,7 +65,7 @@ class CombatController(Controller):
             elif len(player_entities) == len(all_entities):
                 self._process_victory()
 
-        if self._parent_scene.model.state == WorldState.VICTORY:
+        if self.state == CombatState.VICTORY:
             self.victory_duration += delta_time
             if self.victory_duration > 3:
                 self._parent_scene.model.remove_troupe(self.enemy_troupe_id)
@@ -169,14 +169,14 @@ class CombatController(Controller):
         Process the defeat, such as removing morale
         """
         self.combat_ending_timer = 0
-        self.state = WorldState.DEFEAT
+        self.state = CombatState.DEFEAT
 
     def _process_victory(self):
         """
         Process victory
         """
         self.combat_ending_timer = 0
-        self.state = WorldState.VICTORY
+        self.state = CombatState.VICTORY
 
     def end_combat(self):
         """
@@ -186,7 +186,7 @@ class CombatController(Controller):
         for troupe in self._parent_scene.model.troupes.values():
             troupe.set_force_idle(True)
         self._process_new_injuries()
-        self._parent_scene.model.state = WorldState.CHOOSE_NEXT_ROOM
+
 
     def _process_new_injuries(self):
         """
