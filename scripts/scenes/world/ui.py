@@ -340,7 +340,7 @@ class WorldUI(UI):
             # select option
             if self._game.input.states["select"]:
                 self._parent_scene.event.trigger_result()
-                self._parent_scene.state = EventState.SHOW_RESULT
+                controller.state = EventState.SHOW_RESULT
                 is_ui_dirty = True
 
         if local_state == EventState.SHOW_RESULT:
@@ -708,6 +708,7 @@ class WorldUI(UI):
         frame = Frame((offset, current_y), surface)
         self._elements["separator"] = frame
 
+        # draw event contents; either options or results
         is_panel_active = False
         if state == EventState.IDLE:
             is_panel_active = True
@@ -743,7 +744,7 @@ class WorldUI(UI):
             current_x = window_width // 4
 
             # draw option chosen
-            selected_option = controller.selected_option
+            selected_option = controller.active_event["options"][controller.current_index]
             frame = Frame(
                 (current_x, current_y), font=create_font(FontType.DEFAULT, selected_option), is_selectable=True
             )
