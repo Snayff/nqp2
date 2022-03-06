@@ -150,6 +150,7 @@ class ChooseRoomController(Controller):
         if event_due:
             self._parent_scene.model.state = WorldState.EVENT
             self._parent_scene.model.next_state = new_room_state
-        logging.debug(f"WorldState updated to {new_room_state.name}.")
+        else:
+            self._parent_scene.model.state = new_room_state
 
         self._parent_scene.ui.rebuild_ui()

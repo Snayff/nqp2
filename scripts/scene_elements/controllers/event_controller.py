@@ -36,7 +36,6 @@ class EventController(Controller):
             self.state: EventState = EventState.IDLE
             self.active_event: Dict = {}
             self.event_resources: Dict = {}  # resources needed for the event
-            self.triggered_results: List[str] = []  # the list of result strings from the selected option
             self.current_index: int = 0  # the event option chosen
 
     def update(self, delta_time: float):
@@ -46,7 +45,6 @@ class EventController(Controller):
         self.state = EventState.IDLE
         self.active_event = {}
         self.event_resources = {}
-        self.triggered_results = []
         self.current_index = 0
 
         self.load_random_event()
@@ -132,7 +130,8 @@ class EventController(Controller):
         Example:
             ["Gold:10","Gold:10"] - would add 10 gold twice.
         """
-        logging.info(f"Choose option {self.current_index}, {self.active_event['options'][self.current_index]}.")
+        logging.info(f"Choose option {self.current_index}, "
+                     f"{self.active_event['options'][self.current_index]['text']}.")
         for result in self.active_event["options"][self.current_index]["result"]:
             key, value, target = self.parse_event_string(result)
             self._action_result(key, value, target)

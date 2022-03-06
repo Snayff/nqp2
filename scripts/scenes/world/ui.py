@@ -352,6 +352,7 @@ class WorldUI(UI):
                 # check there is a next state
                 if self._parent_scene.model.next_state is not None:
                     self._parent_scene.model.go_to_next_state()
+                    is_ui_dirty = True
                 else:
                     raise Exception(f"_process_event_input: Tried to move to next state, but there isnt one.")
 
@@ -383,7 +384,7 @@ class WorldUI(UI):
         icon_width = DEFAULT_IMAGE_SIZE
         icon_height = DEFAULT_IMAGE_SIZE
         icon_size = (icon_width, icon_height)
-        start_x = self._game.window.centre[0]
+        start_x = self._game.window.width - 100
         start_y = 100
         controller = self._parent_scene.choose_room
 
@@ -665,6 +666,7 @@ class WorldUI(UI):
 
     def _rebuild_event_ui(self):
         create_font = self._game.visuals.create_font
+        create_fancy_font = self._game.visuals.create_fancy_font
         window_width = self._game.window.width
         window_height = self._game.window.height
         start_x = 100
@@ -687,7 +689,10 @@ class WorldUI(UI):
         # draw description
         current_x = start_x + 2
         current_y = start_y
-        fancy_font = self._game.assets.create_fancy_font(event["description"], font_effects=[FontEffects.FADE_IN])
+        if controller.state == EventState.IDLE:
+            fancy_font = create_fancy_font(event["description"], font_effects=[FontEffects.FADE_IN])
+        else:
+            fancy_font = create_fancy_font(event["description"])
         font_height = fancy_font.line_height
         max_height = ((window_height // 2) - current_y) - font_height
         frame = Frame(
@@ -711,9 +716,7 @@ class WorldUI(UI):
         self._elements["separator"] = frame
 
         # draw event contents; either options or results
-        is_panel_active = False
         if state == EventState.IDLE:
-            is_panel_active = True
 
             for counter, option in enumerate(event["options"]):
                 # get option text
@@ -732,21 +735,17 @@ class WorldUI(UI):
                 # increment position
                 current_y += frame.height + GAP_SIZE
 
-        # create panel
-        panel = Panel(panel_list, is_panel_active)
-        self.add_panel(panel, "options")
+            # create panel
+            panel = Panel(panel_list, True)
+            self.add_panel(panel, "options")
 
         # show results
-        panel_list = []
-        is_panel_active = False
-        if state == EventState.SHOW_RESULT:
-            is_panel_active = True
-
+        elif state == EventState.SHOW_RESULT:
             # indent x
             current_x = window_width // 4
 
             # draw option chosen
-            selected_option = controller.active_event["options"][controller.current_index]
+            selected_option = controller.active_event["options"][controller.current_index]["text"]
             frame = Frame(
                 (current_x, current_y), font=create_font(FontType.DEFAULT, selected_option), is_selectable=True
             )
@@ -759,7 +758,7 @@ class WorldUI(UI):
             current_x = (window_width // 2) - (DEFAULT_IMAGE_SIZE // 2)
 
             # draw results
-            results = self._parent_scene.event.triggered_results
+            results = controller.active_event["options"][controller.current_index]["result"]
             for counter, result in enumerate(results):
                 key, value, target = self._parent_scene.event.parse_event_string(result)
 
@@ -796,7 +795,8 @@ class WorldUI(UI):
 
                 # create the frame
                 frame = Frame(
-                    (current_x, current_y), image=result_image, font=create_font(font_type, text), is_selectable=False
+                    (current_x, current_y), new_image=result_image, font=create_font(font_type, text),
+                    is_selectable=False
                 )
                 self._elements[f"result_{counter}"] = frame
                 panel_list.append(frame)
@@ -806,7 +806,9 @@ class WorldUI(UI):
 
             # only draw exit button once decision made
             self.add_exit_button()
+            self._panels["exit"].set_active(True)
 
-        # create panel
-        panel = Panel(panel_list, is_panel_active)
-        self.add_panel(panel, "results")
+            # create panel
+            panel = Panel(panel_list, True)
+            panel.set_selectable(False)
+            self.add_panel(panel, "results")
