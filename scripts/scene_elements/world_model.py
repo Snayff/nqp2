@@ -46,7 +46,9 @@ class WorldModel:
             self._game = game
             self._parent_scene = parent_scene
 
+            self._previous_state: WorldState = WorldState.CHOOSE_NEXT_ROOM
             self._state: WorldState = WorldState.CHOOSE_NEXT_ROOM
+            self._next_state: WorldState = WorldState.CHOOSE_NEXT_ROOM
 
             self.projectiles: ProjectileManager = ProjectileManager(self._game)
             self.particles: ParticleManager = ParticleManager()
@@ -405,11 +407,37 @@ class WorldModel:
         """
         Change the current state. Reset the controller for the given state.
         """
+        # update previous state
+        self._previous_state = self._state
+
+        # reset the relevant scene
         if state == WorldState.TRAINING:
             self._parent_scene.training.reset()
         elif state == WorldState.INN:
             self._parent_scene.inn.reset()
         elif state == WorldState.COMBAT:
             self._parent_scene.combat.reset()
+        elif state == WorldState.EVENT:
+            self._parent_scene.event.reset()
 
+        # update the state
         self._state = state
+
+    @property
+    def next_state(self) -> WorldState:
+        return self._next_state
+
+    @next_state.setter
+    def next_state(self, state: WorldState):
+        self._next_state = state
+
+    def go_to_next_state(self):
+        """
+        Transition to the state held in next_state
+        """
+        self.state = self._next_state
+
+    @property
+    def previous_state(self) -> WorldState:
+        return self._previous_state
+
