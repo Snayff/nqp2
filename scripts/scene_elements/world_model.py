@@ -57,6 +57,10 @@ class WorldModel:
             self.next_terrain: Terrain = Terrain(self._game, "plains")
             self.next_terrain.generate()
 
+            # progress
+            self.level: int = 1
+            self.events_triggered_this_level: int = 0
+
             # units
             self.troupes: Dict[int, Troupe] = {}
 
@@ -64,9 +68,9 @@ class WorldModel:
             self.commander: Optional[Commander] = None
 
             # events
-            self._event_deck: Dict = self._load_events([1])  # all available events
-            self._priority_events: Dict = {}  # events to be prioritised
-            self._turns_since_priority_event: int = 0
+            self.event_deck: Dict = self._load_events([self.level])  # all available events
+            self.priority_events: Dict = {}  # events to be prioritised
+            self.turns_since_priority_event: int = 0
 
             # resources
             self.gold: int = 0
@@ -74,10 +78,6 @@ class WorldModel:
             self.charisma: int = 0
             self.leadership: int = 0
             self.morale: int = 0
-
-            # progress
-            self.level: int = 1
-            self.events_triggered_this_level: int = 0
 
             # generated values for later user
             self.level_boss: str = ""
@@ -135,9 +135,9 @@ class WorldModel:
         self.commander = None
 
         # events
-        self._event_deck = self._load_events([1])  # all available events
-        self._priority_events = {}  # events to be prioritised
-        self._turns_since_priority_event = 0
+        self.event_deck = self._load_events([1])  # all available events
+        self.priority_events = {}  # events to be prioritised
+        self.turns_since_priority_event = 0
 
         # resources
         self.gold = 0

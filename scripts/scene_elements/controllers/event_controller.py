@@ -211,7 +211,7 @@ class EventController(Controller):
             # add flag to show unlocked
             self._game.memory.flags.append(result_value + "_unlocked")
 
-            self._parent_scene.model.prioritise_event(result_value)
+            self.prioritise_event(result_value)
 
         elif result_key == "add_unit_resource":
             try:
@@ -285,16 +285,16 @@ class EventController(Controller):
         possible_events_occur_rates = []
 
         # priority or non-priority
-        if len(self._parent_scene.model._priority_events) >= 1:
-            chance_of_priority = 33 * self._parent_scene.model._turns_since_priority_event
+        if len(self._parent_scene.model.priority_events) >= 1:
+            chance_of_priority = 33 * self._parent_scene.model.turns_since_priority_event
             if self._game.rng.roll() < chance_of_priority:
-                events = self._parent_scene.model._priority_events
-                self._parent_scene.model._turns_since_priority_event = 0  # reset count
+                events = self._parent_scene.model.priority_events
+                self._parent_scene.model.turns_since_priority_event = 0  # reset count
             else:
-                events = self._parent_scene.model._event_deck
-                self._parent_scene.model._turns_since_priority_event += 1  # increment count
+                events = self._parent_scene.model.event_deck
+                self._parent_scene.model.turns_since_priority_event += 1  # increment count
         else:
-            events = self._parent_scene.model._event_deck
+            events = self._parent_scene.model.event_deck
 
         # grab events and occur rate
         for event in events.values():
@@ -317,9 +317,9 @@ class EventController(Controller):
         """
         try:
             if remove_from_pool:
-                event = self._parent_scene.model._event_deck.pop(event_id)
+                event = self._parent_scene.model.event_deck.pop(event_id)
             else:
-                event = self._parent_scene.model._event_deck[event_id]
+                event = self._parent_scene.model.event_deck[event_id]
 
             return event
         except KeyError:
@@ -370,8 +370,8 @@ class EventController(Controller):
         Move an event from the event_deck to the priority events.
         """
         try:
-            event = self._parent_scene.model._event_deck.pop(event_type)
-            self._parent_scene.model._priority_events[event_type] = event
+            event = self._parent_scene.model.event_deck.pop(event_type)
+            self._parent_scene.model.priority_events[event_type] = event
 
         except KeyError:
             logging.critical(f"Event ({event_type}) specified not found in event_deck and was ignored.")

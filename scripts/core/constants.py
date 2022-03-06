@@ -80,7 +80,6 @@ class InnState(IntEnum):
 
 class EventState(IntEnum):
     IDLE = auto()
-    CHOOSE_OPTION = auto()
     SHOW_RESULT = auto()
 
 

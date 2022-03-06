@@ -59,10 +59,11 @@ class WorldUI(UI):
         self._draw_elements(surface)
 
     def update(self, delta_time: float):
+        super().update(delta_time)
+
         self._worldview.update(delta_time)
 
         state = self._parent_scene.model.state
-
         if state == WorldState.CHOOSE_NEXT_ROOM:
             self._update_choose_room(delta_time)
         elif state == WorldState.VICTORY:
@@ -322,7 +323,7 @@ class WorldUI(UI):
         current_index = controller.current_index
         is_ui_dirty = False
 
-        if local_state == EventState.CHOOSE_OPTION:
+        if local_state == EventState.IDLE:
             # frame selection
             new_index = current_index
             if self._game.input.states["up"]:
@@ -708,7 +709,7 @@ class WorldUI(UI):
         self._elements["separator"] = frame
 
         is_panel_active = False
-        if state == EventState.CHOOSE_OPTION:
+        if state == EventState.IDLE:
             is_panel_active = True
 
             for counter, option in enumerate(event["options"]):
