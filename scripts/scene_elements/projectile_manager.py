@@ -14,7 +14,6 @@ class ProjectileManager:
         self.projectiles.append(Projectile(self._game, owner, target))
 
     def update(self, dt):
-        self.projectiles.sort(reverse=True)
         for i, projectile in enumerate(self.projectiles):
             alive = projectile.update(dt)
             if not alive:

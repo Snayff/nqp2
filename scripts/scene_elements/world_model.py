@@ -46,7 +46,9 @@ class WorldModel:
             self._game = game
             self._parent_scene = parent_scene
 
+            self._previous_state: WorldState = WorldState.CHOOSE_NEXT_ROOM
             self._state: WorldState = WorldState.CHOOSE_NEXT_ROOM
+            self._next_state: Optional[WorldState] = None
 
             self.projectiles: ProjectileManager = ProjectileManager(self._game)
             self.particles: ParticleManager = ParticleManager()
@@ -55,6 +57,10 @@ class WorldModel:
             self.next_terrain: Terrain = Terrain(self._game, "plains")
             self.next_terrain.generate()
 
+            # progress
+            self.level: int = 1
+            self.events_triggered_this_level: int = 0
+
             # units
             self.troupes: Dict[int, Troupe] = {}
 
@@ -62,9 +68,9 @@ class WorldModel:
             self.commander: Optional[Commander] = None
 
             # events
-            self._event_deck: Dict = self._load_events([1])  # all available events
-            self._priority_events: Dict = {}  # events to be prioritised
-            self._turns_since_priority_event: int = 0
+            self.event_deck: Dict = self._load_events([self.level])  # all available events
+            self.priority_events: Dict = {}  # events to be prioritised
+            self.turns_since_priority_event: int = 0
 
             # resources
             self.gold: int = 0
@@ -72,9 +78,6 @@ class WorldModel:
             self.charisma: int = 0
             self.leadership: int = 0
             self.morale: int = 0
-
-            # progress
-            self.level: int = 1
 
             # generated values for later user
             self.level_boss: str = ""
@@ -132,9 +135,9 @@ class WorldModel:
         self.commander = None
 
         # events
-        self._event_deck = self._load_events([1])  # all available events
-        self._priority_events = {}  # events to be prioritised
-        self._turns_since_priority_event = 0
+        self.event_deck = self._load_events([1])  # all available events
+        self.priority_events = {}  # events to be prioritised
+        self.turns_since_priority_event = 0
 
         # resources
         self.gold = 0
@@ -203,55 +206,6 @@ class WorldModel:
         self.morale = max(0, self.morale + amount)
         return self.morale
 
-    def get_random_event(self) -> Dict:
-        """
-        Get a random event from those available. This event is then removed from the list of possible events.
-        """
-        possible_events = []
-        possible_events_occur_rates = []
-
-        # priority or non-priority
-        if len(self._priority_events) >= 1:
-            chance_of_priority = 33 * self._turns_since_priority_event
-            if self._game.rng.roll() < chance_of_priority:
-                events = self._priority_events
-                self._turns_since_priority_event = 0  # reset count
-            else:
-                events = self._event_deck
-                self._turns_since_priority_event += 1  # increment count
-        else:
-            events = self._event_deck
-
-        # grab events and occur rate
-        for event in events.values():
-            if self._check_event_conditions(event):
-                possible_events.append(event)
-                occur_rate = self._game.data.get_event_occur_rate(event["type"])
-                possible_events_occur_rates.append(occur_rate)
-
-        # choose an event
-        event_ = self._game.rng.choices(possible_events, possible_events_occur_rates)[0]
-
-        events.pop(event_["type"])
-
-        return event_
-
-    def get_event(self, event_id: str, remove_from_pool: bool):
-        """
-        Get a specific event. remove_from_pool determines whether the event is removed from the list of possible
-        events.
-        """
-        try:
-            if remove_from_pool:
-                event = self._event_deck.pop(event_id)
-            else:
-                event = self._event_deck[event_id]
-
-            return event
-        except KeyError:
-            logging.error(f"Event ID ({event_id}) not found.")
-            raise Exception
-
     def _load_events(self, levels: Optional[List[int]] = None) -> Dict:
         # handle mutable default
         if levels is None:
@@ -266,56 +220,6 @@ class WorldModel:
                 event_deck[event["type"]] = event
 
         return event_deck
-
-    def _check_event_conditions(self, event: Dict) -> bool:
-        """
-        Return true if all an event's conditions are met.
-        """
-        conditions = event["conditions"]
-        results = []
-
-        for condition in conditions:
-            key, condition_remainder = condition.split(":", 1)
-            if "@" in condition_remainder:
-                value, target = condition_remainder.split("@", 1)
-            else:
-                value = condition_remainder
-                target = None
-            results.append(self._check_event_condition(key, value, target))
-
-        if all(results):
-            outcome = True
-        else:
-            outcome = False
-        return outcome
-
-    def _check_event_condition(self, condition_key: str, condition_value: str, target: str) -> bool:
-        """
-        Check the condition given. Not all conditions use a target and in those cases the target is ignored.
-        """
-        outcome = False
-
-        if condition_key == "flag":
-            if condition_value in self._game.memory.flags:
-                outcome = True
-            else:
-                outcome = False
-
-        else:
-            logging.critical(f"Condition key specified ({condition_key}) is not known and was ignored.")
-
-        return outcome
-
-    def prioritise_event(self, event_type: str):
-        """
-        Move an event from the event_deck to the priority events.
-        """
-        try:
-            event = self._event_deck.pop(event_type)
-            self._priority_events[event_type] = event
-
-        except KeyError:
-            logging.critical(f"Event ({event_type}) specified not found in event_deck and was ignored.")
 
     def generate_level_boss(self):
         """
@@ -404,11 +308,51 @@ class WorldModel:
         """
         Change the current state. Reset the controller for the given state.
         """
+        # update previous state
+        self._previous_state = self._state
+
+        # reset the relevant scene
         if state == WorldState.TRAINING:
             self._parent_scene.training.reset()
         elif state == WorldState.INN:
             self._parent_scene.inn.reset()
         elif state == WorldState.COMBAT:
             self._parent_scene.combat.reset()
+        elif state == WorldState.EVENT:
+            self._parent_scene.event.reset()
 
+        # update the state
         self._state = state
+
+    @property
+    def next_state(self) -> Optional[WorldState]:
+        return self._next_state
+
+    @next_state.setter
+    def next_state(self, state: WorldState):
+        self._next_state = state
+
+    def go_to_next_state(self):
+        """
+        Transition to the state held in next_state and clear it.
+        """
+        self.state = self._next_state
+        self._next_state = None
+
+    @property
+    def previous_state(self) -> WorldState:
+        return self._previous_state
+
+    def roll_for_event(self) -> bool:
+        """
+        Roll to see if an event will be triggered when transitioning between rooms. True if event due.
+        """
+        # check if we have hit the limit of events
+        if self.events_triggered_this_level >= self._game.data.config["world"]["max_events_per_level"]:
+            return False
+
+        if self._game.rng.roll() < self._game.data.config["world"]["chance_of_event"]:
+            return True
+
+        # safety catch
+        return False
