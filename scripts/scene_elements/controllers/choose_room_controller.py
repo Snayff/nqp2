@@ -88,7 +88,6 @@ class ChooseRoomController(Controller):
             logging.info(f"Moving to new room ({self.selected_room}).")
 
             self._parent_scene.model.state = WorldState.MOVING_NEXT_ROOM
-
             self._parent_scene.model.set_game_speed(5)
 
             # allow camera to pan past terrain boundaries
@@ -134,20 +133,23 @@ class ChooseRoomController(Controller):
 
     def _assign_room_state(self):
         """
-        Assign state to WorldModel based on room selected.
+        Assign state to WorldModel based on room selected and if event is due
         """
         room = self.selected_room
+        event_due = self._parent_scene.model.roll_for_event()
 
         if room == "training":
-            new_state = WorldState.TRAINING
+            new_room_state = WorldState.TRAINING
         elif room == "combat":
-            new_state = WorldState.COMBAT
+            new_room_state = WorldState.COMBAT
         elif room == "inn":
-            new_state = WorldState.INN
+            new_room_state = WorldState.INN
         else:
             raise Exception(f"_assign_room_state: room type ({room}) not handled.")
 
-        self._parent_scene.model.state = new_state
-        logging.debug(f"WorldState updated to {new_state.name}.")
+        if event_due:
+            self._parent_scene.model.state = WorldState.EVENT
+            self._parent_scene.model.next_state = new_room_state
+        logging.debug(f"WorldState updated to {new_room_state.name}.")
 
         self._parent_scene.ui.rebuild_ui()

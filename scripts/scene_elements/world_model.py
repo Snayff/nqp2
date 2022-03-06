@@ -48,7 +48,7 @@ class WorldModel:
 
             self._previous_state: WorldState = WorldState.CHOOSE_NEXT_ROOM
             self._state: WorldState = WorldState.CHOOSE_NEXT_ROOM
-            self._next_state: WorldState = WorldState.CHOOSE_NEXT_ROOM
+            self._next_state: Optional[WorldState] = None
 
             self.projectiles: ProjectileManager = ProjectileManager(self._game)
             self.particles: ParticleManager = ParticleManager()
@@ -424,7 +424,7 @@ class WorldModel:
         self._state = state
 
     @property
-    def next_state(self) -> WorldState:
+    def next_state(self) -> Optional[WorldState]:
         return self._next_state
 
     @next_state.setter
@@ -433,11 +433,29 @@ class WorldModel:
 
     def go_to_next_state(self):
         """
-        Transition to the state held in next_state
+        Transition to the state held in next_state and clear it.
         """
         self.state = self._next_state
+        self._next_state = None
 
     @property
     def previous_state(self) -> WorldState:
         return self._previous_state
 
+
+    def roll_for_event(self) -> bool:
+        """
+        Roll to see if an event will be triggered when transitioning between rooms. True if event due.
+        """
+        # check if we have hit the limit of events
+        if (
+                self.events_triggered_this_level
+                >= self._game.data.config["world"]["max_events_per_level"]
+        ):
+            return False
+
+        if self._game.rng.roll() < self._game.data.config["world"]["chance_of_event"]:
+            return True
+
+        # safety catch
+        return False

@@ -3,8 +3,6 @@ from __future__ import annotations
 import logging
 from typing import TYPE_CHECKING
 
-import pygame
-
 from scripts.core.base_classes.animation import Animation
 from scripts.core.base_classes.controller import Controller
 from scripts.core.base_classes.image import Image
@@ -39,7 +37,7 @@ class EventController(Controller):
             self.active_event: Dict = {}
             self.event_resources: Dict = {}  # resources needed for the event
             self.triggered_results: List[str] = []  # the list of result strings from the selected option
-            self.selected_option: str = ""  # the event options chosen
+            self.current_index: int = 0  # the event option chosen
 
     def update(self, delta_time: float):
         pass
@@ -49,7 +47,7 @@ class EventController(Controller):
         self.active_event = {}
         self.event_resources = {}
         self.triggered_results = []
-        self.selected_option = ""
+        self.current_index = 0
 
     def load_random_event(self):
         self.active_event = self._parent_scene.model.get_random_event()
@@ -123,16 +121,17 @@ class EventController(Controller):
 
         return resource
 
-    def _trigger_result(self):
+    def trigger_result(self):
         """
-        Trigger the result for the previously selected option.
+        Trigger the result for the option at the select current_index.
 
         Results are a list of key value target strings. "result_action : result_value @ target"
 
         Example:
             ["Gold:10","Gold:10"] - would add 10 gold twice.
         """
-        for result in self.triggered_results:
+        logging.info(f"Choose option {self.current_index}, {self.active_event['options'][self.current_index]}.")
+        for result in self.active_event["options"][self.current_index]["result"]:
             key, value, target = self.parse_event_string(result)
             self._action_result(key, value, target)
 
@@ -237,23 +236,6 @@ class EventController(Controller):
 
         else:
             logging.warning(f"Result key specified ({result_key}) is not known and was ignored.")
-
-    def roll_for_event(self) -> bool:
-        """
-        Roll to see if an event will be triggered when transitioning between rooms. True for event due.
-        """
-        # check if we have hit the limit of events
-        if (
-            self._parent_scene.model.events_triggered_this_level
-            >= self._game.data.config["world"]["max_events_per_level"]
-        ):
-            return False
-
-        if self._game.rng.roll() < self._game.data.config["world"]["chance_of_event"]:
-            return True
-
-        # safety catch
-        return False
 
     def get_result_image(self, result_key: str, result_value: str, result_target: str) -> Union[Image, Animation]:
         """

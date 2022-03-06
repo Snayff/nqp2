@@ -317,7 +317,43 @@ class WorldUI(UI):
             self.rebuild_ui()
 
     def _process_event_input(self):
-        pass
+        controller = self._parent_scene.event
+        local_state = controller.state
+        current_index = controller.current_index
+        is_ui_dirty = False
+
+        if local_state == EventState.CHOOSE_OPTION:
+            # frame selection
+            new_index = current_index
+            if self._game.input.states["up"]:
+                self._current_panel.select_previous_element()
+                new_index = utility.previous_number_in_loop(current_index, len(controller.active_event["options"]))
+
+            if self._game.input.states["down"]:
+                self._current_panel.select_next_element()
+                new_index = utility.next_number_in_loop(current_index, len(controller.active_event["options"]))
+
+            # set new index to track selection
+            controller.current_index = new_index
+
+            # select option
+            if self._game.input.states["select"]:
+                self._parent_scene.event.trigger_result()
+                self._parent_scene.state = EventState.SHOW_RESULT
+                is_ui_dirty = True
+
+        if local_state == EventState.SHOW_RESULT:
+
+            # complete move to next room
+            if self._game.input.states["select"]:
+                # check there is a next state
+                if self._parent_scene.model.next_state is not None:
+                    self._parent_scene.model.go_to_next_state()
+                else:
+                    raise Exception(f"_process_event_input: Tried to move to next state, but there isnt one.")
+
+        if is_ui_dirty:
+            self.rebuild_ui()
 
     def rebuild_ui(self):
         super().rebuild_ui()
@@ -626,9 +662,6 @@ class WorldUI(UI):
 
     def _rebuild_event_ui(self):
         create_font = self._game.visuals.create_font
-        icon_width = DEFAULT_IMAGE_SIZE
-        icon_height = DEFAULT_IMAGE_SIZE
-        icon_size = (icon_width, icon_height)
         window_width = self._game.window.width
         window_height = self._game.window.height
         start_x = 100
@@ -638,7 +671,6 @@ class WorldUI(UI):
         show_event_result = self._game.data.options["show_event_option_result"]
         state = self._parent_scene.event.state
         controller = self._parent_scene.event
-        model = self._parent_scene.model
         panel_list = []
 
         # draw background
