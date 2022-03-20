@@ -34,7 +34,7 @@ class Visuals:
 
         self._game: Game = game
 
-        self._image_folders: List[str] = ["stats", "ui", "buttons", "rooms", "upgrades"]
+        self._image_folders: List[str] = ["stats", "ui", "rooms", "upgrades"]
         self._animation_folders: List[str] = ["bosses", "commanders", "units"]
 
         self._images: Dict[str, pygame.Surface] = self._load_images()  # image_name: surface

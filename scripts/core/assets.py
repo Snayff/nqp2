@@ -57,9 +57,7 @@ class Assets:
             for unit in os.listdir(ASSET_PATH / "units/")
         }
 
-        self.trap_animations = {
-            trap: self.load_image_dir(ASSET_PATH / "traps/" / trap) for trap in os.listdir(ASSET_PATH / "traps/")
-        }
+        self.trap_animations = {}
 
         self.commander_animations = {
             commander: {
@@ -249,7 +247,7 @@ class Assets:
         images = {}
 
         # specify folders in assets that need to be loaded
-        folders = ["rooms", "stats", "ui", "buttons"]
+        folders = ["rooms", "stats", "ui"]
 
         for folder in folders:
             path = ASSET_PATH / folder
