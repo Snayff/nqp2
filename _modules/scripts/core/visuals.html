@@ -302,8 +302,20 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">:</span> <span class="n">Game</span> <span class="o">=</span> <span class="n">game</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_image_folders</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"stats"</span><span class="p">,</span> <span class="s2">"ui"</span><span class="p">,</span> <span class="s2">"buttons"</span><span class="p">,</span> <span class="s2">"rooms"</span><span class="p">,</span> <span class="s2">"upgrades"</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_animation_folders</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"bosses"</span><span class="p">,</span> <span class="s2">"commanders"</span><span class="p">,</span> <span class="s2">"units"</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_image_folders</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">"actions"</span><span class="p">,</span>
+            <span class="s2">"event_images"</span><span class="p">,</span>
+            <span class="s2">"factions"</span><span class="p">,</span>
+            <span class="s2">"items"</span><span class="p">,</span>
+            <span class="s2">"projectiles"</span><span class="p">,</span>
+            <span class="s2">"rooms"</span><span class="p">,</span>
+            <span class="s2">"stats"</span><span class="p">,</span>
+            <span class="s2">"tiles"</span><span class="p">,</span>
+            <span class="s2">"ui"</span><span class="p">,</span>
+            <span class="s2">"upgrades"</span><span class="p">,</span>
+            <span class="s2">"world"</span><span class="p">,</span>
+        <span class="p">]</span>  <span class="c1"># don't add debug folder</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_animation_folders</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"bosses"</span><span class="p">,</span> <span class="s2">"commanders"</span><span class="p">,</span> <span class="s2">"effects"</span><span class="p">,</span> <span class="s2">"units"</span><span class="p">,</span> <span class="s2">"world_animations"</span><span class="p">]</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_images</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_images</span><span class="p">()</span>  <span class="c1"># image_name: surface</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_animation_frames</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Image</span><span class="p">]]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_animation_frames</span><span class="p">()</span>

@@ -7,7 +7,6 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
-   scripts.scenes.event
    scripts.scenes.gallery
    scripts.scenes.main_menu
    scripts.scenes.post_combat

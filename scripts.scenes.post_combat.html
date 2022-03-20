@@ -257,9 +257,9 @@
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#submodules" class="md-nav__link">Submodules</a>
         </li>
-        <li class="md-nav__item"><a href="#scripts-scenes-post-combat-scene-module" class="md-nav__link">scripts.scenes.post_combat.scene module</a>
+        <li class="md-nav__item"><a href="#module-scripts.scenes.post_combat.scene" class="md-nav__link">scripts.scenes.post_combat.scene module</a>
         </li>
-        <li class="md-nav__item"><a href="#scripts-scenes-post-combat-ui-module" class="md-nav__link">scripts.scenes.post_combat.ui module</a>
+        <li class="md-nav__item"><a href="#module-scripts.scenes.post_combat.ui" class="md-nav__link">scripts.scenes.post_combat.ui module</a>
         </li>
         <li class="md-nav__item"><a href="#module-scripts.scenes.post_combat" class="md-nav__link">Module contents</a>
         </li></ul>
@@ -284,11 +284,78 @@
 <section id="submodules">
 <h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </section>
-<section id="scripts-scenes-post-combat-scene-module">
-<h2 id="scripts-scenes-post-combat-scene-module">scripts.scenes.post_combat.scene module<a class="headerlink" href="#scripts-scenes-post-combat-scene-module" title="Permalink to this headline">¶</a></h2>
+<section id="module-scripts.scenes.post_combat.scene">
+<span id="scripts-scenes-post-combat-scene-module"></span><h2 id="module-scripts.scenes.post_combat.scene">scripts.scenes.post_combat.scene module<a class="headerlink" href="#module-scripts.scenes.post_combat.scene" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="scripts.scenes.post_combat.scene.PostCombatScene">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PostCombatScene</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scripts.core.html#scripts.core.game.Game" title="scripts.core.game.Game"><span class="pre">Game</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scenes/post_combat/scene.html#PostCombatScene"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scenes.post_combat.scene.PostCombatScene" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="scripts.core.base_classes.html#scripts.core.base_classes.scene.Scene" title="scripts.core.base_classes.scene.Scene"><code class="xref py py-class docutils literal notranslate"><span class="pre">scripts.core.base_classes.scene.Scene</span></code></a></p>
+<p>Handles RewardScene interactions and consolidates the rendering. RewardScene is used to provide a choice of
+rewards for the player to pick from.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scenes.post_combat.scene.PostCombatScene.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scripts.core.html#scripts.core.game.Game" title="scripts.core.game.Game"><span class="pre">Game</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scenes/post_combat/scene.html#PostCombatScene.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scenes.post_combat.scene.PostCombatScene.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scenes.post_combat.scene.PostCombatScene.choose_reward">
+<span class="sig-name descname"><span class="pre">choose_reward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reward</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scenes/post_combat/scene.html#PostCombatScene.choose_reward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scenes.post_combat.scene.PostCombatScene.choose_reward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add the current reward and the reward gold.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scenes.post_combat.scene.PostCombatScene.generate_reward">
+<span class="sig-name descname"><span class="pre">generate_reward</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scenes/post_combat/scene.html#PostCombatScene.generate_reward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scenes.post_combat.scene.PostCombatScene.generate_reward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate reward to offer. Overwrites existing rewards.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scenes.post_combat.scene.PostCombatScene.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scenes/post_combat/scene.html#PostCombatScene.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scenes.post_combat.scene.PostCombatScene.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scenes.post_combat.scene.PostCombatScene.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scenes/post_combat/scene.html#PostCombatScene.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scenes.post_combat.scene.PostCombatScene.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
 </section>
-<section id="scripts-scenes-post-combat-ui-module">
-<h2 id="scripts-scenes-post-combat-ui-module">scripts.scenes.post_combat.ui module<a class="headerlink" href="#scripts-scenes-post-combat-ui-module" title="Permalink to this headline">¶</a></h2>
+<section id="module-scripts.scenes.post_combat.ui">
+<span id="scripts-scenes-post-combat-ui-module"></span><h2 id="module-scripts.scenes.post_combat.ui">scripts.scenes.post_combat.ui module<a class="headerlink" href="#module-scripts.scenes.post_combat.ui" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="scripts.scenes.post_combat.ui.PostCombatUI">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PostCombatUI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scripts.core.html#scripts.core.game.Game" title="scripts.core.game.Game"><span class="pre">Game</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_scene</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scripts.scenes.post_combat.scene.PostCombatScene" title="scripts.scenes.post_combat.scene.PostCombatScene"><span class="pre">PostCombatScene</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scenes/post_combat/ui.html#PostCombatUI"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scenes.post_combat.ui.PostCombatUI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="scripts.core.base_classes.html#scripts.core.base_classes.ui.UI" title="scripts.core.base_classes.ui.UI"><code class="xref py py-class docutils literal notranslate"><span class="pre">scripts.core.base_classes.ui.UI</span></code></a></p>
+<p>Represent the UI of the RewardScene.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scenes.post_combat.ui.PostCombatUI.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scripts.core.html#scripts.core.game.Game" title="scripts.core.game.Game"><span class="pre">Game</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_scene</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scripts.scenes.post_combat.scene.PostCombatScene" title="scripts.scenes.post_combat.scene.PostCombatScene"><span class="pre">PostCombatScene</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scenes/post_combat/ui.html#PostCombatUI.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scenes.post_combat.ui.PostCombatUI.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scenes.post_combat.ui.PostCombatUI.draw">
+<span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">surface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://www.pygame.org/docs/ref/surface.html#pygame.Surface" title="(in pygame v2.1.1)"><span class="pre">pygame.Surface</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scenes/post_combat/ui.html#PostCombatUI.draw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scenes.post_combat.ui.PostCombatUI.draw" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scenes.post_combat.ui.PostCombatUI.handle_boss_victory_input">
+<span class="sig-name descname"><span class="pre">handle_boss_victory_input</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scenes/post_combat/ui.html#PostCombatUI.handle_boss_victory_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scenes.post_combat.ui.PostCombatUI.handle_boss_victory_input" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scenes.post_combat.ui.PostCombatUI.handle_defeat_input">
+<span class="sig-name descname"><span class="pre">handle_defeat_input</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scenes/post_combat/ui.html#PostCombatUI.handle_defeat_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scenes.post_combat.ui.PostCombatUI.handle_defeat_input" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scenes.post_combat.ui.PostCombatUI.handle_victory_input">
+<span class="sig-name descname"><span class="pre">handle_victory_input</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scenes/post_combat/ui.html#PostCombatUI.handle_victory_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scenes.post_combat.ui.PostCombatUI.handle_victory_input" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scenes.post_combat.ui.PostCombatUI.process_input">
+<span class="sig-name descname"><span class="pre">process_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scenes/post_combat/ui.html#PostCombatUI.process_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scenes.post_combat.ui.PostCombatUI.process_input" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scenes.post_combat.ui.PostCombatUI.rebuild_ui">
+<span class="sig-name descname"><span class="pre">rebuild_ui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scenes/post_combat/ui.html#PostCombatUI.rebuild_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scenes.post_combat.ui.PostCombatUI.rebuild_ui" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scenes.post_combat.ui.PostCombatUI.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/scenes/post_combat/ui.html#PostCombatUI.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scenes.post_combat.ui.PostCombatUI.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
 </section>
 <section id="module-scripts.scenes.post_combat">
 <span id="module-contents"></span><h2 id="module-scripts.scenes.post_combat">Module contents<a class="headerlink" href="#module-scripts.scenes.post_combat" title="Permalink to this headline">¶</a></h2>

@@ -337,8 +337,59 @@
         <div class="md-content">
           <article class="md-content__inner md-typeset" role="main">
             
-  <section id="world">
-<h1 id="api-scenes-world--page-root">World<a class="headerlink" href="#api-scenes-world--page-root" title="Permalink to this headline">¶</a></h1>
+  <section id="module-scripts.scenes.world.scene">
+<span id="world"></span><h1 id="api-scenes-world--page-root">World<a class="headerlink" href="#api-scenes-world--page-root" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="scripts.scenes.world.scene.WorldScene">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">WorldScene</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../scripts.core.html#scripts.core.game.Game" title="scripts.core.game.Game"><span class="pre">Game</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scenes/world/scene.html#WorldScene"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scenes.world.scene.WorldScene" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../scripts.core.base_classes.html#scripts.core.base_classes.scene.Scene" title="scripts.core.base_classes.scene.Scene"><code class="xref py py-class docutils literal notranslate"><span class="pre">scripts.core.base_classes.scene.Scene</span></code></a></p>
+<p>The WorldScene works differently to other Scenes and is composed of a Model, UI and Controller. There are several
+different controllers, 1 per “room”.</p>
+<ul class="simple">
+<li><p>Model is data</p></li>
+<li><p>Controller is logic</p></li>
+<li><p>UI is player input to logic and display</p></li>
+<li><p>This Scene is the container for the above.</p></li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scenes.world.scene.WorldScene.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../scripts.core.html#scripts.core.game.Game" title="scripts.core.game.Game"><span class="pre">Game</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scenes/world/scene.html#WorldScene.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scenes.world.scene.WorldScene.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scenes.world.scene.WorldScene.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scenes/world/scene.html#WorldScene.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scenes.world.scene.WorldScene.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scenes.world.scene.WorldScene.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scenes/world/scene.html#WorldScene.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scenes.world.scene.WorldScene.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
+<span class="target" id="module-scripts.scenes.world.ui"></span><dl class="py class">
+<dt class="sig sig-object py" id="scripts.scenes.world.ui.WorldUI">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">WorldUI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../scripts.core.html#scripts.core.game.Game" title="scripts.core.game.Game"><span class="pre">Game</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_scene</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../scripts.scenes.world.html#scripts.scenes.world.scene.WorldScene" title="scripts.scenes.world.scene.WorldScene"><span class="pre">WorldScene</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scenes/world/ui.html#WorldUI"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scenes.world.ui.WorldUI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../scripts.core.base_classes.html#scripts.core.base_classes.ui.UI" title="scripts.core.base_classes.ui.UI"><code class="xref py py-class docutils literal notranslate"><span class="pre">scripts.core.base_classes.ui.UI</span></code></a></p>
+<p>Receive and handle player input, passing off to the controller as required.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scenes.world.ui.WorldUI.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../scripts.core.html#scripts.core.game.Game" title="scripts.core.game.Game"><span class="pre">Game</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_scene</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../scripts.scenes.world.html#scripts.scenes.world.scene.WorldScene" title="scripts.scenes.world.scene.WorldScene"><span class="pre">WorldScene</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scenes/world/ui.html#WorldUI.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scenes.world.ui.WorldUI.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scenes.world.ui.WorldUI.draw">
+<span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">surface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://www.pygame.org/docs/ref/surface.html#pygame.Surface" title="(in pygame v2.1.1)"><span class="pre">pygame.Surface</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scenes/world/ui.html#WorldUI.draw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scenes.world.ui.WorldUI.draw" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scenes.world.ui.WorldUI.process_input">
+<span class="sig-name descname"><span class="pre">process_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scenes/world/ui.html#WorldUI.process_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scenes.world.ui.WorldUI.process_input" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scenes.world.ui.WorldUI.rebuild_ui">
+<span class="sig-name descname"><span class="pre">rebuild_ui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scenes/world/ui.html#WorldUI.rebuild_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scenes.world.ui.WorldUI.rebuild_ui" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scripts.scenes.world.ui.WorldUI.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/scripts/scenes/world/ui.html#WorldUI.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.scenes.world.ui.WorldUI.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
 </section>
 
 
