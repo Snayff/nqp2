@@ -9,6 +9,8 @@ python = "^3.8"
 pygame = "^2.0.1"
 PyTweening = "^1.0.3"
 tcod = "^13.2.0"
+PyYAML = "^6.0"
+snecs = "^1.2.2"
 
 
 [tool.poetry.dev-dependencies]
