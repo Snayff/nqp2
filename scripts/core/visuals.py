@@ -35,7 +35,7 @@ class Visuals:
         self._game: Game = game
 
         self._image_folders: List[str] = ["actions", "event_images", "factions", "items", "projectiles",
-            "rooms", "stats", "tiles", "ui", "upgrade", "world"]  # don't add debug folder
+            "rooms", "stats", "tiles", "ui", "upgrades", "world"]  # don't add debug folder
         self._animation_folders: List[str] = ["bosses", "commanders", "effects", "units", "world_animations"]
 
         self._images: Dict[str, pygame.Surface] = self._load_images()  # image_name: surface
