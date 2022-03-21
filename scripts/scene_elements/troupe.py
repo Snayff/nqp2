@@ -68,7 +68,7 @@ class Troupe:
         self._units[unit.id] = unit
         self._unit_ids.append(unit.id)
 
-        self._game.world.ui.grid.move_to_empty_cell(unit) #Assigns the new unit to an empty cell
+        self._game.world.ui.grid.move_to_empty_cell(unit)  # Assigns the new unit to an empty cell
 
         logging.debug(f"Unit {unit.type}({unit.id}) added to {self.team}'s troupe.")
 
