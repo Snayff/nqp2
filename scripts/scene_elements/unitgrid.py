@@ -105,6 +105,16 @@ class UnitGrid:
         # # TODO: fix the following calculation, unit.size is NOT the size of the unit so this is wrong
         unit.set_position([cell_center_x + unit.size // 2, cell_center_y + unit.size // 2])
 
+    def move_unit_to_cell2(self, unit: Unit, cell: GridCell):
+        """
+        Instantly move unit to cell
+
+        """
+        cell_center_x, cell_center_y = cell.rect.x + self.cell_size // 2, cell.rect.y + self.cell_size // 2
+        cell.unit = unit
+        # # TODO: fix the following calculation, unit.size is NOT the size of the unit so this is wrong
+        unit.set_position([cell_center_x + unit.size // 2, cell_center_y + unit.size // 2])
+
     def _walk_cell_to_cell(self, unit: Unit, dest: GridCell):
         """
         Move unit to cell by setting the entities on a path

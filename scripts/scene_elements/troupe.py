@@ -68,6 +68,11 @@ class Troupe:
         self._units[unit.id] = unit
         self._unit_ids.append(unit.id)
 
+        cells = self._game.world.ui.grid.cells
+        for cell in cells:
+            if cell.unit is None:
+                self._game.world.ui.grid.move_unit_to_cell2(Unit, cell)
+
         logging.debug(f"Unit {unit.type}({unit.id}) added to {self.team}'s troupe.")
 
     def _add_unit_from_type(self, unit_type: str) -> int:
