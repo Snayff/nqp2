@@ -152,6 +152,20 @@ class UnitGrid:
                 self._move_unit_to_cell(unit, cell)
             self.are_units_aligned_to_grid = True
 
+    def move_to_empty_cell(self, unit: Unit):
+        for cell in self._game.world.ui.grid.cells:
+            if cell.unit is None:
+                cell.unit = unit
+                unit.forced_behaviour = True
+                target_px = cell.rect.center
+                leader = unit.entities[0]
+                leader.behaviour.current_path = [target_px]
+                leader.behaviour.state = "path_fast"
+                for entity in unit.entities[1:]:
+                    entity.behaviour.current_path = [target_px]
+                    entity.behaviour.state = "path_fast"
+                break
+
     def process_input(self):
         """
         Logic for gampad/mouse input to move units in grid
