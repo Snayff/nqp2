@@ -172,6 +172,7 @@ json Explained
         "resources": [  # list of str, used to preload resources used within the event.
             "existing_unit:random1",  # str, resource key : resource instance identifier.
             ],
+        "image": "image_name",  # str, must match name of an image, preferably in /event_images.
         "options": [  # list of dicts, used to offer options to the player.
             {
                 "text": "this is the first choice",  # str, the flavour text shown to the player.
@@ -316,6 +317,7 @@ json Example
             "existing_unit:random1",
             "existing_unit:random2"
             ],
+        "image": "axe",
         "options": [
             {
                 "text": "this is the first choice",

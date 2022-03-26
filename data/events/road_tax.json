@@ -8,6 +8,7 @@
     "resources": [
         "existing_unit:random1"
         ],
+    "image": "money",
     "options": [
         {
             "text": "Pay the road tax and be on your way",

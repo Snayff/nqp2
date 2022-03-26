@@ -29,8 +29,8 @@ DEFENSE_SCALE = 10
 PUSH_FORCE = 14
 
 # UI customisation
-TEXT_FADE_OUT_SPEED = 0.5  # N.B. make sure it is slower than the fade in
-TEXT_FADE_IN_SPEED = 2
+TEXT_FADE_OUT_SPEED = 0.5  # make sure it is slower than the fade in
+TEXT_FADE_IN_SPEED = 4  # font messes up if this is greater than 4
 
 
 # states
