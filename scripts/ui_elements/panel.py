@@ -21,7 +21,7 @@ class Panel:
     def __init__(self, elements: List, is_active: bool = False):
 
         self._elements: List = elements
-        self.selected_index: int = 0
+        self._selected_index: int = 0
         self._is_active: bool = is_active
 
         self.set_active(is_active)
@@ -42,6 +42,26 @@ class Panel:
     def selected_element(self) -> UIElement:
         return self._elements[self.selected_index]
 
+    @property
+    def selected_index(self) -> int:
+        return self._selected_index
+
+    def set_selected_index(self, new_index: int):
+        """
+        Change selection to a given index.
+        Note: Don't use within panel due to recursion issues.
+        """
+        self.unselect_all_elements()
+
+        try:
+            self._elements[new_index].is_selected = True
+            self._selected_index = new_index
+        except IndexError:
+            logging.warning(f"Tried to select index {new_index} but it exceeds number of elements "
+                            f"{len(self._elements)}. Selected first element instead.")
+            self.select_first_element()
+
+
     def set_active(self, is_active: bool):
         for element in self._elements:
             element.set_active(is_active)
@@ -60,6 +80,7 @@ class Panel:
         else:
             logging.warning(f"Tried to select first element but no element to select in panel.")
 
+
     def unselect_all_elements(self):
         """
         Sets all elements is_selected to False and resets current_selected_index.
@@ -67,7 +88,7 @@ class Panel:
         for element in self._elements:
             element.is_selected = False
 
-        self.selected_index = 0
+        self._selected_index = 0
 
     def select_next_element(self):
         # unselect current
@@ -78,9 +99,9 @@ class Panel:
         for index in range(len(self._elements)):
 
             # increment position
-            self.selected_index += 1
+            self._selected_index += 1
             if self.selected_index > len(self._elements) - 1:
-                self.selected_index = 0
+                self._selected_index = 0
 
             if self._elements[self.selected_index].is_selectable:
                 # select
@@ -100,9 +121,9 @@ class Panel:
         for index in range(len(self._elements)):
 
             # increment position
-            self.selected_index -= 1
+            self._selected_index -= 1
             if self.selected_index < 0:
-                self.selected_index = len(self._elements) - 1
+                self._selected_index = len(self._elements) - 1
 
             if self._elements[self.selected_index].is_selectable:
                 # select

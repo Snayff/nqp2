@@ -205,19 +205,9 @@ class RunSetupUI(UI):
             info_x += image.width + 2
 
         # restore selection
-        self._current_panel.selected_index = self._selected_index
+        self._current_panel.set_selected_index(self._selected_index)
 
         self.add_exit_button()
-
-    def refresh_info(self):
-        elements = self._elements
-        commander = self._game.data.commanders[self._game.run_setup.selected_commander]
-
-        elements["gold"].set_text(commander["gold"])
-        elements["leadership"].set_text(commander["leadership"])
-        elements["charisma"].set_text(commander["charisma"])
-        elements["backstory"].set_text(commander["backstory"])
-        elements["name"].set_text(commander["name"])
 
 
     def _handle_select_commander_input(self):
@@ -247,15 +237,6 @@ class RunSetupUI(UI):
         # update selected commander and shown info
         if is_dirty:
             self.rebuild_ui()
-
-            # # pause current commander's animation
-            # self._elements[current_selected_commander].reset_animation()
-            #
-            # # update selection and start new animation
-            # new_selected_commander = list(self._game.data.commanders)[self._current_panel.selected_index]
-            # self._parent_scene.selected_commander = new_selected_commander
-            # self._elements[new_selected_commander].play_animation()
-            # self.refresh_info()
 
         # select option and move to exit
         if self._game.input.states["select"]:
