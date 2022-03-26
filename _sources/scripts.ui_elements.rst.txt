@@ -68,10 +68,10 @@ scripts.ui\_elements.tooltip module
    :undoc-members:
    :show-inheritance:
 
-scripts.ui\_elements.unit\_stats\_frame module
-----------------------------------------------
+scripts.ui\_elements.unit\_stats\_window module
+-----------------------------------------------
 
-.. automodule:: scripts.ui_elements.unit_stats_frame
+.. automodule:: scripts.ui_elements.unit_stats_window
    :members:
    :undoc-members:
    :show-inheritance:

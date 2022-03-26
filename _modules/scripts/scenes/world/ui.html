@@ -680,6 +680,7 @@
                 <span class="n">icon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visuals</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="n">room_type</span><span class="p">,</span> <span class="n">icon_size</span><span class="p">)</span>
                 <span class="n">text</span> <span class="o">=</span> <span class="n">room_type</span>
             <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span>
                 <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span>
                 <span class="n">new_image</span><span class="o">=</span><span class="n">icon</span><span class="p">,</span>
                 <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="n">text</span><span class="p">),</span>
@@ -692,7 +693,7 @@
             <span class="n">current_y</span> <span class="o">+=</span> <span class="mi">100</span>
 
         <span class="c1"># build panel</span>
-        <span class="n">panel</span> <span class="o">=</span> <span class="n">Panel</span><span class="p">(</span><span class="n">panel_list</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">panel</span> <span class="o">=</span> <span class="n">Panel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="n">panel_list</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_panel</span><span class="p">(</span><span class="n">panel</span><span class="p">,</span> <span class="s2">"room_choices"</span><span class="p">)</span>
 
         <span class="c1"># handle instructions  for different states</span>
@@ -738,6 +739,7 @@
                 <span class="c1"># draw gold cost</span>
                 <span class="n">gold_icon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visuals</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">"gold"</span><span class="p">,</span> <span class="n">icon_size</span><span class="p">)</span>
                 <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span>
                     <span class="p">(</span><span class="n">current_x</span> <span class="o">+</span> <span class="mi">100</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span>
                     <span class="n">new_image</span><span class="o">=</span><span class="n">gold_icon</span><span class="p">,</span>
                     <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">gold_font_type</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">upgrade_cost</span><span class="p">)),</span>
@@ -756,6 +758,7 @@
 
             <span class="c1"># draw upgrade icon and details</span>
             <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span>
                 <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span>
                 <span class="n">new_image</span><span class="o">=</span><span class="n">upgrade_icon</span><span class="p">,</span>
                 <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">font_type</span><span class="p">,</span> <span class="n">text</span><span class="p">),</span>
@@ -768,7 +771,7 @@
             <span class="c1"># increment</span>
             <span class="n">current_y</span> <span class="o">+=</span> <span class="n">icon_height</span> <span class="o">+</span> <span class="n">GAP_SIZE</span>
 
-        <span class="n">panel</span> <span class="o">=</span> <span class="n">Panel</span><span class="p">(</span><span class="n">panel_list</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">panel</span> <span class="o">=</span> <span class="n">Panel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="n">panel_list</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_panel</span><span class="p">(</span><span class="n">panel</span><span class="p">,</span> <span class="s2">"upgrades"</span><span class="p">)</span>
 
         <span class="c1"># handle instructions and selectability for different states</span>
@@ -818,7 +821,7 @@
         <span class="n">info_x</span> <span class="o">=</span> <span class="n">highlighted_frame</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">highlighted_frame</span><span class="o">.</span><span class="n">width</span> <span class="o">+</span> <span class="mi">20</span>
         <span class="n">font_type</span> <span class="o">=</span> <span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span>
 
-        <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">((</span><span class="n">info_x</span><span class="p">,</span> <span class="n">highlighted_frame</span><span class="o">.</span><span class="n">y</span><span class="p">),</span> <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">font_type</span><span class="p">,</span> <span class="n">desc</span><span class="p">))</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="p">(</span><span class="n">info_x</span><span class="p">,</span> <span class="n">highlighted_frame</span><span class="o">.</span><span class="n">y</span><span class="p">),</span> <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">font_type</span><span class="p">,</span> <span class="n">desc</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="s2">"info_pane"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
 
     <span class="k">def</span> <span class="nf">_rebuild_combat_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -836,6 +839,7 @@
 
         <span class="k">elif</span> <span class="n">local_state</span> <span class="o">==</span> <span class="n">CombatState</span><span class="o">.</span><span class="n">VICTORY</span><span class="p">:</span>
             <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span>
                 <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span>
                 <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">POSITIVE</span><span class="p">,</span> <span class="s2">"Victory"</span><span class="p">),</span>
                 <span class="n">is_selectable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -857,6 +861,7 @@
             <span class="n">current_y</span> <span class="o">=</span> <span class="n">start_y</span>
             <span class="n">defeat_icon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visuals</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">"arrow_button"</span><span class="p">,</span> <span class="n">icon_size</span><span class="p">)</span>
             <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span>
                 <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span>
                 <span class="n">new_image</span><span class="o">=</span><span class="n">defeat_icon</span><span class="p">,</span>
                 <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">NEGATIVE</span><span class="p">,</span> <span class="s2">"Defeated"</span><span class="p">),</span>
@@ -867,6 +872,7 @@
             <span class="n">current_y</span> <span class="o">+=</span> <span class="mi">100</span>
 
             <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span>
                 <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span>
                 <span class="n">new_image</span><span class="o">=</span><span class="n">defeat_icon</span><span class="p">,</span>
                 <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="s2">"Press Enter to return to the main menu."</span><span class="p">),</span>
@@ -913,6 +919,7 @@
             <span class="c1"># draw gold cost</span>
             <span class="n">gold_icon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visuals</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">"gold"</span><span class="p">,</span> <span class="n">icon_size</span><span class="p">)</span>
             <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span>
                 <span class="p">(</span><span class="n">current_x</span> <span class="o">+</span> <span class="mi">20</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span>
                 <span class="n">new_image</span><span class="o">=</span><span class="n">gold_icon</span><span class="p">,</span>
                 <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">gold_font_type</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">upgrade_cost</span><span class="p">)),</span>
@@ -923,6 +930,7 @@
             <span class="c1"># draw banner in frame, to allow selection</span>
             <span class="n">banner</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visuals</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">"banner"</span><span class="p">,</span> <span class="n">icon_size</span><span class="p">)</span>
             <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span>
                 <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span>
                 <span class="n">new_image</span><span class="o">=</span><span class="n">banner</span><span class="p">,</span>
                 <span class="n">is_selectable</span><span class="o">=</span><span class="n">can_buy</span><span class="p">,</span>
@@ -934,7 +942,7 @@
             <span class="n">unit</span> <span class="o">=</span> <span class="n">controller</span><span class="o">.</span><span class="n">units_available</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
             <span class="n">unit</span><span class="o">.</span><span class="n">set_position</span><span class="p">([</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">])</span>
 
-        <span class="n">panel</span> <span class="o">=</span> <span class="n">Panel</span><span class="p">(</span><span class="n">panel_list</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">panel</span> <span class="o">=</span> <span class="n">Panel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="n">panel_list</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_panel</span><span class="p">(</span><span class="n">panel</span><span class="p">,</span> <span class="s2">"units"</span><span class="p">)</span>
 
         <span class="c1"># handle instructions and selectability for different states</span>
@@ -970,7 +978,7 @@
         <span class="n">bg_height</span> <span class="o">=</span> <span class="n">window_height</span> <span class="o">-</span> <span class="p">(</span><span class="n">start_y</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
         <span class="n">bg</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">((</span><span class="n">bg_width</span><span class="p">,</span> <span class="n">bg_height</span><span class="p">),</span> <span class="n">SRCALPHA</span><span class="p">)</span>
         <span class="n">bg</span><span class="o">.</span><span class="n">fill</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">150</span><span class="p">))</span>
-        <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">((</span><span class="n">start_x</span><span class="p">,</span> <span class="n">start_y</span><span class="p">),</span> <span class="n">image</span><span class="o">=</span><span class="n">bg</span><span class="p">)</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="p">(</span><span class="n">start_x</span><span class="p">,</span> <span class="n">start_y</span><span class="p">),</span> <span class="n">image</span><span class="o">=</span><span class="n">bg</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="sa">f</span><span class="s2">"background"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
 
         <span class="c1"># get image info inc. ratio to scale properly</span>
@@ -984,6 +992,7 @@
         <span class="n">current_y</span> <span class="o">=</span> <span class="n">start_y</span> <span class="o">+</span> <span class="p">(</span><span class="n">image_height</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
         <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visuals</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="s2">"image"</span><span class="p">],</span> <span class="p">(</span><span class="n">image_width</span><span class="p">,</span> <span class="n">image_height</span><span class="p">))</span>
         <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span>
             <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span>
             <span class="n">new_image</span><span class="o">=</span><span class="n">image</span><span class="p">,</span>
             <span class="n">is_selectable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -1001,6 +1010,7 @@
         <span class="n">max_height</span> <span class="o">=</span> <span class="p">((</span><span class="n">window_height</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">current_y</span><span class="p">)</span> <span class="o">-</span> <span class="n">font_height</span>
         <span class="n">desc_width</span> <span class="o">=</span> <span class="n">frame_line_width</span> <span class="o">-</span> <span class="n">image_width</span>
         <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span>
             <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span>
             <span class="n">font</span><span class="o">=</span><span class="n">fancy_font</span><span class="p">,</span>
             <span class="n">max_height</span><span class="o">=</span><span class="n">max_height</span><span class="p">,</span>
@@ -1017,7 +1027,7 @@
         <span class="n">line_width</span> <span class="o">=</span> <span class="n">window_width</span> <span class="o">-</span> <span class="p">(</span><span class="n">offset</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
         <span class="n">surface</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">((</span><span class="n">line_width</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
         <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">surface</span><span class="p">,</span> <span class="p">(</span><span class="mi">117</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">168</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">line_width</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
-        <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">((</span><span class="n">offset</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span> <span class="n">surface</span><span class="p">)</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="p">(</span><span class="n">offset</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span> <span class="n">surface</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="s2">"separator"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
 
         <span class="c1"># draw event contents; either options or results</span>
@@ -1032,7 +1042,10 @@
 
                 <span class="c1"># build frame</span>
                 <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
-                    <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span> <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="n">option_text</span><span class="p">),</span> <span class="n">is_selectable</span><span class="o">=</span><span class="kc">True</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span>
+                    <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span>
+                    <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="n">option_text</span><span class="p">),</span>
+                    <span class="n">is_selectable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="sa">f</span><span class="s2">"option_</span><span class="si">{</span><span class="n">counter</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
                 <span class="n">panel_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
@@ -1041,7 +1054,7 @@
                 <span class="n">current_y</span> <span class="o">+=</span> <span class="n">frame</span><span class="o">.</span><span class="n">height</span> <span class="o">+</span> <span class="n">GAP_SIZE</span>
 
             <span class="c1"># create panel</span>
-            <span class="n">panel</span> <span class="o">=</span> <span class="n">Panel</span><span class="p">(</span><span class="n">panel_list</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+            <span class="n">panel</span> <span class="o">=</span> <span class="n">Panel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="n">panel_list</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">add_panel</span><span class="p">(</span><span class="n">panel</span><span class="p">,</span> <span class="s2">"options"</span><span class="p">)</span>
 
         <span class="c1"># show results</span>
@@ -1052,7 +1065,10 @@
             <span class="c1"># draw option chosen</span>
             <span class="n">selected_option</span> <span class="o">=</span> <span class="n">controller</span><span class="o">.</span><span class="n">active_event</span><span class="p">[</span><span class="s2">"options"</span><span class="p">][</span><span class="n">controller</span><span class="o">.</span><span class="n">current_index</span><span class="p">][</span><span class="s2">"text"</span><span class="p">]</span>
             <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
-                <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span> <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="n">selected_option</span><span class="p">),</span> <span class="n">is_selectable</span><span class="o">=</span><span class="kc">True</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span>
+                <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span>
+                <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="n">selected_option</span><span class="p">),</span>
+                <span class="n">is_selectable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="s2">"selected_option"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
 
@@ -1100,6 +1116,7 @@
 
                 <span class="c1"># create the frame</span>
                 <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span>
                     <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span>
                     <span class="n">new_image</span><span class="o">=</span><span class="n">result_image</span><span class="p">,</span>
                     <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">font_type</span><span class="p">,</span> <span class="n">text</span><span class="p">),</span>
@@ -1116,7 +1133,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">select_panel</span><span class="p">(</span><span class="s2">"exit"</span><span class="p">)</span>
 
             <span class="c1"># create panel</span>
-            <span class="n">panel</span> <span class="o">=</span> <span class="n">Panel</span><span class="p">(</span><span class="n">panel_list</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+            <span class="n">panel</span> <span class="o">=</span> <span class="n">Panel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="n">panel_list</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
             <span class="n">panel</span><span class="o">.</span><span class="n">set_selectable</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">add_panel</span><span class="p">(</span><span class="n">panel</span><span class="p">,</span> <span class="s2">"results"</span><span class="p">)</span></div>
 </pre></div>

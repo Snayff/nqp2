@@ -274,21 +274,24 @@
 <span class="kn">import</span> <span class="nn">pygame</span>
 
 <span class="kn">from</span> <span class="nn">scripts.core.base_classes.ui_element</span> <span class="kn">import</span> <span class="n">UIElement</span>
+<span class="kn">from</span> <span class="nn">scripts.ui_elements.frame</span> <span class="kn">import</span> <span class="n">Frame</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
+    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+
+    <span class="kn">from</span> <span class="nn">scripts.core.game</span> <span class="kn">import</span> <span class="n">Game</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Panel"</span><span class="p">]</span>
 
 
 <div class="viewcode-block" id="Panel"><a class="viewcode-back" href="../../../scripts.ui_elements.html#scripts.ui_elements.panel.Panel">[docs]</a><span class="k">class</span> <span class="nc">Panel</span><span class="p">:</span>
     <span class="sd">"""</span>
-<span class="sd">    A container class for ui elements. Offers better support for selection management.</span>
+<span class="sd">    A container class for UIElements. Offers support for selection management.</span>
 <span class="sd">    """</span>
 
-<div class="viewcode-block" id="Panel.__init__"><a class="viewcode-back" href="../../../scripts.ui_elements.html#scripts.ui_elements.panel.Panel.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elements</span><span class="p">:</span> <span class="n">List</span><span class="p">,</span> <span class="n">is_active</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">:</span> <span class="n">List</span> <span class="o">=</span> <span class="n">elements</span>
+<div class="viewcode-block" id="Panel.__init__"><a class="viewcode-back" href="../../../scripts.ui_elements.html#scripts.ui_elements.panel.Panel.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">game</span><span class="p">:</span> <span class="n">Game</span><span class="p">,</span> <span class="n">elements</span><span class="p">:</span> <span class="n">List</span><span class="p">,</span> <span class="n">is_active</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">:</span> <span class="n">Game</span> <span class="o">=</span> <span class="n">game</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Frame</span><span class="p">,</span> <span class="n">UIElement</span><span class="p">]]</span> <span class="o">=</span> <span class="n">elements</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_selected_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_active</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">is_active</span>
 
@@ -341,7 +344,7 @@
 
 <div class="viewcode-block" id="Panel.select_first_element"><a class="viewcode-back" href="../../../scripts.ui_elements.html#scripts.ui_elements.panel.Panel.select_first_element">[docs]</a>    <span class="k">def</span> <span class="nf">select_first_element</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        Selects the first element and sets the rest to unselected.</span>
+<span class="sd">        Selects the first element and sets the rest to previously_selected.</span>
 <span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">unselect_all_elements</span><span class="p">()</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -374,6 +377,7 @@
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span><span class="p">]</span><span class="o">.</span><span class="n">is_selectable</span><span class="p">:</span>
                 <span class="c1"># select</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span><span class="p">]</span><span class="o">.</span><span class="n">is_selected</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">sounds</span><span class="o">.</span><span class="n">play_sound</span><span class="p">(</span><span class="s2">"standard_click"</span><span class="p">)</span>
 
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span> <span class="o">==</span> <span class="n">starting_index</span><span class="p">:</span>
                     <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Panel: Looped all the way back to the starting index. No others selectable."</span><span class="p">)</span>
@@ -396,6 +400,7 @@
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span><span class="p">]</span><span class="o">.</span><span class="n">is_selectable</span><span class="p">:</span>
                 <span class="c1"># select</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span><span class="p">]</span><span class="o">.</span><span class="n">is_selected</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">sounds</span><span class="o">.</span><span class="n">play_sound</span><span class="p">(</span><span class="s2">"standard_click"</span><span class="p">)</span>
 
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span> <span class="o">==</span> <span class="n">starting_index</span><span class="p">:</span>
                     <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Panel: Looped all the way back to the starting index. No others selectable."</span><span class="p">)</span>

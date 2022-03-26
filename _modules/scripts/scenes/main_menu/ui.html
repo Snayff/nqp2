@@ -335,12 +335,12 @@
         <span class="n">window_height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">height</span>
 
         <span class="c1"># positions</span>
-        <span class="n">start_x</span> <span class="o">=</span> <span class="mi">10</span>
+        <span class="n">start_x</span> <span class="o">=</span> <span class="mi">50</span>
         <span class="n">start_y</span> <span class="o">=</span> <span class="n">window_height</span> <span class="o">-</span> <span class="mi">100</span>
 
         <span class="c1"># draw background</span>
         <span class="n">background</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">"ui"</span><span class="p">,</span> <span class="s2">"town"</span><span class="p">,</span> <span class="p">(</span><span class="n">window_width</span><span class="p">,</span> <span class="n">window_height</span><span class="p">))</span>
-        <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">background</span><span class="p">)</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">background</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="s2">"background"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
 
         <span class="c1"># draw options</span>
@@ -349,30 +349,38 @@
         <span class="n">panel_elements</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="c1"># new game</span>
-        <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">((</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span> <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="s2">"New Game"</span><span class="p">),</span> <span class="n">is_selectable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span> <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="s2">"New Game"</span><span class="p">),</span> <span class="n">is_selectable</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="s2">"new_game"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
         <span class="n">panel_elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
 
         <span class="c1"># load</span>
         <span class="n">current_y</span> <span class="o">+=</span> <span class="n">frame</span><span class="o">.</span><span class="n">height</span> <span class="o">+</span> <span class="n">GAP_SIZE</span>
-        <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">((</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span> <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="s2">"Load Game"</span><span class="p">),</span> <span class="n">is_selectable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span> <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="s2">"Load Game"</span><span class="p">),</span> <span class="n">is_selectable</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="s2">"load_game"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
         <span class="n">panel_elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
 
         <span class="c1"># options</span>
         <span class="n">current_y</span> <span class="o">+=</span> <span class="n">frame</span><span class="o">.</span><span class="n">height</span> <span class="o">+</span> <span class="n">GAP_SIZE</span>
-        <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">((</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span> <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="s2">"Settings"</span><span class="p">),</span> <span class="n">is_selectable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span> <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="s2">"Settings"</span><span class="p">),</span> <span class="n">is_selectable</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="s2">"settings"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
         <span class="n">panel_elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
 
         <span class="c1"># exit</span>
         <span class="n">current_y</span> <span class="o">+=</span> <span class="n">frame</span><span class="o">.</span><span class="n">height</span> <span class="o">+</span> <span class="n">GAP_SIZE</span>
-        <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">((</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span> <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="s2">"Exit"</span><span class="p">),</span> <span class="n">is_selectable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span> <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="s2">"Exit"</span><span class="p">),</span> <span class="n">is_selectable</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="s2">"exit"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
         <span class="n">panel_elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
 
         <span class="c1"># add panel</span>
-        <span class="n">panel</span> <span class="o">=</span> <span class="n">Panel</span><span class="p">(</span><span class="n">panel_elements</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">panel</span> <span class="o">=</span> <span class="n">Panel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="n">panel_elements</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_panel</span><span class="p">(</span><span class="n">panel</span><span class="p">,</span> <span class="s2">"options"</span><span class="p">)</span></div></div>
 </pre></div>
 
