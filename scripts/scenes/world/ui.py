@@ -17,7 +17,7 @@ from scripts.core.constants import (
     GAP_SIZE,
     InnState,
     SceneType,
-    TrainingState,
+    TILE_SIZE, TrainingState,
     WorldState,
 )
 from scripts.scene_elements.unitgrid import UnitGrid
@@ -117,6 +117,7 @@ class WorldUI(UI):
         #################
         # DO NOT DELETE #
         #################
+        # TODO - add flag and add trigger to dev console
         # manual camera control for debugging
         # if self._game.input.states["up"]:
         #     self._game.input.states["up"] = False
@@ -703,20 +704,38 @@ class WorldUI(UI):
         frame = Frame((start_x, start_y), image=bg)
         self._elements[f"background"] = frame
 
-        # draw description
+        # draw image
         current_x = start_x + 2
         current_y = start_y
+        image = self._game.visuals.get_image(event["image"])
+        image_size_ratio = image.width // image.height
+        image_width = TILE_SIZE * 2
+        image_height = image_width * image_size_ratio
+        image = self._game.visuals.get_image(event["image"], (image_width, image_height))
+        frame = Frame(
+            (current_x, current_y),
+            new_image=image,
+            is_selectable=False,
+        )
+        self._elements["image"] = frame
+
+
+
+        # draw description
+        current_x += image_width
+        current_y += 10
         if controller.state == EventState.IDLE:
             fancy_font = create_fancy_font(event["description"], font_effects=[FontEffects.FADE_IN])
         else:
             fancy_font = create_fancy_font(event["description"])
         font_height = fancy_font.line_height
         max_height = ((window_height // 2) - current_y) - font_height
+        desc_width = frame_line_width - image_width
         frame = Frame(
             (current_x, current_y),
             font=fancy_font,
             max_height=max_height,
-            max_width=frame_line_width,
+            max_width=desc_width,
             is_selectable=False,
         )
         self._elements["description"] = frame
