@@ -67,12 +67,12 @@ class MainMenuUI(UI):
         window_height = self._game.window.height
 
         # positions
-        start_x = 10
+        start_x = 50
         start_y = window_height - 100
 
         # draw background
         background = self._game.assets.get_image("ui", "town", (window_width, window_height))
-        frame = Frame((0, 0), background)
+        frame = Frame(self._game, (0, 0), background)
         self._elements["background"] = frame
 
         # draw options
@@ -81,28 +81,36 @@ class MainMenuUI(UI):
         panel_elements = []
 
         # new game
-        frame = Frame((current_x, current_y), font=create_font(FontType.DEFAULT, "New Game"), is_selectable=True)
+        frame = Frame(
+            self._game, (current_x, current_y), font=create_font(FontType.DEFAULT, "New Game"), is_selectable=True
+        )
         self._elements["new_game"] = frame
         panel_elements.append(frame)
 
         # load
         current_y += frame.height + GAP_SIZE
-        frame = Frame((current_x, current_y), font=create_font(FontType.DEFAULT, "Load Game"), is_selectable=False)
+        frame = Frame(
+            self._game, (current_x, current_y), font=create_font(FontType.DEFAULT, "Load Game"), is_selectable=False
+        )
         self._elements["load_game"] = frame
         panel_elements.append(frame)
 
         # options
         current_y += frame.height + GAP_SIZE
-        frame = Frame((current_x, current_y), font=create_font(FontType.DEFAULT, "Settings"), is_selectable=False)
+        frame = Frame(
+            self._game, (current_x, current_y), font=create_font(FontType.DEFAULT, "Settings"), is_selectable=False
+        )
         self._elements["settings"] = frame
         panel_elements.append(frame)
 
         # exit
         current_y += frame.height + GAP_SIZE
-        frame = Frame((current_x, current_y), font=create_font(FontType.DEFAULT, "Exit"), is_selectable=True)
+        frame = Frame(
+            self._game, (current_x, current_y), font=create_font(FontType.DEFAULT, "Exit"), is_selectable=True
+        )
         self._elements["exit"] = frame
         panel_elements.append(frame)
 
         # add panel
-        panel = Panel(panel_elements, True)
+        panel = Panel(self._game, panel_elements, True)
         self.add_panel(panel, "options")

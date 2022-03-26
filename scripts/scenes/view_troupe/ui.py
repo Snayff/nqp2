@@ -1,12 +1,10 @@
 from __future__ import annotations
 
-import logging
 from typing import TYPE_CHECKING
 
 import pygame
 
 from scripts.core.base_classes.ui import UI
-from scripts.ui_elements.unit_stats_frame import UnitStatsFrame
 
 if TYPE_CHECKING:
     from typing import Dict, List, Optional, Type, Union

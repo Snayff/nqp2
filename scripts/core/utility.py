@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING, TypeVar
 
 import pygame
 
-from scripts.core.constants import SceneType
+from scripts.core.constants import IMG_FORMATS, SceneType
 
 if TYPE_CHECKING:
     from typing import Dict, List, Optional, Tuple

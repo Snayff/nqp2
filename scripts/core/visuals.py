@@ -10,7 +10,7 @@ import pygame
 
 from scripts.core.base_classes.animation import Animation
 from scripts.core.base_classes.image import Image
-from scripts.core.constants import ASSET_PATH, DEFAULT_IMAGE_SIZE, FontEffects, FontType
+from scripts.core.constants import ASSET_PATH, DEFAULT_IMAGE_SIZE, FontEffects, FontType, IMG_FORMATS
 from scripts.core.utility import clamp, clip
 from scripts.ui_elements.fancy_font import FancyFont
 from scripts.ui_elements.font import Font
@@ -47,7 +47,14 @@ class Visuals:
             "upgrades",
             "world",
         ]  # don't add debug folder
-        self._animation_folders: List[str] = ["bosses", "commanders", "effects", "units", "world_animations"]
+        self._animation_folders: List[str] = [
+            "bosses",
+            "commanders",
+            "effects",
+            "units",
+            "ui_animations",
+            "world_animations",
+        ]
 
         self._images: Dict[str, pygame.Surface] = self._load_images()  # image_name: surface
         self._animation_frames: Dict[str, List[Image]] = self._load_animation_frames()
@@ -92,7 +99,7 @@ class Visuals:
         for folder in folders:
             path = ASSET_PATH / folder
             for image_name in os.listdir(path):
-                if image_name.split(".")[-1] in ["png", "PNG", "jpg", "jpeg", "JPG"]:
+                if image_name.split(".")[-1] in IMG_FORMATS:
 
                     # warn about duplicates
                     if image_name in images.keys():
@@ -146,7 +153,7 @@ class Visuals:
                             # load the frames
                             animation_frames_folder = os.listdir(frame_folder_path)
                             for frame_name in animation_frames_folder:
-                                if frame_name.split(".")[-1] == "png":
+                                if frame_name.split(".")[-1] in IMG_FORMATS:
 
                                     # warn about duplicates
                                     if frame_name in animation_frames.keys():

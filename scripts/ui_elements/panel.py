@@ -6,21 +6,24 @@ from typing import TYPE_CHECKING
 import pygame
 
 from scripts.core.base_classes.ui_element import UIElement
+from scripts.ui_elements.frame import Frame
 
 if TYPE_CHECKING:
-    from typing import List, Optional, Tuple
+    from typing import List, Optional, Tuple, Union
+
+    from scripts.core.game import Game
 
 __all__ = ["Panel"]
 
 
 class Panel:
     """
-    A container class for ui elements. Offers better support for selection management.
+    A container class for UIElements. Offers support for selection management.
     """
 
-    def __init__(self, elements: List, is_active: bool = False):
-
-        self._elements: List = elements
+    def __init__(self, game: Game, elements: List, is_active: bool = False):
+        self._game: Game = game
+        self._elements: List[Union[Frame, UIElement]] = elements
         self._selected_index: int = 0
         self._is_active: bool = is_active
 
@@ -73,7 +76,7 @@ class Panel:
 
     def select_first_element(self):
         """
-        Selects the first element and sets the rest to unselected.
+        Selects the first element and sets the rest to previously_selected.
         """
         self.unselect_all_elements()
         if len(self._elements) > 0:
@@ -106,6 +109,7 @@ class Panel:
             if self._elements[self.selected_index].is_selectable:
                 # select
                 self._elements[self.selected_index].is_selected = True
+                self._game.sounds.play_sound("standard_click")
 
                 if self.selected_index == starting_index:
                     logging.debug(f"Panel: Looped all the way back to the starting index. No others selectable.")
@@ -128,6 +132,7 @@ class Panel:
             if self._elements[self.selected_index].is_selectable:
                 # select
                 self._elements[self.selected_index].is_selected = True
+                self._game.sounds.play_sound("standard_click")
 
                 if self.selected_index == starting_index:
                     logging.debug(f"Panel: Looped all the way back to the starting index. No others selectable.")

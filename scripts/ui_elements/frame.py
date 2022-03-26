@@ -16,13 +16,20 @@ from scripts.ui_elements.font import Font
 if TYPE_CHECKING:
     from typing import List, Optional, Tuple, Union
 
+    from scripts.core.game import Game
+
 
 __all__ = ["Frame"]
 
 
 class Frame(UIElement):
+    """
+    An extension of UIElement to offer more functionality within a helpful wrapper.
+    """
+
     def __init__(
         self,
+        game: Game,
         pos: Tuple[int, int],
         image: Optional[pygame.surface] = None,
         font: Optional[Union[Font, FancyFont]] = None,
@@ -31,7 +38,7 @@ class Frame(UIElement):
         max_height: Optional[int] = None,
         new_image: Optional[Union[Image, Animation]] = None,
     ):
-        super().__init__(pos, is_selectable)
+        super().__init__(game, pos, is_selectable)
 
         self._new_image: Optional[Union[Image, Animation]] = new_image
         self._image: Optional[pygame.surface] = image
@@ -45,8 +52,6 @@ class Frame(UIElement):
         self._rebuild_surface()
 
     def update(self, delta_time: float):
-        super().update(delta_time)
-
         if self.is_active:
             # FancyFont changes each frame so needs redrawing
             if isinstance(self._font, FancyFont):
@@ -76,14 +81,6 @@ class Frame(UIElement):
 
             if redraw_font:
                 self._font.draw(self.surface)
-
-    @property
-    def x(self) -> int:
-        return self.pos[0]
-
-    @property
-    def y(self) -> int:
-        return self.pos[1]
 
     def _recalculate_size(self):
         image = self._image

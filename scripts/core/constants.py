@@ -22,7 +22,6 @@ GAP_SIZE = 10
 TILE_SIZE = 16
 BARRIER_SIZE = 10
 
-
 # algorithm/formula constants
 WEIGHT_SCALE = 5
 DEFENSE_SCALE = 10
@@ -31,6 +30,8 @@ PUSH_FORCE = 14
 # UI customisation
 TEXT_FADE_OUT_SPEED = 0.5  # make sure it is slower than the fade in
 TEXT_FADE_IN_SPEED = 4  # font messes up if this is greater than 4
+
+IMG_FORMATS = ["png", "PNG", "jpg", "jpeg", "JPG"]  # acceptable image formats
 
 
 # states
