@@ -9,6 +9,7 @@
     "resources": [
         "existing_unit:random1"
         ],
+    "image": "money",
     "options": [
         {
             "text": "Pay the code tax and await input commands to continue",

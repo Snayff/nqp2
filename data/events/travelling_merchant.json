@@ -7,6 +7,7 @@
     "resources": [
         "existing_unit:random1"
         ],
+    "image": "money",
     "options": [
         {
             "text": "Buy some rations for the road",
