@@ -295,19 +295,15 @@
 <div class="viewcode-block" id="RunSetupUI.__init__"><a class="viewcode-back" href="../../../../scripts.scenes.run_setup.html#scripts.scenes.run_setup.ui.RunSetupUI.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">game</span><span class="p">:</span> <span class="n">Game</span><span class="p">,</span> <span class="n">parent_scene</span><span class="p">:</span> <span class="n">RunSetupScene</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span><span class="p">:</span> <span class="n">RunSetupScene</span> <span class="o">=</span> <span class="n">parent_scene</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_selected_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">set_instruction_text</span><span class="p">(</span><span class="s2">"Choose who will lead the rebellion."</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_instruction_text</span><span class="p">(</span><span class="s2">"Choose who will lead the attempt on the throne."</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="RunSetupUI.update"><a class="viewcode-back" href="../../../../scripts.scenes.run_setup.html#scripts.scenes.run_setup.ui.RunSetupUI.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="RunSetupUI.process_input"><a class="viewcode-back" href="../../../../scripts.scenes.run_setup.html#scripts.scenes.run_setup.ui.RunSetupUI.process_input">[docs]</a>    <span class="k">def</span> <span class="nf">process_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">process_input</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"toggle_dev_console"</span><span class="p">]:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"toggle_dev_console"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
-
-            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">change_scene</span><span class="p">(</span><span class="n">SceneType</span><span class="o">.</span><span class="n">DEV_DATA_EDITOR</span><span class="p">)</span>
 
         <span class="c1"># panel specific input</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_panels</span><span class="p">[</span><span class="s2">"commanders"</span><span class="p">]:</span>
@@ -326,16 +322,17 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">rebuild_ui</span><span class="p">()</span>
 
         <span class="n">commanders</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">commanders</span>
-        <span class="n">selected_commander</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">run_setup</span><span class="o">.</span><span class="n">selected_commander</span>
+        <span class="n">selected_commander</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span><span class="o">.</span><span class="n">selected_commander</span>
         <span class="n">window_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">width</span>
         <span class="n">window_height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">height</span>
-        <span class="n">create_font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">create_font</span>
-        <span class="n">create_fancy_font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">create_fancy_font</span>
+        <span class="n">create_font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visuals</span><span class="o">.</span><span class="n">create_font</span>
+        <span class="n">create_fancy_font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visuals</span><span class="o">.</span><span class="n">create_fancy_font</span>
+        <span class="n">create_animation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visuals</span><span class="o">.</span><span class="n">create_animation</span>
+        <span class="n">get_image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visuals</span><span class="o">.</span><span class="n">get_image</span>
 
         <span class="c1"># positions</span>
         <span class="n">start_x</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">start_y</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">default_font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
 
         <span class="c1"># draw background</span>
         <span class="n">current_x</span> <span class="o">=</span> <span class="n">start_x</span>
@@ -348,12 +345,18 @@
         <span class="c1"># draw commanders</span>
         <span class="n">current_x</span> <span class="o">=</span> <span class="n">start_x</span> <span class="o">+</span> <span class="mi">20</span>
         <span class="n">current_y</span> <span class="o">=</span> <span class="n">start_y</span> <span class="o">+</span> <span class="mi">20</span>
+        <span class="n">anim_y</span> <span class="o">=</span> <span class="n">current_y</span> <span class="o">+</span> <span class="mi">20</span>
         <span class="n">panel_elements</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">selection_counter</span><span class="p">,</span> <span class="n">commander</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">commanders</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
-            <span class="n">icon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visuals</span><span class="o">.</span><span class="n">create_animation</span><span class="p">(</span><span class="n">commander</span><span class="p">[</span><span class="s2">"type"</span><span class="p">],</span> <span class="s2">"move"</span><span class="p">)</span>
+            <span class="n">icon</span> <span class="o">=</span> <span class="n">create_animation</span><span class="p">(</span><span class="n">commander</span><span class="p">[</span><span class="s2">"type"</span><span class="p">],</span> <span class="s2">"icon"</span><span class="p">)</span>
+            <span class="n">icon</span><span class="o">.</span><span class="n">pause</span><span class="p">()</span>
+            <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">((</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span> <span class="n">new_image</span><span class="o">=</span><span class="n">icon</span><span class="p">,</span> <span class="n">is_selectable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">commander</span><span class="p">[</span><span class="s1">'type'</span><span class="p">]</span><span class="si">}</span><span class="s2">_icon"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
+
+            <span class="n">move_anim</span> <span class="o">=</span> <span class="n">create_animation</span><span class="p">(</span><span class="n">commander</span><span class="p">[</span><span class="s2">"type"</span><span class="p">],</span> <span class="s2">"move"</span><span class="p">)</span>
             <span class="n">icon</span><span class="o">.</span><span class="n">pause</span><span class="p">()</span>
             <span class="n">icon_width</span> <span class="o">=</span> <span class="n">icon</span><span class="o">.</span><span class="n">width</span>
-            <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">((</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span> <span class="n">new_image</span><span class="o">=</span><span class="n">icon</span><span class="p">,</span> <span class="n">is_selectable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">((</span><span class="n">current_x</span><span class="p">,</span> <span class="n">anim_y</span><span class="p">),</span> <span class="n">new_image</span><span class="o">=</span><span class="n">move_anim</span><span class="p">,</span> <span class="n">is_selectable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="n">commander</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]]</span> <span class="o">=</span> <span class="n">frame</span>
 
             <span class="c1"># highlight selected commander</span>
@@ -371,7 +374,7 @@
 
         <span class="c1"># draw info</span>
         <span class="n">commander</span> <span class="o">=</span> <span class="n">commanders</span><span class="p">[</span><span class="n">selected_commander</span><span class="p">]</span>
-        <span class="n">current_y</span> <span class="o">+=</span> <span class="n">DEFAULT_IMAGE_SIZE</span> <span class="o">+</span> <span class="n">GAP_SIZE</span>
+        <span class="n">current_y</span> <span class="o">=</span> <span class="n">anim_y</span> <span class="o">+</span> <span class="n">DEFAULT_IMAGE_SIZE</span> <span class="o">+</span> <span class="n">GAP_SIZE</span>
         <span class="n">info_x</span> <span class="o">=</span> <span class="n">start_x</span> <span class="o">+</span> <span class="mi">220</span>
         <span class="n">header_x</span> <span class="o">=</span> <span class="n">start_x</span> <span class="o">+</span> <span class="mi">20</span>
 
@@ -396,7 +399,7 @@
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="s2">"backstory"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
 
-        <span class="n">current_y</span> <span class="o">+=</span> <span class="n">frame</span><span class="o">.</span><span class="n">height</span> <span class="o">+</span> <span class="n">GAP_SIZE</span>
+        <span class="n">current_y</span> <span class="o">=</span> <span class="p">(</span><span class="n">window_height</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">70</span>
 
         <span class="c1"># resources</span>
         <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">((</span><span class="n">header_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span> <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DISABLED</span><span class="p">,</span> <span class="s2">"Charisma"</span><span class="p">),</span> <span class="n">is_selectable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -419,22 +422,6 @@
 
         <span class="n">current_y</span> <span class="o">+=</span> <span class="n">frame</span><span class="o">.</span><span class="n">height</span> <span class="o">+</span> <span class="n">GAP_SIZE</span>
 
-        <span class="c1"># allies</span>
-        <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">((</span><span class="n">header_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span> <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DISABLED</span><span class="p">,</span> <span class="s2">"Allies"</span><span class="p">),</span> <span class="n">is_selectable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="s2">"allies_header"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
-
-        <span class="n">allies</span> <span class="o">=</span> <span class="s2">""</span>
-        <span class="k">for</span> <span class="n">ally</span> <span class="ow">in</span> <span class="n">commander</span><span class="p">[</span><span class="s2">"allies"</span><span class="p">]:</span>
-            <span class="c1"># add comma</span>
-            <span class="k">if</span> <span class="n">allies</span> <span class="o">==</span> <span class="s2">""</span><span class="p">:</span>
-                <span class="n">allies</span> <span class="o">+=</span> <span class="n">ally</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">allies</span> <span class="o">+=</span> <span class="s2">", "</span> <span class="o">+</span> <span class="n">ally</span>
-        <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">((</span><span class="n">info_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span> <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="n">allies</span><span class="p">),</span> <span class="n">is_selectable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="s2">"allies"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
-
-        <span class="n">current_y</span> <span class="o">+=</span> <span class="n">frame</span><span class="o">.</span><span class="n">height</span> <span class="o">+</span> <span class="n">GAP_SIZE</span>
-
         <span class="c1"># gold</span>
         <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">((</span><span class="n">header_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span> <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DISABLED</span><span class="p">,</span> <span class="s2">"Gold"</span><span class="p">),</span> <span class="n">is_selectable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="s2">"gold_header"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
@@ -442,56 +429,51 @@
         <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">((</span><span class="n">info_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span> <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="n">commander</span><span class="p">[</span><span class="s2">"gold"</span><span class="p">]),</span> <span class="n">is_selectable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="s2">"gold"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
 
+        <span class="n">current_y</span> <span class="o">+=</span> <span class="n">frame</span><span class="o">.</span><span class="n">height</span> <span class="o">+</span> <span class="n">GAP_SIZE</span>
+
+        <span class="c1"># allies</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">((</span><span class="n">header_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span> <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DISABLED</span><span class="p">,</span> <span class="s2">"Allies"</span><span class="p">),</span> <span class="n">is_selectable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="s2">"allies_header"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
+
+        <span class="c1"># draw each faction image</span>
+        <span class="k">for</span> <span class="n">count</span><span class="p">,</span> <span class="n">ally</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">commander</span><span class="p">[</span><span class="s2">"allies"</span><span class="p">]):</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="n">get_image</span><span class="p">(</span><span class="n">ally</span><span class="p">,</span> <span class="p">(</span><span class="n">DEFAULT_IMAGE_SIZE</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">DEFAULT_IMAGE_SIZE</span> <span class="o">*</span> <span class="mi">2</span><span class="p">))</span>
+            <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">((</span><span class="n">info_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span> <span class="n">new_image</span><span class="o">=</span><span class="n">image</span><span class="p">,</span> <span class="n">is_selectable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="sa">f</span><span class="s2">"allies</span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
+            <span class="n">info_x</span> <span class="o">+=</span> <span class="n">image</span><span class="o">.</span><span class="n">width</span> <span class="o">+</span> <span class="mi">2</span>
+
+        <span class="c1"># restore selection</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">set_selected_index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_selected_index</span><span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">add_exit_button</span><span class="p">()</span></div>
-
-<div class="viewcode-block" id="RunSetupUI.refresh_info"><a class="viewcode-back" href="../../../../scripts.scenes.run_setup.html#scripts.scenes.run_setup.ui.RunSetupUI.refresh_info">[docs]</a>    <span class="k">def</span> <span class="nf">refresh_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">elements</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span>
-        <span class="n">commander</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">commanders</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">run_setup</span><span class="o">.</span><span class="n">selected_commander</span><span class="p">]</span>
-
-        <span class="n">elements</span><span class="p">[</span><span class="s2">"gold"</span><span class="p">]</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="n">commander</span><span class="p">[</span><span class="s2">"gold"</span><span class="p">])</span>
-        <span class="n">elements</span><span class="p">[</span><span class="s2">"leadership"</span><span class="p">]</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="n">commander</span><span class="p">[</span><span class="s2">"leadership"</span><span class="p">])</span>
-        <span class="n">elements</span><span class="p">[</span><span class="s2">"charisma"</span><span class="p">]</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="n">commander</span><span class="p">[</span><span class="s2">"charisma"</span><span class="p">])</span>
-        <span class="n">elements</span><span class="p">[</span><span class="s2">"backstory"</span><span class="p">]</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="n">commander</span><span class="p">[</span><span class="s2">"backstory"</span><span class="p">])</span>
-        <span class="n">elements</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="n">commander</span><span class="p">[</span><span class="s2">"name"</span><span class="p">])</span>
-
-        <span class="n">allies</span> <span class="o">=</span> <span class="s2">""</span>
-        <span class="k">for</span> <span class="n">ally</span> <span class="ow">in</span> <span class="n">commander</span><span class="p">[</span><span class="s2">"allies"</span><span class="p">]:</span>
-            <span class="c1"># add comma</span>
-            <span class="k">if</span> <span class="n">allies</span> <span class="o">==</span> <span class="s2">""</span><span class="p">:</span>
-                <span class="n">allies</span> <span class="o">+=</span> <span class="n">ally</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">allies</span> <span class="o">+=</span> <span class="s2">", "</span> <span class="o">+</span> <span class="n">ally</span>
-        <span class="n">elements</span><span class="p">[</span><span class="s2">"allies"</span><span class="p">]</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="n">allies</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_handle_select_commander_input</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">is_dirty</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="n">current_selected_commander</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">commanders</span><span class="p">)[</span><span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">selected_index</span><span class="p">]</span>
 
         <span class="c1"># selections within panel</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"left"</span><span class="p">]:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"left"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">select_previous_element</span><span class="p">()</span>
+
+            <span class="c1"># get values to restore after rebuild</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span><span class="o">.</span><span class="n">selected_commander</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">commanders</span><span class="p">)[</span><span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">selected_index</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_selected_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">selected_index</span>
 
             <span class="n">is_dirty</span> <span class="o">=</span> <span class="kc">True</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"right"</span><span class="p">]:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"right"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">select_next_element</span><span class="p">()</span>
+
+            <span class="c1"># get values to restore after rebuild</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span><span class="o">.</span><span class="n">selected_commander</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">commanders</span><span class="p">)[</span><span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">selected_index</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_selected_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">selected_index</span>
 
             <span class="n">is_dirty</span> <span class="o">=</span> <span class="kc">True</span>
 
         <span class="c1"># update selected commander and shown info</span>
         <span class="k">if</span> <span class="n">is_dirty</span><span class="p">:</span>
-            <span class="c1"># pause current commander's animation</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="n">current_selected_commander</span><span class="p">]</span><span class="o">.</span><span class="n">reset_animation</span><span class="p">()</span>
-
-            <span class="c1"># update selection and start new animation</span>
-            <span class="n">new_selected_commander</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">commanders</span><span class="p">)[</span><span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">selected_index</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span><span class="o">.</span><span class="n">selected_commander</span> <span class="o">=</span> <span class="n">new_selected_commander</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="n">new_selected_commander</span><span class="p">]</span><span class="o">.</span><span class="n">play_animation</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">refresh_info</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rebuild_ui</span><span class="p">()</span>
 
         <span class="c1"># select option and move to exit</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"select"</span><span class="p">]:</span>
