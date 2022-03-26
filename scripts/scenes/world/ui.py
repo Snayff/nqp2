@@ -687,8 +687,8 @@ class WorldUI(UI):
         create_fancy_font = self._game.visuals.create_fancy_font
         window_width = self._game.window.width
         window_height = self._game.window.height
-        start_x = 100
-        start_y = 100
+        start_x = 50
+        start_y = 20
         frame_line_width = window_width - (start_x * 2)
         event = self._parent_scene.event.active_event
         show_event_result = self._game.data.options["show_event_option_result"]
@@ -704,13 +704,15 @@ class WorldUI(UI):
         frame = Frame((start_x, start_y), image=bg)
         self._elements[f"background"] = frame
 
-        # draw image
-        current_x = start_x + 2
-        current_y = start_y
+        # get image info inc. ratio to scale properly
         image = self._game.visuals.get_image(event["image"])
         image_size_ratio = image.width // image.height
-        image_width = TILE_SIZE * 2
+        image_width = TILE_SIZE * 6
         image_height = image_width * image_size_ratio
+
+        # draw image
+        current_x = start_x
+        current_y = start_y + (image_height // 2)
         image = self._game.visuals.get_image(event["image"], (image_width, image_height))
         frame = Frame(
             (current_x, current_y),
@@ -722,8 +724,8 @@ class WorldUI(UI):
 
 
         # draw description
-        current_x += image_width
-        current_y += 10
+        current_x += image_width + 5
+        current_y = start_y
         if controller.state == EventState.IDLE:
             fancy_font = create_fancy_font(event["description"], font_effects=[FontEffects.FADE_IN])
         else:
