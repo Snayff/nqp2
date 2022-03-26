@@ -6,9 +6,10 @@ from typing import TYPE_CHECKING
 import pygame
 
 from scripts.core.base_classes.ui_element import UIElement
+from scripts.ui_elements.frame import Frame
 
 if TYPE_CHECKING:
-    from typing import List, Optional, Tuple
+    from typing import List, Optional, Tuple, Union
     from scripts.core.game import Game
 
 __all__ = ["Panel"]
@@ -21,7 +22,7 @@ class Panel:
 
     def __init__(self, game: Game, elements: List, is_active: bool = False):
         self._game: Game = game
-        self._elements: List = elements  # UIElement-likes
+        self._elements: List[Union[Frame, UIElement]] = elements
         self._selected_index: int = 0
         self._is_active: bool = is_active
 

@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.scene import Scene
 from scripts.core.constants import SceneType
+from scripts.core.debug import Timer
 from scripts.scene_elements.commander import Commander
 from scripts.scene_elements.troupe import Troupe
 from scripts.scenes.run_setup.ui import RunSetupUI
@@ -24,19 +25,15 @@ class RunSetupScene(Scene):
     """
 
     def __init__(self, game: Game):
-        # start timer
-        start_time = time.time()
+        with Timer("Run Setup Scene initialised"):
 
-        super().__init__(game, SceneType.RUN_SETUP)
+            super().__init__(game, SceneType.RUN_SETUP)
 
-        self.ui: RunSetupUI = RunSetupUI(game, self)
+            self.ui: RunSetupUI = RunSetupUI(game, self)
 
-        self.selected_commander: str = list(self._game.data.commanders)[0]  # set to first commander
-        self.selected_seed: int = int(datetime.now().strftime("%Y%m%d%H%M%S"))
+            self.selected_commander: str = list(self._game.data.commanders)[0]  # set to first commander
+            self.selected_seed: int = int(datetime.now().strftime("%Y%m%d%H%M%S"))
 
-        # record duration
-        end_time = time.time()
-        logging.debug(f"RunSetupScene: initialised in {format(end_time - start_time, '.2f')}s.")
 
     def update(self, delta_time: float):
         super().update(delta_time)

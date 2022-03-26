@@ -154,8 +154,8 @@ class UnitGrid:
 
     def move_to_empty_cell(self, unit: Unit):
         for cell in self._game.world.ui.grid.cells:
-            if cell.unit is None:
-                cell.unit = unit
+            if cell._unit is None:
+                cell._unit = unit
                 unit.forced_behaviour = True
                 target_px = cell.rect.center
                 leader = unit.entities[0]

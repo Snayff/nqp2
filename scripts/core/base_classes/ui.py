@@ -16,7 +16,7 @@ if TYPE_CHECKING:
     from scripts.core.base_classes.scene import Scene
     from scripts.core.game import Game
     from scripts.ui_elements.font import Font
-    from scripts.ui_elements.unit_stats_frame import UnitStatsFrame
+    from scripts.ui_elements.unit_stats_window import UnitStatsFrame
 
 
 __all__ = ["UI"]
