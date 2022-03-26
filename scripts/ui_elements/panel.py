@@ -9,6 +9,7 @@ from scripts.core.base_classes.ui_element import UIElement
 
 if TYPE_CHECKING:
     from typing import List, Optional, Tuple
+    from scripts.core.game import Game
 
 __all__ = ["Panel"]
 
@@ -18,8 +19,8 @@ class Panel:
     A container class for UIElements. Offers support for selection management.
     """
 
-    def __init__(self, elements: List, is_active: bool = False):
-
+    def __init__(self, game: Game, elements: List, is_active: bool = False):
+        self._game: Game = game
         self._elements: List = elements  # UIElement-likes
         self._selected_index: int = 0
         self._is_active: bool = is_active
@@ -106,6 +107,7 @@ class Panel:
             if self._elements[self.selected_index].is_selectable:
                 # select
                 self._elements[self.selected_index].is_selected = True
+                self._game.sounds.play_sound("standard_click")
 
                 if self.selected_index == starting_index:
                     logging.debug(f"Panel: Looped all the way back to the starting index. No others selectable.")
@@ -128,6 +130,7 @@ class Panel:
             if self._elements[self.selected_index].is_selectable:
                 # select
                 self._elements[self.selected_index].is_selected = True
+                self._game.sounds.play_sound("standard_click")
 
                 if self.selected_index == starting_index:
                     logging.debug(f"Panel: Looped all the way back to the starting index. No others selectable.")

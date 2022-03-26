@@ -146,7 +146,7 @@ class UI(ABC):
             current_x += frame.width + GAP_SIZE
 
         # create panel
-        panel = Panel(panel_elements, True)
+        panel = Panel(self._game, panel_elements, True)
         panel.unselect_all_elements()
         self._panels["resources"] = panel
 
@@ -197,7 +197,7 @@ class UI(ABC):
 
         frame = Frame(self._game, (current_x, current_y), font=font, is_selectable=True)
         self._elements["exit"] = frame
-        panel = Panel([frame], True)
+        panel = Panel(self._game, [frame], True)
         self.add_panel(panel, "exit")
 
         return panel

@@ -111,7 +111,7 @@ class RunSetupUI(UI):
             # increment draw pos and counter
             current_x += icon_width + GAP_SIZE
 
-        panel = Panel(panel_elements, True)
+        panel = Panel(self._game, panel_elements, True)
         self.add_panel(panel, "commanders")
 
         # draw info

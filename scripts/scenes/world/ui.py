@@ -425,7 +425,7 @@ class WorldUI(UI):
             current_y += 100
 
         # build panel
-        panel = Panel(panel_list, True)
+        panel = Panel(self._game, panel_list, True)
         self.add_panel(panel, "room_choices")
 
         # handle instructions  for different states
@@ -503,7 +503,7 @@ class WorldUI(UI):
             # increment
             current_y += icon_height + GAP_SIZE
 
-        panel = Panel(panel_list, True)
+        panel = Panel(self._game, panel_list, True)
         self.add_panel(panel, "upgrades")
 
         # handle instructions and selectability for different states
@@ -674,7 +674,7 @@ class WorldUI(UI):
             unit = controller.units_available[i]
             unit.set_position([current_x, current_y])
 
-        panel = Panel(panel_list, True)
+        panel = Panel(self._game, panel_list, True)
         self.add_panel(panel, "units")
 
         # handle instructions and selectability for different states
@@ -786,7 +786,7 @@ class WorldUI(UI):
                 current_y += frame.height + GAP_SIZE
 
             # create panel
-            panel = Panel(panel_list, True)
+            panel = Panel(self._game, panel_list, True)
             self.add_panel(panel, "options")
 
         # show results
@@ -865,6 +865,6 @@ class WorldUI(UI):
             self.select_panel("exit")
 
             # create panel
-            panel = Panel(panel_list, True)
+            panel = Panel(self._game, panel_list, True)
             panel.set_selectable(False)
             self.add_panel(panel, "results")

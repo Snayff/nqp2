@@ -67,7 +67,7 @@ class MainMenuUI(UI):
         window_height = self._game.window.height
 
         # positions
-        start_x = 10
+        start_x = 50
         start_y = window_height - 100
 
         # draw background
@@ -124,5 +124,5 @@ class MainMenuUI(UI):
         panel_elements.append(frame)
 
         # add panel
-        panel = Panel(panel_elements, True)
+        panel = Panel(self._game, panel_elements, True)
         self.add_panel(panel, "options")
