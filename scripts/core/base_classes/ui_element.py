@@ -62,6 +62,14 @@ class UIElement(ABC):
         pass
 
     @property
+    def x(self) -> int:
+        return self.pos[0]
+
+    @property
+    def y(self) -> int:
+        return self.pos[1]
+
+    @property
     def width(self) -> int:
         return self.size[0]
 
@@ -70,8 +78,8 @@ class UIElement(ABC):
         return self.size[1]
 
     def _draw_selector(self, surface: pygame.Surface):
-        x = self.pos[0]
-        y = self.pos[1] - self.size[1]
+        x = self.x - self.size[0]
+        y = self.y - self.size[1]
         surface.blit(self._current_selector.surface, (x, y))
 
     def set_active(self, is_active: bool):
