@@ -57,10 +57,11 @@ class Panel:
             self._elements[new_index].is_selected = True
             self._selected_index = new_index
         except IndexError:
-            logging.warning(f"Tried to select index {new_index} but it exceeds number of elements "
-                            f"{len(self._elements)}. Selected first element instead.")
+            logging.warning(
+                f"Tried to select index {new_index} but it exceeds number of elements "
+                f"{len(self._elements)}. Selected first element instead."
+            )
             self.select_first_element()
-
 
     def set_active(self, is_active: bool):
         for element in self._elements:
@@ -79,7 +80,6 @@ class Panel:
             self._elements[0].is_selected = True
         else:
             logging.warning(f"Tried to select first element but no element to select in panel.")
-
 
     def unselect_all_elements(self):
         """
