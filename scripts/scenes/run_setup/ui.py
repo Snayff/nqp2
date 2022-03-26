@@ -77,12 +77,26 @@ class RunSetupUI(UI):
         # draw commanders
         current_x = start_x + 20
         current_y = start_y + 20
+        anim_y = current_y + 20
         panel_elements = []
         for selection_counter, commander in enumerate(commanders.values()):
-            icon = create_animation(commander["type"], "move")
+            icon = create_animation(commander["type"], "icon")
+            icon.pause()
+            frame = Frame(
+                (current_x, current_y),
+                new_image=icon,
+                is_selectable=False
+            )
+            self._elements[f"{commander['type']}_icon"] = frame
+
+            move_anim = create_animation(commander["type"], "move")
             icon.pause()
             icon_width = icon.width
-            frame = Frame((current_x, current_y), new_image=icon, is_selectable=True)
+            frame = Frame(
+                (current_x, anim_y),
+                new_image=move_anim,
+                is_selectable=True
+            )
             self._elements[commander["type"]] = frame
 
             # highlight selected commander
@@ -100,7 +114,7 @@ class RunSetupUI(UI):
 
         # draw info
         commander = commanders[selected_commander]
-        current_y += DEFAULT_IMAGE_SIZE + GAP_SIZE
+        current_y = anim_y + DEFAULT_IMAGE_SIZE + GAP_SIZE
         info_x = start_x + 220
         header_x = start_x + 20
 
@@ -133,7 +147,7 @@ class RunSetupUI(UI):
         )
         self._elements["backstory"] = frame
 
-        current_y += frame.height + GAP_SIZE
+        current_y = (window_height // 2) + 70
 
         # resources
         frame = Frame(
