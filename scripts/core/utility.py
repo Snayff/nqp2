@@ -114,4 +114,3 @@ def previous_number_in_loop(start: int, loop_size: int) -> int:
         result = start - 1
 
     return result
-

@@ -53,7 +53,7 @@ class Visuals:
             "effects",
             "units",
             "ui_animations",
-            "world_animations"
+            "world_animations",
         ]
 
         self._images: Dict[str, pygame.Surface] = self._load_images()  # image_name: surface

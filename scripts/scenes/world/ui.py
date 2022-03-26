@@ -777,7 +777,7 @@ class WorldUI(UI):
                     self._game,
                     (current_x, current_y),
                     font=create_font(FontType.DEFAULT, option_text),
-                    is_selectable=True
+                    is_selectable=True,
                 )
                 self._elements[f"option_{counter}"] = frame
                 panel_list.append(frame)
@@ -800,7 +800,7 @@ class WorldUI(UI):
                 self._game,
                 (current_x, current_y),
                 font=create_font(FontType.DEFAULT, selected_option),
-                is_selectable=True
+                is_selectable=True,
             )
             self._elements["selected_option"] = frame
 

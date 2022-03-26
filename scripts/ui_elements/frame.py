@@ -15,6 +15,7 @@ from scripts.ui_elements.font import Font
 
 if TYPE_CHECKING:
     from typing import List, Optional, Tuple, Union
+
     from scripts.core.game import Game
 
 
@@ -25,6 +26,7 @@ class Frame(UIElement):
     """
     An extension of UIElement to offer more functionality within a helpful wrapper.
     """
+
     def __init__(
         self,
         game: Game,

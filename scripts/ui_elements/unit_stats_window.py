@@ -90,16 +90,8 @@ class UnitStatsWindow(Panel):
 
             # draw stat icon and info
             stat_icon = get_image(stat, stat_icon_size)
-            font = create_font(
-                font_type,
-                str(getattr(self._unit, stat))
-            )
-            frame = Frame(
-                self._game,
-                (frame_x, frame_y),
-                new_image=stat_icon,
-                font=font
-            )
+            font = create_font(font_type, str(getattr(self._unit, stat)))
+            frame = Frame(self._game, (frame_x, frame_y), new_image=stat_icon, font=font)
             self._elements.append(frame)
 
     def set_unit(self, unit: Unit):

@@ -34,7 +34,6 @@ class RunSetupScene(Scene):
             self.selected_commander: str = list(self._game.data.commanders)[0]  # set to first commander
             self.selected_seed: int = int(datetime.now().strftime("%Y%m%d%H%M%S"))
 
-
     def update(self, delta_time: float):
         super().update(delta_time)
         self.ui.update(delta_time)

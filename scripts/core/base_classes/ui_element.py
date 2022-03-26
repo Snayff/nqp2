@@ -9,14 +9,14 @@ from scripts.core import utility
 
 if TYPE_CHECKING:
     from typing import Dict, List, Optional, Tuple, Union
-    from scripts.core.game import Game
+
     from scripts.core.base_classes.animation import Animation
+    from scripts.core.game import Game
 
 __all__ = ["UIElement"]
 
 
 class UIElement(ABC):
-
     def __init__(self, game: Game, pos: Tuple[int, int], is_selectable: bool = False):
         self._game: Game = game
         self.pos: Tuple[int, int] = pos
@@ -42,7 +42,6 @@ class UIElement(ABC):
 
             if self._current_selector is not None:
                 self._draw_selector(surface)
-
 
     @property
     def is_selected(self) -> bool:

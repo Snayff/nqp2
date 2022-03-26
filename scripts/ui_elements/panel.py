@@ -10,6 +10,7 @@ from scripts.ui_elements.frame import Frame
 
 if TYPE_CHECKING:
     from typing import List, Optional, Tuple, Union
+
     from scripts.core.game import Game
 
 __all__ = ["Panel"]
