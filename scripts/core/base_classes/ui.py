@@ -133,6 +133,7 @@ class UI(ABC):
         create_font = self._game.assets.create_font
         for key, value in resources.items():
             frame = Frame(
+                self._game,
                 (current_x, current_y),
                 image=value[0],
                 font=create_font(FontType.DISABLED, value[1]),
@@ -194,7 +195,7 @@ class UI(ABC):
         current_x = window_width - (confirm_width + GAP_SIZE)
         current_y = window_height - (font.line_height + GAP_SIZE)
 
-        frame = Frame((current_x, current_y), font=font, is_selectable=True)
+        frame = Frame(self._game, (current_x, current_y), font=font, is_selectable=True)
         self._elements["exit"] = frame
         panel = Panel([frame], True)
         self.add_panel(panel, "exit")

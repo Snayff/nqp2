@@ -1,10 +1,9 @@
 from __future__ import annotations
 
 import logging
-import time
 from typing import TYPE_CHECKING
 
-import pygame as pygame
+import pygame
 
 from scripts.core.assets import Assets
 from scripts.core.base_classes.scene import Scene
@@ -29,7 +28,7 @@ __all__ = ["Game"]
 class Game:
     def __init__(self):
         with Timer("Game initialised"):
-            # imports here to avoid circular references since their core and
+            # imports here to avoid circular references since they're core and
             # controllers require ``Game`` imports for typing.
             from scripts.core.memory import Memory
             from scripts.scenes.gallery.scene import GalleryScene

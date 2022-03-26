@@ -71,7 +71,12 @@ class RunSetupUI(UI):
         current_y = start_y
         bg = pygame.Surface((window_width, window_height))
         bg.fill((0, 0, 0))
-        frame = Frame((current_x, current_y), bg, is_selectable=False)
+        frame = Frame(
+            self._game,
+            (current_x, current_y),
+            bg,
+            is_selectable=False
+        )
         self._elements["bg"] = frame
 
         # draw commanders
@@ -82,13 +87,18 @@ class RunSetupUI(UI):
         for selection_counter, commander in enumerate(commanders.values()):
             icon = create_animation(commander["type"], "icon")
             icon.pause()
-            frame = Frame((current_x, current_y), new_image=icon, is_selectable=False)
+            frame = Frame(
+                self._game,
+                (current_x, current_y),
+                new_image=icon,
+                is_selectable=False
+            )
             self._elements[f"{commander['type']}_icon"] = frame
 
             move_anim = create_animation(commander["type"], "move")
             icon.pause()
             icon_width = icon.width
-            frame = Frame((current_x, anim_y), new_image=move_anim, is_selectable=True)
+            frame = Frame(self._game, (current_x, anim_y), new_image=move_anim, is_selectable=True)
             self._elements[commander["type"]] = frame
 
             # highlight selected commander
@@ -111,10 +121,20 @@ class RunSetupUI(UI):
         header_x = start_x + 20
 
         # name
-        frame = Frame((header_x, current_y), font=create_font(FontType.DISABLED, "Name"), is_selectable=False)
+        frame = Frame(
+            self._game,
+            (header_x, current_y),
+            font=create_font(FontType.DISABLED, "Name"),
+            is_selectable=False
+        )
         self._elements["name_header"] = frame
 
-        frame = Frame((info_x, current_y), font=create_font(FontType.DEFAULT, commander["name"]), is_selectable=False)
+        frame = Frame(
+            self._game,
+            (info_x, current_y),
+            font=create_font(FontType.DEFAULT, commander["name"]),
+            is_selectable=False
+        )
         self._elements["name"] = frame
 
         current_y += frame.height + GAP_SIZE
@@ -123,6 +143,7 @@ class RunSetupUI(UI):
         line_width = window_width - (current_x * 2)
         max_height = 110
         frame = Frame(
+            self._game,
             (header_x, current_y),
             font=create_fancy_font(commander["backstory"], font_effects=[FontEffects.FADE_IN]),
             is_selectable=False,
@@ -134,43 +155,74 @@ class RunSetupUI(UI):
         current_y = (window_height // 2) + 70
 
         # resources
-        frame = Frame((header_x, current_y), font=create_font(FontType.DISABLED, "Charisma"), is_selectable=False)
+        frame = Frame(
+            self._game,
+            (header_x, current_y),
+            font=create_font(FontType.DISABLED, "Charisma"),
+            is_selectable=False
+        )
         self._elements["charisma_header"] = frame
 
         frame = Frame(
-            (info_x, current_y), font=create_font(FontType.DEFAULT, commander["charisma"]), is_selectable=False
+            self._game,
+            (info_x, current_y),
+            font=create_font(FontType.DEFAULT, commander["charisma"]),
+            is_selectable=False
         )
         self._elements["charisma"] = frame
 
         current_y += frame.height + GAP_SIZE
 
-        frame = Frame((header_x, current_y), font=create_font(FontType.DISABLED, "Leadership"), is_selectable=False)
+        frame = Frame(
+            self._game,
+            (header_x, current_y),
+            font=create_font(FontType.DISABLED, "Leadership"),
+            is_selectable=False
+        )
         self._elements["leadership_header"] = frame
 
         frame = Frame(
-            (info_x, current_y), font=create_font(FontType.DEFAULT, commander["leadership"]), is_selectable=False
+            self._game,
+            (info_x, current_y),
+            font=create_font(FontType.DEFAULT, commander["leadership"]),
+            is_selectable=False
         )
         self._elements["leadership"] = frame
 
         current_y += frame.height + GAP_SIZE
 
         # gold
-        frame = Frame((header_x, current_y), font=create_font(FontType.DISABLED, "Gold"), is_selectable=False)
+        frame = Frame(
+            self._game,
+            (header_x, current_y),
+            font=create_font(FontType.DISABLED, "Gold"),
+            is_selectable=False
+        )
         self._elements["gold_header"] = frame
 
-        frame = Frame((info_x, current_y), font=create_font(FontType.DEFAULT, commander["gold"]), is_selectable=False)
+        frame = Frame(
+            self._game,
+            (info_x, current_y),
+            font=create_font(FontType.DEFAULT, commander["gold"]),
+            is_selectable=False
+        )
         self._elements["gold"] = frame
 
         current_y += frame.height + GAP_SIZE
 
         # allies
-        frame = Frame((header_x, current_y), font=create_font(FontType.DISABLED, "Allies"), is_selectable=False)
+        frame = Frame(
+            self._game,
+            (header_x, current_y),
+            font=create_font(FontType.DISABLED, "Allies"),
+            is_selectable=False
+        )
         self._elements["allies_header"] = frame
 
         # draw each faction image
         for count, ally in enumerate(commander["allies"]):
             image = get_image(ally, (DEFAULT_IMAGE_SIZE * 2, DEFAULT_IMAGE_SIZE * 2))
-            frame = Frame((info_x, current_y), new_image=image, is_selectable=False)
+            frame = Frame(self._game, (info_x, current_y), new_image=image, is_selectable=False)
             self._elements[f"allies{count}"] = frame
             info_x += image.width + 2
 

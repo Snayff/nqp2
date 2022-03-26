@@ -15,12 +15,12 @@ __all__ = ["Panel"]
 
 class Panel:
     """
-    A container class for ui elements. Offers better support for selection management.
+    A container class for UIElements. Offers support for selection management.
     """
 
     def __init__(self, elements: List, is_active: bool = False):
 
-        self._elements: List = elements
+        self._elements: List = elements  # UIElement-likes
         self._selected_index: int = 0
         self._is_active: bool = is_active
 
@@ -73,7 +73,7 @@ class Panel:
 
     def select_first_element(self):
         """
-        Selects the first element and sets the rest to unselected.
+        Selects the first element and sets the rest to previously_selected.
         """
         self.unselect_all_elements()
         if len(self._elements) > 0:

@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING, TypeVar
 
 import pygame
 
-from scripts.core.constants import SceneType
+from scripts.core.constants import IMG_FORMATS, SceneType
 
 if TYPE_CHECKING:
     from typing import Dict, List, Optional, Tuple
@@ -114,3 +114,4 @@ def previous_number_in_loop(start: int, loop_size: int) -> int:
         result = start - 1
 
     return result
+

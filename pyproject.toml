@@ -29,6 +29,7 @@ target-version = ['py38']
 line-length = 120
 
 [tool.isort]
+profile = "black"
 force_alphabetical_sort_within_sections = true
 include_trailing_comma = true
 sections = ['FUTURE', 'STDLIB', 'THIRDPARTY', 'FIRSTPARTY', 'LOCALFOLDER']
