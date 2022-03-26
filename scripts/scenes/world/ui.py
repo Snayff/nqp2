@@ -17,7 +17,8 @@ from scripts.core.constants import (
     GAP_SIZE,
     InnState,
     SceneType,
-    TILE_SIZE, TrainingState,
+    TILE_SIZE,
+    TrainingState,
     WorldState,
 )
 from scripts.scene_elements.unitgrid import UnitGrid
@@ -720,8 +721,6 @@ class WorldUI(UI):
             is_selectable=False,
         )
         self._elements["image"] = frame
-
-
 
         # draw description
         current_x += image_width + 5
