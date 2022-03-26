@@ -285,6 +285,7 @@
     <span class="n">GAP_SIZE</span><span class="p">,</span>
     <span class="n">InnState</span><span class="p">,</span>
     <span class="n">SceneType</span><span class="p">,</span>
+    <span class="n">TILE_SIZE</span><span class="p">,</span>
     <span class="n">TrainingState</span><span class="p">,</span>
     <span class="n">WorldState</span><span class="p">,</span>
 <span class="p">)</span>
@@ -385,6 +386,7 @@
         <span class="c1">#################</span>
         <span class="c1"># DO NOT DELETE #</span>
         <span class="c1">#################</span>
+        <span class="c1"># TODO - add flag and add trigger to dev console</span>
         <span class="c1"># manual camera control for debugging</span>
         <span class="c1"># if self._game.input.states["up"]:</span>
         <span class="c1">#     self._game.input.states["up"] = False</span>
@@ -954,8 +956,8 @@
         <span class="n">create_fancy_font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visuals</span><span class="o">.</span><span class="n">create_fancy_font</span>
         <span class="n">window_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">width</span>
         <span class="n">window_height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">height</span>
-        <span class="n">start_x</span> <span class="o">=</span> <span class="mi">100</span>
-        <span class="n">start_y</span> <span class="o">=</span> <span class="mi">100</span>
+        <span class="n">start_x</span> <span class="o">=</span> <span class="mi">50</span>
+        <span class="n">start_y</span> <span class="o">=</span> <span class="mi">20</span>
         <span class="n">frame_line_width</span> <span class="o">=</span> <span class="n">window_width</span> <span class="o">-</span> <span class="p">(</span><span class="n">start_x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
         <span class="n">event</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">active_event</span>
         <span class="n">show_event_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s2">"show_event_option_result"</span><span class="p">]</span>
@@ -971,8 +973,25 @@
         <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">((</span><span class="n">start_x</span><span class="p">,</span> <span class="n">start_y</span><span class="p">),</span> <span class="n">image</span><span class="o">=</span><span class="n">bg</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="sa">f</span><span class="s2">"background"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
 
+        <span class="c1"># get image info inc. ratio to scale properly</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visuals</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="s2">"image"</span><span class="p">])</span>
+        <span class="n">image_size_ratio</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">width</span> <span class="o">//</span> <span class="n">image</span><span class="o">.</span><span class="n">height</span>
+        <span class="n">image_width</span> <span class="o">=</span> <span class="n">TILE_SIZE</span> <span class="o">*</span> <span class="mi">6</span>
+        <span class="n">image_height</span> <span class="o">=</span> <span class="n">image_width</span> <span class="o">*</span> <span class="n">image_size_ratio</span>
+
+        <span class="c1"># draw image</span>
+        <span class="n">current_x</span> <span class="o">=</span> <span class="n">start_x</span>
+        <span class="n">current_y</span> <span class="o">=</span> <span class="n">start_y</span> <span class="o">+</span> <span class="p">(</span><span class="n">image_height</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visuals</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="s2">"image"</span><span class="p">],</span> <span class="p">(</span><span class="n">image_width</span><span class="p">,</span> <span class="n">image_height</span><span class="p">))</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span>
+            <span class="n">new_image</span><span class="o">=</span><span class="n">image</span><span class="p">,</span>
+            <span class="n">is_selectable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="s2">"image"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
+
         <span class="c1"># draw description</span>
-        <span class="n">current_x</span> <span class="o">=</span> <span class="n">start_x</span> <span class="o">+</span> <span class="mi">2</span>
+        <span class="n">current_x</span> <span class="o">+=</span> <span class="n">image_width</span> <span class="o">+</span> <span class="mi">5</span>
         <span class="n">current_y</span> <span class="o">=</span> <span class="n">start_y</span>
         <span class="k">if</span> <span class="n">controller</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="n">EventState</span><span class="o">.</span><span class="n">IDLE</span><span class="p">:</span>
             <span class="n">fancy_font</span> <span class="o">=</span> <span class="n">create_fancy_font</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="s2">"description"</span><span class="p">],</span> <span class="n">font_effects</span><span class="o">=</span><span class="p">[</span><span class="n">FontEffects</span><span class="o">.</span><span class="n">FADE_IN</span><span class="p">])</span>
@@ -980,11 +999,12 @@
             <span class="n">fancy_font</span> <span class="o">=</span> <span class="n">create_fancy_font</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="s2">"description"</span><span class="p">])</span>
         <span class="n">font_height</span> <span class="o">=</span> <span class="n">fancy_font</span><span class="o">.</span><span class="n">line_height</span>
         <span class="n">max_height</span> <span class="o">=</span> <span class="p">((</span><span class="n">window_height</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">current_y</span><span class="p">)</span> <span class="o">-</span> <span class="n">font_height</span>
+        <span class="n">desc_width</span> <span class="o">=</span> <span class="n">frame_line_width</span> <span class="o">-</span> <span class="n">image_width</span>
         <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
             <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span>
             <span class="n">font</span><span class="o">=</span><span class="n">fancy_font</span><span class="p">,</span>
             <span class="n">max_height</span><span class="o">=</span><span class="n">max_height</span><span class="p">,</span>
-            <span class="n">max_width</span><span class="o">=</span><span class="n">frame_line_width</span><span class="p">,</span>
+            <span class="n">max_width</span><span class="o">=</span><span class="n">desc_width</span><span class="p">,</span>
             <span class="n">is_selectable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="s2">"description"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
