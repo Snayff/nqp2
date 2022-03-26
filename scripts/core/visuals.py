@@ -92,7 +92,7 @@ class Visuals:
         for folder in folders:
             path = ASSET_PATH / folder
             for image_name in os.listdir(path):
-                if image_name.split(".")[-1] == "png":
+                if image_name.split(".")[-1] in ["png", "PNG", "jpg", "jpeg", "JPG"]:
 
                     # warn about duplicates
                     if image_name in images.keys():

@@ -19,8 +19,8 @@ __all__ = ["RunSetupScene"]
 
 class RunSetupScene(Scene):
     """
-    Handles RunSetupScene interactions and consolidates the rendering. RunSetupScene is used to allow the player to
-    determine the conditions of their run.
+    Handles RunSetupScene interactions and consolidates the rendering.
+    RunSetupScene is used to allow the player to determine the conditions of their run.
     """
 
     def __init__(self, game: Game):
