@@ -708,7 +708,7 @@ class WorldUI(UI):
         # get image info inc. ratio to scale properly
         image = self._game.visuals.get_image(event["image"])
         image_size_ratio = image.width // image.height
-        image_width = TILE_SIZE * 6
+        image_width = DEFAULT_IMAGE_SIZE * 6
         image_height = image_width * image_size_ratio
 
         # draw image

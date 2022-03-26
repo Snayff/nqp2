@@ -27,19 +27,15 @@ class RunSetupUI(UI):
     def __init__(self, game: Game, parent_scene: RunSetupScene):
         super().__init__(game, True)
         self._parent_scene: RunSetupScene = parent_scene
+        self._selected_index: int = 0
 
-        self.set_instruction_text("Choose who will lead the rebellion.")
+        self.set_instruction_text("Choose who will lead the attempt on the throne.")
 
     def update(self, delta_time: float):
         super().update(delta_time)
 
     def process_input(self, delta_time: float):
         super().process_input(delta_time)
-
-        if self._game.input.states["toggle_dev_console"]:
-            self._game.input.states["toggle_dev_console"] = False
-
-            self._game.change_scene(SceneType.DEV_DATA_EDITOR)
 
         # panel specific input
         if self._current_panel == self._panels["commanders"]:
@@ -58,16 +54,17 @@ class RunSetupUI(UI):
         super().rebuild_ui()
 
         commanders = self._game.data.commanders
-        selected_commander = self._game.run_setup.selected_commander
+        selected_commander = self._parent_scene.selected_commander
         window_width = self._game.window.width
         window_height = self._game.window.height
-        create_font = self._game.assets.create_font
-        create_fancy_font = self._game.assets.create_fancy_font
+        create_font = self._game.visuals.create_font
+        create_fancy_font = self._game.visuals.create_fancy_font
+        create_animation = self._game.visuals.create_animation
+        get_image = self._game.visuals.get_image
 
         # positions
         start_x = 0
         start_y = 0
-        default_font = self._game.assets.create_font(FontType.DEFAULT, "")
 
         # draw background
         current_x = start_x
@@ -80,12 +77,18 @@ class RunSetupUI(UI):
         # draw commanders
         current_x = start_x + 20
         current_y = start_y + 20
+        anim_y = current_y + 20
         panel_elements = []
         for selection_counter, commander in enumerate(commanders.values()):
-            icon = self._game.visuals.create_animation(commander["type"], "move")
+            icon = create_animation(commander["type"], "icon")
+            icon.pause()
+            frame = Frame((current_x, current_y), new_image=icon, is_selectable=False)
+            self._elements[f"{commander['type']}_icon"] = frame
+
+            move_anim = create_animation(commander["type"], "move")
             icon.pause()
             icon_width = icon.width
-            frame = Frame((current_x, current_y), new_image=icon, is_selectable=True)
+            frame = Frame((current_x, anim_y), new_image=move_anim, is_selectable=True)
             self._elements[commander["type"]] = frame
 
             # highlight selected commander
@@ -103,7 +106,7 @@ class RunSetupUI(UI):
 
         # draw info
         commander = commanders[selected_commander]
-        current_y += DEFAULT_IMAGE_SIZE + GAP_SIZE
+        current_y = anim_y + DEFAULT_IMAGE_SIZE + GAP_SIZE
         info_x = start_x + 220
         header_x = start_x + 20
 
@@ -128,7 +131,7 @@ class RunSetupUI(UI):
         )
         self._elements["backstory"] = frame
 
-        current_y += frame.height + GAP_SIZE
+        current_y = (window_height // 2) + 70
 
         # resources
         frame = Frame((header_x, current_y), font=create_font(FontType.DISABLED, "Charisma"), is_selectable=False)
@@ -151,22 +154,6 @@ class RunSetupUI(UI):
 
         current_y += frame.height + GAP_SIZE
 
-        # allies
-        frame = Frame((header_x, current_y), font=create_font(FontType.DISABLED, "Allies"), is_selectable=False)
-        self._elements["allies_header"] = frame
-
-        allies = ""
-        for ally in commander["allies"]:
-            # add comma
-            if allies == "":
-                allies += ally
-            else:
-                allies += ", " + ally
-        frame = Frame((info_x, current_y), font=create_font(FontType.DEFAULT, allies), is_selectable=False)
-        self._elements["allies"] = frame
-
-        current_y += frame.height + GAP_SIZE
-
         # gold
         frame = Frame((header_x, current_y), font=create_font(FontType.DISABLED, "Gold"), is_selectable=False)
         self._elements["gold_header"] = frame
@@ -174,56 +161,51 @@ class RunSetupUI(UI):
         frame = Frame((info_x, current_y), font=create_font(FontType.DEFAULT, commander["gold"]), is_selectable=False)
         self._elements["gold"] = frame
 
+        current_y += frame.height + GAP_SIZE
+
+        # allies
+        frame = Frame((header_x, current_y), font=create_font(FontType.DISABLED, "Allies"), is_selectable=False)
+        self._elements["allies_header"] = frame
+
+        # draw each faction image
+        for count, ally in enumerate(commander["allies"]):
+            image = get_image(ally, (DEFAULT_IMAGE_SIZE * 2, DEFAULT_IMAGE_SIZE * 2))
+            frame = Frame((info_x, current_y), new_image=image, is_selectable=False)
+            self._elements[f"allies{count}"] = frame
+            info_x += image.width + 2
+
+        # restore selection
+        self._current_panel.set_selected_index(self._selected_index)
+
         self.add_exit_button()
-
-    def refresh_info(self):
-        elements = self._elements
-        commander = self._game.data.commanders[self._game.run_setup.selected_commander]
-
-        elements["gold"].set_text(commander["gold"])
-        elements["leadership"].set_text(commander["leadership"])
-        elements["charisma"].set_text(commander["charisma"])
-        elements["backstory"].set_text(commander["backstory"])
-        elements["name"].set_text(commander["name"])
-
-        allies = ""
-        for ally in commander["allies"]:
-            # add comma
-            if allies == "":
-                allies += ally
-            else:
-                allies += ", " + ally
-        elements["allies"].set_text(allies)
 
     def _handle_select_commander_input(self):
         is_dirty = False
-        current_selected_commander = list(self._game.data.commanders)[self._current_panel.selected_index]
 
         # selections within panel
         if self._game.input.states["left"]:
-            self._game.input.states["left"] = False
 
             self._current_panel.select_previous_element()
+
+            # get values to restore after rebuild
+            self._parent_scene.selected_commander = list(self._game.data.commanders)[self._current_panel.selected_index]
+            self._selected_index = self._current_panel.selected_index
 
             is_dirty = True
 
         if self._game.input.states["right"]:
-            self._game.input.states["right"] = False
 
             self._current_panel.select_next_element()
+
+            # get values to restore after rebuild
+            self._parent_scene.selected_commander = list(self._game.data.commanders)[self._current_panel.selected_index]
+            self._selected_index = self._current_panel.selected_index
 
             is_dirty = True
 
         # update selected commander and shown info
         if is_dirty:
-            # pause current commander's animation
-            self._elements[current_selected_commander].reset_animation()
-
-            # update selection and start new animation
-            new_selected_commander = list(self._game.data.commanders)[self._current_panel.selected_index]
-            self._parent_scene.selected_commander = new_selected_commander
-            self._elements[new_selected_commander].play_animation()
-            self.refresh_info()
+            self.rebuild_ui()
 
         # select option and move to exit
         if self._game.input.states["select"]:
