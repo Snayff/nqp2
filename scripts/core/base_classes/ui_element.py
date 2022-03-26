@@ -77,7 +77,7 @@ class UIElement(ABC):
         return self.size[1]
 
     def _draw_selector(self, surface: pygame.Surface):
-        x = self.x - self.size[0]
+        x = self.x - self._current_selector.image.width
         y = self.y - self.size[1]
         surface.blit(self._current_selector.surface, (x, y))
 
