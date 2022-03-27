@@ -788,7 +788,7 @@ class WorldUI(UI):
             # create panel
             panel = UIPanel(self._game, panel_list, True)
             self.add_panel(panel, "options")
-            window = UIWindow(self._game, WindowType.BASIC, (start_x, start_y),(bg_width, bg_height))
+            window = UIWindow(self._game, WindowType.FANCY, (start_x, start_y), (bg_width, bg_height), panel_list)
             self._elements["window"] = window
 
         # show results

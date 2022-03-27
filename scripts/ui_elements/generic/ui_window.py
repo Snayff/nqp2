@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING
 import pygame
 
 from scripts.core.base_classes.image import Image
+from scripts.core.base_classes.ui_element import UIElement
 from scripts.core.constants import WindowType
 from scripts.ui_elements.generic.ui_panel import UIPanel
 
@@ -21,12 +22,13 @@ class UIWindow:
     """
     A more feature rich container for UIElements, containing a panel and its own visual style.
     """
-    def __init__(self, game: Game, window_type: WindowType, pos: Tuple[int, int], size: Tuple[int, int]):
+    def __init__(self, game: Game, window_type: WindowType, pos: Tuple[int, int], size: Tuple[int, int],
+            ui_elements: List[UIElement]):
         self._game: Game = game
         self._images: Dict[str, Image] = self._load_window_images(window_type)
         self.pos: Tuple[int, int] = pos
         self.size: Tuple[int, int] = size
-        self.panel = UIPanel(self._game, [], True)
+        self.panel = UIPanel(self._game, ui_elements, True)
 
         self._window_surface: pygame.Surface = self._build_window_surface()
 
@@ -53,7 +55,7 @@ class UIWindow:
             "top_middle",
             "top_right",
         ]
-        w_type = window_type.name
+        w_type = window_type.name.lower()
 
         # get all images
         for pos in positions:

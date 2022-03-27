@@ -125,9 +125,7 @@ class Visuals:
 
         # add not found image
         image = pygame.image.load(str(ASSET_PATH / "debug/image_not_found.png")).convert_alpha()
-        width = image.get_width()
-        height = image.get_height()
-        images[f"not_found@{width}x{height}"] = image
+        images[f"not_found@{DEFAULT_IMAGE_SIZE}x{DEFAULT_IMAGE_SIZE}"] = image
 
         # add transparent surface
         image = pygame.Surface((DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE))
