@@ -21,17 +21,20 @@ class UIWindow:
     """
     A more feature rich container for UIElements, containing a panel and its own visual style.
     """
-    def __init__(self, game: Game, window_type: WindowType):
+    def __init__(self, game: Game, window_type: WindowType, pos: Tuple[int, int], size: Tuple[int, int]):
         self._game: Game = game
         self._images: Dict[str, Image] = self._load_window_images(window_type)
+        self.pos: Tuple[int, int] = pos
+        self.size: Tuple[int, int] = size
         self.panel = UIPanel(self._game, [], True)
+
+        self._window_surface: pygame.Surface = self._build_window_surface()
 
     def update(self, delta_time: float):
         self.panel.update(delta_time)
 
     def draw(self, surface: pygame.Surface):
         self._draw_window(surface)
-
         self.panel.draw(surface)
 
     def _load_window_images(self, window_type: WindowType) -> Dict[str, Image]:
@@ -64,7 +67,59 @@ class UIWindow:
         """
         Draw the window images to create the visual border.
         """
-        pass
+        surface.blit(self._window_surface, self.pos)
+
+    def _build_window_surface(self) -> pygame.Surface:
+        """
+        Build the 9 slice into a single surface
+        """
+        images = self._images
+        window_width, window_height = self.size
+
+        # create blank surface
+        surface = pygame.Surface(self.size)
+
+        # scale and draw centre
+        centre = pygame.transform.smoothscale(images["centre"].surface, self.size)
+        surface.blit(centre, (0, 0))
+
+        # draw borders without corners
+        y = 0
+        for x in range(0, window_width, images["top_middle"].width):
+            surface.blit(images["top_middle"].surface, (x, y))
+
+        y = window_height - images["bottom_middle"].height
+        for x in range(0, window_width, images["bottom_middle"].width):
+            surface.blit(images["bottom_middle"].surface, (x, y))
+
+        x = 0
+        for y in range(0, window_height, images["left_middle"].height):
+            surface.blit(images["left_middle"].surface, (x, y))
+
+        x = window_width - images["right_middle"].width
+        for y in range(0, window_height, images["right_middle"].height):
+            surface.blit(images["right_middle"].surface, (x, y))
+
+
+        # draw corners
+        x = 0
+        y = 0
+        surface.blit(images["top_left"].surface, (x, y))
+
+        x = 0
+        y = window_height - images["bottom_left"].height
+        surface.blit(images["bottom_left"].surface, (x, y))
+
+        x = window_width - images["top_right"].width
+        y = 0
+        surface.blit(images["top_right"].surface, (x, y))
+
+        x = window_width - images["bottom_right"].width
+        y = window_height - images["bottom_right"].height
+        surface.blit(images["bottom_right"].surface, (x, y))
+
+        return surface
+
 
 
 
