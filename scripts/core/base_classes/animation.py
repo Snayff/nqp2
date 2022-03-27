@@ -23,8 +23,8 @@ class Animation:
         self._frames: List[Image] = frames
         self._frame_duration: float = max(frame_duration, 0.1)  # must be greater than 1
         self._is_looping: bool = loop
-        self._num_frames = len(self._frames)
-        self._animation_length: float = self._num_frames * self._frame_duration
+        self.num_frames = len(self._frames)
+        self._animation_length: float = self.num_frames * self._frame_duration
 
         self._state: AnimationState = AnimationState.PLAYING
         self._current_frame: int = 0
@@ -46,7 +46,7 @@ class Animation:
                 self._state = AnimationState.FINISHED
 
         # update frame
-        self._current_frame = int(self._duration / self._frame_duration * self._num_frames) % self._num_frames
+        self._current_frame = int(self._duration / self._frame_duration * self.num_frames) % self.num_frames
 
     def play(self):
         """

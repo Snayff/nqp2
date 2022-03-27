@@ -9,11 +9,11 @@ import pygame
 
 from scripts.core.base_classes.ui import UI
 from scripts.core.constants import DATA_PATH, DEFAULT_IMAGE_SIZE, FontType
-from scripts.ui_elements.button import Button
-from scripts.ui_elements.input_box import InputBox
+from scripts.ui_elements.generic.ui_button import UIButton
+from scripts.ui_elements.generic.ui_input_box import UIInputBox
 
 if TYPE_CHECKING:
-    from typing import Dict, List, Optional, Type, Union
+    from typing import Dict
 
     from scripts.core.game import Game
     from scripts.scenes.unit_data.scene import UnitDataScene
@@ -33,13 +33,13 @@ class UnitDataUI(UI):
         window_width = self._game.window.width
         window_height = self._game.window.height
 
-        self.buttons: Dict[str, Button] = {
-            "left_arrow": Button(
-                game, pygame.transform.flip(self._game.assets.get_image("ui", "arrow_button"), True, False), (10, 10)
+        self.buttons: Dict[str, UIButton] = {
+            "left_arrow": UIButton(
+                game, pygame.transform.flip(self._game.visuals.get_image("ui", "arrow_button"), True, False), (10, 10)
             ),
-            "right_arrow": Button(game, self._game.assets.get_image("ui", "arrow_button"), (120, 10)),
-            "save": Button(game, "save", (window_width - 32, window_height - 22), size=[30, 20]),
-            "cancel": Button(game, "cancel", (2, window_height - 22), size=[30, 20]),
+            "right_arrow": UIButton(game, self._game.visuals.get_image("ui", "arrow_button"), (120, 10)),
+            "save": UIButton(game, "save", (window_width - 32, window_height - 22), size=[30, 20]),
+            "cancel": UIButton(game, "cancel", (2, window_height - 22), size=[30, 20]),
         }
 
         self.fields = {}
@@ -121,7 +121,7 @@ class UnitDataUI(UI):
     def draw(self, surface: pygame.Surface):
         window_width = self._game.window.width
         window_height = self._game.window.height
-        create_font = self._game.assets.create_font
+        create_font = self._game.visuals.create_font
 
         metric_col_width = 80
         metric_second_row_start_y = window_height // 2
@@ -146,9 +146,9 @@ class UnitDataUI(UI):
         unit_type = self.current_unit_data["type"]
         try:
             for animation_name in ["icon", "idle", "walk", "attack", "hit", "death"]:
-                num_frames = len(self._game.assets.unit_animations[unit_type][animation_name])
+                num_frames = len(self._game.visuals.unit_animations[unit_type][animation_name])
                 frame_ = min(frame, num_frames - 1)
-                img = self._game.assets.unit_animations[unit_type][animation_name][frame_]
+                img = self._game.visuals.unit_animations[unit_type][animation_name][frame_]
                 img_ = pygame.transform.scale(img, (DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE))
                 surface.blit(img_, (current_img_x, current_img_y))
 
@@ -237,7 +237,7 @@ class UnitDataUI(UI):
         for i, field in enumerate(self.current_unit_data):
             y = i % 15  # this is the rows in the col
             x = i // 15  # must match int used for y
-            self.fields[field] = InputBox(
+            self.fields[field] = UIInputBox(
                 self._game,
                 [80, 16],
                 pos=[100 + x * 200, 30 + y * 20],

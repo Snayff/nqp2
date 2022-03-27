@@ -4,14 +4,14 @@ import json
 import logging
 import os
 import time
-from typing import Any, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 import pygame
 
 from scripts.core.constants import ASSET_PATH, DEFAULT_IMAGE_SIZE, FontEffects, FontType
 from scripts.core.utility import clamp, clip
-from scripts.ui_elements.fancy_font import FancyFont
-from scripts.ui_elements.font import Font
+from scripts.ui_elements.generic.fancy_font import FancyFont
+from scripts.ui_elements.generic.font import Font
 
 if TYPE_CHECKING:
     from typing import Dict, List, Optional, Tuple
@@ -57,46 +57,46 @@ class Assets:
             for unit in os.listdir(ASSET_PATH / "units/")
         }
 
-        self.trap_animations = {}
-
-        self.commander_animations = {
-            commander: {
-                action: self.load_image_dir(ASSET_PATH / "commanders/" / commander / action)
-                for action in os.listdir(ASSET_PATH / "commanders/" / commander)
-            }
-            for commander in os.listdir(ASSET_PATH / "commanders/")
-        }
-
-        self.boss_animations = {
-            commander: {
-                action: self.load_image_dir(ASSET_PATH / "bosses/" / commander / action)
-                for action in os.listdir(ASSET_PATH / "bosses/" / commander)
-            }
-            for commander in os.listdir(ASSET_PATH / "bosses/")
-        }
+        # self.trap_animations = {}
+        #
+        # self.commander_animations = {
+        #     commander: {
+        #         action: self.load_image_dir(ASSET_PATH / "commanders/" / commander / action)
+        #         for action in os.listdir(ASSET_PATH / "commanders/" / commander)
+        #     }
+        #     for commander in os.listdir(ASSET_PATH / "commanders/")
+        # }
+        #
+        # self.boss_animations = {
+        #     commander: {
+        #         action: self.load_image_dir(ASSET_PATH / "bosses/" / commander / action)
+        #         for action in os.listdir(ASSET_PATH / "bosses/" / commander)
+        #     }
+        #     for commander in os.listdir(ASSET_PATH / "bosses/")
+        # }
 
         self.tilesets = {
             tileset.split(".")[0]: self.load_tileset(ASSET_PATH / "tiles" / tileset)
             for tileset in os.listdir(ASSET_PATH / "tiles")
         }
 
-        self.ui = {
-            ui_image.split(".")[0]: pygame.image.load(str(ASSET_PATH / "ui" / ui_image)).convert_alpha()
-            for ui_image in os.listdir(ASSET_PATH / "ui")
-        }
-
-        self.actions = {
-            action_image.split(".")[0]: pygame.image.load(str(ASSET_PATH / "actions" / action_image)).convert_alpha()
-            for action_image in os.listdir(ASSET_PATH / "actions")
-        }
-
-        self.projectiles = {
-            projectiles_image.split(".")[0]: pygame.image.load(
-                str(ASSET_PATH / "projectiles" / projectiles_image)
-            ).convert_alpha()
-            for projectiles_image in os.listdir(ASSET_PATH / "projectiles")
-            if projectiles_image.split(".")[-1] == "png"
-        }
+        # self.ui = {
+        #     ui_image.split(".")[0]: pygame.image.load(str(ASSET_PATH / "ui" / ui_image)).convert_alpha()
+        #     for ui_image in os.listdir(ASSET_PATH / "ui")
+        # }
+        #
+        # self.actions = {
+        #     action_image.split(".")[0]: pygame.image.load(str(ASSET_PATH / "actions" / action_image)).convert_alpha()
+        #     for action_image in os.listdir(ASSET_PATH / "actions")
+        # }
+        #
+        # self.projectiles = {
+        #     projectiles_image.split(".")[0]: pygame.image.load(
+        #         str(ASSET_PATH / "projectiles" / projectiles_image)
+        #     ).convert_alpha()
+        #     for projectiles_image in os.listdir(ASSET_PATH / "projectiles")
+        #     if projectiles_image.split(".")[-1] == "png"
+        # }
 
         self.maps = {map.split(".")[0]: self.json_read("data/maps/" + map) for map in os.listdir("data/maps")}
 

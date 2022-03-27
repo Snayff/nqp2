@@ -13,18 +13,9 @@ from typing import TYPE_CHECKING
 
 import pygame
 
-from scripts.core.constants import (
-    DEBUGGING_PATH,
-    FontType,
-    INFINITE,
-    LOGGING_PATH,
-    PROFILING_PATH,
-    SceneType,
-    VERSION,
-    WorldState,
-)
-from scripts.ui_elements.dev_console import DevConsole
-from scripts.ui_elements.font import Font
+from scripts.core.constants import DEBUGGING_PATH, FontType, INFINITE, LOGGING_PATH, PROFILING_PATH, VERSION, WorldState
+from scripts.ui_elements.generic.font import Font
+from scripts.ui_elements.tailored.dev_console import DevConsole
 
 if TYPE_CHECKING:
     from typing import Callable, List, Optional, Tuple, TYPE_CHECKING, Union
@@ -311,7 +302,7 @@ class Debugger:
         # recent_fps = f"R_Avg={format(self.recent_average_fps, '.2f')}, "
         # avg_fps = f"Avg={format(self.average_fps, '.2f')}"
         # text = f"{current_fps}; {recent_fps};{avg_fps}"
-        # self._fonts.append(self._game.assets.create_font(FontType.DEFAULT, text, (current_x, current_y)))
+        # self._fonts.append(self._game.visuals.create_font(FontType.DEFAULT, text, (current_x, current_y)))
 
         # current state
         current_y += 0
@@ -328,13 +319,13 @@ class Debugger:
             sub_state_name = "n/a"
 
         text = f"World state is [{world_state.name}]; room state is [{sub_state_name}]."
-        self._fonts.append(self._game.assets.create_font(FontType.DEFAULT, text, (current_x, current_y)))
+        self._fonts.append(self._game.visuals.create_font(FontType.DEFAULT, text, (current_x, current_y)))
 
         # game speed
         current_y += 10
         game_speed = self._game.world.model.game_speed
         text = f"Game speed = {game_speed}."
-        self._fonts.append(self._game.assets.create_font(FontType.DEFAULT, text, (current_x, current_y)))
+        self._fonts.append(self._game.visuals.create_font(FontType.DEFAULT, text, (current_x, current_y)))
 
 
 class Timer:

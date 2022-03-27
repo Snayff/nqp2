@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 
 import pygame
 
-from scripts.core.assets import Assets
 from scripts.core.base_classes.scene import Scene
 from scripts.core.constants import GameState, SceneType
 from scripts.core.data import Data
@@ -30,6 +29,7 @@ class Game:
         with Timer("Game initialised"):
             # imports here to avoid circular references since they're core and
             # controllers require ``Game`` imports for typing.
+            from scripts.core.assets import Assets
             from scripts.core.memory import Memory
             from scripts.scenes.gallery.scene import GalleryScene
             from scripts.scenes.main_menu.scene import MainMenuScene
@@ -47,8 +47,8 @@ class Game:
             self.debug: Debugger = Debugger(self)
             self.window: Window = Window(self)
             self.data: Data = Data(self)
-            self.memory: Memory = Memory(self)
             self.assets: Assets = Assets(self)  # TODO - deprecate
+            self.memory: Memory = Memory(self)
             self.input: Input = Input(self)
             self.rng: RNG = RNG(self)
             self.sounds: Sounds = Sounds(self)
@@ -62,8 +62,8 @@ class Game:
             self.world: WorldScene = WorldScene(self)
 
             # dev scenes
-            self.dev_unit_data: UnitDataScene = UnitDataScene(self)
-            self.dev_gallery: GalleryScene = GalleryScene(self)
+            # self.dev_unit_data: UnitDataScene = UnitDataScene(self)  # TODO - fix
+            # self.dev_gallery: GalleryScene = GalleryScene(self) # TODO - fix
 
             self.scene_stack: List[Scene] = []
             self.state: GameState = GameState.LOADING

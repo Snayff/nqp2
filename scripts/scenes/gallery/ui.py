@@ -55,7 +55,7 @@ class GalleryUI(UI):
     def process_input(self, delta_time: float):
         super().process_input(delta_time)
 
-        max_units = len(self._game.assets.unit_animations)
+        max_units = len(self._game.visuals.unit_animations)
 
         if self._game.input.states["left"]:
             self._game.input.states["left"] = False
@@ -75,7 +75,7 @@ class GalleryUI(UI):
             self._current_filter = self._filters[next_index]
 
         # exit
-        if self._current_panel == self._panels["exit"]:
+        if self._current_container == self._containers["exit"]:
             if self._game.input.states["select"]:
                 self._game.input.states["select"] = False
 
@@ -87,7 +87,7 @@ class GalleryUI(UI):
         positive_font = self.positive_font
         disabled_font = self.disabled_font
         units = self._game.data.units
-        animations = self._game.assets.unit_animations
+        animations = self._game.visuals.unit_animations
         start_index = self._start_index
         end_index = self._end_index
         window_width = self._game.window.width

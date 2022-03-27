@@ -5,18 +5,16 @@ from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, GAP_SIZE
-from scripts.ui_elements.frame import Frame
-from scripts.ui_elements.panel import Panel
+from scripts.ui_elements.generic.ui_frame import UIFrame
+from scripts.ui_elements.generic.ui_panel import UIPanel
+from scripts.ui_elements.generic.ui_window import UIWindow
 
 if TYPE_CHECKING:
-    from typing import Dict, List, Optional, Type, Union
+    from typing import Dict, Optional, Union
 
     import pygame
 
-    from scripts.core.base_classes.scene import Scene
     from scripts.core.game import Game
-    from scripts.ui_elements.font import Font
-    from scripts.ui_elements.unit_stats_window import UnitStatsFrame
 
 
 __all__ = ["UI"]
@@ -34,9 +32,9 @@ class UI(ABC):
         self._game: Game = game
         self.block_onward_input: bool = block_onward_input  # prevents input being passed to the next scene
 
-        self._elements: Dict[str, Union[Frame, UnitStatsFrame]] = {}
-        self._panels: Dict[str, Panel] = {}
-        self._current_panel: Optional[Panel] = None
+        self._elements: Dict[str, Union[UIFrame]] = {}  # any elements not held in a container
+        self._containers: Dict[str, Union[UIPanel, UIWindow]] = {}
+        self._current_container: Optional[UIPanel] = None
 
         self._temporary_instruction_text: str = ""
         self._temporary_instruction_timer: float = 0.0
@@ -64,7 +62,7 @@ class UI(ABC):
 
     def rebuild_ui(self):
         self._elements = {}
-        self._panels = {}
+        self._containers = {}
 
     def activate(self):
         """
@@ -100,23 +98,23 @@ class UI(ABC):
         # key : [value, icon]
         resources = {
             "gold": [
-                self._game.assets.get_image("stats", "gold", icon_size),
+                self._game.visuals.get_image("gold", icon_size),
                 str(self._game.memory.gold),
             ],
             "rations": [
-                self._game.assets.get_image("stats", "rations", icon_size),
+                self._game.visuals.get_image("rations", icon_size),
                 str(self._game.memory.rations),
             ],
             "morale": [
-                self._game.assets.get_image("stats", "morale", icon_size),
+                self._game.visuals.get_image("morale", icon_size),
                 str(self._game.memory.morale),
             ],
             "charisma": [
-                self._game.assets.get_image("stats", "charisma", icon_size),
+                self._game.visuals.get_image("charisma", icon_size),
                 str(self._game.memory.commander.charisma_remaining),
             ],
             "leadership": [
-                self._game.assets.get_image("stats", "leadership", icon_size),
+                self._game.visuals.get_image("leadership", icon_size),
                 str(self._game.memory.leadership),
             ],
         }
@@ -130,9 +128,9 @@ class UI(ABC):
         current_y = start_y
 
         # create frames
-        create_font = self._game.assets.create_font
+        create_font = self._game.visuals.create_font
         for key, value in resources.items():
-            frame = Frame(
+            frame = UIFrame(
                 self._game,
                 (current_x, current_y),
                 image=value[0],
@@ -146,17 +144,17 @@ class UI(ABC):
             current_x += frame.width + GAP_SIZE
 
         # create panel
-        panel = Panel(self._game, panel_elements, True)
+        panel = UIPanel(self._game, panel_elements, True)
         panel.unselect_all_elements()
-        self._panels["resources"] = panel
+        self._containers["resources"] = panel
 
     def _draw_instruction(self, surface: pygame.Surface):
         if self._temporary_instruction_text:
             text = self._temporary_instruction_text
-            font = self._game.assets.create_font(FontType.NEGATIVE, text)
+            font = self._game.visuals.create_font(FontType.NEGATIVE, text)
         else:
             text = self._instruction_text
-            font = font = self._game.assets.create_font(FontType.INSTRUCTION, text)
+            font = font = self._game.visuals.create_font(FontType.INSTRUCTION, text)
 
         x = self._game.window.width - font.width - 2
         y = 2
@@ -164,63 +162,72 @@ class UI(ABC):
         font.draw(surface)
 
     def _draw_elements(self, surface: pygame.Surface):
-        for name, element in self._elements.items():
+        """
+        Draw all elements, both those held in _elements and _containers.
+        """
+        for container in self._containers.values():
+            container.draw(surface)
+
+        for element in self._elements.values():
             element.draw(surface)
 
     def update_elements(self, delta_time: float):
+        for container in self._containers.values():
+            container.update(delta_time)
+
         for element in self._elements.values():
             element.update(delta_time)
 
-    def add_panel(self, panel: Panel, name: str):
+    def add_container(self, container: Union[UIPanel, UIWindow], name: str):
         """
-        Adds panel to the panel dict. If it is the first panel then also sets it to the current panel and selects the
-         first element.
+        Adds container to the container dict.
+        If it is the first container then also sets it to the current container and selects the first element.
         """
-        self._panels[name] = panel
+        self._containers[name] = container
 
-        if len(self._panels) == 1:
-            self._current_panel = self._panels[name]
-            self._current_panel.select_first_element()
+        if len(self._containers) == 1:
+            self._current_container = self._containers[name]
+            self._current_container.select_first_element()
 
-    def add_exit_button(self, button_text: str = "Onwards") -> Panel:
+    def add_exit_button(self, button_text: str = "Onwards") -> UIPanel:
         """
         Add an exit button to the ui. Returns the panel containing the exit button.
         """
         window_width = self._game.window.width
         window_height = self._game.window.height
-        font = self._game.assets.create_font(FontType.DEFAULT, button_text)
+        font = self._game.visuals.create_font(FontType.DEFAULT, button_text)
 
         # get position info
         confirm_width = font.get_text_width(button_text)
         current_x = window_width - (confirm_width + GAP_SIZE)
         current_y = window_height - (font.line_height + GAP_SIZE)
 
-        frame = Frame(self._game, (current_x, current_y), font=font, is_selectable=True)
+        frame = UIFrame(self._game, (current_x, current_y), font=font, is_selectable=True)
         self._elements["exit"] = frame
-        panel = Panel(self._game, [frame], True)
-        self.add_panel(panel, "exit")
+        panel = UIPanel(self._game, [frame], True)
+        self.add_container(panel, "exit")
 
         return panel
 
-    def select_panel(self, panel_name: str, hide_old_panel: bool = False):
+    def select_container(self, container_name: str, hide_old_container: bool = False):
         """
-        Unselect the current panel and move the selection to the specified panel.
+        Unselect the current container and move the selection to the specified panel.
         """
         # unselect current
-        self._current_panel.unselect_all_elements()
+        self._current_container.unselect_all_elements()
 
-        if hide_old_panel:
-            self._current_panel._is_active = False
+        if hide_old_container:
+            self._current_container._is_active = False
 
         # select new
         try:
-            self._current_panel = self._panels[panel_name]
+            self._current_container = self._containers[container_name]
 
         except KeyError:
             logging.critical(
-                f"Tried to change to {panel_name} panel, but does not exist. Selected first panel " f"instead."
+                f"Tried to change to {container_name} panel, but does not exist. Selected first panel " f"instead."
             )
-            self._current_panel = list(self._panels)[0]
+            self._current_container = list(self._containers)[0]
 
-        self._current_panel.select_first_element()
-        self._current_panel._is_active = True
+        self._current_container.select_first_element()
+        self._current_container._is_active = True
