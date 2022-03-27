@@ -7,7 +7,7 @@ import pygame
 from scripts.core.base_classes.ui import UI
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, PostCombatState, RewardType, SceneType
 from scripts.scene_elements.unit import Unit
-from scripts.ui_elements.frame import Frame
+from scripts.ui_elements.generic.ui_frame import UIFrame
 
 if TYPE_CHECKING:
     from typing import Optional
@@ -179,14 +179,14 @@ class PostCombatUI(UI):
         font = create_font(FontType.POSITIVE, text)
         current_x = (window_width // 2) - font.width
         current_y = start_y
-        frame = Frame(self._game, (current_x, current_y), font=font, is_selectable=False)
+        frame = UIFrame(self._game, (current_x, current_y), font=font, is_selectable=False)
         self._elements["header"] = frame
 
         # draw gold reward
         current_y += 50
         gold_icon = self._game.assets.get_image("stats", "gold", icon_size)
         gold_reward = str(self._game.post_combat.gold_reward)
-        frame = Frame(
+        frame = UIFrame(
             self._game,
             (current_x, current_y),
             image=gold_icon,
@@ -213,7 +213,7 @@ class PostCombatUI(UI):
         font = create_font(FontType.NEGATIVE, text)
         current_x = (window_width // 2) - font.width
         current_y = start_y
-        frame = Frame(self._game, (current_x, current_y), font=font, is_selectable=False)
+        frame = UIFrame(self._game, (current_x, current_y), font=font, is_selectable=False)
         self._elements["header"] = frame
 
         # draw lost morale
@@ -225,7 +225,7 @@ class PostCombatUI(UI):
             text = "Your forces, like your ambitions, lie in ruin."
             font = create_font(FontType.DISABLED, text)
             current_x = (window_width // 2) - (font.width // 2)
-            frame = Frame(self._game, (current_x, current_y), font=font, is_selectable=False)
+            frame = UIFrame(self._game, (current_x, current_y), font=font, is_selectable=False)
             self._elements["morale"] = frame
 
             # draw exit button
@@ -233,7 +233,7 @@ class PostCombatUI(UI):
         else:
             # lose morale
             morale_image = self._game.assets.get_image("stats", "morale")
-            frame = Frame(
+            frame = UIFrame(
                 self._game,
                 (current_x, current_y),
                 image=morale_image,
@@ -354,14 +354,14 @@ class PostCombatUI(UI):
         header_font = self._game.assets.create_font(FontType.DEFAULT, header_text)
         current_x = (window_width // 2) - header_font.width
         current_y = start_y
-        frame = Frame(self._game, (current_x, current_y), font=header_font, is_selectable=False)
+        frame = UIFrame(self._game, (current_x, current_y), font=header_font, is_selectable=False)
         self._elements["header"] = frame
 
         # draw victory message
         current_y += 50
         text = "That's all there is. You've beaten the boss, so why not try another commander?"
         victory_font = self._game.assets.create_font(FontType.POSITIVE, text)
-        frame = Frame(
+        frame = UIFrame(
             self._game,
             (current_x, current_y),
             font=victory_font,

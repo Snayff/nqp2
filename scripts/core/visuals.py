@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import json
 import logging
 import os
 import time
@@ -11,9 +10,9 @@ import pygame
 from scripts.core.base_classes.animation import Animation
 from scripts.core.base_classes.image import Image
 from scripts.core.constants import ASSET_PATH, DEFAULT_IMAGE_SIZE, FontEffects, FontType, IMG_FORMATS
-from scripts.core.utility import clamp, clip
-from scripts.ui_elements.fancy_font import FancyFont
-from scripts.ui_elements.font import Font
+from scripts.core.utility import clamp
+from scripts.ui_elements.generic.fancy_font import FancyFont
+from scripts.ui_elements.generic.font import Font
 
 if TYPE_CHECKING:
     from typing import Dict, List, Optional, Tuple
@@ -43,7 +42,13 @@ class Visuals:
             "rooms",
             "stats",
             "tiles",
-            "ui",
+            "ui/backgrounds",
+            "ui/cursors",
+            "ui/icons",
+            "ui/keys",
+            "ui/widgets",
+            "ui/windows/basic",
+            "ui/windows/fancy",
             "upgrades",
             "world",
         ]  # don't add debug folder

@@ -19,12 +19,11 @@ from scripts.core.constants import (
     INFINITE,
     LOGGING_PATH,
     PROFILING_PATH,
-    SceneType,
     VERSION,
     WorldState,
 )
-from scripts.ui_elements.dev_console import DevConsole
-from scripts.ui_elements.font import Font
+from scripts.ui_elements.tailored.dev_console import DevConsole
+from scripts.ui_elements.generic.font import Font
 
 if TYPE_CHECKING:
     from typing import Callable, List, Optional, Tuple, TYPE_CHECKING, Union

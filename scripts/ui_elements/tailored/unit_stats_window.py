@@ -7,11 +7,11 @@ from pygame import SRCALPHA
 
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, GAP_SIZE, StatModifiedStatus
 from scripts.scene_elements.unit import Unit
-from scripts.ui_elements.frame import Frame
-from scripts.ui_elements.panel import Panel
+from scripts.ui_elements.generic.ui_frame import UIFrame
+from scripts.ui_elements.generic.ui_panel import UIPanel
 
 if TYPE_CHECKING:
-    from typing import List, Optional, Tuple, Union
+    from typing import Tuple
 
     from scripts.core.game import Game
 
@@ -19,7 +19,7 @@ if TYPE_CHECKING:
 __all__ = ["UnitStatsWindow"]
 
 
-class UnitStatsWindow(Panel):
+class UnitStatsWindow(UIPanel):
     # TODO - create window class and inherit from that
 
     def __init__(self, game: Game, pos: Tuple[int, int], unit: Unit):
@@ -53,7 +53,7 @@ class UnitStatsWindow(Panel):
         bg_height = panel_height
         bg = pygame.Surface((bg_width, bg_height), SRCALPHA)
         bg.fill((0, 0, 0, 150))
-        frame = Frame(self._game, (current_x, current_y), image=bg)
+        frame = UIFrame(self._game, (current_x, current_y), image=bg)
         self._elements.append(frame)
 
         # draw icon
@@ -61,7 +61,7 @@ class UnitStatsWindow(Panel):
         current_y = start_y
         unit_icon = create_animation(self._unit.type, "icon")
         font = create_fancy_font(self._unit.type, (0, 0))
-        frame = Frame(self._game, (current_x, current_y), new_image=unit_icon, font=font)
+        frame = UIFrame(self._game, (current_x, current_y), new_image=unit_icon, font=font)
         self._elements.append(frame)
 
         # increment
@@ -91,7 +91,7 @@ class UnitStatsWindow(Panel):
             # draw stat icon and info
             stat_icon = get_image(stat, stat_icon_size)
             font = create_font(font_type, str(getattr(self._unit, stat)))
-            frame = Frame(self._game, (frame_x, frame_y), new_image=stat_icon, font=font)
+            frame = UIFrame(self._game, (frame_x, frame_y), new_image=stat_icon, font=font)
             self._elements.append(frame)
 
     def set_unit(self, unit: Unit):

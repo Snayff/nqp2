@@ -5,13 +5,11 @@ from typing import TYPE_CHECKING
 import pygame
 
 from scripts.core.base_classes.ui import UI
-from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, GameState, GAP_SIZE, SceneType
-from scripts.ui_elements.frame import Frame
-from scripts.ui_elements.panel import Panel
+from scripts.core.constants import FontType, GameState, GAP_SIZE
+from scripts.ui_elements.generic.ui_frame import UIFrame
+from scripts.ui_elements.generic.ui_panel import UIPanel
 
 if TYPE_CHECKING:
-    from typing import Dict, List, Optional, Tuple, Union
-
     from scripts.core.game import Game
     from scripts.scenes.main_menu.scene import MainMenuScene
 
@@ -72,7 +70,7 @@ class MainMenuUI(UI):
 
         # draw background
         background = self._game.assets.get_image("ui", "town", (window_width, window_height))
-        frame = Frame(self._game, (0, 0), background)
+        frame = UIFrame(self._game, (0, 0), background)
         self._elements["background"] = frame
 
         # draw options
@@ -81,7 +79,7 @@ class MainMenuUI(UI):
         panel_elements = []
 
         # new game
-        frame = Frame(
+        frame = UIFrame(
             self._game, (current_x, current_y), font=create_font(FontType.DEFAULT, "New Game"), is_selectable=True
         )
         self._elements["new_game"] = frame
@@ -89,7 +87,7 @@ class MainMenuUI(UI):
 
         # load
         current_y += frame.height + GAP_SIZE
-        frame = Frame(
+        frame = UIFrame(
             self._game, (current_x, current_y), font=create_font(FontType.DEFAULT, "Load Game"), is_selectable=False
         )
         self._elements["load_game"] = frame
@@ -97,7 +95,7 @@ class MainMenuUI(UI):
 
         # options
         current_y += frame.height + GAP_SIZE
-        frame = Frame(
+        frame = UIFrame(
             self._game, (current_x, current_y), font=create_font(FontType.DEFAULT, "Settings"), is_selectable=False
         )
         self._elements["settings"] = frame
@@ -105,12 +103,12 @@ class MainMenuUI(UI):
 
         # exit
         current_y += frame.height + GAP_SIZE
-        frame = Frame(
+        frame = UIFrame(
             self._game, (current_x, current_y), font=create_font(FontType.DEFAULT, "Exit"), is_selectable=True
         )
         self._elements["exit"] = frame
         panel_elements.append(frame)
 
         # add panel
-        panel = Panel(self._game, panel_elements, True)
+        panel = UIPanel(self._game, panel_elements, True)
         self.add_panel(panel, "options")

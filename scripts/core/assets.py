@@ -4,14 +4,14 @@ import json
 import logging
 import os
 import time
-from typing import Any, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 import pygame
 
 from scripts.core.constants import ASSET_PATH, DEFAULT_IMAGE_SIZE, FontEffects, FontType
 from scripts.core.utility import clamp, clip
-from scripts.ui_elements.fancy_font import FancyFont
-from scripts.ui_elements.font import Font
+from scripts.ui_elements.generic.fancy_font import FancyFont
+from scripts.ui_elements.generic.font import Font
 
 if TYPE_CHECKING:
     from typing import Dict, List, Optional, Tuple

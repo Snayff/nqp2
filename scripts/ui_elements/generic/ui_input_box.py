@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 # TODO - handle blank input fields
 
 
-class InputBox:
+class UIInputBox:
     def __init__(self, game, size, pos=[0, 0], colour=(255, 255, 255), input_type="all", text="", font=None):
         self._game: Game = game
         self.size = list(size)

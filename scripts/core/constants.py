@@ -170,3 +170,8 @@ class InputType(IntEnum):
     NONE = auto()
     KEYS = auto()  # keyboard/gamepad
     MOUSE = auto()
+
+
+class WindowType(IntEnum):
+    BASIC = auto()
+    FANCY = auto()

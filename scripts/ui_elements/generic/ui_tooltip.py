@@ -3,7 +3,7 @@ import pygame
 # use font_enhanced.formatted_text_gen if you want colors
 
 
-class Tooltip:
+class UITooltip:
 
     """
     Tooltips will pop up after <rect_reference> has been hovered for <visible_delay> seconds and will show <text>.

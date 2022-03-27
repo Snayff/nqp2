@@ -5,18 +5,16 @@ from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, GAP_SIZE
-from scripts.ui_elements.frame import Frame
-from scripts.ui_elements.panel import Panel
+from scripts.ui_elements.generic.ui_frame import UIFrame
+from scripts.ui_elements.generic.ui_panel import UIPanel
 
 if TYPE_CHECKING:
-    from typing import Dict, List, Optional, Type, Union
+    from typing import Dict, Optional, Union
 
     import pygame
 
-    from scripts.core.base_classes.scene import Scene
     from scripts.core.game import Game
-    from scripts.ui_elements.font import Font
-    from scripts.ui_elements.unit_stats_window import UnitStatsFrame
+    from scripts.ui_elements.tailored.unit_stats_window import UnitStatsFrame
 
 
 __all__ = ["UI"]
@@ -34,9 +32,9 @@ class UI(ABC):
         self._game: Game = game
         self.block_onward_input: bool = block_onward_input  # prevents input being passed to the next scene
 
-        self._elements: Dict[str, Union[Frame, UnitStatsFrame]] = {}
-        self._panels: Dict[str, Panel] = {}
-        self._current_panel: Optional[Panel] = None
+        self._elements: Dict[str, Union[UIFrame, UnitStatsFrame]] = {}
+        self._panels: Dict[str, UIPanel] = {}
+        self._current_panel: Optional[UIPanel] = None
 
         self._temporary_instruction_text: str = ""
         self._temporary_instruction_timer: float = 0.0
@@ -132,7 +130,7 @@ class UI(ABC):
         # create frames
         create_font = self._game.assets.create_font
         for key, value in resources.items():
-            frame = Frame(
+            frame = UIFrame(
                 self._game,
                 (current_x, current_y),
                 image=value[0],
@@ -146,7 +144,7 @@ class UI(ABC):
             current_x += frame.width + GAP_SIZE
 
         # create panel
-        panel = Panel(self._game, panel_elements, True)
+        panel = UIPanel(self._game, panel_elements, True)
         panel.unselect_all_elements()
         self._panels["resources"] = panel
 
@@ -171,7 +169,7 @@ class UI(ABC):
         for element in self._elements.values():
             element.update(delta_time)
 
-    def add_panel(self, panel: Panel, name: str):
+    def add_panel(self, panel: UIPanel, name: str):
         """
         Adds panel to the panel dict. If it is the first panel then also sets it to the current panel and selects the
          first element.
@@ -182,7 +180,7 @@ class UI(ABC):
             self._current_panel = self._panels[name]
             self._current_panel.select_first_element()
 
-    def add_exit_button(self, button_text: str = "Onwards") -> Panel:
+    def add_exit_button(self, button_text: str = "Onwards") -> UIPanel:
         """
         Add an exit button to the ui. Returns the panel containing the exit button.
         """
@@ -195,9 +193,9 @@ class UI(ABC):
         current_x = window_width - (confirm_width + GAP_SIZE)
         current_y = window_height - (font.line_height + GAP_SIZE)
 
-        frame = Frame(self._game, (current_x, current_y), font=font, is_selectable=True)
+        frame = UIFrame(self._game, (current_x, current_y), font=font, is_selectable=True)
         self._elements["exit"] = frame
-        panel = Panel(self._game, [frame], True)
+        panel = UIPanel(self._game, [frame], True)
         self.add_panel(panel, "exit")
 
         return panel

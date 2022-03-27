@@ -5,10 +5,10 @@ from typing import TYPE_CHECKING
 import pygame
 
 from scripts.core.constants import ASSET_PATH, FontEffects, TEXT_FADE_IN_SPEED, TEXT_FADE_OUT_SPEED
-from scripts.ui_elements.font import Font
+from scripts.ui_elements.generic.font import Font
 
 if TYPE_CHECKING:
-    from typing import Dict, List, Optional, Tuple
+    from typing import List, Optional, Tuple
 
 
 __all__ = ["FancyFont"]

@@ -5,8 +5,6 @@ from typing import TYPE_CHECKING
 
 import pygame
 
-from scripts.core import utility
-
 if TYPE_CHECKING:
     from typing import Dict, List, Optional, Tuple, Union
 
@@ -27,6 +25,7 @@ class UIElement(ABC):
         self._was_selectable: bool = is_selectable  # when deactivated keep the original state of selectable
         self._is_selected: bool = False
         self.is_active: bool = True
+        self.was_previously_selected: bool = False
 
         self._previously_selected: Animation = self._game.visuals.create_animation("selector", "previously_selected")
         self._selected_selector: Animation = self._game.visuals.create_animation("selector", "selected")

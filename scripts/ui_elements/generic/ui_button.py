@@ -1,7 +1,7 @@
 import pygame
 
 
-class Button:
+class UIButton:
     def __init__(self, game, content, pos, push_down=True, size=[10, 10], colour=(255, 255, 255)):
         self._game = game
         self.pos = list(pos)

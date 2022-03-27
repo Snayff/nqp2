@@ -17,14 +17,13 @@ from scripts.core.constants import (
     GAP_SIZE,
     InnState,
     SceneType,
-    TILE_SIZE,
     TrainingState,
     WorldState,
 )
 from scripts.scene_elements.unitgrid import UnitGrid
 from scripts.scene_elements.world_view import WorldView
-from scripts.ui_elements.frame import Frame
-from scripts.ui_elements.panel import Panel
+from scripts.ui_elements.generic.ui_frame import UIFrame
+from scripts.ui_elements.generic.ui_panel import UIPanel
 
 if TYPE_CHECKING:
     from typing import Optional
@@ -411,7 +410,7 @@ class WorldUI(UI):
             else:
                 icon = self._game.visuals.get_image(room_type, icon_size)
                 text = room_type
-            frame = Frame(
+            frame = UIFrame(
                 self._game,
                 (current_x, current_y),
                 new_image=icon,
@@ -425,7 +424,7 @@ class WorldUI(UI):
             current_y += 100
 
         # build panel
-        panel = Panel(self._game, panel_list, True)
+        panel = UIPanel(self._game, panel_list, True)
         self.add_panel(panel, "room_choices")
 
         # handle instructions  for different states
@@ -470,7 +469,7 @@ class WorldUI(UI):
 
                 # draw gold cost
                 gold_icon = self._game.visuals.get_image("gold", icon_size)
-                frame = Frame(
+                frame = UIFrame(
                     self._game,
                     (current_x + 100, current_y),
                     new_image=gold_icon,
@@ -489,7 +488,7 @@ class WorldUI(UI):
                 upgrade_icon = None
 
             # draw upgrade icon and details
-            frame = Frame(
+            frame = UIFrame(
                 self._game,
                 (current_x, current_y),
                 new_image=upgrade_icon,
@@ -503,7 +502,7 @@ class WorldUI(UI):
             # increment
             current_y += icon_height + GAP_SIZE
 
-        panel = Panel(self._game, panel_list, True)
+        panel = UIPanel(self._game, panel_list, True)
         self.add_panel(panel, "upgrades")
 
         # handle instructions and selectability for different states
@@ -553,7 +552,7 @@ class WorldUI(UI):
         info_x = highlighted_frame.x + highlighted_frame.width + 20
         font_type = FontType.DEFAULT
 
-        frame = Frame(self._game, (info_x, highlighted_frame.y), font=create_font(font_type, desc))
+        frame = UIFrame(self._game, (info_x, highlighted_frame.y), font=create_font(font_type, desc))
         self._elements["info_pane"] = frame
 
     def _rebuild_combat_ui(self):
@@ -570,7 +569,7 @@ class WorldUI(UI):
             self.set_instruction_text("Press shift to start combat.")
 
         elif local_state == CombatState.VICTORY:
-            frame = Frame(
+            frame = UIFrame(
                 self._game,
                 (current_x, current_y),
                 font=create_font(FontType.POSITIVE, "Victory"),
@@ -592,7 +591,7 @@ class WorldUI(UI):
             current_x = start_x
             current_y = start_y
             defeat_icon = self._game.visuals.get_image("arrow_button", icon_size)
-            frame = Frame(
+            frame = UIFrame(
                 self._game,
                 (current_x, current_y),
                 new_image=defeat_icon,
@@ -603,7 +602,7 @@ class WorldUI(UI):
 
             current_y += 100
 
-            frame = Frame(
+            frame = UIFrame(
                 self._game,
                 (current_x, current_y),
                 new_image=defeat_icon,
@@ -650,7 +649,7 @@ class WorldUI(UI):
 
             # draw gold cost
             gold_icon = self._game.visuals.get_image("gold", icon_size)
-            frame = Frame(
+            frame = UIFrame(
                 self._game,
                 (current_x + 20, current_y),
                 new_image=gold_icon,
@@ -661,7 +660,7 @@ class WorldUI(UI):
 
             # draw banner in frame, to allow selection
             banner = self._game.visuals.get_image("banner", icon_size)
-            frame = Frame(
+            frame = UIFrame(
                 self._game,
                 (current_x, current_y),
                 new_image=banner,
@@ -674,7 +673,7 @@ class WorldUI(UI):
             unit = controller.units_available[i]
             unit.set_position([current_x, current_y])
 
-        panel = Panel(self._game, panel_list, True)
+        panel = UIPanel(self._game, panel_list, True)
         self.add_panel(panel, "units")
 
         # handle instructions and selectability for different states
@@ -710,7 +709,7 @@ class WorldUI(UI):
         bg_height = window_height - (start_y * 2)
         bg = pygame.Surface((bg_width, bg_height), SRCALPHA)
         bg.fill((0, 0, 0, 150))
-        frame = Frame(self._game, (start_x, start_y), image=bg)
+        frame = UIFrame(self._game, (start_x, start_y), image=bg)
         self._elements[f"background"] = frame
 
         # get image info inc. ratio to scale properly
@@ -723,7 +722,7 @@ class WorldUI(UI):
         current_x = start_x
         current_y = start_y + (image_height // 2)
         image = self._game.visuals.get_image(event["image"], (image_width, image_height))
-        frame = Frame(
+        frame = UIFrame(
             self._game,
             (current_x, current_y),
             new_image=image,
@@ -741,7 +740,7 @@ class WorldUI(UI):
         font_height = fancy_font.line_height
         max_height = ((window_height // 2) - current_y) - font_height
         desc_width = frame_line_width - image_width
-        frame = Frame(
+        frame = UIFrame(
             self._game,
             (current_x, current_y),
             font=fancy_font,
@@ -759,7 +758,7 @@ class WorldUI(UI):
         line_width = window_width - (offset * 2)
         surface = pygame.Surface((line_width, 1))
         pygame.draw.line(surface, (117, 50, 168), (0, 0), (line_width, 0))
-        frame = Frame(self._game, (offset, current_y), surface)
+        frame = UIFrame(self._game, (offset, current_y), surface)
         self._elements["separator"] = frame
 
         # draw event contents; either options or results
@@ -773,7 +772,7 @@ class WorldUI(UI):
                     option_text = option["text"]
 
                 # build frame
-                frame = Frame(
+                frame = UIFrame(
                     self._game,
                     (current_x, current_y),
                     font=create_font(FontType.DEFAULT, option_text),
@@ -786,7 +785,7 @@ class WorldUI(UI):
                 current_y += frame.height + GAP_SIZE
 
             # create panel
-            panel = Panel(self._game, panel_list, True)
+            panel = UIPanel(self._game, panel_list, True)
             self.add_panel(panel, "options")
 
         # show results
@@ -796,7 +795,7 @@ class WorldUI(UI):
 
             # draw option chosen
             selected_option = controller.active_event["options"][controller.current_index]["text"]
-            frame = Frame(
+            frame = UIFrame(
                 self._game,
                 (current_x, current_y),
                 font=create_font(FontType.DEFAULT, selected_option),
@@ -847,7 +846,7 @@ class WorldUI(UI):
                     text = "recruited."
 
                 # create the frame
-                frame = Frame(
+                frame = UIFrame(
                     self._game,
                     (current_x, current_y),
                     new_image=result_image,
@@ -865,6 +864,6 @@ class WorldUI(UI):
             self.select_panel("exit")
 
             # create panel
-            panel = Panel(self._game, panel_list, True)
+            panel = UIPanel(self._game, panel_list, True)
             panel.set_selectable(False)
             self.add_panel(panel, "results")

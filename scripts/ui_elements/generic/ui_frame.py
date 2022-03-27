@@ -8,21 +8,21 @@ from pygame import SRCALPHA
 from scripts.core.base_classes.animation import Animation
 from scripts.core.base_classes.image import Image
 from scripts.core.base_classes.ui_element import UIElement
-from scripts.core.constants import DEFAULT_IMAGE_SIZE, GAP_SIZE
+from scripts.core.constants import GAP_SIZE
 from scripts.core.utility import clamp
-from scripts.ui_elements.fancy_font import FancyFont
-from scripts.ui_elements.font import Font
+from scripts.ui_elements.generic.fancy_font import FancyFont
+from scripts.ui_elements.generic.font import Font
 
 if TYPE_CHECKING:
-    from typing import List, Optional, Tuple, Union
+    from typing import Optional, Tuple, Union
 
     from scripts.core.game import Game
 
 
-__all__ = ["Frame"]
+__all__ = ["UIFrame"]
 
 
-class Frame(UIElement):
+class UIFrame(UIElement):
     """
     An extension of UIElement to offer more functionality within a helpful wrapper.
     """
