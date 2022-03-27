@@ -142,7 +142,7 @@ class WorldUI(UI):
             # toggle select upgrade or view units
             if self._game.input.states["shift"]:
                 controller.state = InnState.CHOOSE_UNIT
-                self._current_panel.set_selectable(True)
+                self._current_container.set_selectable(True)
                 is_ui_dirty = True
 
             # move to choose room
@@ -154,19 +154,19 @@ class WorldUI(UI):
         if local_state == InnState.CHOOSE_UNIT:
             # frame selection
             if self._game.input.states["up"]:
-                self._current_panel.select_previous_element()
+                self._current_container.select_previous_element()
 
                 # update selected unit
-                current_index = self._current_panel.selected_index
+                current_index = self._current_container.selected_index
                 controller.selected_unit = controller.units_available[current_index]
 
                 self._refresh_info_pane()
 
             if self._game.input.states["down"]:
-                self._current_panel.select_next_element()
+                self._current_container.select_next_element()
 
                 # update selected unit
-                current_index = self._current_panel.selected_index
+                current_index = self._current_container.selected_index
                 controller.selected_unit = controller.units_available[current_index]
 
                 self._refresh_info_pane()
@@ -180,7 +180,7 @@ class WorldUI(UI):
 
                 # revert to previous state
                 controller.state = InnState.IDLE
-                self._current_panel.set_selectable(False)
+                self._current_container.set_selectable(False)
                 is_ui_dirty = True
                 controller.selected_unit = None
 
@@ -190,7 +190,7 @@ class WorldUI(UI):
             # toggle view units
             if self._game.input.states["shift"]:
                 controller.state = TrainingState.IDLE
-                self._current_panel.set_selectable(False)
+                self._current_container.set_selectable(False)
 
         if is_ui_dirty:
             self.rebuild_ui()
@@ -221,7 +221,7 @@ class WorldUI(UI):
             # toggle to select upgrade
             if self._game.input.states["shift"]:
                 controller.state = TrainingState.CHOOSE_UPGRADE
-                self._current_panel.set_selectable(True)
+                self._current_container.set_selectable(True)
                 is_ui_dirty = True
 
             # move to choose room
@@ -232,31 +232,31 @@ class WorldUI(UI):
         if local_state == TrainingState.CHOOSE_UPGRADE:
             # frame selection
             if self._game.input.states["up"]:
-                self._current_panel.select_previous_element()
+                self._current_container.select_previous_element()
                 self._refresh_info_pane()
 
             if self._game.input.states["down"]:
-                self._current_panel.select_next_element()
+                self._current_container.select_next_element()
                 self._refresh_info_pane()
 
             # select upgrade
             if self._game.input.states["select"]:
                 controller.state = TrainingState.CHOOSE_TARGET_UNIT
                 controller.current_grid_index = 0
-                self._current_panel.set_selectable(False)
+                self._current_container.set_selectable(False)
                 is_ui_dirty = True
 
             # toggle to view units
             if self._game.input.states["shift"]:
                 controller.state = TrainingState.IDLE
-                self._current_panel.set_selectable(False)
+                self._current_container.set_selectable(False)
 
         if local_state == TrainingState.CHOOSE_TARGET_UNIT:
             # cancel
             if self._game.input.states["cancel"]:
                 controller.state = TrainingState.CHOOSE_UPGRADE
                 self.grid.units[controller.current_grid_index].is_selected = False
-                self._current_panel.set_selectable(True)
+                self._current_container.set_selectable(True)
                 is_ui_dirty = True
 
             # unit selection
@@ -283,7 +283,7 @@ class WorldUI(UI):
                 # revert to previous state
                 self.grid.units[current_index].is_selected = False
                 controller.state = TrainingState.CHOOSE_UPGRADE
-                self._current_panel.set_selectable(True)
+                self._current_container.set_selectable(True)
 
                 is_ui_dirty = True
 
@@ -299,18 +299,18 @@ class WorldUI(UI):
             # move to select room
             if self._game.input.states["shift"]:
                 controller.state = ChooseRoomState.CHOOSE_ROOM
-                self._current_panel.set_selectable(True)
+                self._current_container.set_selectable(True)
 
         if local_state == ChooseRoomState.CHOOSE_ROOM:
             # frame selection
             current_index = controller.current_index
             new_index = current_index
             if self._game.input.states["up"]:
-                self._current_panel.select_previous_element()
+                self._current_container.select_previous_element()
                 new_index = utility.previous_number_in_loop(current_index, len(controller.choices))
 
             if self._game.input.states["down"]:
-                self._current_panel.select_next_element()
+                self._current_container.select_next_element()
                 new_index = utility.next_number_in_loop(current_index, len(controller.choices))
 
             # set new index to track selection
@@ -327,7 +327,7 @@ class WorldUI(UI):
             if self._game.input.states["shift"]:
                 controller.state = ChooseRoomState.IDLE
                 self.grid.move_units_to_grid()
-                self._current_panel.set_selectable(False)
+                self._current_container.set_selectable(False)
 
         if is_ui_dirty:
             self.rebuild_ui()
@@ -342,11 +342,11 @@ class WorldUI(UI):
             # frame selection
             new_index = current_index
             if self._game.input.states["up"]:
-                self._current_panel.select_previous_element()
+                self._current_container.select_previous_element()
                 new_index = utility.previous_number_in_loop(current_index, len(controller.active_event["options"]))
 
             if self._game.input.states["down"]:
-                self._current_panel.select_next_element()
+                self._current_container.select_next_element()
                 new_index = utility.next_number_in_loop(current_index, len(controller.active_event["options"]))
 
             # set new index to track selection
@@ -426,7 +426,7 @@ class WorldUI(UI):
 
         # build panel
         panel = UIPanel(self._game, panel_list, True)
-        self.add_panel(panel, "room_choices")
+        self.add_container(panel, "room_choices")
 
         # handle instructions  for different states
         if controller.state == ChooseRoomState.CHOOSE_ROOM:
@@ -504,7 +504,7 @@ class WorldUI(UI):
             current_y += icon_height + GAP_SIZE
 
         panel = UIPanel(self._game, panel_list, True)
-        self.add_panel(panel, "upgrades")
+        self.add_container(panel, "upgrades")
 
         # handle instructions and selectability for different states
         if controller.state == TrainingState.CHOOSE_UPGRADE:
@@ -580,7 +580,7 @@ class WorldUI(UI):
 
             self.set_instruction_text("Press Enter to continue.")
             self.add_exit_button()
-            self.select_panel("exit")
+            self.select_container("exit")
 
         elif local_state == CombatState.DEFEAT:
 
@@ -614,7 +614,7 @@ class WorldUI(UI):
 
             self.set_instruction_text("Press Enter to return to main menu.")
             self.add_exit_button()
-            self.select_panel("exit")
+            self.select_container("exit")
 
     def _rebuild_inn_ui(self):
         create_font = self._game.visuals.create_font
@@ -675,7 +675,7 @@ class WorldUI(UI):
             unit.set_position([current_x, current_y])
 
         panel = UIPanel(self._game, panel_list, True)
-        self.add_panel(panel, "units")
+        self.add_container(panel, "units")
 
         # handle instructions and selectability for different states
         if controller.state == InnState.CHOOSE_UNIT:
@@ -706,12 +706,8 @@ class WorldUI(UI):
         panel_list = []
 
         # draw background
-        bg_width = window_width - (start_x * 2)
-        bg_height = window_height - (start_y * 2)
-        bg = pygame.Surface((bg_width, bg_height), SRCALPHA)
-        bg.fill((0, 0, 0, 150))
-        frame = UIFrame(self._game, (start_x, start_y), image=bg)
-        self._elements[f"background"] = frame
+        ui_window_width = window_width - (start_x * 2)
+        ui_window_height = window_height - (start_y * 2)
 
         # get image info inc. ratio to scale properly
         image = self._game.visuals.get_image(event["image"])
@@ -729,7 +725,7 @@ class WorldUI(UI):
             new_image=image,
             is_selectable=False,
         )
-        self._elements["image"] = frame
+        panel_list.append(frame)
 
         # draw description
         current_x += image_width + 5
@@ -749,7 +745,7 @@ class WorldUI(UI):
             max_width=desc_width,
             is_selectable=False,
         )
-        self._elements["description"] = frame
+        panel_list.append(frame)
 
         # move to half way down screen
         current_y = window_height // 2
@@ -760,7 +756,7 @@ class WorldUI(UI):
         surface = pygame.Surface((line_width, 1))
         pygame.draw.line(surface, (117, 50, 168), (0, 0), (line_width, 0))
         frame = UIFrame(self._game, (offset, current_y), surface)
-        self._elements["separator"] = frame
+        panel_list.append(frame)
 
         # draw event contents; either options or results
         if state == EventState.IDLE:
@@ -779,17 +775,15 @@ class WorldUI(UI):
                     font=create_font(FontType.DEFAULT, option_text),
                     is_selectable=True,
                 )
-                self._elements[f"option_{counter}"] = frame
                 panel_list.append(frame)
 
                 # increment position
                 current_y += frame.height + GAP_SIZE
 
-            # create panel
-            panel = UIPanel(self._game, panel_list, True)
-            self.add_panel(panel, "options")
-            window = UIWindow(self._game, WindowType.FANCY, (start_x, start_y), (bg_width, bg_height), panel_list)
-            self._elements["window"] = window
+            # create container
+            window = UIWindow(self._game, WindowType.BASIC, (start_x, start_y), (ui_window_width, ui_window_height),
+                              panel_list, True)
+            self.add_container(window, "event_window")
 
         # show results
         elif state == EventState.SHOW_RESULT:
@@ -804,7 +798,6 @@ class WorldUI(UI):
                 font=create_font(FontType.DEFAULT, selected_option),
                 is_selectable=True,
             )
-            self._elements["selected_option"] = frame
 
             # increment position
             current_y += frame.height + (GAP_SIZE * 2)
@@ -856,7 +849,6 @@ class WorldUI(UI):
                     font=create_font(font_type, text),
                     is_selectable=False,
                 )
-                self._elements[f"result_{counter}"] = frame
                 panel_list.append(frame)
 
                 # increment position
@@ -864,9 +856,10 @@ class WorldUI(UI):
 
             # only draw exit button once decision made
             self.add_exit_button()
-            self.select_panel("exit")
+            self.select_container("exit")
 
-            # create panel
-            panel = UIPanel(self._game, panel_list, True)
-            panel.set_selectable(False)
-            self.add_panel(panel, "results")
+            # create container
+            window = UIWindow(self._game, WindowType.BASIC, (start_x, start_y), (ui_window_width, ui_window_height),
+                              panel_list, True)
+            window.set_selectable(False)
+            self.add_container(window, "event_window")

@@ -35,11 +35,11 @@ class RunSetupUI(UI):
         super().process_input(delta_time)
 
         # panel specific input
-        if self._current_panel == self._panels["commanders"]:
+        if self._current_container == self._containers["commanders"]:
             self._handle_select_commander_input()
 
         # exit panel
-        elif self._current_panel == self._panels["exit"]:
+        elif self._current_container == self._containers["exit"]:
             self._handle_exit_input()
 
     def draw(self, surface: pygame.Surface):
@@ -99,7 +99,7 @@ class RunSetupUI(UI):
             current_x += icon_width + GAP_SIZE
 
         panel = UIPanel(self._game, panel_elements, True)
-        self.add_panel(panel, "commanders")
+        self.add_container(panel, "commanders")
 
         # draw info
         commander = commanders[selected_commander]
@@ -193,7 +193,7 @@ class RunSetupUI(UI):
             info_x += image.width + 2
 
         # restore selection
-        self._current_panel.set_selected_index(self._selected_index)
+        self._current_container.set_selected_index(self._selected_index)
 
         self.add_exit_button()
 
@@ -203,21 +203,21 @@ class RunSetupUI(UI):
         # selections within panel
         if self._game.input.states["left"]:
 
-            self._current_panel.select_previous_element()
+            self._current_container.select_previous_element()
 
             # get values to restore after rebuild
-            self._parent_scene.selected_commander = list(self._game.data.commanders)[self._current_panel.selected_index]
-            self._selected_index = self._current_panel.selected_index
+            self._parent_scene.selected_commander = list(self._game.data.commanders)[self._current_container.selected_index]
+            self._selected_index = self._current_container.selected_index
 
             is_dirty = True
 
         if self._game.input.states["right"]:
 
-            self._current_panel.select_next_element()
+            self._current_container.select_next_element()
 
             # get values to restore after rebuild
-            self._parent_scene.selected_commander = list(self._game.data.commanders)[self._current_panel.selected_index]
-            self._selected_index = self._current_panel.selected_index
+            self._parent_scene.selected_commander = list(self._game.data.commanders)[self._current_container.selected_index]
+            self._selected_index = self._current_container.selected_index
 
             is_dirty = True
 
@@ -229,7 +229,7 @@ class RunSetupUI(UI):
         if self._game.input.states["select"]:
             self._game.input.states["select"] = False
 
-            self.select_panel("exit")
+            self.select_container("exit")
 
     def _handle_exit_input(self):
         if self._game.input.states["select"]:
@@ -237,7 +237,7 @@ class RunSetupUI(UI):
 
         if self._game.input.states["cancel"]:
             # unselect current option
-            self._current_panel.unselect_all_elements()
+            self._current_container.unselect_all_elements()
 
             # change to commanders
-            self._current_panel = self._panels["commanders"]
+            self._current_container = self._containers["commanders"]

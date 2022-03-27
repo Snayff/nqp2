@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, GAP_SIZE
 from scripts.ui_elements.generic.ui_frame import UIFrame
 from scripts.ui_elements.generic.ui_panel import UIPanel
+from scripts.ui_elements.generic.ui_window import UIWindow
 
 if TYPE_CHECKING:
     from typing import Dict, Optional, Union
@@ -31,9 +32,9 @@ class UI(ABC):
         self._game: Game = game
         self.block_onward_input: bool = block_onward_input  # prevents input being passed to the next scene
 
-        self._elements: Dict[str, Union[UIFrame]] = {}
-        self._panels: Dict[str, UIPanel] = {}
-        self._current_panel: Optional[UIPanel] = None
+        self._elements: Dict[str, Union[UIFrame]] = {}  # any elements not held in a container
+        self._containers: Dict[str, Union[UIPanel, UIWindow]] = {}
+        self._current_container: Optional[UIPanel] = None
 
         self._temporary_instruction_text: str = ""
         self._temporary_instruction_timer: float = 0.0
@@ -61,7 +62,7 @@ class UI(ABC):
 
     def rebuild_ui(self):
         self._elements = {}
-        self._panels = {}
+        self._containers = {}
 
     def activate(self):
         """
@@ -145,7 +146,7 @@ class UI(ABC):
         # create panel
         panel = UIPanel(self._game, panel_elements, True)
         panel.unselect_all_elements()
-        self._panels["resources"] = panel
+        self._containers["resources"] = panel
 
     def _draw_instruction(self, surface: pygame.Surface):
         if self._temporary_instruction_text:
@@ -161,23 +162,32 @@ class UI(ABC):
         font.draw(surface)
 
     def _draw_elements(self, surface: pygame.Surface):
-        for name, element in self._elements.items():
+        """
+        Draw all elements, both those held in _elements and _containers.
+        """
+        for container in self._containers.values():
+            container.draw(surface)
+
+        for element in self._elements.values():
             element.draw(surface)
 
     def update_elements(self, delta_time: float):
+        for container in self._containers.values():
+            container.update(delta_time)
+
         for element in self._elements.values():
             element.update(delta_time)
 
-    def add_panel(self, panel: UIPanel, name: str):
+    def add_container(self, container: Union[UIPanel, UIWindow], name: str):
         """
-        Adds panel to the panel dict. If it is the first panel then also sets it to the current panel and selects the
-         first element.
+        Adds container to the container dict.
+        If it is the first container then also sets it to the current container and selects the first element.
         """
-        self._panels[name] = panel
+        self._containers[name] = container
 
-        if len(self._panels) == 1:
-            self._current_panel = self._panels[name]
-            self._current_panel.select_first_element()
+        if len(self._containers) == 1:
+            self._current_container = self._containers[name]
+            self._current_container.select_first_element()
 
     def add_exit_button(self, button_text: str = "Onwards") -> UIPanel:
         """
@@ -195,29 +205,29 @@ class UI(ABC):
         frame = UIFrame(self._game, (current_x, current_y), font=font, is_selectable=True)
         self._elements["exit"] = frame
         panel = UIPanel(self._game, [frame], True)
-        self.add_panel(panel, "exit")
+        self.add_container(panel, "exit")
 
         return panel
 
-    def select_panel(self, panel_name: str, hide_old_panel: bool = False):
+    def select_container(self, container_name: str, hide_old_container: bool = False):
         """
-        Unselect the current panel and move the selection to the specified panel.
+        Unselect the current container and move the selection to the specified panel.
         """
         # unselect current
-        self._current_panel.unselect_all_elements()
+        self._current_container.unselect_all_elements()
 
-        if hide_old_panel:
-            self._current_panel._is_active = False
+        if hide_old_container:
+            self._current_container._is_active = False
 
         # select new
         try:
-            self._current_panel = self._panels[panel_name]
+            self._current_container = self._containers[container_name]
 
         except KeyError:
             logging.critical(
-                f"Tried to change to {panel_name} panel, but does not exist. Selected first panel " f"instead."
+                f"Tried to change to {container_name} panel, but does not exist. Selected first panel " f"instead."
             )
-            self._current_panel = list(self._panels)[0]
+            self._current_container = list(self._containers)[0]
 
-        self._current_panel.select_first_element()
-        self._current_panel._is_active = True
+        self._current_container.select_first_element()
+        self._current_container._is_active = True

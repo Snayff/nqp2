@@ -75,7 +75,7 @@ class GalleryUI(UI):
             self._current_filter = self._filters[next_index]
 
         # exit
-        if self._current_panel == self._panels["exit"]:
+        if self._current_container == self._containers["exit"]:
             if self._game.input.states["select"]:
                 self._game.input.states["select"] = False
 

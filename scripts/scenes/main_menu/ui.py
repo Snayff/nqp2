@@ -36,17 +36,17 @@ class MainMenuUI(UI):
         if self._game.input.states["down"]:
             self._game.input.states["down"] = False
 
-            self._current_panel.select_next_element()
+            self._current_container.select_next_element()
 
         if self._game.input.states["up"]:
             self._game.input.states["up"] = False
 
-            self._current_panel.select_previous_element()
+            self._current_container.select_previous_element()
 
         if self._game.input.states["select"]:
             self._game.input.states["select"] = False
 
-            selected_element = self._current_panel.selected_element
+            selected_element = self._current_container.selected_element
             if selected_element == self._elements["new_game"]:
                 self._parent_scene._new_game()
 
@@ -111,4 +111,4 @@ class MainMenuUI(UI):
 
         # add panel
         panel = UIPanel(self._game, panel_elements, True)
-        self.add_panel(panel, "options")
+        self.add_container(panel, "options")

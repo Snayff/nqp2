@@ -7,7 +7,6 @@ from typing import TYPE_CHECKING
 import pygame
 
 from scripts.core.base_classes.image import Image
-from scripts.core.base_classes.ui_element import UIElement
 from scripts.core.constants import WindowType
 from scripts.ui_elements.generic.ui_panel import UIPanel
 
@@ -18,26 +17,26 @@ if TYPE_CHECKING:
 __all__ = ["UIWindow"]
 
 
-class UIWindow:
+class UIWindow(UIPanel):
     """
-    A more feature rich container for UIElements, containing a panel and its own visual style.
+    A more feature rich UIPanel, containing its own visual style.
     """
     def __init__(self, game: Game, window_type: WindowType, pos: Tuple[int, int], size: Tuple[int, int],
-            ui_elements: List[UIElement]):
-        self._game: Game = game
+            elements: List, is_active: bool = False):
+        super().__init__(game, elements, is_active)
         self._images: Dict[str, Image] = self._load_window_images(window_type)
         self.pos: Tuple[int, int] = pos
         self.size: Tuple[int, int] = size
-        self.panel = UIPanel(self._game, ui_elements, True)
+
 
         self._window_surface: pygame.Surface = self._build_window_surface()
 
     def update(self, delta_time: float):
-        self.panel.update(delta_time)
+        super().update(delta_time)
 
     def draw(self, surface: pygame.Surface):
         self._draw_window(surface)
-        self.panel.draw(surface)
+        super().draw(surface)
 
     def _load_window_images(self, window_type: WindowType) -> Dict[str, Image]:
         """

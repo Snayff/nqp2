@@ -5,10 +5,10 @@ from typing import TYPE_CHECKING
 import pygame
 from pygame import SRCALPHA
 
-from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, GAP_SIZE, StatModifiedStatus
+from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, GAP_SIZE, StatModifiedStatus, WindowType
 from scripts.scene_elements.unit import Unit
 from scripts.ui_elements.generic.ui_frame import UIFrame
-from scripts.ui_elements.generic.ui_panel import UIPanel
+from scripts.ui_elements.generic.ui_window import UIWindow
 
 if TYPE_CHECKING:
     from typing import Tuple
@@ -19,13 +19,14 @@ if TYPE_CHECKING:
 __all__ = ["UnitStatsWindow"]
 
 
-class UnitStatsWindow(UIPanel):
-    # TODO - create window class and inherit from that
+class UnitStatsWindow(UIWindow):
+    """
+    A UIWindow designed to show the stats for a given Unit.
+    """
+    def __init__(self, game: Game, pos: Tuple[int, int], unit: Unit, is_active: bool = False):
+        size = (100, 200)
+        super().__init__(game, WindowType.BASIC, pos, size, [], is_active)
 
-    def __init__(self, game: Game, pos: Tuple[int, int], unit: Unit):
-        super().__init__(game, [], True)
-
-        self.pos: Tuple[int, int] = pos
         self._unit: Unit = unit
 
         self._rebuild_stat_frames()
@@ -42,8 +43,7 @@ class UnitStatsWindow(UIPanel):
         # positions and sizes
         start_x, start_y = self.pos
         stat_icon_size = (DEFAULT_IMAGE_SIZE // 2, DEFAULT_IMAGE_SIZE // 2)
-        panel_width = 100
-        panel_height = 200
+        panel_width, panel_height = self.size
 
         current_x = start_x
         current_y = start_y
