@@ -5,7 +5,6 @@ Core
     :maxdepth: 1
 
     base_classes/_base_classes
-    assets
     constants
     data
     debug
