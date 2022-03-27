@@ -268,7 +268,6 @@
   <h1 id="modules-scripts-core-visuals--page-root">Source code for scripts.core.visuals</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">time</span>
@@ -280,8 +279,8 @@
 <span class="kn">from</span> <span class="nn">scripts.core.base_classes.image</span> <span class="kn">import</span> <span class="n">Image</span>
 <span class="kn">from</span> <span class="nn">scripts.core.constants</span> <span class="kn">import</span> <span class="n">ASSET_PATH</span><span class="p">,</span> <span class="n">DEFAULT_IMAGE_SIZE</span><span class="p">,</span> <span class="n">FontEffects</span><span class="p">,</span> <span class="n">FontType</span><span class="p">,</span> <span class="n">IMG_FORMATS</span>
 <span class="kn">from</span> <span class="nn">scripts.core.utility</span> <span class="kn">import</span> <span class="n">clamp</span><span class="p">,</span> <span class="n">clip</span>
-<span class="kn">from</span> <span class="nn">scripts.ui_elements.fancy_font</span> <span class="kn">import</span> <span class="n">FancyFont</span>
-<span class="kn">from</span> <span class="nn">scripts.ui_elements.font</span> <span class="kn">import</span> <span class="n">Font</span>
+<span class="kn">from</span> <span class="nn">scripts.ui_elements.generic.fancy_font</span> <span class="kn">import</span> <span class="n">FancyFont</span>
+<span class="kn">from</span> <span class="nn">scripts.ui_elements.generic.font</span> <span class="kn">import</span> <span class="n">Font</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
@@ -311,7 +310,13 @@
             <span class="s2">"rooms"</span><span class="p">,</span>
             <span class="s2">"stats"</span><span class="p">,</span>
             <span class="s2">"tiles"</span><span class="p">,</span>
-            <span class="s2">"ui"</span><span class="p">,</span>
+            <span class="s2">"ui/backgrounds"</span><span class="p">,</span>
+            <span class="s2">"ui/cursors"</span><span class="p">,</span>
+            <span class="s2">"ui/icons"</span><span class="p">,</span>
+            <span class="s2">"ui/keys"</span><span class="p">,</span>
+            <span class="s2">"ui/widgets"</span><span class="p">,</span>
+            <span class="s2">"ui/windows/basic"</span><span class="p">,</span>
+            <span class="s2">"ui/windows/fancy"</span><span class="p">,</span>
             <span class="s2">"upgrades"</span><span class="p">,</span>
             <span class="s2">"world"</span><span class="p">,</span>
         <span class="p">]</span>  <span class="c1"># don't add debug folder</span>
@@ -323,6 +328,11 @@
             <span class="s2">"ui_animations"</span><span class="p">,</span>
             <span class="s2">"world_animations"</span><span class="p">,</span>
         <span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">tilesets</span> <span class="o">=</span> <span class="p">{</span>  <span class="c1"># TODO - refactor to align to style</span>
+            <span class="n">tileset</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"."</span><span class="p">)[</span><span class="mi">0</span><span class="p">]:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_tileset</span><span class="p">(</span><span class="n">ASSET_PATH</span> <span class="o">/</span> <span class="s2">"tiles"</span> <span class="o">/</span> <span class="n">tileset</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">tileset</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">ASSET_PATH</span> <span class="o">/</span> <span class="s2">"tiles"</span><span class="p">)</span>
+        <span class="p">}</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_images</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_images</span><span class="p">()</span>  <span class="c1"># image_name: surface</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_animation_frames</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Image</span><span class="p">]]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_animation_frames</span><span class="p">()</span>
@@ -383,9 +393,7 @@
 
         <span class="c1"># add not found image</span>
         <span class="n">image</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ASSET_PATH</span> <span class="o">/</span> <span class="s2">"debug/image_not_found.png"</span><span class="p">))</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">()</span>
-        <span class="n">width</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span>
-        <span class="n">height</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span>
-        <span class="n">images</span><span class="p">[</span><span class="sa">f</span><span class="s2">"not_found@</span><span class="si">{</span><span class="n">width</span><span class="si">}</span><span class="s2">x</span><span class="si">{</span><span class="n">height</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">image</span>
+        <span class="n">images</span><span class="p">[</span><span class="sa">f</span><span class="s2">"not_found@</span><span class="si">{</span><span class="n">DEFAULT_IMAGE_SIZE</span><span class="si">}</span><span class="s2">x</span><span class="si">{</span><span class="n">DEFAULT_IMAGE_SIZE</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">image</span>
 
         <span class="c1"># add transparent surface</span>
         <span class="n">image</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">((</span><span class="n">DEFAULT_IMAGE_SIZE</span><span class="p">,</span> <span class="n">DEFAULT_IMAGE_SIZE</span><span class="p">))</span>
@@ -440,6 +448,30 @@
                                         <span class="n">animation_frames</span><span class="p">[</span><span class="n">anim_folder_name</span> <span class="o">+</span> <span class="s2">"_"</span> <span class="o">+</span> <span class="n">frame_folder_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">image_</span><span class="p">]</span>
 
         <span class="k">return</span> <span class="n">animation_frames</span>
+
+    <span class="k">def</span> <span class="nf">_load_tileset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Loads a tileset from a spritesheet.</span>
+<span class="sd">        """</span>
+        <span class="c1"># TODO - rewrite to align to other load styles</span>
+
+        <span class="n">tileset_data</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">spritesheet</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">path</span><span class="p">))</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">spritesheet</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span> <span class="o">//</span> <span class="n">DEFAULT_IMAGE_SIZE</span><span class="p">):</span>
+            <span class="n">tileset_data</span><span class="o">.</span><span class="n">append</span><span class="p">([])</span>
+            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">spritesheet</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">//</span> <span class="n">DEFAULT_IMAGE_SIZE</span><span class="p">):</span>
+                <span class="n">tileset_data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">clip</span><span class="p">(</span>
+                        <span class="n">spritesheet</span><span class="p">,</span>
+                        <span class="n">x</span> <span class="o">*</span> <span class="n">DEFAULT_IMAGE_SIZE</span><span class="p">,</span>
+                        <span class="n">y</span> <span class="o">*</span> <span class="n">DEFAULT_IMAGE_SIZE</span><span class="p">,</span>
+                        <span class="n">DEFAULT_IMAGE_SIZE</span><span class="p">,</span>
+                        <span class="n">DEFAULT_IMAGE_SIZE</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">tileset_data</span>
 
 <div class="viewcode-block" id="Visuals.create_animation"><a class="viewcode-back" href="../../../scripts.core.html#scripts.core.visuals.Visuals.create_animation">[docs]</a>    <span class="k">def</span> <span class="nf">create_animation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">animation_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">frame_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">loop</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Animation</span><span class="p">:</span>
         <span class="sd">"""</span>

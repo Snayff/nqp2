@@ -126,14 +126,6 @@ scripts.scene\_elements.tile module
    :undoc-members:
    :show-inheritance:
 
-scripts.scene\_elements.traps module
-------------------------------------
-
-.. automodule:: scripts.scene_elements.traps
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 scripts.scene\_elements.troupe module
 -------------------------------------
 
@@ -150,10 +142,10 @@ scripts.scene\_elements.unit module
    :undoc-members:
    :show-inheritance:
 
-scripts.scene\_elements.unitgrid module
----------------------------------------
+scripts.scene\_elements.unit\_grid module
+-----------------------------------------
 
-.. automodule:: scripts.scene_elements.unitgrid
+.. automodule:: scripts.scene_elements.unit_grid
    :members:
    :undoc-members:
    :show-inheritance:

@@ -1,0 +1,29 @@
+scripts.ui\_elements.tailored package
+=====================================
+
+Submodules
+----------
+
+scripts.ui\_elements.tailored.dev\_console module
+-------------------------------------------------
+
+.. automodule:: scripts.ui_elements.tailored.dev_console
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scripts.ui\_elements.tailored.unit\_stats\_window module
+--------------------------------------------------------
+
+.. automodule:: scripts.ui_elements.tailored.unit_stats_window
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: scripts.ui_elements.tailored
+   :members:
+   :undoc-members:
+   :show-inheritance:

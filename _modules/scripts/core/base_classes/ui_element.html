@@ -273,8 +273,6 @@
 
 <span class="kn">import</span> <span class="nn">pygame</span>
 
-<span class="kn">from</span> <span class="nn">scripts.core</span> <span class="kn">import</span> <span class="n">utility</span>
-
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
@@ -295,6 +293,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_was_selectable</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">is_selectable</span>  <span class="c1"># when deactivated keep the original state of selectable</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_selected</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">is_active</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">was_previously_selected</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_previously_selected</span><span class="p">:</span> <span class="n">Animation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visuals</span><span class="o">.</span><span class="n">create_animation</span><span class="p">(</span><span class="s2">"selector"</span><span class="p">,</span> <span class="s2">"previously_selected"</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_selected_selector</span><span class="p">:</span> <span class="n">Animation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visuals</span><span class="o">.</span><span class="n">create_animation</span><span class="p">(</span><span class="s2">"selector"</span><span class="p">,</span> <span class="s2">"selected"</span><span class="p">)</span>

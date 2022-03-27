@@ -273,7 +273,6 @@
 
 <span class="kn">import</span> <span class="nn">pygame</span>
 
-<span class="kn">from</span> <span class="nn">scripts.core.assets</span> <span class="kn">import</span> <span class="n">Assets</span>
 <span class="kn">from</span> <span class="nn">scripts.core.base_classes.scene</span> <span class="kn">import</span> <span class="n">Scene</span>
 <span class="kn">from</span> <span class="nn">scripts.core.constants</span> <span class="kn">import</span> <span class="n">GameState</span><span class="p">,</span> <span class="n">SceneType</span>
 <span class="kn">from</span> <span class="nn">scripts.core.data</span> <span class="kn">import</span> <span class="n">Data</span>
@@ -298,6 +297,7 @@
         <span class="k">with</span> <span class="n">Timer</span><span class="p">(</span><span class="s2">"Game initialised"</span><span class="p">):</span>
             <span class="c1"># imports here to avoid circular references since they're core and</span>
             <span class="c1"># controllers require ``Game`` imports for typing.</span>
+            <span class="kn">from</span> <span class="nn">scripts.core.assets</span> <span class="kn">import</span> <span class="n">Assets</span>
             <span class="kn">from</span> <span class="nn">scripts.core.memory</span> <span class="kn">import</span> <span class="n">Memory</span>
             <span class="kn">from</span> <span class="nn">scripts.scenes.gallery.scene</span> <span class="kn">import</span> <span class="n">GalleryScene</span>
             <span class="kn">from</span> <span class="nn">scripts.scenes.main_menu.scene</span> <span class="kn">import</span> <span class="n">MainMenuScene</span>
@@ -315,8 +315,8 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span> <span class="n">Debugger</span> <span class="o">=</span> <span class="n">Debugger</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">:</span> <span class="n">Window</span> <span class="o">=</span> <span class="n">Window</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">:</span> <span class="n">Data</span> <span class="o">=</span> <span class="n">Data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">memory</span><span class="p">:</span> <span class="n">Memory</span> <span class="o">=</span> <span class="n">Memory</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">assets</span><span class="p">:</span> <span class="n">Assets</span> <span class="o">=</span> <span class="n">Assets</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>  <span class="c1"># TODO - deprecate</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">memory</span><span class="p">:</span> <span class="n">Memory</span> <span class="o">=</span> <span class="n">Memory</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="p">:</span> <span class="n">Input</span> <span class="o">=</span> <span class="n">Input</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">rng</span><span class="p">:</span> <span class="n">RNG</span> <span class="o">=</span> <span class="n">RNG</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">sounds</span><span class="p">:</span> <span class="n">Sounds</span> <span class="o">=</span> <span class="n">Sounds</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -330,8 +330,8 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">world</span><span class="p">:</span> <span class="n">WorldScene</span> <span class="o">=</span> <span class="n">WorldScene</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
             <span class="c1"># dev scenes</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">dev_unit_data</span><span class="p">:</span> <span class="n">UnitDataScene</span> <span class="o">=</span> <span class="n">UnitDataScene</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">dev_gallery</span><span class="p">:</span> <span class="n">GalleryScene</span> <span class="o">=</span> <span class="n">GalleryScene</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="c1"># self.dev_unit_data: UnitDataScene = UnitDataScene(self)  # TODO - fix</span>
+            <span class="c1"># self.dev_gallery: GalleryScene = GalleryScene(self) # TODO - fix</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">scene_stack</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Scene</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="p">:</span> <span class="n">GameState</span> <span class="o">=</span> <span class="n">GameState</span><span class="o">.</span><span class="n">LOADING</span>

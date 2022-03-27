@@ -272,14 +272,14 @@
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
 <span class="kn">import</span> <span class="nn">pygame</span>
 
 <span class="kn">from</span> <span class="nn">scripts.core.constants</span> <span class="kn">import</span> <span class="n">ASSET_PATH</span><span class="p">,</span> <span class="n">DEFAULT_IMAGE_SIZE</span><span class="p">,</span> <span class="n">FontEffects</span><span class="p">,</span> <span class="n">FontType</span>
 <span class="kn">from</span> <span class="nn">scripts.core.utility</span> <span class="kn">import</span> <span class="n">clamp</span><span class="p">,</span> <span class="n">clip</span>
-<span class="kn">from</span> <span class="nn">scripts.ui_elements.fancy_font</span> <span class="kn">import</span> <span class="n">FancyFont</span>
-<span class="kn">from</span> <span class="nn">scripts.ui_elements.font</span> <span class="kn">import</span> <span class="n">Font</span>
+<span class="kn">from</span> <span class="nn">scripts.ui_elements.generic.fancy_font</span> <span class="kn">import</span> <span class="n">FancyFont</span>
+<span class="kn">from</span> <span class="nn">scripts.ui_elements.generic.font</span> <span class="kn">import</span> <span class="n">Font</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
@@ -325,46 +325,46 @@
             <span class="k">for</span> <span class="n">unit</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">ASSET_PATH</span> <span class="o">/</span> <span class="s2">"units/"</span><span class="p">)</span>
         <span class="p">}</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">trap_animations</span> <span class="o">=</span> <span class="p">{}</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">commander_animations</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="n">commander</span><span class="p">:</span> <span class="p">{</span>
-                <span class="n">action</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_image_dir</span><span class="p">(</span><span class="n">ASSET_PATH</span> <span class="o">/</span> <span class="s2">"commanders/"</span> <span class="o">/</span> <span class="n">commander</span> <span class="o">/</span> <span class="n">action</span><span class="p">)</span>
-                <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">ASSET_PATH</span> <span class="o">/</span> <span class="s2">"commanders/"</span> <span class="o">/</span> <span class="n">commander</span><span class="p">)</span>
-            <span class="p">}</span>
-            <span class="k">for</span> <span class="n">commander</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">ASSET_PATH</span> <span class="o">/</span> <span class="s2">"commanders/"</span><span class="p">)</span>
-        <span class="p">}</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">boss_animations</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="n">commander</span><span class="p">:</span> <span class="p">{</span>
-                <span class="n">action</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_image_dir</span><span class="p">(</span><span class="n">ASSET_PATH</span> <span class="o">/</span> <span class="s2">"bosses/"</span> <span class="o">/</span> <span class="n">commander</span> <span class="o">/</span> <span class="n">action</span><span class="p">)</span>
-                <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">ASSET_PATH</span> <span class="o">/</span> <span class="s2">"bosses/"</span> <span class="o">/</span> <span class="n">commander</span><span class="p">)</span>
-            <span class="p">}</span>
-            <span class="k">for</span> <span class="n">commander</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">ASSET_PATH</span> <span class="o">/</span> <span class="s2">"bosses/"</span><span class="p">)</span>
-        <span class="p">}</span>
+        <span class="c1"># self.trap_animations = {}</span>
+        <span class="c1">#</span>
+        <span class="c1"># self.commander_animations = {</span>
+        <span class="c1">#     commander: {</span>
+        <span class="c1">#         action: self.load_image_dir(ASSET_PATH / "commanders/" / commander / action)</span>
+        <span class="c1">#         for action in os.listdir(ASSET_PATH / "commanders/" / commander)</span>
+        <span class="c1">#     }</span>
+        <span class="c1">#     for commander in os.listdir(ASSET_PATH / "commanders/")</span>
+        <span class="c1"># }</span>
+        <span class="c1">#</span>
+        <span class="c1"># self.boss_animations = {</span>
+        <span class="c1">#     commander: {</span>
+        <span class="c1">#         action: self.load_image_dir(ASSET_PATH / "bosses/" / commander / action)</span>
+        <span class="c1">#         for action in os.listdir(ASSET_PATH / "bosses/" / commander)</span>
+        <span class="c1">#     }</span>
+        <span class="c1">#     for commander in os.listdir(ASSET_PATH / "bosses/")</span>
+        <span class="c1"># }</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">tilesets</span> <span class="o">=</span> <span class="p">{</span>
             <span class="n">tileset</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"."</span><span class="p">)[</span><span class="mi">0</span><span class="p">]:</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_tileset</span><span class="p">(</span><span class="n">ASSET_PATH</span> <span class="o">/</span> <span class="s2">"tiles"</span> <span class="o">/</span> <span class="n">tileset</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">tileset</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">ASSET_PATH</span> <span class="o">/</span> <span class="s2">"tiles"</span><span class="p">)</span>
         <span class="p">}</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="n">ui_image</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"."</span><span class="p">)[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ASSET_PATH</span> <span class="o">/</span> <span class="s2">"ui"</span> <span class="o">/</span> <span class="n">ui_image</span><span class="p">))</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">()</span>
-            <span class="k">for</span> <span class="n">ui_image</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">ASSET_PATH</span> <span class="o">/</span> <span class="s2">"ui"</span><span class="p">)</span>
-        <span class="p">}</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">actions</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="n">action_image</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"."</span><span class="p">)[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ASSET_PATH</span> <span class="o">/</span> <span class="s2">"actions"</span> <span class="o">/</span> <span class="n">action_image</span><span class="p">))</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">()</span>
-            <span class="k">for</span> <span class="n">action_image</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">ASSET_PATH</span> <span class="o">/</span> <span class="s2">"actions"</span><span class="p">)</span>
-        <span class="p">}</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">projectiles</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="n">projectiles_image</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"."</span><span class="p">)[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
-                <span class="nb">str</span><span class="p">(</span><span class="n">ASSET_PATH</span> <span class="o">/</span> <span class="s2">"projectiles"</span> <span class="o">/</span> <span class="n">projectiles_image</span><span class="p">)</span>
-            <span class="p">)</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">()</span>
-            <span class="k">for</span> <span class="n">projectiles_image</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">ASSET_PATH</span> <span class="o">/</span> <span class="s2">"projectiles"</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">projectiles_image</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"."</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"png"</span>
-        <span class="p">}</span>
+        <span class="c1"># self.ui = {</span>
+        <span class="c1">#     ui_image.split(".")[0]: pygame.image.load(str(ASSET_PATH / "ui" / ui_image)).convert_alpha()</span>
+        <span class="c1">#     for ui_image in os.listdir(ASSET_PATH / "ui")</span>
+        <span class="c1"># }</span>
+        <span class="c1">#</span>
+        <span class="c1"># self.actions = {</span>
+        <span class="c1">#     action_image.split(".")[0]: pygame.image.load(str(ASSET_PATH / "actions" / action_image)).convert_alpha()</span>
+        <span class="c1">#     for action_image in os.listdir(ASSET_PATH / "actions")</span>
+        <span class="c1"># }</span>
+        <span class="c1">#</span>
+        <span class="c1"># self.projectiles = {</span>
+        <span class="c1">#     projectiles_image.split(".")[0]: pygame.image.load(</span>
+        <span class="c1">#         str(ASSET_PATH / "projectiles" / projectiles_image)</span>
+        <span class="c1">#     ).convert_alpha()</span>
+        <span class="c1">#     for projectiles_image in os.listdir(ASSET_PATH / "projectiles")</span>
+        <span class="c1">#     if projectiles_image.split(".")[-1] == "png"</span>
+        <span class="c1"># }</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">maps</span> <span class="o">=</span> <span class="p">{</span><span class="nb">map</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"."</span><span class="p">)[</span><span class="mi">0</span><span class="p">]:</span> <span class="bp">self</span><span class="o">.</span><span class="n">json_read</span><span class="p">(</span><span class="s2">"data/maps/"</span> <span class="o">+</span> <span class="nb">map</span><span class="p">)</span> <span class="k">for</span> <span class="nb">map</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s2">"data/maps"</span><span class="p">)}</span>
 

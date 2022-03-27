@@ -285,14 +285,15 @@
     <span class="n">GAP_SIZE</span><span class="p">,</span>
     <span class="n">InnState</span><span class="p">,</span>
     <span class="n">SceneType</span><span class="p">,</span>
-    <span class="n">TILE_SIZE</span><span class="p">,</span>
     <span class="n">TrainingState</span><span class="p">,</span>
+    <span class="n">WindowType</span><span class="p">,</span>
     <span class="n">WorldState</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">scripts.scene_elements.unitgrid</span> <span class="kn">import</span> <span class="n">UnitGrid</span>
+<span class="kn">from</span> <span class="nn">scripts.scene_elements.unit_grid</span> <span class="kn">import</span> <span class="n">UnitGrid</span>
 <span class="kn">from</span> <span class="nn">scripts.scene_elements.world_view</span> <span class="kn">import</span> <span class="n">WorldView</span>
-<span class="kn">from</span> <span class="nn">scripts.ui_elements.frame</span> <span class="kn">import</span> <span class="n">Frame</span>
-<span class="kn">from</span> <span class="nn">scripts.ui_elements.panel</span> <span class="kn">import</span> <span class="n">Panel</span>
+<span class="kn">from</span> <span class="nn">scripts.ui_elements.generic.ui_frame</span> <span class="kn">import</span> <span class="n">UIFrame</span>
+<span class="kn">from</span> <span class="nn">scripts.ui_elements.generic.ui_panel</span> <span class="kn">import</span> <span class="n">UIPanel</span>
+<span class="kn">from</span> <span class="nn">scripts.ui_elements.generic.ui_window</span> <span class="kn">import</span> <span class="n">UIWindow</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
@@ -410,7 +411,7 @@
             <span class="c1"># toggle select upgrade or view units</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"shift"</span><span class="p">]:</span>
                 <span class="n">controller</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">InnState</span><span class="o">.</span><span class="n">CHOOSE_UNIT</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">set_selectable</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_current_container</span><span class="o">.</span><span class="n">set_selectable</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
                 <span class="n">is_ui_dirty</span> <span class="o">=</span> <span class="kc">True</span>
 
             <span class="c1"># move to choose room</span>
@@ -422,19 +423,19 @@
         <span class="k">if</span> <span class="n">local_state</span> <span class="o">==</span> <span class="n">InnState</span><span class="o">.</span><span class="n">CHOOSE_UNIT</span><span class="p">:</span>
             <span class="c1"># frame selection</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"up"</span><span class="p">]:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">select_previous_element</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_current_container</span><span class="o">.</span><span class="n">select_previous_element</span><span class="p">()</span>
 
                 <span class="c1"># update selected unit</span>
-                <span class="n">current_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">selected_index</span>
+                <span class="n">current_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_container</span><span class="o">.</span><span class="n">selected_index</span>
                 <span class="n">controller</span><span class="o">.</span><span class="n">selected_unit</span> <span class="o">=</span> <span class="n">controller</span><span class="o">.</span><span class="n">units_available</span><span class="p">[</span><span class="n">current_index</span><span class="p">]</span>
 
                 <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_info_pane</span><span class="p">()</span>
 
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"down"</span><span class="p">]:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">select_next_element</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_current_container</span><span class="o">.</span><span class="n">select_next_element</span><span class="p">()</span>
 
                 <span class="c1"># update selected unit</span>
-                <span class="n">current_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">selected_index</span>
+                <span class="n">current_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_container</span><span class="o">.</span><span class="n">selected_index</span>
                 <span class="n">controller</span><span class="o">.</span><span class="n">selected_unit</span> <span class="o">=</span> <span class="n">controller</span><span class="o">.</span><span class="n">units_available</span><span class="p">[</span><span class="n">current_index</span><span class="p">]</span>
 
                 <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_info_pane</span><span class="p">()</span>
@@ -448,7 +449,7 @@
 
                 <span class="c1"># revert to previous state</span>
                 <span class="n">controller</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">InnState</span><span class="o">.</span><span class="n">IDLE</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">set_selectable</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_current_container</span><span class="o">.</span><span class="n">set_selectable</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
                 <span class="n">is_ui_dirty</span> <span class="o">=</span> <span class="kc">True</span>
                 <span class="n">controller</span><span class="o">.</span><span class="n">selected_unit</span> <span class="o">=</span> <span class="kc">None</span>
 
@@ -458,7 +459,7 @@
             <span class="c1"># toggle view units</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"shift"</span><span class="p">]:</span>
                 <span class="n">controller</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">TrainingState</span><span class="o">.</span><span class="n">IDLE</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">set_selectable</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_current_container</span><span class="o">.</span><span class="n">set_selectable</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">is_ui_dirty</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">rebuild_ui</span><span class="p">()</span>
@@ -489,7 +490,7 @@
             <span class="c1"># toggle to select upgrade</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"shift"</span><span class="p">]:</span>
                 <span class="n">controller</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">TrainingState</span><span class="o">.</span><span class="n">CHOOSE_UPGRADE</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">set_selectable</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_current_container</span><span class="o">.</span><span class="n">set_selectable</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
                 <span class="n">is_ui_dirty</span> <span class="o">=</span> <span class="kc">True</span>
 
             <span class="c1"># move to choose room</span>
@@ -500,31 +501,31 @@
         <span class="k">if</span> <span class="n">local_state</span> <span class="o">==</span> <span class="n">TrainingState</span><span class="o">.</span><span class="n">CHOOSE_UPGRADE</span><span class="p">:</span>
             <span class="c1"># frame selection</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"up"</span><span class="p">]:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">select_previous_element</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_current_container</span><span class="o">.</span><span class="n">select_previous_element</span><span class="p">()</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_info_pane</span><span class="p">()</span>
 
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"down"</span><span class="p">]:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">select_next_element</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_current_container</span><span class="o">.</span><span class="n">select_next_element</span><span class="p">()</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_info_pane</span><span class="p">()</span>
 
             <span class="c1"># select upgrade</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"select"</span><span class="p">]:</span>
                 <span class="n">controller</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">TrainingState</span><span class="o">.</span><span class="n">CHOOSE_TARGET_UNIT</span>
                 <span class="n">controller</span><span class="o">.</span><span class="n">current_grid_index</span> <span class="o">=</span> <span class="mi">0</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">set_selectable</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_current_container</span><span class="o">.</span><span class="n">set_selectable</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
                 <span class="n">is_ui_dirty</span> <span class="o">=</span> <span class="kc">True</span>
 
             <span class="c1"># toggle to view units</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"shift"</span><span class="p">]:</span>
                 <span class="n">controller</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">TrainingState</span><span class="o">.</span><span class="n">IDLE</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">set_selectable</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_current_container</span><span class="o">.</span><span class="n">set_selectable</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">local_state</span> <span class="o">==</span> <span class="n">TrainingState</span><span class="o">.</span><span class="n">CHOOSE_TARGET_UNIT</span><span class="p">:</span>
             <span class="c1"># cancel</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"cancel"</span><span class="p">]:</span>
                 <span class="n">controller</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">TrainingState</span><span class="o">.</span><span class="n">CHOOSE_UPGRADE</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">units</span><span class="p">[</span><span class="n">controller</span><span class="o">.</span><span class="n">current_grid_index</span><span class="p">]</span><span class="o">.</span><span class="n">is_selected</span> <span class="o">=</span> <span class="kc">False</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">set_selectable</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_current_container</span><span class="o">.</span><span class="n">set_selectable</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
                 <span class="n">is_ui_dirty</span> <span class="o">=</span> <span class="kc">True</span>
 
             <span class="c1"># unit selection</span>
@@ -551,7 +552,7 @@
                 <span class="c1"># revert to previous state</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">units</span><span class="p">[</span><span class="n">current_index</span><span class="p">]</span><span class="o">.</span><span class="n">is_selected</span> <span class="o">=</span> <span class="kc">False</span>
                 <span class="n">controller</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">TrainingState</span><span class="o">.</span><span class="n">CHOOSE_UPGRADE</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">set_selectable</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_current_container</span><span class="o">.</span><span class="n">set_selectable</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
                 <span class="n">is_ui_dirty</span> <span class="o">=</span> <span class="kc">True</span>
 
@@ -567,18 +568,18 @@
             <span class="c1"># move to select room</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"shift"</span><span class="p">]:</span>
                 <span class="n">controller</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">ChooseRoomState</span><span class="o">.</span><span class="n">CHOOSE_ROOM</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">set_selectable</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_current_container</span><span class="o">.</span><span class="n">set_selectable</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">local_state</span> <span class="o">==</span> <span class="n">ChooseRoomState</span><span class="o">.</span><span class="n">CHOOSE_ROOM</span><span class="p">:</span>
             <span class="c1"># frame selection</span>
             <span class="n">current_index</span> <span class="o">=</span> <span class="n">controller</span><span class="o">.</span><span class="n">current_index</span>
             <span class="n">new_index</span> <span class="o">=</span> <span class="n">current_index</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"up"</span><span class="p">]:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">select_previous_element</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_current_container</span><span class="o">.</span><span class="n">select_previous_element</span><span class="p">()</span>
                 <span class="n">new_index</span> <span class="o">=</span> <span class="n">utility</span><span class="o">.</span><span class="n">previous_number_in_loop</span><span class="p">(</span><span class="n">current_index</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">controller</span><span class="o">.</span><span class="n">choices</span><span class="p">))</span>
 
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"down"</span><span class="p">]:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">select_next_element</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_current_container</span><span class="o">.</span><span class="n">select_next_element</span><span class="p">()</span>
                 <span class="n">new_index</span> <span class="o">=</span> <span class="n">utility</span><span class="o">.</span><span class="n">next_number_in_loop</span><span class="p">(</span><span class="n">current_index</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">controller</span><span class="o">.</span><span class="n">choices</span><span class="p">))</span>
 
             <span class="c1"># set new index to track selection</span>
@@ -595,7 +596,7 @@
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"shift"</span><span class="p">]:</span>
                 <span class="n">controller</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">ChooseRoomState</span><span class="o">.</span><span class="n">IDLE</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">move_units_to_grid</span><span class="p">()</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">set_selectable</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_current_container</span><span class="o">.</span><span class="n">set_selectable</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">is_ui_dirty</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">rebuild_ui</span><span class="p">()</span>
@@ -610,11 +611,11 @@
             <span class="c1"># frame selection</span>
             <span class="n">new_index</span> <span class="o">=</span> <span class="n">current_index</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"up"</span><span class="p">]:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">select_previous_element</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_current_container</span><span class="o">.</span><span class="n">select_previous_element</span><span class="p">()</span>
                 <span class="n">new_index</span> <span class="o">=</span> <span class="n">utility</span><span class="o">.</span><span class="n">previous_number_in_loop</span><span class="p">(</span><span class="n">current_index</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">controller</span><span class="o">.</span><span class="n">active_event</span><span class="p">[</span><span class="s2">"options"</span><span class="p">]))</span>
 
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">"down"</span><span class="p">]:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_current_panel</span><span class="o">.</span><span class="n">select_next_element</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_current_container</span><span class="o">.</span><span class="n">select_next_element</span><span class="p">()</span>
                 <span class="n">new_index</span> <span class="o">=</span> <span class="n">utility</span><span class="o">.</span><span class="n">next_number_in_loop</span><span class="p">(</span><span class="n">current_index</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">controller</span><span class="o">.</span><span class="n">active_event</span><span class="p">[</span><span class="s2">"options"</span><span class="p">]))</span>
 
             <span class="c1"># set new index to track selection</span>
@@ -679,7 +680,7 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">icon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visuals</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="n">room_type</span><span class="p">,</span> <span class="n">icon_size</span><span class="p">)</span>
                 <span class="n">text</span> <span class="o">=</span> <span class="n">room_type</span>
-            <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
+            <span class="n">frame</span> <span class="o">=</span> <span class="n">UIFrame</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span>
                 <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span>
                 <span class="n">new_image</span><span class="o">=</span><span class="n">icon</span><span class="p">,</span>
@@ -693,8 +694,8 @@
             <span class="n">current_y</span> <span class="o">+=</span> <span class="mi">100</span>
 
         <span class="c1"># build panel</span>
-        <span class="n">panel</span> <span class="o">=</span> <span class="n">Panel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="n">panel_list</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add_panel</span><span class="p">(</span><span class="n">panel</span><span class="p">,</span> <span class="s2">"room_choices"</span><span class="p">)</span>
+        <span class="n">panel</span> <span class="o">=</span> <span class="n">UIPanel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="n">panel_list</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_container</span><span class="p">(</span><span class="n">panel</span><span class="p">,</span> <span class="s2">"room_choices"</span><span class="p">)</span>
 
         <span class="c1"># handle instructions  for different states</span>
         <span class="k">if</span> <span class="n">controller</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="n">ChooseRoomState</span><span class="o">.</span><span class="n">CHOOSE_ROOM</span><span class="p">:</span>
@@ -738,7 +739,7 @@
 
                 <span class="c1"># draw gold cost</span>
                 <span class="n">gold_icon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visuals</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">"gold"</span><span class="p">,</span> <span class="n">icon_size</span><span class="p">)</span>
-                <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
+                <span class="n">frame</span> <span class="o">=</span> <span class="n">UIFrame</span><span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span>
                     <span class="p">(</span><span class="n">current_x</span> <span class="o">+</span> <span class="mi">100</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span>
                     <span class="n">new_image</span><span class="o">=</span><span class="n">gold_icon</span><span class="p">,</span>
@@ -757,7 +758,7 @@
                 <span class="n">upgrade_icon</span> <span class="o">=</span> <span class="kc">None</span>
 
             <span class="c1"># draw upgrade icon and details</span>
-            <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
+            <span class="n">frame</span> <span class="o">=</span> <span class="n">UIFrame</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span>
                 <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span>
                 <span class="n">new_image</span><span class="o">=</span><span class="n">upgrade_icon</span><span class="p">,</span>
@@ -771,8 +772,8 @@
             <span class="c1"># increment</span>
             <span class="n">current_y</span> <span class="o">+=</span> <span class="n">icon_height</span> <span class="o">+</span> <span class="n">GAP_SIZE</span>
 
-        <span class="n">panel</span> <span class="o">=</span> <span class="n">Panel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="n">panel_list</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add_panel</span><span class="p">(</span><span class="n">panel</span><span class="p">,</span> <span class="s2">"upgrades"</span><span class="p">)</span>
+        <span class="n">panel</span> <span class="o">=</span> <span class="n">UIPanel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="n">panel_list</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_container</span><span class="p">(</span><span class="n">panel</span><span class="p">,</span> <span class="s2">"upgrades"</span><span class="p">)</span>
 
         <span class="c1"># handle instructions and selectability for different states</span>
         <span class="k">if</span> <span class="n">controller</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="n">TrainingState</span><span class="o">.</span><span class="n">CHOOSE_UPGRADE</span><span class="p">:</span>
@@ -821,7 +822,7 @@
         <span class="n">info_x</span> <span class="o">=</span> <span class="n">highlighted_frame</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">highlighted_frame</span><span class="o">.</span><span class="n">width</span> <span class="o">+</span> <span class="mi">20</span>
         <span class="n">font_type</span> <span class="o">=</span> <span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span>
 
-        <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="p">(</span><span class="n">info_x</span><span class="p">,</span> <span class="n">highlighted_frame</span><span class="o">.</span><span class="n">y</span><span class="p">),</span> <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">font_type</span><span class="p">,</span> <span class="n">desc</span><span class="p">))</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">UIFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="p">(</span><span class="n">info_x</span><span class="p">,</span> <span class="n">highlighted_frame</span><span class="o">.</span><span class="n">y</span><span class="p">),</span> <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">font_type</span><span class="p">,</span> <span class="n">desc</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="s2">"info_pane"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
 
     <span class="k">def</span> <span class="nf">_rebuild_combat_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -838,7 +839,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">set_instruction_text</span><span class="p">(</span><span class="s2">"Press shift to start combat."</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">local_state</span> <span class="o">==</span> <span class="n">CombatState</span><span class="o">.</span><span class="n">VICTORY</span><span class="p">:</span>
-            <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
+            <span class="n">frame</span> <span class="o">=</span> <span class="n">UIFrame</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span>
                 <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span>
                 <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">POSITIVE</span><span class="p">,</span> <span class="s2">"Victory"</span><span class="p">),</span>
@@ -848,7 +849,7 @@
 
             <span class="bp">self</span><span class="o">.</span><span class="n">set_instruction_text</span><span class="p">(</span><span class="s2">"Press Enter to continue."</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">add_exit_button</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">select_panel</span><span class="p">(</span><span class="s2">"exit"</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">select_container</span><span class="p">(</span><span class="s2">"exit"</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">local_state</span> <span class="o">==</span> <span class="n">CombatState</span><span class="o">.</span><span class="n">DEFEAT</span><span class="p">:</span>
 
@@ -860,7 +861,7 @@
             <span class="n">current_x</span> <span class="o">=</span> <span class="n">start_x</span>
             <span class="n">current_y</span> <span class="o">=</span> <span class="n">start_y</span>
             <span class="n">defeat_icon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visuals</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">"arrow_button"</span><span class="p">,</span> <span class="n">icon_size</span><span class="p">)</span>
-            <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
+            <span class="n">frame</span> <span class="o">=</span> <span class="n">UIFrame</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span>
                 <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span>
                 <span class="n">new_image</span><span class="o">=</span><span class="n">defeat_icon</span><span class="p">,</span>
@@ -871,7 +872,7 @@
 
             <span class="n">current_y</span> <span class="o">+=</span> <span class="mi">100</span>
 
-            <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
+            <span class="n">frame</span> <span class="o">=</span> <span class="n">UIFrame</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span>
                 <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span>
                 <span class="n">new_image</span><span class="o">=</span><span class="n">defeat_icon</span><span class="p">,</span>
@@ -882,7 +883,7 @@
 
             <span class="bp">self</span><span class="o">.</span><span class="n">set_instruction_text</span><span class="p">(</span><span class="s2">"Press Enter to return to main menu."</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">add_exit_button</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">select_panel</span><span class="p">(</span><span class="s2">"exit"</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">select_container</span><span class="p">(</span><span class="s2">"exit"</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_rebuild_inn_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">create_font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visuals</span><span class="o">.</span><span class="n">create_font</span>
@@ -918,7 +919,7 @@
 
             <span class="c1"># draw gold cost</span>
             <span class="n">gold_icon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visuals</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">"gold"</span><span class="p">,</span> <span class="n">icon_size</span><span class="p">)</span>
-            <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
+            <span class="n">frame</span> <span class="o">=</span> <span class="n">UIFrame</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span>
                 <span class="p">(</span><span class="n">current_x</span> <span class="o">+</span> <span class="mi">20</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span>
                 <span class="n">new_image</span><span class="o">=</span><span class="n">gold_icon</span><span class="p">,</span>
@@ -929,7 +930,7 @@
 
             <span class="c1"># draw banner in frame, to allow selection</span>
             <span class="n">banner</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visuals</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">"banner"</span><span class="p">,</span> <span class="n">icon_size</span><span class="p">)</span>
-            <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
+            <span class="n">frame</span> <span class="o">=</span> <span class="n">UIFrame</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span>
                 <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span>
                 <span class="n">new_image</span><span class="o">=</span><span class="n">banner</span><span class="p">,</span>
@@ -942,8 +943,8 @@
             <span class="n">unit</span> <span class="o">=</span> <span class="n">controller</span><span class="o">.</span><span class="n">units_available</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
             <span class="n">unit</span><span class="o">.</span><span class="n">set_position</span><span class="p">([</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">])</span>
 
-        <span class="n">panel</span> <span class="o">=</span> <span class="n">Panel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="n">panel_list</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add_panel</span><span class="p">(</span><span class="n">panel</span><span class="p">,</span> <span class="s2">"units"</span><span class="p">)</span>
+        <span class="n">panel</span> <span class="o">=</span> <span class="n">UIPanel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="n">panel_list</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_container</span><span class="p">(</span><span class="n">panel</span><span class="p">,</span> <span class="s2">"units"</span><span class="p">)</span>
 
         <span class="c1"># handle instructions and selectability for different states</span>
         <span class="k">if</span> <span class="n">controller</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="n">InnState</span><span class="o">.</span><span class="n">CHOOSE_UNIT</span><span class="p">:</span>
@@ -974,12 +975,8 @@
         <span class="n">panel_list</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="c1"># draw background</span>
-        <span class="n">bg_width</span> <span class="o">=</span> <span class="n">window_width</span> <span class="o">-</span> <span class="p">(</span><span class="n">start_x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
-        <span class="n">bg_height</span> <span class="o">=</span> <span class="n">window_height</span> <span class="o">-</span> <span class="p">(</span><span class="n">start_y</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
-        <span class="n">bg</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">((</span><span class="n">bg_width</span><span class="p">,</span> <span class="n">bg_height</span><span class="p">),</span> <span class="n">SRCALPHA</span><span class="p">)</span>
-        <span class="n">bg</span><span class="o">.</span><span class="n">fill</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">150</span><span class="p">))</span>
-        <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="p">(</span><span class="n">start_x</span><span class="p">,</span> <span class="n">start_y</span><span class="p">),</span> <span class="n">image</span><span class="o">=</span><span class="n">bg</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="sa">f</span><span class="s2">"background"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
+        <span class="n">ui_window_width</span> <span class="o">=</span> <span class="n">window_width</span> <span class="o">-</span> <span class="p">(</span><span class="n">start_x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">ui_window_height</span> <span class="o">=</span> <span class="n">window_height</span> <span class="o">-</span> <span class="p">(</span><span class="n">start_y</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
 
         <span class="c1"># get image info inc. ratio to scale properly</span>
         <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visuals</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="s2">"image"</span><span class="p">])</span>
@@ -991,13 +988,13 @@
         <span class="n">current_x</span> <span class="o">=</span> <span class="n">start_x</span>
         <span class="n">current_y</span> <span class="o">=</span> <span class="n">start_y</span> <span class="o">+</span> <span class="p">(</span><span class="n">image_height</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
         <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visuals</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="s2">"image"</span><span class="p">],</span> <span class="p">(</span><span class="n">image_width</span><span class="p">,</span> <span class="n">image_height</span><span class="p">))</span>
-        <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">UIFrame</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span>
             <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span>
             <span class="n">new_image</span><span class="o">=</span><span class="n">image</span><span class="p">,</span>
             <span class="n">is_selectable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="s2">"image"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
+        <span class="n">panel_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
 
         <span class="c1"># draw description</span>
         <span class="n">current_x</span> <span class="o">+=</span> <span class="n">image_width</span> <span class="o">+</span> <span class="mi">5</span>
@@ -1009,7 +1006,7 @@
         <span class="n">font_height</span> <span class="o">=</span> <span class="n">fancy_font</span><span class="o">.</span><span class="n">line_height</span>
         <span class="n">max_height</span> <span class="o">=</span> <span class="p">((</span><span class="n">window_height</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">current_y</span><span class="p">)</span> <span class="o">-</span> <span class="n">font_height</span>
         <span class="n">desc_width</span> <span class="o">=</span> <span class="n">frame_line_width</span> <span class="o">-</span> <span class="n">image_width</span>
-        <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">UIFrame</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span>
             <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span>
             <span class="n">font</span><span class="o">=</span><span class="n">fancy_font</span><span class="p">,</span>
@@ -1017,7 +1014,7 @@
             <span class="n">max_width</span><span class="o">=</span><span class="n">desc_width</span><span class="p">,</span>
             <span class="n">is_selectable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="s2">"description"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
+        <span class="n">panel_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
 
         <span class="c1"># move to half way down screen</span>
         <span class="n">current_y</span> <span class="o">=</span> <span class="n">window_height</span> <span class="o">//</span> <span class="mi">2</span>
@@ -1027,8 +1024,8 @@
         <span class="n">line_width</span> <span class="o">=</span> <span class="n">window_width</span> <span class="o">-</span> <span class="p">(</span><span class="n">offset</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
         <span class="n">surface</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">((</span><span class="n">line_width</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
         <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">surface</span><span class="p">,</span> <span class="p">(</span><span class="mi">117</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">168</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">line_width</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
-        <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="p">(</span><span class="n">offset</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span> <span class="n">surface</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="s2">"separator"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">UIFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="p">(</span><span class="n">offset</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span> <span class="n">surface</span><span class="p">)</span>
+        <span class="n">panel_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
 
         <span class="c1"># draw event contents; either options or results</span>
         <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="n">EventState</span><span class="o">.</span><span class="n">IDLE</span><span class="p">:</span>
@@ -1041,21 +1038,22 @@
                     <span class="n">option_text</span> <span class="o">=</span> <span class="n">option</span><span class="p">[</span><span class="s2">"text"</span><span class="p">]</span>
 
                 <span class="c1"># build frame</span>
-                <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
+                <span class="n">frame</span> <span class="o">=</span> <span class="n">UIFrame</span><span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span>
                     <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span>
                     <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="n">option_text</span><span class="p">),</span>
                     <span class="n">is_selectable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="sa">f</span><span class="s2">"option_</span><span class="si">{</span><span class="n">counter</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
                 <span class="n">panel_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
 
                 <span class="c1"># increment position</span>
                 <span class="n">current_y</span> <span class="o">+=</span> <span class="n">frame</span><span class="o">.</span><span class="n">height</span> <span class="o">+</span> <span class="n">GAP_SIZE</span>
 
-            <span class="c1"># create panel</span>
-            <span class="n">panel</span> <span class="o">=</span> <span class="n">Panel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="n">panel_list</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">add_panel</span><span class="p">(</span><span class="n">panel</span><span class="p">,</span> <span class="s2">"options"</span><span class="p">)</span>
+            <span class="c1"># create container</span>
+            <span class="n">window</span> <span class="o">=</span> <span class="n">UIWindow</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="n">WindowType</span><span class="o">.</span><span class="n">BASIC</span><span class="p">,</span> <span class="p">(</span><span class="n">start_x</span><span class="p">,</span> <span class="n">start_y</span><span class="p">),</span> <span class="p">(</span><span class="n">ui_window_width</span><span class="p">,</span> <span class="n">ui_window_height</span><span class="p">),</span> <span class="n">panel_list</span><span class="p">,</span> <span class="kc">True</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_container</span><span class="p">(</span><span class="n">window</span><span class="p">,</span> <span class="s2">"event_window"</span><span class="p">)</span>
 
         <span class="c1"># show results</span>
         <span class="k">elif</span> <span class="n">state</span> <span class="o">==</span> <span class="n">EventState</span><span class="o">.</span><span class="n">SHOW_RESULT</span><span class="p">:</span>
@@ -1064,13 +1062,12 @@
 
             <span class="c1"># draw option chosen</span>
             <span class="n">selected_option</span> <span class="o">=</span> <span class="n">controller</span><span class="o">.</span><span class="n">active_event</span><span class="p">[</span><span class="s2">"options"</span><span class="p">][</span><span class="n">controller</span><span class="o">.</span><span class="n">current_index</span><span class="p">][</span><span class="s2">"text"</span><span class="p">]</span>
-            <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
+            <span class="n">frame</span> <span class="o">=</span> <span class="n">UIFrame</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span>
                 <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span>
                 <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="n">selected_option</span><span class="p">),</span>
                 <span class="n">is_selectable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="s2">"selected_option"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
 
             <span class="c1"># increment position</span>
             <span class="n">current_y</span> <span class="o">+=</span> <span class="n">frame</span><span class="o">.</span><span class="n">height</span> <span class="o">+</span> <span class="p">(</span><span class="n">GAP_SIZE</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
@@ -1115,14 +1112,13 @@
                     <span class="n">text</span> <span class="o">=</span> <span class="s2">"recruited."</span>
 
                 <span class="c1"># create the frame</span>
-                <span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span>
+                <span class="n">frame</span> <span class="o">=</span> <span class="n">UIFrame</span><span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span>
                     <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span>
                     <span class="n">new_image</span><span class="o">=</span><span class="n">result_image</span><span class="p">,</span>
                     <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">font_type</span><span class="p">,</span> <span class="n">text</span><span class="p">),</span>
                     <span class="n">is_selectable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                 <span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="sa">f</span><span class="s2">"result_</span><span class="si">{</span><span class="n">counter</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
                 <span class="n">panel_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
 
                 <span class="c1"># increment position</span>
@@ -1130,12 +1126,14 @@
 
             <span class="c1"># only draw exit button once decision made</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">add_exit_button</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">select_panel</span><span class="p">(</span><span class="s2">"exit"</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">select_container</span><span class="p">(</span><span class="s2">"exit"</span><span class="p">)</span>
 
-            <span class="c1"># create panel</span>
-            <span class="n">panel</span> <span class="o">=</span> <span class="n">Panel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="n">panel_list</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-            <span class="n">panel</span><span class="o">.</span><span class="n">set_selectable</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">add_panel</span><span class="p">(</span><span class="n">panel</span><span class="p">,</span> <span class="s2">"results"</span><span class="p">)</span></div>
+            <span class="c1"># create container</span>
+            <span class="n">window</span> <span class="o">=</span> <span class="n">UIWindow</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="n">WindowType</span><span class="o">.</span><span class="n">BASIC</span><span class="p">,</span> <span class="p">(</span><span class="n">start_x</span><span class="p">,</span> <span class="n">start_y</span><span class="p">),</span> <span class="p">(</span><span class="n">ui_window_width</span><span class="p">,</span> <span class="n">ui_window_height</span><span class="p">),</span> <span class="n">panel_list</span><span class="p">,</span> <span class="kc">True</span>
+            <span class="p">)</span>
+            <span class="n">window</span><span class="o">.</span><span class="n">set_selectable</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_container</span><span class="p">(</span><span class="n">window</span><span class="p">,</span> <span class="s2">"event_window"</span><span class="p">)</span></div>
 </pre></div>
 
           </article>
