@@ -36,6 +36,7 @@ class Game:
             from scripts.scenes.unit_data.scene import UnitDataScene
             from scripts.scenes.view_troupe.scene import ViewTroupeScene
             from scripts.scenes.world.scene import WorldScene
+            from scripts.core.assets import Assets
 
             # init libraries
             pygame.init()
@@ -46,6 +47,7 @@ class Game:
             self.debug: Debugger = Debugger(self)
             self.window: Window = Window(self)
             self.data: Data = Data(self)
+            self.assets: Assets = Assets(self)  # TODO - deprecate
             self.memory: Memory = Memory(self)
             self.input: Input = Input(self)
             self.rng: RNG = RNG(self)
