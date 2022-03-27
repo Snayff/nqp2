@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import logging
-
 from typing import TYPE_CHECKING
 
 import pygame
@@ -11,7 +10,8 @@ from scripts.core.constants import WindowType
 from scripts.ui_elements.generic.ui_panel import UIPanel
 
 if TYPE_CHECKING:
-    from typing import List, Optional, Tuple, Union, Dict
+    from typing import Dict, List, Optional, Tuple, Union
+
     from scripts.core.game import Game
 
 __all__ = ["UIWindow"]
@@ -21,13 +21,20 @@ class UIWindow(UIPanel):
     """
     A more feature rich UIPanel, containing its own visual style.
     """
-    def __init__(self, game: Game, window_type: WindowType, pos: Tuple[int, int], size: Tuple[int, int],
-            elements: List, is_active: bool = False):
+
+    def __init__(
+        self,
+        game: Game,
+        window_type: WindowType,
+        pos: Tuple[int, int],
+        size: Tuple[int, int],
+        elements: List,
+        is_active: bool = False,
+    ):
         super().__init__(game, elements, is_active)
         self._images: Dict[str, Image] = self._load_window_images(window_type)
         self.pos: Tuple[int, int] = pos
         self.size: Tuple[int, int] = size
-
 
         self._window_surface: pygame.Surface = self._build_window_surface()
 
@@ -101,7 +108,6 @@ class UIWindow(UIPanel):
         for y in range(0, window_height, images["right_middle"].height):
             surface.blit(images["right_middle"].surface, (x, y))
 
-
         # draw corners
         x = 0
         y = 0
@@ -120,15 +126,3 @@ class UIWindow(UIPanel):
         surface.blit(images["bottom_right"].surface, (x, y))
 
         return surface
-
-
-
-
-
-
-
-
-
-
-
-

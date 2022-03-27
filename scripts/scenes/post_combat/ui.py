@@ -104,7 +104,9 @@ class PostCombatUI(UI):
                     if i != 3:
                         font = create_font(FontType.DEFAULT, v, (x, y + 4))
                         font.draw(surface)
-                        img = self._game.visuals._images["stats"][("dmg_dealt@16x16", "kills@16x16", "defence@16x16")[i]]
+                        img = self._game.visuals._images["stats"][
+                            ("dmg_dealt@16x16", "kills@16x16", "defence@16x16")[i]
+                        ]
                         surface.blit(img, (x - img.get_width() - 2, y))
                     else:
                         font = create_font(FontType.DEFAULT, v, (x - empty_font.get_text_width(v) // 2, y))

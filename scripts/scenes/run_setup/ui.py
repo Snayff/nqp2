@@ -206,7 +206,9 @@ class RunSetupUI(UI):
             self._current_container.select_previous_element()
 
             # get values to restore after rebuild
-            self._parent_scene.selected_commander = list(self._game.data.commanders)[self._current_container.selected_index]
+            self._parent_scene.selected_commander = list(self._game.data.commanders)[
+                self._current_container.selected_index
+            ]
             self._selected_index = self._current_container.selected_index
 
             is_dirty = True
@@ -216,7 +218,9 @@ class RunSetupUI(UI):
             self._current_container.select_next_element()
 
             # get values to restore after rebuild
-            self._parent_scene.selected_commander = list(self._game.data.commanders)[self._current_container.selected_index]
+            self._parent_scene.selected_commander = list(self._game.data.commanders)[
+                self._current_container.selected_index
+            ]
             self._selected_index = self._current_container.selected_index
 
             is_dirty = True

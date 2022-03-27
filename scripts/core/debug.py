@@ -13,17 +13,9 @@ from typing import TYPE_CHECKING
 
 import pygame
 
-from scripts.core.constants import (
-    DEBUGGING_PATH,
-    FontType,
-    INFINITE,
-    LOGGING_PATH,
-    PROFILING_PATH,
-    VERSION,
-    WorldState,
-)
-from scripts.ui_elements.tailored.dev_console import DevConsole
+from scripts.core.constants import DEBUGGING_PATH, FontType, INFINITE, LOGGING_PATH, PROFILING_PATH, VERSION, WorldState
 from scripts.ui_elements.generic.font import Font
+from scripts.ui_elements.tailored.dev_console import DevConsole
 
 if TYPE_CHECKING:
     from typing import Callable, List, Optional, Tuple, TYPE_CHECKING, Union

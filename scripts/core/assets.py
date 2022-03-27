@@ -73,7 +73,7 @@ class Assets:
         #         for action in os.listdir(ASSET_PATH / "bosses/" / commander)
         #     }
         #     for commander in os.listdir(ASSET_PATH / "bosses/")
-        #}
+        # }
 
         self.tilesets = {
             tileset.split(".")[0]: self.load_tileset(ASSET_PATH / "tiles" / tileset)
@@ -105,11 +105,11 @@ class Assets:
         logging.debug(f"Assets: initialised in {format(end_time - start_time, '.2f')}s.")
 
     def get_image(
-            self,
-            folder_name: str,
-            image_name: str,
-            desired_dimensions: Tuple[int, int] = (DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE),
-            copy: bool = False,
+        self,
+        folder_name: str,
+        image_name: str,
+        desired_dimensions: Tuple[int, int] = (DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE),
+        copy: bool = False,
     ) -> pygame.Surface:
         """
         Get the specified image and resize if dimensions provided. Dimensions are in (width, height) format.
@@ -176,11 +176,11 @@ class Assets:
         return font
 
     def create_fancy_font(
-            self,
-            text: str,
-            pos: Tuple[int, int] = (0, 0),
-            line_width: int = 0,
-            font_effects: Optional[List[FontEffects]] = None,
+        self,
+        text: str,
+        pos: Tuple[int, int] = (0, 0),
+        line_width: int = 0,
+        font_effects: Optional[List[FontEffects]] = None,
     ) -> FancyFont:
         """
         Create a FancyFont instance. If line_width isnt given then will default to full screen.

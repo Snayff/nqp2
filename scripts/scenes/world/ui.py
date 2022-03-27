@@ -18,7 +18,8 @@ from scripts.core.constants import (
     InnState,
     SceneType,
     TrainingState,
-    WindowType, WorldState,
+    WindowType,
+    WorldState,
 )
 from scripts.scene_elements.unit_grid import UnitGrid
 from scripts.scene_elements.world_view import WorldView
@@ -781,8 +782,9 @@ class WorldUI(UI):
                 current_y += frame.height + GAP_SIZE
 
             # create container
-            window = UIWindow(self._game, WindowType.BASIC, (start_x, start_y), (ui_window_width, ui_window_height),
-                              panel_list, True)
+            window = UIWindow(
+                self._game, WindowType.BASIC, (start_x, start_y), (ui_window_width, ui_window_height), panel_list, True
+            )
             self.add_container(window, "event_window")
 
         # show results
@@ -859,7 +861,8 @@ class WorldUI(UI):
             self.select_container("exit")
 
             # create container
-            window = UIWindow(self._game, WindowType.BASIC, (start_x, start_y), (ui_window_width, ui_window_height),
-                              panel_list, True)
+            window = UIWindow(
+                self._game, WindowType.BASIC, (start_x, start_y), (ui_window_width, ui_window_height), panel_list, True
+            )
             window.set_selectable(False)
             self.add_container(window, "event_window")

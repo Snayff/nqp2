@@ -29,6 +29,7 @@ class Game:
         with Timer("Game initialised"):
             # imports here to avoid circular references since they're core and
             # controllers require ``Game`` imports for typing.
+            from scripts.core.assets import Assets
             from scripts.core.memory import Memory
             from scripts.scenes.gallery.scene import GalleryScene
             from scripts.scenes.main_menu.scene import MainMenuScene
@@ -36,7 +37,6 @@ class Game:
             from scripts.scenes.unit_data.scene import UnitDataScene
             from scripts.scenes.view_troupe.scene import ViewTroupeScene
             from scripts.scenes.world.scene import WorldScene
-            from scripts.core.assets import Assets
 
             # init libraries
             pygame.init()
@@ -62,8 +62,8 @@ class Game:
             self.world: WorldScene = WorldScene(self)
 
             # dev scenes
-            #self.dev_unit_data: UnitDataScene = UnitDataScene(self)  # TODO - fix
-            #self.dev_gallery: GalleryScene = GalleryScene(self) # TODO - fix
+            # self.dev_unit_data: UnitDataScene = UnitDataScene(self)  # TODO - fix
+            # self.dev_gallery: GalleryScene = GalleryScene(self) # TODO - fix
 
             self.scene_stack: List[Scene] = []
             self.state: GameState = GameState.LOADING
