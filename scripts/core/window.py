@@ -6,6 +6,8 @@ from typing import TYPE_CHECKING
 
 import pygame
 
+from scripts.core.constants import ASSET_PATH
+
 if TYPE_CHECKING:
     from typing import List, Tuple, Union
 
@@ -26,6 +28,8 @@ class Window:
 
         self.window = pygame.display.set_mode(self.scaled_resolution, 0, 32)
         pygame.display.set_caption("NQP2")
+        icon = pygame.image.load(str(ASSET_PATH / "ui/icons/nqp.png"))
+        pygame.display.set_icon(icon)
 
         self.display = pygame.Surface(self.base_resolution)
 
