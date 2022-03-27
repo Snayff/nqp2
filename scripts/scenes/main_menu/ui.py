@@ -60,7 +60,7 @@ class MainMenuUI(UI):
     def rebuild_ui(self):
         super().rebuild_ui()
 
-        create_font = self._game.assets.create_font
+        create_font = self._game.visuals.create_font
         window_width = self._game.window.width
         window_height = self._game.window.height
 
@@ -69,8 +69,8 @@ class MainMenuUI(UI):
         start_y = window_height - 100
 
         # draw background
-        background = self._game.assets.get_image("ui", "town", (window_width, window_height))
-        frame = UIFrame(self._game, (0, 0), background)
+        background = self._game.visuals.get_image("town", (window_width, window_height))
+        frame = UIFrame(self._game, (0, 0), new_image=background)
         self._elements["background"] = frame
 
         # draw options

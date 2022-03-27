@@ -26,7 +26,7 @@ class Tile:
         return self.type[2]
 
     def draw(self, game, surf, dest):
-        tileset = game.assets.tilesets[self.group]
+        tileset = game.visuals.tilesets[self.group]
         if self.group[-8:] == "animated":
             self.type[2] = int((game.master_clock * 2) % len(tileset[self.src_y]))
         img = tileset[self.src_y][self.src_x]

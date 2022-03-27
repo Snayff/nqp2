@@ -14,7 +14,6 @@ if TYPE_CHECKING:
     import pygame
 
     from scripts.core.game import Game
-    from scripts.ui_elements.tailored.unit_stats_window import UnitStatsFrame
 
 
 __all__ = ["UI"]
@@ -32,7 +31,7 @@ class UI(ABC):
         self._game: Game = game
         self.block_onward_input: bool = block_onward_input  # prevents input being passed to the next scene
 
-        self._elements: Dict[str, Union[UIFrame, UnitStatsFrame]] = {}
+        self._elements: Dict[str, Union[UIFrame]] = {}
         self._panels: Dict[str, UIPanel] = {}
         self._current_panel: Optional[UIPanel] = None
 
@@ -98,23 +97,23 @@ class UI(ABC):
         # key : [value, icon]
         resources = {
             "gold": [
-                self._game.assets.get_image("stats", "gold", icon_size),
+                self._game.visuals.get_image("gold", icon_size),
                 str(self._game.memory.gold),
             ],
             "rations": [
-                self._game.assets.get_image("stats", "rations", icon_size),
+                self._game.visuals.get_image("rations", icon_size),
                 str(self._game.memory.rations),
             ],
             "morale": [
-                self._game.assets.get_image("stats", "morale", icon_size),
+                self._game.visuals.get_image("morale", icon_size),
                 str(self._game.memory.morale),
             ],
             "charisma": [
-                self._game.assets.get_image("stats", "charisma", icon_size),
+                self._game.visuals.get_image("charisma", icon_size),
                 str(self._game.memory.commander.charisma_remaining),
             ],
             "leadership": [
-                self._game.assets.get_image("stats", "leadership", icon_size),
+                self._game.visuals.get_image("leadership", icon_size),
                 str(self._game.memory.leadership),
             ],
         }
@@ -128,7 +127,7 @@ class UI(ABC):
         current_y = start_y
 
         # create frames
-        create_font = self._game.assets.create_font
+        create_font = self._game.visuals.create_font
         for key, value in resources.items():
             frame = UIFrame(
                 self._game,
@@ -151,10 +150,10 @@ class UI(ABC):
     def _draw_instruction(self, surface: pygame.Surface):
         if self._temporary_instruction_text:
             text = self._temporary_instruction_text
-            font = self._game.assets.create_font(FontType.NEGATIVE, text)
+            font = self._game.visuals.create_font(FontType.NEGATIVE, text)
         else:
             text = self._instruction_text
-            font = font = self._game.assets.create_font(FontType.INSTRUCTION, text)
+            font = font = self._game.visuals.create_font(FontType.INSTRUCTION, text)
 
         x = self._game.window.width - font.width - 2
         y = 2
@@ -186,7 +185,7 @@ class UI(ABC):
         """
         window_width = self._game.window.width
         window_height = self._game.window.height
-        font = self._game.assets.create_font(FontType.DEFAULT, button_text)
+        font = self._game.visuals.create_font(FontType.DEFAULT, button_text)
 
         # get position info
         confirm_width = font.get_text_width(button_text)

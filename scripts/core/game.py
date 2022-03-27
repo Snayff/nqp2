@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 
 import pygame
 
-from scripts.core.assets import Assets
 from scripts.core.base_classes.scene import Scene
 from scripts.core.constants import GameState, SceneType
 from scripts.core.data import Data
@@ -48,7 +47,6 @@ class Game:
             self.window: Window = Window(self)
             self.data: Data = Data(self)
             self.memory: Memory = Memory(self)
-            #self.assets: Assets = Assets(self)  # TODO - deprecate
             self.input: Input = Input(self)
             self.rng: RNG = RNG(self)
             self.sounds: Sounds = Sounds(self)
@@ -62,8 +60,8 @@ class Game:
             self.world: WorldScene = WorldScene(self)
 
             # dev scenes
-            self.dev_unit_data: UnitDataScene = UnitDataScene(self)
-            self.dev_gallery: GalleryScene = GalleryScene(self)
+            #self.dev_unit_data: UnitDataScene = UnitDataScene(self)  # TODO - fix
+            #self.dev_gallery: GalleryScene = GalleryScene(self) # TODO - fix
 
             self.scene_stack: List[Scene] = []
             self.state: GameState = GameState.LOADING

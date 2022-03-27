@@ -37,7 +37,7 @@ class UITooltip:
 
     def generate_text_surf(self):
         text_block = TextBlock(
-            self.text, self._game.assets.enhanced_fonts[self.font_id], max_width=self.width - self.padding * 2
+            self.text, self._game.visuals.enhanced_fonts[self.font_id], max_width=self.width - self.padding * 2
         )
         self.text_surf = pygame.Surface(
             (text_block.used_width + self.padding * 2, text_block.height + self.padding * 2)

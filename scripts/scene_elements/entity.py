@@ -266,34 +266,38 @@ class Entity:
 
     @property
     def animation_frames(self):
-        return len(self._game.assets.unit_animations[self.type][self.action])
+        # TODO - this is dumb and needs totally changing
+        anim = self._game.visuals.create_animation(self.type, self.action)
+
+        return anim.num_frames
 
     @property
     def img(self):
         frame = int(self.frame_timer / self.cycle_length * self.animation_frames) % self.animation_frames
 
         try:
-            img = self._game.assets.unit_animations[self.type][self.action][frame]
+            # TODO - this is dumb and needs totally changing
+            anim = self._game.visuals.create_animation(self.type, self.action)
+            img = anim.get_frame(frame).surface
         except KeyError:
             img = pygame.Surface((self.size * 2, self.size * 2))
 
         return img
 
     def draw(self, surface: pygame.Surface, shift=(0, 0)):
-        if self.type in self._game.assets.unit_animations:
-            flip = False
-            if self.pos_change[0] < 0:
-                flip = True
 
-            surface.blit(
-                pygame.transform.flip(self.img, flip, False),
-                (
-                    self.pos[0] + shift[0] - self.img.get_width() // 2,
-                    self.pos[1] + shift[1] - self.img.get_height(),
-                ),
-            )
-        else:
-            pygame.draw.circle(surface, self.colour, offset(shift.copy(), self.pos), self.size)
+        flip = False
+        if self.pos_change[0] < 0:
+            flip = True
+
+        surface.blit(
+            pygame.transform.flip(self.img, flip, False),
+            (
+                self.pos[0] + shift[0] - self.img.get_width() // 2,
+                self.pos[1] + shift[1] - self.img.get_height(),
+            ),
+        )
+
 
         # debug stuff for swarm targeting
         # if self.behaviour.priority_target:

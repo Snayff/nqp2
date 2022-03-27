@@ -79,7 +79,7 @@ class PostCombatUI(UI):
 
     def draw(self, surface: pygame.Surface):
         combat_data = self._game.combat.end_data
-        create_font = self._game.assets.create_font
+        create_font = self._game.visuals.create_font
 
         empty_font = create_font(FontType.DEFAULT, "")
 
@@ -92,8 +92,8 @@ class PostCombatUI(UI):
                 y = self._game.window.base_resolution[1] // 2 + 40
                 if self.selected_ui_row == 0:
                     if self.selected_ui_col == i:
-                        surface.blit(self._game.assets.ui["select_arrow"], (x - 6, y - 14))
-                unit_img = self._game.assets.unit_animations[unit[0]]["icon"][0]
+                        surface.blit(self._game.visuals.ui["select_arrow"], (x - 6, y - 14))
+                unit_img = self._game.visuals.unit_animations[unit[0]]["icon"][0]
                 surface.blit(unit_img, (x - unit_img.get_width() // 2, y))
                 y += unit_img.get_height() + 4
                 font = create_font(FontType.DEFAULT, unit[0], (x - empty_font.get_text_width(unit[0]) // 2, y))
@@ -104,7 +104,7 @@ class PostCombatUI(UI):
                     if i != 3:
                         font = create_font(FontType.DEFAULT, v, (x, y + 4))
                         font.draw(surface)
-                        img = self._game.assets._images["stats"][("dmg_dealt@16x16", "kills@16x16", "defence@16x16")[i]]
+                        img = self._game.visuals._images["stats"][("dmg_dealt@16x16", "kills@16x16", "defence@16x16")[i]]
                         surface.blit(img, (x - img.get_width() - 2, y))
                     else:
                         font = create_font(FontType.DEFAULT, v, (x - empty_font.get_text_width(v) // 2, y))
@@ -112,11 +112,11 @@ class PostCombatUI(UI):
                     y += 18
                 for i in range(unit[4]):
                     x_offset = -unit[4] * 10 + i * 20
-                    surface.blit(self._game.assets._images["stats"]["health@16x16"], (x + x_offset, y))
+                    surface.blit(self._game.visuals._images["stats"]["health@16x16"], (x + x_offset, y))
 
         if self.selected_ui_row == 1:
             surface.blit(
-                self._game.assets.ui["select_arrow"],
+                self._game.visuals.ui["select_arrow"],
                 (self._game.window.base_resolution[0] - 20, self._game.window.base_resolution[1] - 30),
             )
 
@@ -166,7 +166,7 @@ class PostCombatUI(UI):
     def _rebuild_victory_ui(self):
         window_width = self._game.window.width
         window_height = self._game.window.height
-        create_font = self._game.assets.create_font
+        create_font = self._game.visuals.create_font
 
         start_x = 20
         start_y = 40
@@ -184,7 +184,7 @@ class PostCombatUI(UI):
 
         # draw gold reward
         current_y += 50
-        gold_icon = self._game.assets.get_image("stats", "gold", icon_size)
+        gold_icon = self._game.visuals.get_image("stats", "gold", icon_size)
         gold_reward = str(self._game.post_combat.gold_reward)
         frame = UIFrame(
             self._game,
@@ -199,7 +199,7 @@ class PostCombatUI(UI):
         self.add_exit_button()
 
     def _rebuild_defeat_ui(self):
-        create_font = self._game.assets.create_font
+        create_font = self._game.visuals.create_font
 
         start_x = 20
         start_y = 40
@@ -232,7 +232,7 @@ class PostCombatUI(UI):
             self.add_exit_button("Abandon hope")
         else:
             # lose morale
-            morale_image = self._game.assets.get_image("stats", "morale")
+            morale_image = self._game.visuals.get_image("stats", "morale")
             frame = UIFrame(
                 self._game,
                 (current_x, current_y),
@@ -351,7 +351,7 @@ class PostCombatUI(UI):
 
         # draw header
         header_text = "Victory"
-        header_font = self._game.assets.create_font(FontType.DEFAULT, header_text)
+        header_font = self._game.visuals.create_font(FontType.DEFAULT, header_text)
         current_x = (window_width // 2) - header_font.width
         current_y = start_y
         frame = UIFrame(self._game, (current_x, current_y), font=header_font, is_selectable=False)
@@ -360,7 +360,7 @@ class PostCombatUI(UI):
         # draw victory message
         current_y += 50
         text = "That's all there is. You've beaten the boss, so why not try another commander?"
-        victory_font = self._game.assets.create_font(FontType.POSITIVE, text)
+        victory_font = self._game.visuals.create_font(FontType.POSITIVE, text)
         frame = UIFrame(
             self._game,
             (current_x, current_y),

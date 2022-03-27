@@ -18,12 +18,13 @@ from scripts.core.constants import (
     InnState,
     SceneType,
     TrainingState,
-    WorldState,
+    WindowType, WorldState,
 )
-from scripts.scene_elements.unitgrid import UnitGrid
+from scripts.scene_elements.unit_grid import UnitGrid
 from scripts.scene_elements.world_view import WorldView
 from scripts.ui_elements.generic.ui_frame import UIFrame
 from scripts.ui_elements.generic.ui_panel import UIPanel
+from scripts.ui_elements.generic.ui_window import UIWindow
 
 if TYPE_CHECKING:
     from typing import Optional
@@ -787,6 +788,8 @@ class WorldUI(UI):
             # create panel
             panel = UIPanel(self._game, panel_list, True)
             self.add_panel(panel, "options")
+            window = UIWindow(self._game, WindowType.BASIC, (start_x, start_y),(bg_width, bg_height))
+            self._elements["window"] = window
 
         # show results
         elif state == EventState.SHOW_RESULT:

@@ -10,7 +10,7 @@ import pygame
 from scripts.core.base_classes.animation import Animation
 from scripts.core.base_classes.image import Image
 from scripts.core.constants import ASSET_PATH, DEFAULT_IMAGE_SIZE, FontEffects, FontType, IMG_FORMATS
-from scripts.core.utility import clamp
+from scripts.core.utility import clamp, clip
 from scripts.ui_elements.generic.fancy_font import FancyFont
 from scripts.ui_elements.generic.font import Font
 
@@ -60,6 +60,11 @@ class Visuals:
             "ui_animations",
             "world_animations",
         ]
+
+        self.tilesets = {  # TODO - refactor to align to style
+            tileset.split(".")[0]: self._load_tileset(ASSET_PATH / "tiles" / tileset)
+            for tileset in os.listdir(ASSET_PATH / "tiles")
+        }
 
         self._images: Dict[str, pygame.Surface] = self._load_images()  # image_name: surface
         self._animation_frames: Dict[str, List[Image]] = self._load_animation_frames()
@@ -177,6 +182,30 @@ class Visuals:
                                         animation_frames[anim_folder_name + "_" + frame_folder_name] = [image_]
 
         return animation_frames
+
+    def _load_tileset(self, path):
+        """
+        Loads a tileset from a spritesheet.
+        """
+        # TODO - rewrite to align to other load styles
+
+        tileset_data = []
+
+        spritesheet = pygame.image.load(str(path)).convert_alpha()
+        for y in range(spritesheet.get_height() // DEFAULT_IMAGE_SIZE):
+            tileset_data.append([])
+            for x in range(spritesheet.get_width() // DEFAULT_IMAGE_SIZE):
+                tileset_data[-1].append(
+                    clip(
+                        spritesheet,
+                        x * DEFAULT_IMAGE_SIZE,
+                        y * DEFAULT_IMAGE_SIZE,
+                        DEFAULT_IMAGE_SIZE,
+                        DEFAULT_IMAGE_SIZE,
+                    )
+                )
+
+        return tileset_data
 
     def create_animation(self, animation_name: str, frame_name: str, loop: bool = True) -> Animation:
         """
