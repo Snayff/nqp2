@@ -34,7 +34,7 @@ class Unit:
         self.tier: int = unit_data["tier"]
         self.default_behaviour: str = unit_data["default_behaviour"]
 
-        # stats that include
+        # stats that include base values
         base_values = self._game.data.config["unit_base_values"][f"tier_{unit_data['tier']}"]
         self._health: int = unit_data["health"] + base_values["health"]
         self._attack: int = unit_data["attack"] + base_values["attack"]

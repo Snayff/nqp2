@@ -6,7 +6,7 @@ import pygame
 
 from scripts.core.constants import InputType, TILE_SIZE
 from scripts.core.game import Game
-from scripts.core.grid import grid_down, grid_left, grid_right, grid_up
+from scripts.core.utility import grid_down, grid_left, grid_right, grid_up
 from scripts.scene_elements.unit import Unit
 
 

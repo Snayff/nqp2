@@ -12,7 +12,8 @@ if TYPE_CHECKING:
 
 _V = TypeVar("_V", int, float)  # to represent where we don't know which type is being used
 
-__all__ = ["swap_colour", "clip", "offset", "lerp", "clamp", "itr", "scene_to_scene_type", "next_number_in_loop"]
+__all__ = ["swap_colour", "clip", "offset", "lerp", "clamp", "itr", "scene_to_scene_type", "next_number_in_loop",
+    "grid_up", "grid_right", "grid_down", "grid_left"]
 
 
 def swap_colour(img, old_c, new_c):
@@ -114,3 +115,31 @@ def previous_number_in_loop(start: int, loop_size: int) -> int:
         result = start - 1
 
     return result
+
+
+def grid_up(selected: int, width: int, height: int):
+    return selected - width
+
+
+def grid_down(selected: int, width: int, height: int):
+    index = selected + width
+    length = width * height
+    if index >= length:
+        index -= length
+    return index
+
+
+def grid_left(selected: int, width: int, height: int):
+    if selected % width == 0:
+        index = selected + width - 1
+    else:
+        index = selected - 1
+    return index
+
+
+def grid_right(selected: int, width: int, height: int):
+    index = selected + 1
+    length = width * height
+    if index % width == 0 or index >= length:
+        index -= width
+    return index
