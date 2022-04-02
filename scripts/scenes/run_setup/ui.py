@@ -83,7 +83,7 @@ class RunSetupUI(UI):
             self._elements[f"{commander['type']}_icon"] = frame
 
             move_anim = create_animation(commander["type"], "move")
-            icon.pause()
+            move_anim.pause()
             icon_width = icon.width
             frame = UIFrame(self._game, (current_x, anim_y), new_image=move_anim, is_selectable=True)
             self._elements[commander["type"]] = frame

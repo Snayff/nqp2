@@ -75,10 +75,10 @@ class Unit2:
 
     def spawn_entities(self):
         """
-        Spawn the Unit's entities
+        Spawn the Unit's Entities. Deletes any existing Entities first.
         """
 
-        # TODO - clear existing entities
+        self.delete_entities()
 
         for _ in range(self.count):
             # universal components
@@ -111,5 +111,7 @@ class Unit2:
 
         for entity in self.entities:
             delete_func(entity)
+
+        self.entities = []
 
 

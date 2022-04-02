@@ -4,9 +4,10 @@ import logging
 from typing import TYPE_CHECKING
 
 import pygame
+import snecs
 from snecs import World
 
-from scripts.core import PointLike
+from scripts.core import PointLike, systems
 from scripts.core.constants import TILE_SIZE, WorldState
 from scripts.core.debug import Timer
 from scripts.scene_elements.commander import Commander
@@ -124,12 +125,30 @@ class WorldModel:
     def update(self, delta_time: float):
         self.particles.update(delta_time)
         self.projectiles.update(delta_time)
+        self.process_update_systems(delta_time)
         for troupe in self.troupes.values():
             troupe.update(delta_time)
+
+        # at the end of the frame, complete any scheduled deletions
+        snecs.process_pending_deletions()
+
+    def process_draw_systems(self, surface: pygame.Surface):
+        """
+        Process the drawing-related ECS systems.
+        """
+        systems.draw_entities(surface)
+
+    def process_update_systems(self, delta_time: float):
+        """
+        Process the non-drawing related ECS systems.
+        """
+        systems.apply_damage()
+        systems.process_death()
 
     def reset(self):
         self.particles = ParticleManager()
         self.projectiles = ProjectileManager(self._game)
+        self._ecs_world = World()
 
         # units
         self.troupes = {}

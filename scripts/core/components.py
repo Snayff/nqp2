@@ -14,7 +14,8 @@ from scripts.scene_elements.unit2 import Unit2
 if TYPE_CHECKING:
     from typing import List, Optional, Tuple, Union, Dict
 
-__all__ = ["Position", "Aesthetic", "Tracked", "Resources", "Stats", "Team", "Knowledge", "Projectiles"]
+__all__ = ["Position", "Aesthetic", "Tracked", "Resources", "Stats", "Team", "Knowledge", "Projectiles",
+    "DamageReceived", "IsDead"]
 
 
 class Position(RegisteredComponent):
@@ -101,6 +102,7 @@ class Stats(RegisteredComponent):
         self.range: int = parent_unit.range
         self.attack_speed: float = parent_unit.attack_speed
         self.move_speed: int = parent_unit.move_speed
+        self.weight: int = parent_unit.weight
 
     def serialize(self):
         # TODO - add serialisation
@@ -166,3 +168,34 @@ class Projectiles(RegisteredComponent):
     def deserialize(cls, *serialised):
         # TODO - add deserialisation
         return Team(*serialised)
+
+
+class DamageReceived(RegisteredComponent):
+    """
+    Damage to be applied to the Entity.
+    """
+    def __init__(self, amount: int):
+        self.amount: int = amount
+
+    def serialize(self):
+        # TODO - add serialisation
+        return True
+
+    @classmethod
+    def deserialize(cls, *serialised):
+        # TODO - add deserialisation
+        return Team(*serialised)
+
+
+class IsDead(RegisteredComponent):
+    """
+    Flag to indicate if the Entity is dead.
+    """
+    def __init__(self):
+        self.is_processed: bool = False
+
+    # doesnt need serialising as will never be dead when saving.
+
+
+
+

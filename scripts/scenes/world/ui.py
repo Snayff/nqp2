@@ -55,6 +55,9 @@ class WorldUI(UI):
         self._worldview.draw(surface)
         offset = self._worldview.camera.render_offset()
 
+        # draw entities
+        self._parent_scene.model.process_draw_systems(surface)
+
         # TODO: create and move to mouse tool system
         if state == WorldState.CHOOSE_NEXT_ROOM:
             if self.grid:
