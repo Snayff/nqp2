@@ -4,6 +4,7 @@ import logging
 from typing import TYPE_CHECKING
 
 import pygame
+from snecs import World
 
 from scripts.core import PointLike
 from scripts.core.constants import TILE_SIZE, WorldState
@@ -45,6 +46,8 @@ class WorldModel:
         with Timer("WorldModel initialised"):
             self._game = game
             self._parent_scene = parent_scene
+
+            self._ecs_world = World()
 
             self._previous_state: WorldState = WorldState.CHOOSE_NEXT_ROOM
             self._state: WorldState = WorldState.CHOOSE_NEXT_ROOM

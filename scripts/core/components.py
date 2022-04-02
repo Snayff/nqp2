@@ -9,11 +9,12 @@ from snecs import RegisteredComponent
 from scripts.core.base_classes.animation import Animation
 from scripts.core.base_classes.image import Image
 from scripts.scene_elements.unit import Unit
+from scripts.scene_elements.unit2 import Unit2
 
 if TYPE_CHECKING:
     from typing import List, Optional, Tuple, Union, Dict
 
-__all__ = ["Position"]
+__all__ = ["Position", "Aesthetic", "Tracked", "Resources", "Stats", "Team", "Knowledge", "Projectiles"]
 
 
 class Position(RegisteredComponent):
@@ -39,7 +40,7 @@ class Position(RegisteredComponent):
         return self.pos[1]
         
 
-class Visual(RegisteredComponent):
+class Aesthetic(RegisteredComponent):
     """
     An Entity's visual information
     """
@@ -53,7 +54,7 @@ class Visual(RegisteredComponent):
     @classmethod
     def deserialize(cls, *serialised):
         # TODO - add deserialisation
-        return Visual(*serialised)
+        return Aesthetic(*serialised)
     
     
 class Tracked(RegisteredComponent):
@@ -94,7 +95,7 @@ class Stats(RegisteredComponent):
     """
     An Entity's stats, such as attack. 
     """
-    def __init__(self, parent_unit: Unit):
+    def __init__(self, parent_unit: Unit2):
         self.defence: int = parent_unit.defence
         self.attack: int = parent_unit.attack
         self.range: int = parent_unit.range
@@ -109,22 +110,7 @@ class Stats(RegisteredComponent):
     def deserialize(cls, *serialised):
         # TODO - add deserialisation
         return Resources(*serialised)
-    
-    
-class IsAlive(RegisteredComponent):
-    """
-    An Entity's state of being alive. Acts as a flag.
-    """
-    def __init__(self):
-        pass
 
-    def serialize(self):
-        return True
-
-    @classmethod
-    def deserialize(cls, *serialised):
-        return IsAlive()
-    
     
 class Team(RegisteredComponent):
     """
@@ -143,11 +129,11 @@ class Team(RegisteredComponent):
         return Team(*serialised)
 
 
-class Intent(RegisteredComponent):
+class Knowledge(RegisteredComponent):
     """
     An Entity's Intent, such as were they are moving to or when they last attacked.
 
-    This should handle the outputs of AI decisions.
+    This should handle the outputs of AI decisions and actions.
     """
     def __init__(self):
         self.attack_timer: float = 0
@@ -160,10 +146,10 @@ class Intent(RegisteredComponent):
 
     @classmethod
     def deserialize(cls, *serialised):
-        return Intent()
+        return Knowledge()
 
 
-class UsesProjectiles(RegisteredComponent):
+class Projectiles(RegisteredComponent):
     """
     An Entity's ability to use projectiles.
     """
