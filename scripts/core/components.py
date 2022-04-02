@@ -8,13 +8,14 @@ from snecs import RegisteredComponent
 
 from scripts.core.base_classes.animation import Animation
 from scripts.core.base_classes.image import Image
+from scripts.core.constants import EntityFacing
 from scripts.scene_elements.unit import Unit
 from scripts.scene_elements.unit2 import Unit2
 
 if TYPE_CHECKING:
     from typing import List, Optional, Tuple, Union, Dict
 
-__all__ = ["Position", "Aesthetic", "Tracked", "Resources", "Stats", "Team", "Knowledge", "Projectiles",
+__all__ = ["Position", "Aesthetic", "Tracked", "Resources", "Stats", "Team", "Behaviour", "Projectiles",
     "DamageReceived", "IsDead"]
 
 
@@ -24,6 +25,7 @@ class Position(RegisteredComponent):
     """
     def __init__(self, pos: Tuple[int, int]):
         self.pos: Tuple[int, int] = pos
+        self.target_pos: Optional[Tuple[int, int]] = None  # where the entity is moving to
 
     def serialize(self):
         return self.pos
@@ -39,6 +41,14 @@ class Position(RegisteredComponent):
     @property
     def y(self) -> int:
         return self.pos[1]
+
+    @property
+    def target_x(self) -> int:
+        return self.target_pos[0]
+
+    @property
+    def target_y(self) -> int:
+        return self.target_pos[1]
         
 
 class Aesthetic(RegisteredComponent):
@@ -47,6 +57,7 @@ class Aesthetic(RegisteredComponent):
     """
     def __init__(self, animation: Animation):
         self.animation: Animation = animation
+        self.facing: EntityFacing = EntityFacing.RIGHT
 
     def serialize(self):
         # TODO - add serialisation
@@ -131,16 +142,14 @@ class Team(RegisteredComponent):
         return Team(*serialised)
 
 
-class Knowledge(RegisteredComponent):
+class Behaviour(RegisteredComponent):
     """
-    An Entity's Intent, such as were they are moving to or when they last attacked.
+    An Entity's Intent, such as when they last attacked.
 
     This should handle the outputs of AI decisions and actions.
     """
     def __init__(self):
         self.attack_timer: float = 0
-        self.target_pos: Optional[Tuple[int, int]] = None  # where the entity is moving to
-
 
     def serialize(self):
         # TODO - add serialisation
@@ -148,7 +157,7 @@ class Knowledge(RegisteredComponent):
 
     @classmethod
     def deserialize(cls, *serialised):
-        return Knowledge()
+        return Behaviour()
 
 
 class Projectiles(RegisteredComponent):

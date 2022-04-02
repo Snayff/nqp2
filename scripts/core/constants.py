@@ -175,3 +175,9 @@ class InputType(IntEnum):
 class WindowType(IntEnum):
     BASIC = auto()
     FANCY = auto()
+
+
+class EntityFacing(IntEnum):
+    LEFT = auto()
+    RIGHT = auto()
+

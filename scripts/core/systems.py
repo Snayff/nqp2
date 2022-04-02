@@ -8,7 +8,8 @@ import pygame
 import snecs
 
 from scripts.core import queries
-from scripts.core.components import DamageReceived, IsDead
+from scripts.core.components import Aesthetic, DamageReceived, IsDead
+from scripts.core.constants import EntityFacing
 
 if TYPE_CHECKING:
     from typing import List, Optional, Tuple, Union, Dict
@@ -21,6 +22,8 @@ def draw_entities(surface: pygame.Surface, shift: Tuple[int, int] = (0, 0)):
     Draw all entities
     """
     for entity, (position, aesthetic) in queries.aesthetic_position:
+        # TODO - respect facing
+
         surface.blit(aesthetic.surface, (position.x + shift[0], position.y + shift[1]))
 
 
@@ -43,14 +46,31 @@ def process_death():
     """
     Update Entity's sprites and intentions.
     """
-    for entity, (dead, knowledge, aesthetic, position) in queries.dead_knowledge_aesthetic_position:
+    for entity, (dead, aesthetic, position) in queries.dead_aesthetic_position:
         # set target to current pos
-        knowledge.target_pos = position.pos
+        position.target_pos = position.pos
 
         # update to dead sprite
         aesthetic.animation.set_current_frame_set_name("death")
         aesthetic.animation.delete_on_finish = False
         aesthetic.animation.loop = False
+
+
+def process_movement():
+    """
+    Update an Entity's position towards their target.
+    """
+    for entity, (position,) in queries.position:
+
+
+        # update facing
+        if snecs.has_component(entity, Aesthetic):
+            aesthetic = snecs.entity_component(entity, Aesthetic)
+            if move_x < 0:
+                facing = EntityFacing.LEFT
+            else:
+                facing = EntityFacing.RIGHT
+            aesthetic.facing = facing
 
 
 

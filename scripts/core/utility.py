@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import logging
+import math
 from typing import TYPE_CHECKING, TypeVar
 
 import pygame
@@ -143,3 +144,17 @@ def grid_right(selected: int, width: int, height: int):
     if index % width == 0 or index >= length:
         index -= width
     return index
+
+
+def distance_to(start_pos: Tuple[int, int], end_pos: Tuple[int, int]):
+    """
+    Find the distance to another position.
+    """
+    return math.sqrt((start_pos[0] - end_pos[0]) ** 2 + (start_pos[1] - end_pos[1]) ** 2)
+
+
+def angle_to(start_pos: Tuple[int, int], end_pos: Tuple[int, int]):
+    """
+    Find the angle to another position.
+    """
+    return math.atan2(end_pos[1] - start_pos[1], end_pos[0] - start_pos[0])

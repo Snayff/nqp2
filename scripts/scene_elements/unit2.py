@@ -45,6 +45,13 @@ class Unit2:
 
         self.injuries: int = 0
 
+        # border
+        self.border_surface_timer: float = 0
+        self.border_surface: Optional[pygame.surface] = None
+        self.border_surface_offset: Tuple[int, int] = (0, 0)
+        self.border_surface_outline: Optional[pygame.surface] = None
+        self.border_surface_outline_black: Optional[pygame.surface] = None
+
         ######### Entity Info ##############
         # stats that dont use base values
         self.type: str = unit_data["type"]
@@ -73,6 +80,21 @@ class Unit2:
             unit_data["projectile_data"] if "projectile_data" in unit_data else {"img": "arrow", "speed": 100}
         )
 
+    def update(self, delta_time: float):
+        # refresh the border
+        if self.team == "player":
+            self.border_surface_timer += delta_time
+            if self.border_surface_timer > 0.5:
+                self.border_surface_timer -= 0.5
+                self.generate_border_surface()
+
+    @property
+    def is_alive(self):
+        for entity in self.entities:
+            if not snecs.has_component(entity, IsDead):
+                return True
+        return False
+
     def draw_banner(self, surface: pygame.Surface, shift: Tuple[int, int] = (0, 0)):
         """
         Draw's the Unit's banner.
@@ -86,12 +108,40 @@ class Unit2:
             ),
         )
 
+    def draw_border(self, surface: pygame.Surface, shift: Tuple[int, int] = (0, 0)):
+        """
+        Draw the border around the unit.
+        """
+        for d in [(-1, 0), (1, 0), (0, 1), (0, -1)]:
+            surface.blit(
+                self.border_surface_outline_black,
+                (
+                    self.pos[0] + shift[0] - self.border_surface_offset[0] + d[0],
+                    self.pos[1] + shift[1] - self.border_surface_offset[1] + d[1],
+                ),
+            )
+        surface.blit(
+            self.border_surface,
+            (
+                self.pos[0] + shift[0] - self.border_surface_offset[0],
+                self.pos[1] + shift[1] - self.border_surface_offset[1],
+            ),
+        )
+        surface.blit(
+            self.border_surface_outline,
+            (
+                self.pos[0] + shift[0] - self.border_surface_offset[0],
+                self.pos[1] + shift[1] - self.border_surface_offset[1],
+            ),
+        )
+
+
     def spawn_entities(self):
         """
         Spawn the Unit's Entities. Deletes any existing Entities first.
         """
         # prevent circular import error
-        from scripts.core.components import Aesthetic, Knowledge, Position, Resources, Stats, Team, Projectiles
+        from scripts.core.components import Aesthetic, Behaviour, Position, Resources, Stats, Team, Projectiles
 
         self.delete_entities()
 
@@ -103,7 +153,7 @@ class Unit2:
                 Resources(self.health),
                 Stats(self),
                 Team(self.team),
-                Knowledge(),
+                Behaviour(),
             ]
 
             # conditional components
@@ -180,5 +230,65 @@ class Unit2:
 
             position = snecs.entity_component(entity, Position)
             position.pos = (unit_x + scatter_x, unit_y + scatter_y)
+
+
+    def generate_border_surface(self):
+        """
+        Generate a new border around the Unit.
+        """
+        if len(self.entities):
+
+            surf_padding = 20
+            outline_padding = 10
+            self.border_surface = None
+
+            # get entity positions
+            all_positions = []
+            for entity in self.entities:
+                position = snecs.entity_component(entity, Position)
+                all_positions.append(position.pos)
+
+            all_x = [p[0] for p in all_positions]
+            all_y = [p[1] for p in all_positions]
+            min_x = min(all_x)
+            min_y = min(all_y)
+            self.border_surface = pygame.Surface(
+                (max(all_x) - min_x + surf_padding * 2, max(all_y) - min_y + surf_padding * 2)
+            )
+            self.border_surface_offset = (self.pos[0] - min_x + surf_padding, self.pos[1] - min_y + surf_padding)
+            self.border_surface.set_colorkey((0, 0, 0))
+
+            points = [
+                (self.pos[0] - outline_padding, self.pos[1]),
+                (self.pos[0], self.pos[1] - outline_padding),
+                (self.pos[0] + outline_padding, self.pos[1]),
+                (self.pos[0], self.pos[1] + outline_padding),
+            ]
+
+            placed_points = []
+
+            for pos in all_positions + points:
+                new_pos = (pos[0] - min_x + surf_padding, pos[1] - min_y + surf_padding)
+                angle = math.atan2(pos[1] - self.pos[1], pos[0] - self.pos[0])
+                new_pos = (
+                    new_pos[0] + outline_padding * math.cos(angle),
+                    new_pos[1] + outline_padding * math.sin(angle),
+                )
+                for p in placed_points:
+                    pygame.draw.line(self.border_surface, (255, 255, 255), new_pos, p)
+                placed_points.append(new_pos)
+
+            mask_surf = pygame.mask.from_surface(self.border_surface)
+
+            self.border_surface.fill((0, 0, 0))
+            self.border_surface_outline = self.border_surface.copy()
+            self.border_surface_outline_black = self.border_surface.copy()
+
+            outline = mask_surf.outline(2)
+            pygame.draw.lines(self.border_surface_outline, (255, 255, 255), False, outline)
+            pygame.draw.lines(self.border_surface_outline_black, (0, 0, 1), False, outline)
+            pygame.draw.polygon(self.border_surface, (0, 0, 255), outline)
+            self.border_surface.set_alpha(80)
+
 
 
