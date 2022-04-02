@@ -11,6 +11,7 @@ PyTweening = "^1.0.3"
 tcod = "^13.2.0"
 PyYAML = "^6.0"
 snecs = "^1.2.2"
+karma_sphinx_theme = "^0.0.8"
 
 
 [tool.poetry.dev-dependencies]

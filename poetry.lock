@@ -210,6 +210,14 @@ MarkupSafe = ">=2.0"
 i18n = ["Babel (>=2.7)"]
 
 [[package]]
+name = "karma-sphinx-theme"
+version = "0.0.8"
+description = "A sphinx theme built with KarmaCSS"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "lxml"
 version = "4.7.1"
 description = "Powerful and Pythonic XML processing library combining libxml2/libxslt with the ElementTree API."
@@ -663,7 +671,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "b7cc3599a009ea55492d5c6f688665f389bf39a2b357a3f591a37a9b2bfc67b0"
+content-hash = "c2f4ac53ba0e314abe73ab709c8f59f1385f6d73a9180b708725995153181b32"
 
 [metadata.files]
 alabaster = [
@@ -789,6 +797,9 @@ isort = [
 jinja2 = [
     {file = "Jinja2-3.0.3-py3-none-any.whl", hash = "sha256:077ce6014f7b40d03b47d1f1ca4b0fc8328a692bd284016f806ed0eaca390ad8"},
     {file = "Jinja2-3.0.3.tar.gz", hash = "sha256:611bb273cd68f3b993fabdc4064fc858c5b47a973cb5aa7999ec1ba405c87cd7"},
+]
+karma-sphinx-theme = [
+    {file = "karma_sphinx_theme-0.0.8.tar.gz", hash = "sha256:5a95f91818b458bd5bdf62690828361a369a222f0721cd0e1eb2ea29056e8c27"},
 ]
 lxml = [
     {file = "lxml-4.7.1-cp27-cp27m-macosx_10_14_x86_64.whl", hash = "sha256:d546431636edb1d6a608b348dd58cc9841b81f4116745857b6cb9f8dadb2725f"},
