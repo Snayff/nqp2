@@ -33,7 +33,7 @@ class Visual:
 
         self._game: Game = game
 
-        self._image_folders: List[str] = [
+        self._image_folders: List[str] = [  # must be the folder that contains the images
             "actions",
             "event_images",
             "factions",
@@ -52,7 +52,7 @@ class Visual:
             "upgrades",
             "world",
         ]  # don't add debug folder
-        self._animation_folders: List[str] = [
+        self._animation_folders: List[str] = [  # must be the folder that contains the folders of images
             "bosses",
             "commanders",
             "effects",

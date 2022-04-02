@@ -132,12 +132,6 @@ class WorldModel:
         # at the end of the frame, complete any scheduled deletions
         snecs.process_pending_deletions()
 
-    def process_draw_systems(self, surface: pygame.Surface):
-        """
-        Process the drawing-related ECS systems.
-        """
-        systems.draw_entities(surface)
-
     def process_update_systems(self, delta_time: float):
         """
         Process the non-drawing related ECS systems.

@@ -7,7 +7,7 @@ import pygame
 from scripts.scene_elements.camera import Camera
 
 if TYPE_CHECKING:
-    from scripts.core import PointLike
+    from scripts.core import PointLike, systems
     from scripts.core.game import Game
     from scripts.scene_elements.world_model import WorldModel
 
@@ -95,8 +95,8 @@ class WorldView:
     def _draw_units(self, surface: pygame.Surface, offset: pygame.Vector2):
         units = self._model.get_all_units()
 
-        for unit in units:
-            unit.draw(surface, shift=offset)
+        systems.draw_entities(surface, shift=offset)
+
 
         # organize entities for layered rendering
         entity_list = []

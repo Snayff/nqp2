@@ -7,7 +7,8 @@ from typing import Optional, TYPE_CHECKING
 import pygame
 import snecs
 
-
+from scripts.core import queries
+from scripts.core.components import IsDead, Position, Resources
 from scripts.core.constants import StatModifiedStatus
 from scripts.core.utility import itr
 from scripts.scene_elements.entity import Entity
@@ -40,6 +41,7 @@ class Unit2:
         self.count: int = unit_data["count"] + base_values["count"]  # number of entities spawned
         self.gold_cost: int = unit_data["gold_cost"] + base_values["gold_cost"]
         self.entity_spread_max = unit_data["entity_spread"] if "entity_spread" in unit_data else 48
+        self._banner_image = self._game.visual.get_image("banner")
 
         self.injuries: int = 0
 
@@ -71,6 +73,18 @@ class Unit2:
             unit_data["projectile_data"] if "projectile_data" in unit_data else {"img": "arrow", "speed": 100}
         )
 
+    def draw_banner(self, surface: pygame.Surface, shift: Tuple[int, int] = (0, 0)):
+        """
+        Draw's the Unit's banner.
+        """
+        banner_image = self._banner_image
+        surface.blit(
+            banner_image.surface,
+            (
+                self.pos[0] + shift[0] - banner_image.width // 2,
+                self.pos[1] + shift[1] - 20 - banner_image.height,
+            ),
+        )
 
     def spawn_entities(self):
         """
@@ -101,6 +115,8 @@ class Unit2:
             # create entity
             self.entities.append(snecs.new_entity(components))
 
+        self._align_entity_positions_to_unit()
+
     def delete_entities(self, immediately: bool = False):
         """
         Delete all entities. If "immediately" = False this will happen on the next frame.
@@ -114,5 +130,55 @@ class Unit2:
             delete_func(entity)
 
         self.entities = []
+
+    def reset_for_combat(self):
+        """
+        Reset the in combat values ready to begin combat.
+        """
+        health = self.health
+        for entity in self.entities:
+            # heal to full
+            resources = snecs.entity_component(entity, Resources)
+            resources.health = health
+
+            # remove dead flags
+            if snecs.has_component(entity, IsDead):
+                snecs.remove_component(entity, IsDead)
+
+        self._align_entity_positions_to_unit()
+
+
+    def update_position(self):
+        """
+        Update unit position by averaging the positions of all its entities.
+        """
+        num_entities = len(self.entities)
+        if num_entities > 0:
+            unit_pos = [0, 0]
+            for entity in self.entities:
+                entity_position = snecs.entity_component(entity, Position)
+                unit_pos[0] += entity_position.x
+                unit_pos[1] += entity_position.y
+            self.pos = (unit_pos[0] / num_entities, unit_pos[1] / num_entities)
+
+    def set_position(self, pos: Tuple[int, int]):
+        """
+        Set the unit's position and moves the Entities to match.
+        """
+        self.pos = pos
+        self._align_entity_positions_to_unit()
+
+    def _align_entity_positions_to_unit(self):
+        unit_x = self.pos[0]
+        unit_y = self.pos[1]
+        max_spread = self.entity_spread_max
+
+        for entity in self.entities:
+            # randomise position in allowed area
+            scatter_x = random.randint(- max_spread, max_spread)
+            scatter_y = random.randint(- max_spread, max_spread)
+
+            position = snecs.entity_component(entity, Position)
+            position.pos = (unit_x + scatter_x, unit_y + scatter_y)
 
 
