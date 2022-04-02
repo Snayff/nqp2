@@ -66,7 +66,7 @@ class UIWindow(UIPanel):
         # get all images
         for pos in positions:
             image_name = f"window_{w_type}_{pos}"
-            image = self._game.visuals.get_image(image_name)
+            image = self._game.visual.get_image(image_name)
             images[pos] = image
 
         return images

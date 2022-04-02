@@ -390,7 +390,7 @@ class WorldUI(UI):
             self._rebuild_event_ui()
 
     def _rebuild_choose_next_room_ui(self):
-        create_font = self._game.visuals.create_font
+        create_font = self._game.visual.create_font
         icon_width = DEFAULT_IMAGE_SIZE
         icon_height = DEFAULT_IMAGE_SIZE
         icon_size = (icon_width, icon_height)
@@ -407,10 +407,10 @@ class WorldUI(UI):
 
             # get icon
             if is_hidden:
-                icon = self._game.visuals.get_image("unknown_room", icon_size)
+                icon = self._game.visual.get_image("unknown_room", icon_size)
                 text = "Unknown"
             else:
-                icon = self._game.visuals.get_image(room_type, icon_size)
+                icon = self._game.visual.get_image(room_type, icon_size)
                 text = room_type
             frame = UIFrame(
                 self._game,
@@ -441,7 +441,7 @@ class WorldUI(UI):
             self.set_instruction_text("Press shift to select a room.")
 
     def _rebuild_training_ui(self):
-        create_font = self._game.visuals.create_font
+        create_font = self._game.visual.create_font
         icon_width = DEFAULT_IMAGE_SIZE
         icon_height = DEFAULT_IMAGE_SIZE
         icon_size = (icon_width, icon_height)
@@ -470,7 +470,7 @@ class WorldUI(UI):
                     gold_font_type = FontType.NEGATIVE
 
                 # draw gold cost
-                gold_icon = self._game.visuals.get_image("gold", icon_size)
+                gold_icon = self._game.visual.get_image("gold", icon_size)
                 frame = UIFrame(
                     self._game,
                     (current_x + 100, current_y),
@@ -480,7 +480,7 @@ class WorldUI(UI):
                 )
                 self._elements["cost" + str(i)] = frame
 
-                upgrade_icon = self._game.visuals.get_image(upgrade["type"], icon_size)
+                upgrade_icon = self._game.visual.get_image(upgrade["type"], icon_size)
 
             else:
                 text = f"Sold out"
@@ -529,7 +529,7 @@ class WorldUI(UI):
         Refresh the info pane's info
         """
         # TODO - fix info pane not refreshing to match selection
-        create_font = self._game.visuals.create_font
+        create_font = self._game.visual.create_font
 
         if self._parent_scene.model.state == WorldState.TRAINING:
             controller = self._parent_scene.training
@@ -560,7 +560,7 @@ class WorldUI(UI):
     def _rebuild_combat_ui(self):
         controller = self._parent_scene.combat
         local_state = controller.state
-        create_font = self._game.visuals.create_font
+        create_font = self._game.visual.create_font
         start_x, start_y = self._game.window.centre
 
         # draw upgrades
@@ -592,7 +592,7 @@ class WorldUI(UI):
             # draw upgrades
             current_x = start_x
             current_y = start_y
-            defeat_icon = self._game.visuals.get_image("arrow_button", icon_size)
+            defeat_icon = self._game.visual.get_image("arrow_button", icon_size)
             frame = UIFrame(
                 self._game,
                 (current_x, current_y),
@@ -618,7 +618,7 @@ class WorldUI(UI):
             self.select_container("exit")
 
     def _rebuild_inn_ui(self):
-        create_font = self._game.visuals.create_font
+        create_font = self._game.visual.create_font
         icon_width = DEFAULT_IMAGE_SIZE
         icon_height = DEFAULT_IMAGE_SIZE
         icon_size = (icon_width, icon_height)
@@ -650,7 +650,7 @@ class WorldUI(UI):
                 can_buy = False
 
             # draw gold cost
-            gold_icon = self._game.visuals.get_image("gold", icon_size)
+            gold_icon = self._game.visual.get_image("gold", icon_size)
             frame = UIFrame(
                 self._game,
                 (current_x + 20, current_y),
@@ -661,7 +661,7 @@ class WorldUI(UI):
             self._elements["cost" + str(i)] = frame
 
             # draw banner in frame, to allow selection
-            banner = self._game.visuals.get_image("banner", icon_size)
+            banner = self._game.visual.get_image("banner", icon_size)
             frame = UIFrame(
                 self._game,
                 (current_x, current_y),
@@ -693,8 +693,8 @@ class WorldUI(UI):
             self.set_instruction_text("Press shift to select Units or X to choose the next room.")
 
     def _rebuild_event_ui(self):
-        create_font = self._game.visuals.create_font
-        create_fancy_font = self._game.visuals.create_fancy_font
+        create_font = self._game.visual.create_font
+        create_fancy_font = self._game.visual.create_fancy_font
         window_width = self._game.window.width
         window_height = self._game.window.height
         start_x = 50
@@ -711,7 +711,7 @@ class WorldUI(UI):
         ui_window_height = window_height - (start_y * 2)
 
         # get image info inc. ratio to scale properly
-        image = self._game.visuals.get_image(event["image"])
+        image = self._game.visual.get_image(event["image"])
         image_size_ratio = image.width // image.height
         image_width = DEFAULT_IMAGE_SIZE * 6
         image_height = image_width * image_size_ratio
@@ -719,7 +719,7 @@ class WorldUI(UI):
         # draw image
         current_x = start_x
         current_y = start_y + (image_height // 2)
-        image = self._game.visuals.get_image(event["image"], (image_width, image_height))
+        image = self._game.visual.get_image(event["image"], (image_width, image_height))
         frame = UIFrame(
             self._game,
             (current_x, current_y),

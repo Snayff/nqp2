@@ -280,7 +280,7 @@ class Unit:
     def post_render(self, surface: pygame.Surface, shift=(0, 0)):
         if self.team == "player":
             # TODO - should be swapped when banner assets are added
-            banner_img = self._game.visuals.get_image("banner").surface
+            banner_img = self._game.visual.get_image("banner").surface
             surface.blit(
                 banner_img,
                 (

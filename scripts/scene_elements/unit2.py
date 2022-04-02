@@ -84,7 +84,7 @@ class Unit2:
             # universal components
             components = [
                 Position(self.pos),
-                Aesthetic(self._game.visuals.create_animation(self.type, "idle")),
+                Aesthetic(self._game.visual.create_animation(self.type, "idle")),
                 Resources(self.health),
                 Stats(self),
                 Team(self.team),
@@ -93,7 +93,7 @@ class Unit2:
 
             # conditional components
             if self.uses_projectiles:
-                img = self._game.visuals.get_image(self.projectile_data["img"])
+                img = self._game.visual.get_image(self.projectile_data["img"])
                 speed = self.projectile_data
                 components.append(Projectiles(self._ammo, img, speed))
 

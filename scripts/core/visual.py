@@ -19,10 +19,10 @@ if TYPE_CHECKING:
 
     from scripts.core.game import Game
 
-__all__ = ["Visuals"]
+__all__ = ["Visual"]
 
 
-class Visuals:
+class Visual:
     """
     Store and manage images.
     """

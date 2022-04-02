@@ -54,10 +54,10 @@ class RunSetupUI(UI):
         selected_commander = self._parent_scene.selected_commander
         window_width = self._game.window.width
         window_height = self._game.window.height
-        create_font = self._game.visuals.create_font
-        create_fancy_font = self._game.visuals.create_fancy_font
-        create_animation = self._game.visuals.create_animation
-        get_image = self._game.visuals.get_image
+        create_font = self._game.visual.create_font
+        create_fancy_font = self._game.visual.create_fancy_font
+        create_animation = self._game.visual.create_animation
+        get_image = self._game.visual.get_image
 
         # positions
         start_x = 0

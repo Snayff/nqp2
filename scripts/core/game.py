@@ -11,8 +11,8 @@ from scripts.core.data import Data
 from scripts.core.debug import Debugger, Timer
 from scripts.core.input import Input
 from scripts.core.rng import RNG
-from scripts.core.sounds import Sounds
-from scripts.core.visuals import Visuals
+from scripts.core.sound import Sound
+from scripts.core.visual import Visual
 from scripts.core.window import Window
 
 if TYPE_CHECKING:
@@ -51,8 +51,8 @@ class Game:
             self.memory: Memory = Memory(self)
             self.input: Input = Input(self)
             self.rng: RNG = RNG(self)
-            self.sounds: Sounds = Sounds(self)
-            self.visuals: Visuals = Visuals(self)
+            self.sound: Sound = Sound(self)
+            self.visual: Visual = Visual(self)
 
             # scenes
             # TODO - should these be private?
@@ -89,8 +89,8 @@ class Game:
                 self.debug.toggle_debug_info()
 
         # update internal assets
-        self.sounds.update(delta_time)
-        self.visuals.update(delta_time)
+        self.sound.update(delta_time)
+        self.visual.update(delta_time)
 
         # update image ui
         for scene in self.scene_stack:

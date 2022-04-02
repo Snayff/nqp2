@@ -35,9 +35,9 @@ class UnitDataUI(UI):
 
         self.buttons: Dict[str, UIButton] = {
             "left_arrow": UIButton(
-                game, pygame.transform.flip(self._game.visuals.get_image("ui", "arrow_button"), True, False), (10, 10)
+                game, pygame.transform.flip(self._game.visual.get_image("ui", "arrow_button"), True, False), (10, 10)
             ),
-            "right_arrow": UIButton(game, self._game.visuals.get_image("ui", "arrow_button"), (120, 10)),
+            "right_arrow": UIButton(game, self._game.visual.get_image("ui", "arrow_button"), (120, 10)),
             "save": UIButton(game, "save", (window_width - 32, window_height - 22), size=[30, 20]),
             "cancel": UIButton(game, "cancel", (2, window_height - 22), size=[30, 20]),
         }
@@ -121,7 +121,7 @@ class UnitDataUI(UI):
     def draw(self, surface: pygame.Surface):
         window_width = self._game.window.width
         window_height = self._game.window.height
-        create_font = self._game.visuals.create_font
+        create_font = self._game.visual.create_font
 
         metric_col_width = 80
         metric_second_row_start_y = window_height // 2
@@ -146,9 +146,9 @@ class UnitDataUI(UI):
         unit_type = self.current_unit_data["type"]
         try:
             for animation_name in ["icon", "idle", "walk", "attack", "hit", "death"]:
-                num_frames = len(self._game.visuals.unit_animations[unit_type][animation_name])
+                num_frames = len(self._game.visual.unit_animations[unit_type][animation_name])
                 frame_ = min(frame, num_frames - 1)
-                img = self._game.visuals.unit_animations[unit_type][animation_name][frame_]
+                img = self._game.visual.unit_animations[unit_type][animation_name][frame_]
                 img_ = pygame.transform.scale(img, (DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE))
                 surface.blit(img_, (current_img_x, current_img_y))
 

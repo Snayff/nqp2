@@ -14,10 +14,10 @@ if TYPE_CHECKING:
 
     from scripts.core.game import Game
 
-__all__ = ["Sounds"]
+__all__ = ["Sound"]
 
 
-class Sounds:
+class Sound:
     """
     The Sound Engine. It manages all sound interactions
     """

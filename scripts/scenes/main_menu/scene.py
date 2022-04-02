@@ -46,7 +46,7 @@ class MainMenuScene(Scene):
     def activate(self):
         super().activate()
 
-        self._game.sounds.play_sound("fanfare")
+        self._game.sound.play_sound("fanfare")
 
     def _new_game(self):
         """

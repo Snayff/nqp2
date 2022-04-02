@@ -35,7 +35,7 @@ class UIInputBox:
         self.focused = False
 
         if not font:
-            font = self._game.visuals.create_font(FontType.DEFAULT, str(text))
+            font = self._game.visual.create_font(FontType.DEFAULT, str(text))
         self.font = font
 
         # assign font pos

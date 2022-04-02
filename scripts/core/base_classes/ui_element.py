@@ -27,8 +27,8 @@ class UIElement(ABC):
         self.is_active: bool = True
         self.was_previously_selected: bool = False
 
-        self._previously_selected: Animation = self._game.visuals.create_animation("selector", "previously_selected")
-        self._selected_selector: Animation = self._game.visuals.create_animation("selector", "selected")
+        self._previously_selected: Animation = self._game.visual.create_animation("selector", "previously_selected")
+        self._selected_selector: Animation = self._game.visual.create_animation("selector", "selected")
         self._current_selector: Optional[Animation] = None
 
     @abstractmethod

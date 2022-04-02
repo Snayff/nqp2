@@ -110,7 +110,7 @@ class UIPanel:
             if self._elements[self.selected_index].is_selectable:
                 # select
                 self._elements[self.selected_index].is_selected = True
-                self._game.sounds.play_sound("standard_click")
+                self._game.sound.play_sound("standard_click")
 
                 if self.selected_index == starting_index:
                     logging.debug(f"Panel: Looped all the way back to the starting index. No others selectable.")
@@ -133,7 +133,7 @@ class UIPanel:
             if self._elements[self.selected_index].is_selectable:
                 # select
                 self._elements[self.selected_index].is_selected = True
-                self._game.sounds.play_sound("standard_click")
+                self._game.sound.play_sound("standard_click")
 
                 if self.selected_index == starting_index:
                     logging.debug(f"Panel: Looped all the way back to the starting index. No others selectable.")

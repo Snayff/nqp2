@@ -246,33 +246,33 @@ class EventController(Controller):
         icon_size = (DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE)
 
         if result_key == "gold":
-            image = self._game.visuals.get_image("gold", icon_size)
+            image = self._game.visual.get_image("gold", icon_size)
 
         elif result_key == "rations":
-            image = self._game.visuals.get_image("rations", icon_size)
+            image = self._game.visual.get_image("rations", icon_size)
 
         elif result_key == "morale":
-            image = self._game.visuals.get_image("morale", icon_size)
+            image = self._game.visual.get_image("morale", icon_size)
 
         elif result_key == "charisma":
-            image = self._game.visuals.get_image("charisma", icon_size)
+            image = self._game.visual.get_image("charisma", icon_size)
 
         elif result_key == "leadership":
-            image = self._game.visuals.get_image("leadership", icon_size)
+            image = self._game.visual.get_image("leadership", icon_size)
 
         elif result_key == "injury":
-            image = self._game.visuals.get_image("injury", icon_size)
+            image = self._game.visual.get_image("injury", icon_size)
 
         elif result_key == "add_unit_resource":
             unit = self.event_resources[result_value]
-            image = self._game.visuals.create_animation(unit.type, "icon")
+            image = self._game.visual.create_animation(unit.type, "icon")
 
         elif result_key == "add_specific_unit":
-            image = self._game.visuals.create_animation(result_value, "icon")
+            image = self._game.visual.create_animation(result_value, "icon")
 
         else:
             logging.warning(f"Result key not recognised. Image not found used.")
-            image = self._game.visuals.get_image("not_found", icon_size)
+            image = self._game.visual.get_image("not_found", icon_size)
 
         return image
 
