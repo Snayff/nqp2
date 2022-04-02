@@ -8,7 +8,6 @@ import pygame
 import snecs
 
 
-from scripts.core.components import Aesthetic, Knowledge, Position, Resources, Stats, Team, Projectiles
 from scripts.core.constants import StatModifiedStatus
 from scripts.core.utility import itr
 from scripts.scene_elements.entity import Entity
@@ -77,6 +76,8 @@ class Unit2:
         """
         Spawn the Unit's Entities. Deletes any existing Entities first.
         """
+        # prevent circular import error
+        from scripts.core.components import Aesthetic, Knowledge, Position, Resources, Stats, Team, Projectiles
 
         self.delete_entities()
 

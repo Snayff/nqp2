@@ -67,8 +67,8 @@ class Visual:
         }
 
         self._images: Dict[str, pygame.Surface] = self._load_images()  # image_name: surface
-        self._animation_frames: Dict[str, List[Image]] = self._load_animation_frames()
-        # folder_name + "_" +  frame_name, [animation_frames]
+        self._animation_frames: Dict[str, Dict[str, List[Image]]] = self._load_animation_frames()
+        # folder_name: {frame_name, [animation_frames]}
         self._fonts: Dict[FontType, Tuple[str, Tuple[int, int, int]]] = self._load_fonts()  # FontType: path, colour
 
         self._active_animations: List[Animation] = []
@@ -85,7 +85,7 @@ class Visual:
             animation.update(delta_time)
 
             # remove the finished animations
-            if animation.is_finished:
+            if animation.is_finished and animation.delete_on_finish:
                 self._active_animations.remove(animation)
 
     @staticmethod
@@ -134,11 +134,11 @@ class Visual:
 
         return images
 
-    def _load_animation_frames(self) -> Dict[str, List[Image]]:
+    def _load_animation_frames(self) -> Dict[str, Dict[str, List[Image]]]:
         """
         Load all animation frames specified in self._animation_folders
         """
-        animation_frames = {}
+        animations = {}
         folders = self._animation_folders
 
         # loop all specified folders
@@ -151,35 +151,35 @@ class Visual:
                 # we expect a sub folder for the item e.g. bosses/test_boss
                 anim_path = path / anim_folder_name
                 if os.path.isdir(anim_path):
+                    animations[anim_folder_name] = {}
 
-                    # ...and then sub folders for each set of frames, e.g. bosses/test_boss/move
-                    frame_folders = os.listdir(anim_path)
-                    for frame_folder_name in frame_folders:
-                        frame_folder_path = anim_path / frame_folder_name
-                        if os.path.isdir(frame_folder_path):
+                    # warn about duplicates
+                    if anim_folder_name in animations.keys():
+                        logging.warning(
+                            f"Animation [{anim_folder_name}] already loaded; non-unique file name."
+                        )
+
+                # ...and then sub folders for each set of frames, e.g. bosses/test_boss/move
+                    frame_sets = os.listdir(anim_path)
+                    for frame_set_name in frame_sets:
+                        frame_set_path = anim_path / frame_set_name
+                        if os.path.isdir(frame_set_path):
+                            animations[anim_folder_name][frame_set_name] = []
 
                             # load the frames
-                            animation_frames_folder = os.listdir(frame_folder_path)
+                            animation_frames_folder = os.listdir(frame_set_path)
                             for frame_name in animation_frames_folder:
                                 if frame_name.split(".")[-1] in IMG_FORMATS:
 
-                                    # warn about duplicates
-                                    if frame_name in animation_frames.keys():
-                                        logging.warning(
-                                            f"Animation [{frame_name}] already loaded; non-unique file " f"name."
-                                        )
-
-                                    frame_path = path / anim_folder_name / frame_folder_name / frame_name
+                                    frame_path = path / anim_folder_name / frame_set_name / frame_name
                                     image = pygame.image.load(str(frame_path)).convert_alpha()
                                     image_ = Image(image=image)
 
                                     # record the frame
-                                    try:
-                                        animation_frames[anim_folder_name + "_" + frame_folder_name].append(image_)
-                                    except KeyError:
-                                        animation_frames[anim_folder_name + "_" + frame_folder_name] = [image_]
+                                    animations[anim_folder_name][frame_set_name].append(image_)
 
-        return animation_frames
+
+        return animations
 
     def _load_tileset(self, path):
         """
@@ -205,12 +205,12 @@ class Visual:
 
         return tileset_data
 
-    def create_animation(self, animation_name: str, frame_name: str, loop: bool = True) -> Animation:
+    def create_animation(self, animation_name: str, frame_set_name: str, loop: bool = True) -> Animation:
         """
         Create a new animation and add it to the internal update list.
         """
-        frames = self._animation_frames[animation_name + "_" + frame_name]
-        anim = Animation(frames, loop=loop)
+        frames = self._animation_frames[animation_name]
+        anim = Animation(frames, loop=loop, starting_frame_set_name=frame_set_name)
         self._active_animations.append(anim)
         return anim
 

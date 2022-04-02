@@ -38,6 +38,9 @@ class Game:
             from scripts.scenes.view_troupe.scene import ViewTroupeScene
             from scripts.scenes.world.scene import WorldScene
 
+            # load modules
+            from scripts.core import components, systems, queries
+
             # init libraries
             pygame.init()
             pygame.mixer.init()
