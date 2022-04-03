@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 _V = TypeVar("_V", int, float)  # to represent where we don't know which type is being used
 
 __all__ = ["swap_colour", "clip", "offset", "lerp", "clamp", "itr", "scene_to_scene_type", "next_number_in_loop",
-    "grid_up", "grid_right", "grid_down", "grid_left", "distance_to", "angle_to"]
+    "grid_up", "grid_right", "grid_down", "grid_left", "distance_to", "angle_to", "get_direction"]
 
 
 def swap_colour(img, old_c, new_c):
@@ -146,15 +146,23 @@ def grid_right(selected: int, width: int, height: int):
     return index
 
 
-def distance_to(start_pos: Tuple[int, int], end_pos: Tuple[int, int]):
+def distance_to(start_pos: Tuple[int, int], end_pos: Tuple[int, int]) -> float:
     """
     Find the distance to another position.
     """
     return math.sqrt((start_pos[0] - end_pos[0]) ** 2 + (start_pos[1] - end_pos[1]) ** 2)
 
 
-def angle_to(start_pos: Tuple[int, int], end_pos: Tuple[int, int]):
+def angle_to(start_pos: Tuple[int, int], end_pos: Tuple[int, int]) -> float:
     """
     Find the angle to another position.
     """
     return math.atan2(end_pos[1] - start_pos[1], end_pos[0] - start_pos[0])
+
+
+def get_direction(angle: float, move_distance: float) -> List[float, float]:
+    """
+    Find the direction based on the angle and distance
+    """
+    return [math.cos(angle) * move_distance, math.sin(angle) * move_distance]
+

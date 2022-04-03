@@ -137,8 +137,12 @@ class WorldModel:
         """
         Process the non-drawing related ECS systems.
         """
+        systems.process_ai()
+        systems.process_movement(delta_time, self._game)
+        systems.process_attack(self._game)
         systems.apply_damage()
-        systems.process_death()
+        systems.process_death(self._game)
+        systems.push_entities_away_from_one_another(delta_time, self._game)
 
     def reset(self):
         self.particles = ParticleManager()

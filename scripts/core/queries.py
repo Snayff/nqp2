@@ -12,7 +12,8 @@ from scripts.core.components import Aesthetic, DamageReceived, IsDead, AI, IsRea
 if TYPE_CHECKING:
     from typing import List, Optional, Tuple, Union, Dict
 
-__all__ = ["dead", "resources", "aesthetic_position", "damage_resources", "ai_not_dead", "attack_position_stats_ai_not_dead"]
+__all__ = ["dead", "resources", "aesthetic_position", "damage_resources", "ai_not_dead",
+    "attack_position_stats_ai_aesthetic_not_dead"]
 
 resources = Query([Resources]).compile()
 
@@ -26,10 +27,13 @@ aesthetic_position = Query([Aesthetic, Position]).compile()
 
 damage_resources = Query([DamageReceived, Resources]).compile()
 
-dead_aesthetic = Query([IsDead, Aesthetic]).compile()
+dead_aesthetic_position = Query([IsDead, Aesthetic, Position]).compile()
 
-position_stats_ai_not_dead = Query([Position, Stats, AI]).filter(~IsDead).compile()
+position_stats_not_dead = Query([Position, Stats]).filter(~IsDead).compile()
 
-attack_position_stats_ai_not_dead = Query([IsReadyToAttack, Position, Stats, AI]).filter(~IsDead).compile()
+position_stats_ai_aesthetic_not_dead = Query([Position, Stats, AI, Aesthetic]).filter(~IsDead).compile()
+
+attack_position_stats_ai_aesthetic_not_dead = Query(
+    [IsReadyToAttack, Position, Stats, AI, Aesthetic]).filter(~IsDead).compile()
 
 
