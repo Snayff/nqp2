@@ -10,10 +10,8 @@ from snecs.typedefs import EntityID
 from scripts.core.base_classes.animation import Animation
 from scripts.core.base_classes.image import Image
 from scripts.core.constants import EntityFacing
-from scripts.world_elements.entity_behaviours.behaviour import Behaviour
 from scripts.world_elements.entity_behaviours.entity_behaviour import EntityBehaviour
 from scripts.world_elements.stat import FloatStat, IntStat
-from scripts.world_elements.unit import Unit
 from scripts.world_elements.unit2 import Unit2
 
 if TYPE_CHECKING:
@@ -133,8 +131,9 @@ class Allegiance(RegisteredComponent):
     """
     An Entity's allegiance.
     """
-    def __init__(self, team: str):
+    def __init__(self, team: str, unit: Unit2):
         self.team: str = team
+        self.unit: Unit2 = unit
 
     def serialize(self):
         # TODO - add serialisation
@@ -214,4 +213,3 @@ class IsReadyToAttack(RegisteredComponent):
     """
     # doesnt need init as has no details
     # doesnt need serialising as will never be about to attack when saving.
-

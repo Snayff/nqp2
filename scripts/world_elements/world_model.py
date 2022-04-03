@@ -19,6 +19,7 @@ from scripts.world_elements.projectile_manager2 import ProjectileManager2
 from scripts.world_elements.terrain import Terrain
 from scripts.world_elements.troupe import Troupe
 from scripts.world_elements.unit import Unit
+from scripts.world_elements.unit2 import Unit2
 
 if TYPE_CHECKING:
     from typing import Dict, List, Optional, Tuple, Union
@@ -138,7 +139,7 @@ class WorldModel:
         """
         Process the non-drawing related ECS systems.
         """
-        systems.process_ai()
+        systems.process_ai(delta_time)
         systems.process_movement(delta_time, self._game)
         systems.process_attack(self._game)
         systems.apply_damage()
@@ -269,7 +270,7 @@ class WorldModel:
 
         return entities
 
-    def get_all_units(self) -> List[Unit]:
+    def get_all_units(self) -> List[Unit2]:
         """
         Get a list of all Units
         """

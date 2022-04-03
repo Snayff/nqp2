@@ -7,13 +7,6 @@ from typing import Optional, TYPE_CHECKING
 import pygame
 import snecs
 
-from scripts.core import queries
-from scripts.core.components import IsDead, Position, Resources
-from scripts.core.constants import StatModifiedStatus
-from scripts.core.utility import itr
-from scripts.world_elements.entity import Entity
-from scripts.world_elements.entity_behaviours.base import Base
-
 if TYPE_CHECKING:
     from typing import Dict, List, Tuple
 
@@ -39,13 +32,16 @@ class Unit2:
         self.is_selected: bool = False
         self.entities: List[EntityID] = []
 
-
-        self.default_behaviour: str = unit_data["default_behaviour"]
-        self.behaviour = self._game.data.behaviours.unit_behaviours[self.default_behaviour](self)
-        self.count: int = unit_data["count"] + base_values["count"]  # number of entities spawned
-        self.gold_cost: int = unit_data["gold_cost"] + base_values["gold_cost"]
         self.entity_spread_max = unit_data["entity_spread"] if "entity_spread" in unit_data else 48
+        self.count: int = unit_data["count"] + base_values["count"]  # number of entities spawned
+        self.gold_cost: int = unit_data["gold_cost" \
+                                        ""] + base_values["gold_cost"]
         self._banner_image = self._game.visual.get_image("banner")
+        self.is_ranged: bool = True if unit_data["ammo"] > 0 else False
+        self.default_behaviour: str = unit_data["default_behaviour"]  # load after other unit attrs
+        #self.behaviour = self._game.data.behaviours.unit_behaviours[self.default_behaviour](self)
+        from scripts.world_elements.unit_behaviours.unit_behaviour import UnitBehaviour  # prevent circular import
+        self.behaviour: UnitBehaviour = UnitBehaviour(self._game, self)
 
         self.injuries: int = 0
 
@@ -71,10 +67,10 @@ class Unit2:
 
         # ensure faux-null value is respected
         if unit_data["ammo"] in [-1, 0]:
-            ammo_ = -1
+            ammo = -1
         else:
-            ammo_ = unit_data["ammo"] + base_values["ammo"]
-        self._ammo: int = ammo_  # number of ranged shots
+            ammo = unit_data["ammo"] + base_values["ammo"]
+        self._ammo: int = ammo  # number of ranged shots
 
         self.uses_projectiles = self._ammo > 0
         self.size: int = unit_data["size"] + base_values["size"]  # size of the hitbox
@@ -91,8 +87,12 @@ class Unit2:
                 self.border_surface_timer -= 0.5
                 self.generate_border_surface()
 
+        self.behaviour.update(self)
+
     @property
     def is_alive(self):
+        from scripts.core.components import IsDead  # prevent circular import
+
         for entity in self.entities:
             if not snecs.has_component(entity, IsDead):
                 return True
@@ -155,7 +155,7 @@ class Unit2:
                 Aesthetic(self._game.visual.create_animation(self.type, "idle")),
                 Resources(self.health),
                 Stats(self),
-                Allegiance(self.team),
+                Allegiance(self.team, self),
             ]
 
             # conditional components
@@ -169,7 +169,8 @@ class Unit2:
             self.entities.append(entity)
 
             # add components that need ref to entity
-            snecs.add_component(entity, AI(Base(entity)))
+            from scripts.world_elements.entity_behaviours.basic_entity_behaviour import BasicEntityBehaviour  # prevent circular import
+            snecs.add_component(entity, AI(BasicEntityBehaviour(self._game, self, entity)))
 
         self._align_entity_positions_to_unit()
 
@@ -191,6 +192,9 @@ class Unit2:
         """
         Reset the in combat values ready to begin combat.
         """
+        from scripts.core.components import IsDead, Resources  # prevent circular import
+
+
         health = self.health
         for entity in self.entities:
             # heal to full
@@ -208,6 +212,8 @@ class Unit2:
         """
         Update unit position by averaging the positions of all its entities.
         """
+        from scripts.core.components import Position  # prevent circular import
+
         num_entities = len(self.entities)
         if num_entities > 0:
             unit_pos = [0, 0]
@@ -225,6 +231,8 @@ class Unit2:
         self._align_entity_positions_to_unit()
 
     def _align_entity_positions_to_unit(self):
+        from scripts.core.components import Position  # prevent circular import
+
         unit_x = self.pos[0]
         unit_y = self.pos[1]
         max_spread = self.entity_spread_max
@@ -249,6 +257,7 @@ class Unit2:
             self.border_surface = None
 
             # get entity positions
+            from scripts.core.components import Position  # prevent circular import
             all_positions = []
             for entity in self.entities:
                 position = snecs.entity_component(entity, Position)

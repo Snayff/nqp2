@@ -5,9 +5,9 @@ from typing import Optional, TYPE_CHECKING
 import pygame
 
 from scripts.world_elements.camera import Camera
+from scripts.core import systems
 
 if TYPE_CHECKING:
-    from scripts.core import systems
     from scripts.core.definitions import PointLike
     from scripts.core.game import Game
     from scripts.world_elements.world_model import WorldModel
@@ -99,19 +99,24 @@ class WorldView:
         systems.draw_entities(surface, shift=offset)
 
 
-        # organize entities for layered rendering
-        entity_list = []
+        # # organize entities for layered rendering
+        # entity_list = []
+        # for unit in units:
+        #     for entity in unit.entities + unit.dead_entities:
+        #         entity_list.append((entity.pos[1] + entity.img.get_height() // 2, len(entity_list), entity))
+        #
+        # entity_list.sort()
+        #
+        # for entity in entity_list:
+        #     entity[2].draw(surface, shift=offset)
+
         for unit in units:
-            for entity in unit.entities + unit.dead_entities:
-                entity_list.append((entity.pos[1] + entity.img.get_height() // 2, len(entity_list), entity))
+            if unit.team == "player":
+                unit.draw_banner(surface, offset)
 
-        entity_list.sort()
+                if unit.is_selected:
+                    unit.draw_border(surface, offset)
 
-        for entity in entity_list:
-            entity[2].draw(surface, shift=offset)
-
-        for unit in units:
-            unit.post_render(surface, shift=offset)
 
     def _draw_path_debug(self, surface: pygame.Surface):
         """

@@ -6,13 +6,11 @@ from abc import ABC, abstractmethod
 
 from typing import TYPE_CHECKING
 
-from snecs.typedefs import EntityID
-
-from scripts.world_elements.unit2 import Unit2
-
 if TYPE_CHECKING:
     from typing import List, Optional, Tuple, Union, Dict
     from scripts.core.game import Game
+    from scripts.world_elements.unit2 import Unit2
+    from snecs.typedefs import EntityID
 
 __all__ = ["EntityBehaviour"]
 
@@ -23,16 +21,16 @@ class EntityBehaviour(ABC):
     def __init__(self, game: Game, unit: Unit2, entity: EntityID):
         self._game: Game = game  # need for terrain interactions
         self._unit: Unit2 = unit
-        self._entity = entity
+        self._entity: EntityID = entity
 
-        self.current_path = None
-        self.movement_mode = "path"
-        self.state = self.movement_mode
-        self.target_unit = None
-        self.target_entity = None
+        self.current_path: Optional[List] = None
+        self.movement_mode: str = "path"
+        self.state: str = self.movement_mode
+        self.target_unit: Optional[Unit2] = None
+        self.target_entity: Optional[EntityID] = None
         self.target_position = None
-        self.visibility_line = False
-        self.attack_timer = 0
+        self.visibility_line: bool = False
+        self.attack_timer: float = 0
 
         # update flags
         self.new_move_speed: Optional[float] = None

@@ -17,13 +17,13 @@ if TYPE_CHECKING:
     from scripts.core.game import Game
 
 
-PATH_UPDATE_FREQ = 0.4
+PATH_UPDATE_FREQ = 0.4  # TODO - move to consts
 
 
-__all__ = ["Basic"]
+__all__ = ["BasicEntityBehaviour"]
 
 
-class Basic(EntityBehaviour):
+class BasicEntityBehaviour(EntityBehaviour):
     def __init__(self, game: Game, unit: Unit2, entity: EntityID):
         super().__init__(game, unit, entity)
 
@@ -65,8 +65,11 @@ class Basic(EntityBehaviour):
         self.target_position = target_pos.pos
 
         # check distance to target
-        if (stats.range + stats.size + target_stats.size < distance_to(pos.pos, target_pos.pos)) or (
-                self._unit.behaviour.check_visibility and not self.visibility_line):
+        if (
+            stats.range.value + stats.size.value + target_stats.size.value < distance_to(pos.pos, target_pos.pos)
+            ) or (
+            self._unit.behaviour.check_visibility and not self.visibility_line
+        ):
             self.state = self.movement_mode
         else:
             self.state = "idle"

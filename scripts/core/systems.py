@@ -27,7 +27,7 @@ def draw_entities(surface: pygame.Surface, shift: Tuple[int, int] = (0, 0)):
     """
     Draw all entities
     """
-    for entity, (position, aesthetic) in queries.aesthetic_position:
+    for entity, (aesthetic, position) in queries.aesthetic_position:
         if aesthetic.facing == EntityFacing.LEFT:
             flip = True
         else:
@@ -79,6 +79,11 @@ def process_movement(delta_time: float, game: Game):
     Update an Entity's position towards their target.
     """
     for entity, (position, stats, ai, aesthetic) in queries.position_stats_ai_aesthetic_not_dead:
+
+        # skip if we have nowhere to go
+        if ai.behaviour.current_path is None:
+            continue
+
 
         move_result = _walk_path(delta_time, position, stats, ai, game)
 
@@ -146,16 +151,16 @@ def _sub_move(movement: PointLike, position: Position, game: Game) -> Tuple[int,
     position.x += movement[0]
     if check_tile_solid(position.pos):
         if movement[0] > 0:
-            position.pos.x = tile_rect_px(position.pos).left - 1
+            position.x = tile_rect_px(position.pos).left - 1
         if movement[0] < 0:
-            position.pos.x = tile_rect_px(position.pos).right + 1
+            position.x = tile_rect_px(position.pos).right + 1
 
-    position.pos.y += movement[1]
+    position.y += movement[1]
     if check_tile_solid(position.pos):
         if movement[1] > 0:
-            position.pos.y = tile_rect_px(position.pos).top - 1
+            position.y = tile_rect_px(position.pos).top - 1
         if movement[1] < 0:
-            position.pos.y = tile_rect_px(position.pos).bottom + 1
+            position.y = tile_rect_px(position.pos).bottom + 1
 
     return position.pos
 
@@ -165,7 +170,7 @@ def process_ai(delta_time: float):
     Update Entity ai.
     """
     for entity, (ai,) in queries.ai_not_dead:
-        ai.behaviour.process(delta_time)
+        ai.behaviour.update(delta_time)
 
         # check if behaviour flags need processing
         if ai.behaviour.new_move_speed is not None:

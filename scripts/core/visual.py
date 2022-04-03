@@ -153,15 +153,16 @@ class Visual:
                 if os.path.isdir(anim_path):
                     animations[anim_folder_name] = {}
 
-                    # warn about duplicates
-                    if anim_folder_name in animations.keys():
-                        logging.warning(
-                            f"Animation [{anim_folder_name}] already loaded; non-unique file name."
-                        )
-
                 # ...and then sub folders for each set of frames, e.g. bosses/test_boss/move
                     frame_sets = os.listdir(anim_path)
                     for frame_set_name in frame_sets:
+
+                        # warn about duplicates
+                        if frame_set_name in animations[anim_folder_name].keys():
+                            logging.warning(
+                                f"Animation's frame set [{frame_set_name}] already loaded; non-unique file name."
+                            )
+
                         frame_set_path = anim_path / frame_set_name
                         if os.path.isdir(frame_set_path):
                             animations[anim_folder_name][frame_set_name] = []
