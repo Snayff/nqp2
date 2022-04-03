@@ -27,7 +27,7 @@ class TrainingController(Controller):
     """
 
     def __init__(self, game: Game, parent_scene: WorldScene):
-        with Timer("TrainingController initialised"):
+        with Timer("TrainingController: initialised"):
             super().__init__(game, parent_scene)
 
             self.state: TrainingState = TrainingState.IDLE

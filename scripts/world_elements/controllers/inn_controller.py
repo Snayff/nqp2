@@ -28,7 +28,7 @@ class InnController(Controller):
     """
 
     def __init__(self, game: Game, parent_scene: WorldScene):
-        with Timer("InnController initialised"):
+        with Timer("InnController: initialised"):
             super().__init__(game, parent_scene)
 
             self.state: InnState = InnState.IDLE

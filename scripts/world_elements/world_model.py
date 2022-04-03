@@ -47,7 +47,7 @@ class WorldModel:
     """
 
     def __init__(self, game: Game, parent_scene: WorldScene):
-        with Timer("WorldModel initialised"):
+        with Timer("WorldModel: initialised"):
             self._game = game
             self._parent_scene = parent_scene
 

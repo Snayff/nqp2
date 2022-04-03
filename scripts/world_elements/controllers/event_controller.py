@@ -30,7 +30,7 @@ class EventController(Controller):
     """
 
     def __init__(self, game: Game, parent_scene: WorldScene):
-        with Timer("EventController initialised"):
+        with Timer("EventController: initialised"):
             super().__init__(game, parent_scene)
 
             self.state: EventState = EventState.IDLE

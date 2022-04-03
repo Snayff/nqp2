@@ -27,42 +27,37 @@ __all__ = ["Debugger", "Timer"]
 
 class Debugger:
     def __init__(self, game: Game):
-        # start timer
-        start_time = time.time()
+        with Timer("Debugger: initialised"):
 
-        self._game = game
+            self._game = game
 
-        # create required folders
-        self._create_folders()
+            # create required folders
+            self._create_folders()
 
-        # objects
-        self.profiler: Optional[cProfile.Profile] = None
-        self._dev_console: Optional[DevConsole] = None
+            # objects
+            self.profiler: Optional[cProfile.Profile] = None
+            self._dev_console: Optional[DevConsole] = None
 
-        # counters
-        self.current_fps: int = 0
-        self.recent_average_fps: int = 0
-        self.average_fps: int = 0
-        self._frames: int = 0
-        self.profile_duration_remaining: int = INFINITE
+            # counters
+            self.current_fps: int = 0
+            self.recent_average_fps: int = 0
+            self.average_fps: int = 0
+            self._frames: int = 0
+            self.profile_duration_remaining: int = INFINITE
 
-        # flags
-        self.is_profiling: bool = True
-        self.is_logging: bool = True
-        self.debug_mode: bool = False
-        self._show_debug_info: bool = True
+            # flags
+            self.is_profiling: bool = True
+            self.is_logging: bool = True
+            self.debug_mode: bool = False
+            self._show_debug_info: bool = True
 
-        # values
-        self._num_frames_considered_recent: int = 600
+            # values
+            self._num_frames_considered_recent: int = 600
 
-        # ui
-        self._fonts: List[Font] = []
+            # ui
+            self._fonts: List[Font] = []
 
-        self.initialise_logging()
-
-        # record duration
-        end_time = time.time()
-        logging.debug(f"Debugger: initialised in {format(end_time - start_time, '.2f')}s.")
+            self.initialise_logging()
 
     def update(self, delta_time: float):
 

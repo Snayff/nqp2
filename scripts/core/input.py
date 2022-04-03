@@ -9,6 +9,7 @@ import pygame
 from pygame.locals import *
 
 from .constants import GamepadAxes, GamepadButton
+from .debug import Timer
 
 if TYPE_CHECKING:
     from scripts.core.game import Game
@@ -75,48 +76,44 @@ gamepad_axis_direction_map = {
 
 class Input:
     def __init__(self, game: Game):
-        # start timer
-        start_time = time.time()
+        with Timer("Input: initialised"):
 
-        self._game: Game = game
+            self._game: Game = game
 
-        self.states = {
-            "right": False,
-            "left": False,
-            "up": False,
-            "down": False,
-            "hold_right": False,
-            "hold_left": False,
-            "hold_up": False,
-            "hold_down": False,
-            "select": False,
-            "cancel": False,
-            "view_troupe": False,
-            "shift": False,
-            "backspace": False,
-            "toggle_dev_console": False,
-            "typing_enter": False,
-            "tab": False,
-        }
+            self.states = {
+                "right": False,
+                "left": False,
+                "up": False,
+                "down": False,
+                "hold_right": False,
+                "hold_left": False,
+                "hold_up": False,
+                "hold_down": False,
+                "select": False,
+                "cancel": False,
+                "view_troupe": False,
+                "shift": False,
+                "backspace": False,
+                "toggle_dev_console": False,
+                "typing_enter": False,
+                "tab": False,
+            }
 
-        self.mouse_state = {"left": False}
+            self.mouse_state = {"left": False}
 
-        self.mode = "default"
+            self.mode = "default"
 
-        self.char_buffer = ""
-        self.backspace_hold = 0
+            self.char_buffer = ""
+            self.backspace_hold = 0
 
-        self.mouse_moved = False
-        self.mouse_pos = [0, 0]
-        self.mouse_pos_raw = self.mouse_pos.copy()
-        self._old_mouse = self.mouse_pos_raw.copy()
+            self.mouse_moved = False
+            self.mouse_pos = [0, 0]
+            self.mouse_pos_raw = self.mouse_pos.copy()
+            self._old_mouse = self.mouse_pos_raw.copy()
 
-        self._gamepads = dict()
-        self._scan_gamepads()
+            self._gamepads = dict()
+            self._scan_gamepads()
 
-        # record duration
-        end_time = time.time()
-        logging.debug(f"Input: initialised in {format(end_time - start_time, '.2f')}s.")
 
     def soft_reset(self):
         """

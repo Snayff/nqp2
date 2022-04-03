@@ -11,7 +11,7 @@ from scripts.core.data import Data
 from scripts.core.debug import Debugger, Timer
 from scripts.core.input import Input
 from scripts.core.rng import RNG
-from scripts.core.sound import Sound
+from scripts.core.audio import Audio
 from scripts.core.visual import Visual
 from scripts.core.window import Window
 
@@ -26,7 +26,7 @@ __all__ = ["Game"]
 
 class Game:
     def __init__(self):
-        with Timer("Game initialised"):
+        with Timer("Game: initialised"):
             # imports here to avoid circular references since they're core and
             # controllers require ``Game`` imports for typing.
             from scripts.core.assets import Assets
@@ -54,7 +54,7 @@ class Game:
             self.memory: Memory = Memory(self)
             self.input: Input = Input(self)
             self.rng: RNG = RNG(self)
-            self.sound: Sound = Sound(self)
+            self.audio: Audio = Audio(self)
             self.visual: Visual = Visual(self)
 
             # scenes
@@ -92,7 +92,7 @@ class Game:
                 self.debug.toggle_debug_info()
 
         # update internal assets
-        self.sound.update(delta_time)
+        self.audio.update(delta_time)
         self.visual.update(delta_time)
 
         # update image ui

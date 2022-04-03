@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.scene import Scene
 from scripts.core.constants import SceneType
+from scripts.core.debug import Timer
 from scripts.scenes.view_troupe.ui import ViewTroupeUI
 
 if TYPE_CHECKING:
@@ -23,18 +24,13 @@ class ViewTroupeScene(Scene):
     """
 
     def __init__(self, game: Game):
-        # start timer
-        start_time = time.time()
+        with Timer("ViewTroupeScene: initialised"):
 
-        super().__init__(game, SceneType.VIEW_TROUPE)
+            super().__init__(game, SceneType.VIEW_TROUPE)
 
-        self.ui: ViewTroupeUI = ViewTroupeUI(game, self)
+            self.ui: ViewTroupeUI = ViewTroupeUI(game, self)
 
-        self.previous_scene_type: SceneType = SceneType.VIEW_TROUPE
-
-        # record duration
-        end_time = time.time()
-        logging.debug(f"ViewTroupeScene: initialised in {format(end_time - start_time, '.2f')}s.")
+            self.previous_scene_type: SceneType = SceneType.VIEW_TROUPE
 
     def update(self, delta_time: float):
         super().update(delta_time)

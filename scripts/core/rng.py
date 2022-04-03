@@ -5,6 +5,8 @@ import random
 import time
 from typing import TYPE_CHECKING
 
+from scripts.core.debug import Timer
+
 if TYPE_CHECKING:
     from scripts.core.game import Game
 
@@ -14,16 +16,10 @@ __all__ = ["RNG"]
 
 class RNG(random.Random):
     def __init__(self, game: Game):
-        # start timer
-        start_time = time.time()
+        with Timer("RNG: initialised"):
+            super().__init__()
 
-        super().__init__()
-
-        self.current_seed = 0
-
-        # record duration
-        end_time = time.time()
-        logging.debug(f"RNG: initialised in {format(end_time - start_time, '.2f')}s.")
+            self.current_seed = 0
 
     def set_seed(self, seed: int):
         """

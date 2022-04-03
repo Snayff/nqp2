@@ -10,6 +10,7 @@ import pygame
 from scripts.core.base_classes.animation import Animation
 from scripts.core.base_classes.image import Image
 from scripts.core.constants import ASSET_PATH, DEFAULT_IMAGE_SIZE, FontEffects, FontType, IMG_FORMATS
+from scripts.core.debug import Timer
 from scripts.core.utility import clamp, clip
 from scripts.ui_elements.generic.fancy_font import FancyFont
 from scripts.ui_elements.generic.font import Font
@@ -28,54 +29,50 @@ class Visual:
     """
 
     def __init__(self, game: Game):
-        # start timer
-        start_time = time.time()
+        with Timer("Visual: initialised"):
 
-        self._game: Game = game
+            self._game: Game = game
 
-        self._image_folders: List[str] = [  # must be the folder that contains the images
-            "actions",
-            "event_images",
-            "factions",
-            "items",
-            "projectiles",
-            "rooms",
-            "stats",
-            "tiles",
-            "ui/backgrounds",
-            "ui/cursors",
-            "ui/icons",
-            "ui/keys",
-            "ui/widgets",
-            "ui/windows/basic",
-            "ui/windows/fancy",
-            "upgrades",
-            "world",
-        ]  # don't add debug folder
-        self._animation_folders: List[str] = [  # must be the folder that contains the folders of images
-            "bosses",
-            "commanders",
-            "effects",
-            "units",
-            "ui_animations",
-            "world_animations",
-        ]
+            self._image_folders: List[str] = [  # must be the folder that contains the images
+                "actions",
+                "event_images",
+                "factions",
+                "items",
+                "projectiles",
+                "rooms",
+                "stats",
+                "tiles",
+                "ui/backgrounds",
+                "ui/cursors",
+                "ui/icons",
+                "ui/keys",
+                "ui/widgets",
+                "ui/windows/basic",
+                "ui/windows/fancy",
+                "upgrades",
+                "world",
+            ]  # don't add debug folder
+            self._animation_folders: List[str] = [  # must be the folder that contains the folders of images
+                "bosses",
+                "commanders",
+                "effects",
+                "units",
+                "ui_animations",
+                "world_animations",
+            ]
 
-        self.tilesets = {  # TODO - refactor to align to style
-            tileset.split(".")[0]: self._load_tileset(ASSET_PATH / "tiles" / tileset)
-            for tileset in os.listdir(ASSET_PATH / "tiles")
-        }
+            self.tilesets = {  # TODO - refactor to align to style
+                tileset.split(".")[0]: self._load_tileset(ASSET_PATH / "tiles" / tileset)
+                for tileset in os.listdir(ASSET_PATH / "tiles")
+            }
 
-        self._images: Dict[str, pygame.Surface] = self._load_images()  # image_name: surface
-        self._animation_frames: Dict[str, Dict[str, List[Image]]] = self._load_animation_frames()
-        # folder_name: {frame_name, [animation_frames]}
-        self._fonts: Dict[FontType, Tuple[str, Tuple[int, int, int]]] = self._load_fonts()  # FontType: path, colour
+            self._images: Dict[str, pygame.Surface] = self._load_images()  # image_name: surface
+            self._animation_frames: Dict[str, Dict[str, List[Image]]] = self._load_animation_frames()
+            # folder_name: {frame_name, [animation_frames]}
+            self._fonts: Dict[FontType, Tuple[str, Tuple[int, int, int]]] = self._load_fonts()  # FontType: path, colour
 
-        self._active_animations: List[Animation] = []
+            self._active_animations: List[Animation] = []
 
-        # record duration
-        end_time = time.time()
-        logging.debug(f"Images: initialised in {format(end_time - start_time, '.2f')}s.")
 
     def update(self, delta_time: float):
         active_animations = self._active_animations
@@ -105,6 +102,7 @@ class Visual:
         """
         images = {}
         folders = self._image_folders
+        counter = 0
 
         for folder in folders:
             path = ASSET_PATH / folder
@@ -123,9 +121,14 @@ class Visual:
                     height = image.get_height()
                     images[f"{image_name.split('.')[0]}@{width}x{height}"] = image  # split to remove extension
 
+                    counter += 1
+
         # add not found image
         image = pygame.image.load(str(ASSET_PATH / "debug/image_not_found.png")).convert_alpha()
         images[f"not_found@{DEFAULT_IMAGE_SIZE}x{DEFAULT_IMAGE_SIZE}"] = image
+
+        counter += 1
+        logging.debug(f"Visual: {counter} Images loaded.")
 
         # add transparent surface
         image = pygame.Surface((DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE))
@@ -140,6 +143,9 @@ class Visual:
         """
         animations = {}
         folders = self._animation_folders
+        anim_counter = 0
+        frame_set_counter = 0
+        frame_counter = 0
 
         # loop all specified folders
         for folder in folders:
@@ -152,6 +158,7 @@ class Visual:
                 anim_path = path / anim_folder_name
                 if os.path.isdir(anim_path):
                     animations[anim_folder_name] = {}
+                    anim_counter += 1
 
                 # ...and then sub folders for each set of frames, e.g. bosses/test_boss/move
                     frame_sets = os.listdir(anim_path)
@@ -166,6 +173,7 @@ class Visual:
                         frame_set_path = anim_path / frame_set_name
                         if os.path.isdir(frame_set_path):
                             animations[anim_folder_name][frame_set_name] = []
+                            frame_set_counter += 1
 
                             # load the frames
                             animation_frames_folder = os.listdir(frame_set_path)
@@ -179,6 +187,10 @@ class Visual:
                                     # record the frame
                                     animations[anim_folder_name][frame_set_name].append(image_)
 
+                                    frame_counter += 1
+
+        logging.debug(f"Visual: {anim_counter} Animations loaded, containing {frame_set_counter} frame sets, "
+                      f"made up of {frame_counter} frames.")
 
         return animations
 

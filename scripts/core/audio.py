@@ -8,31 +8,27 @@ from typing import Any, TYPE_CHECKING
 import pygame
 
 from scripts.core.constants import ASSET_PATH
+from scripts.core.debug import Timer
 
 if TYPE_CHECKING:
     from typing import Dict, List, Optional, Tuple
 
     from scripts.core.game import Game
 
-__all__ = ["Sound"]
+__all__ = ["Audio"]
 
 
-class Sound:
+class Audio:
     """
-    The Sound Engine. It manages all sound interactions
+    The Audio Engine. It manages all sound interactions
     """
 
     def __init__(self, game: Game):
-        # start timer
-        start_time = time.time()
+        with Timer("Audio: initialised"):
 
-        self._game: Game = game
-        self._sounds: Dict[str, pygame.mixer.Sound] = self._load_sounds()
-        self._unique_sounds: Dict[str, float] = {}  # sounds that cant be duplicated. sound_name, remaining_duration
-
-        # record duration
-        end_time = time.time()
-        logging.debug(f"Sounds: initialised in {format(end_time - start_time, '.2f')}s.")
+            self._game: Game = game
+            self._sounds: Dict[str, pygame.mixer.Sound] = self._load_sounds()
+            self._unique_sounds: Dict[str, float] = {}  # sounds that cant be duplicated. sound_name, remaining_duration
 
     def update(self, delta_time: float):
         # reduce timers in unique sounds
@@ -45,6 +41,7 @@ class Sound:
         Load all sounds from /assets/sounds
         """
         sounds = {}
+        sound_counter = 0
 
         path = ASSET_PATH / "sounds"
         for sound_name in os.listdir(path):
@@ -56,6 +53,11 @@ class Sound:
 
                 sound = pygame.mixer.Sound(str(path / sound_name))
                 sounds[sound_name.split(".")[0]] = sound
+
+                sound_counter += 1
+
+        logging.debug(f"Sound: {sound_counter} Sounds loaded. ")
+
         return sounds
 
     def play_sound(

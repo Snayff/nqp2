@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.scene import Scene
 from scripts.core.constants import SceneType
+from scripts.core.debug import Timer
 from scripts.scenes.main_menu.ui import MainMenuUI
 
 if TYPE_CHECKING:
@@ -25,16 +26,10 @@ class MainMenuScene(Scene):
     """
 
     def __init__(self, game: Game):
-        # start timer
-        start_time = time.time()
+        with Timer("MainMenuScene: initialised"):
+            super().__init__(game, SceneType.MAIN_MENU)
 
-        super().__init__(game, SceneType.MAIN_MENU)
-
-        self.ui: MainMenuUI = MainMenuUI(game, self)
-
-        # record duration
-        end_time = time.time()
-        logging.debug(f"MainMenuScene: initialised in {format(end_time - start_time, '.2f')}s.")
+            self.ui: MainMenuUI = MainMenuUI(game, self)
 
     def update(self, delta_time: float):
         super().update(delta_time)
@@ -46,7 +41,7 @@ class MainMenuScene(Scene):
     def activate(self):
         super().activate()
 
-        self._game.sound.play_sound("fanfare")
+        self._game.audio.play_sound("fanfare")
 
     def _new_game(self):
         """

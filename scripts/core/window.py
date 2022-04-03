@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING
 import pygame
 
 from scripts.core.constants import ASSET_PATH
+from scripts.core.debug import Timer
 
 if TYPE_CHECKING:
     from typing import List, Tuple, Union
@@ -18,27 +19,23 @@ __all__ = ["Window"]
 
 class Window:
     def __init__(self, game: Game):
-        # start timer
-        start_time = time.time()
+        with Timer("Window: initialised"):
 
-        self._game: Game = game
+            self._game: Game = game
 
-        self.base_resolution = [640, 360]
-        self.scaled_resolution = [1280, 720]
+            self.base_resolution = [640, 360]
+            self.scaled_resolution = [1280, 720]
 
-        self.window = pygame.display.set_mode(self.scaled_resolution, 0, 32)
-        pygame.display.set_caption("NQP2")
-        icon = pygame.image.load(str(ASSET_PATH / "ui/icons/nqp.png"))
-        pygame.display.set_icon(icon)
+            self.window = pygame.display.set_mode(self.scaled_resolution, 0, 32)
+            pygame.display.set_caption("NQP2")
+            icon = pygame.image.load(str(ASSET_PATH / "ui/icons/nqp.png"))
+            pygame.display.set_icon(icon)
 
-        self.display = pygame.Surface(self.base_resolution)
+            self.display = pygame.Surface(self.base_resolution)
 
-        self.delta_time = 0.1
-        self.frame_start = time.time()
+            self.delta_time = 0.1
+            self.frame_start = time.time()
 
-        # record duration
-        end_time = time.time()
-        logging.debug(f"Window: initialised in {format(end_time - start_time, '.2f')}s.")
 
     def refresh(self):
         """

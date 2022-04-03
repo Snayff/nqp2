@@ -9,6 +9,7 @@ from typing import Any, TYPE_CHECKING
 import yaml
 
 from scripts.core.constants import DATA_PATH
+from scripts.core.debug import Timer
 from scripts.world_elements.behavior_manager import BehaviourManager
 
 if TYPE_CHECKING:
@@ -26,29 +27,24 @@ class Data:
     """
 
     def __init__(self, game: Game):
-        # start timer
-        start_time = time.time()
+        with Timer("Data: initialised"):
 
-        self._game: Game = game
+            self._game: Game = game
 
-        self.commanders: Dict[str, Any] = self._load_commanders()
-        self.units: Dict[str, Any] = self._load_unit_info()
-        self.behaviours = BehaviourManager()  # TODO - this isnt data and should be elsewhere
-        self.tiles = self._load_tile_info()  # TODO - can we get rid of this?
-        self.factions: List[str] = self._create_homes_list()
-        self.events: Dict[str, Any] = self._load_events()
-        self.upgrades: Dict[str, Any] = self._load_upgrades()
-        self.combats: Dict[str, Any] = self._load_combats()
-        self.bosses: Dict[str, Any] = self._load_bosses()
-        self.skills: Dict[str, Any] = self._load_skills()
-        self.items: Dict[str, ItemData] = self._load_items()
+            self.commanders: Dict[str, Any] = self._load_commanders()
+            self.units: Dict[str, Any] = self._load_unit_info()
+            self.behaviours = BehaviourManager()  # TODO - this isnt data and should be elsewhere
+            self.tiles = self._load_tile_info()  # TODO - can we get rid of this?
+            self.factions: List[str] = self._create_homes_list()
+            self.events: Dict[str, Any] = self._load_events()
+            self.upgrades: Dict[str, Any] = self._load_upgrades()
+            self.combats: Dict[str, Any] = self._load_combats()
+            self.bosses: Dict[str, Any] = self._load_bosses()
+            self.skills: Dict[str, Any] = self._load_skills()
+            self.items: Dict[str, ItemData] = self._load_items()
 
-        self.config: Dict[str, Any] = self._load_config()
-        self.options: Dict[str, Any] = self._load_options()
-
-        # record duration
-        end_time = time.time()
-        logging.debug(f"Data: initialised in {format(end_time - start_time, '.2f')}s.")
+            self.config: Dict[str, Any] = self._load_config()
+            self.options: Dict[str, Any] = self._load_options()
 
     @staticmethod
     def _load_tile_info() -> Dict:

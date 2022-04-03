@@ -25,7 +25,7 @@ class RunSetupScene(Scene):
     """
 
     def __init__(self, game: Game):
-        with Timer("Run Setup Scene initialised"):
+        with Timer("RunSetupScene: initialised"):
 
             super().__init__(game, SceneType.RUN_SETUP)
 

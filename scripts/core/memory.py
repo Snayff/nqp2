@@ -20,7 +20,7 @@ class Memory:
     """
 
     def __init__(self, game: Game):
-        with Timer("WorldModel initialised"):
+        with Timer("Memory: initialised"):
 
             self._game: Game = game
 

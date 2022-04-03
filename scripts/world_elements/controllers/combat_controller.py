@@ -28,7 +28,7 @@ class CombatController(Controller):
     """
 
     def __init__(self, game: Game, parent_scene: WorldScene):
-        with Timer("CombatController initialised"):
+        with Timer("CombatController: initialised"):
             super().__init__(game, parent_scene)
             self.victory_duration: float = 0.0
             self._combat_ending_timer: float = -1

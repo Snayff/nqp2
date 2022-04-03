@@ -31,7 +31,7 @@ class WorldScene(Scene):
     """
 
     def __init__(self, game: Game):
-        with Timer("WorldScene initialised"):
+        with Timer("WorldScene: initialised"):
             super().__init__(game, SceneType.WORLD)
 
             self.model: WorldModel = WorldModel(game, self)
