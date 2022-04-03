@@ -83,6 +83,8 @@ def process_movement(delta_time: float, game: Game):
         # skip if we have nowhere to go
         if ai.behaviour.current_path is None:
             continue
+        if len(ai.behaviour.current_path) == 0:
+            continue
 
 
         move_result = _walk_path(delta_time, position, stats, ai, game)
@@ -176,7 +178,7 @@ def process_ai(delta_time: float):
         if ai.behaviour.new_move_speed is not None:
             if snecs.has_component(entity, Stats):
                 stats = snecs.entity_component(entity, Stats)
-                stats.move_speed = ai.behaviour.new_move_speed
+                stats.move_speed.value = ai.behaviour.new_move_speed
 
                 ai.behaviour.new_move_speed = None
 

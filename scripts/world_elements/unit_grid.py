@@ -3,11 +3,14 @@ from __future__ import annotations
 from typing import List, Optional
 
 import pygame
+import snecs
 
+from scripts.core.components import AI
 from scripts.core.constants import InputType, TILE_SIZE
 from scripts.core.game import Game
 from scripts.core.utility import grid_down, grid_left, grid_right, grid_up
 from scripts.world_elements.unit import Unit
+from scripts.world_elements.unit2 import Unit2
 
 
 class GridCell:
@@ -105,7 +108,7 @@ class UnitGrid:
         # # TODO: fix the following calculation, unit.size is NOT the size of the unit so this is wrong
         unit.set_position([cell_center_x + unit.size // 2, cell_center_y + unit.size // 2])
 
-    def _walk_cell_to_cell(self, unit: Unit, dest: GridCell):
+    def _walk_cell_to_cell(self, unit: Unit2, dest: GridCell):
         """
         Move unit to cell by setting the entities on a path
 
@@ -117,12 +120,14 @@ class UnitGrid:
         # - making the others follow the leader
         unit.forced_behaviour = True
         target_px = dest.rect.center
-        leader = unit.entities[0]
-        leader.behaviour.current_path = [target_px]
-        leader.behaviour.state = "path_fast"
+        leader = unit.behaviour.leader
+        leader_behaviour = snecs.entity_component(leader, AI).behaviour
+        leader_behaviour.current_path = [target_px]
+        leader_behaviour.state = "path_fast"
         for entity in unit.entities[1:]:
-            entity.behaviour.current_path = [target_px]
-            entity.behaviour.state = "path_fast"
+            behaviour = snecs.entity_component(entity, AI).behaviour
+            behaviour.current_path = [target_px]
+            behaviour.state = "path_fast"
 
     def _swap_cells(self, a: GridCell, b: GridCell):
         """

@@ -108,7 +108,10 @@ class UnitBehaviour:
                             behaviour.state = behaviour.movement_mode
 
             # update reference entity when it dies
-            ref_entity_is_alive = not snecs.entity_component(self.reference_entity, IsDead)
+            if self.reference_entity is None:
+                ref_entity_is_alive = False
+            else:
+                ref_entity_is_alive = not snecs.has_component(self.reference_entity, IsDead)
             if self.target_unit and self.target_unit.is_alive and (not ref_entity_is_alive):
                 # if we have possible targets pick another random one to be the reference
                 if len(self.target_unit.entities):

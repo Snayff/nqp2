@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING
 import pygame
 import snecs
 from snecs import World
+from snecs.typedefs import EntityID
 
 from scripts.core import systems
 from scripts.core.definitions import PointLike
@@ -259,7 +260,7 @@ class WorldModel:
 
         self._seen_bosses.append(chosen_boss)
 
-    def get_all_entities(self) -> List[Entity]:
+    def get_all_entities(self) -> List[EntityID]:
         """
         Get a list of all entities
         """

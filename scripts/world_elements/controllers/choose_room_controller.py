@@ -3,7 +3,10 @@ from __future__ import annotations
 import logging
 from typing import TYPE_CHECKING
 
+import snecs
+
 from scripts.core.base_classes.controller import Controller
+from scripts.core.components import Position
 from scripts.core.constants import ChooseRoomState, WorldState
 from scripts.core.debug import Timer
 
@@ -102,9 +105,11 @@ class ChooseRoomController(Controller):
 
     def _process_moving_to_new_room(self):
         # move entities
-        for i in self._parent_scene.model.get_all_entities():
+        for entity in self._parent_scene.model.get_all_entities():
             # cannot use move here because it is very buggy when entities are touching
-            i.pos[0] += 5
+            # TODO - we should just set the target position and let the move system handle it
+            position = snecs.entity_component(entity, Position)
+            position.x += 5
 
         # TODO: find better way to calculate this value
         final = self._game.window.base_resolution[0] + 320 + 320
@@ -117,10 +122,11 @@ class ChooseRoomController(Controller):
         # and all game entities coordinates are independent of the
         # terrain.
         # when entities are in next room, swap terrains and idle
-        if i.pos[0] >= final:
-            for i in self._parent_scene.model.get_all_entities():
+        if position.x >= final:
+            for entity in self._parent_scene.model.get_all_entities():
                 # cannot use move here because it is very buggy when entities are touching
-                i.pos[0] -= terrain_offset
+                position = snecs.entity_component(entity, Position)
+                position.x -= terrain_offset
             # TODO: decouple this
             self._parent_scene.ui._worldview.clamp_primary_terrain = True
             self._parent_scene.ui._worldview.camera.move(-terrain_offset - 148, 0)
