@@ -15,6 +15,7 @@ from scripts.world_elements.commander import Commander
 from scripts.world_elements.entity import Entity
 from scripts.world_elements.particle_manager import ParticleManager
 from scripts.world_elements.projectile_manager import ProjectileManager
+from scripts.world_elements.projectile_manager2 import ProjectileManager2
 from scripts.world_elements.terrain import Terrain
 from scripts.world_elements.troupe import Troupe
 from scripts.world_elements.unit import Unit
@@ -55,7 +56,7 @@ class WorldModel:
             self._state: WorldState = WorldState.CHOOSE_NEXT_ROOM
             self._next_state: Optional[WorldState] = None
 
-            self.projectiles: ProjectileManager = ProjectileManager(self._game)
+            self.projectiles: ProjectileManager2 = ProjectileManager2(self._game)
             self.particles: ParticleManager = ParticleManager()
             self.terrain: Terrain = Terrain(self._game, "plains")
             self.terrain.generate()

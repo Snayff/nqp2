@@ -210,25 +210,25 @@ def process_attack(game: Game):
             # update to attack animation
             aesthetic.animation.set_current_frame_set_name("attack")
 
+            # increase damage if in godmode
+            mod = 0
+            if "godmode" in game.memory.flags:
+                if snecs.has_component(entity, Allegiance):
+                    if snecs.entity_component(entity, Allegiance).team == "player":
+                        mod = 9999
+
             # handle ranged attack
             if snecs.has_component(entity, RangedAttack):
                 ranged = snecs.entity_component(entity, RangedAttack)
                 ranged.ammo.value -= 1
-                add_projectile(entity, target_entity)
+                projectile_data = {"img": ranged.projectile_sprite, "speed": ranged.projectile_speed}
+                add_projectile(entity, target_entity, projectile_data, stats.attack.value + mod)
 
                 # switch to melee when out of ammo
                 if ranged.ammo.value <= 0:
                     stats.range.value = 0
 
             else:
-
-                # increase damage if in godmode
-                mod = 0
-                if "godmode" in game.memory.flags:
-                    if snecs.has_component(entity, Allegiance):
-                        if snecs.entity_component(entity, Allegiance).team == "player":
-                            mod = 9999
-
                 # add damage component
                 snecs.add_component(target_entity, DamageReceived(stats.attack.value + mod))
 

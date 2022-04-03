@@ -52,12 +52,6 @@ class Basic(EntityBehaviour):
         if self.last_path_update > PATH_UPDATE_FREQ:
             self.update_path()
 
-    def add_attack_flag(self):
-        """
-        Add IsReadyToAttack component to Entity
-        """
-        snecs.add_component(self._entity, IsReadyToAttack())
-
     def determine_next_action(self):
         """
         Determine what to do next, i.e. what state to transition into.
@@ -79,7 +73,7 @@ class Basic(EntityBehaviour):
 
         # attack intent
         if ((not self._unit.behaviour.check_visibility) or self.visibility_line) and self.attack_timer <= 0:
-            self.add_attack_flag()
+            snecs.add_component(self._entity, IsReadyToAttack())
 
     def update_path(self):
         """

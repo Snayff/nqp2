@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 
 from scripts.world_elements.entity import Entity
 from scripts.world_elements.unit import Unit
+from scripts.world_elements.unit2 import Unit2
 
 if TYPE_CHECKING:
     from typing import Dict, List
@@ -78,7 +79,7 @@ class Troupe:
         """
 
         id_ = self._game.memory.generate_id()
-        unit = Unit(self._game, id_, unit_type, self.team)
+        unit = Unit2(self._game, id_, unit_type, self.team, (0, 0))
         unit.spawn_entities()
         self._units[id_] = unit
         self._unit_ids.append(id_)
