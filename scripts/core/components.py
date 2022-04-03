@@ -1,10 +1,10 @@
 from __future__ import annotations
 
 import logging
-
 from typing import TYPE_CHECKING
 
 from snecs import RegisteredComponent
+
 from scripts.core.base_classes.animation import Animation
 from scripts.core.base_classes.image import Image
 from scripts.core.constants import EntityFacing
@@ -12,17 +12,30 @@ from scripts.world_elements.stat import FloatStat, IntStat
 from scripts.world_elements.unit2 import Unit2
 
 if TYPE_CHECKING:
-    from typing import List, Optional, Tuple, Union, Dict
+    from typing import Dict, List, Optional, Tuple, Union
+
     from scripts.world_elements.entity_behaviours.basic_entity_behaviour import BasicEntityBehaviour
 
-__all__ = ["Position", "Aesthetic", "Tracked", "Resources", "Stats", "Allegiance", "AI", "RangedAttack",
-    "DamageReceived", "IsDead", "IsReadyToAttack"]
+__all__ = [
+    "Position",
+    "Aesthetic",
+    "Tracked",
+    "Resources",
+    "Stats",
+    "Allegiance",
+    "AI",
+    "RangedAttack",
+    "DamageReceived",
+    "IsDead",
+    "IsReadyToAttack",
+]
 
 
 class Position(RegisteredComponent):
     """
-    An Entity's location in the world. 
+    An Entity's location in the world.
     """
+
     def __init__(self, pos: Tuple[int, int]):
         self.pos: Tuple[int, int] = pos
 
@@ -32,7 +45,7 @@ class Position(RegisteredComponent):
     @classmethod
     def deserialize(cls, pos: Tuple[int, int]):
         return Position(pos)
-    
+
     @property
     def x(self) -> int:
         return self.pos[0]
@@ -54,6 +67,7 @@ class Aesthetic(RegisteredComponent):
     """
     An Entity's visual information
     """
+
     def __init__(self, animation: Animation):
         self.animation: Animation = animation
         self.facing: EntityFacing = EntityFacing.RIGHT
@@ -66,12 +80,13 @@ class Aesthetic(RegisteredComponent):
     def deserialize(cls, *serialised):
         # TODO - add deserialisation
         return Aesthetic(*serialised)
-    
-    
+
+
 class Tracked(RegisteredComponent):
     """
-    A component to track an entity's actions. 
+    A component to track an entity's actions.
     """
+
     def __init__(self):
         pass
 
@@ -87,8 +102,9 @@ class Tracked(RegisteredComponent):
 
 class Resources(RegisteredComponent):
     """
-    An Entity's resources, such as health. 
+    An Entity's resources, such as health.
     """
+
     def __init__(self, health: int):
         self.health: IntStat = IntStat(health)
 
@@ -104,8 +120,9 @@ class Resources(RegisteredComponent):
 
 class Stats(RegisteredComponent):
     """
-    An Entity's stats, such as attack. 
+    An Entity's stats, such as attack.
     """
+
     def __init__(self, parent_unit: Unit2):
         self.defence: IntStat = IntStat(parent_unit.defence)
         self.attack: IntStat = IntStat(parent_unit.attack)
@@ -124,11 +141,12 @@ class Stats(RegisteredComponent):
         # TODO - add deserialisation
         return Resources(*serialised)
 
-    
+
 class Allegiance(RegisteredComponent):
     """
     An Entity's allegiance.
     """
+
     def __init__(self, team: str, unit: Unit2):
         self.team: str = team
         self.unit: Unit2 = unit
@@ -147,6 +165,7 @@ class AI(RegisteredComponent):
     """
     An Entity's AI. This should handle the outputs of AI decisions and actions.
     """
+
     def __init__(self, behaviour: BasicEntityBehaviour):
         self.behaviour: BasicEntityBehaviour = behaviour
 
@@ -163,6 +182,7 @@ class RangedAttack(RegisteredComponent):
     """
     An Entity's ability to use projectiles.
     """
+
     def __init__(self, ammo: int, projectile_sprite: Image, projectile_speed: int):
         self.ammo: IntStat = IntStat(ammo)
         self.projectile_sprite: Image = projectile_sprite
@@ -182,6 +202,7 @@ class DamageReceived(RegisteredComponent):
     """
     Damage to be applied to the Entity.
     """
+
     def __init__(self, amount: int):
         self.amount: int = amount
 
@@ -199,6 +220,7 @@ class IsDead(RegisteredComponent):
     """
     Flag to indicate if the Entity is dead.
     """
+
     def __init__(self):
         self.is_processed: bool = False
 
@@ -209,5 +231,6 @@ class IsReadyToAttack(RegisteredComponent):
     """
     Flag to indicate if the Entity is ready to attack.
     """
+
     # doesnt need init as has no details
     # doesnt need serialising as will never be about to attack when saving.

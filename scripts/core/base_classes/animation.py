@@ -19,8 +19,13 @@ class Animation:
     Class to hold visual information for a series of images
     """
 
-    def __init__(self, frames: Dict[str, List[Image]], frame_duration: float = 0.6, loop: bool = True,
-            starting_frame_set_name: str = None):
+    def __init__(
+        self,
+        frames: Dict[str, List[Image]],
+        frame_duration: float = 0.6,
+        loop: bool = True,
+        starting_frame_set_name: str = None,
+    ):
         self._frame_sets: Dict[str, List[Image]] = frames
         self._frame_duration: float = max(frame_duration, 0.1)  # must be greater than 1
         self._is_looping: bool = loop
@@ -56,8 +61,9 @@ class Animation:
                 self._state = AnimationState.FINISHED
 
         # update frame
-        self._current_frame_num = int(
-            self._duration / self._frame_duration * self._current_num_frames) % self._current_num_frames
+        self._current_frame_num = (
+            int(self._duration / self._frame_duration * self._current_num_frames) % self._current_num_frames
+        )
 
     def set_current_frame_set_name(self, frame_set_name: str):
         """

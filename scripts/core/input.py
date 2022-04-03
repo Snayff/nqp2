@@ -114,7 +114,6 @@ class Input:
             self._gamepads = dict()
             self._scan_gamepads()
 
-
     def soft_reset(self):
         """
         Resets inputs that should only be activated for 1 frame.

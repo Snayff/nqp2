@@ -73,7 +73,6 @@ class Visual:
 
             self._active_animations: List[Animation] = []
 
-
     def update(self, delta_time: float):
         active_animations = self._active_animations
 
@@ -160,7 +159,7 @@ class Visual:
                     animations[anim_folder_name] = {}
                     anim_counter += 1
 
-                # ...and then sub folders for each set of frames, e.g. bosses/test_boss/move
+                    # ...and then sub folders for each set of frames, e.g. bosses/test_boss/move
                     frame_sets = os.listdir(anim_path)
                     for frame_set_name in frame_sets:
 
@@ -189,8 +188,10 @@ class Visual:
 
                                     frame_counter += 1
 
-        logging.debug(f"Visual: {anim_counter} Animations loaded, containing {frame_set_counter} frame sets, "
-                      f"made up of {frame_counter} frames.")
+        logging.debug(
+            f"Visual: {anim_counter} Animations loaded, containing {frame_set_counter} frame sets, "
+            f"made up of {frame_counter} frames."
+        )
 
         return animations
 

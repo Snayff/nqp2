@@ -2,18 +2,23 @@ from __future__ import annotations
 
 import logging
 from importlib import resources
-
 from typing import TYPE_CHECKING
 
 from snecs import Query
 
-from scripts.core.components import Aesthetic, DamageReceived, IsDead, AI, IsReadyToAttack, Position, Resources, Stats
+from scripts.core.components import Aesthetic, AI, DamageReceived, IsDead, IsReadyToAttack, Position, Resources, Stats
 
 if TYPE_CHECKING:
-    from typing import List, Optional, Tuple, Union, Dict
+    from typing import Dict, List, Optional, Tuple, Union
 
-__all__ = ["dead", "resources", "aesthetic_position", "damage_resources", "ai_not_dead",
-    "attack_position_stats_ai_aesthetic_not_dead"]
+__all__ = [
+    "dead",
+    "resources",
+    "aesthetic_position",
+    "damage_resources",
+    "ai_not_dead",
+    "attack_position_stats_ai_aesthetic_not_dead",
+]
 
 resources = Query([Resources]).compile()
 
@@ -33,7 +38,6 @@ position_stats_not_dead = Query([Position, Stats]).filter(~IsDead).compile()
 
 position_stats_ai_aesthetic_not_dead = Query([Position, Stats, AI, Aesthetic]).filter(~IsDead).compile()
 
-attack_position_stats_ai_aesthetic_not_dead = Query(
-    [IsReadyToAttack, Position, Stats, AI, Aesthetic]).filter(~IsDead).compile()
-
-
+attack_position_stats_ai_aesthetic_not_dead = (
+    Query([IsReadyToAttack, Position, Stats, AI, Aesthetic]).filter(~IsDead).compile()
+)

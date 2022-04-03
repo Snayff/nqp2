@@ -9,9 +9,9 @@ from snecs import World
 from snecs.typedefs import EntityID
 
 from scripts.core import systems
-from scripts.core.definitions import PointLike
 from scripts.core.constants import TILE_SIZE, WorldState
 from scripts.core.debug import Timer
+from scripts.core.definitions import PointLike
 from scripts.world_elements.commander import Commander
 from scripts.world_elements.entity import Entity
 from scripts.world_elements.particle_manager import ParticleManager

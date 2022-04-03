@@ -2,11 +2,10 @@ from __future__ import annotations
 
 import logging
 from abc import ABC
-
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing import List, Optional, Tuple, Union, Dict, Any
+    from typing import Any, Dict, List, Optional, Tuple, Union
 
 __all__ = ["IntStat", "FloatStat"]
 
@@ -15,6 +14,7 @@ class Stat(ABC):
     """
     A container for an Entities Stat. If current_value is None then defaults to base_value.
     """
+
     def __init__(self, base_value, current_value=None):
         self._base_value = base_value
         if current_value is None:
@@ -76,4 +76,3 @@ class FloatStat(Stat):
 
     def set_base_value(self, value: float):
         self._base_value = value
-

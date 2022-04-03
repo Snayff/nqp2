@@ -4,8 +4,8 @@ from typing import Optional, TYPE_CHECKING
 
 import pygame
 
-from scripts.world_elements.camera import Camera
 from scripts.core import systems
+from scripts.world_elements.camera import Camera
 
 if TYPE_CHECKING:
     from scripts.core.definitions import PointLike
@@ -98,7 +98,6 @@ class WorldView:
 
         systems.draw_entities(surface, shift=offset)
 
-
         # # organize entities for layered rendering
         # entity_list = []
         # for unit in units:
@@ -116,7 +115,6 @@ class WorldView:
 
                 if unit.is_selected:
                     unit.draw_border(surface, offset)
-
 
     def _draw_path_debug(self, surface: pygame.Surface):
         """

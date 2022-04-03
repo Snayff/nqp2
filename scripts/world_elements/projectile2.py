@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import logging
 import math
-
 from typing import TYPE_CHECKING
 
 import pygame
@@ -13,20 +12,18 @@ from scripts.core.components import Allegiance, DamageReceived, Position
 from scripts.core.utility import angle_to
 
 if TYPE_CHECKING:
-    from typing import List, Optional, Tuple, Union, Dict
-    from scripts.core.game import Game
+    from typing import Dict, List, Optional, Tuple, Union
+
     from snecs.typedefs import EntityID
+
+    from scripts.core.game import Game
 
 __all__ = ["Projectile2"]
 
 
 class Projectile2:
     def __init__(
-            self, game: Game,
-            owner: EntityID,
-            target: EntityID,
-            projectile_data: Dict[str, Union[Image, int]],
-            damage: int
+        self, game: Game, owner: EntityID, target: EntityID, projectile_data: Dict[str, Union[Image, int]], damage: int
     ):
         self._game: Game = game
         self.owner: EntityID = owner

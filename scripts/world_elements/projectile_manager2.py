@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import logging
-
 from typing import TYPE_CHECKING
 
 import pygame
@@ -10,9 +9,11 @@ from scripts.core.base_classes.image import Image
 from scripts.world_elements.projectile2 import Projectile2
 
 if TYPE_CHECKING:
-    from typing import List, Optional, Tuple, Union, Dict
-    from scripts.core.game import Game
+    from typing import Dict, List, Optional, Tuple, Union
+
     from snecs.typedefs import EntityID
+
+    from scripts.core.game import Game
 
 __all__ = ["ProjectileManager2"]
 
@@ -23,11 +24,7 @@ class ProjectileManager2:
         self.projectiles: List[Projectile2] = []
 
     def add_projectile(
-            self,
-            owner: EntityID,
-            target: EntityID,
-            projectile_data: Dict[str, Union[Image, int]],
-            damage: int
+        self, owner: EntityID, target: EntityID, projectile_data: Dict[str, Union[Image, int]], damage: int
     ):
         self.projectiles.append(Projectile2(self._game, owner, target, projectile_data, damage))
 
@@ -40,5 +37,3 @@ class ProjectileManager2:
     def draw(self, surf, offset: pygame.Vector2):
         for projectile in self.projectiles:
             projectile.draw(surf, offset)
-
-

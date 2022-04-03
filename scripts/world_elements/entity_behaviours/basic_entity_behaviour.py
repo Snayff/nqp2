@@ -1,19 +1,19 @@
 from __future__ import annotations
 
 import logging
-
 from typing import TYPE_CHECKING
 
 import snecs
 from snecs.typedefs import EntityID
 
-from .entity_behaviour import EntityBehaviour
-from ..unit2 import Unit2
-from ...core.components import IsReadyToAttack, Position, Stats, Allegiance
+from ...core.components import Allegiance, IsReadyToAttack, Position, Stats
 from ...core.utility import distance_to
+from ..unit2 import Unit2
+from .entity_behaviour import EntityBehaviour
 
 if TYPE_CHECKING:
-    from typing import List, Optional, Tuple, Union, Dict
+    from typing import Dict, List, Optional, Tuple, Union
+
     from scripts.core.game import Game
 
 
@@ -41,9 +41,7 @@ class BasicEntityBehaviour(EntityBehaviour):
             self.update_target()
 
         if self.target_entity:
-            if (self.target_entity not in self._unit.behaviour.valid_targets) or (
-                    not self.target_entity.alive
-            ):
+            if (self.target_entity not in self._unit.behaviour.valid_targets) or (not self.target_entity.alive):
                 self.update_target()
 
             self.determine_next_action()
@@ -65,9 +63,7 @@ class BasicEntityBehaviour(EntityBehaviour):
         self.target_position = target_pos.pos
 
         # check distance to target
-        if (
-            stats.range.value + stats.size.value + target_stats.size.value < distance_to(pos.pos, target_pos.pos)
-            ) or (
+        if (stats.range.value + stats.size.value + target_stats.size.value < distance_to(pos.pos, target_pos.pos)) or (
             self._unit.behaviour.check_visibility and not self.visibility_line
         ):
             self.state = self.movement_mode
@@ -108,8 +104,9 @@ class BasicEntityBehaviour(EntityBehaviour):
                         target_stats = snecs.entity_component(entity, Stats)
 
                         # check if in range
-                        if stats.range.value + stats.size.value + target_stats.size.value < distance_to(pos.pos,
-                                                                                                target_pos.pos):
+                        if stats.range.value + stats.size.value + target_stats.size.value < distance_to(
+                            pos.pos, target_pos.pos
+                        ):
 
                             # check target is visible
                             if self._game.world.model.terrain.sight_line(target_pos.pos, pos.pos):
@@ -126,6 +123,4 @@ class BasicEntityBehaviour(EntityBehaviour):
                 self.target_position = list(self._unit.behaviour.retreat_target)
             if self.target_position:
                 pos = snecs.entity_component(self._entity, Position)
-                self.current_path = self._game.world.model.terrain.pathfinder.px_route(
-                    pos.pos, self.target_position
-                )
+                self.current_path = self._game.world.model.terrain.pathfinder.px_route(pos.pos, self.target_position)

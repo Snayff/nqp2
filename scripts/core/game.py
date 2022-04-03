@@ -5,13 +5,13 @@ from typing import TYPE_CHECKING
 
 import pygame
 
+from scripts.core.audio import Audio
 from scripts.core.base_classes.scene import Scene
 from scripts.core.constants import GameState, SceneType
 from scripts.core.data import Data
 from scripts.core.debug import Debugger, Timer
 from scripts.core.input import Input
 from scripts.core.rng import RNG
-from scripts.core.audio import Audio
 from scripts.core.visual import Visual
 from scripts.core.window import Window
 
@@ -29,6 +29,8 @@ class Game:
         with Timer("Game: initialised"):
             # imports here to avoid circular references since they're core and
             # controllers require ``Game`` imports for typing.
+            # load modules
+            from scripts.core import components, queries, systems
             from scripts.core.assets import Assets
             from scripts.core.memory import Memory
             from scripts.scenes.gallery.scene import GalleryScene
@@ -37,9 +39,6 @@ class Game:
             from scripts.scenes.unit_data.scene import UnitDataScene
             from scripts.scenes.view_troupe.scene import ViewTroupeScene
             from scripts.scenes.world.scene import WorldScene
-
-            # load modules
-            from scripts.core import components, systems, queries
 
             # init libraries
             pygame.init()

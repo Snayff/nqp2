@@ -6,9 +6,9 @@ from typing import TYPE_CHECKING
 
 from scripts.core.base_classes.scene import Scene
 from scripts.core.constants import PostCombatState, RewardType, SceneType
+from scripts.scenes.post_combat.ui import PostCombatUI
 from scripts.world_elements.troupe import Troupe
 from scripts.world_elements.unit import Unit
-from scripts.scenes.post_combat.ui import PostCombatUI
 
 if TYPE_CHECKING:
     from typing import Optional

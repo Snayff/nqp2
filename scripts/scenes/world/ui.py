@@ -21,11 +21,11 @@ from scripts.core.constants import (
     WindowType,
     WorldState,
 )
-from scripts.world_elements.unit_grid import UnitGrid
-from scripts.world_elements.world_view import WorldView
 from scripts.ui_elements.generic.ui_frame import UIFrame
 from scripts.ui_elements.generic.ui_panel import UIPanel
 from scripts.ui_elements.generic.ui_window import UIWindow
+from scripts.world_elements.unit_grid import UnitGrid
+from scripts.world_elements.world_view import WorldView
 
 if TYPE_CHECKING:
     from typing import Optional

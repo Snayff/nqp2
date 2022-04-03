@@ -3,7 +3,6 @@ from __future__ import annotations
 import logging
 import random
 from abc import ABC
-
 from typing import TYPE_CHECKING
 
 import snecs
@@ -13,10 +12,12 @@ from scripts.core.constants import TILE_SIZE
 from scripts.core.utility import distance_to
 
 if TYPE_CHECKING:
-    from typing import List, Optional, Tuple, Union, Dict
-    from scripts.world_elements.unit2 import Unit2
+    from typing import Dict, List, Optional, Tuple, Union
+
     from snecs.typedefs import EntityID
+
     from scripts.core.game import Game
+    from scripts.world_elements.unit2 import Unit2
 
 __all__ = ["UnitBehaviour"]
 
@@ -26,7 +27,6 @@ RETREAT_AMT = 16
 
 
 class UnitBehaviour:
-
     def __init__(self, game: Game, unit: Unit2):
         self._game = game
         self.unit = unit

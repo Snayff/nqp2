@@ -11,8 +11,8 @@ if TYPE_CHECKING:
     from typing import Any, Dict, List, Optional, Tuple, Union
 
     from scripts.core.game import Game
-    from scripts.world_elements.unit import Unit
     from scripts.scenes.world.scene import WorldScene
+    from scripts.world_elements.unit import Unit
 
 __all__ = ["TrainingController"]
 

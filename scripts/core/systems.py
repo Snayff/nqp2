@@ -3,21 +3,30 @@ from __future__ import annotations
 import logging
 import math
 import random
-
 from typing import TYPE_CHECKING
 
 import pygame
 import snecs
 
 from scripts.core import queries
-from scripts.core.definitions import PointLike
-from scripts.core.components import AI, Aesthetic, Allegiance, DamageReceived, IsDead, IsReadyToAttack, Position, \
-    RangedAttack, Stats
+from scripts.core.components import (
+    Aesthetic,
+    AI,
+    Allegiance,
+    DamageReceived,
+    IsDead,
+    IsReadyToAttack,
+    Position,
+    RangedAttack,
+    Stats,
+)
 from scripts.core.constants import EntityFacing, PUSH_FORCE, TILE_SIZE, WEIGHT_SCALE
+from scripts.core.definitions import PointLike
 from scripts.core.utility import angle_to, distance_to, get_direction
 
 if TYPE_CHECKING:
-    from typing import List, Optional, Tuple, Union, Dict
+    from typing import Dict, List, Optional, Tuple, Union
+
     from scripts.core.game import Game
 
 __all__ = ["draw_entities", "apply_damage", "process_death"]
@@ -39,7 +48,8 @@ def draw_entities(surface: pygame.Surface, shift: Tuple[int, int] = (0, 0)):
             pygame.transform.flip(animation.surface, flip, False),
             (
                 position.x + shift[0] - animation.width // 2,  # TODO - why minus width and height?
-                position.y + shift[1] - animation.height)
+                position.y + shift[1] - animation.height,
+            ),
         )
 
 
@@ -104,11 +114,7 @@ def process_movement(delta_time: float, game: Game):
 
 
 def _walk_path(
-        delta_time: float,
-        position: Position,
-        stats: Stats,
-        ai: AI,
-        game: Game
+    delta_time: float, position: Position, stats: Stats, ai: AI, game: Game
 ) -> List[Tuple[int, int], Tuple[int, int]]:
     """
     Have entity walk along their path.
@@ -195,9 +201,7 @@ def process_attack(game: Game):
     """
     Execute any outstanding attacks.
     """
-    for entity, (
-            attack_flag, position, stats, ai, aesthetic
-    ) in queries.attack_position_stats_ai_aesthetic_not_dead:
+    for entity, (attack_flag, position, stats, ai, aesthetic) in queries.attack_position_stats_ai_aesthetic_not_dead:
         add_projectile = game.world.model.projectiles.add_projectile
 
         # check we have someone to target

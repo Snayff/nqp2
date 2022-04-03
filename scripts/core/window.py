@@ -36,7 +36,6 @@ class Window:
             self.delta_time = 0.1
             self.frame_start = time.time()
 
-
     def refresh(self):
         """
         Clear screen.

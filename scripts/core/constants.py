@@ -180,4 +180,3 @@ class WindowType(IntEnum):
 class EntityFacing(IntEnum):
     LEFT = auto()
     RIGHT = auto()
-

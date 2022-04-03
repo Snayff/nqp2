@@ -10,8 +10,9 @@ import snecs
 if TYPE_CHECKING:
     from typing import Dict, List, Tuple
 
-    from scripts.core.game import Game
     from snecs.typedefs import EntityID
+
+    from scripts.core.game import Game
 
 __all__ = ["Unit2"]
 
@@ -34,13 +35,13 @@ class Unit2:
 
         self.entity_spread_max = unit_data["entity_spread"] if "entity_spread" in unit_data else 48
         self.count: int = unit_data["count"] + base_values["count"]  # number of entities spawned
-        self.gold_cost: int = unit_data["gold_cost" \
-                                        ""] + base_values["gold_cost"]
+        self.gold_cost: int = unit_data["gold_cost" ""] + base_values["gold_cost"]
         self._banner_image = self._game.visual.get_image("banner")
         self.is_ranged: bool = True if unit_data["ammo"] > 0 else False
         self.default_behaviour: str = unit_data["default_behaviour"]  # load after other unit attrs
-        #self.behaviour = self._game.data.behaviours.unit_behaviours[self.default_behaviour](self)
+        # self.behaviour = self._game.data.behaviours.unit_behaviours[self.default_behaviour](self)
         from scripts.world_elements.unit_behaviours.unit_behaviour import UnitBehaviour  # prevent circular import
+
         self.behaviour: UnitBehaviour = UnitBehaviour(self._game, self)
 
         self.injuries: int = 0
@@ -138,13 +139,12 @@ class Unit2:
             ),
         )
 
-
     def spawn_entities(self):
         """
         Spawn the Unit's Entities. Deletes any existing Entities first.
         """
         # prevent circular import error
-        from scripts.core.components import Aesthetic, AI, Position, Resources, Stats, Allegiance, RangedAttack
+        from scripts.core.components import Aesthetic, AI, Allegiance, Position, RangedAttack, Resources, Stats
 
         self.delete_entities()
 
@@ -169,7 +169,10 @@ class Unit2:
             self.entities.append(entity)
 
             # add components that need ref to entity
-            from scripts.world_elements.entity_behaviours.basic_entity_behaviour import BasicEntityBehaviour  # prevent circular import
+            from scripts.world_elements.entity_behaviours.basic_entity_behaviour import (  # prevent circular import
+                BasicEntityBehaviour,
+            )
+
             snecs.add_component(entity, AI(BasicEntityBehaviour(self._game, self, entity)))
 
         self._align_entity_positions_to_unit()
@@ -194,7 +197,6 @@ class Unit2:
         """
         from scripts.core.components import IsDead, Resources  # prevent circular import
 
-
         health = self.health
         for entity in self.entities:
             # heal to full
@@ -206,7 +208,6 @@ class Unit2:
                 snecs.remove_component(entity, IsDead)
 
         self._align_entity_positions_to_unit()
-
 
     def update_position(self):
         """
@@ -239,12 +240,11 @@ class Unit2:
 
         for entity in self.entities:
             # randomise position in allowed area
-            scatter_x = random.randint(- max_spread, max_spread)
-            scatter_y = random.randint(- max_spread, max_spread)
+            scatter_x = random.randint(-max_spread, max_spread)
+            scatter_y = random.randint(-max_spread, max_spread)
 
             position = snecs.entity_component(entity, Position)
             position.pos = (unit_x + scatter_x, unit_y + scatter_y)
-
 
     def generate_border_surface(self):
         """
@@ -258,6 +258,7 @@ class Unit2:
 
             # get entity positions
             from scripts.core.components import Position  # prevent circular import
+
             all_positions = []
             for entity in self.entities:
                 position = snecs.entity_component(entity, Position)
@@ -304,6 +305,3 @@ class Unit2:
             pygame.draw.lines(self.border_surface_outline_black, (0, 0, 1), False, outline)
             pygame.draw.polygon(self.border_surface, (0, 0, 255), outline)
             self.border_surface.set_alpha(80)
-
-
-

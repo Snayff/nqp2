@@ -3,14 +3,15 @@ from __future__ import annotations
 import logging
 import random
 from abc import ABC, abstractmethod
-
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing import List, Optional, Tuple, Union, Dict
+    from typing import Dict, List, Optional, Tuple, Union
+
+    from snecs.typedefs import EntityID
+
     from scripts.core.game import Game
     from scripts.world_elements.unit2 import Unit2
-    from snecs.typedefs import EntityID
 
 __all__ = ["EntityBehaviour"]
 
@@ -52,5 +53,3 @@ class EntityBehaviour(ABC):
             self.target_entity = random.choice(self._unit.behaviour.valid_targets)
         else:
             self.target_entity = None
-
-

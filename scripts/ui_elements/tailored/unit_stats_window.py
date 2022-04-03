@@ -6,9 +6,9 @@ import pygame
 from pygame import SRCALPHA
 
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, GAP_SIZE, StatModifiedStatus, WindowType
-from scripts.world_elements.unit import Unit
 from scripts.ui_elements.generic.ui_frame import UIFrame
 from scripts.ui_elements.generic.ui_window import UIWindow
+from scripts.world_elements.unit import Unit
 
 if TYPE_CHECKING:
     from typing import Tuple
