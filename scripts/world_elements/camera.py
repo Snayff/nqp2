@@ -2,7 +2,10 @@ import weakref
 from typing import Any
 
 import pygame
+import snecs
+from snecs.typedefs import EntityID
 
+from scripts.core.components import Position
 from scripts.core.definitions import PointLike
 
 
@@ -46,7 +49,7 @@ class Camera:
         """
         self._target_position = pygame.Vector2(pos)
 
-    def follow(self, entity: Any):
+    def follow(self, entity: EntityID):
         """
         Smoothly track a game entity
 

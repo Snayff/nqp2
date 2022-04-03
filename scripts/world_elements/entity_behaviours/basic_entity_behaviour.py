@@ -108,7 +108,8 @@ class BasicEntityBehaviour(EntityBehaviour):
                         target_stats = snecs.entity_component(entity, Stats)
 
                         # check if in range
-                        if stats.range + stats.size + target_stats.size < distance_to(pos.pos, target_pos.pos):
+                        if stats.range.value + stats.size.value + target_stats.size.value < distance_to(pos.pos,
+                                                                                                target_pos.pos):
 
                             # check target is visible
                             if self._game.world.model.terrain.sight_line(target_pos.pos, pos.pos):
@@ -120,11 +121,11 @@ class BasicEntityBehaviour(EntityBehaviour):
 
         if self.state == "path" or self.state == "path_fast":
             if self._unit.behaviour.regrouping:
-                self.target_position = self._unit.behaviour.leader.pos.copy()
+                self.target_position = self._unit.behaviour.leader.pos
             if self._unit.behaviour.retreating:
                 self.target_position = list(self._unit.behaviour.retreat_target)
             if self.target_position:
                 pos = snecs.entity_component(self._entity, Position)
                 self.current_path = self._game.world.model.terrain.pathfinder.px_route(
-                    pos.pos, self.target_position.copy()
+                    pos.pos, self.target_position
                 )

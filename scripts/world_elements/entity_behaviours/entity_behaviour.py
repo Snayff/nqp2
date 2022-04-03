@@ -31,6 +31,7 @@ class EntityBehaviour(ABC):
         self.target_position = None
         self.visibility_line: bool = False
         self.attack_timer: float = 0
+        self.is_active: bool = True
 
         # update flags
         self.new_move_speed: Optional[float] = None

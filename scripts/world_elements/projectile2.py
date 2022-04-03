@@ -41,7 +41,6 @@ class Projectile2:
         self.pos: Tuple[int, int] = (position.x, position.y - 5)  # move base firing position towards center of entity
         self.is_active: bool = True
 
-
     def update(self, delta_time: float):
         remaining_dis = self.speed * delta_time
         while remaining_dis > 0:

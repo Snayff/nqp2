@@ -5,17 +5,15 @@ import logging
 from typing import TYPE_CHECKING
 
 from snecs import RegisteredComponent
-from snecs.typedefs import EntityID
-
 from scripts.core.base_classes.animation import Animation
 from scripts.core.base_classes.image import Image
 from scripts.core.constants import EntityFacing
-from scripts.world_elements.entity_behaviours.entity_behaviour import EntityBehaviour
 from scripts.world_elements.stat import FloatStat, IntStat
 from scripts.world_elements.unit2 import Unit2
 
 if TYPE_CHECKING:
     from typing import List, Optional, Tuple, Union, Dict
+    from scripts.world_elements.entity_behaviours.basic_entity_behaviour import BasicEntityBehaviour
 
 __all__ = ["Position", "Aesthetic", "Tracked", "Resources", "Stats", "Allegiance", "AI", "RangedAttack",
     "DamageReceived", "IsDead", "IsReadyToAttack"]
@@ -149,8 +147,8 @@ class AI(RegisteredComponent):
     """
     An Entity's AI. This should handle the outputs of AI decisions and actions.
     """
-    def __init__(self, behaviour: EntityBehaviour):
-        self.behaviour: EntityBehaviour = behaviour
+    def __init__(self, behaviour: BasicEntityBehaviour):
+        self.behaviour: BasicEntityBehaviour = behaviour
 
     def serialize(self):
         # TODO - add serialisation

@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 import snecs
 
 from scripts.core.base_classes.controller import Controller
-from scripts.core.components import Position
+from scripts.core.components import AI, Position
 from scripts.core.constants import ChooseRoomState, WorldState
 from scripts.core.debug import Timer
 
@@ -104,16 +104,18 @@ class ChooseRoomController(Controller):
             raise Exception("begin_move_to_new_room: Not in expected state.")
 
     def _process_moving_to_new_room(self):
-        # move entities
-        for entity in self._parent_scene.model.get_all_entities():
-            # cannot use move here because it is very buggy when entities are touching
-            # TODO - we should just set the target position and let the move system handle it
-            position = snecs.entity_component(entity, Position)
-            position.x += 5
 
         # TODO: find better way to calculate this value
         final = self._game.window.base_resolution[0] + 320 + 320
         terrain_offset = self._game.window.base_resolution[0] + 320
+
+        # move entities
+        # TODO - as only player entities should be ablove we can use a query
+        for entity in self._parent_scene.model.get_all_entities():
+            position = snecs.entity_component(entity, Position)
+            behaviour = snecs.entity_component(entity, AI).behaviour
+            behaviour.target_position = (final, position.y)
+            position.x += 5
 
         # this is a giant hack because the game only supports
         # "one room" at a time, and everything needs to be in the
@@ -127,6 +129,7 @@ class ChooseRoomController(Controller):
                 # cannot use move here because it is very buggy when entities are touching
                 position = snecs.entity_component(entity, Position)
                 position.x -= terrain_offset
+
             # TODO: decouple this
             self._parent_scene.ui._worldview.clamp_primary_terrain = True
             self._parent_scene.ui._worldview.camera.move(-terrain_offset - 148, 0)

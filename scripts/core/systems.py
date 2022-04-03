@@ -85,7 +85,10 @@ def process_movement(delta_time: float, game: Game):
             continue
         if len(ai.behaviour.current_path) == 0:
             continue
-
+        if ai.behaviour.is_active == False:
+            continue
+        if ai.behaviour.state not in ["path", "path_fast"]:
+            continue
 
         move_result = _walk_path(delta_time, position, stats, ai, game)
 
