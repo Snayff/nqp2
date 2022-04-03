@@ -25,7 +25,7 @@ __all__ = ["Basic"]
 
 class Basic(EntityBehaviour):
     def __init__(self, game: Game, unit: Unit2, entity: EntityID):
-        super().__init__(entity, unit)
+        super().__init__(game, unit, entity)
 
     def update(self, delta_time: float):
         self.last_path_update += delta_time
@@ -78,7 +78,7 @@ class Basic(EntityBehaviour):
             self.state = "idle"
 
         # attack intent
-        if (not self._unit.behaviour.check_visibility) or self.visibility_line:
+        if ((not self._unit.behaviour.check_visibility) or self.visibility_line) and self.attack_timer <= 0:
             self.add_attack_flag()
 
     def update_path(self):

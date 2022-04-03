@@ -7,7 +7,8 @@ import pygame
 import snecs
 from snecs import World
 
-from scripts.core import PointLike, systems
+from scripts.core import systems
+from scripts.core.definitions import PointLike
 from scripts.core.constants import TILE_SIZE, WorldState
 from scripts.core.debug import Timer
 from scripts.world_elements.commander import Commander

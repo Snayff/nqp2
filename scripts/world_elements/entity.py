@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 
 import pygame
 
-from scripts.core import PointLike
+from scripts.core.definitions import PointLike
 from scripts.core.constants import DEFENSE_SCALE, PUSH_FORCE, TILE_SIZE, WEIGHT_SCALE
 from scripts.core.game import Game
 from scripts.core.utility import offset

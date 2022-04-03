@@ -11,6 +11,7 @@ from scripts.core.base_classes.animation import Animation
 from scripts.core.base_classes.image import Image
 from scripts.core.constants import EntityFacing
 from scripts.world_elements.entity_behaviours.behaviour import Behaviour
+from scripts.world_elements.entity_behaviours.entity_behaviour import EntityBehaviour
 from scripts.world_elements.stat import FloatStat, IntStat
 from scripts.world_elements.unit import Unit
 from scripts.world_elements.unit2 import Unit2
@@ -40,18 +41,18 @@ class Position(RegisteredComponent):
     def x(self) -> int:
         return self.pos[0]
 
+    @x.setter
+    def x(self, value: int):
+        self.pos = (value, self.pos[1])
+
     @property
     def y(self) -> int:
         return self.pos[1]
 
-    @property
-    def target_x(self) -> int:
-        return self.target_pos[0]
+    @y.setter
+    def y(self, value: int):
+        self.pos = (self.pos[0], value)
 
-    @property
-    def target_y(self) -> int:
-        return self.target_pos[1]
-        
 
 class Aesthetic(RegisteredComponent):
     """
@@ -93,7 +94,7 @@ class Resources(RegisteredComponent):
     An Entity's resources, such as health. 
     """
     def __init__(self, health: int):
-        self.health: int = health
+        self.health: IntStat = IntStat(health)
 
     def serialize(self):
         # TODO - add serialisation
@@ -149,8 +150,8 @@ class AI(RegisteredComponent):
     """
     An Entity's AI. This should handle the outputs of AI decisions and actions.
     """
-    def __init__(self, behaviour: Behaviour):
-        self.behaviour: Behaviour = behaviour
+    def __init__(self, behaviour: EntityBehaviour):
+        self.behaviour: EntityBehaviour = behaviour
         self.attack_timer: float = 0
 
     def serialize(self):

@@ -7,7 +7,8 @@ import pygame
 from scripts.world_elements.camera import Camera
 
 if TYPE_CHECKING:
-    from scripts.core import PointLike, systems
+    from scripts.core import systems
+    from scripts.core.definitions import PointLike
     from scripts.core.game import Game
     from scripts.world_elements.world_model import WorldModel
 

@@ -3,7 +3,7 @@ from typing import Any
 
 import pygame
 
-from scripts.core import PointLike
+from scripts.core.definitions import PointLike
 
 
 class Camera:

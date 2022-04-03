@@ -46,6 +46,8 @@ class IntStat(Stat):
     def __init__(self, base_value: int, current_value: int = None):
         super().__init__(base_value, current_value)
 
+    # methods readded to specify types
+
     @property
     def value(self) -> int:
         return self._current_value
@@ -55,15 +57,14 @@ class IntStat(Stat):
         self._current_value = value
 
     def set_base_value(self, value: int):
-        """
-        Set the base or original value for the Stat.
-        """
         self._base_value = value
 
 
 class FloatStat(Stat):
     def __init__(self, base_value: float, current_value: float = None):
         super().__init__(base_value, current_value)
+
+    # methods readded to specify types
 
     @property
     def value(self) -> float:
@@ -74,8 +75,5 @@ class FloatStat(Stat):
         self._current_value = value
 
     def set_base_value(self, value: float):
-        """
-        Set the base or original value for the Stat.
-        """
         self._base_value = value
 
