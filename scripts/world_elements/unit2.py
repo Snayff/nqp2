@@ -144,7 +144,7 @@ class Unit2:
         Spawn the Unit's Entities. Deletes any existing Entities first.
         """
         # prevent circular import error
-        from scripts.core.components import Aesthetic, AI, Position, Resources, Stats, Allegiance, Projectiles
+        from scripts.core.components import Aesthetic, AI, Position, Resources, Stats, Allegiance, RangedAttack
 
         self.delete_entities()
 
@@ -162,7 +162,7 @@ class Unit2:
             if self.uses_projectiles:
                 img = self._game.visual.get_image(self.projectile_data["img"])
                 speed = self.projectile_data
-                components.append(Projectiles(self._ammo, img, speed))
+                components.append(RangedAttack(self._ammo, img, speed))
 
             # create entity
             entity = snecs.new_entity(components)

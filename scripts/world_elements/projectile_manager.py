@@ -11,6 +11,7 @@ class ProjectileManager:
         self.projectiles: List[Projectile] = []
 
     def add_projectile(self, owner, target):
+        # TODO - handle entity id
         self.projectiles.append(Projectile(self._game, owner, target))
 
     def update(self, dt):

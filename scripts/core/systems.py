@@ -11,7 +11,7 @@ from snecs.typedefs import EntityID
 
 from scripts.core import queries
 from scripts.core.definitions import PointLike
-from scripts.core.components import AI, Aesthetic, DamageReceived, IsDead, Position, Projectiles, Stats
+from scripts.core.components import AI, Aesthetic, Allegiance, DamageReceived, IsDead, Position, RangedAttack, Stats
 from scripts.core.constants import EntityFacing, TILE_SIZE
 from scripts.core.utility import angle_to, distance_to
 
@@ -47,13 +47,13 @@ def apply_damage():
     Consume damage components and apply their value to the Entity.
     """
     for entity, (damage, resources) in queries.damage_resources:
-        resources.health -= damage
+        resources.health.value -= damage
 
         # remove damage
         snecs.remove_component(entity, DamageReceived)
 
         # check if dead
-        if resources.health <= 0:
+        if resources.health.value <= 0:
             snecs.add_component(entity, IsDead())
 
 
@@ -182,33 +182,46 @@ def process_attack(game: Game):
     for entity, (attack_flag, position, stats, ai) in queries.attack_position_stats_ai_not_dead:
         add_projectile = game.world.model.projectiles.add_projectile
 
-        if snecs.has_component(entity, Projectiles)
-        if (not self.use_ammo) or (self.ammo > 0):
-            if self.dis(entity) - (entity.size + self.size) < self.range:
-                self.is_attacking = True
-                if self.attack_timer <= 0:
-                    self.attack_timer = 1 / self.attack_speed
+        # check we have someone to target
+        if ai.behaviour.target_entity is None:
+            continue
+
+        # check that someone has the details we need
+        target_entity = ai.behaviour.target_entity
+        if not snecs.has_component(target_entity, Stats):
+            continue
+
+        stats = snecs.entity_component(entity, Stats)
+        target_pos = snecs.entity_component(target_entity, Position)
+        target_stats = snecs.entity_component(target_entity, Stats)
+
+        # check in range
+        in_range = distance_to(position.pos, target_pos.pos) - (target_stats.size.value + stats.size.value)
+        if in_range < stats.range.value:
+
+            # handle ranged attack
+            if snecs.has_component(entity, RangedAttack):
+                ranged = snecs.entity_component(entity, RangedAttack)
+                ranged.ammo.value -= 1
+                add_projectile(entity, target_entity)
+
+                # switch to melee when out of ammo
+                if ranged.ammo.value <= 0:
+                    stats.range.value = 0
+
+            else:
 
                 # increase damage if in godmode
-                if self.team == "player" and "godmode" in self._game.memory.flags:
-                    mod = 9999
-                else:
-                    mod = 0
+                mod = 0
+                if "godmode" in game.memory.flags:
+                    if snecs.has_component(entity, Allegiance):
+                        if snecs.entity_component(entity, Allegiance).team == "player":
+                            mod = 9999
 
-                if self.use_ammo:
-                    self.ammo -= 1
-                    add_projectile(self, entity)
-                    if self.ammo <= 0:
-                        # switch to melee when out of ammo
-                        self.use_ammo = False
-                        self.range = 0
+                # add damage component
+                snecs.add_component(target_entity, DamageReceived(stats.attack.value + mod))
 
-                else:
-                    dmg_status = entity.deal_damage(self.attack + mod, self)
-                    if not dmg_status[0]:
-                        self._parent_unit.kills += 1
-                    self._parent_unit.damage_dealt += dmg_status[1]
-
-                self.attack_timer = 1 / self.attack_speed
+            # reset attack timer
+            ai.behaviour.attack_timer = 1 / stats.attack_speed.value
 
 

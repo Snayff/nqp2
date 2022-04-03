@@ -56,7 +56,7 @@ class Basic(EntityBehaviour):
         """
         Add IsReadyToAttack component to Entity
         """
-        snecs.add_component(self._entity, IsReadyToAttack(self.target_entity))
+        snecs.add_component(self._entity, IsReadyToAttack())
 
     def determine_next_action(self):
         """

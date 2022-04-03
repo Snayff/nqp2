@@ -19,7 +19,7 @@ from scripts.world_elements.unit2 import Unit2
 if TYPE_CHECKING:
     from typing import List, Optional, Tuple, Union, Dict
 
-__all__ = ["Position", "Aesthetic", "Tracked", "Resources", "Stats", "Allegiance", "AI", "Projectiles",
+__all__ = ["Position", "Aesthetic", "Tracked", "Resources", "Stats", "Allegiance", "AI", "RangedAttack",
     "DamageReceived", "IsDead", "IsReadyToAttack"]
 
 
@@ -152,7 +152,6 @@ class AI(RegisteredComponent):
     """
     def __init__(self, behaviour: EntityBehaviour):
         self.behaviour: EntityBehaviour = behaviour
-        self.attack_timer: float = 0
 
     def serialize(self):
         # TODO - add serialisation
@@ -163,12 +162,12 @@ class AI(RegisteredComponent):
         return AI()
 
 
-class Projectiles(RegisteredComponent):
+class RangedAttack(RegisteredComponent):
     """
     An Entity's ability to use projectiles.
     """
     def __init__(self, ammo: int, projectile_sprite: Image, projectile_speed: int):
-        self.ammo: int = ammo
+        self.ammo: IntStat = IntStat(ammo)
         self.projectile_sprite: Image = projectile_sprite
         self.projectile_speed: int = projectile_speed
 
@@ -213,8 +212,6 @@ class IsReadyToAttack(RegisteredComponent):
     """
     Flag to indicate if the Entity is ready to attack.
     """
-    def __init__(self, target_entity: EntityID):
-        self.target_entity: EntityID = target_entity
-
+    # doesnt need init as has no details
     # doesnt need serialising as will never be about to attack when saving.
 
