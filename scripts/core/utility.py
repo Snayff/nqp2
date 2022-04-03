@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 _V = TypeVar("_V", int, float)  # to represent where we don't know which type is being used
 
 __all__ = ["swap_colour", "clip", "offset", "lerp", "clamp", "itr", "scene_to_scene_type", "next_number_in_loop",
-    "grid_up", "grid_right", "grid_down", "grid_left"]
+    "grid_up", "grid_right", "grid_down", "grid_left", "distance_to", "angle_to"]
 
 
 def swap_colour(img, old_c, new_c):

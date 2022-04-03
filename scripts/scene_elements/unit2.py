@@ -12,6 +12,7 @@ from scripts.core.components import IsDead, Position, Resources
 from scripts.core.constants import StatModifiedStatus
 from scripts.core.utility import itr
 from scripts.scene_elements.entity import Entity
+from scripts.scene_elements.entity_behaviours.base import Base
 
 if TYPE_CHECKING:
     from typing import Dict, List, Tuple
@@ -38,6 +39,9 @@ class Unit2:
         self.is_selected: bool = False
         self.entities: List[EntityID] = []
 
+
+        self.default_behaviour: str = unit_data["default_behaviour"]
+        self.behaviour = self._game.data.behaviours.unit_behaviours[self.default_behaviour](self)
         self.count: int = unit_data["count"] + base_values["count"]  # number of entities spawned
         self.gold_cost: int = unit_data["gold_cost"] + base_values["gold_cost"]
         self.entity_spread_max = unit_data["entity_spread"] if "entity_spread" in unit_data else 48
@@ -56,7 +60,6 @@ class Unit2:
         # stats that dont use base values
         self.type: str = unit_data["type"]
         self.tier: int = unit_data["tier"]
-        self.default_behaviour: str = unit_data["default_behaviour"]
 
         # stats that include base values
         self.health: int = unit_data["health"] + base_values["health"]
@@ -141,7 +144,7 @@ class Unit2:
         Spawn the Unit's Entities. Deletes any existing Entities first.
         """
         # prevent circular import error
-        from scripts.core.components import Aesthetic, Behaviour, Position, Resources, Stats, Team, Projectiles
+        from scripts.core.components import Aesthetic, AI, Position, Resources, Stats, Allegiance, Projectiles
 
         self.delete_entities()
 
@@ -152,8 +155,7 @@ class Unit2:
                 Aesthetic(self._game.visual.create_animation(self.type, "idle")),
                 Resources(self.health),
                 Stats(self),
-                Team(self.team),
-                Behaviour(),
+                Allegiance(self.team),
             ]
 
             # conditional components
@@ -163,7 +165,11 @@ class Unit2:
                 components.append(Projectiles(self._ammo, img, speed))
 
             # create entity
-            self.entities.append(snecs.new_entity(components))
+            entity = snecs.new_entity(components)
+            self.entities.append(entity)
+
+            # add components that need ref to entity
+            snecs.add_component(entity, AI(Base(entity)))
 
         self._align_entity_positions_to_unit()
 

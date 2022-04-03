@@ -8,6 +8,7 @@ PATH_UPDATE_FREQ = 0.4
 
 
 class Base(Behaviour):
+
     def complete_init(self):
         # TODO - remove reliance on scenes
         self.current_path = None

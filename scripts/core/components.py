@@ -5,18 +5,20 @@ import logging
 from typing import TYPE_CHECKING
 
 from snecs import RegisteredComponent
+from snecs.typedefs import EntityID
 
 from scripts.core.base_classes.animation import Animation
 from scripts.core.base_classes.image import Image
 from scripts.core.constants import EntityFacing
+from scripts.scene_elements.entity_behaviours.behaviour import Behaviour
 from scripts.scene_elements.unit import Unit
 from scripts.scene_elements.unit2 import Unit2
 
 if TYPE_CHECKING:
     from typing import List, Optional, Tuple, Union, Dict
 
-__all__ = ["Position", "Aesthetic", "Tracked", "Resources", "Stats", "Team", "Behaviour", "Projectiles",
-    "DamageReceived", "IsDead"]
+__all__ = ["Position", "Aesthetic", "Tracked", "Resources", "Stats", "Allegiance", "AI", "Projectiles",
+    "DamageReceived", "IsDead", "IsReadyToAttack"]
 
 
 class Position(RegisteredComponent):
@@ -25,7 +27,6 @@ class Position(RegisteredComponent):
     """
     def __init__(self, pos: Tuple[int, int]):
         self.pos: Tuple[int, int] = pos
-        self.target_pos: Optional[Tuple[int, int]] = None  # where the entity is moving to
 
     def serialize(self):
         return self.pos
@@ -113,6 +114,7 @@ class Stats(RegisteredComponent):
         self.range: int = parent_unit.range
         self.attack_speed: float = parent_unit.attack_speed
         self.move_speed: int = parent_unit.move_speed
+        self.size: int = parent_unit.size
         self.weight: int = parent_unit.weight
 
     def serialize(self):
@@ -125,9 +127,9 @@ class Stats(RegisteredComponent):
         return Resources(*serialised)
 
     
-class Team(RegisteredComponent):
+class Allegiance(RegisteredComponent):
     """
-    An Entity's team. 
+    An Entity's allegiance.
     """
     def __init__(self, team: str):
         self.team: str = team
@@ -139,16 +141,15 @@ class Team(RegisteredComponent):
     @classmethod
     def deserialize(cls, *serialised):
         # TODO - add deserialisation
-        return Team(*serialised)
+        return Allegiance(*serialised)
 
 
-class Behaviour(RegisteredComponent):
+class AI(RegisteredComponent):
     """
-    An Entity's Intent, such as when they last attacked.
-
-    This should handle the outputs of AI decisions and actions.
+    An Entity's AI. This should handle the outputs of AI decisions and actions.
     """
-    def __init__(self):
+    def __init__(self, behaviour: Behaviour):
+        self.behaviour: Behaviour = behaviour
         self.attack_timer: float = 0
 
     def serialize(self):
@@ -157,7 +158,7 @@ class Behaviour(RegisteredComponent):
 
     @classmethod
     def deserialize(cls, *serialised):
-        return Behaviour()
+        return AI()
 
 
 class Projectiles(RegisteredComponent):
@@ -176,7 +177,7 @@ class Projectiles(RegisteredComponent):
     @classmethod
     def deserialize(cls, *serialised):
         # TODO - add deserialisation
-        return Team(*serialised)
+        return Allegiance(*serialised)
 
 
 class DamageReceived(RegisteredComponent):
@@ -193,7 +194,7 @@ class DamageReceived(RegisteredComponent):
     @classmethod
     def deserialize(cls, *serialised):
         # TODO - add deserialisation
-        return Team(*serialised)
+        return Allegiance(*serialised)
 
 
 class IsDead(RegisteredComponent):
@@ -206,5 +207,12 @@ class IsDead(RegisteredComponent):
     # doesnt need serialising as will never be dead when saving.
 
 
+class IsReadyToAttack(RegisteredComponent):
+    """
+    Flag to indicate if the Entity is ready to attack.
+    """
+    def __init__(self, target_entity: EntityID):
+        self.target_entity: EntityID = target_entity
 
+    # doesnt need serialising as will never be about to attack when saving.
 

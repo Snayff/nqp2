@@ -22,9 +22,19 @@ def draw_entities(surface: pygame.Surface, shift: Tuple[int, int] = (0, 0)):
     Draw all entities
     """
     for entity, (position, aesthetic) in queries.aesthetic_position:
-        # TODO - respect facing
+        if aesthetic.facing == EntityFacing.LEFT:
+            flip = True
+        else:
+            flip = False
 
-        surface.blit(aesthetic.surface, (position.x + shift[0], position.y + shift[1]))
+        animation = aesthetic.animation
+
+        surface.blit(
+            pygame.transform.flip(animation.surface, flip, False),
+            (
+                position.x + shift[0] - animation.width // 2,  # TODO - why minus width and height?
+                position.y + shift[1] - animation.height)
+        )
 
 
 def apply_damage():
@@ -46,9 +56,7 @@ def process_death():
     """
     Update Entity's sprites and intentions.
     """
-    for entity, (dead, aesthetic, position) in queries.dead_aesthetic_position:
-        # set target to current pos
-        position.target_pos = position.pos
+    for entity, (dead, aesthetic) in queries.dead_aesthetic:
 
         # update to dead sprite
         aesthetic.animation.set_current_frame_set_name("death")
@@ -72,6 +80,13 @@ def process_movement():
                 facing = EntityFacing.RIGHT
             aesthetic.facing = facing
 
+
+def process_ai(delta_time: float):
+    """
+    Update Entity ai.
+    """
+    for entity, (ai,) in queries.ai_not_dead:
+        ai.behaviour.process(delta_time)
 
 
 
