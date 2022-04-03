@@ -5,7 +5,7 @@ import math
 import random
 from typing import TYPE_CHECKING
 
-from scripts.scene_elements.particle import Particle
+from scripts.world_elements.particle import Particle
 
 if TYPE_CHECKING:
     from typing import Dict, List, Optional, Tuple, Union

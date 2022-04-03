@@ -8,8 +8,8 @@ from scripts.core.base_classes.controller import Controller
 from scripts.core.base_classes.image import Image
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, EventState
 from scripts.core.debug import Timer
-from scripts.scene_elements.troupe import Troupe
-from scripts.scene_elements.unit import Unit
+from scripts.world_elements.troupe import Troupe
+from scripts.world_elements.unit import Unit
 
 if TYPE_CHECKING:
     from typing import Any, Dict, List, Optional, Tuple, Union

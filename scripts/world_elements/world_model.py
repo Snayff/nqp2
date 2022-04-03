@@ -10,13 +10,13 @@ from snecs import World
 from scripts.core import PointLike, systems
 from scripts.core.constants import TILE_SIZE, WorldState
 from scripts.core.debug import Timer
-from scripts.scene_elements.commander import Commander
-from scripts.scene_elements.entity import Entity
-from scripts.scene_elements.particle_manager import ParticleManager
-from scripts.scene_elements.projectile_manager import ProjectileManager
-from scripts.scene_elements.terrain import Terrain
-from scripts.scene_elements.troupe import Troupe
-from scripts.scene_elements.unit import Unit
+from scripts.world_elements.commander import Commander
+from scripts.world_elements.entity import Entity
+from scripts.world_elements.particle_manager import ParticleManager
+from scripts.world_elements.projectile_manager import ProjectileManager
+from scripts.world_elements.terrain import Terrain
+from scripts.world_elements.troupe import Troupe
+from scripts.world_elements.unit import Unit
 
 if TYPE_CHECKING:
     from typing import Dict, List, Optional, Tuple, Union

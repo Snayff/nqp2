@@ -10,7 +10,7 @@ from scripts.core.game import Game
 from scripts.core.utility import offset
 
 if TYPE_CHECKING:
-    from scripts.scene_elements.unit import Unit
+    from scripts.world_elements.unit import Unit
 
 __all__ = ["Entity"]
 

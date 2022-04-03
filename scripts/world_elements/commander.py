@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import List, TYPE_CHECKING
 
-from scripts.scene_elements.item import create_item, Item
+from scripts.world_elements.item import create_item, Item
 
 if TYPE_CHECKING:
     from scripts.core.game import Game

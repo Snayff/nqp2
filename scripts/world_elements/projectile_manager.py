@@ -2,7 +2,7 @@ from typing import List
 
 import pygame
 
-from scripts.scene_elements.projectile import Projectile
+from scripts.world_elements.projectile import Projectile
 
 
 class ProjectileManager:

@@ -8,8 +8,8 @@ from typing import TYPE_CHECKING
 from scripts.core.base_classes.scene import Scene
 from scripts.core.constants import SceneType
 from scripts.core.debug import Timer
-from scripts.scene_elements.commander import Commander
-from scripts.scene_elements.troupe import Troupe
+from scripts.world_elements.commander import Commander
+from scripts.world_elements.troupe import Troupe
 from scripts.scenes.run_setup.ui import RunSetupUI
 
 if TYPE_CHECKING:

@@ -3,8 +3,8 @@ from __future__ import annotations
 import logging
 from typing import TYPE_CHECKING
 
-from scripts.scene_elements.entity import Entity
-from scripts.scene_elements.unit import Unit
+from scripts.world_elements.entity import Entity
+from scripts.world_elements.unit import Unit
 
 if TYPE_CHECKING:
     from typing import Dict, List

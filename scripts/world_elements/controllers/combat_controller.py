@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 from scripts.core.base_classes.controller import Controller
 from scripts.core.constants import CombatState, WorldState
 from scripts.core.debug import Timer
-from scripts.scene_elements.troupe import Troupe
+from scripts.world_elements.troupe import Troupe
 
 if TYPE_CHECKING:
     from typing import Any, Dict, List, Optional, Tuple, Union

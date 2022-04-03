@@ -8,7 +8,7 @@ import pygame
 
 from scripts.core.constants import StatModifiedStatus
 from scripts.core.utility import itr
-from scripts.scene_elements.entity import Entity
+from scripts.world_elements.entity import Entity
 
 if TYPE_CHECKING:
     from typing import Dict, List, Tuple

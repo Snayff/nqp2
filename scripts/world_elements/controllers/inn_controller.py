@@ -6,13 +6,13 @@ from typing import TYPE_CHECKING
 from scripts.core.base_classes.controller import Controller
 from scripts.core.constants import InnState, TrainingState
 from scripts.core.debug import Timer
-from scripts.scene_elements.troupe import Troupe
+from scripts.world_elements.troupe import Troupe
 
 if TYPE_CHECKING:
     from typing import Any, Dict, List, Optional, Tuple, Union
 
     from scripts.core.game import Game
-    from scripts.scene_elements.unit import Unit
+    from scripts.world_elements.unit import Unit
     from scripts.scenes.world.scene import WorldScene
 
 __all__ = ["InnController"]

@@ -6,7 +6,7 @@ import pygame
 
 from scripts.core.base_classes.ui import UI
 from scripts.core.constants import DEFAULT_IMAGE_SIZE, FontType, PostCombatState, RewardType, SceneType
-from scripts.scene_elements.unit import Unit
+from scripts.world_elements.unit import Unit
 from scripts.ui_elements.generic.ui_frame import UIFrame
 
 if TYPE_CHECKING:

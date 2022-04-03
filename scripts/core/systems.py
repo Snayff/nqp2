@@ -8,7 +8,7 @@ import pygame
 import snecs
 
 from scripts.core import queries
-from scripts.core.components import Aesthetic, DamageReceived, IsDead
+from scripts.core.components import Aesthetic, DamageReceived, IsDead, Position, Stats
 from scripts.core.constants import EntityFacing
 
 if TYPE_CHECKING:
@@ -87,6 +87,21 @@ def process_ai(delta_time: float):
     """
     for entity, (ai,) in queries.ai_not_dead:
         ai.behaviour.process(delta_time)
+
+        # check if behaviour flags need processing
+        if ai.behaviour.new_move_speed is not None:
+            if snecs.has_component(entity, Stats):
+                stats = snecs.entity_component(entity, Stats)
+                stats.move_speed = ai.behaviour.new_move_speed
+
+                ai.behaviour.new_move_speed = None
+
+        if ai.behaviour.reset_move_speed:
+            if snecs.has_component(entity, Stats):
+                stats = snecs.entity_component(entity, Stats)
+                stats.move_speed
+
+
 
 
 

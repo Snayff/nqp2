@@ -11,8 +11,8 @@ from scripts.core import queries
 from scripts.core.components import IsDead, Position, Resources
 from scripts.core.constants import StatModifiedStatus
 from scripts.core.utility import itr
-from scripts.scene_elements.entity import Entity
-from scripts.scene_elements.entity_behaviours.base import Base
+from scripts.world_elements.entity import Entity
+from scripts.world_elements.entity_behaviours.base import Base
 
 if TYPE_CHECKING:
     from typing import Dict, List, Tuple

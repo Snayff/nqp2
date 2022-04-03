@@ -9,13 +9,13 @@ from typing import Any, TYPE_CHECKING
 import yaml
 
 from scripts.core.constants import DATA_PATH
-from scripts.scene_elements.behavior_manager import BehaviourManager
+from scripts.world_elements.behavior_manager import BehaviourManager
 
 if TYPE_CHECKING:
     from typing import Dict, List
 
     from scripts.core.game import Game
-    from scripts.scene_elements.item import ItemData
+    from scripts.world_elements.item import ItemData
 
 __all__ = ["Data"]
 
@@ -189,7 +189,7 @@ class Data:
 
     @staticmethod
     def _load_items() -> Dict[str:ItemData]:
-        from scripts.scene_elements.item import ItemData
+        from scripts.world_elements.item import ItemData
 
         items = {}
         for filename in os.listdir("data/items"):

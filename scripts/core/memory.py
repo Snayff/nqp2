@@ -9,7 +9,7 @@ if TYPE_CHECKING:
     from typing import Dict, List, Optional, Tuple, Union
 
     from scripts.core.game import Game
-    from scripts.scene_elements.troupe import Troupe
+    from scripts.world_elements.troupe import Troupe
 
 __all__ = ["Memory"]
 

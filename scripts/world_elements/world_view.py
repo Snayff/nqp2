@@ -4,12 +4,12 @@ from typing import Optional, TYPE_CHECKING
 
 import pygame
 
-from scripts.scene_elements.camera import Camera
+from scripts.world_elements.camera import Camera
 
 if TYPE_CHECKING:
     from scripts.core import PointLike, systems
     from scripts.core.game import Game
-    from scripts.scene_elements.world_model import WorldModel
+    from scripts.world_elements.world_model import WorldModel
 
 
 __all__ = ["WorldView"]

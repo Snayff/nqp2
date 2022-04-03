@@ -1,4 +1,4 @@
-from scripts.scene_elements.unit_behaviours.behaviour import Behaviour
+from scripts.world_elements.unit_behaviours.behaviour import Behaviour
 
 
 class Swarm(Behaviour):

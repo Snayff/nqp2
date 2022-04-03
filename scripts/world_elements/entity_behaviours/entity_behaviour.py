@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING
 
 from snecs.typedefs import EntityID
 
-from scripts.scene_elements.unit2 import Unit2
+from scripts.world_elements.unit2 import Unit2
 
 if TYPE_CHECKING:
     from typing import List, Optional, Tuple, Union, Dict

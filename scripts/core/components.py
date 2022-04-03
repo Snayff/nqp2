@@ -10,9 +10,10 @@ from snecs.typedefs import EntityID
 from scripts.core.base_classes.animation import Animation
 from scripts.core.base_classes.image import Image
 from scripts.core.constants import EntityFacing
-from scripts.scene_elements.entity_behaviours.behaviour import Behaviour
-from scripts.scene_elements.unit import Unit
-from scripts.scene_elements.unit2 import Unit2
+from scripts.world_elements.entity_behaviours.behaviour import Behaviour
+from scripts.world_elements.stat import FloatStat, IntStat
+from scripts.world_elements.unit import Unit
+from scripts.world_elements.unit2 import Unit2
 
 if TYPE_CHECKING:
     from typing import List, Optional, Tuple, Union, Dict
@@ -109,13 +110,13 @@ class Stats(RegisteredComponent):
     An Entity's stats, such as attack. 
     """
     def __init__(self, parent_unit: Unit2):
-        self.defence: int = parent_unit.defence
-        self.attack: int = parent_unit.attack
-        self.range: int = parent_unit.range
-        self.attack_speed: float = parent_unit.attack_speed
-        self.move_speed: int = parent_unit.move_speed
-        self.size: int = parent_unit.size
-        self.weight: int = parent_unit.weight
+        self.defence: IntStat = IntStat(parent_unit.defence)
+        self.attack: IntStat = IntStat(parent_unit.attack)
+        self.range: IntStat = IntStat(parent_unit.range)
+        self.attack_speed: FloatStat = FloatStat(parent_unit.attack_speed)
+        self.move_speed: IntStat = IntStat(parent_unit.move_speed)
+        self.size: IntStat = IntStat(parent_unit.size)
+        self.weight: IntStat = IntStat(parent_unit.weight)
 
     def serialize(self):
         # TODO - add serialisation
