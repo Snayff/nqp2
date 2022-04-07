@@ -1,7 +1,0 @@
-{
-    "type": "minor_defence",
-    "tier": 1,
-    "stat": "defence",
-    "mod_amount": 5,
-    "desc": "Raise defence by 10."
-}

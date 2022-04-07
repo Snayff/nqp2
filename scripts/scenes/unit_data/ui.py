@@ -1,11 +1,11 @@
 from __future__ import annotations
 
-import json
 import logging
 from statistics import mean
 from typing import TYPE_CHECKING
 
 import pygame
+import yaml
 
 from scripts.core.base_classes.ui import UI
 from scripts.core.constants import DATA_PATH, DEFAULT_IMAGE_SIZE, FontType
@@ -247,13 +247,13 @@ class UnitDataUI(UI):
 
     def save(self):
         """
-        Save the current unit data to the json.
+        Save the current unit data.
         """
         unit_type = self.current_unit_data["type"]
-        str_path = str(DATA_PATH / "units" / f"{unit_type}.json")
+        str_path = str(DATA_PATH / "units" / f"{unit_type}.yaml")
 
         with open(str_path, "w") as file:
-            json.dump(self.current_unit_data, file, indent=4)
+            yaml.dump(self.current_unit_data, file, Dumper=yaml.SafeDumper)
             logging.info(f"UnitDataUI: updated {unit_type}; new data saved.")
 
         # trigger confirmation message

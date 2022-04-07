@@ -1,0 +1,15 @@
+ammo: -1
+attack: 1
+attack_speed: 1.0
+count: 10
+default_behaviour: light
+defence: 1
+faction: imperial_forces
+gold_cost: 20
+health: 5
+move_speed: 40
+range: 20
+size: 7
+tier: 1
+type: skirmisher
+weight: 2

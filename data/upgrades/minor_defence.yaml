@@ -1,0 +1,5 @@
+desc: Raise defence by 10.
+mod_amount: 5
+stat: defence
+tier: 1
+type: minor_defence

@@ -1,0 +1,42 @@
+conditions:
+- flag:ode_tax_unlocked
+description: Your day's journey has led you through a small town on the outskirts
+  of the province. It's location makes it a trade hotspot between the two regions,
+  and seems a good place to pause, rest your troupe, and check the marketplace for
+  supplies. Whilst browsing the local market stalls you notice a young man standing
+  in the square reciting poetry to a vacant audience. You stop to listen, a lone listener
+  in a sea of disregard. Now, standing closer, you notice he bears a striking resemblance
+  to the man that served you a taxation notice for peddling toads. You sigh loudly,
+  as you realise it is too late to take your leave, he has already locked eyes with
+  you. Like a squirrel that has seen the last nut of the season, he quickens his speech
+  to spit out the rest of his witless verse and darts up to you. 'Good day, sir,'
+  he begins, as you furiously begin to shake your head. 'I trust you enjoyed the rhyme
+  and meter I have bestowed upon your fortunate ears this fine day?' You look him
+  dead in the eye, and say nothing. 'Ah, not to worry, we can't all be genius wordsmiths
+  like Ventoro the Virtuoso!' You look around you, simultaneously begging for help
+  from nearby townsfolk while highlighting that, clearly, no one else seems to think
+  as highly of him as he does of himself. 'My work tackles the philosophical conundrums
+  of modern day life, we are but numbers in a machine!' Again, you say nothing. You
+  take one step back and he matches your gait instantly. 'Unfortunately,' here it
+  comes, 'such high art is taxed in this town. I'm sorry my friend, but I'm bound
+  by law to charge you a fee for the blissful tones I bestowed upon you. The particular
+  poem you chose to sample is nothing short of a masterpiece. That'll be 10 gold,
+  please!' He holds out his excessively decorated hat and meets your stare, unmoving.
+  You take the silence as an opportunity to consider the value of 'art' valued at
+  one fifth the cost of a knot of toads...
+image: money
+level_available: 1
+options:
+- displayed_result: -10 gold
+  result:
+  - gold:-10
+  - unlock_event:code_tax
+  text: Pay the ode tax and run away screaming
+- displayed_result: unknown
+  result:
+  - unlock_event:code_tax
+  text: Art is dead, and so is he! Kill him in front of everyone
+resources:
+- existing_unit:random1
+tier: 1
+type: ode_tax

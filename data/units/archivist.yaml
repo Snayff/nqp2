@@ -1,0 +1,15 @@
+ammo: 999
+attack: 3
+attack_speed: 3
+count: 8
+default_behaviour: swarm
+defence: 2
+faction: members_of_the_court
+gold_cost: 500
+health: 23
+move_speed: 20
+range: 250
+size: 7
+tier: 4
+type: archivist
+weight: 2

@@ -1,0 +1,15 @@
+ammo: -1
+attack: 3
+attack_speed: 1.8
+count: 4
+default_behaviour: light
+defence: 2
+faction: members_of_the_court
+gold_cost: 60
+health: 30
+move_speed: 30
+range: 10
+size: 7
+tier: 2
+type: farmhand_swordsman
+weight: 3

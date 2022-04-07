@@ -1,0 +1,15 @@
+ammo: 10
+attack: 35
+attack_speed: 1.1
+count: 1
+default_behaviour: light
+defence: 1
+faction: minions_of_ztar
+gold_cost: 350
+health: 80
+move_speed: 35
+range: 90
+size: 7
+tier: 3
+type: flame_salamander
+weight: 2

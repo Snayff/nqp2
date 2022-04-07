@@ -1,0 +1,15 @@
+ammo: 0
+attack: 4
+attack_speed: 0.8
+count: 6
+default_behaviour: light
+defence: 4
+faction: hammerites
+gold_cost: 0
+health: 50
+move_speed: 30
+range: 0
+size: 7
+tier: 2
+type: servant_of_the_hammer
+weight: 2

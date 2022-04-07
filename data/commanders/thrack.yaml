@@ -1,0 +1,22 @@
+allies:
+- swarm
+backstory: The Ruthless Leader. He is strong, merciless, and fearless; but he clearly
+  wasn't hugged much as a child. Thrack seeks to claim an empire for himself using
+  brute force, and will spit on the corpse of any that dare to oppose him. (Trait)
+  He pushes his forces to their limit, increasing unit attack bonus the effectiveness
+  of training.
+charisma: 6
+gold: 350
+items:
+- thracks_item
+leadership: 8
+morale: 1
+name: Thrack
+rations: 1
+starting_units:
+- goblin
+- goblin
+- gremlin
+- gremlin
+- imp
+type: thrack

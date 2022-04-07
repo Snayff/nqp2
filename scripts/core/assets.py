@@ -98,7 +98,14 @@ class Assets:
         #     if projectiles_image.split(".")[-1] == "png"
         # }
 
-        self.maps = {map.split(".")[0]: self.json_read("data/maps/" + map) for map in os.listdir("data/maps")}
+        self.maps = dict()
+        for file in os.listdir("data/maps"):
+            if file.endswith("json"):
+                name = file.split(".")[0]
+                path = "data/maps/" + file
+                with open(path) as fp:
+                    data = json.load(fp)
+                self.maps[name] = data
 
         # record duration
         end_time = time.time()
@@ -278,9 +285,3 @@ class Assets:
         logging.debug(f"Assets: All images loaded.")
 
         return images
-
-    def json_read(self, path):
-        f = open(path, "r")
-        data = json.load(f)
-        f.close()
-        return data
