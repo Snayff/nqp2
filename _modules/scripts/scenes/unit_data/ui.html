@@ -261,12 +261,12 @@
   <h1 id="modules-scripts-scenes-unit-data-ui--page-root">Source code for scripts.scenes.unit_data.ui</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">from</span> <span class="nn">statistics</span> <span class="kn">import</span> <span class="n">mean</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
 <span class="kn">import</span> <span class="nn">pygame</span>
+<span class="kn">import</span> <span class="nn">yaml</span>
 
 <span class="kn">from</span> <span class="nn">scripts.core.base_classes.ui</span> <span class="kn">import</span> <span class="n">UI</span>
 <span class="kn">from</span> <span class="nn">scripts.core.constants</span> <span class="kn">import</span> <span class="n">DATA_PATH</span><span class="p">,</span> <span class="n">DEFAULT_IMAGE_SIZE</span><span class="p">,</span> <span class="n">FontType</span>
@@ -508,13 +508,13 @@
 
 <div class="viewcode-block" id="UnitDataUI.save"><a class="viewcode-back" href="../../../../scripts.scenes.unit_data.html#scripts.scenes.unit_data.ui.UnitDataUI.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        Save the current unit data to the json.</span>
+<span class="sd">        Save the current unit data.</span>
 <span class="sd">        """</span>
         <span class="n">unit_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_unit_data</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span>
-        <span class="n">str_path</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">DATA_PATH</span> <span class="o">/</span> <span class="s2">"units"</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">unit_type</span><span class="si">}</span><span class="s2">.json"</span><span class="p">)</span>
+        <span class="n">str_path</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">DATA_PATH</span> <span class="o">/</span> <span class="s2">"units"</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">unit_type</span><span class="si">}</span><span class="s2">.yaml"</span><span class="p">)</span>
 
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">str_path</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
-            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_unit_data</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+            <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_unit_data</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">Dumper</span><span class="o">=</span><span class="n">yaml</span><span class="o">.</span><span class="n">SafeDumper</span><span class="p">)</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"UnitDataUI: updated </span><span class="si">{</span><span class="n">unit_type</span><span class="si">}</span><span class="s2">; new data saved."</span><span class="p">)</span>
 
         <span class="c1"># trigger confirmation message</span>

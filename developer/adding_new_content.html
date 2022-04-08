@@ -257,9 +257,9 @@
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#adding-new" class="md-nav__link">Adding New</a>
         </li>
-        <li class="md-nav__item"><a href="#json-explained" class="md-nav__link">json Explained</a>
+        <li class="md-nav__item"><a href="#yaml-explained" class="md-nav__link">yaml Explained</a>
         </li>
-        <li class="md-nav__item"><a href="#json-example" class="md-nav__link">json Example</a>
+        <li class="md-nav__item"><a href="#yaml-example" class="md-nav__link">yaml Example</a>
         </li></ul>
             </nav>
         </li>
@@ -267,9 +267,9 @@
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#id1" class="md-nav__link">Adding New</a>
         </li>
-        <li class="md-nav__item"><a href="#id2" class="md-nav__link">json Explained</a>
+        <li class="md-nav__item"><a href="#id2" class="md-nav__link">yaml Explained</a>
         </li>
-        <li class="md-nav__item"><a href="#id3" class="md-nav__link">json Example</a>
+        <li class="md-nav__item"><a href="#id3" class="md-nav__link">yaml Example</a>
         </li>
         <li class="md-nav__item"><a href="#directory-examples" class="md-nav__link">Directory Examples</a>
         </li></ul>
@@ -279,7 +279,7 @@
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#id4" class="md-nav__link">Adding New</a>
         </li>
-        <li class="md-nav__item"><a href="#id5" class="md-nav__link">json Explained</a>
+        <li class="md-nav__item"><a href="#id5" class="md-nav__link">yaml Explained</a>
         </li>
         <li class="md-nav__item"><a href="#parameters" class="md-nav__link">Parameters</a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -291,7 +291,7 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#id8" class="md-nav__link">json Example</a>
+        <li class="md-nav__item"><a href="#id8" class="md-nav__link">yaml Example</a>
         </li></ul>
             </nav>
         </li></ul>
@@ -348,9 +348,9 @@
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#adding-new" class="md-nav__link">Adding New</a>
         </li>
-        <li class="md-nav__item"><a href="#json-explained" class="md-nav__link">json Explained</a>
+        <li class="md-nav__item"><a href="#yaml-explained" class="md-nav__link">yaml Explained</a>
         </li>
-        <li class="md-nav__item"><a href="#json-example" class="md-nav__link">json Example</a>
+        <li class="md-nav__item"><a href="#yaml-example" class="md-nav__link">yaml Example</a>
         </li></ul>
             </nav>
         </li>
@@ -358,9 +358,9 @@
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#id1" class="md-nav__link">Adding New</a>
         </li>
-        <li class="md-nav__item"><a href="#id2" class="md-nav__link">json Explained</a>
+        <li class="md-nav__item"><a href="#id2" class="md-nav__link">yaml Explained</a>
         </li>
-        <li class="md-nav__item"><a href="#id3" class="md-nav__link">json Example</a>
+        <li class="md-nav__item"><a href="#id3" class="md-nav__link">yaml Example</a>
         </li>
         <li class="md-nav__item"><a href="#directory-examples" class="md-nav__link">Directory Examples</a>
         </li></ul>
@@ -370,7 +370,7 @@
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#id4" class="md-nav__link">Adding New</a>
         </li>
-        <li class="md-nav__item"><a href="#id5" class="md-nav__link">json Explained</a>
+        <li class="md-nav__item"><a href="#id5" class="md-nav__link">yaml Explained</a>
         </li>
         <li class="md-nav__item"><a href="#parameters" class="md-nav__link">Parameters</a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -382,7 +382,7 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#id8" class="md-nav__link">json Example</a>
+        <li class="md-nav__item"><a href="#id8" class="md-nav__link">yaml Example</a>
         </li></ul>
             </nav>
         </li></ul>
@@ -409,49 +409,61 @@
 <section id="adding-new">
 <h3 id="adding-new">Adding New<a class="headerlink" href="#adding-new" title="Permalink to this headline">¶</a></h3>
 <p>To add a new commander you need to add 1 thing:
-1. a json with the combat’s name in the <code class="docutils literal notranslate"><span class="pre">data/combat</span></code> folder</p>
+1. a yaml with the combat’s name in the <code class="docutils literal notranslate"><span class="pre">data/combat</span></code> folder</p>
 </section>
-<section id="json-explained">
-<h3 id="json-explained">json Explained<a class="headerlink" href="#json-explained" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>{
-    "type": "test_combat",  # str, must match the file name
-    "category": "basic",  # str, "basic" or "boss"
-    "units": [  # list of str. strs must match the unit type as per data/units
-        "goblin",
-        "gremlin"
-    ],
-    "level_available": 1,  # int, the level number at which the combat is available
-    "biome": "plains",  # str, the level in which the combat can occur
-    "tier": 1,  # int, 1-4. How likely the combat is, with 1 being easiest.
-    "gold_reward": [  # list of ints. Must contain only 2 values, indicating the lower and upper reward bounds.
-        50,
-        110
-    ]
-}
+<section id="yaml-explained">
+<h3 id="yaml-explained">yaml Explained<a class="headerlink" href="#yaml-explained" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span><span class="w"></span>
+<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test_combat</span><span class="w">   </span><span class="c1"># str, must match the file name</span><span class="w"></span>
+<span class="nt">category</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">basic</span><span class="w">     </span><span class="c1"># str, "basic" or "boss"</span><span class="w"></span>
+<span class="nt">units</span><span class="p">:</span><span class="w">              </span><span class="c1"># list of str. strs must match the unit type as per data/units</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">goblin</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gremlin</span><span class="w"></span>
+<span class="nt">level_available</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w">  </span><span class="c1"># int, the level number at which the combat is available</span><span class="w"></span>
+<span class="nt">biome</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">plains</span><span class="w">       </span><span class="c1"># str, the level in which the combat can occur</span><span class="w"></span>
+<span class="nt">tier</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w">             </span><span class="c1"># int, 1-4. How likely the combat is, with 1 being easiest.</span><span class="w"></span>
+<span class="nt">gold_reward</span><span class="p">:</span><span class="w">        </span><span class="c1"># list of ints. Must contain only 1 values, indicating the lower and upper reward bounds.</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">110</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
-<section id="json-example">
-<h3 id="json-example">json Example<a class="headerlink" href="#json-example" title="Permalink to this headline">¶</a></h3>
+<section id="yaml-example">
+<h3 id="yaml-example">yaml Example<a class="headerlink" href="#yaml-example" title="Permalink to this headline">¶</a></h3>
 <p>Basic combat</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_combat"</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"basic"</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">"units"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">        </span><span class="s2">"goblin"</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s2">"gremlin"</span><span class="w"></span>
-<span class="w">    </span><span class="p">],</span><span class="w"></span>
-<span class="w">    </span><span class="nt">"level_available"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">"biome"</span><span class="p">:</span><span class="w"> </span><span class="s2">"plains"</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">"tier"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">"gold_reward"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">        </span><span class="mi">50</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="mi">110</span><span class="w"></span>
-<span class="w">    </span><span class="p">]</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span><span class="w"></span>
+<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test_combat</span><span class="w"></span>
+<span class="nt">category</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">basic</span><span class="w"></span>
+<span class="nt">units</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">goblin</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gremlin</span><span class="w"></span>
+<span class="nt">level_available</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="nt">biome</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">plains</span><span class="w"></span>
+<span class="nt">tier</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="nt">gold_reward</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">110</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Boss Combat</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span><span class="w"></span>
+<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test_boss_combat</span><span class="w"></span>
+<span class="nt">category</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">boss</span><span class="w"></span>
+<span class="nt">units</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">peasant_spearman</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">peasant_spearman</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">conscript_bowman</span><span class="w"></span>
+<span class="nt">level_available</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="nt">tier</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="nt">gold_reward</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">700</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">900</span><span class="w"></span>
+<span class="nt">upgrades_for_scaling</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">minor_attack</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">minor_defence</span><span class="w"></span>
+<span class="nt">boss_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test_boss</span><span class="w"></span>
+</pre></div>
+</div>
 </section>
 </section>
 <section id="commanders">
@@ -459,7 +471,7 @@
 <section id="id1">
 <h3 id="id1">Adding New<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <p>To add a new commander you need to add 3 things:
-1. a json with the commander’s name in the <code class="docutils literal notranslate"><span class="pre">data/commanders</span></code> folder
+1. a yaml with the commander’s name in the <code class="docutils literal notranslate"><span class="pre">data/commanders</span></code> folder
 2. a folder with the commander’s name in the <code class="docutils literal notranslate"><span class="pre">assets/commanders</span></code> folder
 3. 2 folders in the <code class="docutils literal notranslate"><span class="pre">assets/commanders/[commander's</span> <span class="pre">name]</span></code> folder; <code class="docutils literal notranslate"><span class="pre">icon</span></code> and <code class="docutils literal notranslate"><span class="pre">move</span></code>.</p>
 <blockquote>
@@ -470,52 +482,46 @@
 </div></blockquote>
 </section>
 <section id="id2">
-<h3 id="id2">json Explained<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>{
-    "type": "isla",  # str, used as an identifier. Must be the same as the json file name and the relevant asset folder.
-    "name": "Isla",  # str, used as the display value of the commander in game
-    "backstory": "Overthrowing...",  # str, story/setting
-    "charisma": 7,  # int
-    "leadership": 6,  # int
-    "morale": 1,  # int
-    "gold": 300,  # int
-    "rations": 1,  # int
-    "allies": [  # list of str, specifies which units and skills the commander has access to. Must match a listed ``home`` in the unit jsons.
-        "castle",
-        "fortress"
-    ],
-    "starting_units": [  # list of str, specifies what units the commander starts with. Must match a listed ``type`` in the unit jsons.
-        "spearman",
-        "spearman",
-        "guerrilla_fighter",
-        "skirmisher"
-    ]
-}
+<h3 id="id2">yaml Explained<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span><span class="w"></span>
+<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">isla</span><span class="w">                  </span><span class="c1"># str, used as an identifier. Must be the same as the yaml file name and the relevant asset folder.</span><span class="w"></span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Isla</span><span class="w">                  </span><span class="c1"># str, used as the display value of the commander in game</span><span class="w"></span>
+<span class="nt">backstory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Overthrowing...</span><span class="w">  </span><span class="c1"># str, story/setting</span><span class="w"></span>
+<span class="nt">charisma</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7</span><span class="w">      </span><span class="c1"># int</span><span class="w"></span>
+<span class="nt">leadership</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6</span><span class="w">    </span><span class="c1"># int</span><span class="w"></span>
+<span class="nt">morale</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w">        </span><span class="c1"># int</span><span class="w"></span>
+<span class="nt">gold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">300</span><span class="w">        </span><span class="c1"># int</span><span class="w"></span>
+<span class="nt">rations</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w">       </span><span class="c1"># int</span><span class="w"></span>
+<span class="nt">allies</span><span class="p">:</span><span class="w">          </span><span class="c1"># list of str, specifies which units and skills the commander has access to. Must match a listed ``home`` in the unit data.</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">castle</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fortress</span><span class="w"></span>
+<span class="nt">starting_units</span><span class="p">:</span><span class="w">  </span><span class="c1"># list of str, specifies what units the commander starts with. Must match a listed ``type`` in the unit data.</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">spearman</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">spearman</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">guerrilla_fighter</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">skirmisher</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
 <section id="id3">
-<h3 id="id3">json Example<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"isla"</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Isla"</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">"backstory"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Overthrowing the patriarchy is her only desire."</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">"charisma"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">"leadership"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">"morale"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">"gold"</span><span class="p">:</span><span class="w"> </span><span class="mi">300</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">"rations"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">"allies"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">        </span><span class="s2">"castle"</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s2">"fortress"</span><span class="w"></span>
-<span class="w">    </span><span class="p">],</span><span class="w"></span>
-<span class="w">    </span><span class="nt">"starting_units"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">        </span><span class="s2">"spearman"</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s2">"spearman"</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s2">"guerrilla_fighter"</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s2">"skirmisher"</span><span class="w"></span>
-<span class="w">    </span><span class="p">]</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<h3 id="id3">yaml Example<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span><span class="w"></span>
+<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">isla</span><span class="w"></span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Isla</span><span class="w"></span>
+<span class="nt">backstory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Overthrowing the patriarchy is her only desire.</span><span class="w"></span>
+<span class="nt">charisma</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7</span><span class="w"></span>
+<span class="nt">leadership</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6</span><span class="w"></span>
+<span class="nt">morale</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="nt">gold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">300</span><span class="w"></span>
+<span class="nt">rations</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="nt">allies</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">castle</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fortress</span><span class="w"></span>
+<span class="nt">starting_units</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">spearman</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">spearman</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">guerrilla_fighter</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">skirmisher</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
@@ -532,30 +538,24 @@
 <section id="id4">
 <h3 id="id4">Adding New<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>To add a new event you need to add only 1 thing:
-1. a json with the event’s name in the <code class="docutils literal notranslate"><span class="pre">data/events</span></code> folder</p>
+1. a yaml with the event’s name in the <code class="docutils literal notranslate"><span class="pre">data/events</span></code> folder</p>
 </section>
 <section id="id5">
-<h3 id="id5">json Explained<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>{
-    "type": "test",  # str, used as an identifier.
-    "description": "this is happening.",  # str
-    "conditions": [],  # work in progress!
-    "level_available": 1,  # int, determines on what level the event can occur. Likely to be moved into conditions.
-    "tier": 1,  # int, the rarity of the event. Tier 1 is most likely.
-    "resources": [  # list of str, used to preload resources used within the event.
-        "existing_unit:random1",  # str, resource key : resource instance identifier.
-        ],
-    "image": "image_name",  # str, must match name of an image, preferably in /event_images.
-    "options": [  # list of dicts, used to offer options to the player.
-        {
-            "text": "this is the first choice",  # str, the flavour text shown to the player.
-            "result": [  # list of strs, determines the results if picked.
-                "injury:2@random1"  # str, result key : result value @ target. The @ and target are only required for some result key's.
-            ],
-            "displayed_result": "+injury"  # str, information given to the player about the outcome of the decision.
-        }
-    ]
-}
+<h3 id="id5">yaml Explained<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span><span class="w"></span>
+<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test</span><span class="w">                        </span><span class="c1"># str, used as an identifier.</span><span class="w"></span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">this is happening.</span><span class="w">   </span><span class="c1"># str</span><span class="w"></span>
+<span class="nt">conditions</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span><span class="w">                    </span><span class="c1"># work in progress!</span><span class="w"></span>
+<span class="nt">level_available</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w">                </span><span class="c1"># int, determines on what level the event can occur. Likely to be moved into conditions.</span><span class="w"></span>
+<span class="nt">tier</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w">                           </span><span class="c1"># int, the rarity of the event. Tier 1 is most likely.</span><span class="w"></span>
+<span class="nt">resources</span><span class="p">:</span><span class="w">                        </span><span class="c1"># list of str, used to preload resources used within the event.</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">existing_unit:random1</span><span class="w">           </span><span class="c1"># str, resource key : resource instance identifier.</span><span class="w"></span>
+<span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">image_name</span><span class="w">                 </span><span class="c1"># str, must match name of an image, preferably in /event_images.</span><span class="w"></span>
+<span class="nt">options</span><span class="p">:</span><span class="w">                          </span><span class="c1"># list of dicts, used to offer options to the player.</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">this is the first choice</span><span class="w">  </span><span class="c1"># str, the flavour text shown to the player.</span><span class="w"></span>
+<span class="w">  </span><span class="nt">result</span><span class="p">:</span><span class="w">                         </span><span class="c1"># list of strs, determines the results if picked.</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">injury:2@random1</span><span class="w">              </span><span class="c1"># str, result key : result value @ target. The @ and target are only required for some result key's.</span><span class="w"></span>
+<span class="w">  </span><span class="nt">displayed_result</span><span class="p">:</span><span class="w"> </span><span class="s">"+injury"</span><span class="w">     </span><span class="c1"># str, information given to the player about the outcome of the decision.</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
@@ -637,42 +637,30 @@
 </section>
 </section>
 <section id="id8">
-<h3 id="id8">json Example<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test"</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"this is what will show and will describe what is happening."</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">"conditions"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w"></span>
-<span class="w">    </span><span class="nt">"level_available"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">"tier"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">"resources"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">        </span><span class="s2">"existing_unit:random1"</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s2">"existing_unit:random2"</span><span class="w"></span>
-<span class="w">        </span><span class="p">],</span><span class="w"></span>
-<span class="w">    </span><span class="nt">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"axe"</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">"options"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">        </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"this is the first choice"</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">                </span><span class="s2">"injury:2@random1"</span><span class="w"></span>
-<span class="w">            </span><span class="p">],</span><span class="w"></span>
-<span class="w">            </span><span class="nt">"displayed_result"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+injury"</span><span class="w"></span>
-<span class="w">        </span><span class="p">},</span><span class="w"></span>
-<span class="w">        </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"this is the second choice"</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">                </span><span class="s2">"gold:-10"</span><span class="w"></span>
-<span class="w">            </span><span class="p">],</span><span class="w"></span>
-<span class="w">            </span><span class="nt">"displayed_result"</span><span class="p">:</span><span class="w"> </span><span class="s2">"-gold"</span><span class="w"></span>
-<span class="w">        </span><span class="p">},</span><span class="w"></span>
-<span class="w">        </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nt">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"this is the third choice"</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="nt">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">                </span><span class="s2">"gold:100"</span><span class="w"></span>
-<span class="w">                </span><span class="p">],</span><span class="w"></span>
-<span class="w">            </span><span class="nt">"displayed_result"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+gold"</span><span class="w"></span>
-<span class="w">        </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="p">]</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<h3 id="id8">yaml Example<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span><span class="w"></span>
+<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test</span><span class="w"></span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">this is what will show and will describe what is happening.</span><span class="w"></span>
+<span class="nt">conditions</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span><span class="w"></span>
+<span class="nt">level_available</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="nt">tier</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="nt">resources</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">existing_unit:random1</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">existing_unit:random2</span><span class="w"></span>
+<span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">axe</span><span class="w"></span>
+<span class="nt">options</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">this is the first choice</span><span class="w"></span>
+<span class="w">  </span><span class="nt">result</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">injury:2@random1</span><span class="w"></span>
+<span class="w">  </span><span class="nt">displayed_result</span><span class="p">:</span><span class="w"> </span><span class="s">"+injury"</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">this is the second choice</span><span class="w"></span>
+<span class="w">  </span><span class="nt">result</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gold:-10</span><span class="w"></span>
+<span class="w">  </span><span class="nt">displayed_result</span><span class="p">:</span><span class="w"> </span><span class="s">"-gold"</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">this is the third choice</span><span class="w"></span>
+<span class="w">  </span><span class="nt">result</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gold:100</span><span class="w"></span>
+<span class="w">  </span><span class="nt">displayed_result</span><span class="p">:</span><span class="w"> </span><span class="s">"+gold"</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
