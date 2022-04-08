@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Optional
+from typing import Any, Optional, TYPE_CHECKING
 
 from scripts.core.base_classes.controller import Controller
 from scripts.core.constants import PostCombatState, RewardType
@@ -27,6 +27,7 @@ class PostCombatController(Controller):
     * Do not draw anything
 
     """
+
     def __init__(self, game: Game, parent_scene: WorldScene):
         with Timer("PostCombatController initialised"):
             super().__init__(game, parent_scene)

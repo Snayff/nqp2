@@ -15,11 +15,11 @@ from scripts.core.constants import (
     FontType,
     GAP_SIZE,
     InnState,
+    PostCombatState,
     SceneType,
     TrainingState,
     WindowType,
     WorldState,
-    PostCombatState,
 )
 from scripts.scene_elements.unit_grid import UnitGrid
 from scripts.scene_elements.world_view import WorldView
