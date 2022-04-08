@@ -161,7 +161,7 @@ class Data:
     def _load_skills():
         skills = {}
         for skill in os.listdir("data/skills"):
-            data = (DATA_PATH / "skills" / skill)
+            data = DATA_PATH / "skills" / skill
             skills[skill.split(".")[0]] = data
 
         logging.debug(f"Data: All skills data loaded.")
