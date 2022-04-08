@@ -1,0 +1,15 @@
+ammo: -1
+attack: 2
+attack_speed: 1.2
+count: 12
+default_behaviour: light
+defence: 1
+faction: members_of_the_court
+gold_cost: 25
+health: 5
+move_speed: 30
+range: 50
+size: 7
+tier: 1
+type: peasant_spearman
+weight: 3

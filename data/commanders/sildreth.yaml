@@ -1,0 +1,20 @@
+allies:
+- chivalric_order
+backstory: The Tactician. Sildreth is a master in the art of war, and many commanders
+  across the land would love to get their hands on his play book. He is cowardly and
+  remains as far away from the battle as possible while his army execute his tactical
+  orders. Surprisingly, he's terrible at chess, and very sensitive about it. (Trait)
+  All units gain bonuses based on their proximity to other friendly units.
+charisma: 7
+gold: 300
+items:
+- sildreths_item
+leadership: 8
+morale: 1
+name: Sildreth
+rations: 1
+starting_units:
+- bandit
+- thug
+- cavalier_of_the_gleaming_dawn
+type: sildreth

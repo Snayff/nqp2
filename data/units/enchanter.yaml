@@ -1,0 +1,15 @@
+ammo: 30
+attack: 1
+attack_speed: 0.75
+count: 6
+default_behaviour: light
+defence: 3
+faction: cabalists
+gold_cost: 55
+health: 14
+move_speed: 40
+range: 100
+size: 13
+tier: 2
+type: enchanter
+weight: 10

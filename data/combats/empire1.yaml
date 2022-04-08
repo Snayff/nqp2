@@ -1,0 +1,14 @@
+biome: ilan
+category: basic
+gold_reward:
+- 50
+- 110
+level_available: 1
+tier: 1
+type: empire1
+units:
+- infantryman
+- infantryman
+- infantryman
+- infantryman
+- infantryman

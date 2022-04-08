@@ -1,0 +1,216 @@
+default|0|0:
+  hoverable: true
+  sight_block: false
+  solid: false
+ice_animated|0|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+ice_animated|10|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+ice_animated|11|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+ice_animated|12|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+ice_animated|13|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+ice_animated|14|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+ice_animated|15|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+ice_animated|16|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+ice_animated|17|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+ice_animated|18|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+ice_animated|19|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+ice_animated|1|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+ice_animated|20|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+ice_animated|21|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+ice_animated|22|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+ice_animated|23|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+ice_animated|24|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+ice_animated|2|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+ice_animated|3|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+ice_animated|4|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+ice_animated|5|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+ice_animated|6|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+ice_animated|7|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+ice_animated|8|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+ice_animated|9|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+ice|1|0:
+  hoverable: true
+  sight_block: false
+  solid: false
+plains_animated|0|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+plains_animated|10|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+plains_animated|11|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+plains_animated|12|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+plains_animated|13|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+plains_animated|14|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+plains_animated|15|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+plains_animated|16|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+plains_animated|17|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+plains_animated|18|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+plains_animated|19|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+plains_animated|1|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+plains_animated|20|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+plains_animated|21|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+plains_animated|22|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+plains_animated|23|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+plains_animated|24|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+plains_animated|2|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+plains_animated|3|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+plains_animated|4|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+plains_animated|5|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+plains_animated|6|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+plains_animated|7|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+plains_animated|8|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+plains_animated|9|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+plains|1|0:
+  hoverable: true
+  sight_block: true
+  solid: true
+trees|0|1:
+  hoverable: false
+  sight_block: true
+  solid: true

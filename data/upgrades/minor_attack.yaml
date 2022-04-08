@@ -1,0 +1,5 @@
+desc: Raise attack by 10.
+mod_amount: 10
+stat: attack
+tier: 1
+type: minor_attack

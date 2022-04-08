@@ -1,0 +1,38 @@
+conditions: []
+description: The last few days' marches through unforgiving terrain has left your
+  troops fatigued and exposed to the elements. Whilst many have been complaining about
+  aches and pains you took little notice and drove the troupe onwards with your goal
+  consuming your every thought. Some troops have taken a turn for the worse, and the
+  familiar smell that accompanies dysentery is making for less than ideal marching
+  conditions whilst leaving a fairly distinct trail of breadcrumbs for your enemies
+  to follow. Your trusted captains have advised you to stop, treat those infected,
+  and let them rest. You have no physician with your party, but some basic triage
+  and rest for the men should help them recover quickly enough. Stopping to rest and
+  take care of your troops will cost you valuable rations, but it is a nice thing
+  to do. However, your ambition drives you on, and more severe measures can be taken
+  to eliminate the infection and its spread through your ranks...
+image: rat
+level_available: 1
+options:
+- displayed_result: -ration, +charisma
+  result:
+  - rations:-1
+  - charisma:1
+  text: Stop and treat the infected
+- displayed_result: +injury, +leadership, -morale
+  result:
+  - morale:-1
+  - leadership:1
+  - injury:1@random1
+  text: Kill and burn the infected and keep moving
+- displayed_result: unknown
+  result:
+  - morale:-1
+  - leadership:-1
+  - charisma:-1
+  - injury:1@random1
+  text: Refuse to make such a tough decision and let it play out
+resources:
+- existing_unit:random1
+tier: 1
+type: diseased

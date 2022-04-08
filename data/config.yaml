@@ -1,0 +1,88 @@
+combat_tier_occur_rates:
+  '1': 100
+  '2': 75
+  '3': 50
+  '4': 25
+event_tier_occur_rates:
+  '1': 100
+  '2': 75
+  '3': 50
+  '4': 25
+post_combat:
+  gold_level_multiplier: 1.1
+  gold_max: 50
+  gold_min: 10
+starting_values:
+  charisma: 0
+  gold: 0
+  leadership: 0
+  morale: 2
+  rations: 0
+unit_base_values:
+  tier_1:
+    ammo: 0
+    attack: 0
+    attack_speed: 0
+    count: 0
+    defence: 0
+    gold_cost: 10
+    health: 100
+    move_speed: 0
+    range: 0
+    size: 0
+    weight: 0
+  tier_2:
+    ammo: 0
+    attack: 0
+    attack_speed: 0
+    count: 0
+    defence: 0
+    gold_cost: 30
+    health: 100
+    move_speed: 0
+    range: 0
+    size: 0
+    weight: 0
+  tier_3:
+    ammo: 0
+    attack: 0
+    attack_speed: 0
+    count: 0
+    defence: 0
+    gold_cost: 70
+    health: 100
+    move_speed: 0
+    range: 0
+    size: 0
+    weight: 0
+  tier_4:
+    ammo: 0
+    attack: 0
+    attack_speed: 0
+    count: 0
+    defence: 0
+    gold_cost: 150
+    health: 100
+    move_speed: 0
+    range: 0
+    size: 0
+    weight: 0
+unit_properties:
+  injuries_before_death: 3
+unit_tier_occur_rates:
+  '1': 100
+  '2': 50
+  '3': 25
+  '4': 1
+upgrade:
+  cost: 25
+  tier_cost_multiplier: 1.2
+world:
+  chance_of_event: 20
+  chance_room_type_hidden: 10
+  event_notification_duration: 3.0
+  max_events_per_level: 5
+  room_weights:
+    combat: 0.5
+    inn: 0.1
+    training: 0.1

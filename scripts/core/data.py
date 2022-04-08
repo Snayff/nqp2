@@ -1,10 +1,10 @@
 from __future__ import annotations
 
-import json
 import logging
 import os
 import time
-from typing import Any, TYPE_CHECKING
+from pathlib import Path
+from typing import Any, TYPE_CHECKING, Union
 
 import yaml
 
@@ -18,6 +18,16 @@ if TYPE_CHECKING:
     from scripts.scene_elements.item import ItemData
 
 __all__ = ["Data"]
+
+
+def load_yaml(path: Union[str, Path]) -> Any:
+    """
+    Load YAML data with the SafeLoader
+
+    """
+    with open(str(path), "r") as fp:
+        data = yaml.load(fp, Loader=yaml.SafeLoader)
+    return data
 
 
 class Data:
@@ -52,9 +62,7 @@ class Data:
 
     @staticmethod
     def _load_tile_info() -> Dict:
-        f = open(str(DATA_PATH / "maps" / "tiles.json"), "r")
-        tile_info_raw = json.load(f)
-        f.close()
+        tile_info_raw = load_yaml(DATA_PATH / "maps" / "tiles.yaml")
 
         # convert tile IDs to tuples (JSON doesn't allow tuples)
         tile_info = {}
@@ -71,10 +79,8 @@ class Data:
     def _load_unit_info() -> Dict:
         units = {}
         for unit in os.listdir("data/units"):
-            f = open(str(DATA_PATH / "units" / unit), "r")
-            data = json.load(f)
+            data = load_yaml(DATA_PATH / "units" / unit)
             units[data["type"]] = data
-            f.close()
 
         logging.debug(f"Data: All unit data loaded.")
 
@@ -93,10 +99,8 @@ class Data:
     def _load_upgrades() -> Dict:
         upgrades = {}
         for upgrade in os.listdir("data/upgrades"):
-            f = open(str(DATA_PATH / "upgrades" / upgrade), "r")
-            data = json.load(f)
+            data = load_yaml(DATA_PATH / "upgrades" / upgrade)
             upgrades[data["type"]] = data
-            f.close()
 
         logging.debug(f"Data: All upgrade data loaded.")
 
@@ -106,10 +110,8 @@ class Data:
     def _load_events() -> Dict:
         events = {}
         for event in os.listdir("data/events"):
-            f = open(str(DATA_PATH / "events" / event), "r")
-            data = json.load(f)
+            data = load_yaml(DATA_PATH / "events" / event)
             events[data["type"]] = data
-            f.close()
 
         logging.debug(f"Data: All event data loaded.")
 
@@ -117,10 +119,7 @@ class Data:
 
     @staticmethod
     def _load_config() -> Dict:
-        f = open(str(DATA_PATH / "config.json"), "r")
-        config = json.load(f)
-        f.close()
-
+        config = load_yaml(DATA_PATH / "config.yaml")
         logging.debug(f"Data: Config data loaded.")
 
         return config
@@ -129,10 +128,8 @@ class Data:
     def _load_commanders() -> Dict:
         commanders = {}
         for commander in os.listdir("data/commanders"):
-            f = open(str(DATA_PATH / "commanders" / commander), "r")
-            data = json.load(f)
+            data = load_yaml(DATA_PATH / "commanders" / commander)
             commanders[data["type"]] = data
-            f.close()
 
         logging.debug(f"Data: All commanders data loaded.")
 
@@ -142,10 +139,8 @@ class Data:
     def _load_bosses() -> Dict:
         bosses = {}
         for commander in os.listdir("data/bosses"):
-            f = open(str(DATA_PATH / "bosses" / commander), "r")
-            data = json.load(f)
+            data = load_yaml(DATA_PATH / "bosses" / commander)
             bosses[data["type"]] = data
-            f.close()
 
         logging.debug(f"Data: All bosses data loaded.")
 
@@ -155,10 +150,8 @@ class Data:
     def _load_combats():
         combats = {}
         for combat in os.listdir("data/combats"):
-            f = open(str(DATA_PATH / "combats" / combat), "r")
-            data = json.load(f)
+            data = load_yaml(DATA_PATH / "combats" / combat)
             combats[data["type"]] = data
-            f.close()
 
         logging.debug(f"Data: All combats data loaded.")
 
@@ -168,10 +161,8 @@ class Data:
     def _load_skills():
         skills = {}
         for skill in os.listdir("data/skills"):
-            f = open(str(DATA_PATH / "skills" / skill), "r")
-            data = json.load(f)
+            data = DATA_PATH / "skills" / skill
             skills[skill.split(".")[0]] = data
-            f.close()
 
         logging.debug(f"Data: All skills data loaded.")
 
@@ -179,10 +170,7 @@ class Data:
 
     @staticmethod
     def _load_options():
-        f = open(str(DATA_PATH / "options.json"), "r")
-        config = json.load(f)
-        f.close()
-
+        config = load_yaml(DATA_PATH / "options.yaml")
         logging.debug(f"Data: Options data loaded.")
 
         return config
@@ -232,7 +220,8 @@ class Data:
         unit_details = self.units[unit_type]
         unit_tier = unit_details["tier"]
 
-        occur_rate = tier_occur_rates[str(unit_tier)]  # str as json keys are strs
+        # data is stored as yaml, so convert ints to str for serialization
+        occur_rate = tier_occur_rates[str(unit_tier)]
 
         return occur_rate
 
@@ -244,7 +233,8 @@ class Data:
         event = self.events[id_]
         event_tier = event["tier"]
 
-        occur_rate = tier_occur_rates[str(event_tier)]  # str as json keys are strs
+        # data is stored as yaml, so convert ints to str for serialization
+        occur_rate = tier_occur_rates[str(event_tier)]
 
         return occur_rate
 
@@ -256,6 +246,7 @@ class Data:
         combat = self.combats[id_]
         combat_tier = combat["tier"]
 
-        occur_rate = tier_occur_rates[str(combat_tier)]  # str as json keys are strs
+        # data is stored as yaml, so convert ints to str for serialization
+        occur_rate = tier_occur_rates[str(combat_tier)]
 
         return occur_rate
