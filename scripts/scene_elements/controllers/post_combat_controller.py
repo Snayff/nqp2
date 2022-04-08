@@ -1,67 +1,59 @@
 from __future__ import annotations
 
 import logging
-import time
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any, Optional
 
-from scripts.core.base_classes.scene import Scene
-from scripts.core.constants import PostCombatState, RewardType, SceneType
+from scripts.core.base_classes.controller import Controller
+from scripts.core.constants import PostCombatState, RewardType
+from scripts.core.debug import Timer
 from scripts.scene_elements.troupe import Troupe
 from scripts.scene_elements.unit import Unit
-from scripts.scenes.post_combat.ui import PostCombatUI
 
 if TYPE_CHECKING:
-    from typing import Optional
-
     from scripts.core.game import Game
+    from scripts.scenes.world.scene import WorldScene
 
-__all__ = ["PostCombatScene"]
+__all__ = ["PostCombatController"]
 
 
-class PostCombatScene(Scene):
+class PostCombatController(Controller):
     """
-    Handles RewardScene interactions and consolidates the rendering. RewardScene is used to provide a choice of
-    rewards for the player to pick from.
+    Handles RewardScene interactions
+
+    RewardScene is used to provide a choice of rewards for the player
+    to pick from.
+
+    * Modify game state in accordance with game rules
+    * Do not draw anything
+
     """
+    def __init__(self, game: Game, parent_scene: WorldScene):
+        with Timer("PostCombatController initialised"):
+            super().__init__(game, parent_scene)
+            self.state: PostCombatState = PostCombatState.VICTORY
 
-    def __init__(self, game: Game):
-        # start timer
-        start_time = time.time()
+            # reward management
+            # holds the current rewards, e.g. troupe_rewards
+            self.current_rewards = None
+            self.reward_type: RewardType = RewardType.UNIT
+            self.num_rewards: int = 3
 
-        super().__init__(game, SceneType.POST_COMBAT)
-
-        self.ui: PostCombatUI = PostCombatUI(game, self)
-
-        self.state: PostCombatState = PostCombatState.VICTORY
-
-        # reward management
-        self.current_rewards = None  # holds the current rewards, e.g. troupe_rewards
-        self.reward_type: RewardType = RewardType.UNIT
-        self.num_rewards: int = 3
-
-        # reward options
-        self.gold_reward: int = 0
-
-        self.troupe_rewards: Optional[Troupe] = None
-        self.resource_rewards = None
-        self.upgrade_rewards = None
-        self.action_rewards = None
-
-        # record duration
-        end_time = time.time()
-        logging.debug(f"RewardScene: initialised in {format(end_time - start_time, '.2f')}s.")
+            # reward options
+            self.gold_reward: int = 0
+            self.troupe_rewards: Optional[Troupe] = None
+            self.resource_rewards = None
+            self.upgrade_rewards = None
+            self.action_rewards = None
 
     def update(self, delta_time: float):
-        super().update(delta_time)
-        self.ui.update(delta_time)
+        pass
 
     def reset(self):
-        self.ui = PostCombatUI(self._game, self)
-
         self.state = PostCombatState.VICTORY
 
         # reward management
-        self.current_rewards = None  # holds the current rewards, e.g. troupe_rewards
+        # holds the current rewards, e.g. troupe_rewards
+        self.current_rewards = None
         self.reward_type = RewardType.UNIT
         self.num_rewards = 3
 
@@ -76,6 +68,7 @@ class PostCombatScene(Scene):
     def generate_reward(self):
         """
         Generate reward to offer. Overwrites existing rewards.
+
         """
         gold_min = self._game.data.config["post_combat"]["gold_min"]
         gold_max = self._game.data.config["post_combat"]["gold_max"]
@@ -114,7 +107,6 @@ class PostCombatScene(Scene):
         self.current_rewards = current_reward
 
     def _generate_troupe_rewards(self):
-
         # update troupe to match players
         player_troupe = self._game.memory.player_troupe
         self.troupe_rewards.allies = player_troupe.allies
@@ -138,6 +130,7 @@ class PostCombatScene(Scene):
     def choose_reward(self, reward: Any):
         """
         Add the current reward and the reward gold.
+
         """
         # add current reward
         reward_type = self.reward_type
@@ -165,7 +158,7 @@ class PostCombatScene(Scene):
                 self._game.memory.player_troupe.add_unit(reward)
         else:
             logging.error(
-                f"Chose {reward} as a unit reward. As it isnt a unit, something has "
+                f"Chose {reward} as a unit reward. As it isn't a unit, something has "
                 f"seriously gone wrong! No reward added."
             )
 

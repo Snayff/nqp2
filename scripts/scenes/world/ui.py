@@ -3,7 +3,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 import pygame
-from pygame import SRCALPHA
 
 from scripts.core import utility
 from scripts.core.base_classes.ui import UI
@@ -20,6 +19,7 @@ from scripts.core.constants import (
     TrainingState,
     WindowType,
     WorldState,
+    PostCombatState,
 )
 from scripts.scene_elements.unit_grid import UnitGrid
 from scripts.scene_elements.world_view import WorldView
@@ -115,6 +115,8 @@ class WorldUI(UI):
             self._process_inn_input()
         elif state == WorldState.EVENT:
             self._process_event_input()
+        elif state == WorldState.POST_COMBAT:
+            self._process_post_combat_input()
 
         #################
         # DO NOT DELETE #
@@ -133,6 +135,39 @@ class WorldUI(UI):
         # if self._game.input.states["right"]:
         #     self._game.input.states["right"] = False
         #     self._worldview.camera.move(x=32)
+
+    def _process_post_combat_input(self):
+        controller = self._parent_scene.post_combat
+        local_state = controller.state
+
+        if self._game.input.states["right"]:
+            self._current_container.select_next_element()
+        if self._game.input.states["left"]:
+            self._current_container.select_next_element()
+
+        if local_state == PostCombatState.VICTORY:
+            if self._game.input.states["select"]:
+                # there's only 1 thing to select so we know it is the exit button
+                # back to overworld
+                pass
+        elif local_state == PostCombatState.DEFEAT:
+            if self.selected_ui_row == 1:
+                if self._game.input.states["select"]:
+                    self._game.input.states["select"] = False
+
+                    # there's only 1 thing to select so we know it is the exit button - but exit to what?
+                    morale = self._game.memory.morale
+                    if morale <= 0:
+                        # game over
+                        self._game.run_setup.reset()
+                        self._game.change_scene(SceneType.MAIN_MENU)
+                    else:
+                        # back to overworld
+                        pass
+        elif local_state == PostCombatState.BOSS_VICTORY:
+            if self._game.input.states["select"]:
+                # there's only 1 thing to select so we know it is the exit button
+                self._game.change_scene(SceneType.MAIN_MENU)
 
     def _process_inn_input(self):
         controller = self._parent_scene.inn
@@ -388,6 +423,8 @@ class WorldUI(UI):
             self._rebuild_inn_ui()
         elif state == WorldState.EVENT:
             self._rebuild_event_ui()
+        elif state == WorldState.POST_COMBAT:
+            self._rebuild_post_combat_ui()
 
     def _rebuild_choose_next_room_ui(self):
         create_font = self._game.visuals.create_font
@@ -866,3 +903,197 @@ class WorldUI(UI):
             )
             window.set_selectable(False)
             self.add_container(window, "event_window")
+
+    def _rebuild_post_combat_ui(self):
+        controller = self._parent_scene.post_combat
+        local_state = controller.state
+
+        self.stats_scroll = 0
+
+        if local_state == PostCombatState.VICTORY:
+            self._rebuild_victory_ui()
+        elif local_state == PostCombatState.DEFEAT:
+            self._rebuild_defeat_ui()
+        elif local_state == PostCombatState.BOSS_VICTORY:
+            self._rebuild_boss_victory_ui()
+
+        self.rebuild_resource_elements()
+
+    def _rebuild_boss_victory_ui(self):
+        start_y = 40
+        window_width = self._game.window.width
+
+        # draw header
+        header_text = "Victory"
+        header_font = self._game.visuals.create_font(FontType.DEFAULT, header_text)
+        current_x = (window_width // 2) - header_font.width
+        current_y = start_y
+        frame = UIFrame(self._game, (current_x, current_y), font=header_font, is_selectable=False)
+        self._elements["header"] = frame
+
+        # draw victory message
+        current_y += 50
+        text = "That's all there is. You've beaten the boss, so why not try another commander?"
+        victory_font = self._game.visuals.create_font(FontType.POSITIVE, text)
+        frame = UIFrame(
+            self._game,
+            (current_x, current_y),
+            font=victory_font,
+            is_selectable=False,
+        )
+        self._elements["info"] = frame
+
+        # draw exit button
+        self.add_exit_button()
+
+    def _rebuild_defeat_ui(self):
+        create_font = self._game.visuals.create_font
+
+        start_x = 20
+        start_y = 40
+        window_width = self._game.window.width
+        window_height = self._game.window.height
+
+        self.set_instruction_text("Return to the main menu")
+
+        # draw header
+        text = "Defeat"
+        font = create_font(FontType.NEGATIVE, text)
+        current_x = (window_width // 2) - font.width
+        current_y = start_y
+        frame = UIFrame(self._game, (current_x, current_y), font=font, is_selectable=False)
+        self._elements["header"] = frame
+
+        # draw lost morale
+        current_y = window_height // 2
+        morale = self._game.memory.morale
+
+        if morale <= 0:
+            # game over
+            text = "Your forces, like your ambitions, lie in ruin."
+            font = create_font(FontType.DISABLED, text)
+            current_x = (window_width // 2) - (font.width // 2)
+            frame = UIFrame(self._game, (current_x, current_y), font=font, is_selectable=False)
+            self._elements["morale"] = frame
+
+            # draw exit button
+            self.add_exit_button("Abandon hope")
+        else:
+            # lose morale
+            morale_image = self._game.visuals.get_image("stats", "morale")
+            frame = UIFrame(
+                self._game,
+                (current_x, current_y),
+                image=morale_image,
+                font=create_font(FontType.NEGATIVE, str("-1")),
+                is_selectable=False,
+            )
+            self._elements["morale"] = frame
+
+            # draw exit button
+            self.add_exit_button()
+
+    def _rebuild_victory_ui(self):
+        window_width = self._game.window.width
+        window_height = self._game.window.height
+        create_font = self._game.visuals.create_font
+
+        start_x = 20
+        start_y = 40
+        icon_width = DEFAULT_IMAGE_SIZE
+        icon_height = DEFAULT_IMAGE_SIZE
+        icon_size = (icon_width, icon_height)
+
+        # draw header
+        text = "Victory"
+        font = create_font(FontType.POSITIVE, text)
+        current_x = (window_width // 2) - font.width
+        current_y = start_y
+        frame = UIFrame(self._game, (current_x, current_y), font=font, is_selectable=False)
+        self._elements["header"] = frame
+
+        # draw gold reward
+        current_y += 50
+        gold_icon = self._game.visuals.get_image("stats", "gold", icon_size)
+        gold_reward = str(self._game.post_combat.gold_reward)
+        frame = UIFrame(
+            self._game,
+            (current_x, current_y),
+            image=gold_icon,
+            font=create_font(FontType.DEFAULT, gold_reward),
+            is_selectable=False,
+        )
+        self._elements["gold_reward"] = frame
+
+        # draw exit button
+        self.add_exit_button()
+
+    def _render_unit_rewards(self, surface: pygame.Surface):
+        pass
+        # # FIXME - this no longer works
+        # reward_units = list(self._game.reward.troupe_rewards.units.values())
+        # default_font = self.default_font
+        # disabled_font = self.disabled_font
+        # warning_font = self.warning_font
+        # positive_font = self.positive_font
+        # stats = ["type", "health", "defence", "attack", "range", "attack_speed", "move_speed", "ammo", "count"]
+        #
+        # # positions
+        # start_x = 20
+        # start_y = 40
+        # font_height = 12
+        # window_width = self._game.window.width
+        # window_height = self._game.window.height
+        # col_width = int((window_width - (start_x * 2)) / len(stats))
+        #
+        # # victory message
+        # positive_font.draw("Victory!", surface, (start_x, start_y))
+        #
+        # # gold reward
+        # current_y = start_y + (font_height * 2)
+        # gold_reward = self._game.reward.gold_reward
+        # default_font.draw(f"{gold_reward} gold scavenged from the dead.", surface, (start_x, current_y))
+        #
+        # # instruction
+        # current_y = window_height // 2
+        # warning_font.draw(f"Choose one of the following rewards.", surface, (start_x, current_y))
+        #
+        # # draw headers
+        # current_y = current_y + (font_height * 2)
+        # col_count = 0
+        # for stat in stats:
+        #     col_x = start_x + (col_width * col_count)
+        #     default_font.draw(stat, surface, (col_x, current_y))
+        #
+        #     col_count += 1
+        #
+        # # draw unit info
+        # row_count = 0
+        # for unit in reward_units:
+        #     active_font = default_font
+        #
+        #     option_y = current_y + ((font_height + GAP_SIZE) * (row_count + 1))  # + 1 due to headers
+        #
+        #     # draw stats
+        #     col_count = 0
+        #     for stat in stats:
+        #         col_x = start_x + (col_width * col_count)
+        #
+        #         text = str(getattr(unit, stat))
+        #         active_font.draw(text, surface, (col_x, option_y))
+        #
+        #         col_count += 1
+        #
+        #     # draw selector
+        #     if row_count == self.selected_row:
+        #         # note the selected unit
+        #         self.selected_reward = unit
+        #
+        #         pygame.draw.line(
+        #             surface,
+        #             (255, 255, 255),
+        #             (start_x, option_y + font_height),
+        #             (start_x + active_font.width(unit.type), option_y + font_height),
+        #         )
+        #
+        #     row_count += 1
