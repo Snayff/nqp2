@@ -1,0 +1,416 @@
+
+
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>nqp.scenes.post_combat.scene &mdash; NotQuiteParadise2  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../../_static/css/theme.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/css/theme.min.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <a class="site-nav-toggle hidden-lg-up"><i class="icon-menu"></i></a>
+            <a class="site-title" href="../../../../index.html">
+                NotQuiteParadise2
+            </a>
+        </div>
+    </header>
+
+
+<div class="breadcrumbs-outer hidden-xs-down">
+    <div class="container">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a></li>
+        
+          <li><a href="../../../index.html">Module code</a></li>
+        
+      <li>nqp.scenes.post_combat.scene</li>
+    
+    
+      <li class="breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+</div>
+    </div>
+</div>
+    <div class="main-outer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-3 site-nav">
+                    
+<div role="search">
+    <form class="search" action="../../../../search.html" method="get">
+        <div class="icon-input">
+            <input type="text" name="q" placeholder="Search" />
+            <span class="icon-search"></span>
+        </div>
+        <input type="submit" value="Go" class="d-hidden" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+                    <div class="site-nav-tree">
+                        
+                            
+                            
+                                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/base_classes/_base_classes.html">Base Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/base_classes/animation.html">Animation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/base_classes/controller.html">Controller</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/base_classes/entity_behaviour.html">Entity Behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/base_classes/image.html">Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/base_classes/scene.html">Scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/base_classes/stat.html">Stat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/base_classes/ui.html">UI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/base_classes/ui_element.html">UI Element</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/command/_command.html">Command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/command/basic_entity_behaviour.html">Basic Entity Behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/command/commander.html">Commander</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/command/troupe.html">Troupe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/command/unit.html">Unit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/command/unit_behaviour.html">Unit Behaviour</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/core/_core.html">Core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/audio.html">Audio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/components.html">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/constants.html">Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/data.html">Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/debug.html">Debug</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/definitions.html">Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/effect.html">Effect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/game.html">Game</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/input.html">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/memory.html">Memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/queries.html">Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/rng.html">RNG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/scheduler.html">Scheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/utility.html">Utility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/window.html">Window</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/effects/_effects.html">Effects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/effects/add_item.html">Add Item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/effects/attribute_modifier.html">Attribute Modifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/effects/sildreths_signature.html">Sildreths Signature</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/scenes/_scenes.html">Scenes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/scenes/gallery.html">Gallery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/scenes/main_menu.html">Main Menu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/scenes/run_setup.html">Run Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/scenes/unit_data.html">Unit Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/scenes/world.html">World</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/topography/_topography.html">Base Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/topography/pathfinder.html">Pathfinder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/topography/terrain.html">Terrain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/topography/tile.html">Tile</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/world/_world.html">World</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/world/controllers.html">Controllers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/world/model.html">Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/world/view.html">View</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/world_elements/_world_elements.html">World Elements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/world_elements/actions.html">Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/world_elements/camera.html">Camera</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/world_elements/hitbox.html">Hitbox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/world_elements/item.html">Item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/world_elements/particle.html">Particle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/world_elements/particle_manager.html">Particle Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/world_elements/projectile.html">Projectile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/world_elements/projectile_manager.html">Projectile Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/world_elements/stats.html">Stats</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer/_developer.html">Developer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../developer/developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../developer/adding_new_content.html">Adding New Content</a></li>
+</ul>
+</li>
+</ul>
+
+                            
+                        
+                    </div>
+                </div>
+                <div class="col-12 col-lg-9">
+                    <div class="document">
+                        
+                            
+  <h1>Source code for nqp.scenes.post_combat.scene</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="kn">from</span> <span class="nn">nqp.base_classes.scene</span> <span class="kn">import</span> <span class="n">Scene</span>
+<span class="kn">from</span> <span class="nn">nqp.command.troupe</span> <span class="kn">import</span> <span class="n">Troupe</span>
+<span class="kn">from</span> <span class="nn">nqp.command.unit</span> <span class="kn">import</span> <span class="n">Unit</span>
+<span class="kn">from</span> <span class="nn">nqp.core.constants</span> <span class="kn">import</span> <span class="n">PostCombatState</span><span class="p">,</span> <span class="n">RewardType</span><span class="p">,</span> <span class="n">SceneType</span>
+<span class="kn">from</span> <span class="nn">nqp.scenes.post_combat.ui</span> <span class="kn">import</span> <span class="n">PostCombatUI</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
+
+    <span class="kn">from</span> <span class="nn">nqp.core.game</span> <span class="kn">import</span> <span class="n">Game</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;PostCombatScene&quot;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="PostCombatScene"><a class="viewcode-back" href="../../../../nqp.scenes.post_combat.html#nqp.scenes.post_combat.scene.PostCombatScene">[docs]</a><span class="k">class</span> <span class="nc">PostCombatScene</span><span class="p">(</span><span class="n">Scene</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Handles RewardScene interactions and consolidates the rendering. RewardScene is used to provide a choice of</span>
+<span class="sd">    rewards for the player to pick from.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="PostCombatScene.__init__"><a class="viewcode-back" href="../../../../nqp.scenes.post_combat.html#nqp.scenes.post_combat.scene.PostCombatScene.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">game</span><span class="p">:</span> <span class="n">Game</span><span class="p">):</span>
+        <span class="c1"># start timer</span>
+        <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">POST_COMBAT</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="p">:</span> <span class="n">PostCombatUI</span> <span class="o">=</span> <span class="n">PostCombatUI</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="p">:</span> <span class="n">PostCombatState</span> <span class="o">=</span> <span class="n">PostCombatState</span><span class="o">.</span><span class="n">VICTORY</span>
+
+        <span class="c1"># reward management</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_rewards</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># holds the current rewards, e.g. troupe_rewards</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reward_type</span><span class="p">:</span> <span class="n">RewardType</span> <span class="o">=</span> <span class="n">RewardType</span><span class="o">.</span><span class="n">UNIT</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_rewards</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span>
+
+        <span class="c1"># reward options</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gold_reward</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">troupe_rewards</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Troupe</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resource_rewards</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">upgrade_rewards</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">action_rewards</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># record duration</span>
+        <span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RewardScene: initialised in </span><span class="si">{</span><span class="nb">format</span><span class="p">(</span><span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">,</span> <span class="s1">&#39;.2f&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">s.&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PostCombatScene.update"><a class="viewcode-back" href="../../../../nqp.scenes.post_combat.html#nqp.scenes.post_combat.scene.PostCombatScene.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PostCombatScene.reset"><a class="viewcode-back" href="../../../../nqp.scenes.post_combat.html#nqp.scenes.post_combat.scene.PostCombatScene.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="n">PostCombatUI</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">PostCombatState</span><span class="o">.</span><span class="n">VICTORY</span>
+
+        <span class="c1"># reward management</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_rewards</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># holds the current rewards, e.g. troupe_rewards</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reward_type</span> <span class="o">=</span> <span class="n">RewardType</span><span class="o">.</span><span class="n">UNIT</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_rewards</span> <span class="o">=</span> <span class="mi">3</span>
+
+        <span class="c1"># reward options</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gold_reward</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">player_troupe</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">player_troupe</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">troupe_rewards</span> <span class="o">=</span> <span class="n">Troupe</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="s2">&quot;reward&quot;</span><span class="p">,</span> <span class="n">player_troupe</span><span class="o">.</span><span class="n">allies</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resource_rewards</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">upgrade_rewards</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">action_rewards</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="PostCombatScene.generate_reward"><a class="viewcode-back" href="../../../../nqp.scenes.post_combat.html#nqp.scenes.post_combat.scene.PostCombatScene.generate_reward">[docs]</a>    <span class="k">def</span> <span class="nf">generate_reward</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate reward to offer. Overwrites existing rewards.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">gold_min</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;post_combat&quot;</span><span class="p">][</span><span class="s2">&quot;gold_min&quot;</span><span class="p">]</span>
+        <span class="n">gold_max</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;post_combat&quot;</span><span class="p">][</span><span class="s2">&quot;gold_max&quot;</span><span class="p">]</span>
+        <span class="n">gold_level_multiplier</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;post_combat&quot;</span><span class="p">][</span><span class="s2">&quot;gold_level_multiplier&quot;</span><span class="p">]</span>
+        <span class="n">level</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">level</span>
+
+        <span class="c1"># only apply multiplier after level 1</span>
+        <span class="k">if</span> <span class="n">level</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">mod</span> <span class="o">=</span> <span class="n">level</span> <span class="o">*</span> <span class="n">gold_level_multiplier</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">mod</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="c1"># roll gold</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gold_reward</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">rng</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">gold_min</span><span class="p">,</span> <span class="n">gold_max</span><span class="p">)</span> <span class="o">*</span> <span class="n">mod</span><span class="p">)</span>
+
+        <span class="c1"># generate required rewards</span>
+        <span class="n">reward_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reward_type</span>
+        <span class="k">if</span> <span class="n">reward_type</span> <span class="o">==</span> <span class="n">RewardType</span><span class="o">.</span><span class="n">UNIT</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_generate_troupe_rewards</span><span class="p">()</span>
+            <span class="n">current_reward</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">troupe_rewards</span>
+
+        <span class="k">elif</span> <span class="n">reward_type</span> <span class="o">==</span> <span class="n">RewardType</span><span class="o">.</span><span class="n">ACTION</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_generate_action_rewards</span><span class="p">()</span>
+            <span class="n">current_reward</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">action_rewards</span>
+
+        <span class="k">elif</span> <span class="n">reward_type</span> <span class="o">==</span> <span class="n">RewardType</span><span class="o">.</span><span class="n">UPGRADE</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_generate_upgrade_rewards</span><span class="p">()</span>
+            <span class="n">current_reward</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">upgrade_rewards</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># reward_type == RewardType.RESOURCE</span>
+            <span class="n">current_reward</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource_rewards</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_generate_resource_rewards</span><span class="p">()</span>
+
+        <span class="c1"># update current rewards</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_rewards</span> <span class="o">=</span> <span class="n">current_reward</span></div>
+
+    <span class="k">def</span> <span class="nf">_generate_troupe_rewards</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="c1"># update troupe to match players</span>
+        <span class="n">player_troupe</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">player_troupe</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">troupe_rewards</span><span class="o">.</span><span class="n">allies</span> <span class="o">=</span> <span class="n">player_troupe</span><span class="o">.</span><span class="n">allies</span>
+
+        <span class="c1"># generate units in Troupe</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">troupe_rewards</span><span class="o">.</span><span class="n">remove_all_units</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">troupe_rewards</span><span class="o">.</span><span class="n">generate_units</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_rewards</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_generate_action_rewards</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;STUB&quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">_generate_upgrade_rewards</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;STUB&quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">_generate_resource_rewards</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;STUB&quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+
+<div class="viewcode-block" id="PostCombatScene.choose_reward"><a class="viewcode-back" href="../../../../nqp.scenes.post_combat.html#nqp.scenes.post_combat.scene.PostCombatScene.choose_reward">[docs]</a>    <span class="k">def</span> <span class="nf">choose_reward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reward</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add the current reward and the reward gold.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># add current reward</span>
+        <span class="n">reward_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reward_type</span>
+        <span class="k">if</span> <span class="n">reward_type</span> <span class="o">==</span> <span class="n">RewardType</span><span class="o">.</span><span class="n">UNIT</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_choose_troupe_rewards</span><span class="p">(</span><span class="n">reward</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">reward_type</span> <span class="o">==</span> <span class="n">RewardType</span><span class="o">.</span><span class="n">ACTION</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_choose_action_rewards</span><span class="p">(</span><span class="n">reward</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">reward_type</span> <span class="o">==</span> <span class="n">RewardType</span><span class="o">.</span><span class="n">UPGRADE</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_choose_upgrade_rewards</span><span class="p">(</span><span class="n">reward</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># reward_type == RewardType.RESOURCE</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_choose_resource_rewards</span><span class="p">(</span><span class="n">reward</span><span class="p">)</span>
+
+        <span class="c1"># add gold</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">amend_gold</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gold_reward</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_choose_troupe_rewards</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reward</span><span class="p">:</span> <span class="n">Unit</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">reward</span><span class="p">,</span> <span class="n">Unit</span><span class="p">):</span>
+            <span class="c1"># check can afford</span>
+            <span class="n">has_enough_charisma</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">commander</span><span class="o">.</span><span class="n">charisma_remaining</span> <span class="o">&gt;</span> <span class="mi">0</span>
+            <span class="k">if</span> <span class="n">has_enough_charisma</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">player_troupe</span><span class="o">.</span><span class="n">add_unit</span><span class="p">(</span><span class="n">reward</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Chose </span><span class="si">{</span><span class="n">reward</span><span class="si">}</span><span class="s2"> as a unit reward. As it isnt a unit, something has &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;seriously gone wrong! No reward added.&quot;</span>
+            <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_choose_action_rewards</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reward</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;STUB&quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">_choose_upgrade_rewards</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reward</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;STUB&quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">_choose_resource_rewards</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reward</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;STUB&quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+</pre></div>
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+    <script type="text/javascript" src="../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+  
+    <div class="footer" role="contentinfo">
+        <div class="container">
+            &#169; Copyright 2019-2022, Josh Snaith.
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.
+        </div>
+    </div>  
+
+</body>
+</html>

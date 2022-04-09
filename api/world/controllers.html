@@ -1,0 +1,492 @@
+
+
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Controllers &mdash; NotQuiteParadise2  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.min.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Model" href="model.html" />
+    <link rel="prev" title="World" href="_world.html" /> 
+
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <a class="site-nav-toggle hidden-lg-up"><i class="icon-menu"></i></a>
+            <a class="site-title" href="../../index.html">
+                NotQuiteParadise2
+            </a>
+        </div>
+    </header>
+
+
+<div class="breadcrumbs-outer hidden-xs-down">
+    <div class="container">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a></li>
+        
+          <li><a href="_world.html">World</a></li>
+        
+      <li>Controllers</li>
+    
+    
+      <li class="breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/api/world/controllers.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+</div>
+    </div>
+</div>
+    <div class="main-outer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-3 site-nav">
+                    
+<div role="search">
+    <form class="search" action="../../search.html" method="get">
+        <div class="icon-input">
+            <input type="text" name="q" placeholder="Search" />
+            <span class="icon-search"></span>
+        </div>
+        <input type="submit" value="Go" class="d-hidden" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+                    <div class="site-nav-tree">
+                        
+                            
+                            
+                                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../base_classes/_base_classes.html">Base Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../base_classes/animation.html">Animation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../base_classes/controller.html">Controller</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../base_classes/entity_behaviour.html">Entity Behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../base_classes/image.html">Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../base_classes/scene.html">Scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../base_classes/stat.html">Stat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../base_classes/ui.html">UI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../base_classes/ui_element.html">UI Element</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../command/_command.html">Command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../command/basic_entity_behaviour.html">Basic Entity Behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../command/commander.html">Commander</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../command/troupe.html">Troupe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../command/unit.html">Unit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../command/unit_behaviour.html">Unit Behaviour</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../core/_core.html">Core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../core/audio.html">Audio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/components.html">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/constants.html">Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/data.html">Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/debug.html">Debug</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/definitions.html">Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/effect.html">Effect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/game.html">Game</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/input.html">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/memory.html">Memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/queries.html">Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/rng.html">RNG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/scheduler.html">Scheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/utility.html">Utility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/window.html">Window</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../effects/_effects.html">Effects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../effects/add_item.html">Add Item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../effects/attribute_modifier.html">Attribute Modifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../effects/sildreths_signature.html">Sildreths Signature</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../scenes/_scenes.html">Scenes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../scenes/gallery.html">Gallery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scenes/main_menu.html">Main Menu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scenes/run_setup.html">Run Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scenes/unit_data.html">Unit Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scenes/world.html">World</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../topography/_topography.html">Base Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../topography/pathfinder.html">Pathfinder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../topography/terrain.html">Terrain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../topography/tile.html">Tile</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="_world.html">World</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Controllers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model.html">Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="view.html">View</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../world_elements/_world_elements.html">World Elements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../world_elements/actions.html">Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../world_elements/camera.html">Camera</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../world_elements/hitbox.html">Hitbox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../world_elements/item.html">Item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../world_elements/particle.html">Particle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../world_elements/particle_manager.html">Particle Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../world_elements/projectile.html">Projectile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../world_elements/projectile_manager.html">Projectile Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../world_elements/stats.html">Stats</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../developer/_developer.html">Developer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../developer/developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../developer/adding_new_content.html">Adding New Content</a></li>
+</ul>
+</li>
+</ul>
+
+                            
+                        
+                    </div>
+                </div>
+                <div class="col-12 col-lg-9">
+                    <div class="document">
+                        
+                            
+  <section id="module-nqp.world.controllers.choose_room_controller">
+<span id="controllers"></span><h1>Controllers<a class="headerlink" href="#module-nqp.world.controllers.choose_room_controller" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="nqp.world.controllers.choose_room_controller.ChooseRoomController">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ChooseRoomController</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../nqp.core.html#nqp.core.game.Game" title="nqp.core.game.Game"><span class="pre">Game</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_scene</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../nqp.scenes.world.html#nqp.scenes.world.scene.WorldScene" title="nqp.scenes.world.scene.WorldScene"><span class="pre">WorldScene</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/world/controllers/choose_room_controller.html#ChooseRoomController"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.choose_room_controller.ChooseRoomController" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../nqp.base_classes.html#nqp.base_classes.controller.Controller" title="nqp.base_classes.controller.Controller"><code class="xref py py-class docutils literal notranslate"><span class="pre">nqp.base_classes.controller.Controller</span></code></a></p>
+<p>Choose next room functionality and  data.</p>
+<ul class="simple">
+<li><p>Modify game state in accordance with game rules</p></li>
+<li><p>Do not draw anything</p></li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.world.controllers.choose_room_controller.ChooseRoomController.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../nqp.core.html#nqp.core.game.Game" title="nqp.core.game.Game"><span class="pre">Game</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_scene</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../nqp.scenes.world.html#nqp.scenes.world.scene.WorldScene" title="nqp.scenes.world.scene.WorldScene"><span class="pre">WorldScene</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/world/controllers/choose_room_controller.html#ChooseRoomController.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.choose_room_controller.ChooseRoomController.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.world.controllers.choose_room_controller.ChooseRoomController.begin_move_to_new_room">
+<span class="sig-name descname"><span class="pre">begin_move_to_new_room</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/world/controllers/choose_room_controller.html#ChooseRoomController.begin_move_to_new_room"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.choose_room_controller.ChooseRoomController.begin_move_to_new_room" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move Units to a new room</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.world.controllers.choose_room_controller.ChooseRoomController.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/world/controllers/choose_room_controller.html#ChooseRoomController.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.choose_room_controller.ChooseRoomController.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.world.controllers.choose_room_controller.ChooseRoomController.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/world/controllers/choose_room_controller.html#ChooseRoomController.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.choose_room_controller.ChooseRoomController.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-nqp.world.controllers.combat_controller"></span><dl class="py class">
+<dt class="sig sig-object py" id="nqp.world.controllers.combat_controller.CombatController">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CombatController</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../nqp.core.html#nqp.core.game.Game" title="nqp.core.game.Game"><span class="pre">Game</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_scene</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../nqp.scenes.world.html#nqp.scenes.world.scene.WorldScene" title="nqp.scenes.world.scene.WorldScene"><span class="pre">WorldScene</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/world/controllers/combat_controller.html#CombatController"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.combat_controller.CombatController" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../nqp.base_classes.html#nqp.base_classes.controller.Controller" title="nqp.base_classes.controller.Controller"><code class="xref py py-class docutils literal notranslate"><span class="pre">nqp.base_classes.controller.Controller</span></code></a></p>
+<p>Combat game functionality and combat only data.</p>
+<ul class="simple">
+<li><p>Modify game state in accordance with game rules</p></li>
+<li><p>Do not draw anything</p></li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.world.controllers.combat_controller.CombatController.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../nqp.core.html#nqp.core.game.Game" title="nqp.core.game.Game"><span class="pre">Game</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_scene</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../nqp.scenes.world.html#nqp.scenes.world.scene.WorldScene" title="nqp.scenes.world.scene.WorldScene"><span class="pre">WorldScene</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/world/controllers/combat_controller.html#CombatController.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.combat_controller.CombatController.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.world.controllers.combat_controller.CombatController.begin_combat">
+<span class="sig-name descname"><span class="pre">begin_combat</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/world/controllers/combat_controller.html#CombatController.begin_combat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.combat_controller.CombatController.begin_combat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start active combat.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.world.controllers.combat_controller.CombatController.end_combat">
+<span class="sig-name descname"><span class="pre">end_combat</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/world/controllers/combat_controller.html#CombatController.end_combat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.combat_controller.CombatController.end_combat" title="Permalink to this definition">¶</a></dt>
+<dd><p>End the combat</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.world.controllers.combat_controller.CombatController.generate_combat">
+<span class="sig-name descname"><span class="pre">generate_combat</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/world/controllers/combat_controller.html#CombatController.generate_combat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.combat_controller.CombatController.generate_combat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a random combat</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.world.controllers.combat_controller.CombatController.prepare_combat">
+<span class="sig-name descname"><span class="pre">prepare_combat</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/world/controllers/combat_controller.html#CombatController.prepare_combat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.combat_controller.CombatController.prepare_combat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Complete combat preparation steps.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.world.controllers.combat_controller.CombatController.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/world/controllers/combat_controller.html#CombatController.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.combat_controller.CombatController.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.world.controllers.combat_controller.CombatController.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/world/controllers/combat_controller.html#CombatController.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.combat_controller.CombatController.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-nqp.world.controllers.event_controller"></span><dl class="py class">
+<dt class="sig sig-object py" id="nqp.world.controllers.event_controller.EventController">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">EventController</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../nqp.core.html#nqp.core.game.Game" title="nqp.core.game.Game"><span class="pre">Game</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_scene</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../nqp.scenes.world.html#nqp.scenes.world.scene.WorldScene" title="nqp.scenes.world.scene.WorldScene"><span class="pre">WorldScene</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/world/controllers/event_controller.html#EventController"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.event_controller.EventController" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../nqp.base_classes.html#nqp.base_classes.controller.Controller" title="nqp.base_classes.controller.Controller"><code class="xref py py-class docutils literal notranslate"><span class="pre">nqp.base_classes.controller.Controller</span></code></a></p>
+<p>Event game functionality and event-only data.</p>
+<ul class="simple">
+<li><p>Modify game state in accordance with game rules</p></li>
+<li><p>Do not draw anything</p></li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.world.controllers.event_controller.EventController.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../nqp.core.html#nqp.core.game.Game" title="nqp.core.game.Game"><span class="pre">Game</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_scene</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../nqp.scenes.world.html#nqp.scenes.world.scene.WorldScene" title="nqp.scenes.world.scene.WorldScene"><span class="pre">WorldScene</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/world/controllers/event_controller.html#EventController.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.event_controller.EventController.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.world.controllers.event_controller.EventController.get_event">
+<span class="sig-name descname"><span class="pre">get_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_from_pool</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/world/controllers/event_controller.html#EventController.get_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.event_controller.EventController.get_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a specific event. remove_from_pool determines whether the event is removed from the list of possible
+events.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.world.controllers.event_controller.EventController.get_random_event">
+<span class="sig-name descname"><span class="pre">get_random_event</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span></span></span><a class="reference internal" href="../../_modules/nqp/world/controllers/event_controller.html#EventController.get_random_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.event_controller.EventController.get_random_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a random event from those available. This event is then removed from the list of possible events.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.world.controllers.event_controller.EventController.get_result_image">
+<span class="sig-name descname"><span class="pre">get_result_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">result_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">result_target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../../nqp.base_classes.html#nqp.base_classes.image.Image" title="nqp.base_classes.image.Image"><span class="pre">Image</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../../nqp.base_classes.html#nqp.base_classes.animation.Animation" title="nqp.base_classes.animation.Animation"><span class="pre">Animation</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/nqp/world/controllers/event_controller.html#EventController.get_result_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.event_controller.EventController.get_result_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get an image for the result key given.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.world.controllers.event_controller.EventController.load_event">
+<span class="sig-name descname"><span class="pre">load_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_from_pool</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/world/controllers/event_controller.html#EventController.load_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.event_controller.EventController.load_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a specific event.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.world.controllers.event_controller.EventController.load_random_event">
+<span class="sig-name descname"><span class="pre">load_random_event</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/world/controllers/event_controller.html#EventController.load_random_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.event_controller.EventController.load_random_event" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.world.controllers.event_controller.EventController.parse_event_string">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parse_event_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/nqp/world/controllers/event_controller.html#EventController.parse_event_string"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.event_controller.EventController.parse_event_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Break event string into component parts. Applicable for Conditions, Resources and Results. (or anything that
+has a syntax of key:value&#64;target.</p>
+<p>Returns a tuple of key, value, target.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.world.controllers.event_controller.EventController.prioritise_event">
+<span class="sig-name descname"><span class="pre">prioritise_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/world/controllers/event_controller.html#EventController.prioritise_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.event_controller.EventController.prioritise_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move an event from the event_deck to the priority events.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.world.controllers.event_controller.EventController.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/world/controllers/event_controller.html#EventController.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.event_controller.EventController.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.world.controllers.event_controller.EventController.trigger_result">
+<span class="sig-name descname"><span class="pre">trigger_result</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/world/controllers/event_controller.html#EventController.trigger_result"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.event_controller.EventController.trigger_result" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trigger the result for the option at the select current_index.</p>
+<p>Results are a list of key value target strings. “result_action : result_value &#64; target”</p>
+<p class="rubric">Example</p>
+<p>[“Gold:10”,”Gold:10”] - would add 10 gold twice.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.world.controllers.event_controller.EventController.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/world/controllers/event_controller.html#EventController.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.event_controller.EventController.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-nqp.world.controllers.inn_controller"></span><dl class="py class">
+<dt class="sig sig-object py" id="nqp.world.controllers.inn_controller.InnController">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">InnController</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../nqp.core.html#nqp.core.game.Game" title="nqp.core.game.Game"><span class="pre">Game</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_scene</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../nqp.scenes.world.html#nqp.scenes.world.scene.WorldScene" title="nqp.scenes.world.scene.WorldScene"><span class="pre">WorldScene</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/world/controllers/inn_controller.html#InnController"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.inn_controller.InnController" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../nqp.base_classes.html#nqp.base_classes.controller.Controller" title="nqp.base_classes.controller.Controller"><code class="xref py py-class docutils literal notranslate"><span class="pre">nqp.base_classes.controller.Controller</span></code></a></p>
+<p>Inn game functionality and inn-only data.</p>
+<ul class="simple">
+<li><p>Modify game state in accordance with game rules</p></li>
+<li><p>Do not draw anything</p></li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.world.controllers.inn_controller.InnController.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../nqp.core.html#nqp.core.game.Game" title="nqp.core.game.Game"><span class="pre">Game</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_scene</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../nqp.scenes.world.html#nqp.scenes.world.scene.WorldScene" title="nqp.scenes.world.scene.WorldScene"><span class="pre">WorldScene</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/world/controllers/inn_controller.html#InnController.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.inn_controller.InnController.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.world.controllers.inn_controller.InnController.delete_troupe">
+<span class="sig-name descname"><span class="pre">delete_troupe</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/world/controllers/inn_controller.html#InnController.delete_troupe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.inn_controller.InnController.delete_troupe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete the inn troupe.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.world.controllers.inn_controller.InnController.generate_units">
+<span class="sig-name descname"><span class="pre">generate_units</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/world/controllers/inn_controller.html#InnController.generate_units"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.inn_controller.InnController.generate_units" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate units to sell. NOTE: currently hard coded.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.world.controllers.inn_controller.InnController.recruit_unit">
+<span class="sig-name descname"><span class="pre">recruit_unit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../nqp.command.html#nqp.command.unit.Unit" title="nqp.command.unit.Unit"><span class="pre">Unit</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/world/controllers/inn_controller.html#InnController.recruit_unit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.inn_controller.InnController.recruit_unit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add the unit to the player’s Troupe and remove from the inn’s.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.world.controllers.inn_controller.InnController.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/world/controllers/inn_controller.html#InnController.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.inn_controller.InnController.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.world.controllers.inn_controller.InnController.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/world/controllers/inn_controller.html#InnController.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.inn_controller.InnController.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-nqp.world.controllers.training_controller"></span><dl class="py class">
+<dt class="sig sig-object py" id="nqp.world.controllers.training_controller.TrainingController">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">TrainingController</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../nqp.core.html#nqp.core.game.Game" title="nqp.core.game.Game"><span class="pre">Game</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_scene</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../nqp.scenes.world.html#nqp.scenes.world.scene.WorldScene" title="nqp.scenes.world.scene.WorldScene"><span class="pre">WorldScene</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/world/controllers/training_controller.html#TrainingController"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.training_controller.TrainingController" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../nqp.base_classes.html#nqp.base_classes.controller.Controller" title="nqp.base_classes.controller.Controller"><code class="xref py py-class docutils literal notranslate"><span class="pre">nqp.base_classes.controller.Controller</span></code></a></p>
+<p>Training game functionality and training-only data.</p>
+<ul class="simple">
+<li><p>Modify game state in accordance with game rules</p></li>
+<li><p>Do not draw anything</p></li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.world.controllers.training_controller.TrainingController.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../nqp.core.html#nqp.core.game.Game" title="nqp.core.game.Game"><span class="pre">Game</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_scene</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../nqp.scenes.world.html#nqp.scenes.world.scene.WorldScene" title="nqp.scenes.world.scene.WorldScene"><span class="pre">WorldScene</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/world/controllers/training_controller.html#TrainingController.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.training_controller.TrainingController.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.world.controllers.training_controller.TrainingController.calculate_upgrade_cost">
+<span class="sig-name descname"><span class="pre">calculate_upgrade_cost</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tier</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/world/controllers/training_controller.html#TrainingController.calculate_upgrade_cost"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.training_controller.TrainingController.calculate_upgrade_cost" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the cost of the upgrade based on the tier of the upgrade.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.world.controllers.training_controller.TrainingController.generate_upgrades">
+<span class="sig-name descname"><span class="pre">generate_upgrades</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/world/controllers/training_controller.html#TrainingController.generate_upgrades"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.training_controller.TrainingController.generate_upgrades" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate upgrades to sell. NOTE: currently hard coded.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.world.controllers.training_controller.TrainingController.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/world/controllers/training_controller.html#TrainingController.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.training_controller.TrainingController.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.world.controllers.training_controller.TrainingController.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/world/controllers/training_controller.html#TrainingController.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.training_controller.TrainingController.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.world.controllers.training_controller.TrainingController.upgrade_unit">
+<span class="sig-name descname"><span class="pre">upgrade_unit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../nqp.command.html#nqp.command.unit.Unit" title="nqp.command.unit.Unit"><span class="pre">Unit</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/world/controllers/training_controller.html#TrainingController.upgrade_unit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.training_controller.TrainingController.upgrade_unit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Upgrade the unit.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+    <script type="text/javascript" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+    <div class="footer" role="contentinfo">
+        <div class="container">
+            &#169; Copyright 2019-2022, Josh Snaith.
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.
+        </div>
+    </div>  
+
+</body>
+</html>

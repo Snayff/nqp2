@@ -1,0 +1,85 @@
+nqp.world\_elements package
+===========================
+
+Submodules
+----------
+
+nqp.world\_elements.actions module
+----------------------------------
+
+.. automodule:: nqp.world_elements.actions
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.world\_elements.camera module
+---------------------------------
+
+.. automodule:: nqp.world_elements.camera
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.world\_elements.hitbox module
+---------------------------------
+
+.. automodule:: nqp.world_elements.hitbox
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.world\_elements.item module
+-------------------------------
+
+.. automodule:: nqp.world_elements.item
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.world\_elements.particle module
+-----------------------------------
+
+.. automodule:: nqp.world_elements.particle
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.world\_elements.particle\_manager module
+--------------------------------------------
+
+.. automodule:: nqp.world_elements.particle_manager
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.world\_elements.projectile module
+-------------------------------------
+
+.. automodule:: nqp.world_elements.projectile
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.world\_elements.projectile\_manager module
+----------------------------------------------
+
+.. automodule:: nqp.world_elements.projectile_manager
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.world\_elements.stats module
+--------------------------------
+
+.. automodule:: nqp.world_elements.stats
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: nqp.world_elements
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,5 +1,5 @@
 Input
 ============================================
 
-.. automodule:: scripts.core.input
+.. automodule:: nqp.core.input
 

@@ -1,0 +1,26 @@
+nqp package
+===========
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   nqp.base_classes
+   nqp.command
+   nqp.core
+   nqp.effects
+   nqp.scenes
+   nqp.topography
+   nqp.ui_elements
+   nqp.world
+   nqp.world_elements
+
+Module contents
+---------------
+
+.. automodule:: nqp
+   :members:
+   :undoc-members:
+   :show-inheritance:

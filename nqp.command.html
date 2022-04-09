@@ -1,0 +1,497 @@
+
+
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>nqp.command package &mdash; NotQuiteParadise2  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.min.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.min.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <a class="site-nav-toggle hidden-lg-up"><i class="icon-menu"></i></a>
+            <a class="site-title" href="index.html">
+                NotQuiteParadise2
+            </a>
+        </div>
+    </header>
+
+
+<div class="breadcrumbs-outer hidden-xs-down">
+    <div class="container">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="breadcrumbs">
+    
+      <li><a href="index.html">Docs</a></li>
+        
+      <li>nqp.command package</li>
+    
+    
+      <li class="breadcrumbs-aside">
+        
+            
+            <a href="_sources/nqp.command.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+</div>
+    </div>
+</div>
+    <div class="main-outer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-3 site-nav">
+                    
+<div role="search">
+    <form class="search" action="search.html" method="get">
+        <div class="icon-input">
+            <input type="text" name="q" placeholder="Search" />
+            <span class="icon-search"></span>
+        </div>
+        <input type="submit" value="Go" class="d-hidden" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+                    <div class="site-nav-tree">
+                        
+                            
+                            
+                                <ul>
+<li class="toctree-l1"><a class="reference internal" href="api/base_classes/_base_classes.html">Base Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/base_classes/animation.html">Animation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/base_classes/controller.html">Controller</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/base_classes/entity_behaviour.html">Entity Behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/base_classes/image.html">Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/base_classes/scene.html">Scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/base_classes/stat.html">Stat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/base_classes/ui.html">UI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/base_classes/ui_element.html">UI Element</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/command/_command.html">Command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/command/basic_entity_behaviour.html">Basic Entity Behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/command/commander.html">Commander</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/command/troupe.html">Troupe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/command/unit.html">Unit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/command/unit_behaviour.html">Unit Behaviour</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/core/_core.html">Core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/core/audio.html">Audio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/core/components.html">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/core/constants.html">Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/core/data.html">Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/core/debug.html">Debug</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/core/definitions.html">Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/core/effect.html">Effect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/core/game.html">Game</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/core/input.html">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/core/memory.html">Memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/core/queries.html">Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/core/rng.html">RNG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/core/scheduler.html">Scheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/core/utility.html">Utility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/core/window.html">Window</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/effects/_effects.html">Effects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/effects/add_item.html">Add Item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/effects/attribute_modifier.html">Attribute Modifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/effects/sildreths_signature.html">Sildreths Signature</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/scenes/_scenes.html">Scenes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/scenes/gallery.html">Gallery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/scenes/main_menu.html">Main Menu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/scenes/run_setup.html">Run Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/scenes/unit_data.html">Unit Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/scenes/world.html">World</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/topography/_topography.html">Base Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/topography/pathfinder.html">Pathfinder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/topography/terrain.html">Terrain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/topography/tile.html">Tile</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/world/_world.html">World</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/world/controllers.html">Controllers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/world/model.html">Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/world/view.html">View</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/world_elements/_world_elements.html">World Elements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/world_elements/actions.html">Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/world_elements/camera.html">Camera</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/world_elements/hitbox.html">Hitbox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/world_elements/item.html">Item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/world_elements/particle.html">Particle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/world_elements/particle_manager.html">Particle Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/world_elements/projectile.html">Projectile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/world_elements/projectile_manager.html">Projectile Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/world_elements/stats.html">Stats</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="developer/_developer.html">Developer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="developer/developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developer/adding_new_content.html">Adding New Content</a></li>
+</ul>
+</li>
+</ul>
+
+                            
+                        
+                    </div>
+                </div>
+                <div class="col-12 col-lg-9">
+                    <div class="document">
+                        
+                            
+  <section id="nqp-command-package">
+<h1>nqp.command package<a class="headerlink" href="#nqp-command-package" title="Permalink to this headline">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-nqp.command.basic_entity_behaviour">
+<span id="nqp-command-basic-entity-behaviour-module"></span><h2>nqp.command.basic_entity_behaviour module<a class="headerlink" href="#module-nqp.command.basic_entity_behaviour" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nqp.command.basic_entity_behaviour.BasicEntityBehaviour">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BasicEntityBehaviour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="nqp.core.html#nqp.core.game.Game" title="nqp.core.game.Game"><span class="pre">Game</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nqp.command.unit.Unit" title="nqp.command.unit.Unit"><span class="pre">Unit</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">entity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">EntityID</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/command/basic_entity_behaviour.html#BasicEntityBehaviour"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.command.basic_entity_behaviour.BasicEntityBehaviour" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="nqp.base_classes.html#nqp.base_classes.entity_behaviour.EntityBehaviour" title="nqp.base_classes.entity_behaviour.EntityBehaviour"><code class="xref py py-class docutils literal notranslate"><span class="pre">nqp.base_classes.entity_behaviour.EntityBehaviour</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.command.basic_entity_behaviour.BasicEntityBehaviour.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="nqp.core.html#nqp.core.game.Game" title="nqp.core.game.Game"><span class="pre">Game</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nqp.command.unit.Unit" title="nqp.command.unit.Unit"><span class="pre">Unit</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">entity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">EntityID</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/command/basic_entity_behaviour.html#BasicEntityBehaviour.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.command.basic_entity_behaviour.BasicEntityBehaviour.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.command.basic_entity_behaviour.BasicEntityBehaviour.determine_next_action">
+<span class="sig-name descname"><span class="pre">determine_next_action</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">focus_entity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/command/basic_entity_behaviour.html#BasicEntityBehaviour.determine_next_action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.command.basic_entity_behaviour.BasicEntityBehaviour.determine_next_action" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determine what to do next, i.e. what state to transition into.</p>
+<p>If focus_entity is True then should a target position exist it
+will be overwritten by the target entity’s position.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.command.basic_entity_behaviour.BasicEntityBehaviour.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/command/basic_entity_behaviour.html#BasicEntityBehaviour.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.command.basic_entity_behaviour.BasicEntityBehaviour.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.command.basic_entity_behaviour.BasicEntityBehaviour.update_path">
+<span class="sig-name descname"><span class="pre">update_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/command/basic_entity_behaviour.html#BasicEntityBehaviour.update_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.command.basic_entity_behaviour.BasicEntityBehaviour.update_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update pathing to target.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-nqp.command.commander">
+<span id="nqp-command-commander-module"></span><h2>nqp.command.commander module<a class="headerlink" href="#module-nqp.command.commander" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nqp.command.commander.Commander">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Commander</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="nqp.core.html#nqp.core.game.Game" title="nqp.core.game.Game"><span class="pre">Game</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/command/commander.html#Commander"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.command.commander.Commander" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.command.commander.Commander.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="nqp.core.html#nqp.core.game.Game" title="nqp.core.game.Game"><span class="pre">Game</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/command/commander.html#Commander.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.command.commander.Commander.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-nqp.command.troupe">
+<span id="nqp-command-troupe-module"></span><h2>nqp.command.troupe module<a class="headerlink" href="#module-nqp.command.troupe" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nqp.command.troupe.Troupe">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Troupe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="nqp.core.html#nqp.core.game.Game" title="nqp.core.game.Game"><span class="pre">Game</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">team</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">allies</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/command/troupe.html#Troupe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.command.troupe.Troupe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Management of a group of units</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.command.troupe.Troupe.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="nqp.core.html#nqp.core.game.Game" title="nqp.core.game.Game"><span class="pre">Game</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">team</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">allies</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/command/troupe.html#Troupe.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.command.troupe.Troupe.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.command.troupe.Troupe.add_unit">
+<span class="sig-name descname"><span class="pre">add_unit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nqp.command.unit.Unit" title="nqp.command.unit.Unit"><span class="pre">nqp.command.unit.Unit</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/command/troupe.html#Troupe.add_unit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.command.troupe.Troupe.add_unit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a unit instance to the troupe. Used when buying an existing unit, e.g. from Inn.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.command.troupe.Troupe.debug_init_units">
+<span class="sig-name descname"><span class="pre">debug_init_units</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/nqp/command/troupe.html#Troupe.debug_init_units"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.command.troupe.Troupe.debug_init_units" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialise all units for Troupe faction. Returns list of created ids.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="nqp.command.troupe.Troupe.entities">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">entities</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">EntityID</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#nqp.command.troupe.Troupe.entities" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.command.troupe.Troupe.generate_specific_units">
+<span class="sig-name descname"><span class="pre">generate_specific_units</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit_types</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/nqp/command/troupe.html#Troupe.generate_specific_units"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.command.troupe.Troupe.generate_specific_units" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate units for the Troupe, based on parameters given. Returns list of created ids.</p>
+<p>unit_types is expressed as [unit.type, …]</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.command.troupe.Troupe.generate_units">
+<span class="sig-name descname"><span class="pre">generate_units</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">number_of_units</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">tiers_allowed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/nqp/command/troupe.html#Troupe.generate_units"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.command.troupe.Troupe.generate_units" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate units for the Troupe, based on parameters given. If no unit types are given then any unit type can
+be chosen from any ally. Returns list of created ids.</p>
+<p>unit_types is expressed as [unit.type, …]</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.command.troupe.Troupe.get_random_unit">
+<span class="sig-name descname"><span class="pre">get_random_unit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#nqp.command.unit.Unit" title="nqp.command.unit.Unit"><span class="pre">nqp.command.unit.Unit</span></a></span></span><a class="reference internal" href="_modules/nqp/command/troupe.html#Troupe.get_random_unit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.command.troupe.Troupe.get_random_unit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a random unit from the Troupe.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.command.troupe.Troupe.remove_all_units">
+<span class="sig-name descname"><span class="pre">remove_all_units</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/command/troupe.html#Troupe.remove_all_units"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.command.troupe.Troupe.remove_all_units" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove all units from the Troupe</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.command.troupe.Troupe.remove_unit">
+<span class="sig-name descname"><span class="pre">remove_unit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/command/troupe.html#Troupe.remove_unit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.command.troupe.Troupe.remove_unit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.command.troupe.Troupe.set_force_idle">
+<span class="sig-name descname"><span class="pre">set_force_idle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">active</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/command/troupe.html#Troupe.set_force_idle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.command.troupe.Troupe.set_force_idle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the forced_idle attr for all units in the Troupe</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="nqp.command.troupe.Troupe.units">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">units</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#nqp.command.unit.Unit" title="nqp.command.unit.Unit"><span class="pre">Unit</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#nqp.command.troupe.Troupe.units" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.command.troupe.Troupe.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/command/troupe.html#Troupe.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.command.troupe.Troupe.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.command.troupe.Troupe.upgrade_unit">
+<span class="sig-name descname"><span class="pre">upgrade_unit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">upgrade_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/command/troupe.html#Troupe.upgrade_unit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.command.troupe.Troupe.upgrade_unit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Upgrade a unit with a given upgrade.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-nqp.command.unit">
+<span id="nqp-command-unit-module"></span><h2>nqp.command.unit module<a class="headerlink" href="#module-nqp.command.unit" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nqp.command.unit.Unit">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Unit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="nqp.core.html#nqp.core.game.Game" title="nqp.core.game.Game"><span class="pre">Game</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">id_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">team</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/command/unit.html#Unit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.command.unit.Unit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.command.unit.Unit.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="nqp.core.html#nqp.core.game.Game" title="nqp.core.game.Game"><span class="pre">Game</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">id_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">team</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/command/unit.html#Unit.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.command.unit.Unit.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.command.unit.Unit.add_modifier">
+<span class="sig-name descname"><span class="pre">add_modifier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/command/unit.html#Unit.add_modifier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.command.unit.Unit.add_modifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a modifier to a stat. Stub</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.command.unit.Unit.delete_entities">
+<span class="sig-name descname"><span class="pre">delete_entities</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">immediately</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/command/unit.html#Unit.delete_entities"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.command.unit.Unit.delete_entities" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete all entities. If “immediately” = False this will happen on the next frame.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.command.unit.Unit.draw_banner">
+<span class="sig-name descname"><span class="pre">draw_banner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">surface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://www.pygame.org/docs/ref/surface.html#pygame.Surface" title="(in pygame v2.1.1)"><span class="pre">pygame.Surface</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">shift</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/command/unit.html#Unit.draw_banner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.command.unit.Unit.draw_banner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw’s the Unit’s banner.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.command.unit.Unit.draw_border">
+<span class="sig-name descname"><span class="pre">draw_border</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">surface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://www.pygame.org/docs/ref/surface.html#pygame.Surface" title="(in pygame v2.1.1)"><span class="pre">pygame.Surface</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">shift</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/command/unit.html#Unit.draw_border"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.command.unit.Unit.draw_border" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw the border around the unit.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.command.unit.Unit.generate_border_surface">
+<span class="sig-name descname"><span class="pre">generate_border_surface</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/command/unit.html#Unit.generate_border_surface"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.command.unit.Unit.generate_border_surface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a new border around the Unit. Stub</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.command.unit.Unit.get_modified_status">
+<span class="sig-name descname"><span class="pre">get_modified_status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="nqp.core.html#nqp.core.constants.StatModifiedStatus" title="nqp.core.constants.StatModifiedStatus"><span class="pre">nqp.core.constants.StatModifiedStatus</span></a></span></span><a class="reference internal" href="_modules/nqp/command/unit.html#Unit.get_modified_status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.command.unit.Unit.get_modified_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if a given stat is modified. Stub.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="nqp.command.unit.Unit.is_alive">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_alive</span></span><a class="headerlink" href="#nqp.command.unit.Unit.is_alive" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.command.unit.Unit.reset_for_combat">
+<span class="sig-name descname"><span class="pre">reset_for_combat</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/command/unit.html#Unit.reset_for_combat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.command.unit.Unit.reset_for_combat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset the in combat values ready to begin combat.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.command.unit.Unit.set_position">
+<span class="sig-name descname"><span class="pre">set_position</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/command/unit.html#Unit.set_position"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.command.unit.Unit.set_position" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the unit’s position and moves the Entities to match.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.command.unit.Unit.spawn_entities">
+<span class="sig-name descname"><span class="pre">spawn_entities</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/command/unit.html#Unit.spawn_entities"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.command.unit.Unit.spawn_entities" title="Permalink to this definition">¶</a></dt>
+<dd><p>Spawn the Unit’s Entities. Deletes any existing Entities first.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.command.unit.Unit.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/command/unit.html#Unit.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.command.unit.Unit.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.command.unit.Unit.update_position">
+<span class="sig-name descname"><span class="pre">update_position</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/command/unit.html#Unit.update_position"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.command.unit.Unit.update_position" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update unit position by averaging the positions of all its entities.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-nqp.command.unit_behaviour">
+<span id="nqp-command-unit-behaviour-module"></span><h2>nqp.command.unit_behaviour module<a class="headerlink" href="#module-nqp.command.unit_behaviour" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nqp.command.unit_behaviour.UnitBehaviour">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">UnitBehaviour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="nqp.core.html#nqp.core.game.Game" title="nqp.core.game.Game"><span class="pre">Game</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nqp.command.unit.Unit" title="nqp.command.unit.Unit"><span class="pre">Unit</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/command/unit_behaviour.html#UnitBehaviour"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.command.unit_behaviour.UnitBehaviour" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.command.unit_behaviour.UnitBehaviour.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="nqp.core.html#nqp.core.game.Game" title="nqp.core.game.Game"><span class="pre">Game</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nqp.command.unit.Unit" title="nqp.command.unit.Unit"><span class="pre">Unit</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/command/unit_behaviour.html#UnitBehaviour.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.command.unit_behaviour.UnitBehaviour.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.command.unit_behaviour.UnitBehaviour.find_target">
+<span class="sig-name descname"><span class="pre">find_target</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/command/unit_behaviour.html#UnitBehaviour.find_target"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.command.unit_behaviour.UnitBehaviour.find_target" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the nearest enemy from a different team and update the target.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="nqp.command.unit_behaviour.UnitBehaviour.leader">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">leader</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">EntityID</span></em><a class="headerlink" href="#nqp.command.unit_behaviour.UnitBehaviour.leader" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.command.unit_behaviour.UnitBehaviour.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/command/unit_behaviour.html#UnitBehaviour.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.command.unit_behaviour.UnitBehaviour.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.command.unit_behaviour.UnitBehaviour.update_valid_targets">
+<span class="sig-name descname"><span class="pre">update_valid_targets</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/command/unit_behaviour.html#UnitBehaviour.update_valid_targets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.command.unit_behaviour.UnitBehaviour.update_valid_targets" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-nqp.command">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-nqp.command" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+    <div class="footer" role="contentinfo">
+        <div class="container">
+            &#169; Copyright 2019-2022, Josh Snaith.
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.
+        </div>
+    </div>  
+
+</body>
+</html>

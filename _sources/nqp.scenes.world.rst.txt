@@ -1,0 +1,29 @@
+nqp.scenes.world package
+========================
+
+Submodules
+----------
+
+nqp.scenes.world.scene module
+-----------------------------
+
+.. automodule:: nqp.scenes.world.scene
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.scenes.world.ui module
+--------------------------
+
+.. automodule:: nqp.scenes.world.ui
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: nqp.scenes.world
+   :members:
+   :undoc-members:
+   :show-inheritance:

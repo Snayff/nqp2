@@ -4,5 +4,5 @@ nqp2
 .. toctree::
    :maxdepth: 4
 
+   nqp
    nqp2
-   scripts

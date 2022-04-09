@@ -1,5 +1,5 @@
 Visuals
 ============================================
 
-.. automodule:: scripts.core.visuals
+.. automodule:: nqp.core.visuals
 

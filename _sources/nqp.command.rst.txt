@@ -1,0 +1,53 @@
+nqp.command package
+===================
+
+Submodules
+----------
+
+nqp.command.basic\_entity\_behaviour module
+-------------------------------------------
+
+.. automodule:: nqp.command.basic_entity_behaviour
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.command.commander module
+----------------------------
+
+.. automodule:: nqp.command.commander
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.command.troupe module
+-------------------------
+
+.. automodule:: nqp.command.troupe
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.command.unit module
+-----------------------
+
+.. automodule:: nqp.command.unit
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.command.unit\_behaviour module
+----------------------------------
+
+.. automodule:: nqp.command.unit_behaviour
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: nqp.command
+   :members:
+   :undoc-members:
+   :show-inheritance:

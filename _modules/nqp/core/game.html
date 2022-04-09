@@ -1,0 +1,445 @@
+
+
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>nqp.core.game &mdash; NotQuiteParadise2  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.min.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <a class="site-nav-toggle hidden-lg-up"><i class="icon-menu"></i></a>
+            <a class="site-title" href="../../../index.html">
+                NotQuiteParadise2
+            </a>
+        </div>
+    </header>
+
+
+<div class="breadcrumbs-outer hidden-xs-down">
+    <div class="container">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a></li>
+        
+          <li><a href="../../index.html">Module code</a></li>
+        
+      <li>nqp.core.game</li>
+    
+    
+      <li class="breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+</div>
+    </div>
+</div>
+    <div class="main-outer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-3 site-nav">
+                    
+<div role="search">
+    <form class="search" action="../../../search.html" method="get">
+        <div class="icon-input">
+            <input type="text" name="q" placeholder="Search" />
+            <span class="icon-search"></span>
+        </div>
+        <input type="submit" value="Go" class="d-hidden" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+                    <div class="site-nav-tree">
+                        
+                            
+                            
+                                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/base_classes/_base_classes.html">Base Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/animation.html">Animation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/controller.html">Controller</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/entity_behaviour.html">Entity Behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/image.html">Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/scene.html">Scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/stat.html">Stat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/ui.html">UI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/ui_element.html">UI Element</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/command/_command.html">Command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/command/basic_entity_behaviour.html">Basic Entity Behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/command/commander.html">Commander</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/command/troupe.html">Troupe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/command/unit.html">Unit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/command/unit_behaviour.html">Unit Behaviour</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/core/_core.html">Core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/audio.html">Audio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/components.html">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/constants.html">Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/data.html">Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/debug.html">Debug</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/definitions.html">Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/effect.html">Effect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/game.html">Game</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/input.html">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/memory.html">Memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/queries.html">Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/rng.html">RNG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/scheduler.html">Scheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/utility.html">Utility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/window.html">Window</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/effects/_effects.html">Effects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/add_item.html">Add Item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/attribute_modifier.html">Attribute Modifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/sildreths_signature.html">Sildreths Signature</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/scenes/_scenes.html">Scenes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/scenes/gallery.html">Gallery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/scenes/main_menu.html">Main Menu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/scenes/run_setup.html">Run Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/scenes/unit_data.html">Unit Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/scenes/world.html">World</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/topography/_topography.html">Base Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/topography/pathfinder.html">Pathfinder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/topography/terrain.html">Terrain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/topography/tile.html">Tile</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/world/_world.html">World</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world/controllers.html">Controllers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world/model.html">Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world/view.html">View</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/world_elements/_world_elements.html">World Elements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/actions.html">Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/camera.html">Camera</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/hitbox.html">Hitbox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/item.html">Item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/particle.html">Particle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/particle_manager.html">Particle Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/projectile.html">Projectile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/projectile_manager.html">Projectile Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/stats.html">Stats</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer/_developer.html">Developer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../developer/developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../developer/adding_new_content.html">Adding New Content</a></li>
+</ul>
+</li>
+</ul>
+
+                            
+                        
+                    </div>
+                </div>
+                <div class="col-12 col-lg-9">
+                    <div class="document">
+                        
+                            
+  <h1>Source code for nqp.core.game</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="kn">import</span> <span class="nn">pygame</span>
+
+<span class="kn">from</span> <span class="nn">nqp.base_classes.scene</span> <span class="kn">import</span> <span class="n">Scene</span>
+<span class="kn">from</span> <span class="nn">nqp.core.audio</span> <span class="kn">import</span> <span class="n">Audio</span>
+<span class="kn">from</span> <span class="nn">nqp.core.constants</span> <span class="kn">import</span> <span class="n">GameState</span><span class="p">,</span> <span class="n">SceneType</span>
+<span class="kn">from</span> <span class="nn">nqp.core.data</span> <span class="kn">import</span> <span class="n">Data</span>
+<span class="kn">from</span> <span class="nn">nqp.core.debug</span> <span class="kn">import</span> <span class="n">Debugger</span><span class="p">,</span> <span class="n">Timer</span>
+<span class="kn">from</span> <span class="nn">nqp.core.input</span> <span class="kn">import</span> <span class="n">Input</span>
+<span class="kn">from</span> <span class="nn">nqp.core.rng</span> <span class="kn">import</span> <span class="n">RNG</span>
+<span class="kn">from</span> <span class="nn">nqp.core.visual</span> <span class="kn">import</span> <span class="n">Visual</span>
+<span class="kn">from</span> <span class="nn">nqp.core.window</span> <span class="kn">import</span> <span class="n">Window</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Game&quot;</span><span class="p">]</span>
+
+
+<span class="c1">############ TO DO LIST ############</span>
+
+
+<div class="viewcode-block" id="Game"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.game.Game">[docs]</a><span class="k">class</span> <span class="nc">Game</span><span class="p">:</span>
+<div class="viewcode-block" id="Game.__init__"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.game.Game.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">Timer</span><span class="p">(</span><span class="s2">&quot;Game: initialised&quot;</span><span class="p">):</span>
+            <span class="c1"># imports here to avoid circular references since they&#39;re core and</span>
+            <span class="c1"># controllers require ``Game`` imports for typing.</span>
+            <span class="c1"># load modules</span>
+            <span class="kn">from</span> <span class="nn">nqp.core.assets</span> <span class="kn">import</span> <span class="n">Assets</span>
+            <span class="kn">from</span> <span class="nn">nqp.core.memory</span> <span class="kn">import</span> <span class="n">Memory</span>
+            <span class="kn">from</span> <span class="nn">nqp.scenes.main_menu.scene</span> <span class="kn">import</span> <span class="n">MainMenuScene</span>
+            <span class="kn">from</span> <span class="nn">nqp.scenes.run_setup.scene</span> <span class="kn">import</span> <span class="n">RunSetupScene</span>
+            <span class="kn">from</span> <span class="nn">nqp.scenes.view_troupe.scene</span> <span class="kn">import</span> <span class="n">ViewTroupeScene</span>
+            <span class="kn">from</span> <span class="nn">nqp.scenes.world.scene</span> <span class="kn">import</span> <span class="n">WorldScene</span>
+
+            <span class="c1"># init libraries</span>
+            <span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+            <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+            <span class="n">pygame</span><span class="o">.</span><span class="n">joystick</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+
+            <span class="c1"># managers</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span> <span class="n">Debugger</span> <span class="o">=</span> <span class="n">Debugger</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">:</span> <span class="n">Window</span> <span class="o">=</span> <span class="n">Window</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">:</span> <span class="n">Data</span> <span class="o">=</span> <span class="n">Data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assets</span><span class="p">:</span> <span class="n">Assets</span> <span class="o">=</span> <span class="n">Assets</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>  <span class="c1"># TODO - deprecate</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">memory</span><span class="p">:</span> <span class="n">Memory</span> <span class="o">=</span> <span class="n">Memory</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="p">:</span> <span class="n">Input</span> <span class="o">=</span> <span class="n">Input</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rng</span><span class="p">:</span> <span class="n">RNG</span> <span class="o">=</span> <span class="n">RNG</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">audio</span><span class="p">:</span> <span class="n">Audio</span> <span class="o">=</span> <span class="n">Audio</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">visual</span><span class="p">:</span> <span class="n">Visual</span> <span class="o">=</span> <span class="n">Visual</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+            <span class="c1"># scenes</span>
+            <span class="c1"># TODO - should these be private?</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">main_menu</span><span class="p">:</span> <span class="n">MainMenuScene</span> <span class="o">=</span> <span class="n">MainMenuScene</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">run_setup</span><span class="p">:</span> <span class="n">RunSetupScene</span> <span class="o">=</span> <span class="n">RunSetupScene</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">troupe</span><span class="p">:</span> <span class="n">ViewTroupeScene</span> <span class="o">=</span> <span class="n">ViewTroupeScene</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">world</span><span class="p">:</span> <span class="n">WorldScene</span> <span class="o">=</span> <span class="n">WorldScene</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+            <span class="c1"># dev scenes</span>
+            <span class="c1"># self.dev_unit_data: UnitDataScene = UnitDataScene(self)  # TODO - fix</span>
+            <span class="c1"># self.dev_gallery: GalleryScene = GalleryScene(self) # TODO - fix</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">scene_stack</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Scene</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="p">:</span> <span class="n">GameState</span> <span class="o">=</span> <span class="n">GameState</span><span class="o">.</span><span class="n">LOADING</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">master_clock</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="c1"># activate main men</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_scene</span><span class="p">(</span><span class="n">SceneType</span><span class="o">.</span><span class="n">MAIN_MENU</span><span class="p">)</span>
+
+            <span class="c1"># update state to allow action</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">GameState</span><span class="o">.</span><span class="n">PLAYING</span></div>
+
+    <span class="k">def</span> <span class="nf">_update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># update delta time first</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+        <span class="n">delta_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">delta_time</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">master_clock</span> <span class="o">+=</span> <span class="n">delta_time</span>  <span class="c1"># TODO - is this needed?</span>
+
+        <span class="c1"># update input</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="n">GameState</span><span class="o">.</span><span class="n">PLAYING</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span>
+            <span class="c1"># global handling of input to show debug info</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;tab&quot;</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="o">.</span><span class="n">toggle_debug_info</span><span class="p">()</span>
+
+        <span class="c1"># update internal assets</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">audio</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">visual</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span>
+
+        <span class="c1"># update image ui</span>
+        <span class="k">for</span> <span class="n">scene</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene_stack</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">scene</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">is_active</span><span class="p">:</span>
+                <span class="n">scene</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span>
+
+        <span class="c1"># update debug last</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_draw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># always refresh first</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
+
+        <span class="n">surface</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">display</span>
+        <span class="k">for</span> <span class="n">scene</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene_stack</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">scene</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">is_active</span><span class="p">:</span>
+                <span class="n">scene</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>  <span class="c1"># always last so it is on top</span>
+
+<div class="viewcode-block" id="Game.run"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.game.Game.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_process_input</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_draw</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="nf">_process_input</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">delta_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">delta_time</span>
+
+        <span class="c1"># process input in each scene, from the top of the stack, until a scene blocks input</span>
+        <span class="k">for</span> <span class="n">scene</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scene_stack</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">scene</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">is_active</span><span class="p">:</span>
+                <span class="n">scene</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">process_input</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">scene</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">block_onward_input</span><span class="p">:</span>
+                    <span class="k">break</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Game.quit"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.game.Game.quit">[docs]</a>    <span class="k">def</span> <span class="nf">quit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">GameState</span><span class="o">.</span><span class="n">EXITING</span></div>
+
+<div class="viewcode-block" id="Game.add_scene"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.game.Game.add_scene">[docs]</a>    <span class="k">def</span> <span class="nf">add_scene</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scene_type</span><span class="p">:</span> <span class="n">SceneType</span><span class="p">,</span> <span class="n">activate</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a scene to the scene stack</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># reset input to ensure no input carries over between scenes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
+        <span class="n">scene</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scene_type_to_scene</span><span class="p">(</span><span class="n">scene_type</span><span class="p">)</span>
+
+        <span class="c1"># add scene to active list</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scene_stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">scene</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">activate</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">activate_scene</span><span class="p">(</span><span class="n">scene_type</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Game.activate_scene"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.game.Game.activate_scene">[docs]</a>    <span class="k">def</span> <span class="nf">activate_scene</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scene_type</span><span class="p">:</span> <span class="n">SceneType</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Activate a scene. If specified scene isnt in the scene stack it is added.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">scene</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scene_type_to_scene</span><span class="p">(</span><span class="n">scene_type</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">scene</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene_stack</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Scene activated [</span><span class="si">{</span><span class="n">scene_type</span><span class="si">}</span><span class="s2">] was not in the scene_stack and so was added.&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_scene</span><span class="p">(</span><span class="n">scene_type</span><span class="p">)</span>
+
+        <span class="n">scene</span><span class="o">.</span><span class="n">activate</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Game.remove_scene"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.game.Game.remove_scene">[docs]</a>    <span class="k">def</span> <span class="nf">remove_scene</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scene_type</span><span class="p">:</span> <span class="n">SceneType</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Remove a scene from the scene stack. Also deactivates</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># reset input to ensure no input carries over between scenes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
+        <span class="n">scene</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scene_type_to_scene</span><span class="p">(</span><span class="n">scene_type</span><span class="p">)</span>
+
+        <span class="c1"># clean up</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scene_stack</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">scene</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Game.deactivate_scene"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.game.Game.deactivate_scene">[docs]</a>    <span class="k">def</span> <span class="nf">deactivate_scene</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scene_type</span><span class="p">:</span> <span class="n">SceneType</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Deactivate a scene</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">scene</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scene_type_to_scene</span><span class="p">(</span><span class="n">scene_type</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">scene</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene_stack</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Scene to deactivate [</span><span class="si">{</span><span class="n">scene_type</span><span class="si">}</span><span class="s2">] was not in the scene_stack and so was ignored.&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="n">scene</span><span class="o">.</span><span class="n">deactivate</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="nf">_scene_type_to_scene</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scene_type</span><span class="p">:</span> <span class="n">SceneType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Scene</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">scene_type</span> <span class="o">==</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">MAIN_MENU</span><span class="p">:</span>
+            <span class="n">scene</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">main_menu</span>
+
+        <span class="k">elif</span> <span class="n">scene_type</span> <span class="o">==</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">RUN_SETUP</span><span class="p">:</span>
+            <span class="n">scene</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_setup</span>
+
+        <span class="k">elif</span> <span class="n">scene_type</span> <span class="o">==</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">VIEW_TROUPE</span><span class="p">:</span>
+            <span class="n">scene</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">troupe</span>
+
+        <span class="k">elif</span> <span class="n">scene_type</span> <span class="o">==</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">WORLD</span><span class="p">:</span>
+            <span class="n">scene</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">world</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">scene</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;_scene_type_to_scene: No matching SceneType found. Given [</span><span class="si">{</span><span class="n">scene_type</span><span class="si">}</span><span class="s2">].&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">scene</span>
+
+<div class="viewcode-block" id="Game.change_scene"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.game.Game.change_scene">[docs]</a>    <span class="k">def</span> <span class="nf">change_scene</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scene_type</span><span class="p">:</span> <span class="n">SceneType</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Deactivate all active scenes and activate the given scene.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">scene</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene_stack</span><span class="p">:</span>
+            <span class="n">scene</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">remove_scene</span><span class="p">(</span><span class="n">scene</span><span class="o">.</span><span class="n">type</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_scene</span><span class="p">(</span><span class="n">scene_type</span><span class="p">)</span></div></div>
+</pre></div>
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+    <script type="text/javascript" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+    <div class="footer" role="contentinfo">
+        <div class="container">
+            &#169; Copyright 2019-2022, Josh Snaith.
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.
+        </div>
+    </div>  
+
+</body>
+</html>

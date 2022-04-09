@@ -1,0 +1,29 @@
+nqp.scenes.unit\_data package
+=============================
+
+Submodules
+----------
+
+nqp.scenes.unit\_data.scene module
+----------------------------------
+
+.. automodule:: nqp.scenes.unit_data.scene
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.scenes.unit\_data.ui module
+-------------------------------
+
+.. automodule:: nqp.scenes.unit_data.ui
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: nqp.scenes.unit_data
+   :members:
+   :undoc-members:
+   :show-inheritance:

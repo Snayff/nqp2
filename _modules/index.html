@@ -1,378 +1,308 @@
 
+
 <!DOCTYPE html>
-
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <meta name="lang:clipboard.copy" content="Copy to clipboard">
-  <meta name="lang:clipboard.copied" content="Copied to clipboard">
-  <meta name="lang:search.language" content="en">
-  <meta name="lang:search.pipeline.stopwords" content="True">
-  <meta name="lang:search.pipeline.trimmer" content="True">
-  <meta name="lang:search.result.none" content="No matching documents">
-  <meta name="lang:search.result.one" content="1 matching document">
-  <meta name="lang:search.result.other" content="# matching documents">
-  <meta name="lang:search.tokenizer" content="[\s\-]+">
-
+<head>
+  <meta charset="utf-8">
   
-    <link href="https://fonts.gstatic.com/" rel="preconnect" crossorigin>
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700|Roboto:300,400,400i,700&display=fallback" rel="stylesheet">
-
-    <style>
-      body,
-      input {
-        font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif
-      }
-
-      code,
-      kbd,
-      pre {
-        font-family: "Roboto Mono", "Courier New", Courier, monospace
-      }
-    </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Overview: module code &mdash; NotQuiteParadise2  documentation</title>
   
 
-  <link rel="stylesheet" href="../_static/stylesheets/application.css"/>
-  <link rel="stylesheet" href="../_static/stylesheets/application-palette.css"/>
-  <link rel="stylesheet" href="../_static/stylesheets/application-fixes.css"/>
-  
-  <link rel="stylesheet" href="../_static/fonts/material-icons.css"/>
-  
-  <meta name="theme-color" content="#3f51b5">
-  <script src="../_static/javascripts/modernizr.js"></script>
   
   
   
-    <title>Overview: module code &#8212; NotQuiteParadise2  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/material.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.min.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.min.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-  
-   
+    <link rel="search" title="Search" href="../search.html" /> 
 
-  </head>
-  <body dir=ltr
-        data-md-color-primary=deep-purple data-md-color-accent=deep-orange>
-  
-  <svg class="md-svg">
-    <defs data-children-count="0">
-      
-      <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
-      
-    </defs>
-  </svg>
-  
-  <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer">
-  <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search">
-  <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
-  <a href="#_modules/index" tabindex="1" class="md-skip"> Skip to content </a>
-  <header class="md-header" data-md-component="header">
-  <nav class="md-header-nav md-grid">
-    <div class="md-flex navheader">
-      <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="../index.html" title="NotQuiteParadise2  documentation"
-           class="md-header-nav__button md-logo">
-          
-            <i class="md-icon">&#xe869</i>
-          
-        </a>
-      </div>
-      <div class="md-flex__cell md-flex__cell--shrink">
-        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
-      </div>
-      <div class="md-flex__cell md-flex__cell--stretch">
-        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
-          <span class="md-header-nav__topic">Not Quite Paradise 2</span>
-          <span class="md-header-nav__topic"> Overview: module code </span>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <a class="site-nav-toggle hidden-lg-up"><i class="icon-menu"></i></a>
+            <a class="site-title" href="../index.html">
+                NotQuiteParadise2
+            </a>
         </div>
-      </div>
-      <div class="md-flex__cell md-flex__cell--shrink">
-        <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+    </header>
+
+
+<div class="breadcrumbs-outer hidden-xs-down">
+    <div class="container">
         
-<div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="__search"></label>
-  <div class="md-search__inner" role="search">
-    <form class="md-search__form" action="../search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder="Search"
-             autocapitalize="off" autocomplete="off" spellcheck="false"
-             data-md-component="query" data-md-state="active">
-      <label class="md-icon md-search__icon" for="__search"></label>
-      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
-        &#xE5CD;
-      </button>
-    </form>
-    <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="result">
-          <div class="md-search-result__meta">
-            Type to start searching
-          </div>
-          <ol class="md-search-result__list"></ol>
-        </div>
-      </div>
-    </div>
-  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a></li>
+        
+      <li>Overview: module code</li>
+    
+    
+      <li class="breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
 </div>
-
-      </div>
-      
-        <div class="md-flex__cell md-flex__cell--shrink">
-          <div class="md-header-nav__source">
-            <a href="https://github.com/Snayff/nqp2" title="Go to repository" class="md-source" data-md-source="github">
-
-    <div class="md-source__icon">
-      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
-        <use xlink:href="#__github" width="24" height="24"></use>
-      </svg>
     </div>
-  
-  <div class="md-source__repository">
-    Not Quite Paradise
-  </div>
-</a>
-          </div>
+</div>
+    <div class="main-outer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-3 site-nav">
+                    
+<div role="search">
+    <form class="search" action="../search.html" method="get">
+        <div class="icon-input">
+            <input type="text" name="q" placeholder="Search" />
+            <span class="icon-search"></span>
         </div>
-      
-      
-  
-  <script src="../_static/javascripts/version_dropdown.js"></script>
-  <script>
-    var json_loc = "../"versions.json"",
-        target_loc = "../../",
-        text = "Versions";
-    $( document ).ready( add_version_dropdown(json_loc, target_loc, text));
-  </script>
-  
-
-    </div>
-  </nav>
-</header>
-
-  
-  <div class="md-container">
-    
-    
-    
-  <nav class="md-tabs" data-md-component="tabs">
-    <div class="md-tabs__inner md-grid">
-      <ul class="md-tabs__list">
-          <li class="md-tabs__item"><a href="../index.html" class="md-tabs__link">NotQuiteParadise2  documentation</a></li>
-      </ul>
-    </div>
-  </nav>
-    <main class="md-main">
-      <div class="md-main__inner md-grid" data-md-component="container">
-        
-          <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
-            <div class="md-sidebar__scrollwrap">
-              <div class="md-sidebar__inner">
-                <nav class="md-nav md-nav--primary" data-md-level="0">
-  <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <a href="../index.html" title="NotQuiteParadise2 documentation" class="md-nav__button md-logo">
-      
-        <i class="md-icon">&#xe869</i>
-      
-    </a>
-    <a href="../index.html"
-       title="NotQuiteParadise2 documentation">Not Quite Paradise 2</a>
-  </label>
-    <div class="md-nav__source">
-      <a href="https://github.com/Snayff/nqp2" title="Go to repository" class="md-source" data-md-source="github">
-
-    <div class="md-source__icon">
-      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
-        <use xlink:href="#__github" width="24" height="24"></use>
-      </svg>
-    </div>
-  
-  <div class="md-source__repository">
-    Not Quite Paradise
-  </div>
-</a>
-    </div>
-  
-  
-
-  
-  <ul class="md-nav__list">
-    <li class="md-nav__item">
-    
-    
-      <a href="../api/core/_core.html" class="md-nav__link">Core</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="../api/scenes/_scenes.html" class="md-nav__link">Scenes</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="../api/scene_elements/_scene_elements.html" class="md-nav__link">Scene Elements</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="../developer/_developer.html" class="md-nav__link">Developer</a>
-      
-    
-    </li>
-  </ul>
-  
-
-</nav>
-              </div>
-            </div>
-          </div>
-          <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
-            <div class="md-sidebar__scrollwrap">
-              <div class="md-sidebar__inner">
-                
-<nav class="md-nav md-nav--secondary">
-  <ul class="md-nav__list" data-md-scrollfix="">
-    
-
-<li id="searchbox" class="md-nav__item"></li>
-
-  </ul>
-</nav>
-              </div>
-            </div>
-          </div>
-        
-        <div class="md-content">
-          <article class="md-content__inner md-typeset" role="main">
-            
-  <h1 id="modules-index--page-root">All modules for which code is available</h1>
-<ul><li><a href="scripts/core/assets.html">scripts.core.assets</a></li>
-<li><a href="scripts/core/base_classes/animation.html">scripts.core.base_classes.animation</a></li>
-<li><a href="scripts/core/base_classes/controller.html">scripts.core.base_classes.controller</a></li>
-<li><a href="scripts/core/base_classes/image.html">scripts.core.base_classes.image</a></li>
-<li><a href="scripts/core/base_classes/scene.html">scripts.core.base_classes.scene</a></li>
-<li><a href="scripts/core/base_classes/ui.html">scripts.core.base_classes.ui</a></li>
-<li><a href="scripts/core/base_classes/ui_element.html">scripts.core.base_classes.ui_element</a></li>
-<li><a href="scripts/core/constants.html">scripts.core.constants</a></li>
-<li><a href="scripts/core/data.html">scripts.core.data</a></li>
-<li><a href="scripts/core/debug.html">scripts.core.debug</a></li>
-<li><a href="scripts/core/effect.html">scripts.core.effect</a></li>
-<li><a href="scripts/core/effects/add_item.html">scripts.core.effects.add_item</a></li>
-<li><a href="scripts/core/effects/attribute_modifier.html">scripts.core.effects.attribute_modifier</a></li>
-<li><a href="scripts/core/effects/sildreths_signature.html">scripts.core.effects.sildreths_signature</a></li>
-<li><a href="scripts/core/game.html">scripts.core.game</a></li>
-<li><a href="scripts/core/grid.html">scripts.core.grid</a></li>
-<li><a href="scripts/core/input.html">scripts.core.input</a></li>
-<li><a href="scripts/core/memory.html">scripts.core.memory</a></li>
-<li><a href="scripts/core/rng.html">scripts.core.rng</a></li>
-<li><a href="scripts/core/scheduler.html">scripts.core.scheduler</a></li>
-<li><a href="scripts/core/sounds.html">scripts.core.sounds</a></li>
-<li><a href="scripts/core/utility.html">scripts.core.utility</a></li>
-<li><a href="scripts/core/visuals.html">scripts.core.visuals</a></li>
-<li><a href="scripts/core/window.html">scripts.core.window</a></li>
-<li><a href="scripts/scene_elements/actions.html">scripts.scene_elements.actions</a></li>
-<li><a href="scripts/scene_elements/behavior_manager.html">scripts.scene_elements.behavior_manager</a></li>
-<li><a href="scripts/scene_elements/camera.html">scripts.scene_elements.camera</a></li>
-<li><a href="scripts/scene_elements/commander.html">scripts.scene_elements.commander</a></li>
-<li><a href="scripts/scene_elements/controllers/choose_room_controller.html">scripts.scene_elements.controllers.choose_room_controller</a></li>
-<li><a href="scripts/scene_elements/controllers/combat_controller.html">scripts.scene_elements.controllers.combat_controller</a></li>
-<li><a href="scripts/scene_elements/controllers/event_controller.html">scripts.scene_elements.controllers.event_controller</a></li>
-<li><a href="scripts/scene_elements/controllers/inn_controller.html">scripts.scene_elements.controllers.inn_controller</a></li>
-<li><a href="scripts/scene_elements/controllers/training_controller.html">scripts.scene_elements.controllers.training_controller</a></li>
-<li><a href="scripts/scene_elements/entity.html">scripts.scene_elements.entity</a></li>
-<li><a href="scripts/scene_elements/entity_behaviours/base.html">scripts.scene_elements.entity_behaviours.base</a></li>
-<li><a href="scripts/scene_elements/entity_behaviours/behaviour.html">scripts.scene_elements.entity_behaviours.behaviour</a></li>
-<li><a href="scripts/scene_elements/entity_behaviours/heavy.html">scripts.scene_elements.entity_behaviours.heavy</a></li>
-<li><a href="scripts/scene_elements/entity_behaviours/light.html">scripts.scene_elements.entity_behaviours.light</a></li>
-<li><a href="scripts/scene_elements/entity_behaviours/swarm.html">scripts.scene_elements.entity_behaviours.swarm</a></li>
-<li><a href="scripts/scene_elements/hitbox.html">scripts.scene_elements.hitbox</a></li>
-<li><a href="scripts/scene_elements/item.html">scripts.scene_elements.item</a></li>
-<li><a href="scripts/scene_elements/particle.html">scripts.scene_elements.particle</a></li>
-<li><a href="scripts/scene_elements/particle_manager.html">scripts.scene_elements.particle_manager</a></li>
-<li><a href="scripts/scene_elements/pathfinder.html">scripts.scene_elements.pathfinder</a></li>
-<li><a href="scripts/scene_elements/projectile.html">scripts.scene_elements.projectile</a></li>
-<li><a href="scripts/scene_elements/projectile_manager.html">scripts.scene_elements.projectile_manager</a></li>
-<li><a href="scripts/scene_elements/terrain.html">scripts.scene_elements.terrain</a></li>
-<li><a href="scripts/scene_elements/tile.html">scripts.scene_elements.tile</a></li>
-<li><a href="scripts/scene_elements/troupe.html">scripts.scene_elements.troupe</a></li>
-<li><a href="scripts/scene_elements/unit.html">scripts.scene_elements.unit</a></li>
-<li><a href="scripts/scene_elements/unit_behaviours/base.html">scripts.scene_elements.unit_behaviours.base</a></li>
-<li><a href="scripts/scene_elements/unit_behaviours/behaviour.html">scripts.scene_elements.unit_behaviours.behaviour</a></li>
-<li><a href="scripts/scene_elements/unit_behaviours/heavy.html">scripts.scene_elements.unit_behaviours.heavy</a></li>
-<li><a href="scripts/scene_elements/unit_behaviours/light.html">scripts.scene_elements.unit_behaviours.light</a></li>
-<li><a href="scripts/scene_elements/unit_behaviours/swarm.html">scripts.scene_elements.unit_behaviours.swarm</a></li>
-<li><a href="scripts/scene_elements/unit_grid.html">scripts.scene_elements.unit_grid</a></li>
-<li><a href="scripts/scene_elements/world_model.html">scripts.scene_elements.world_model</a></li>
-<li><a href="scripts/scene_elements/world_view.html">scripts.scene_elements.world_view</a></li>
-<li><a href="scripts/scenes/gallery/scene.html">scripts.scenes.gallery.scene</a></li>
-<li><a href="scripts/scenes/gallery/ui.html">scripts.scenes.gallery.ui</a></li>
-<li><a href="scripts/scenes/main_menu/scene.html">scripts.scenes.main_menu.scene</a></li>
-<li><a href="scripts/scenes/main_menu/ui.html">scripts.scenes.main_menu.ui</a></li>
-<li><a href="scripts/scenes/post_combat/scene.html">scripts.scenes.post_combat.scene</a></li>
-<li><a href="scripts/scenes/post_combat/ui.html">scripts.scenes.post_combat.ui</a></li>
-<li><a href="scripts/scenes/run_setup/scene.html">scripts.scenes.run_setup.scene</a></li>
-<li><a href="scripts/scenes/run_setup/ui.html">scripts.scenes.run_setup.ui</a></li>
-<li><a href="scripts/scenes/unit_data/scene.html">scripts.scenes.unit_data.scene</a></li>
-<li><a href="scripts/scenes/unit_data/ui.html">scripts.scenes.unit_data.ui</a></li>
-<li><a href="scripts/scenes/view_troupe/scene.html">scripts.scenes.view_troupe.scene</a></li>
-<li><a href="scripts/scenes/view_troupe/ui.html">scripts.scenes.view_troupe.ui</a></li>
-<li><a href="scripts/scenes/world/scene.html">scripts.scenes.world.scene</a></li>
-<li><a href="scripts/scenes/world/ui.html">scripts.scenes.world.ui</a></li>
-<li><a href="scripts/ui_elements/generic/fancy_font.html">scripts.ui_elements.generic.fancy_font</a></li>
-<li><a href="scripts/ui_elements/generic/font.html">scripts.ui_elements.generic.font</a></li>
-<li><a href="scripts/ui_elements/generic/ui_button.html">scripts.ui_elements.generic.ui_button</a></li>
-<li><a href="scripts/ui_elements/generic/ui_frame.html">scripts.ui_elements.generic.ui_frame</a></li>
-<li><a href="scripts/ui_elements/generic/ui_input_box.html">scripts.ui_elements.generic.ui_input_box</a></li>
-<li><a href="scripts/ui_elements/generic/ui_panel.html">scripts.ui_elements.generic.ui_panel</a></li>
-<li><a href="scripts/ui_elements/generic/ui_tooltip.html">scripts.ui_elements.generic.ui_tooltip</a></li>
-<li><a href="scripts/ui_elements/generic/ui_window.html">scripts.ui_elements.generic.ui_window</a></li>
-<li><a href="scripts/ui_elements/tailored/dev_console.html">scripts.ui_elements.tailored.dev_console</a></li>
-<li><a href="scripts/ui_elements/tailored/unit_stats_window.html">scripts.ui_elements.tailored.unit_stats_window</a></li>
+        <input type="submit" value="Go" class="d-hidden" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+                    <div class="site-nav-tree">
+                        
+                            
+                            
+                                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/base_classes/_base_classes.html">Base Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/base_classes/animation.html">Animation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/base_classes/controller.html">Controller</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/base_classes/entity_behaviour.html">Entity Behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/base_classes/image.html">Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/base_classes/scene.html">Scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/base_classes/stat.html">Stat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/base_classes/ui.html">UI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/base_classes/ui_element.html">UI Element</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/command/_command.html">Command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/command/basic_entity_behaviour.html">Basic Entity Behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/command/commander.html">Commander</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/command/troupe.html">Troupe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/command/unit.html">Unit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/command/unit_behaviour.html">Unit Behaviour</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/core/_core.html">Core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/core/audio.html">Audio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/core/components.html">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/core/constants.html">Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/core/data.html">Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/core/debug.html">Debug</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/core/definitions.html">Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/core/effect.html">Effect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/core/game.html">Game</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/core/input.html">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/core/memory.html">Memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/core/queries.html">Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/core/rng.html">RNG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/core/scheduler.html">Scheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/core/utility.html">Utility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/core/window.html">Window</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/effects/_effects.html">Effects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/effects/add_item.html">Add Item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/effects/attribute_modifier.html">Attribute Modifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/effects/sildreths_signature.html">Sildreths Signature</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/scenes/_scenes.html">Scenes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/scenes/gallery.html">Gallery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/scenes/main_menu.html">Main Menu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/scenes/run_setup.html">Run Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/scenes/unit_data.html">Unit Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/scenes/world.html">World</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/topography/_topography.html">Base Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/topography/pathfinder.html">Pathfinder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/topography/terrain.html">Terrain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/topography/tile.html">Tile</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/world/_world.html">World</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/world/controllers.html">Controllers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/world/model.html">Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/world/view.html">View</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/world_elements/_world_elements.html">World Elements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/world_elements/actions.html">Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/world_elements/camera.html">Camera</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/world_elements/hitbox.html">Hitbox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/world_elements/item.html">Item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/world_elements/particle.html">Particle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/world_elements/particle_manager.html">Particle Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/world_elements/projectile.html">Projectile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/world_elements/projectile_manager.html">Projectile Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/world_elements/stats.html">Stats</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developer/_developer.html">Developer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../developer/developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developer/adding_new_content.html">Adding New Content</a></li>
+</ul>
+</li>
 </ul>
 
-          </article>
+                            
+                        
+                    </div>
+                </div>
+                <div class="col-12 col-lg-9">
+                    <div class="document">
+                        
+                            
+  <h1>All modules for which code is available</h1>
+<ul><li><a href="nqp/base_classes/animation.html">nqp.base_classes.animation</a></li>
+<li><a href="nqp/base_classes/controller.html">nqp.base_classes.controller</a></li>
+<li><a href="nqp/base_classes/entity_behaviour.html">nqp.base_classes.entity_behaviour</a></li>
+<li><a href="nqp/base_classes/image.html">nqp.base_classes.image</a></li>
+<li><a href="nqp/base_classes/scene.html">nqp.base_classes.scene</a></li>
+<li><a href="nqp/base_classes/stat.html">nqp.base_classes.stat</a></li>
+<li><a href="nqp/base_classes/ui.html">nqp.base_classes.ui</a></li>
+<li><a href="nqp/base_classes/ui_element.html">nqp.base_classes.ui_element</a></li>
+<li><a href="nqp/command/basic_entity_behaviour.html">nqp.command.basic_entity_behaviour</a></li>
+<li><a href="nqp/command/commander.html">nqp.command.commander</a></li>
+<li><a href="nqp/command/troupe.html">nqp.command.troupe</a></li>
+<li><a href="nqp/command/unit.html">nqp.command.unit</a></li>
+<li><a href="nqp/command/unit_behaviour.html">nqp.command.unit_behaviour</a></li>
+<li><a href="nqp/core/assets.html">nqp.core.assets</a></li>
+<li><a href="nqp/core/audio.html">nqp.core.audio</a></li>
+<li><a href="nqp/core/components.html">nqp.core.components</a></li>
+<li><a href="nqp/core/constants.html">nqp.core.constants</a></li>
+<li><a href="nqp/core/data.html">nqp.core.data</a></li>
+<li><a href="nqp/core/debug.html">nqp.core.debug</a></li>
+<li><a href="nqp/core/effect.html">nqp.core.effect</a></li>
+<li><a href="nqp/core/game.html">nqp.core.game</a></li>
+<li><a href="nqp/core/input.html">nqp.core.input</a></li>
+<li><a href="nqp/core/memory.html">nqp.core.memory</a></li>
+<li><a href="nqp/core/rng.html">nqp.core.rng</a></li>
+<li><a href="nqp/core/scheduler.html">nqp.core.scheduler</a></li>
+<li><a href="nqp/core/systems.html">nqp.core.systems</a></li>
+<li><a href="nqp/core/utility.html">nqp.core.utility</a></li>
+<li><a href="nqp/core/visual.html">nqp.core.visual</a></li>
+<li><a href="nqp/core/window.html">nqp.core.window</a></li>
+<li><a href="nqp/effects/add_item.html">nqp.effects.add_item</a></li>
+<li><a href="nqp/effects/attribute_modifier.html">nqp.effects.attribute_modifier</a></li>
+<li><a href="nqp/effects/sildreths_signature.html">nqp.effects.sildreths_signature</a></li>
+<li><a href="nqp/scenes/gallery/scene.html">nqp.scenes.gallery.scene</a></li>
+<li><a href="nqp/scenes/gallery/ui.html">nqp.scenes.gallery.ui</a></li>
+<li><a href="nqp/scenes/main_menu/scene.html">nqp.scenes.main_menu.scene</a></li>
+<li><a href="nqp/scenes/main_menu/ui.html">nqp.scenes.main_menu.ui</a></li>
+<li><a href="nqp/scenes/post_combat/scene.html">nqp.scenes.post_combat.scene</a></li>
+<li><a href="nqp/scenes/post_combat/ui.html">nqp.scenes.post_combat.ui</a></li>
+<li><a href="nqp/scenes/run_setup/scene.html">nqp.scenes.run_setup.scene</a></li>
+<li><a href="nqp/scenes/run_setup/ui.html">nqp.scenes.run_setup.ui</a></li>
+<li><a href="nqp/scenes/unit_data/scene.html">nqp.scenes.unit_data.scene</a></li>
+<li><a href="nqp/scenes/unit_data/ui.html">nqp.scenes.unit_data.ui</a></li>
+<li><a href="nqp/scenes/view_troupe/scene.html">nqp.scenes.view_troupe.scene</a></li>
+<li><a href="nqp/scenes/view_troupe/ui.html">nqp.scenes.view_troupe.ui</a></li>
+<li><a href="nqp/scenes/world/scene.html">nqp.scenes.world.scene</a></li>
+<li><a href="nqp/scenes/world/ui.html">nqp.scenes.world.ui</a></li>
+<li><a href="nqp/topography/pathfinder.html">nqp.topography.pathfinder</a></li>
+<li><a href="nqp/topography/terrain.html">nqp.topography.terrain</a></li>
+<li><a href="nqp/topography/tile.html">nqp.topography.tile</a></li>
+<li><a href="nqp/ui_elements/generic/fancy_font.html">nqp.ui_elements.generic.fancy_font</a></li>
+<li><a href="nqp/ui_elements/generic/font.html">nqp.ui_elements.generic.font</a></li>
+<li><a href="nqp/ui_elements/generic/ui_button.html">nqp.ui_elements.generic.ui_button</a></li>
+<li><a href="nqp/ui_elements/generic/ui_frame.html">nqp.ui_elements.generic.ui_frame</a></li>
+<li><a href="nqp/ui_elements/generic/ui_input_box.html">nqp.ui_elements.generic.ui_input_box</a></li>
+<li><a href="nqp/ui_elements/generic/ui_panel.html">nqp.ui_elements.generic.ui_panel</a></li>
+<li><a href="nqp/ui_elements/generic/ui_tooltip.html">nqp.ui_elements.generic.ui_tooltip</a></li>
+<li><a href="nqp/ui_elements/generic/ui_window.html">nqp.ui_elements.generic.ui_window</a></li>
+<li><a href="nqp/ui_elements/tailored/dev_console.html">nqp.ui_elements.tailored.dev_console</a></li>
+<li><a href="nqp/ui_elements/tailored/unit_grid.html">nqp.ui_elements.tailored.unit_grid</a></li>
+<li><a href="nqp/ui_elements/tailored/unit_stats_window.html">nqp.ui_elements.tailored.unit_stats_window</a></li>
+<li><a href="nqp/world/controllers/choose_room_controller.html">nqp.world.controllers.choose_room_controller</a></li>
+<li><a href="nqp/world/controllers/combat_controller.html">nqp.world.controllers.combat_controller</a></li>
+<li><a href="nqp/world/controllers/event_controller.html">nqp.world.controllers.event_controller</a></li>
+<li><a href="nqp/world/controllers/inn_controller.html">nqp.world.controllers.inn_controller</a></li>
+<li><a href="nqp/world/controllers/training_controller.html">nqp.world.controllers.training_controller</a></li>
+<li><a href="nqp/world/model.html">nqp.world.model</a></li>
+<li><a href="nqp/world/view.html">nqp.world.view</a></li>
+<li><a href="nqp/world_elements/actions.html">nqp.world_elements.actions</a></li>
+<li><a href="nqp/world_elements/camera.html">nqp.world_elements.camera</a></li>
+<li><a href="nqp/world_elements/hitbox.html">nqp.world_elements.hitbox</a></li>
+<li><a href="nqp/world_elements/item.html">nqp.world_elements.item</a></li>
+<li><a href="nqp/world_elements/particle.html">nqp.world_elements.particle</a></li>
+<li><a href="nqp/world_elements/particle_manager.html">nqp.world_elements.particle_manager</a></li>
+<li><a href="nqp/world_elements/projectile.html">nqp.world_elements.projectile</a></li>
+<li><a href="nqp/world_elements/projectile_manager.html">nqp.world_elements.projectile_manager</a></li>
+<li><a href="nqp/world_elements/stats.html">nqp.world_elements.stats</a></li>
+</ul>
+
+                        
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </main>
-  </div>
-  <footer class="md-footer">
-    <div class="md-footer-nav">
-      <nav class="md-footer-nav__inner md-grid">
-          
-          
-        </a>
-        
-      </nav>
-    </div>
-    <div class="md-footer-meta md-typeset">
-      <div class="md-footer-meta__inner md-grid">
-        <div class="md-footer-copyright">
-          <div class="md-footer-copyright__highlight">
-              &#169; Copyright 2019-2022, Josh Snaith.
-              
-          </div>
-            Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
-             and
-            <a href="https://github.com/bashtage/sphinx-material/">Material for
-              Sphinx</a>
+    </div>    
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+    <div class="footer" role="contentinfo">
+        <div class="container">
+            &#169; Copyright 2019-2022, Josh Snaith.
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.
         </div>
-      </div>
-    </div>
-  </footer>
-  <script src="../_static/javascripts/application.js"></script>
-  <script>app.initialize({version: "1.0.4", url: {base: ".."}})</script>
-  </body>
+    </div>  
+
+</body>
 </html>

@@ -1,0 +1,37 @@
+nqp.ui\_elements.tailored package
+=================================
+
+Submodules
+----------
+
+nqp.ui\_elements.tailored.dev\_console module
+---------------------------------------------
+
+.. automodule:: nqp.ui_elements.tailored.dev_console
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.ui\_elements.tailored.unit\_grid module
+-------------------------------------------
+
+.. automodule:: nqp.ui_elements.tailored.unit_grid
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.ui\_elements.tailored.unit\_stats\_window module
+----------------------------------------------------
+
+.. automodule:: nqp.ui_elements.tailored.unit_stats_window
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: nqp.ui_elements.tailored
+   :members:
+   :undoc-members:
+   :show-inheritance:

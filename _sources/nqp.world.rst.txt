@@ -1,0 +1,37 @@
+nqp.world package
+=================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   nqp.world.controllers
+
+Submodules
+----------
+
+nqp.world.model module
+----------------------
+
+.. automodule:: nqp.world.model
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.world.view module
+---------------------
+
+.. automodule:: nqp.world.view
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: nqp.world
+   :members:
+   :undoc-members:
+   :show-inheritance:

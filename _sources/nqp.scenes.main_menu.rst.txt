@@ -1,0 +1,29 @@
+nqp.scenes.main\_menu package
+=============================
+
+Submodules
+----------
+
+nqp.scenes.main\_menu.scene module
+----------------------------------
+
+.. automodule:: nqp.scenes.main_menu.scene
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.scenes.main\_menu.ui module
+-------------------------------
+
+.. automodule:: nqp.scenes.main_menu.ui
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: nqp.scenes.main_menu
+   :members:
+   :undoc-members:
+   :show-inheritance:

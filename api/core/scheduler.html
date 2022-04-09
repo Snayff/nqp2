@@ -1,0 +1,475 @@
+
+
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Scheduler &mdash; NotQuiteParadise2  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.min.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Utility" href="utility.html" />
+    <link rel="prev" title="RNG" href="rng.html" /> 
+
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <a class="site-nav-toggle hidden-lg-up"><i class="icon-menu"></i></a>
+            <a class="site-title" href="../../index.html">
+                NotQuiteParadise2
+            </a>
+        </div>
+    </header>
+
+
+<div class="breadcrumbs-outer hidden-xs-down">
+    <div class="container">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a></li>
+        
+          <li><a href="_core.html">Core</a></li>
+        
+      <li>Scheduler</li>
+    
+    
+      <li class="breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/api/core/scheduler.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+</div>
+    </div>
+</div>
+    <div class="main-outer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-3 site-nav">
+                    
+<div role="search">
+    <form class="search" action="../../search.html" method="get">
+        <div class="icon-input">
+            <input type="text" name="q" placeholder="Search" />
+            <span class="icon-search"></span>
+        </div>
+        <input type="submit" value="Go" class="d-hidden" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+                    <div class="site-nav-tree">
+                        
+                            
+                            
+                                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../base_classes/_base_classes.html">Base Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../base_classes/animation.html">Animation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../base_classes/controller.html">Controller</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../base_classes/entity_behaviour.html">Entity Behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../base_classes/image.html">Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../base_classes/scene.html">Scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../base_classes/stat.html">Stat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../base_classes/ui.html">UI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../base_classes/ui_element.html">UI Element</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../command/_command.html">Command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../command/basic_entity_behaviour.html">Basic Entity Behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../command/commander.html">Commander</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../command/troupe.html">Troupe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../command/unit.html">Unit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../command/unit_behaviour.html">Unit Behaviour</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="_core.html">Core</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="audio.html">Audio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="components.html">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="constants.html">Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data.html">Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debug.html">Debug</a></li>
+<li class="toctree-l2"><a class="reference internal" href="definitions.html">Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="effect.html">Effect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="game.html">Game</a></li>
+<li class="toctree-l2"><a class="reference internal" href="input.html">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="memory.html">Memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="queries.html">Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rng.html">RNG</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Scheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utility.html">Utility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="window.html">Window</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../effects/_effects.html">Effects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../effects/add_item.html">Add Item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../effects/attribute_modifier.html">Attribute Modifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../effects/sildreths_signature.html">Sildreths Signature</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../scenes/_scenes.html">Scenes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../scenes/gallery.html">Gallery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scenes/main_menu.html">Main Menu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scenes/run_setup.html">Run Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scenes/unit_data.html">Unit Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scenes/world.html">World</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../topography/_topography.html">Base Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../topography/pathfinder.html">Pathfinder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../topography/terrain.html">Terrain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../topography/tile.html">Tile</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../world/_world.html">World</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../world/controllers.html">Controllers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../world/model.html">Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../world/view.html">View</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../world_elements/_world_elements.html">World Elements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../world_elements/actions.html">Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../world_elements/camera.html">Camera</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../world_elements/hitbox.html">Hitbox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../world_elements/item.html">Item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../world_elements/particle.html">Particle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../world_elements/particle_manager.html">Particle Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../world_elements/projectile.html">Projectile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../world_elements/projectile_manager.html">Projectile Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../world_elements/stats.html">Stats</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../developer/_developer.html">Developer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../developer/developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../developer/adding_new_content.html">Adding New Content</a></li>
+</ul>
+</li>
+</ul>
+
+                            
+                        
+                    </div>
+                </div>
+                <div class="col-12 col-lg-9">
+                    <div class="document">
+                        
+                            
+  <section id="module-nqp.core.scheduler">
+<span id="scheduler"></span><h1>Scheduler<a class="headerlink" href="#module-nqp.core.scheduler" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="nqp.core.scheduler.ScheduledItem">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ScheduledItem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.10)"><span class="pre">Callable</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_ts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">next_ts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">repeat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/core/scheduler.html#ScheduledItem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.core.scheduler.ScheduledItem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Describes a scheduled callback.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.core.scheduler.ScheduledItem.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.10)"><span class="pre">Callable</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_ts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">next_ts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">repeat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#nqp.core.scheduler.ScheduledItem.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nqp.core.scheduler.ScheduledItem.func">
+<span class="sig-name descname"><span class="pre">func</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Callable</span></em><a class="headerlink" href="#nqp.core.scheduler.ScheduledItem.func" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nqp.core.scheduler.ScheduledItem.interval">
+<span class="sig-name descname"><span class="pre">interval</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#nqp.core.scheduler.ScheduledItem.interval" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nqp.core.scheduler.ScheduledItem.last_ts">
+<span class="sig-name descname"><span class="pre">last_ts</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#nqp.core.scheduler.ScheduledItem.last_ts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nqp.core.scheduler.ScheduledItem.next_ts">
+<span class="sig-name descname"><span class="pre">next_ts</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#nqp.core.scheduler.ScheduledItem.next_ts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nqp.core.scheduler.ScheduledItem.repeat">
+<span class="sig-name descname"><span class="pre">repeat</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#nqp.core.scheduler.ScheduledItem.repeat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nqp.core.scheduler.Scheduler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Scheduler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time_function:</span> <span class="pre">typing.Callable</span> <span class="pre">=</span> <span class="pre">&lt;built-in</span> <span class="pre">function</span> <span class="pre">perf_counter&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/core/scheduler.html#Scheduler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.core.scheduler.Scheduler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Class for scheduling functions.</p>
+<p>Probably not thread safe.</p>
+<p>The function should have a prototype that includes <code class="docutils literal notranslate"><span class="pre">dt</span></code> as the
+first argument, which gives the elapsed time, in time units,
+since the last clock tick.</p>
+<blockquote>
+<div><dl class="simple">
+<dt>def callback(dt):</dt><dd><p>pass</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>Items will be scheduled and rescheduled in such a way to prevent
+several items from running during the same tick.  Enabling a
+“soft” reschedule means that item is tolerant to having the
+interval slightly modified.</p>
+<p>Initialise a Scheduler, with optional custom time function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>time_function</strong> – Return the elapsed time</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.core.scheduler.Scheduler.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time_function:</span> <span class="pre">typing.Callable</span> <span class="pre">=</span> <span class="pre">&lt;built-in</span> <span class="pre">function</span> <span class="pre">perf_counter&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/core/scheduler.html#Scheduler.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.core.scheduler.Scheduler.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialise a Scheduler, with optional custom time function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>time_function</strong> – Return the elapsed time</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.core.scheduler.Scheduler.call_scheduled_functions">
+<span class="sig-name descname"><span class="pre">call_scheduled_functions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/core/scheduler.html#Scheduler.call_scheduled_functions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.core.scheduler.Scheduler.call_scheduled_functions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call scheduled functions that elapsed on the last <cite>update_time</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dt</strong> – The elapsed time since the last update to pass to each</p></li>
+<li><p><strong>function.</strong> (<em>scheduled</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.core.scheduler.Scheduler.get_counter">
+<span class="sig-name descname"><span class="pre">get_counter</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></span><a class="reference internal" href="../../_modules/nqp/core/scheduler.html#Scheduler.get_counter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.core.scheduler.Scheduler.get_counter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get internal counter value</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.core.scheduler.Scheduler.get_idle_time">
+<span class="sig-name descname"><span class="pre">get_idle_time</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/nqp/core/scheduler.html#Scheduler.get_idle_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.core.scheduler.Scheduler.get_idle_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the time until the next item is scheduled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Time until the next scheduled event in time units, or
+<code class="docutils literal notranslate"><span class="pre">None</span></code> if there is no events scheduled.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.core.scheduler.Scheduler.get_interval">
+<span class="sig-name descname"><span class="pre">get_interval</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></span><a class="reference internal" href="../../_modules/nqp/core/scheduler.html#Scheduler.get_interval"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.core.scheduler.Scheduler.get_interval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the average amount of time passed between each tick.</p>
+<p>Useful for calculating FPS if this clock is used with the
+display.  Returned value is averaged from last 10 ticks.</p>
+<p>Value will be 0.0 if before 1st tick.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Average amount of time passed between each tick</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.core.scheduler.Scheduler.get_running_time">
+<span class="sig-name descname"><span class="pre">get_running_time</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></span><a class="reference internal" href="../../_modules/nqp/core/scheduler.html#Scheduler.get_running_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.core.scheduler.Scheduler.get_running_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get time clock has been running</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.core.scheduler.Scheduler.get_schedule">
+<span class="sig-name descname"><span class="pre">get_schedule</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../../nqp.core.html#nqp.core.scheduler.ScheduledItem" title="nqp.core.scheduler.ScheduledItem"><span class="pre">nqp.core.scheduler.ScheduledItem</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/nqp/core/scheduler.html#Scheduler.get_schedule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.core.scheduler.Scheduler.get_schedule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return copy of the schedule.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.core.scheduler.Scheduler.schedule_interval">
+<span class="sig-name descname"><span class="pre">schedule_interval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.10)"><span class="pre">Callable</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">soft</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/core/scheduler.html#Scheduler.schedule_interval"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.core.scheduler.Scheduler.schedule_interval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Schedule a function to run on an interval.</p>
+<p>Items are rescheduled after they are executed.  That means that
+by default, the interval of items may not be consistent with
+the initial time with was scheduled.</p>
+<p>If the delay is not specified, the function will be executed
+during the next tick.</p>
+<p>If the interval is not specified, the function will be executed
+every time the scheduler is ticked.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> – Function to be called</p></li>
+<li><p><strong>interval</strong> – If repeating, repeat on this interval</p></li>
+<li><p><strong>delay</strong> – Delay in time unit until it is called</p></li>
+<li><p><strong>soft</strong> – See notes about Soft Scheduling</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Reference to scheduled item</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.core.scheduler.Scheduler.schedule_once">
+<span class="sig-name descname"><span class="pre">schedule_once</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.10)"><span class="pre">Callable</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">soft</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../../nqp.core.html#nqp.core.scheduler.ScheduledItem" title="nqp.core.scheduler.ScheduledItem"><span class="pre">nqp.core.scheduler.ScheduledItem</span></a></span></span><a class="reference internal" href="../../_modules/nqp/core/scheduler.html#Scheduler.schedule_once"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.core.scheduler.Scheduler.schedule_once" title="Permalink to this definition">¶</a></dt>
+<dd><p>Schedule a function to be run once sometime in the future.</p>
+<p>If the delay is not specified, the function will be executed
+during the next tick.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> – Function to be called</p></li>
+<li><p><strong>delay</strong> – Delay in time unit until it is called</p></li>
+<li><p><strong>soft</strong> – See notes about Soft Scheduling</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Reference to scheduled item.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.core.scheduler.Scheduler.set_time">
+<span class="sig-name descname"><span class="pre">set_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time_stamp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></span><a class="reference internal" href="../../_modules/nqp/core/scheduler.html#Scheduler.set_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.core.scheduler.Scheduler.set_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the clock manually and do not call scheduled functions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>time_stamp</strong> – This will become the new value of the clock.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The number of time units since the last update, or 0.0 if
+this was the first update.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.core.scheduler.Scheduler.tick">
+<span class="sig-name descname"><span class="pre">tick</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></span><a class="reference internal" href="../../_modules/nqp/core/scheduler.html#Scheduler.tick"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.core.scheduler.Scheduler.tick" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cause clock to update and call scheduled functions.</p>
+<p>This updates the clock’s internal measure of time and returns
+the difference since the last update (or since the clock was
+created).</p>
+<p>Will call any scheduled functions that have elapsed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The number of time units since the last “tick”, or 0 if this
+was the first tick.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.core.scheduler.Scheduler.unschedule">
+<span class="sig-name descname"><span class="pre">unschedule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../_modules/nqp/core/scheduler.html#Scheduler.unschedule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.core.scheduler.Scheduler.unschedule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove a function from the schedule.</p>
+<p>NOTE: do not unschedule own function during function call</p>
+<p>If the function appears in the schedule more than once, all
+occurrences are removed.  If the function was not scheduled,
+no error is raised.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>func</strong> – The function to remove from the schedule.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nqp.core.scheduler.remove">
+<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/core/scheduler.html#remove"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.core.scheduler.remove" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove scheduled items with func <code class="docutils literal notranslate"><span class="pre">func</span></code> from list
+<code class="docutils literal notranslate"><span class="pre">remove_from</span></code> and return True if it was removed</p>
+</dd></dl>
+
+</section>
+
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+    <script type="text/javascript" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+    <div class="footer" role="contentinfo">
+        <div class="container">
+            &#169; Copyright 2019-2022, Josh Snaith.
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.
+        </div>
+    </div>  
+
+</body>
+</html>

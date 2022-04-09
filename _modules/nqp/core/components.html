@@ -1,0 +1,469 @@
+
+
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>nqp.core.components &mdash; NotQuiteParadise2  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.min.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <a class="site-nav-toggle hidden-lg-up"><i class="icon-menu"></i></a>
+            <a class="site-title" href="../../../index.html">
+                NotQuiteParadise2
+            </a>
+        </div>
+    </header>
+
+
+<div class="breadcrumbs-outer hidden-xs-down">
+    <div class="container">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a></li>
+        
+          <li><a href="../../index.html">Module code</a></li>
+        
+      <li>nqp.core.components</li>
+    
+    
+      <li class="breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+</div>
+    </div>
+</div>
+    <div class="main-outer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-3 site-nav">
+                    
+<div role="search">
+    <form class="search" action="../../../search.html" method="get">
+        <div class="icon-input">
+            <input type="text" name="q" placeholder="Search" />
+            <span class="icon-search"></span>
+        </div>
+        <input type="submit" value="Go" class="d-hidden" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+                    <div class="site-nav-tree">
+                        
+                            
+                            
+                                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/base_classes/_base_classes.html">Base Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/animation.html">Animation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/controller.html">Controller</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/entity_behaviour.html">Entity Behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/image.html">Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/scene.html">Scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/stat.html">Stat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/ui.html">UI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/ui_element.html">UI Element</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/command/_command.html">Command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/command/basic_entity_behaviour.html">Basic Entity Behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/command/commander.html">Commander</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/command/troupe.html">Troupe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/command/unit.html">Unit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/command/unit_behaviour.html">Unit Behaviour</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/core/_core.html">Core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/audio.html">Audio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/components.html">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/constants.html">Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/data.html">Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/debug.html">Debug</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/definitions.html">Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/effect.html">Effect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/game.html">Game</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/input.html">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/memory.html">Memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/queries.html">Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/rng.html">RNG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/scheduler.html">Scheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/utility.html">Utility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/window.html">Window</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/effects/_effects.html">Effects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/add_item.html">Add Item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/attribute_modifier.html">Attribute Modifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/sildreths_signature.html">Sildreths Signature</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/scenes/_scenes.html">Scenes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/scenes/gallery.html">Gallery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/scenes/main_menu.html">Main Menu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/scenes/run_setup.html">Run Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/scenes/unit_data.html">Unit Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/scenes/world.html">World</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/topography/_topography.html">Base Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/topography/pathfinder.html">Pathfinder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/topography/terrain.html">Terrain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/topography/tile.html">Tile</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/world/_world.html">World</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world/controllers.html">Controllers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world/model.html">Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world/view.html">View</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/world_elements/_world_elements.html">World Elements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/actions.html">Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/camera.html">Camera</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/hitbox.html">Hitbox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/item.html">Item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/particle.html">Particle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/particle_manager.html">Particle Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/projectile.html">Projectile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/projectile_manager.html">Projectile Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/stats.html">Stats</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer/_developer.html">Developer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../developer/developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../developer/adding_new_content.html">Adding New Content</a></li>
+</ul>
+</li>
+</ul>
+
+                            
+                        
+                    </div>
+                </div>
+                <div class="col-12 col-lg-9">
+                    <div class="document">
+                        
+                            
+  <h1>Source code for nqp.core.components</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="kn">from</span> <span class="nn">snecs</span> <span class="kn">import</span> <span class="n">RegisteredComponent</span>
+
+<span class="kn">from</span> <span class="nn">nqp.base_classes.animation</span> <span class="kn">import</span> <span class="n">Animation</span>
+<span class="kn">from</span> <span class="nn">nqp.base_classes.image</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">nqp.command.unit</span> <span class="kn">import</span> <span class="n">Unit</span>
+<span class="kn">from</span> <span class="nn">nqp.core.constants</span> <span class="kn">import</span> <span class="n">EntityFacing</span>
+<span class="kn">from</span> <span class="nn">nqp.world_elements.stats</span> <span class="kn">import</span> <span class="n">FloatStat</span><span class="p">,</span> <span class="n">IntStat</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
+
+    <span class="kn">from</span> <span class="nn">nqp.command.basic_entity_behaviour</span> <span class="kn">import</span> <span class="n">BasicEntityBehaviour</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;Position&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Aesthetic&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Tracked&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Resources&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Stats&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Allegiance&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;AI&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;RangedAttack&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;DamageReceived&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;IsDead&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;IsReadyToAttack&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+
+<div class="viewcode-block" id="Position"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Position">[docs]</a><span class="k">class</span> <span class="nc">Position</span><span class="p">(</span><span class="n">RegisteredComponent</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    An Entity&#39;s location in the world.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Position.__init__"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Position.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">pos</span></div>
+
+<div class="viewcode-block" id="Position.serialize"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Position.serialize">[docs]</a>    <span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos</span></div>
+
+<div class="viewcode-block" id="Position.deserialize"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Position.deserialize">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">deserialize</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]):</span>
+        <span class="k">return</span> <span class="n">Position</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">x</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="nd">@x</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">x</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">y</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="nd">@y</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">y</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Aesthetic"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Aesthetic">[docs]</a><span class="k">class</span> <span class="nc">Aesthetic</span><span class="p">(</span><span class="n">RegisteredComponent</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    An Entity&#39;s visual information</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Aesthetic.__init__"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Aesthetic.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">animation</span><span class="p">:</span> <span class="n">Animation</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">animation</span><span class="p">:</span> <span class="n">Animation</span> <span class="o">=</span> <span class="n">animation</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">facing</span><span class="p">:</span> <span class="n">EntityFacing</span> <span class="o">=</span> <span class="n">EntityFacing</span><span class="o">.</span><span class="n">RIGHT</span></div>
+
+<div class="viewcode-block" id="Aesthetic.serialize"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Aesthetic.serialize">[docs]</a>    <span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># TODO - add serialisation</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="Aesthetic.deserialize"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Aesthetic.deserialize">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">deserialize</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">serialised</span><span class="p">):</span>
+        <span class="c1"># TODO - add deserialisation</span>
+        <span class="k">return</span> <span class="n">Aesthetic</span><span class="p">(</span><span class="o">*</span><span class="n">serialised</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Tracked"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Tracked">[docs]</a><span class="k">class</span> <span class="nc">Tracked</span><span class="p">(</span><span class="n">RegisteredComponent</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A component to track an entity&#39;s actions.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Tracked.__init__"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Tracked.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="Tracked.serialize"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Tracked.serialize">[docs]</a>    <span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># TODO - add serialisation</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="Tracked.deserialize"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Tracked.deserialize">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">deserialize</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">serialised</span><span class="p">):</span>
+        <span class="c1"># TODO - add deserialisation</span>
+        <span class="k">return</span> <span class="n">Tracked</span><span class="p">(</span><span class="o">*</span><span class="n">serialised</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Resources"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Resources">[docs]</a><span class="k">class</span> <span class="nc">Resources</span><span class="p">(</span><span class="n">RegisteredComponent</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    An Entity&#39;s resources, such as health.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Resources.__init__"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Resources.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">health</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">health</span><span class="p">:</span> <span class="n">IntStat</span> <span class="o">=</span> <span class="n">IntStat</span><span class="p">(</span><span class="n">health</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Resources.serialize"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Resources.serialize">[docs]</a>    <span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># TODO - add serialisation</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="Resources.deserialize"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Resources.deserialize">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">deserialize</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">serialised</span><span class="p">):</span>
+        <span class="c1"># TODO - add deserialisation</span>
+        <span class="k">return</span> <span class="n">Resources</span><span class="p">(</span><span class="o">*</span><span class="n">serialised</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Stats"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Stats">[docs]</a><span class="k">class</span> <span class="nc">Stats</span><span class="p">(</span><span class="n">RegisteredComponent</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    An Entity&#39;s stats, such as attack.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Stats.__init__"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Stats.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent_unit</span><span class="p">:</span> <span class="n">Unit</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">defence</span><span class="p">:</span> <span class="n">IntStat</span> <span class="o">=</span> <span class="n">IntStat</span><span class="p">(</span><span class="n">parent_unit</span><span class="o">.</span><span class="n">defence</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attack</span><span class="p">:</span> <span class="n">IntStat</span> <span class="o">=</span> <span class="n">IntStat</span><span class="p">(</span><span class="n">parent_unit</span><span class="o">.</span><span class="n">attack</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">range</span><span class="p">:</span> <span class="n">IntStat</span> <span class="o">=</span> <span class="n">IntStat</span><span class="p">(</span><span class="n">parent_unit</span><span class="o">.</span><span class="n">range</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attack_speed</span><span class="p">:</span> <span class="n">FloatStat</span> <span class="o">=</span> <span class="n">FloatStat</span><span class="p">(</span><span class="n">parent_unit</span><span class="o">.</span><span class="n">attack_speed</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">move_speed</span><span class="p">:</span> <span class="n">IntStat</span> <span class="o">=</span> <span class="n">IntStat</span><span class="p">(</span><span class="n">parent_unit</span><span class="o">.</span><span class="n">move_speed</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">:</span> <span class="n">IntStat</span> <span class="o">=</span> <span class="n">IntStat</span><span class="p">(</span><span class="n">parent_unit</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">:</span> <span class="n">IntStat</span> <span class="o">=</span> <span class="n">IntStat</span><span class="p">(</span><span class="n">parent_unit</span><span class="o">.</span><span class="n">weight</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Stats.serialize"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Stats.serialize">[docs]</a>    <span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># TODO - add serialisation</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="Stats.deserialize"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Stats.deserialize">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">deserialize</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">serialised</span><span class="p">):</span>
+        <span class="c1"># TODO - add deserialisation</span>
+        <span class="k">return</span> <span class="n">Resources</span><span class="p">(</span><span class="o">*</span><span class="n">serialised</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Allegiance"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Allegiance">[docs]</a><span class="k">class</span> <span class="nc">Allegiance</span><span class="p">(</span><span class="n">RegisteredComponent</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    An Entity&#39;s allegiance.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Allegiance.__init__"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Allegiance.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">team</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">unit</span><span class="p">:</span> <span class="n">Unit</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">team</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">team</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">unit</span><span class="p">:</span> <span class="n">Unit</span> <span class="o">=</span> <span class="n">unit</span></div>
+
+<div class="viewcode-block" id="Allegiance.serialize"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Allegiance.serialize">[docs]</a>    <span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># TODO - add serialisation</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="Allegiance.deserialize"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Allegiance.deserialize">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">deserialize</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">serialised</span><span class="p">):</span>
+        <span class="c1"># TODO - add deserialisation</span>
+        <span class="k">return</span> <span class="n">Allegiance</span><span class="p">(</span><span class="o">*</span><span class="n">serialised</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="AI"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.AI">[docs]</a><span class="k">class</span> <span class="nc">AI</span><span class="p">(</span><span class="n">RegisteredComponent</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    An Entity&#39;s AI. This should handle the outputs of AI decisions and actions.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="AI.__init__"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.AI.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">behaviour</span><span class="p">:</span> <span class="n">BasicEntityBehaviour</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">behaviour</span><span class="p">:</span> <span class="n">BasicEntityBehaviour</span> <span class="o">=</span> <span class="n">behaviour</span></div>
+
+<div class="viewcode-block" id="AI.serialize"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.AI.serialize">[docs]</a>    <span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># TODO - add serialisation</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="AI.deserialize"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.AI.deserialize">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">deserialize</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">serialised</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">AI</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="RangedAttack"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.RangedAttack">[docs]</a><span class="k">class</span> <span class="nc">RangedAttack</span><span class="p">(</span><span class="n">RegisteredComponent</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    An Entity&#39;s ability to use projectiles.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="RangedAttack.__init__"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.RangedAttack.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ammo</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">projectile_sprite</span><span class="p">:</span> <span class="n">Image</span><span class="p">,</span> <span class="n">projectile_speed</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ammo</span><span class="p">:</span> <span class="n">IntStat</span> <span class="o">=</span> <span class="n">IntStat</span><span class="p">(</span><span class="n">ammo</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">projectile_sprite</span><span class="p">:</span> <span class="n">Image</span> <span class="o">=</span> <span class="n">projectile_sprite</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">projectile_speed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">projectile_speed</span></div>
+
+<div class="viewcode-block" id="RangedAttack.serialize"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.RangedAttack.serialize">[docs]</a>    <span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># TODO - add serialisation</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="RangedAttack.deserialize"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.RangedAttack.deserialize">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">deserialize</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">serialised</span><span class="p">):</span>
+        <span class="c1"># TODO - add deserialisation</span>
+        <span class="k">return</span> <span class="n">Allegiance</span><span class="p">(</span><span class="o">*</span><span class="n">serialised</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="DamageReceived"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.DamageReceived">[docs]</a><span class="k">class</span> <span class="nc">DamageReceived</span><span class="p">(</span><span class="n">RegisteredComponent</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Damage to be applied to the Entity.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="DamageReceived.__init__"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.DamageReceived.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">amount</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">amount</span></div>
+
+<div class="viewcode-block" id="DamageReceived.serialize"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.DamageReceived.serialize">[docs]</a>    <span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># TODO - add serialisation</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="DamageReceived.deserialize"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.DamageReceived.deserialize">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">deserialize</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">serialised</span><span class="p">):</span>
+        <span class="c1"># TODO - add deserialisation</span>
+        <span class="k">return</span> <span class="n">Allegiance</span><span class="p">(</span><span class="o">*</span><span class="n">serialised</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="IsDead"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.IsDead">[docs]</a><span class="k">class</span> <span class="nc">IsDead</span><span class="p">(</span><span class="n">RegisteredComponent</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Flag to indicate if the Entity is dead.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="IsDead.__init__"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.IsDead.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_processed</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span></div></div>
+
+    <span class="c1"># doesnt need serialising as will never be dead when saving.</span>
+
+
+<div class="viewcode-block" id="IsReadyToAttack"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.IsReadyToAttack">[docs]</a><span class="k">class</span> <span class="nc">IsReadyToAttack</span><span class="p">(</span><span class="n">RegisteredComponent</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Flag to indicate if the Entity is ready to attack.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+    <span class="c1"># doesnt need init as has no details</span>
+    <span class="c1"># doesnt need serialising as will never be about to attack when saving.</span>
+</pre></div>
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+    <script type="text/javascript" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+    <div class="footer" role="contentinfo">
+        <div class="container">
+            &#169; Copyright 2019-2022, Josh Snaith.
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.
+        </div>
+    </div>  
+
+</body>
+</html>

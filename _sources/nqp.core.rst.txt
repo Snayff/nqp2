@@ -1,0 +1,157 @@
+nqp.core package
+================
+
+Submodules
+----------
+
+nqp.core.assets module
+----------------------
+
+.. automodule:: nqp.core.assets
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.core.audio module
+---------------------
+
+.. automodule:: nqp.core.audio
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.core.components module
+--------------------------
+
+.. automodule:: nqp.core.components
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.core.constants module
+-------------------------
+
+.. automodule:: nqp.core.constants
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.core.data module
+--------------------
+
+.. automodule:: nqp.core.data
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.core.debug module
+---------------------
+
+.. automodule:: nqp.core.debug
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.core.definitions module
+---------------------------
+
+.. automodule:: nqp.core.definitions
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.core.effect module
+----------------------
+
+.. automodule:: nqp.core.effect
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.core.game module
+--------------------
+
+.. automodule:: nqp.core.game
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.core.input module
+---------------------
+
+.. automodule:: nqp.core.input
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.core.memory module
+----------------------
+
+.. automodule:: nqp.core.memory
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.core.queries module
+-----------------------
+
+.. automodule:: nqp.core.queries
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.core.rng module
+-------------------
+
+.. automodule:: nqp.core.rng
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.core.scheduler module
+-------------------------
+
+.. automodule:: nqp.core.scheduler
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.core.systems module
+-----------------------
+
+.. automodule:: nqp.core.systems
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.core.utility module
+-----------------------
+
+.. automodule:: nqp.core.utility
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.core.visual module
+----------------------
+
+.. automodule:: nqp.core.visual
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.core.window module
+----------------------
+
+.. automodule:: nqp.core.window
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: nqp.core
+   :members:
+   :undoc-members:
+   :show-inheritance:

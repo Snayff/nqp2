@@ -1,0 +1,566 @@
+
+
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>nqp.command.unit &mdash; NotQuiteParadise2  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.min.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <a class="site-nav-toggle hidden-lg-up"><i class="icon-menu"></i></a>
+            <a class="site-title" href="../../../index.html">
+                NotQuiteParadise2
+            </a>
+        </div>
+    </header>
+
+
+<div class="breadcrumbs-outer hidden-xs-down">
+    <div class="container">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a></li>
+        
+          <li><a href="../../index.html">Module code</a></li>
+        
+      <li>nqp.command.unit</li>
+    
+    
+      <li class="breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+</div>
+    </div>
+</div>
+    <div class="main-outer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-3 site-nav">
+                    
+<div role="search">
+    <form class="search" action="../../../search.html" method="get">
+        <div class="icon-input">
+            <input type="text" name="q" placeholder="Search" />
+            <span class="icon-search"></span>
+        </div>
+        <input type="submit" value="Go" class="d-hidden" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+                    <div class="site-nav-tree">
+                        
+                            
+                            
+                                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/base_classes/_base_classes.html">Base Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/animation.html">Animation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/controller.html">Controller</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/entity_behaviour.html">Entity Behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/image.html">Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/scene.html">Scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/stat.html">Stat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/ui.html">UI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/ui_element.html">UI Element</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/command/_command.html">Command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/command/basic_entity_behaviour.html">Basic Entity Behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/command/commander.html">Commander</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/command/troupe.html">Troupe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/command/unit.html">Unit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/command/unit_behaviour.html">Unit Behaviour</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/core/_core.html">Core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/audio.html">Audio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/components.html">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/constants.html">Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/data.html">Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/debug.html">Debug</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/definitions.html">Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/effect.html">Effect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/game.html">Game</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/input.html">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/memory.html">Memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/queries.html">Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/rng.html">RNG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/scheduler.html">Scheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/utility.html">Utility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/window.html">Window</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/effects/_effects.html">Effects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/add_item.html">Add Item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/attribute_modifier.html">Attribute Modifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/sildreths_signature.html">Sildreths Signature</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/scenes/_scenes.html">Scenes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/scenes/gallery.html">Gallery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/scenes/main_menu.html">Main Menu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/scenes/run_setup.html">Run Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/scenes/unit_data.html">Unit Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/scenes/world.html">World</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/topography/_topography.html">Base Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/topography/pathfinder.html">Pathfinder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/topography/terrain.html">Terrain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/topography/tile.html">Tile</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/world/_world.html">World</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world/controllers.html">Controllers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world/model.html">Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world/view.html">View</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/world_elements/_world_elements.html">World Elements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/actions.html">Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/camera.html">Camera</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/hitbox.html">Hitbox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/item.html">Item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/particle.html">Particle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/particle_manager.html">Particle Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/projectile.html">Projectile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/projectile_manager.html">Projectile Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/stats.html">Stats</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer/_developer.html">Developer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../developer/developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../developer/adding_new_content.html">Adding New Content</a></li>
+</ul>
+</li>
+</ul>
+
+                            
+                        
+                    </div>
+                </div>
+                <div class="col-12 col-lg-9">
+                    <div class="document">
+                        
+                            
+  <h1>Source code for nqp.command.unit</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="kn">import</span> <span class="nn">pygame</span>
+<span class="kn">import</span> <span class="nn">snecs</span>
+
+<span class="kn">from</span> <span class="nn">nqp.core.constants</span> <span class="kn">import</span> <span class="n">StatModifiedStatus</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
+
+    <span class="kn">from</span> <span class="nn">snecs.typedefs</span> <span class="kn">import</span> <span class="n">EntityID</span>
+
+    <span class="kn">from</span> <span class="nn">nqp.core.game</span> <span class="kn">import</span> <span class="n">Game</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Unit&quot;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="Unit"><a class="viewcode-back" href="../../../nqp.command.html#nqp.command.unit.Unit">[docs]</a><span class="k">class</span> <span class="nc">Unit</span><span class="p">:</span>
+<div class="viewcode-block" id="Unit.__init__"><a class="viewcode-back" href="../../../nqp.command.html#nqp.command.unit.Unit.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">game</span><span class="p">:</span> <span class="n">Game</span><span class="p">,</span> <span class="n">id_</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">unit_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">team</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">:</span> <span class="n">Game</span> <span class="o">=</span> <span class="n">game</span>
+
+        <span class="c1"># get unit data</span>
+        <span class="n">unit_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="p">[</span><span class="n">unit_type</span><span class="p">]</span>
+        <span class="n">base_values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;unit_base_values&quot;</span><span class="p">][</span><span class="sa">f</span><span class="s2">&quot;tier_</span><span class="si">{</span><span class="n">unit_data</span><span class="p">[</span><span class="s1">&#39;tier&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span>
+
+        <span class="c1">######### Unit Info #############</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">id_</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">unit_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">team</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">team</span>  <span class="c1"># this is derived from the Troupe but can be overridden in combat</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">pos</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_selected</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entities</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">EntityID</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">entity_spread_max</span> <span class="o">=</span> <span class="n">unit_data</span><span class="p">[</span><span class="s2">&quot;entity_spread&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="s2">&quot;entity_spread&quot;</span> <span class="ow">in</span> <span class="n">unit_data</span> <span class="k">else</span> <span class="mi">48</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">unit_data</span><span class="p">[</span><span class="s2">&quot;count&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">base_values</span><span class="p">[</span><span class="s2">&quot;count&quot;</span><span class="p">]</span>  <span class="c1"># number of entities spawned</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gold_cost</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">unit_data</span><span class="p">[</span><span class="s2">&quot;gold_cost&quot;</span> <span class="s2">&quot;&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">base_values</span><span class="p">[</span><span class="s2">&quot;gold_cost&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_banner_image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visual</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">&quot;banner&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_ranged</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="n">unit_data</span><span class="p">[</span><span class="s2">&quot;ammo&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default_behaviour</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">unit_data</span><span class="p">[</span><span class="s2">&quot;default_behaviour&quot;</span><span class="p">]</span>  <span class="c1"># load after other unit attrs</span>
+        <span class="c1"># self.behaviour = self._game.data.behaviours.unit_behaviours[self.default_behaviour](self)</span>
+        <span class="kn">from</span> <span class="nn">nqp.command.unit_behaviour</span> <span class="kn">import</span> <span class="n">UnitBehaviour</span>  <span class="c1"># prevent circular import</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">behaviour</span><span class="p">:</span> <span class="n">UnitBehaviour</span> <span class="o">=</span> <span class="n">UnitBehaviour</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">injuries</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># border</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">border_surface_timer</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">border_surface</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">pygame</span><span class="o">.</span><span class="n">surface</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">border_surface_offset</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">border_surface_outline</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">pygame</span><span class="o">.</span><span class="n">surface</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">border_surface_outline_black</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">pygame</span><span class="o">.</span><span class="n">surface</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1">######### Entity Info ##############</span>
+        <span class="c1"># stats that dont use base values</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">unit_data</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tier</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">unit_data</span><span class="p">[</span><span class="s2">&quot;tier&quot;</span><span class="p">]</span>
+
+        <span class="c1"># stats that include base values</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">health</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">unit_data</span><span class="p">[</span><span class="s2">&quot;health&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">base_values</span><span class="p">[</span><span class="s2">&quot;health&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attack</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">unit_data</span><span class="p">[</span><span class="s2">&quot;attack&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">base_values</span><span class="p">[</span><span class="s2">&quot;attack&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">defence</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">unit_data</span><span class="p">[</span><span class="s2">&quot;defence&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">base_values</span><span class="p">[</span><span class="s2">&quot;defence&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">range</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">unit_data</span><span class="p">[</span><span class="s2">&quot;range&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">base_values</span><span class="p">[</span><span class="s2">&quot;range&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attack_speed</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">unit_data</span><span class="p">[</span><span class="s2">&quot;attack_speed&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">base_values</span><span class="p">[</span><span class="s2">&quot;attack_speed&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">move_speed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">unit_data</span><span class="p">[</span><span class="s2">&quot;move_speed&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">base_values</span><span class="p">[</span><span class="s2">&quot;move_speed&quot;</span><span class="p">]</span>
+
+        <span class="c1"># ensure faux-null value is respected</span>
+        <span class="k">if</span> <span class="n">unit_data</span><span class="p">[</span><span class="s2">&quot;ammo&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]:</span>
+            <span class="n">ammo</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ammo</span> <span class="o">=</span> <span class="n">unit_data</span><span class="p">[</span><span class="s2">&quot;ammo&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">base_values</span><span class="p">[</span><span class="s2">&quot;ammo&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ammo</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">ammo</span>  <span class="c1"># number of ranged shots</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">uses_projectiles</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ammo</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">unit_data</span><span class="p">[</span><span class="s2">&quot;size&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">base_values</span><span class="p">[</span><span class="s2">&quot;size&quot;</span><span class="p">]</span>  <span class="c1"># size of the hitbox</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">unit_data</span><span class="p">[</span><span class="s2">&quot;weight&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">base_values</span><span class="p">[</span><span class="s2">&quot;weight&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">projectile_data</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">unit_data</span><span class="p">[</span><span class="s2">&quot;projectile_data&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="s2">&quot;projectile_data&quot;</span> <span class="ow">in</span> <span class="n">unit_data</span> <span class="k">else</span> <span class="p">{</span><span class="s2">&quot;img&quot;</span><span class="p">:</span> <span class="s2">&quot;arrow&quot;</span><span class="p">,</span> <span class="s2">&quot;speed&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">}</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Unit.update"><a class="viewcode-back" href="../../../nqp.command.html#nqp.command.unit.Unit.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="c1"># refresh the border</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">team</span> <span class="o">==</span> <span class="s2">&quot;player&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">border_surface_timer</span> <span class="o">+=</span> <span class="n">delta_time</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">border_surface_timer</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">border_surface_timer</span> <span class="o">-=</span> <span class="mf">0.5</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">generate_border_surface</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">behaviour</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_position</span><span class="p">()</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">is_alive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">nqp.core.components</span> <span class="kn">import</span> <span class="n">IsDead</span>  <span class="c1"># prevent circular import</span>
+
+        <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">entities</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">snecs</span><span class="o">.</span><span class="n">has_component</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">IsDead</span><span class="p">):</span>
+                <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+<div class="viewcode-block" id="Unit.draw_banner"><a class="viewcode-back" href="../../../nqp.command.html#nqp.command.unit.Unit.draw_banner">[docs]</a>    <span class="k">def</span> <span class="nf">draw_banner</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">,</span> <span class="n">shift</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Draw&#39;s the Unit&#39;s banner.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">banner_image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_banner_image</span>
+        <span class="n">surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span>
+            <span class="n">banner_image</span><span class="o">.</span><span class="n">surface</span><span class="p">,</span>
+            <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">shift</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">banner_image</span><span class="o">.</span><span class="n">width</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">shift</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">20</span> <span class="o">-</span> <span class="n">banner_image</span><span class="o">.</span><span class="n">height</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Unit.draw_border"><a class="viewcode-back" href="../../../nqp.command.html#nqp.command.unit.Unit.draw_border">[docs]</a>    <span class="k">def</span> <span class="nf">draw_border</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">,</span> <span class="n">shift</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Draw the border around the unit.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="p">[(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)]:</span>
+            <span class="n">surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">border_surface_outline_black</span><span class="p">,</span>
+                <span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">shift</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">border_surface_offset</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">shift</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">border_surface_offset</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">d</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="n">surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">border_surface</span><span class="p">,</span>
+            <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">shift</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">border_surface_offset</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">shift</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">border_surface_offset</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">border_surface_outline</span><span class="p">,</span>
+            <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">shift</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">border_surface_offset</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">shift</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">border_surface_offset</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+            <span class="p">),</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Unit.spawn_entities"><a class="viewcode-back" href="../../../nqp.command.html#nqp.command.unit.Unit.spawn_entities">[docs]</a>    <span class="k">def</span> <span class="nf">spawn_entities</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Spawn the Unit&#39;s Entities. Deletes any existing Entities first.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># prevent circular import error</span>
+        <span class="kn">from</span> <span class="nn">nqp.core.components</span> <span class="kn">import</span> <span class="n">Aesthetic</span><span class="p">,</span> <span class="n">AI</span><span class="p">,</span> <span class="n">Allegiance</span><span class="p">,</span> <span class="n">Position</span><span class="p">,</span> <span class="n">RangedAttack</span><span class="p">,</span> <span class="n">Resources</span><span class="p">,</span> <span class="n">Stats</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">delete_entities</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">count</span><span class="p">):</span>
+            <span class="c1"># universal components</span>
+            <span class="n">components</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">Position</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">),</span>
+                <span class="n">Aesthetic</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visual</span><span class="o">.</span><span class="n">create_animation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="s2">&quot;idle&quot;</span><span class="p">)),</span>
+                <span class="n">Resources</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">health</span><span class="p">),</span>
+                <span class="n">Stats</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span>
+                <span class="n">Allegiance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">team</span><span class="p">,</span> <span class="bp">self</span><span class="p">),</span>
+            <span class="p">]</span>
+
+            <span class="c1"># conditional components</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">uses_projectiles</span><span class="p">:</span>
+                <span class="n">img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visual</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">projectile_data</span><span class="p">[</span><span class="s2">&quot;img&quot;</span><span class="p">])</span>
+                <span class="n">speed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">projectile_data</span>
+                <span class="n">components</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">RangedAttack</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ammo</span><span class="p">,</span> <span class="n">img</span><span class="p">,</span> <span class="n">speed</span><span class="p">))</span>
+
+            <span class="c1"># create entity</span>
+            <span class="n">entity</span> <span class="o">=</span> <span class="n">snecs</span><span class="o">.</span><span class="n">new_entity</span><span class="p">(</span><span class="n">components</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">entities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">entity</span><span class="p">)</span>
+
+            <span class="c1"># add components that need ref to entity</span>
+            <span class="kn">from</span> <span class="nn">nqp.command.basic_entity_behaviour</span> <span class="kn">import</span> <span class="n">BasicEntityBehaviour</span>  <span class="c1"># prevent circular import</span>
+
+            <span class="n">snecs</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">AI</span><span class="p">(</span><span class="n">BasicEntityBehaviour</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">entity</span><span class="p">)))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_align_entity_positions_to_unit</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Unit.delete_entities"><a class="viewcode-back" href="../../../nqp.command.html#nqp.command.unit.Unit.delete_entities">[docs]</a>    <span class="k">def</span> <span class="nf">delete_entities</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">immediately</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete all entities. If &quot;immediately&quot; = False this will happen on the next frame.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">immediately</span><span class="p">:</span>
+            <span class="n">delete_func</span> <span class="o">=</span> <span class="n">snecs</span><span class="o">.</span><span class="n">delete_entity_immediately</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">delete_func</span> <span class="o">=</span> <span class="n">snecs</span><span class="o">.</span><span class="n">schedule_for_deletion</span>
+
+        <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">entities</span><span class="p">:</span>
+            <span class="n">delete_func</span><span class="p">(</span><span class="n">entity</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">entities</span> <span class="o">=</span> <span class="p">[]</span></div>
+
+<div class="viewcode-block" id="Unit.reset_for_combat"><a class="viewcode-back" href="../../../nqp.command.html#nqp.command.unit.Unit.reset_for_combat">[docs]</a>    <span class="k">def</span> <span class="nf">reset_for_combat</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reset the in combat values ready to begin combat.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># prevent circular import</span>
+        <span class="kn">from</span> <span class="nn">nqp.core.components</span> <span class="kn">import</span> <span class="n">DamageReceived</span><span class="p">,</span> <span class="n">IsDead</span><span class="p">,</span> <span class="n">IsReadyToAttack</span><span class="p">,</span> <span class="n">RangedAttack</span><span class="p">,</span> <span class="n">Resources</span>
+
+        <span class="n">health</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">health</span>
+        <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">entities</span><span class="p">:</span>
+            <span class="c1"># heal to full</span>
+            <span class="n">resources</span> <span class="o">=</span> <span class="n">snecs</span><span class="o">.</span><span class="n">entity_component</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">Resources</span><span class="p">)</span>
+            <span class="n">resources</span><span class="o">.</span><span class="n">health</span> <span class="o">=</span> <span class="n">health</span>
+
+            <span class="c1"># remove flags</span>
+            <span class="k">if</span> <span class="n">snecs</span><span class="o">.</span><span class="n">has_component</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">IsDead</span><span class="p">):</span>
+                <span class="n">snecs</span><span class="o">.</span><span class="n">remove_component</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">IsDead</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">snecs</span><span class="o">.</span><span class="n">has_component</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">IsReadyToAttack</span><span class="p">):</span>
+                <span class="n">snecs</span><span class="o">.</span><span class="n">remove_component</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">IsReadyToAttack</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">snecs</span><span class="o">.</span><span class="n">has_component</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">DamageReceived</span><span class="p">):</span>
+                <span class="n">snecs</span><span class="o">.</span><span class="n">remove_component</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">DamageReceived</span><span class="p">)</span>
+
+            <span class="c1"># reset ammo</span>
+            <span class="k">if</span> <span class="n">snecs</span><span class="o">.</span><span class="n">has_component</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">RangedAttack</span><span class="p">):</span>
+                <span class="n">ranged</span> <span class="o">=</span> <span class="n">snecs</span><span class="o">.</span><span class="n">entity_component</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">RangedAttack</span><span class="p">)</span>
+                <span class="n">ranged</span><span class="o">.</span><span class="n">ammo</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_align_entity_positions_to_unit</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Unit.update_position"><a class="viewcode-back" href="../../../nqp.command.html#nqp.command.unit.Unit.update_position">[docs]</a>    <span class="k">def</span> <span class="nf">update_position</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update unit position by averaging the positions of all its entities.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">nqp.core.components</span> <span class="kn">import</span> <span class="n">Position</span>  <span class="c1"># prevent circular import</span>
+
+        <span class="n">num_entities</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">entities</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">num_entities</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">unit_pos</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">entities</span><span class="p">:</span>
+                <span class="n">entity_position</span> <span class="o">=</span> <span class="n">snecs</span><span class="o">.</span><span class="n">entity_component</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">Position</span><span class="p">)</span>
+                <span class="n">unit_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">entity_position</span><span class="o">.</span><span class="n">x</span>
+                <span class="n">unit_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">entity_position</span><span class="o">.</span><span class="n">y</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="p">(</span><span class="n">unit_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">num_entities</span><span class="p">,</span> <span class="n">unit_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">num_entities</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Unit.set_position"><a class="viewcode-back" href="../../../nqp.command.html#nqp.command.unit.Unit.set_position">[docs]</a>    <span class="k">def</span> <span class="nf">set_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the unit&#39;s position and moves the Entities to match.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="n">pos</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_align_entity_positions_to_unit</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="nf">_align_entity_positions_to_unit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">nqp.core.components</span> <span class="kn">import</span> <span class="n">Position</span>  <span class="c1"># prevent circular import</span>
+
+        <span class="n">unit_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">unit_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">max_spread</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">entity_spread_max</span>
+
+        <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">entities</span><span class="p">:</span>
+            <span class="c1"># randomise position in allowed area</span>
+            <span class="n">scatter_x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="o">-</span><span class="n">max_spread</span><span class="p">,</span> <span class="n">max_spread</span><span class="p">)</span>
+            <span class="n">scatter_y</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="o">-</span><span class="n">max_spread</span><span class="p">,</span> <span class="n">max_spread</span><span class="p">)</span>
+
+            <span class="n">position</span> <span class="o">=</span> <span class="n">snecs</span><span class="o">.</span><span class="n">entity_component</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">Position</span><span class="p">)</span>
+            <span class="n">position</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="p">(</span><span class="n">unit_x</span> <span class="o">+</span> <span class="n">scatter_x</span><span class="p">,</span> <span class="n">unit_y</span> <span class="o">+</span> <span class="n">scatter_y</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Unit.generate_border_surface"><a class="viewcode-back" href="../../../nqp.command.html#nqp.command.unit.Unit.generate_border_surface">[docs]</a>    <span class="k">def</span> <span class="nf">generate_border_surface</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate a new border around the Unit. Stub</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">entities</span><span class="p">):</span>
+            <span class="c1"># FIXME - throws &quot;ValueError: points argument must contain 2 or more points&quot; and draws incorrectly</span>
+            <span class="k">pass</span></div>
+            <span class="c1"># surf_padding = 20</span>
+            <span class="c1"># outline_padding = 10</span>
+            <span class="c1"># self.border_surface = None</span>
+            <span class="c1">#</span>
+            <span class="c1"># # get entity positions</span>
+            <span class="c1"># from scripts.core.components import Position  # prevent circular import</span>
+            <span class="c1">#</span>
+            <span class="c1"># all_positions = []</span>
+            <span class="c1"># for entity in self.entities:</span>
+            <span class="c1">#     position = snecs.entity_component(entity, Position)</span>
+            <span class="c1">#     all_positions.append(position.pos)</span>
+            <span class="c1">#</span>
+            <span class="c1"># all_x = [p[0] for p in all_positions]</span>
+            <span class="c1"># all_y = [p[1] for p in all_positions]</span>
+            <span class="c1"># min_x = min(all_x)</span>
+            <span class="c1"># min_y = min(all_y)</span>
+            <span class="c1"># self.border_surface = pygame.Surface(</span>
+            <span class="c1">#     (max(all_x) - min_x + surf_padding * 2, max(all_y) - min_y + surf_padding * 2)</span>
+            <span class="c1"># )</span>
+            <span class="c1"># self.border_surface_offset = (self.pos[0] - min_x + surf_padding, self.pos[1] - min_y + surf_padding)</span>
+            <span class="c1"># self.border_surface.set_colorkey((0, 0, 0))</span>
+            <span class="c1">#</span>
+            <span class="c1"># points = [</span>
+            <span class="c1">#     (self.pos[0] - outline_padding, self.pos[1]),</span>
+            <span class="c1">#     (self.pos[0], self.pos[1] - outline_padding),</span>
+            <span class="c1">#     (self.pos[0] + outline_padding, self.pos[1]),</span>
+            <span class="c1">#     (self.pos[0], self.pos[1] + outline_padding),</span>
+            <span class="c1"># ]</span>
+            <span class="c1">#</span>
+            <span class="c1"># placed_points = []</span>
+            <span class="c1">#</span>
+            <span class="c1"># for pos in all_positions + points:</span>
+            <span class="c1">#     new_pos = (pos[0] - min_x + surf_padding, pos[1] - min_y + surf_padding)</span>
+            <span class="c1">#     angle = math.atan2(pos[1] - self.pos[1], pos[0] - self.pos[0])</span>
+            <span class="c1">#     new_pos = (</span>
+            <span class="c1">#         new_pos[0] + outline_padding * math.cos(angle),</span>
+            <span class="c1">#         new_pos[1] + outline_padding * math.sin(angle),</span>
+            <span class="c1">#     )</span>
+            <span class="c1">#     for p in placed_points:</span>
+            <span class="c1">#         pygame.draw.line(self.border_surface, (255, 255, 255), new_pos, p)</span>
+            <span class="c1">#     placed_points.append(new_pos)</span>
+            <span class="c1">#</span>
+            <span class="c1"># mask_surf = pygame.mask.from_surface(self.border_surface)</span>
+            <span class="c1">#</span>
+            <span class="c1"># self.border_surface.fill((0, 0, 0))</span>
+            <span class="c1"># self.border_surface_outline = self.border_surface.copy()</span>
+            <span class="c1"># self.border_surface_outline_black = self.border_surface.copy()</span>
+            <span class="c1">#</span>
+            <span class="c1"># outline = mask_surf.outline(2)</span>
+            <span class="c1"># pygame.draw.lines(self.border_surface_outline, (255, 255, 255), False, outline)</span>
+            <span class="c1"># pygame.draw.lines(self.border_surface_outline_black, (0, 0, 1), False, outline)</span>
+            <span class="c1"># pygame.draw.polygon(self.border_surface, (0, 0, 255), outline)</span>
+            <span class="c1"># self.border_surface.set_alpha(80)</span>
+
+<div class="viewcode-block" id="Unit.add_modifier"><a class="viewcode-back" href="../../../nqp.command.html#nqp.command.unit.Unit.add_modifier">[docs]</a>    <span class="k">def</span> <span class="nf">add_modifier</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stat</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a modifier to a stat. Stub</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># FIXME - stubbed</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="Unit.get_modified_status"><a class="viewcode-back" href="../../../nqp.command.html#nqp.command.unit.Unit.get_modified_status">[docs]</a>    <span class="k">def</span> <span class="nf">get_modified_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stat</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">StatModifiedStatus</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if a given stat is modified. Stub.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># FIXME - stubbed</span>
+        <span class="k">pass</span></div></div>
+</pre></div>
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+    <script type="text/javascript" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+    <div class="footer" role="contentinfo">
+        <div class="container">
+            &#169; Copyright 2019-2022, Josh Snaith.
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.
+        </div>
+    </div>  
+
+</body>
+</html>

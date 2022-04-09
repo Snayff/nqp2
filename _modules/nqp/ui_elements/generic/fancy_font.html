@@ -1,0 +1,588 @@
+
+
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>nqp.ui_elements.generic.fancy_font &mdash; NotQuiteParadise2  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../../_static/css/theme.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/css/theme.min.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <a class="site-nav-toggle hidden-lg-up"><i class="icon-menu"></i></a>
+            <a class="site-title" href="../../../../index.html">
+                NotQuiteParadise2
+            </a>
+        </div>
+    </header>
+
+
+<div class="breadcrumbs-outer hidden-xs-down">
+    <div class="container">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a></li>
+        
+          <li><a href="../../../index.html">Module code</a></li>
+        
+      <li>nqp.ui_elements.generic.fancy_font</li>
+    
+    
+      <li class="breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+</div>
+    </div>
+</div>
+    <div class="main-outer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-3 site-nav">
+                    
+<div role="search">
+    <form class="search" action="../../../../search.html" method="get">
+        <div class="icon-input">
+            <input type="text" name="q" placeholder="Search" />
+            <span class="icon-search"></span>
+        </div>
+        <input type="submit" value="Go" class="d-hidden" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+                    <div class="site-nav-tree">
+                        
+                            
+                            
+                                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/base_classes/_base_classes.html">Base Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/base_classes/animation.html">Animation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/base_classes/controller.html">Controller</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/base_classes/entity_behaviour.html">Entity Behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/base_classes/image.html">Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/base_classes/scene.html">Scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/base_classes/stat.html">Stat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/base_classes/ui.html">UI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/base_classes/ui_element.html">UI Element</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/command/_command.html">Command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/command/basic_entity_behaviour.html">Basic Entity Behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/command/commander.html">Commander</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/command/troupe.html">Troupe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/command/unit.html">Unit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/command/unit_behaviour.html">Unit Behaviour</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/core/_core.html">Core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/audio.html">Audio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/components.html">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/constants.html">Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/data.html">Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/debug.html">Debug</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/definitions.html">Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/effect.html">Effect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/game.html">Game</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/input.html">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/memory.html">Memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/queries.html">Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/rng.html">RNG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/scheduler.html">Scheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/utility.html">Utility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/window.html">Window</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/effects/_effects.html">Effects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/effects/add_item.html">Add Item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/effects/attribute_modifier.html">Attribute Modifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/effects/sildreths_signature.html">Sildreths Signature</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/scenes/_scenes.html">Scenes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/scenes/gallery.html">Gallery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/scenes/main_menu.html">Main Menu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/scenes/run_setup.html">Run Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/scenes/unit_data.html">Unit Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/scenes/world.html">World</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/topography/_topography.html">Base Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/topography/pathfinder.html">Pathfinder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/topography/terrain.html">Terrain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/topography/tile.html">Tile</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/world/_world.html">World</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/world/controllers.html">Controllers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/world/model.html">Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/world/view.html">View</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/world_elements/_world_elements.html">World Elements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/world_elements/actions.html">Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/world_elements/camera.html">Camera</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/world_elements/hitbox.html">Hitbox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/world_elements/item.html">Item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/world_elements/particle.html">Particle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/world_elements/particle_manager.html">Particle Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/world_elements/projectile.html">Projectile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/world_elements/projectile_manager.html">Projectile Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/world_elements/stats.html">Stats</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer/_developer.html">Developer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../developer/developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../developer/adding_new_content.html">Adding New Content</a></li>
+</ul>
+</li>
+</ul>
+
+                            
+                        
+                    </div>
+                </div>
+                <div class="col-12 col-lg-9">
+                    <div class="document">
+                        
+                            
+  <h1>Source code for nqp.ui_elements.generic.fancy_font</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="kn">import</span> <span class="nn">pygame</span>
+
+<span class="kn">from</span> <span class="nn">nqp.core.constants</span> <span class="kn">import</span> <span class="n">ASSET_PATH</span><span class="p">,</span> <span class="n">FontEffects</span><span class="p">,</span> <span class="n">TEXT_FADE_IN_SPEED</span><span class="p">,</span> <span class="n">TEXT_FADE_OUT_SPEED</span>
+<span class="kn">from</span> <span class="nn">nqp.ui_elements.generic.font</span> <span class="kn">import</span> <span class="n">Font</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;FancyFont&quot;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="FancyFont"><a class="viewcode-back" href="../../../../nqp.ui_elements.generic.html#nqp.ui_elements.generic.fancy_font.FancyFont">[docs]</a><span class="k">class</span> <span class="nc">FancyFont</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A font with effects.</span>
+<span class="sd">    Use &#39;&lt;![font_name]&gt;&#39; in the text to indicate which font to use for the following characters. Fonts names are</span>
+<span class="sd">    &#39;small&#39;, &#39;big&#39; or &#39;red&#39;. e.g. text=&#39;this is &lt;!red&gt; red&#39;.</span>
+<span class="sd">    New lines are indicated with &#39;\\n&#39;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="FancyFont.__init__"><a class="viewcode-back" href="../../../../nqp.ui_elements.generic.html#nqp.ui_elements.generic.fancy_font.FancyFont.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">line_width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">font_effects</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">FontEffects</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">):</span>
+
+        <span class="c1"># handle mutable default</span>
+        <span class="k">if</span> <span class="n">font_effects</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">font_effects</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># ensure text is a str</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">raw_text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">text</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fonts</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Font</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_fonts</span><span class="p">()</span>
+
+        <span class="c1"># transform text and identify where to swap _fonts.</span>
+        <span class="n">parsed_text</span><span class="p">,</span> <span class="n">font_swap_markers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_text</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parsed_text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">parsed_text</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">pos</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="p">:</span> <span class="n">Font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fonts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">line_height</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">line_height</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_line_gap</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span>  <span class="c1"># relative to base font height</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">character_gap</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">space_gap</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">letter_spacing</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="mi">3</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line_width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">line_width</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_used_width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_characters</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Character</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[[]]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_base_characters</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Character</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_base_characters</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_generate_characters</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_visible_range</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_initial_start_char_index</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># can be set to negative to create a delay when being removed.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_start_char_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initial_start_char_index</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_end_char_index</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># effect flags</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fade_in</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fade_out</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_process_effect_flags</span><span class="p">(</span><span class="n">font_effects</span><span class="p">)</span>
+
+        <span class="c1"># utilise font_swap_markers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_initial_font_adjustments</span><span class="p">(</span><span class="n">parsed_text</span><span class="p">,</span> <span class="n">font_swap_markers</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">length</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_characters</span><span class="p">])</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">height</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="c1"># + 1 to add an extra line at the end to ensure it isnt clipped</span>
+        <span class="k">return</span> <span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_characters</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">line_height</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_line_gap</span><span class="p">))</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_line_gap</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">width</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_character_width</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_characters</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<div class="viewcode-block" id="FancyFont.update"><a class="viewcode-back" href="../../../../nqp.ui_elements.generic.html#nqp.ui_elements.generic.fancy_font.FancyFont.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="c1"># set visible range, determining what chars are shown</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_visible_range</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_start_char_index</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_end_char_index</span><span class="p">]</span>
+
+        <span class="c1"># increment char indices</span>
+        <span class="n">start_increment</span> <span class="o">=</span> <span class="n">TEXT_FADE_OUT_SPEED</span>
+        <span class="n">end_increment</span> <span class="o">=</span> <span class="n">TEXT_FADE_IN_SPEED</span>
+
+        <span class="c1"># if not fading in then we dont need to change the start index</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fade_out</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_start_char_index</span> <span class="o">+=</span> <span class="n">start_increment</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fade_in</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_end_char_index</span> <span class="o">+=</span> <span class="n">end_increment</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start_char_index</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">+</span> <span class="mi">30</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_start_char_index</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_end_char_index</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="n">j</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_end_char_index</span>
+            <span class="c1"># scale to full size</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_adjust_scale</span><span class="p">(</span><span class="n">j</span> <span class="o">-</span> <span class="mi">20</span><span class="p">,</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_adjust_scale</span><span class="p">(</span><span class="n">j</span> <span class="o">-</span> <span class="mi">12</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">)</span>
+
+            <span class="c1"># fade text in</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_adjust_alpha</span><span class="p">(</span><span class="n">j</span> <span class="o">-</span> <span class="mi">20</span><span class="p">,</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_adjust_alpha</span><span class="p">(</span><span class="n">j</span> <span class="o">-</span> <span class="mi">16</span><span class="p">,</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_adjust_alpha</span><span class="p">(</span><span class="n">j</span> <span class="o">-</span> <span class="mi">8</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_end_char_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span></div>
+
+<div class="viewcode-block" id="FancyFont.draw"><a class="viewcode-back" href="../../../../nqp.ui_elements.generic.html#nqp.ui_elements.generic.fancy_font.FancyFont.draw">[docs]</a>    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">):</span>
+
+        <span class="n">start_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">start_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">x_offset</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">y_offset</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_characters</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_visible_range</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">char</span><span class="o">.</span><span class="n">index</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_visible_range</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="ow">or</span> <span class="p">(</span><span class="n">char</span><span class="o">.</span><span class="n">index</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                    <span class="n">char</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">surface</span><span class="p">,</span> <span class="p">(</span><span class="n">start_x</span> <span class="o">+</span> <span class="n">x_offset</span><span class="p">,</span> <span class="n">start_y</span> <span class="o">+</span> <span class="n">y_offset</span><span class="p">))</span>
+                <span class="n">x_offset</span> <span class="o">+=</span> <span class="n">char</span><span class="o">.</span><span class="n">width</span>
+            <span class="n">y_offset</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_height</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_line_gap</span>
+            <span class="n">x_offset</span> <span class="o">=</span> <span class="mi">0</span></div>
+
+<div class="viewcode-block" id="FancyFont.refresh"><a class="viewcode-back" href="../../../../nqp.ui_elements.generic.html#nqp.ui_elements.generic.fancy_font.FancyFont.refresh">[docs]</a>    <span class="k">def</span> <span class="nf">refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Refresh the font, restarting from the beginning with the current text.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fonts</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Font</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_fonts</span><span class="p">()</span>
+
+        <span class="c1"># transform text and identify where to swap _fonts.</span>
+        <span class="n">parsed_text</span><span class="p">,</span> <span class="n">font_swap_markers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_text</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">raw_text</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parsed_text</span> <span class="o">=</span> <span class="n">parsed_text</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fonts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">line_height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">line_height</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_line_gap</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># relative to base font height</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">character_gap</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">space_gap</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">letter_spacing</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="mi">3</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_used_width</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_characters</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Character</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[[]]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_base_characters</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_base_characters</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_generate_characters</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_visible_range</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_initial_start_char_index</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># can be set to negative to create a delay when being removed.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_start_char_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initial_start_char_index</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_end_char_index</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># utilise font_swap_markers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_initial_font_adjustments</span><span class="p">(</span><span class="n">parsed_text</span><span class="p">,</span> <span class="n">font_swap_markers</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="FancyFont.get_character_width"><a class="viewcode-back" href="../../../../nqp.ui_elements.generic.html#nqp.ui_elements.generic.fancy_font.FancyFont.get_character_width">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_character_width</span><span class="p">(</span><span class="n">characters</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Character</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">([</span><span class="n">char</span><span class="o">.</span><span class="n">width</span> <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">characters</span><span class="p">])</span></div>
+
+    <span class="k">def</span> <span class="nf">_initial_font_adjustments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parsed_text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">font_swap_markers</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Apply the initial font adjustments based on the text returned from _parse_text.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># utilise font_swap_markers</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">font_swap_markers</span><span class="p">)):</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">font_swap_markers</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">font</span> <span class="o">=</span> <span class="n">font_swap_markers</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">end</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">parsed_text</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">font_swap_markers</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">end</span> <span class="o">=</span> <span class="n">font_swap_markers</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_adjust_font</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">font</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_adjust_font</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">end_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">new_font</span><span class="p">:</span> <span class="n">Font</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adjust the font of the characters between 2 indices.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">start_index</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">start_index</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_characters</span><span class="p">[</span><span class="n">start_index</span><span class="p">:</span><span class="n">end_index</span><span class="p">]:</span>
+            <span class="n">char</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">new_font</span>
+            <span class="n">char</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_generate_characters</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_adjust_alpha</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">end_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">new_alpha</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adjust the alpha of the characters between 2 indices. new_alpha can be between 0 and 255.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">start_index</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">start_index</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_characters</span><span class="p">[</span><span class="n">start_index</span><span class="p">:</span><span class="n">end_index</span><span class="p">]:</span>
+            <span class="n">char</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="n">new_alpha</span>
+            <span class="n">char</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_generate_characters</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_adjust_scale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">end_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">new_scale</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adjust the scale of the characters between 2 indices.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">start_index</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">start_index</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_characters</span><span class="p">[</span><span class="n">start_index</span><span class="p">:</span><span class="n">end_index</span><span class="p">]:</span>
+            <span class="n">char</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">new_scale</span>
+            <span class="n">char</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_generate_characters</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_generate_characters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert the text into Characters. Update _used_width and the character list.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">word</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_characters</span> <span class="o">=</span> <span class="p">[[]]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_used_width</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="n">current_line_width</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_characters</span><span class="p">:</span>
+            <span class="n">add_space</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="n">char</span><span class="o">.</span><span class="n">character</span> <span class="o">!=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">:</span>
+                <span class="n">word</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">char</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">char</span><span class="o">.</span><span class="n">character</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">]:</span>
+                <span class="n">width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_character_width</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_width</span> <span class="ow">and</span> <span class="p">(</span><span class="n">current_line_width</span> <span class="o">+</span> <span class="n">width</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_width</span><span class="p">):</span>  <span class="c1"># new line</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_characters</span><span class="o">.</span><span class="n">append</span><span class="p">([])</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_used_width</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_used_width</span><span class="p">,</span> <span class="n">current_line_width</span><span class="p">)</span>
+                    <span class="n">current_line_width</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">add_space</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_characters</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">word</span>
+                <span class="n">current_line_width</span> <span class="o">+=</span> <span class="n">width</span>
+                <span class="k">if</span> <span class="n">add_space</span><span class="p">:</span>
+                    <span class="n">font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">font</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_characters</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
+                        <span class="n">font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_characters</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">font</span>
+                    <span class="n">new_space</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">font</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_characters</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_space</span><span class="p">)</span>
+                    <span class="n">current_line_width</span> <span class="o">+=</span> <span class="n">new_space</span><span class="o">.</span><span class="n">width</span>
+                <span class="n">word</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">if</span> <span class="n">char</span><span class="o">.</span><span class="n">character</span> <span class="o">==</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">:</span>  <span class="c1"># new line</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_characters</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">word</span>
+                <span class="n">word</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_characters</span><span class="o">.</span><span class="n">append</span><span class="p">([])</span>
+                <span class="n">current_line_width</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">if</span> <span class="n">word</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_characters</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">word</span>
+            <span class="n">width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_character_width</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+            <span class="n">current_line_width</span> <span class="o">+=</span> <span class="n">width</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_used_width</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_used_width</span><span class="p">,</span> <span class="n">current_line_width</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_create_fonts</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Font</span><span class="p">]:</span>
+        <span class="n">default_font</span> <span class="o">=</span> <span class="n">Font</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ASSET_PATH</span> <span class="o">/</span> <span class="s2">&quot;fonts/small_font.png&quot;</span><span class="p">),</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">big_font</span> <span class="o">=</span> <span class="n">Font</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ASSET_PATH</span> <span class="o">/</span> <span class="s2">&quot;fonts/large_font.png&quot;</span><span class="p">),</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">red_font</span> <span class="o">=</span> <span class="n">Font</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ASSET_PATH</span> <span class="o">/</span> <span class="s2">&quot;fonts/small_font.png&quot;</span><span class="p">),</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+        <span class="n">fonts</span> <span class="o">=</span> <span class="p">[</span><span class="n">default_font</span><span class="p">,</span> <span class="n">big_font</span><span class="p">,</span> <span class="n">red_font</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">fonts</span>
+
+    <span class="k">def</span> <span class="nf">_parse_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Font</span><span class="p">]]]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parse the text, extracting values from tags, and returns a transformed text and the font swap markers.</span>
+<span class="sd">        Returns as (updated_text, ([font_swap_markers], Font). font_swap_markers are the indices of where the font</span>
+<span class="sd">        changes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">font_swap_markers</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">tag</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">last_start</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">text_copy</span> <span class="o">=</span> <span class="n">text</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">char</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">text_copy</span><span class="p">):</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">tag</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">char</span> <span class="o">==</span> <span class="s2">&quot;&lt;&quot;</span><span class="p">):</span>
+                <span class="n">last_start</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;&lt;!&quot;</span><span class="p">)</span>
+                <span class="n">tag</span> <span class="o">=</span> <span class="s2">&quot;&lt;&quot;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">tag</span> <span class="o">==</span> <span class="s2">&quot;&lt;&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">char</span> <span class="o">==</span> <span class="s2">&quot;!&quot;</span><span class="p">):</span>
+                <span class="n">tag</span> <span class="o">=</span> <span class="s2">&quot;&lt;!&quot;</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">tag</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">tag</span> <span class="o">+=</span> <span class="n">char</span>
+                <span class="k">if</span> <span class="n">char</span> <span class="o">==</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">:</span>
+                    <span class="n">tag_value</span> <span class="o">=</span> <span class="n">tag</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+                    <span class="k">if</span> <span class="n">tag_value</span> <span class="o">==</span> <span class="s2">&quot;red&quot;</span><span class="p">:</span>
+                        <span class="n">tag_index</span> <span class="o">=</span> <span class="mi">2</span>
+                    <span class="k">elif</span> <span class="n">tag_value</span> <span class="o">==</span> <span class="s2">&quot;big&quot;</span><span class="p">:</span>
+                        <span class="n">tag_index</span> <span class="o">=</span> <span class="mi">1</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="c1"># if tag_value == &quot;small&quot;</span>
+                        <span class="n">tag_index</span> <span class="o">=</span> <span class="mi">0</span>
+
+                    <span class="n">font_swap_markers</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">last_start</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fonts</span><span class="p">[</span><span class="n">tag_index</span><span class="p">]))</span>
+                    <span class="n">pos</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">tag</span><span class="p">)</span>
+                    <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="p">[:</span><span class="n">pos</span><span class="p">]</span> <span class="o">+</span> <span class="n">text</span><span class="p">[</span><span class="n">pos</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">tag</span><span class="p">)</span> <span class="p">:]</span>
+                    <span class="n">tag</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">text</span><span class="p">,</span> <span class="n">font_swap_markers</span>
+
+    <span class="k">def</span> <span class="nf">_process_effect_flags</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">font_effects</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">FontEffects</span><span class="p">]):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update the effect flags based on the FontEffects passed in.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">FontEffects</span><span class="o">.</span><span class="n">FADE_IN</span> <span class="ow">in</span> <span class="n">font_effects</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_fade_in</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">if</span> <span class="n">FontEffects</span><span class="o">.</span><span class="n">FADE_OUT</span> <span class="ow">in</span> <span class="n">font_effects</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_fade_out</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">_create_base_characters</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Character</span><span class="p">]:</span>
+        <span class="n">base_chars</span> <span class="o">=</span> <span class="p">[</span><span class="n">Character</span><span class="p">(</span><span class="n">char</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">char</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parsed_text</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="n">base_chars</span></div>
+
+
+<div class="viewcode-block" id="Character"><a class="viewcode-back" href="../../../../nqp.ui_elements.generic.html#nqp.ui_elements.generic.fancy_font.Character">[docs]</a><span class="k">class</span> <span class="nc">Character</span><span class="p">:</span>
+<div class="viewcode-block" id="Character.__init__"><a class="viewcode-back" href="../../../../nqp.ui_elements.generic.html#nqp.ui_elements.generic.fancy_font.Character.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">character</span><span class="p">,</span> <span class="n">font</span><span class="p">,</span> <span class="n">owning_block</span><span class="p">,</span> <span class="n">index</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">index</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">character</span> <span class="o">=</span> <span class="n">character</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">font</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="mi">255</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">owning_block</span> <span class="o">=</span> <span class="n">owning_block</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Character.update"><a class="viewcode-back" href="../../../../nqp.ui_elements.generic.html#nqp.ui_elements.generic.fancy_font.Character.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;&lt;char: &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">character</span> <span class="o">+</span> <span class="s2">&quot;&gt;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;&lt;char: &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">character</span> <span class="o">+</span> <span class="s2">&quot;&gt;&quot;</span>
+
+<div class="viewcode-block" id="Character.draw"><a class="viewcode-back" href="../../../../nqp.ui_elements.generic.html#nqp.ui_elements.generic.fancy_font.Character.draw">[docs]</a>    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surf</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">character</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">]:</span>
+            <span class="n">img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">letters</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">font_order</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">character</span><span class="p">)]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">!=</span> <span class="mi">255</span><span class="p">:</span>
+                <span class="n">img</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                <span class="n">img</span><span class="o">.</span><span class="n">set_alpha</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">dimensions</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">))</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">dimensions</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+                    <span class="k">return</span>
+                <span class="n">img</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">dimensions</span><span class="p">)</span>
+            <span class="n">vertical_shift</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">img</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">owning_block</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">line_height</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="n">surf</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="n">offset</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">offset</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">vertical_shift</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Character.get_width"><a class="viewcode-back" href="../../../../nqp.ui_elements.generic.html#nqp.ui_elements.generic.fancy_font.Character.get_width">[docs]</a>    <span class="k">def</span> <span class="nf">get_width</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">character</span> <span class="o">==</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">character</span> <span class="o">!=</span> <span class="s2">&quot; &quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">int</span><span class="p">(</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">letter_spacing</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">font_order</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">character</span><span class="p">)]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">owning_block</span><span class="o">.</span><span class="n">character_gap</span><span class="p">)</span>
+                <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">owning_block</span><span class="o">.</span><span class="n">space_gap</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">)</span></div></div>
+</pre></div>
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+    <script type="text/javascript" src="../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+  
+    <div class="footer" role="contentinfo">
+        <div class="container">
+            &#169; Copyright 2019-2022, Josh Snaith.
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.
+        </div>
+    </div>  
+
+</body>
+</html>

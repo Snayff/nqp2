@@ -1,8 +1,8 @@
 Main Menu
 ============================================
 
-.. automodule:: scripts.scenes.main_menu.scene
+.. automodule:: nqp.scenes.main_menu.scene
 
 
-.. automodule:: scripts.scenes.main_menu.ui
+.. automodule:: nqp.scenes.main_menu.ui
 

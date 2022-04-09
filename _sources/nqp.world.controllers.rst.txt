@@ -1,0 +1,53 @@
+nqp.world.controllers package
+=============================
+
+Submodules
+----------
+
+nqp.world.controllers.choose\_room\_controller module
+-----------------------------------------------------
+
+.. automodule:: nqp.world.controllers.choose_room_controller
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.world.controllers.combat\_controller module
+-----------------------------------------------
+
+.. automodule:: nqp.world.controllers.combat_controller
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.world.controllers.event\_controller module
+----------------------------------------------
+
+.. automodule:: nqp.world.controllers.event_controller
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.world.controllers.inn\_controller module
+--------------------------------------------
+
+.. automodule:: nqp.world.controllers.inn_controller
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.world.controllers.training\_controller module
+-------------------------------------------------
+
+.. automodule:: nqp.world.controllers.training_controller
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: nqp.world.controllers
+   :members:
+   :undoc-members:
+   :show-inheritance:

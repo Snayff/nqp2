@@ -1,0 +1,29 @@
+nqp.scenes.post\_combat package
+===============================
+
+Submodules
+----------
+
+nqp.scenes.post\_combat.scene module
+------------------------------------
+
+.. automodule:: nqp.scenes.post_combat.scene
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.scenes.post\_combat.ui module
+---------------------------------
+
+.. automodule:: nqp.scenes.post_combat.ui
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: nqp.scenes.post_combat
+   :members:
+   :undoc-members:
+   :show-inheritance:

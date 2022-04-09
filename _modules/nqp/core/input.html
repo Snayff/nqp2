@@ -1,0 +1,580 @@
+
+
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>nqp.core.input &mdash; NotQuiteParadise2  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.min.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <a class="site-nav-toggle hidden-lg-up"><i class="icon-menu"></i></a>
+            <a class="site-title" href="../../../index.html">
+                NotQuiteParadise2
+            </a>
+        </div>
+    </header>
+
+
+<div class="breadcrumbs-outer hidden-xs-down">
+    <div class="container">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a></li>
+        
+          <li><a href="../../index.html">Module code</a></li>
+        
+      <li>nqp.core.input</li>
+    
+    
+      <li class="breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+</div>
+    </div>
+</div>
+    <div class="main-outer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-3 site-nav">
+                    
+<div role="search">
+    <form class="search" action="../../../search.html" method="get">
+        <div class="icon-input">
+            <input type="text" name="q" placeholder="Search" />
+            <span class="icon-search"></span>
+        </div>
+        <input type="submit" value="Go" class="d-hidden" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+                    <div class="site-nav-tree">
+                        
+                            
+                            
+                                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/base_classes/_base_classes.html">Base Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/animation.html">Animation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/controller.html">Controller</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/entity_behaviour.html">Entity Behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/image.html">Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/scene.html">Scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/stat.html">Stat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/ui.html">UI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/ui_element.html">UI Element</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/command/_command.html">Command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/command/basic_entity_behaviour.html">Basic Entity Behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/command/commander.html">Commander</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/command/troupe.html">Troupe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/command/unit.html">Unit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/command/unit_behaviour.html">Unit Behaviour</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/core/_core.html">Core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/audio.html">Audio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/components.html">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/constants.html">Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/data.html">Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/debug.html">Debug</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/definitions.html">Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/effect.html">Effect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/game.html">Game</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/input.html">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/memory.html">Memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/queries.html">Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/rng.html">RNG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/scheduler.html">Scheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/utility.html">Utility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/window.html">Window</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/effects/_effects.html">Effects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/add_item.html">Add Item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/attribute_modifier.html">Attribute Modifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/sildreths_signature.html">Sildreths Signature</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/scenes/_scenes.html">Scenes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/scenes/gallery.html">Gallery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/scenes/main_menu.html">Main Menu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/scenes/run_setup.html">Run Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/scenes/unit_data.html">Unit Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/scenes/world.html">World</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/topography/_topography.html">Base Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/topography/pathfinder.html">Pathfinder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/topography/terrain.html">Terrain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/topography/tile.html">Tile</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/world/_world.html">World</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world/controllers.html">Controllers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world/model.html">Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world/view.html">View</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/world_elements/_world_elements.html">World Elements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/actions.html">Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/camera.html">Camera</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/hitbox.html">Hitbox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/item.html">Item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/particle.html">Particle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/particle_manager.html">Particle Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/projectile.html">Projectile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/projectile_manager.html">Projectile Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/stats.html">Stats</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer/_developer.html">Developer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../developer/developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../developer/adding_new_content.html">Adding New Content</a></li>
+</ul>
+</li>
+</ul>
+
+                            
+                        
+                    </div>
+                </div>
+                <div class="col-12 col-lg-9">
+                    <div class="document">
+                        
+                            
+  <h1>Source code for nqp.core.input</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span> <span class="nn">dataclasses</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="kn">import</span> <span class="nn">pygame</span>
+<span class="kn">from</span> <span class="nn">pygame.locals</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="kn">from</span> <span class="nn">.constants</span> <span class="kn">import</span> <span class="n">GamepadAxes</span><span class="p">,</span> <span class="n">GamepadButton</span>
+<span class="kn">from</span> <span class="nn">.debug</span> <span class="kn">import</span> <span class="n">Timer</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">nqp.core.game</span> <span class="kn">import</span> <span class="n">Game</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Input&quot;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="ControllerConfig"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.input.ControllerConfig">[docs]</a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
+<span class="k">class</span> <span class="nc">ControllerConfig</span><span class="p">:</span>
+    <span class="n">deadzone</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">axes</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">GamepadAxes</span><span class="p">]</span>
+    <span class="n">hat</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">GamepadButton</span><span class="p">,</span> <span class="n">GamepadButton</span><span class="p">]]</span>
+    <span class="n">buttons</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">GamepadButton</span><span class="p">]</span></div>
+
+
+<span class="c1"># specific to xbox gamepad layout, should not be changed by player</span>
+<span class="c1"># add more configs for other gamepad types: ps3,4,5, switch, etc</span>
+<span class="n">xbox_gamepad_config</span> <span class="o">=</span> <span class="n">ControllerConfig</span><span class="p">(</span>
+    <span class="n">deadzone</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span>
+    <span class="n">axes</span><span class="o">=</span><span class="p">{</span>
+        <span class="mi">0</span><span class="p">:</span> <span class="n">GamepadAxes</span><span class="o">.</span><span class="n">LEFT_X</span><span class="p">,</span>
+        <span class="mi">1</span><span class="p">:</span> <span class="n">GamepadAxes</span><span class="o">.</span><span class="n">LEFT_Y</span><span class="p">,</span>
+        <span class="c1"># 2: None,  # l. shoulder</span>
+        <span class="mi">3</span><span class="p">:</span> <span class="n">GamepadAxes</span><span class="o">.</span><span class="n">RIGHT_X</span><span class="p">,</span>
+        <span class="mi">4</span><span class="p">:</span> <span class="n">GamepadAxes</span><span class="o">.</span><span class="n">RIGHT_Y</span><span class="p">,</span>
+        <span class="c1"># 5: None,  # r. shoulder</span>
+    <span class="p">},</span>
+    <span class="n">hat</span><span class="o">=</span><span class="p">{</span>
+        <span class="mi">0</span><span class="p">:</span> <span class="p">(</span><span class="n">GamepadButton</span><span class="o">.</span><span class="n">LEFT</span><span class="p">,</span> <span class="n">GamepadButton</span><span class="o">.</span><span class="n">RIGHT</span><span class="p">),</span>
+        <span class="mi">1</span><span class="p">:</span> <span class="p">(</span><span class="n">GamepadButton</span><span class="o">.</span><span class="n">DOWN</span><span class="p">,</span> <span class="n">GamepadButton</span><span class="o">.</span><span class="n">UP</span><span class="p">),</span>
+    <span class="p">},</span>
+    <span class="n">buttons</span><span class="o">=</span><span class="p">{</span>
+        <span class="mi">0</span><span class="p">:</span> <span class="n">GamepadButton</span><span class="o">.</span><span class="n">SOUTH</span><span class="p">,</span>
+        <span class="mi">1</span><span class="p">:</span> <span class="n">GamepadButton</span><span class="o">.</span><span class="n">EAST</span><span class="p">,</span>
+        <span class="mi">2</span><span class="p">:</span> <span class="n">GamepadButton</span><span class="o">.</span><span class="n">WEST</span><span class="p">,</span>
+        <span class="mi">3</span><span class="p">:</span> <span class="n">GamepadButton</span><span class="o">.</span><span class="n">NORTH</span><span class="p">,</span>
+        <span class="mi">4</span><span class="p">:</span> <span class="n">GamepadButton</span><span class="o">.</span><span class="n">LEFT_SHOULDER_1</span><span class="p">,</span>
+        <span class="mi">5</span><span class="p">:</span> <span class="n">GamepadButton</span><span class="o">.</span><span class="n">RIGHT_SHOULDER_1</span><span class="p">,</span>
+        <span class="mi">6</span><span class="p">:</span> <span class="n">GamepadButton</span><span class="o">.</span><span class="n">SELECT_OR_BACK</span><span class="p">,</span>
+        <span class="mi">7</span><span class="p">:</span> <span class="n">GamepadButton</span><span class="o">.</span><span class="n">START</span><span class="p">,</span>
+        <span class="mi">8</span><span class="p">:</span> <span class="n">GamepadButton</span><span class="o">.</span><span class="n">LEFT_STICK</span><span class="p">,</span>
+        <span class="mi">9</span><span class="p">:</span> <span class="n">GamepadButton</span><span class="o">.</span><span class="n">RIGHT_STICK</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+
+<span class="c1"># generic mapping for gamepad buttons to game input labels</span>
+<span class="c1"># if the player wants to change config, this would need to be changed</span>
+<span class="n">gamepad_label_map</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">GamepadButton</span><span class="o">.</span><span class="n">UP</span><span class="p">:</span> <span class="s2">&quot;up&quot;</span><span class="p">,</span>
+    <span class="n">GamepadButton</span><span class="o">.</span><span class="n">LEFT</span><span class="p">:</span> <span class="s2">&quot;left&quot;</span><span class="p">,</span>
+    <span class="n">GamepadButton</span><span class="o">.</span><span class="n">DOWN</span><span class="p">:</span> <span class="s2">&quot;down&quot;</span><span class="p">,</span>
+    <span class="n">GamepadButton</span><span class="o">.</span><span class="n">RIGHT</span><span class="p">:</span> <span class="s2">&quot;right&quot;</span><span class="p">,</span>
+    <span class="n">GamepadButton</span><span class="o">.</span><span class="n">EAST</span><span class="p">:</span> <span class="s2">&quot;cancel&quot;</span><span class="p">,</span>
+    <span class="n">GamepadButton</span><span class="o">.</span><span class="n">SOUTH</span><span class="p">:</span> <span class="s2">&quot;select&quot;</span><span class="p">,</span>
+    <span class="n">GamepadButton</span><span class="o">.</span><span class="n">NORTH</span><span class="p">:</span> <span class="s2">&quot;view_troupe&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="c1"># map analog axis to digital buttons</span>
+<span class="n">gamepad_axis_direction_map</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">GamepadAxes</span><span class="o">.</span><span class="n">LEFT_X</span><span class="p">:</span> <span class="p">[</span><span class="n">GamepadButton</span><span class="o">.</span><span class="n">LEFT</span><span class="p">,</span> <span class="n">GamepadButton</span><span class="o">.</span><span class="n">RIGHT</span><span class="p">],</span>
+    <span class="n">GamepadAxes</span><span class="o">.</span><span class="n">LEFT_Y</span><span class="p">:</span> <span class="p">[</span><span class="n">GamepadButton</span><span class="o">.</span><span class="n">UP</span><span class="p">,</span> <span class="n">GamepadButton</span><span class="o">.</span><span class="n">DOWN</span><span class="p">],</span>
+<span class="p">}</span>
+
+
+<div class="viewcode-block" id="Input"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.input.Input">[docs]</a><span class="k">class</span> <span class="nc">Input</span><span class="p">:</span>
+<div class="viewcode-block" id="Input.__init__"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.input.Input.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">game</span><span class="p">:</span> <span class="n">Game</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">Timer</span><span class="p">(</span><span class="s2">&quot;Input: initialised&quot;</span><span class="p">):</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">:</span> <span class="n">Game</span> <span class="o">=</span> <span class="n">game</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">states</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;right&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                <span class="s2">&quot;left&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                <span class="s2">&quot;up&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                <span class="s2">&quot;down&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                <span class="s2">&quot;hold_right&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                <span class="s2">&quot;hold_left&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                <span class="s2">&quot;hold_up&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                <span class="s2">&quot;hold_down&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                <span class="s2">&quot;select&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                <span class="s2">&quot;cancel&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                <span class="s2">&quot;view_troupe&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                <span class="s2">&quot;shift&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                <span class="s2">&quot;backspace&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                <span class="s2">&quot;toggle_dev_console&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                <span class="s2">&quot;typing_enter&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                <span class="s2">&quot;tab&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="p">}</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">mouse_state</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;left&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="s2">&quot;default&quot;</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">char_buffer</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">backspace_hold</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">mouse_moved</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mouse_pos</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mouse_pos_raw</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mouse_pos</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_old_mouse</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mouse_pos_raw</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_gamepads</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_scan_gamepads</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Input.soft_reset"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.input.Input.soft_reset">[docs]</a>    <span class="k">def</span> <span class="nf">soft_reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Resets inputs that should only be activated for 1 frame.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;select&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;cancel&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mouse_state</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="Input.reset"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.input.Input.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set all input to false.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="Input.unload_chars"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.input.Input.unload_chars">[docs]</a>    <span class="k">def</span> <span class="nf">unload_chars</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">chars</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">char_buffer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">char_buffer</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">return</span> <span class="n">chars</span></div>
+
+<div class="viewcode-block" id="Input.update"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.input.Input.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">soft_reset</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">mouse_pos</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">get_pos</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mouse_pos_raw</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mouse_pos</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mouse_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">base_resolution</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">scaled_resolution</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mouse_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">base_resolution</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">scaled_resolution</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mouse_moved</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mouse_pos_raw</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_old_mouse</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_old_mouse</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mouse_pos_raw</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+        <span class="n">chars</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">&quot;.&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;-&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;a&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;b&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;c&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;d&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;e&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;f&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;g&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;h&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;i&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;j&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;k&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;l&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;m&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;n&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;o&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;p&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;q&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;r&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;s&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;t&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;u&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;v&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;w&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;x&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;y&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;z&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;0&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;2&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;3&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;4&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;5&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;6&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;7&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;8&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;9&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;typing&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;backspace&quot;</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">backspace_hold</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">delta_time</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">backspace_hold</span> <span class="o">&gt;</span> <span class="mf">0.7</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">backspace_hold</span> <span class="o">-=</span> <span class="mf">0.035</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">char_buffer</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;backspace&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">backspace_hold</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">QUIT</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">MOUSEBUTTONDOWN</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">button</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">mouse_state</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">KEYDOWN</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">K_ESCAPE</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+
+                <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="n">K_LSHIFT</span><span class="p">,</span> <span class="n">K_RSHIFT</span><span class="p">]:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;shift&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+                <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">K_BACKSPACE</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;backspace&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+                <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">K_BACKQUOTE</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;toggle_dev_console&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+                <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">K_TAB</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;tab&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;typing&quot;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">K_RETURN</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;typing_enter&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">KEYUP</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="n">K_LSHIFT</span><span class="p">,</span> <span class="n">K_RSHIFT</span><span class="p">]:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;shift&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+                <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">K_BACKSPACE</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;backspace&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+            <span class="c1"># input outside of typing</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;default&quot;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">KEYDOWN</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">K_x</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;cancel&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+                    <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">K_RIGHT</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;hold_right&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+                    <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">K_LEFT</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;hold_left&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+                    <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">K_UP</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;up&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;hold_up&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+                    <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">K_DOWN</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;down&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;hold_down&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+                    <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">K_RETURN</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;select&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+                    <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">K_v</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;view_troupe&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+                <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">KEYUP</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">K_RIGHT</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;hold_right&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+                    <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">K_LEFT</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;hold_left&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+                    <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">K_UP</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;hold_up&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+                    <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">K_DOWN</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;hold_down&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+                <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">JOYBUTTONDOWN</span><span class="p">:</span>
+                    <span class="n">button</span> <span class="o">=</span> <span class="n">xbox_gamepad_config</span><span class="o">.</span><span class="n">buttons</span><span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">button</span><span class="p">]</span>
+                    <span class="n">label</span> <span class="o">=</span> <span class="n">gamepad_label_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">button</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">label</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;hold_&quot;</span> <span class="o">+</span> <span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+                <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">JOYBUTTONUP</span><span class="p">:</span>
+                    <span class="n">button</span> <span class="o">=</span> <span class="n">xbox_gamepad_config</span><span class="o">.</span><span class="n">buttons</span><span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">button</span><span class="p">]</span>
+                    <span class="n">label</span> <span class="o">=</span> <span class="n">gamepad_label_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">button</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">label</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;hold_&quot;</span> <span class="o">+</span> <span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+                <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">JOYHATMOTION</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">axis</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">value</span><span class="p">):</span>
+                        <span class="n">endstops</span> <span class="o">=</span> <span class="n">xbox_gamepad_config</span><span class="o">.</span><span class="n">hat</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span>
+                        <span class="n">button</span> <span class="o">=</span> <span class="kc">None</span>
+                        <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                            <span class="n">button</span> <span class="o">=</span> <span class="n">endstops</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                        <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                            <span class="n">button</span> <span class="o">=</span> <span class="n">endstops</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                        <span class="k">if</span> <span class="n">button</span><span class="p">:</span>
+                            <span class="n">label</span> <span class="o">=</span> <span class="n">gamepad_label_map</span><span class="p">[</span><span class="n">button</span><span class="p">]</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;hold_&quot;</span> <span class="o">+</span> <span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="k">for</span> <span class="n">button</span> <span class="ow">in</span> <span class="n">endstops</span><span class="p">:</span>
+                                <span class="n">label</span> <span class="o">=</span> <span class="n">gamepad_label_map</span><span class="p">[</span><span class="n">button</span><span class="p">]</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;hold_&quot;</span> <span class="o">+</span> <span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+                <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">JOYAXISMOTION</span><span class="p">:</span>
+                    <span class="n">axis</span> <span class="o">=</span> <span class="n">xbox_gamepad_config</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">axis</span><span class="p">]</span>
+                    <span class="n">endstops</span> <span class="o">=</span> <span class="n">gamepad_axis_direction_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">endstops</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">xbox_gamepad_config</span><span class="o">.</span><span class="n">deadzone</span><span class="p">:</span>
+                            <span class="n">button</span> <span class="o">=</span> <span class="kc">None</span>
+                            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                                <span class="n">button</span> <span class="o">=</span> <span class="n">endstops</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                            <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                                <span class="n">button</span> <span class="o">=</span> <span class="n">endstops</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                            <span class="k">if</span> <span class="n">button</span><span class="p">:</span>
+                                <span class="n">label</span> <span class="o">=</span> <span class="n">gamepad_label_map</span><span class="p">[</span><span class="n">button</span><span class="p">]</span>
+                                <span class="n">hold_label</span> <span class="o">=</span> <span class="s2">&quot;hold_&quot;</span> <span class="o">+</span> <span class="n">label</span>
+                                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="n">hold_label</span><span class="p">]:</span>
+                                    <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="n">hold_label</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="k">for</span> <span class="n">button</span> <span class="ow">in</span> <span class="n">endstops</span><span class="p">:</span>
+                                <span class="n">label</span> <span class="o">=</span> <span class="n">gamepad_label_map</span><span class="p">[</span><span class="n">button</span><span class="p">]</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;hold_&quot;</span> <span class="o">+</span> <span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;typing&quot;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">KEYDOWN</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">chars</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="n">char</span><span class="p">):</span>
+                            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;shift&quot;</span><span class="p">]:</span>
+                                <span class="n">char</span> <span class="o">=</span> <span class="n">char</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+                                <span class="k">if</span> <span class="n">char</span> <span class="o">==</span> <span class="s2">&quot;-&quot;</span><span class="p">:</span>
+                                    <span class="n">char</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">char_buffer</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">char</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">K_BACKSPACE</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">char_buffer</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;backspace&quot;</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">K_SPACE</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">char_buffer</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_scan_gamepads</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">joystick</span><span class="o">.</span><span class="n">get_count</span><span class="p">()):</span>
+            <span class="n">gamepad</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">joystick</span><span class="o">.</span><span class="n">Joystick</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+            <span class="n">gamepad</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+            <span class="c1"># if the Joystick object is deleted, then event loop</span>
+            <span class="c1"># will not have joystick events, so we need to keep a ref.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_gamepads</span><span class="p">[</span><span class="n">gamepad</span><span class="o">.</span><span class="n">get_guid</span><span class="p">()]</span> <span class="o">=</span> <span class="n">gamepad</span></div>
+</pre></div>
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+    <script type="text/javascript" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+    <div class="footer" role="contentinfo">
+        <div class="container">
+            &#169; Copyright 2019-2022, Josh Snaith.
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.
+        </div>
+    </div>  
+
+</body>
+</html>

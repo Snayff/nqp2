@@ -1,0 +1,579 @@
+
+
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>nqp.core.debug &mdash; NotQuiteParadise2  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.min.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <a class="site-nav-toggle hidden-lg-up"><i class="icon-menu"></i></a>
+            <a class="site-title" href="../../../index.html">
+                NotQuiteParadise2
+            </a>
+        </div>
+    </header>
+
+
+<div class="breadcrumbs-outer hidden-xs-down">
+    <div class="container">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a></li>
+        
+          <li><a href="../../index.html">Module code</a></li>
+        
+      <li>nqp.core.debug</li>
+    
+    
+      <li class="breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+</div>
+    </div>
+</div>
+    <div class="main-outer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-3 site-nav">
+                    
+<div role="search">
+    <form class="search" action="../../../search.html" method="get">
+        <div class="icon-input">
+            <input type="text" name="q" placeholder="Search" />
+            <span class="icon-search"></span>
+        </div>
+        <input type="submit" value="Go" class="d-hidden" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+                    <div class="site-nav-tree">
+                        
+                            
+                            
+                                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/base_classes/_base_classes.html">Base Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/animation.html">Animation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/controller.html">Controller</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/entity_behaviour.html">Entity Behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/image.html">Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/scene.html">Scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/stat.html">Stat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/ui.html">UI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/ui_element.html">UI Element</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/command/_command.html">Command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/command/basic_entity_behaviour.html">Basic Entity Behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/command/commander.html">Commander</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/command/troupe.html">Troupe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/command/unit.html">Unit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/command/unit_behaviour.html">Unit Behaviour</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/core/_core.html">Core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/audio.html">Audio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/components.html">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/constants.html">Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/data.html">Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/debug.html">Debug</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/definitions.html">Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/effect.html">Effect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/game.html">Game</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/input.html">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/memory.html">Memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/queries.html">Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/rng.html">RNG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/scheduler.html">Scheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/utility.html">Utility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/window.html">Window</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/effects/_effects.html">Effects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/add_item.html">Add Item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/attribute_modifier.html">Attribute Modifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/sildreths_signature.html">Sildreths Signature</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/scenes/_scenes.html">Scenes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/scenes/gallery.html">Gallery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/scenes/main_menu.html">Main Menu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/scenes/run_setup.html">Run Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/scenes/unit_data.html">Unit Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/scenes/world.html">World</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/topography/_topography.html">Base Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/topography/pathfinder.html">Pathfinder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/topography/terrain.html">Terrain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/topography/tile.html">Tile</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/world/_world.html">World</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world/controllers.html">Controllers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world/model.html">Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world/view.html">View</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/world_elements/_world_elements.html">World Elements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/actions.html">Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/camera.html">Camera</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/hitbox.html">Hitbox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/item.html">Item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/particle.html">Particle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/particle_manager.html">Particle Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/projectile.html">Projectile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/projectile_manager.html">Projectile Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/stats.html">Stats</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer/_developer.html">Developer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../developer/developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../developer/adding_new_content.html">Adding New Content</a></li>
+</ul>
+</li>
+</ul>
+
+                            
+                        
+                    </div>
+                </div>
+                <div class="col-12 col-lg-9">
+                    <div class="document">
+                        
+                            
+  <h1>Source code for nqp.core.debug</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span> <span class="nn">cProfile</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">gc</span>
+<span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pstats</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">timeit</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="kn">import</span> <span class="nn">pygame</span>
+
+<span class="kn">from</span> <span class="nn">nqp.core.constants</span> <span class="kn">import</span> <span class="n">DEBUGGING_PATH</span><span class="p">,</span> <span class="n">FontType</span><span class="p">,</span> <span class="n">INFINITE</span><span class="p">,</span> <span class="n">LOGGING_PATH</span><span class="p">,</span> <span class="n">PROFILING_PATH</span><span class="p">,</span> <span class="n">VERSION</span><span class="p">,</span> <span class="n">WorldState</span>
+<span class="kn">from</span> <span class="nn">nqp.ui_elements.generic.font</span> <span class="kn">import</span> <span class="n">Font</span>
+<span class="kn">from</span> <span class="nn">nqp.ui_elements.tailored.dev_console</span> <span class="kn">import</span> <span class="n">DevConsole</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Union</span>
+
+    <span class="kn">from</span> <span class="nn">nqp.core.game</span> <span class="kn">import</span> <span class="n">Game</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Debugger&quot;</span><span class="p">,</span> <span class="s2">&quot;Timer&quot;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="Debugger"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.debug.Debugger">[docs]</a><span class="k">class</span> <span class="nc">Debugger</span><span class="p">:</span>
+<div class="viewcode-block" id="Debugger.__init__"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.debug.Debugger.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">game</span><span class="p">:</span> <span class="n">Game</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">Timer</span><span class="p">(</span><span class="s2">&quot;Debugger: initialised&quot;</span><span class="p">):</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span> <span class="o">=</span> <span class="n">game</span>
+
+            <span class="c1"># create required folders</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_create_folders</span><span class="p">()</span>
+
+            <span class="c1"># objects</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">profiler</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">cProfile</span><span class="o">.</span><span class="n">Profile</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_dev_console</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DevConsole</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="c1"># counters</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">current_fps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">recent_average_fps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">average_fps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_frames</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">profile_duration_remaining</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">INFINITE</span>
+
+            <span class="c1"># flags</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">is_profiling</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">is_logging</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_show_debug_info</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+
+            <span class="c1"># values</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_num_frames_considered_recent</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">600</span>
+
+            <span class="c1"># ui</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_fonts</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Font</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">initialise_logging</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Debugger.update"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.debug.Debugger.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_frames</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_fps</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># state.get_internal_clock().get_fps()  # FIXME - fix to new clock</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">average_fps</span> <span class="o">+=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_fps</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">average_fps</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_frames</span>
+
+        <span class="c1"># count down profiler duration, if it isnt running temporarily</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">profile_duration_remaining</span> <span class="o">!=</span> <span class="n">INFINITE</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">profile_duration_remaining</span> <span class="o">-=</span> <span class="mi">1</span>
+
+        <span class="c1"># check if profiler needs to turn off</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">profile_duration_remaining</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">disable_profiling</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># get recent fps</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_frames</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_frames_considered_recent</span><span class="p">:</span>
+            <span class="n">frames_to_count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_frames_considered_recent</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">frames_to_count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_frames</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">recent_average_fps</span> <span class="o">+=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_fps</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">average_fps</span><span class="p">)</span> <span class="o">/</span> <span class="n">frames_to_count</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dev_console</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_dev_console</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_show_debug_info</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_debug_info</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Debugger.draw"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.debug.Debugger.draw">[docs]</a>    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Draw debug info</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_show_debug_info</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">font</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fonts</span><span class="p">:</span>
+                <span class="n">font</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dev_console</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_dev_console</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_create_folders</span><span class="p">():</span>
+        <span class="c1">#  create folders and prevent FileNotFoundError</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">DEBUGGING_PATH</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+        <span class="n">profiling_path</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">PROFILING_PATH</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">profiling_path</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">profiling_path</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span><span class="p">)</span>
+
+        <span class="n">logging_path</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">LOGGING_PATH</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">logging_path</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">logging_path</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Debugger.toggle_dev_console_visibility"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.debug.Debugger.toggle_dev_console_visibility">[docs]</a>    <span class="k">def</span> <span class="nf">toggle_dev_console_visibility</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dev_console</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_dev_console</span> <span class="o">=</span> <span class="n">DevConsole</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_dev_console</span><span class="o">.</span><span class="n">focus</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="s2">&quot;typing&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_dev_console</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="s2">&quot;default&quot;</span></div>
+
+<div class="viewcode-block" id="Debugger.initialise_logging"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.debug.Debugger.initialise_logging">[docs]</a>    <span class="k">def</span> <span class="nf">initialise_logging</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialise logging.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Logging levels:</span>
+        <span class="c1">#     CRITICAL - A serious error, indicating that may be unable to continue running.</span>
+        <span class="c1">#     ERROR - A more serious problem, has not been able to perform some function.</span>
+        <span class="c1">#     WARNING - An indication that something unexpected happened, but otherwise still working as expected.</span>
+        <span class="c1">#     INFO - Confirmation that things are working as expected.</span>
+        <span class="c1">#     DEBUG - Detailed information, typically of interest only when diagnosing problems</span>
+        <span class="c1">#</span>
+        <span class="c1"># File mode options:</span>
+        <span class="c1">#     &#39;r&#39; - open for reading(default)</span>
+        <span class="c1">#     &#39;w&#39; - open for writing, truncating the file first</span>
+        <span class="c1">#     &#39;x&#39; - open for exclusive creation, failing if the file already exists</span>
+        <span class="c1">#     &#39;a&#39; - open for writing, appending to the end of the file if it exists</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_logging</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="n">log_file_name</span> <span class="o">=</span> <span class="s2">&quot;game.log&quot;</span>
+        <span class="n">log_level</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span>
+        <span class="n">file_mode</span> <span class="o">=</span> <span class="s2">&quot;w&quot;</span>
+
+        <span class="k">for</span> <span class="n">handler</span> <span class="ow">in</span> <span class="n">logging</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">handlers</span><span class="p">[:]:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">removeHandler</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
+
+        <span class="c1"># 8 adds space for 8 characters (# CRITICAL)</span>
+        <span class="n">log_format</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%(asctime)s</span><span class="s2">| </span><span class="si">%(levelname)-8s</span><span class="s2">| </span><span class="si">%(message)s</span><span class="s2">&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span>
+            <span class="n">filename</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">DEBUGGING_PATH</span> <span class="o">/</span> <span class="s2">&quot;logging&quot;</span> <span class="o">/</span> <span class="n">log_file_name</span><span class="p">),</span>
+            <span class="n">filemode</span><span class="o">=</span><span class="n">file_mode</span><span class="p">,</span>
+            <span class="n">level</span><span class="o">=</span><span class="n">log_level</span><span class="p">,</span>
+            <span class="nb">format</span><span class="o">=</span><span class="n">log_format</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># format into uk time</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="o">.</span><span class="n">converter</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">gmtime</span>
+
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Logging initialised.&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Debugger.kill_logging"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.debug.Debugger.kill_logging">[docs]</a>    <span class="k">def</span> <span class="nf">kill_logging</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Kill logging resources</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_logging</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+    <span class="k">def</span> <span class="nf">_create_profiler</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create the profiler.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">profiler</span> <span class="o">=</span> <span class="n">cProfile</span><span class="o">.</span><span class="n">Profile</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Debugger.enable_profiling"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.debug.Debugger.enable_profiling">[docs]</a>    <span class="k">def</span> <span class="nf">enable_profiling</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">duration</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">INFINITE</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Enable profiling. Create profiler if one doesnt exist</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># if we dont have a profiler create one</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">profiler</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_create_profiler</span><span class="p">()</span>
+
+        <span class="c1"># enable, set flag and set duration</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">profiler</span><span class="p">,</span> <span class="n">cProfile</span><span class="o">.</span><span class="n">Profile</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">profiler</span><span class="o">.</span><span class="n">enable</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_profiling</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">profile_duration_remaining</span> <span class="o">=</span> <span class="n">duration</span></div>
+
+<div class="viewcode-block" id="Debugger.disable_profiling"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.debug.Debugger.disable_profiling">[docs]</a>    <span class="k">def</span> <span class="nf">disable_profiling</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dump_data</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Turn off current profiling. Dump data to file if required.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">profiler</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">dump_data</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_dump_profiling_data</span><span class="p">()</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">profiler</span><span class="o">.</span><span class="n">disable</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">is_profiling</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="Debugger.kill_profiler"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.debug.Debugger.kill_profiler">[docs]</a>    <span class="k">def</span> <span class="nf">kill_profiler</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Kill profiling resource</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">profiler</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">disable_profiling</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">profiler</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+    <span class="k">def</span> <span class="nf">_dump_profiling_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Dump data to a readable file</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_profiling</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">profiler</span><span class="o">.</span><span class="n">create_stats</span><span class="p">()</span>
+
+        <span class="c1"># dump the profiler stats</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">()</span>
+        <span class="n">ps</span> <span class="o">=</span> <span class="n">pstats</span><span class="o">.</span><span class="n">Stats</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">profiler</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">sort_stats</span><span class="p">(</span><span class="s2">&quot;tottime&quot;</span><span class="p">)</span>
+        <span class="n">profiling_path</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">PROFILING_PATH</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span>
+        <span class="n">ps</span><span class="o">.</span><span class="n">dump_stats</span><span class="p">(</span><span class="n">profiling_path</span> <span class="o">+</span> <span class="s2">&quot;profile.dump&quot;</span><span class="p">)</span>
+
+        <span class="c1"># convert profiling to human readable format</span>
+        <span class="n">date_and_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span>
+        <span class="n">out_stream</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">profiling_path</span> <span class="o">+</span> <span class="n">date_and_time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">@%H%M&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="n">VERSION</span> <span class="o">+</span> <span class="s2">&quot;.profile&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
+        <span class="n">ps</span> <span class="o">=</span> <span class="n">pstats</span><span class="o">.</span><span class="n">Stats</span><span class="p">(</span><span class="n">profiling_path</span> <span class="o">+</span> <span class="s2">&quot;profile.dump&quot;</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="n">out_stream</span><span class="p">)</span>
+        <span class="n">ps</span><span class="o">.</span><span class="n">strip_dirs</span><span class="p">()</span><span class="o">.</span><span class="n">sort_stats</span><span class="p">(</span><span class="s2">&quot;tottime&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">print_stats</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Debugger.performance_test"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.debug.Debugger.performance_test">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">performance_test</span><span class="p">(</span>
+        <span class="n">method_descs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+        <span class="n">old_methods</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">],</span> <span class="nb">str</span><span class="p">]],</span>
+        <span class="n">new_methods</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">],</span> <span class="nb">str</span><span class="p">]],</span>
+        <span class="n">num_runs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
+        <span class="n">repeats</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Run performance testing on a collection of methods/functions. Returns a formatted string detailing</span>
+<span class="sd">        performance  of old, new and % change between them.</span>
+
+<span class="sd">        method_descs are used as descriptions only.</span>
+<span class="sd">        old_methods/new_methods expects a list of tuples that are (method_to_test, setup). Setup can be an empty string</span>
+<span class="sd">        but is usually an import.</span>
+<span class="sd">        Index in each list much match, i.e. method_name[0] is the alias of the methods in old_methods[0] and</span>
+<span class="sd">        new_methods[0].</span>
+
+<span class="sd">        Outputs as &quot;Access Trait: 0.00123 -&gt; 0.00036(71.00033%)&quot;.</span>
+
+<span class="sd">        example usage:</span>
+<span class="sd">        method_descs = [&quot;Set Var&quot;, &quot;Access Skill&quot;]</span>
+<span class="sd">        old_methods = [(&quot;x = 1&quot;, &quot;&quot;),(&quot;library.get_skill_data(&#39;lunge&#39;)&quot;, &quot;&quot;)]</span>
+<span class="sd">        new_methods = [(&quot;x = &#39;one&#39;&quot;, &quot;&quot;), (&quot;library2.SKILLS.get(&#39;lunge&#39;)&quot;, &quot;from scripts.engine import library2&quot;)]</span>
+<span class="sd">        print( performance_test(method_descs, old_methods, new_methods) )</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;== Performance Test ==</span><span class="se">\n</span><span class="s2">(Run </span><span class="si">{</span><span class="n">num_runs</span><span class="si">}</span><span class="s2"> * </span><span class="si">{</span><span class="n">repeats</span><span class="si">}</span><span class="s2">)&quot;</span>
+        <span class="n">gc</span><span class="o">.</span><span class="n">disable</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">method_descs</span><span class="p">)):</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">method_descs</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+            <span class="n">old</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">timeit</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">old_methods</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">setup</span><span class="o">=</span><span class="n">old_methods</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">number</span><span class="o">=</span><span class="n">num_runs</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="n">repeats</span><span class="p">))</span>
+            <span class="n">new</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">timeit</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">new_methods</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">setup</span><span class="o">=</span><span class="n">new_methods</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">number</span><span class="o">=</span><span class="n">num_runs</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="n">repeats</span><span class="p">))</span>
+            <span class="n">result</span> <span class="o">+=</span> <span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">format</span><span class="p">(</span><span class="n">old</span><span class="p">,</span> <span class="s1">&#39;0.5f&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="nb">format</span><span class="p">(</span><span class="n">new</span><span class="p">,</span> <span class="s1">&#39;0.5f&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="nb">format</span><span class="p">(((</span><span class="n">old</span> <span class="o">-</span> <span class="n">new</span><span class="p">)</span> <span class="o">/</span> <span class="n">old</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;0.2f&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">%)&quot;</span>
+            <span class="p">)</span>
+
+        <span class="n">gc</span><span class="o">.</span><span class="n">enable</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="Debugger.print_values_to_console"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.debug.Debugger.print_values_to_console">[docs]</a>    <span class="k">def</span> <span class="nf">print_values_to_console</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Print the debuggers stats.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Avg FPS: </span><span class="si">{</span><span class="nb">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">average_fps</span><span class="p">,</span> <span class="s1">&#39;.2f&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">, R_Avg: </span><span class="si">{</span><span class="nb">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">recent_average_fps</span><span class="p">,</span> <span class="s1">&#39;.2f&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Debugger.toggle_debug_info"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.debug.Debugger.toggle_debug_info">[docs]</a>    <span class="k">def</span> <span class="nf">toggle_debug_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Toggle whether the debug info is shown</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_show_debug_info</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_show_debug_info</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_show_debug_info</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+    <span class="k">def</span> <span class="nf">_refresh_debug_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fonts</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">start_x</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">start_y</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="c1"># FPS</span>
+        <span class="c1"># TODO - add back in when working</span>
+        <span class="n">current_x</span> <span class="o">=</span> <span class="n">start_x</span>
+        <span class="n">current_y</span> <span class="o">=</span> <span class="n">start_y</span>
+        <span class="c1"># current_fps = f&quot;FPS: C={format(self.current_fps, &#39;.2f&#39;)}, &quot;</span>
+        <span class="c1"># recent_fps = f&quot;R_Avg={format(self.recent_average_fps, &#39;.2f&#39;)}, &quot;</span>
+        <span class="c1"># avg_fps = f&quot;Avg={format(self.average_fps, &#39;.2f&#39;)}&quot;</span>
+        <span class="c1"># text = f&quot;{current_fps}; {recent_fps};{avg_fps}&quot;</span>
+        <span class="c1"># self._fonts.append(self._game.visuals.create_font(FontType.DEFAULT, text, (current_x, current_y)))</span>
+
+        <span class="c1"># current state</span>
+        <span class="n">current_y</span> <span class="o">+=</span> <span class="mi">0</span>
+        <span class="n">world</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">world</span>
+        <span class="n">world_state</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">state</span>
+        <span class="n">sub_state_name</span> <span class="o">=</span> <span class="s2">&quot;not found&quot;</span>
+        <span class="k">if</span> <span class="n">world_state</span> <span class="o">==</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">COMBAT</span><span class="p">:</span>
+            <span class="n">sub_state_name</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">combat</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">name</span>
+        <span class="k">elif</span> <span class="n">world_state</span> <span class="o">==</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">TRAINING</span><span class="p">:</span>
+            <span class="n">sub_state_name</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">training</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">name</span>
+        <span class="k">elif</span> <span class="n">world_state</span> <span class="o">==</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">CHOOSE_NEXT_ROOM</span><span class="p">:</span>
+            <span class="n">sub_state_name</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">choose_room</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">name</span>
+        <span class="k">elif</span> <span class="n">world_state</span> <span class="o">==</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">MOVING_NEXT_ROOM</span><span class="p">:</span>
+            <span class="n">sub_state_name</span> <span class="o">=</span> <span class="s2">&quot;n/a&quot;</span>
+
+        <span class="n">text</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;World state is [</span><span class="si">{</span><span class="n">world_state</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">]; room state is [</span><span class="si">{</span><span class="n">sub_state_name</span><span class="si">}</span><span class="s2">].&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fonts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visual</span><span class="o">.</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">)))</span>
+
+        <span class="c1"># game speed</span>
+        <span class="n">current_y</span> <span class="o">+=</span> <span class="mi">10</span>
+        <span class="n">game_speed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">game_speed</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Game speed = </span><span class="si">{</span><span class="n">game_speed</span><span class="si">}</span><span class="s2">.&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fonts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visual</span><span class="o">.</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">)))</span></div>
+
+
+<div class="viewcode-block" id="Timer"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.debug.Timer">[docs]</a><span class="k">class</span> <span class="nc">Timer</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Context manager to document program time</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Timer.__init__"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.debug.Timer.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">label</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">duration</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+    <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_type</span><span class="p">,</span> <span class="n">exc_val</span><span class="p">,</span> <span class="n">exc_tb</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">duration</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> in </span><span class="si">%.2f</span><span class="s2"> seconds.&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">duration</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;took </span><span class="si">%.2f</span><span class="s2"> seconds.&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">duration</span><span class="p">)</span></div>
+</pre></div>
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+    <script type="text/javascript" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+    <div class="footer" role="contentinfo">
+        <div class="container">
+            &#169; Copyright 2019-2022, Josh Snaith.
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.
+        </div>
+    </div>  
+
+</body>
+</html>

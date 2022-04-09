@@ -1,0 +1,77 @@
+nqp.base\_classes package
+=========================
+
+Submodules
+----------
+
+nqp.base\_classes.animation module
+----------------------------------
+
+.. automodule:: nqp.base_classes.animation
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.base\_classes.controller module
+-----------------------------------
+
+.. automodule:: nqp.base_classes.controller
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.base\_classes.entity\_behaviour module
+------------------------------------------
+
+.. automodule:: nqp.base_classes.entity_behaviour
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.base\_classes.image module
+------------------------------
+
+.. automodule:: nqp.base_classes.image
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.base\_classes.scene module
+------------------------------
+
+.. automodule:: nqp.base_classes.scene
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.base\_classes.stat module
+-----------------------------
+
+.. automodule:: nqp.base_classes.stat
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.base\_classes.ui module
+---------------------------
+
+.. automodule:: nqp.base_classes.ui
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.base\_classes.ui\_element module
+------------------------------------
+
+.. automodule:: nqp.base_classes.ui_element
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: nqp.base_classes
+   :members:
+   :undoc-members:
+   :show-inheritance:

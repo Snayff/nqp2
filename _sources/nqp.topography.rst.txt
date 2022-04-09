@@ -1,0 +1,37 @@
+nqp.topography package
+======================
+
+Submodules
+----------
+
+nqp.topography.pathfinder module
+--------------------------------
+
+.. automodule:: nqp.topography.pathfinder
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.topography.terrain module
+-----------------------------
+
+.. automodule:: nqp.topography.terrain
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.topography.tile module
+--------------------------
+
+.. automodule:: nqp.topography.tile
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: nqp.topography
+   :members:
+   :undoc-members:
+   :show-inheritance:

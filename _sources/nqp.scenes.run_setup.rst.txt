@@ -1,0 +1,29 @@
+nqp.scenes.run\_setup package
+=============================
+
+Submodules
+----------
+
+nqp.scenes.run\_setup.scene module
+----------------------------------
+
+.. automodule:: nqp.scenes.run_setup.scene
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.scenes.run\_setup.ui module
+-------------------------------
+
+.. automodule:: nqp.scenes.run_setup.ui
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: nqp.scenes.run_setup
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,29 @@
+nqp.scenes.gallery package
+==========================
+
+Submodules
+----------
+
+nqp.scenes.gallery.scene module
+-------------------------------
+
+.. automodule:: nqp.scenes.gallery.scene
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.scenes.gallery.ui module
+----------------------------
+
+.. automodule:: nqp.scenes.gallery.ui
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: nqp.scenes.gallery
+   :members:
+   :undoc-members:
+   :show-inheritance:

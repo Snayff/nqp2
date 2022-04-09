@@ -1,0 +1,400 @@
+
+
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>nqp.scenes.gallery.ui &mdash; NotQuiteParadise2  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../../_static/css/theme.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/css/theme.min.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <a class="site-nav-toggle hidden-lg-up"><i class="icon-menu"></i></a>
+            <a class="site-title" href="../../../../index.html">
+                NotQuiteParadise2
+            </a>
+        </div>
+    </header>
+
+
+<div class="breadcrumbs-outer hidden-xs-down">
+    <div class="container">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a></li>
+        
+          <li><a href="../../../index.html">Module code</a></li>
+        
+      <li>nqp.scenes.gallery.ui</li>
+    
+    
+      <li class="breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+</div>
+    </div>
+</div>
+    <div class="main-outer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-3 site-nav">
+                    
+<div role="search">
+    <form class="search" action="../../../../search.html" method="get">
+        <div class="icon-input">
+            <input type="text" name="q" placeholder="Search" />
+            <span class="icon-search"></span>
+        </div>
+        <input type="submit" value="Go" class="d-hidden" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+                    <div class="site-nav-tree">
+                        
+                            
+                            
+                                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/base_classes/_base_classes.html">Base Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/base_classes/animation.html">Animation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/base_classes/controller.html">Controller</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/base_classes/entity_behaviour.html">Entity Behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/base_classes/image.html">Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/base_classes/scene.html">Scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/base_classes/stat.html">Stat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/base_classes/ui.html">UI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/base_classes/ui_element.html">UI Element</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/command/_command.html">Command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/command/basic_entity_behaviour.html">Basic Entity Behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/command/commander.html">Commander</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/command/troupe.html">Troupe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/command/unit.html">Unit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/command/unit_behaviour.html">Unit Behaviour</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/core/_core.html">Core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/audio.html">Audio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/components.html">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/constants.html">Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/data.html">Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/debug.html">Debug</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/definitions.html">Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/effect.html">Effect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/game.html">Game</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/input.html">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/memory.html">Memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/queries.html">Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/rng.html">RNG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/scheduler.html">Scheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/utility.html">Utility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/core/window.html">Window</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/effects/_effects.html">Effects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/effects/add_item.html">Add Item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/effects/attribute_modifier.html">Attribute Modifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/effects/sildreths_signature.html">Sildreths Signature</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/scenes/_scenes.html">Scenes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/scenes/gallery.html">Gallery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/scenes/main_menu.html">Main Menu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/scenes/run_setup.html">Run Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/scenes/unit_data.html">Unit Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/scenes/world.html">World</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/topography/_topography.html">Base Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/topography/pathfinder.html">Pathfinder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/topography/terrain.html">Terrain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/topography/tile.html">Tile</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/world/_world.html">World</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/world/controllers.html">Controllers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/world/model.html">Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/world/view.html">View</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/world_elements/_world_elements.html">World Elements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/world_elements/actions.html">Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/world_elements/camera.html">Camera</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/world_elements/hitbox.html">Hitbox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/world_elements/item.html">Item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/world_elements/particle.html">Particle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/world_elements/particle_manager.html">Particle Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/world_elements/projectile.html">Projectile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/world_elements/projectile_manager.html">Projectile Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/world_elements/stats.html">Stats</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer/_developer.html">Developer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../developer/developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../developer/adding_new_content.html">Adding New Content</a></li>
+</ul>
+</li>
+</ul>
+
+                            
+                        
+                    </div>
+                </div>
+                <div class="col-12 col-lg-9">
+                    <div class="document">
+                        
+                            
+  <h1>Source code for nqp.scenes.gallery.ui</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="kn">from</span> <span class="nn">nqp.base_classes.ui</span> <span class="kn">import</span> <span class="n">UI</span>
+<span class="kn">from</span> <span class="nn">nqp.core.constants</span> <span class="kn">import</span> <span class="n">DEFAULT_IMAGE_SIZE</span>
+<span class="kn">from</span> <span class="nn">nqp.core.utility</span> <span class="kn">import</span> <span class="n">next_number_in_loop</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">pygame</span>
+
+    <span class="kn">from</span> <span class="nn">nqp.core.game</span> <span class="kn">import</span> <span class="n">Game</span>
+    <span class="kn">from</span> <span class="nn">nqp.scenes.gallery.scene</span> <span class="kn">import</span> <span class="n">GalleryScene</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;GalleryUI&quot;</span><span class="p">]</span>
+
+
+<span class="c1">######### TO DO LIST ###############</span>
+
+
+<div class="viewcode-block" id="GalleryUI"><a class="viewcode-back" href="../../../../nqp.scenes.gallery.html#nqp.scenes.gallery.ui.GalleryUI">[docs]</a><span class="k">class</span> <span class="nc">GalleryUI</span><span class="p">(</span><span class="n">UI</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represent the UI of a scene</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="GalleryUI.__init__"><a class="viewcode-back" href="../../../../nqp.scenes.gallery.html#nqp.scenes.gallery.ui.GalleryUI.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">game</span><span class="p">:</span> <span class="n">Game</span><span class="p">,</span> <span class="n">parent_scene</span><span class="p">:</span> <span class="n">GalleryScene</span><span class="p">):</span>
+        <span class="c1"># TODO - this is long out of date and no longer works. Fix !</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span><span class="p">:</span> <span class="n">GalleryScene</span> <span class="o">=</span> <span class="n">parent_scene</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_frame_timer</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_start_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_end_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">47</span>  <span class="c1"># 47 is max that can be shown on screen, -1 for index</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_amount_per_col</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">16</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_filters</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;all&quot;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">faction</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">factions</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_filters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">faction</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_filter</span> <span class="o">=</span> <span class="s2">&quot;all&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_instruction_text</span><span class="p">(</span><span class="s2">&quot;Press tab to change filter.&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="GalleryUI.update"><a class="viewcode-back" href="../../../../nqp.scenes.gallery.html#nqp.scenes.gallery.ui.GalleryUI.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span>
+
+        <span class="c1"># tick frame</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_frame_timer</span> <span class="o">+=</span> <span class="n">delta_time</span>
+        <span class="c1"># FIXME - temporary looping frame logic</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">_frame_timer</span> <span class="o">&gt;</span> <span class="mf">0.66</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_frame_timer</span> <span class="o">-=</span> <span class="mf">0.66</span></div>
+
+<div class="viewcode-block" id="GalleryUI.process_input"><a class="viewcode-back" href="../../../../nqp.scenes.gallery.html#nqp.scenes.gallery.ui.GalleryUI.process_input">[docs]</a>    <span class="k">def</span> <span class="nf">process_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">process_input</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span>
+
+        <span class="n">max_units</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visual</span><span class="o">.</span><span class="n">unit_animations</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_start_index</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_start_index</span> <span class="o">-</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_end_index</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_end_index</span> <span class="o">-</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">47</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_start_index</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_start_index</span> <span class="o">+</span> <span class="mi">16</span><span class="p">,</span> <span class="n">max_units</span> <span class="o">-</span> <span class="mi">47</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_end_index</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_end_index</span> <span class="o">+</span> <span class="mi">16</span><span class="p">,</span> <span class="n">max_units</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;tab&quot;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;tab&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+            <span class="n">current_filter_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_filters</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_current_filter</span><span class="p">)</span>
+            <span class="n">next_index</span> <span class="o">=</span> <span class="n">next_number_in_loop</span><span class="p">(</span><span class="n">current_filter_index</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_filters</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_current_filter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_filters</span><span class="p">[</span><span class="n">next_index</span><span class="p">]</span>
+
+        <span class="c1"># exit</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_container</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_containers</span><span class="p">[</span><span class="s2">&quot;exit&quot;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;select&quot;</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;select&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+                <span class="c1"># return to previous scene</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">change_scene</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">dev_gallery</span><span class="o">.</span><span class="n">previous_scene_type</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="GalleryUI.draw"><a class="viewcode-back" href="../../../../nqp.scenes.gallery.html#nqp.scenes.gallery.ui.GalleryUI.draw">[docs]</a>    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">):</span>
+        <span class="n">default_font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_font</span>
+        <span class="n">positive_font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">positive_font</span>
+        <span class="n">disabled_font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">disabled_font</span>
+        <span class="n">units</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">units</span>
+        <span class="n">animations</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visual</span><span class="o">.</span><span class="n">unit_animations</span>
+        <span class="n">start_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start_index</span>
+        <span class="n">end_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_end_index</span>
+        <span class="n">window_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">width</span>
+
+        <span class="n">start_x</span> <span class="o">=</span> <span class="mi">10</span>
+        <span class="n">start_y</span> <span class="o">=</span> <span class="mi">10</span>
+        <span class="n">current_x</span> <span class="o">=</span> <span class="n">start_x</span>
+        <span class="n">current_y</span> <span class="o">=</span> <span class="n">start_y</span>
+        <span class="n">x_gap</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">y_gap</span> <span class="o">=</span> <span class="mi">4</span>
+        <span class="n">name_col_width</span> <span class="o">=</span> <span class="p">(</span><span class="n">DEFAULT_IMAGE_SIZE</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span> <span class="o">+</span> <span class="n">x_gap</span>
+        <span class="n">sprite_col_width</span> <span class="o">=</span> <span class="n">DEFAULT_IMAGE_SIZE</span> <span class="o">+</span> <span class="n">x_gap</span>
+        <span class="n">row_height</span> <span class="o">=</span> <span class="n">DEFAULT_IMAGE_SIZE</span> <span class="o">+</span> <span class="n">y_gap</span>
+
+        <span class="n">frame</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_frame_timer</span> <span class="o">*</span> <span class="mi">6</span><span class="p">)</span>
+
+        <span class="c1"># draw headers</span>
+        <span class="n">anim_states</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;icon&quot;</span><span class="p">,</span> <span class="s2">&quot;idle&quot;</span><span class="p">,</span> <span class="s2">&quot;walk&quot;</span><span class="p">,</span> <span class="s2">&quot;attack&quot;</span><span class="p">,</span> <span class="s2">&quot;hit&quot;</span><span class="p">,</span> <span class="s2">&quot;death&quot;</span><span class="p">]</span>
+        <span class="n">disabled_font</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">surface</span><span class="p">,</span> <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">))</span>
+        <span class="n">current_x</span> <span class="o">+=</span> <span class="n">name_col_width</span>
+        <span class="k">for</span> <span class="n">header</span> <span class="ow">in</span> <span class="n">anim_states</span><span class="p">:</span>
+            <span class="n">disabled_font</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">header</span><span class="p">,</span> <span class="n">surface</span><span class="p">,</span> <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">))</span>
+            <span class="n">current_x</span> <span class="o">+=</span> <span class="n">sprite_col_width</span>
+
+        <span class="c1"># increment y</span>
+        <span class="n">current_y</span> <span class="o">+=</span> <span class="n">row_height</span>
+
+        <span class="c1"># draw name and sprites</span>
+        <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">units</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+            <span class="c1"># only draw units within index range or for whom the filter applies</span>
+            <span class="n">is_start_ok</span> <span class="o">=</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="n">start_index</span>
+            <span class="n">is_less_than_end</span> <span class="o">=</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_amount_per_col</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># 3 cols</span>
+            <span class="n">is_all</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_filter</span> <span class="o">==</span> <span class="s2">&quot;all&quot;</span>
+            <span class="n">is_in_current_filter</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;faction&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_filter</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">is_start_ok</span> <span class="ow">and</span> <span class="n">is_less_than_end</span> <span class="ow">and</span> <span class="p">(</span><span class="n">is_all</span> <span class="ow">or</span> <span class="n">is_in_current_filter</span><span class="p">)):</span>
+                <span class="k">continue</span>
+
+            <span class="n">current_x</span> <span class="o">=</span> <span class="n">start_x</span> <span class="o">+</span> <span class="p">(</span><span class="n">j</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">_amount_per_col</span><span class="p">)</span> <span class="o">*</span> <span class="mi">200</span>
+            <span class="n">current_y</span> <span class="o">=</span> <span class="n">start_y</span> <span class="o">+</span> <span class="n">row_height</span> <span class="o">+</span> <span class="p">(</span><span class="n">j</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">_amount_per_col</span><span class="p">)</span> <span class="o">*</span> <span class="mi">20</span>
+
+            <span class="n">default_font</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">surface</span><span class="p">,</span> <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">))</span>
+            <span class="n">current_x</span> <span class="o">+=</span> <span class="n">name_col_width</span>
+
+            <span class="k">for</span> <span class="n">animation</span> <span class="ow">in</span> <span class="n">anim_states</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">frame_</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">animations</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="n">animation</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="n">image</span> <span class="o">=</span> <span class="n">animations</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="n">animation</span><span class="p">][</span><span class="n">frame_</span><span class="p">]</span>
+                    <span class="n">surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span> <span class="o">-</span> <span class="p">(</span><span class="n">default_font</span><span class="o">.</span><span class="n">line_height</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)))</span>
+
+                <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+                    <span class="k">pass</span>
+
+                <span class="n">current_x</span> <span class="o">+=</span> <span class="n">sprite_col_width</span>
+
+            <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="c1"># count num in filter</span>
+        <span class="n">num_in_filter</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_filter</span> <span class="o">==</span> <span class="s2">&quot;all&quot;</span><span class="p">:</span>
+            <span class="n">num_in_filter</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">units</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">units</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;faction&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_filter</span><span class="p">:</span>
+                    <span class="n">num_in_filter</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="c1"># draw filter and result number</span>
+        <span class="n">num_shown</span> <span class="o">=</span> <span class="n">j</span>
+        <span class="n">positive_font</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_current_filter</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">num_shown</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">num_in_filter</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">surface</span><span class="p">,</span> <span class="p">(</span><span class="n">window_width</span> <span class="o">-</span> <span class="mi">200</span><span class="p">,</span> <span class="n">start_y</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_draw_elements</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="GalleryUI.rebuild_ui"><a class="viewcode-back" href="../../../../nqp.scenes.gallery.html#nqp.scenes.gallery.ui.GalleryUI.rebuild_ui">[docs]</a>    <span class="k">def</span> <span class="nf">rebuild_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">rebuild_ui</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_exit_button</span><span class="p">(</span><span class="s2">&quot;Exit&quot;</span><span class="p">)</span></div></div>
+</pre></div>
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+    <script type="text/javascript" src="../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+  
+    <div class="footer" role="contentinfo">
+        <div class="container">
+            &#169; Copyright 2019-2022, Josh Snaith.
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.
+        </div>
+    </div>  
+
+</body>
+</html>

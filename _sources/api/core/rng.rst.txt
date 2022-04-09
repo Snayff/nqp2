@@ -1,5 +1,5 @@
 RNG
 ============================================
 
-.. automodule:: scripts.core.rng
+.. automodule:: nqp.core.rng
 

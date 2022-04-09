@@ -1,0 +1,19 @@
+nqp.ui\_elements package
+========================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   nqp.ui_elements.generic
+   nqp.ui_elements.tailored
+
+Module contents
+---------------
+
+.. automodule:: nqp.ui_elements
+   :members:
+   :undoc-members:
+   :show-inheritance:
