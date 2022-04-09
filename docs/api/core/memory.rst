@@ -1,5 +1,5 @@
 Memory
 ============================================
 
-.. automodule:: scripts.core.memory
+.. automodule:: nqp.core.memory
 

@@ -9,6 +9,6 @@ import pygame
 import tcod
 from pygame.locals import *
 
-from scripts import __main__
+from nqp import __main__
 
 __main__.main()

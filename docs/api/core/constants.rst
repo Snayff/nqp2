@@ -1,5 +1,5 @@
 Constants
 ============================================
 
-.. automodule:: scripts.core.constants
+.. automodule:: nqp.core.constants
 

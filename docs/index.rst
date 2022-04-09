@@ -10,10 +10,15 @@ Last updated on |today| for version |version|.
 ..  toctree::
     :maxdepth: 1
 
+    api/base_classes/_base_classes
+    api/command/_command
     api/core/_core
+    api/effects/_effects
     api/scenes/_scenes
-    api/scene_elements/_scene_elements
+    api//topography/_topography
     api/ui_elements/ui_elements
+    api/world/_world
+    api/world_elements/_world_elements
 
 
 

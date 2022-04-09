@@ -1,5 +1,5 @@
 Data
 ============================================
 
-.. automodule:: scripts.core.data
+.. automodule:: nqp.core.data
 
