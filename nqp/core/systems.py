@@ -92,21 +92,15 @@ def process_movement(delta_time: float, game: Game):
 
         # skip if we have nowhere to go
         if ai.behaviour.current_path is None:
-            print(f"No path.")
             continue
         if len(ai.behaviour.current_path) == 0:
-            print(f"Path is empty")
             continue
         if ai.behaviour.is_active == False:
-            print(f"Not active.")
             continue
         if ai.behaviour.state not in ["path", "path_fast"]:
-            print(f"Not in path state.")
             continue
 
-        print(f"Path: {ai.behaviour.current_path}")
         move_result = _walk_path(delta_time, position, stats, ai, game)
-        print(f"Move result: {move_result}")
 
         # update facing
         if move_result[0][0] < move_result[1][0]:
