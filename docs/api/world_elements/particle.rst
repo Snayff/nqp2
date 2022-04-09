@@ -1,6 +1,6 @@
 Particle
 ============================================
 
-.. automodule:: scripts.scene_elements.particle
+.. automodule:: nqp.world_elements.particle
 
 

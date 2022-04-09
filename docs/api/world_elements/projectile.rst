@@ -1,6 +1,6 @@
 Projectile
 ============================================
 
-.. automodule:: scripts.scene_elements.projectile
+.. automodule:: nqp.world_elements.projectile
 
 

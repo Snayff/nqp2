@@ -1,5 +1,5 @@
 Animation
 ============================================
 
-.. automodule:: scripts.base_classes.animation
+.. automodule:: nqp.base_classes.animation
 

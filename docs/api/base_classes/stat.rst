@@ -1,4 +1,4 @@
 Stat
 ============================================
 
-.. automodule:: scripts.base_classes.stat
+.. automodule:: nqp.base_classes.stat

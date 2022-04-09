@@ -1,6 +1,5 @@
 Unit
 ============================================
 
-.. automodule:: scripts.scene_elements.unit
-
+.. automodule:: nqp.command.unit
 

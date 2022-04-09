@@ -1,4 +1,4 @@
 Image
 ============================================
 
-.. automodule:: scripts.base_classes.image
+.. automodule:: nqp.base_classes.image

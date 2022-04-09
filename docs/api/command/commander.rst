@@ -1,6 +1,5 @@
 Commander
 ============================================
 
-.. automodule:: scripts.scene_elements.commander
-
+.. automodule:: nqp.command.commander
 

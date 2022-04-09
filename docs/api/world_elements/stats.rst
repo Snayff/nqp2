@@ -1,5 +1,5 @@
-Data
+Stats
 ============================================
 
-.. automodule:: nqp.core.data
+.. automodule:: nqp.world_elements.stats
 

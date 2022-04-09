@@ -1,6 +1,6 @@
 Hitbox
 ============================================
 
-.. automodule:: scripts.scene_elements.hitbox
+.. automodule:: nqp.world_elements.hitbox
 
 

@@ -1,5 +1,5 @@
-Data
+Components
 ============================================
 
-.. automodule:: nqp.core.data
+.. automodule:: nqp.core.components
 

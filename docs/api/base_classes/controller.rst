@@ -1,5 +1,5 @@
 Controller
 ============================================
 
-.. automodule:: scripts.base_classes.controller
+.. automodule:: nqp.base_classes.controller
 

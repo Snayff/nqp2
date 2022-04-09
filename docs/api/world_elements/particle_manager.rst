@@ -1,6 +1,6 @@
 Particle Manager
 ============================================
 
-.. automodule:: scripts.scene_elements.particle_manager
+.. automodule:: nqp.world_elements.particle_manager
 
 

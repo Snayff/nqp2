@@ -1,10 +1,10 @@
 World
 ============================================
 
-.. automodule:: scripts.scenes.world.scene
+.. automodule:: nqp.scenes.world.scene
 
 
-.. automodule:: scripts.scenes.world.ui
+.. automodule:: nqp.scenes.world.ui
 
 
 

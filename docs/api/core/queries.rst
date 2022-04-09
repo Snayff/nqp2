@@ -1,5 +1,5 @@
-Data
+Queries
 ============================================
 
-.. automodule:: nqp.core.data
+.. automodule:: nqp.core.queries
 

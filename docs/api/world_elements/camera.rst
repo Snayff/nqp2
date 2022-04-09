@@ -1,6 +1,6 @@
 Camera
 ============================================
 
-.. automodule:: scripts.scene_elements.camera
+.. automodule:: nqp.world_elements.camera
 
 

@@ -1,5 +1,5 @@
-Data
+Add Item
 ============================================
 
-.. automodule:: nqp.core.data
+.. automodule:: nqp.effects.add_item
 

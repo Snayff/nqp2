@@ -1,5 +1,5 @@
 Scene
 ============================================
 
-.. automodule:: scripts.base_classes.scene
+.. automodule:: nqp.base_classes.scene
 

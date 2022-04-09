@@ -1,6 +1,5 @@
 Troupe
 ============================================
 
-.. automodule:: scripts.scene_elements.troupe
-
+.. automodule:: nqp.command.troupe
 

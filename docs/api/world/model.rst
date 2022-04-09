@@ -1,5 +1,6 @@
-Data
+Model
 ============================================
 
-.. automodule:: nqp.core.data
+.. automodule:: nqp.world.model
+
 

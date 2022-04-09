@@ -1,5 +1,5 @@
 Sounds
 ============================================
 
-.. automodule:: scripts.core.sounds
+.. automodule:: nqp.core.sounds
 

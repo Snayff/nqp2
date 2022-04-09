@@ -1,5 +1,5 @@
-Data
+Audio
 ============================================
 
-.. automodule:: nqp.core.data
+.. automodule:: nqp.core.audio
 

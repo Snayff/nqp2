@@ -1,6 +1,6 @@
 Projectile Manager
 ============================================
 
-.. automodule:: scripts.scene_elements.projectile_manager
+.. automodule:: nqp.world_elements.projectile_manager
 
 

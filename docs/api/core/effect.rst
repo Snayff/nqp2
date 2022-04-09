@@ -1,5 +1,5 @@
-Data
+Effect
 ============================================
 
-.. automodule:: nqp.core.data
+.. automodule:: nqp.core.effect
 

@@ -1,5 +1,5 @@
-Data
+Item
 ============================================
 
-.. automodule:: nqp.core.data
+.. automodule:: nqp.world_elements.item
 

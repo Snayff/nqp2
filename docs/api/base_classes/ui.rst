@@ -1,5 +1,5 @@
 UI
 ============================================
 
-.. automodule:: scripts.core.base_classes.ui
+.. automodule:: nqp.core.base_classes.ui
 

@@ -1,5 +1,5 @@
 Actions
 ============================================
 
-.. automodule:: scripts.scene_elements.actions
+.. automodule:: nqp.world_elements.actions
 

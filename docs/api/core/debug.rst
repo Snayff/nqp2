@@ -1,5 +1,5 @@
 Debug
 ============================================
 
-.. automodule:: scripts.core.debug
+.. automodule:: nqp.core.debug
 

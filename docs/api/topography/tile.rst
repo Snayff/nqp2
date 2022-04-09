@@ -1,6 +1,5 @@
 Tile
 ============================================
 
-.. automodule:: scripts.scene_elements.tile
-
+.. automodule:: nqp.topography.tile
 

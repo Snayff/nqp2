@@ -1,4 +1,4 @@
 Entity Behaviour
 ============================================
 
-.. automodule:: scripts.base_classes.entity_behaviour
+.. automodule:: nqp.base_classes.entity_behaviour

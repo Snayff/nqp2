@@ -1,5 +1,5 @@
 UI Element
 ============================================
 
-.. automodule:: scripts.core.base_classes.ui_element
+.. automodule:: nqp.core.base_classes.ui_element
 

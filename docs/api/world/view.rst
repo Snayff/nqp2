@@ -1,5 +1,6 @@
-Data
+View
 ============================================
 
-.. automodule:: nqp.core.data
+.. automodule:: nqp.world.view
+
 

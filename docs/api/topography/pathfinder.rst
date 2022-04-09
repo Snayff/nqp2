@@ -1,6 +1,5 @@
 Pathfinder
 ============================================
 
-.. automodule:: scripts.scene_elements.pathfinder
-
+.. automodule:: nqp.topography.pathfinder
 
