@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 
 import snecs
 
+from scripts.core import queries
 from scripts.core.base_classes.controller import Controller
 from scripts.core.components import AI, Position
 from scripts.core.constants import ChooseRoomState, WorldState
@@ -104,6 +105,15 @@ class ChooseRoomController(Controller):
             target_entity = self._parent_scene.model.player_troupe.entities[0]
             self._parent_scene.ui._worldview.camera.set_target_entity(target_entity)
 
+            # TODO: find better way to calculate this value
+            final = self._game.window.base_resolution[0] + 320 + 320
+
+            # give entities target to move to
+            for entity, (ai, position) in queries.ai_position:
+                behaviour = ai.behaviour
+                new_x = max(position.x + 50, final)  # can't set to final else wont find a path
+                behaviour.target_position = (new_x, position.y)
+
         else:
             raise Exception("begin_move_to_new_room: Not in expected state.")
 
@@ -113,13 +123,13 @@ class ChooseRoomController(Controller):
         final = self._game.window.base_resolution[0] + 320 + 320
         terrain_offset = self._game.window.base_resolution[0] + 320
 
-        # move entities
-        # TODO - as only player entities should be ablove we can use a query
-        for entity in self._parent_scene.model.get_all_entities():
-            position = snecs.entity_component(entity, Position)
-            behaviour = snecs.entity_component(entity, AI).behaviour
-            behaviour.target_position = (final, position.y)
-            position.x += 5
+        # TODO - remove when pathfinding is fixed
+        # manually move to new room
+        for entity, (position, ) in queries.position:
+            position.pos.x += 5
+
+        # get position of first entity for reference
+        position = snecs.entity_component(self._parent_scene.model.get_all_entities()[0], Position)
 
         # this is a giant hack because the game only supports
         # "one room" at a time, and everything needs to be in the

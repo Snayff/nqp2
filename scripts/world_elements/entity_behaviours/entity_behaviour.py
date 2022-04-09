@@ -29,7 +29,7 @@ class EntityBehaviour(ABC):
         self.state: str = self.movement_mode
         self.target_unit: Optional[Unit2] = None
         self.target_entity: Optional[EntityID] = None
-        self.target_position = None
+        self.target_position: Optional[Tuple[int, int]] = None
         self.visibility_line: bool = False
         self.attack_timer: float = 0
         self.is_active: bool = True
@@ -45,7 +45,7 @@ class EntityBehaviour(ABC):
     def update(self, delta_time: float):
         pass
 
-    def update_target(self):
+    def update_target_entity(self):
         """
         Pick a new target from valid options, as per Unit Behaviour.
         """

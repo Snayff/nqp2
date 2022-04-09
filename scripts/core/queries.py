@@ -18,6 +18,7 @@ __all__ = [
     "damage_resources",
     "ai_not_dead",
     "attack_position_stats_ai_aesthetic_not_dead",
+    "ai_position"
 ]
 
 resources = Query([Resources]).compile()
@@ -25,6 +26,8 @@ resources = Query([Resources]).compile()
 dead = Query([IsDead]).compile()
 
 position = Query([Position]).compile()
+
+ai_position = Query([AI, position]).compile()
 
 ai_not_dead = Query([AI]).filter(~IsDead).compile()
 

@@ -7,7 +7,6 @@ from typing import Optional, TYPE_CHECKING
 import pygame
 import snecs
 
-from scripts.core.components import DamageReceived, IsReadyToAttack
 from scripts.core.constants import StatModifiedStatus
 
 if TYPE_CHECKING:
@@ -198,7 +197,8 @@ class Unit2:
         """
         Reset the in combat values ready to begin combat.
         """
-        from scripts.core.components import IsDead, Resources  # prevent circular import
+        # prevent circular import
+        from scripts.core.components import IsDead, Resources, DamageReceived, IsReadyToAttack
 
         health = self.health
         for entity in self.entities:
@@ -255,72 +255,75 @@ class Unit2:
 
     def generate_border_surface(self):
         """
-        Generate a new border around the Unit.
+        Generate a new border around the Unit. Stub
         """
         if len(self.entities):
-
-            surf_padding = 20
-            outline_padding = 10
-            self.border_surface = None
-
-            # get entity positions
-            from scripts.core.components import Position  # prevent circular import
-
-            all_positions = []
-            for entity in self.entities:
-                position = snecs.entity_component(entity, Position)
-                all_positions.append(position.pos)
-
-            all_x = [p[0] for p in all_positions]
-            all_y = [p[1] for p in all_positions]
-            min_x = min(all_x)
-            min_y = min(all_y)
-            self.border_surface = pygame.Surface(
-                (max(all_x) - min_x + surf_padding * 2, max(all_y) - min_y + surf_padding * 2)
-            )
-            self.border_surface_offset = (self.pos[0] - min_x + surf_padding, self.pos[1] - min_y + surf_padding)
-            self.border_surface.set_colorkey((0, 0, 0))
-
-            points = [
-                (self.pos[0] - outline_padding, self.pos[1]),
-                (self.pos[0], self.pos[1] - outline_padding),
-                (self.pos[0] + outline_padding, self.pos[1]),
-                (self.pos[0], self.pos[1] + outline_padding),
-            ]
-
-            placed_points = []
-
-            for pos in all_positions + points:
-                new_pos = (pos[0] - min_x + surf_padding, pos[1] - min_y + surf_padding)
-                angle = math.atan2(pos[1] - self.pos[1], pos[0] - self.pos[0])
-                new_pos = (
-                    new_pos[0] + outline_padding * math.cos(angle),
-                    new_pos[1] + outline_padding * math.sin(angle),
-                )
-                for p in placed_points:
-                    pygame.draw.line(self.border_surface, (255, 255, 255), new_pos, p)
-                placed_points.append(new_pos)
-
-            mask_surf = pygame.mask.from_surface(self.border_surface)
-
-            self.border_surface.fill((0, 0, 0))
-            self.border_surface_outline = self.border_surface.copy()
-            self.border_surface_outline_black = self.border_surface.copy()
-
-            outline = mask_surf.outline(2)
-            pygame.draw.lines(self.border_surface_outline, (255, 255, 255), False, outline)
-            pygame.draw.lines(self.border_surface_outline_black, (0, 0, 1), False, outline)
-            pygame.draw.polygon(self.border_surface, (0, 0, 255), outline)
-            self.border_surface.set_alpha(80)
+            # FIXME - throws "ValueError: points argument must contain 2 or more points" and draw incorrectly
+            pass
+            # surf_padding = 20
+            # outline_padding = 10
+            # self.border_surface = None
+            #
+            # # get entity positions
+            # from scripts.core.components import Position  # prevent circular import
+            #
+            # all_positions = []
+            # for entity in self.entities:
+            #     position = snecs.entity_component(entity, Position)
+            #     all_positions.append(position.pos)
+            #
+            # all_x = [p[0] for p in all_positions]
+            # all_y = [p[1] for p in all_positions]
+            # min_x = min(all_x)
+            # min_y = min(all_y)
+            # self.border_surface = pygame.Surface(
+            #     (max(all_x) - min_x + surf_padding * 2, max(all_y) - min_y + surf_padding * 2)
+            # )
+            # self.border_surface_offset = (self.pos[0] - min_x + surf_padding, self.pos[1] - min_y + surf_padding)
+            # self.border_surface.set_colorkey((0, 0, 0))
+            #
+            # points = [
+            #     (self.pos[0] - outline_padding, self.pos[1]),
+            #     (self.pos[0], self.pos[1] - outline_padding),
+            #     (self.pos[0] + outline_padding, self.pos[1]),
+            #     (self.pos[0], self.pos[1] + outline_padding),
+            # ]
+            #
+            # placed_points = []
+            #
+            # for pos in all_positions + points:
+            #     new_pos = (pos[0] - min_x + surf_padding, pos[1] - min_y + surf_padding)
+            #     angle = math.atan2(pos[1] - self.pos[1], pos[0] - self.pos[0])
+            #     new_pos = (
+            #         new_pos[0] + outline_padding * math.cos(angle),
+            #         new_pos[1] + outline_padding * math.sin(angle),
+            #     )
+            #     for p in placed_points:
+            #         pygame.draw.line(self.border_surface, (255, 255, 255), new_pos, p)
+            #     placed_points.append(new_pos)
+            #
+            # mask_surf = pygame.mask.from_surface(self.border_surface)
+            #
+            # self.border_surface.fill((0, 0, 0))
+            # self.border_surface_outline = self.border_surface.copy()
+            # self.border_surface_outline_black = self.border_surface.copy()
+            #
+            # outline = mask_surf.outline(2)
+            # pygame.draw.lines(self.border_surface_outline, (255, 255, 255), False, outline)
+            # pygame.draw.lines(self.border_surface_outline_black, (0, 0, 1), False, outline)
+            # pygame.draw.polygon(self.border_surface, (0, 0, 255), outline)
+            # self.border_surface.set_alpha(80)
 
     def add_modifier(self, stat: str, amount: int):
         """
-        Add a modifier to a stat. Stub/
+        Add a modifier to a stat. Stub
         """
+        # FIXME - stubbed
         pass
 
     def get_modified_status(self, stat: str) -> StatModifiedStatus:
         """
         Check if a given stat is modified. Stub.
         """
+        # FIXME - stubbed
         pass

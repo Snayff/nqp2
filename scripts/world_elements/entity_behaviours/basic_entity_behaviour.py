@@ -38,12 +38,12 @@ class BasicEntityBehaviour(EntityBehaviour):
         # check for new orders
         if self.target_unit != self._unit.behaviour.target_unit:
             self.target_unit = self._unit.behaviour.target_unit
-            self.update_target()
+            self.update_target_entity()
 
         if self.target_entity:
             is_alive = not snecs.has_component(self.target_entity, IsDead)
             if (self.target_entity not in self._unit.behaviour.valid_targets) or (not is_alive):
-                self.update_target()
+                self.update_target_entity()
 
             self.determine_next_action()
 
@@ -51,20 +51,31 @@ class BasicEntityBehaviour(EntityBehaviour):
         if self.last_path_update > PATH_UPDATE_FREQ:
             self.update_path()
 
-    def determine_next_action(self):
+    def determine_next_action(self, focus_entity: bool):
         """
         Determine what to do next, i.e. what state to transition into.
+
+        If focus_entity is True then should a target position exist it
+        will be overwritten by the target entity's position.
         """
         stats = snecs.entity_component(self._entity, Stats)
         pos = snecs.entity_component(self._entity, Position)
         target_stats = snecs.entity_component(self.target_entity, Stats)
-        target_pos = snecs.entity_component(self.target_entity, Position)
 
         # update target pos
-        self.target_position = target_pos.pos
+        if focus_entity or self.target_position is None:
+            target_pos = snecs.entity_component(self.target_entity, Position).pos
+            self.target_position = target_pos
+        else:
+            target_pos = self.target_position
 
         # check distance to target
-        if (stats.range.value + stats.size.value + target_stats.size.value < distance_to(pos.pos, target_pos.pos)) or (
+        if (
+            stats.range.value
+            + stats.size.value
+            + target_stats.size.value
+            < distance_to(pos.pos, target_pos)
+        ) or (
             self._unit.behaviour.check_visibility and not self.visibility_line
         ):
             self.state = self.movement_mode
@@ -72,8 +83,12 @@ class BasicEntityBehaviour(EntityBehaviour):
             self.state = "idle"
 
         # attack intent
-        if ((not self._unit.behaviour.check_visibility) or self.visibility_line) and self.attack_timer <= 0:
-            snecs.add_component(self._entity, IsReadyToAttack())
+        if (
+            (not self._unit.behaviour.check_visibility) or self.visibility_line
+        ) and self.attack_timer <= 0:
+            # ensure doesnt al ready have component
+            if not snecs.has_component(self._entity, IsReadyToAttack):
+                snecs.add_component(self._entity, IsReadyToAttack())
 
     def update_path(self):
         """
