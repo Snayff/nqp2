@@ -4,7 +4,6 @@ Core
 ..  toctree::
     :maxdepth: 1
 
-    base_classes/_base_classes
     constants
     data
     debug

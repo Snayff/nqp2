@@ -1,7 +1,7 @@
 import unittest
 from unittest import mock
 
-from scripts.core.scheduler import Scheduler
+from nqp.core.scheduler import Scheduler
 
 
 class ClockTestCase(unittest.TestCase):

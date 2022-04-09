@@ -2,7 +2,7 @@ import unittest
 
 import pygame
 
-from scripts.world_elements.camera import Camera
+from nqp.world_elements.camera import Camera
 
 
 class TestCamera(unittest.TestCase):
