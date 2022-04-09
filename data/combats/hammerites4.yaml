@@ -1,0 +1,12 @@
+biome: esteria
+category: basic
+gold_reward:
+- 50
+- 110
+level_available: 1
+tier: 2
+type: hammerites4
+units:
+- disciple_of_the_hammer
+- copper_golem
+- copper_golem

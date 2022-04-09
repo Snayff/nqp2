@@ -1,0 +1,15 @@
+ammo: 0
+attack: 90
+attack_speed: 1.2
+count: 1
+default_behaviour: light
+defence: -10
+faction: aberrations_of_nature
+gold_cost: 0
+health: 230
+move_speed: 30
+range: 300
+size: 7
+tier: 4
+type: mind_elemental
+weight: 2

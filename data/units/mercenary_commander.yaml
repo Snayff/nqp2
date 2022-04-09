@@ -1,0 +1,15 @@
+ammo: -1
+attack: 5
+attack_speed: 2.2
+count: 4
+default_behaviour: light
+defence: 35
+faction: members_of_the_court
+gold_cost: 430
+health: 30
+move_speed: 20
+range: 1
+size: 7
+tier: 4
+type: mercenary_commander
+weight: 15

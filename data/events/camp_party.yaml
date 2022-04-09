@@ -1,0 +1,31 @@
+conditions: []
+description: You wake in the early hours of the morning to hear a lot of commotion
+  in your camp. Hesitantly, you peek out of your tent to see what is happening without
+  revealing to the world your favourite night wear, embarrassingly hand stitched with
+  the words 'Lurent is my spirit animal' in elegant cursive. The commotion continues
+  to swell with laughter and cheering, the smell of beer fills the air and a particularly
+  rowdy looking crowd are tucking into tomorrow's rations. You quickly realise that
+  your troops are having a party, complete with blackjack and hookers. Everyone looks
+  and sounds happy. Past and future troubles are not being dwelt on and, morbidly,
+  some of these men are currently enjoying what might be their last night among the
+  living. Shutting down the party may be the sensible thing to do, but will likely
+  not be received well by the men. Alternatively, joining in sounds like fun, but
+  you may have to march into battle with a bunch of hungover zombies tomorrow...
+image: money
+level_available: 1
+options:
+- displayed_result: -morale, +leadership
+  result:
+  - morale:-1
+  - leadership:1
+  text: Shut down the party
+- displayed_result: +morale, +injury, -ration
+  result:
+  - morale:1
+  - rations:-1
+  - injury:1@random1
+  text: Grab a tankard and get partying
+resources:
+- existing_unit:random1
+tier: 1
+type: camp_party

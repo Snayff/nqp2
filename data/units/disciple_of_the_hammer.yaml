@@ -1,0 +1,15 @@
+ammo: 0
+attack: 2
+attack_speed: 0.7
+count: 6
+default_behaviour: light
+defence: 2
+faction: hammerites
+gold_cost: 0
+health: 10
+move_speed: 30
+range: 0
+size: 7
+tier: 1
+type: disciple_of_the_hammer
+weight: 2

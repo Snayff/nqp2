@@ -1,0 +1,15 @@
+ammo: -1
+attack: 7
+attack_speed: 1.8
+count: 4
+default_behaviour: light
+defence: 55
+faction: members_of_the_court
+gold_cost: 430
+health: 30
+move_speed: 20
+range: 1
+size: 7
+tier: 4
+type: general_of_the_golden_regiment
+weight: 15

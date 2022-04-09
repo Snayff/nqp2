@@ -1,11 +1,11 @@
 from __future__ import annotations
 
 import csv
-import json
 import logging
 import os
 
 import pygame
+import yaml
 
 from nqp.core.constants import ASSET_PATH, DATA_PATH, SceneType, WorldState
 from nqp.core.utility import scene_to_scene_type
@@ -55,10 +55,10 @@ class DevConsole(UIInputBox):
             if SceneType.WORLD in self._game.scene_stack:
                 confirmation_message = self._toggle_godmode()
 
-        elif command[:17] == "create_unit_jsons":
+        elif command[:17] == "create_unit_data":
             # check active scene
             if SceneType.MAIN_MENU in self._game.scene_stack:
-                confirmation_message = self._add_unit_json_for_each_asset_folder()
+                confirmation_message = self._add_unit_data_for_each_asset_folder()
 
         elif command[:13] == "load_unit_csv":
             # check active scene
@@ -87,14 +87,14 @@ class DevConsole(UIInputBox):
             active_scene = self._game.scene_stack[0]
             active_scene.ui.set_instruction_text(confirmation_message, True)
 
-    def _add_unit_json_for_each_asset_folder(self) -> str:
+    def _add_unit_data_for_each_asset_folder(self) -> str:
         """
-        Add a placeholder unit_json for every unit asset folder.
+        Add a placeholder unit data for every unit asset folder.
         """
         count = 0
         unit_dict = list(self._game.data.units.values())[0]
 
-        logging.debug(f"Creating unit jsons...")
+        logging.debug(f"Creating unit data...")
 
         for unit_name in os.listdir(ASSET_PATH / "units"):
             unit_data_path = DATA_PATH / "units" / unit_name
@@ -103,24 +103,24 @@ class DevConsole(UIInputBox):
             if unit_name[1:] == "_":
                 continue
 
-            # check if json already exists
-            if os.path.isfile(f"{unit_data_path}.json"):
+            # check if data already exists
+            if os.path.isfile(f"{unit_data_path}.yaml"):
                 continue
 
-            # it doesnt exist, create the json
+            # it doesnt exist, create the data
             unit_dict["type"] = unit_name
-            with open(f"{unit_data_path}.json", "w") as file:
-                json.dump(unit_dict, file, indent=4)
-                logging.debug(f"-> Created {unit_name} json.")
+            with open(f"{unit_data_path}.yaml", "w") as file:
+                yaml.dump(unit_dict, file, Dumper=yaml.SafeDumper)
+                logging.debug(f"-> Created {unit_name} yaml.")
 
             count += 1
 
         if count > 0:
-            confirmation_message = f"{count} unit jsons created."
+            confirmation_message = f"{count} unit data created."
         else:
             confirmation_message = ""
 
-        logging.debug(f"All required unit jsons created. {count} created.")
+        logging.debug(f"All required unit data created. {count} created.")
 
         return confirmation_message
 
@@ -184,7 +184,7 @@ class DevConsole(UIInputBox):
 
     def _load_unit_csv(self):
         """
-        Load the unit csv into the unit json files.
+        Load the unit csv into the unit data files.
         """
         existing_units = list(self._game.data.units.keys())
         num_updated = 0
@@ -197,14 +197,14 @@ class DevConsole(UIInputBox):
             csv_reader = csv.DictReader(csv_file)
 
             for row in csv_reader:
-                str_path = str(DATA_PATH / "units" / f"{row['type']}.json")
+                str_path = str(DATA_PATH / "units" / f"{row['type']}.yaml")
 
                 # check if unit file already exists
                 if row["type"] in existing_units:
 
-                    # open existing json
-                    with open(str_path, "r") as unit_json:
-                        data = json.load(unit_json)
+                    # open existing data
+                    with open(str_path, "r") as unit_data:
+                        data = yaml.load(unit_data, Loader=yaml.SafeLoader)
 
                         # update data
                         data["health"] = int(row["health"])
@@ -223,8 +223,8 @@ class DevConsole(UIInputBox):
                     os.remove(str_path)
 
                     # create new file
-                    with open(str_path, "w") as unit_json:
-                        json.dump(data, unit_json, indent=4)
+                    with open(str_path, "w") as unit_data:
+                        yaml.dump(data, unit_data, Dumper=yaml.SafeDumper)
 
                     num_updated += 1
 
@@ -237,8 +237,8 @@ class DevConsole(UIInputBox):
                     data["gold_cost"] = 0
 
                     # create new file
-                    with open(str_path, "w") as unit_json:
-                        json.dump(data, unit_json, indent=4)
+                    with open(str_path, "w") as unit_data:
+                        yaml.dump(data, unit_data, Dumper=yaml.SafeDumper)
 
                     num_created += 1
 

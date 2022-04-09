@@ -84,111 +84,97 @@ If you find any problems in the existing code you can raise a `new issue <https:
 
 Game Config
 --------------------
-Many of the values used throughout NQP2 are held in external data files. Those that relate to how the game functions are held in ``config.json``.
+Many of the values used throughout NQP2 are held in external data files. Those that relate to how the game functions are held in ``config.yaml``.
 
 Config Explained
 ^^^^^^^^^^^^^^^^^^^^^^
-.. code-block:: json
+.. code-block:: yaml
 
-    {
-        "unit_tier_occur_rates": {
-            "1": 100, # the weight ascribed to a tier 1 unit when generating
-            "2": 50,  # the weight for a tier 2 unit...
-            "3": 25,
-            "4": 1
-        },
-        "event_tier_occur_rates": {
-            "1": 100,  # the weight of a tier 1 event when generating
-            "2": 75,  # the weight of a tier 2 event...
-            "3": 50,
-            "4": 25
-        },
-        "combat_tier_occur_rates": {
-            "1": 100,  # the weight of a tier 1 combat when generating
-            "2": 75,  # the weight of a tier 2 combat...
-            "3": 50,
-            "4": 25
-        },
-        "unit_base_values": {
-            "tier_1": {  # base values used for tier 1 units
-                "health": 0,
-                "defence": 0,
-                "attack": 0,
-                "range": 0,
-                "attack_speed": 0,
-                "move_speed": 0,
-                "ammo": 0,
-                "count": 0,
-                "size": 0,
-                "weight": 0,
-                "gold_cost": 0
-            },
-            "tier_2": {  # base values used for tier 2 units
-                "health": 0,
-                "defence": 0,
-                "attack": 0,
-                "range": 0,
-                "attack_speed": 0,
-                "move_speed": 0,
-                "ammo": 0,
-                "count": 0,
-                "size": 0,
-                "weight": 0,
-                "gold_cost": 0
-            },
-            "tier_3": {  # base values used for tier 3 units
-                "health": 0,
-                "defence": 0,
-                "attack": 0,
-                "range": 0,
-                "attack_speed": 0,
-                "move_speed": 0,
-                "ammo": 0,
-                "count": 0,
-                "size": 0,
-                "weight": 0,
-                "gold_cost": 0
-            },
-            "tier_4": {  # base values used for tier 4 units
-                "health": 0,
-                "defence": 0,
-                "attack": 0,
-                "range": 0,
-                "attack_speed": 0,
-                "move_speed": 0,
-                "ammo": 0,
-                "count": 0,
-                "size": 0,
-                "weight": 0,
-                "gold_cost": 0
-            }
-        },
-        "starting_values": {  # starting values of different resources
-            "gold": 0,
-            "rations": 0,
-            "morale": 0,
-            "charisma": 0,
-            "leadership": 0
-        },
-        "upgrade": {
-            "tier_cost_multiplier": 1.2,  # the multiplier applied to the upgrade cost. Only applies to tiers > 1. (tier * tier_cost_multiplier) * cost
-            "cost":25  # the base cost of an upgrade
-        },
-        "overworld": {
-            "node_weights": {  # the weight assigned to each node during generation.
-                "combat": 0.5,
-                "event": 0.2,
-                "inn": 0.1,
-                "training": 0.1,
-                "unknown": 0.2
-            }
-        },
-        "post_combat": {
-            "gold_min": 10,  # minimum gold given as reward post combat
-            "gold_max": 50,  # maximum gold given
-            "gold_level_multiplier": 1.1  # the multiplier applied to the gold rewards. Only applied post level 1. (level * gold_level_multiplier) * gold_min (and gold_max)
-        }
-    }
+    ---
+    unit_tier_occur_rates:
+      '1': 100  # the weight ascribed to a tier 1 unit when generating
+      '2': 50   # the weight for a tier 2 unit...
+      '3': 25
+      '4': 1
+    event_tier_occur_rates:
+      '1': 100  # the weight of a tier 0 event when generating
+      '2': 75   # the weight of a tier 2 event...
+      '3': 50
+      '4': 25
+    combat_tier_occur_rates:
+      '1': 100  # the weight of a tier 1 combat when generating
+      '2': 75   # the weight of a tier 2 combat...
+      '3': 50
+      '4': 25
+    unit_base_values:
+      tier_1:        # base values used for tier 1 units
+        health: 0
+        defence: 0
+        attack: 0
+        range: 0
+        attack_speed: 0
+        move_speed: 0
+        ammo: 0
+        count: 0
+        size: 0
+        weight: 0
+        gold_cost: 0
+      tier_2:        # base values used for tier 2 units
+        health: 0
+        defence: 0
+        attack: 0
+        range: 0
+        attack_speed: 0
+        move_speed: 0
+        ammo: 0
+        count: 0
+        size: 0
+        weight: 0
+        gold_cost: 0
+      tier_3:        # base values used for tier 3 units
+        health: 0
+        defence: 0
+        attack: 0
+        range: 0
+        attack_speed: 0
+        move_speed: 0
+        ammo: 0
+        count: 0
+        size: 0
+        weight: 0
+        gold_cost: 0
+      tier_4:        # base values used for tier 4 units
+        health: 0
+        defence: 0
+        attack: 0
+        range: 0
+        attack_speed: 0
+        move_speed: 0
+        ammo: 0
+        count: 0
+        size: 0
+        weight: 0
+        gold_cost: 0
+    starting_values:   # starting values of different resources
+      gold: 0
+      rations: 0
+      morale: 0
+      charisma: 0
+      leadership: 0
+    upgrade:
+      tier_cost_multiplier: 1.2  # the multiplier applied to the upgrade cost. Only applies to tiers > 1. (tier * tier_cost_multiplier) * cost
+      cost: 25                   # the base cost of an upgrade
+    overworld:
+      node_weights:  # the weight assigned to each node during generation.
+        combat: 0.5
+        event: 0.2
+        inn: 0.1
+        training: 0.1
+        unknown: 0.2
+    post_combat:
+      gold_min: 10                # minimum gold given as reward post combat
+      gold_max: 50                # maximum gold given
+      gold_level_multiplier: 1.1  # the multiplier applied to the gold rewards. Only applied post level 1. (level * gold_level_multiplier) * gold_min (and gold_max)
 
 
 Developer Console
@@ -210,9 +196,9 @@ Commands
    * - godmode
      - ``godmode``
      - Toggles godmode where player units take no damage and deal increased damage.
-   * - create_unit_jsons
-     - ``create_unit_jsons``
-     - A template json is created for each unit, based on the folder names in the asset folder.
+   * - create_unit_data
+     - ``create_unit_data``
+     - A template yaml is created for each unit, based on the folder names in the asset folder.
    * - gallery
      - ``gallery``
      - Load the unit gallery.
@@ -221,7 +207,7 @@ Commands
      - Load the data editor.
    * - load_unit_csv
      - ``load_unit_csv ``
-     - Load a csv named ``units.csv`` into the unit's json files, or creates new ones as appropriate. Does not handle ``size``, ``weight``, ``gold_cost``, ``default_behaviour`` or ``type``.
+     - Load a csv named ``units.csv`` into the unit's yaml files, or creates new ones as appropriate. Does not handle ``size``, ``weight``, ``gold_cost``, ``default_behaviour`` or ``type``.
    * - combat_result [result]
      - ``combat_result win``
      - Expects "win" or "lose". Instantly ends the current combat with the given result.

@@ -1,0 +1,32 @@
+conditions: []
+description: It's a fine day. You breathe in the fresh, morning air as you and your
+  troupe march along the road. Your mind wanders, dwelling optimistically on your
+  goal of power and glory. Abruptly, your daydream shatters as a frantic man scrambles
+  towards you, yelling unintelligibly. He is fairly well dressed, but looks dishevelled.
+  'Um, have you paid your road tax, sir?' he questions. Clearly sensing your confusion,
+  he continues, 'premium roads like this aren't free you know... ribbit.' Again, you
+  say nothing, choosing to ignore his amphibian vocalisation. You have never heard
+  of such a tax before. 'Anyone with a roadworthy troupe is required to pay the new
+  road tax, payable to the Commander and Troupe Licencing Agency. CTLA for short.
+  Without a tax discus you could be fined up to 10 gold for every foot under your
+  command,' he proclaims. You begin your protest but he quickly cuts you off, looking
+  around agitatedly. '100 gold and you can be on your way with your brand new, official
+  documentation.' He retrieves something from his pocket and holds up a round piece
+  of paper with a handwritten note. As he does this, you notice a small toad fall
+  from his pocket and quickly hop away. The documentation does not look very official...
+image: money
+level_available: 1
+options:
+- displayed_result: -100 gold
+  result:
+  - gold:-100
+  - unlock_event:toad_tax
+  text: Pay the road tax and be on your way
+- displayed_result: unknown
+  result:
+  - unlock_event:toad_tax
+  text: A dead taxman is a good taxman. Kill him
+resources:
+- existing_unit:random1
+tier: 1
+type: road_tax
