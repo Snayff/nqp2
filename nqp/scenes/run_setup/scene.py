@@ -5,11 +5,11 @@ from datetime import datetime
 from typing import TYPE_CHECKING
 
 from nqp.base_classes.scene import Scene
+from nqp.command.commander import Commander
+from nqp.command.troupe import Troupe
 from nqp.core.constants import SceneType
 from nqp.core.debug import Timer
 from nqp.scenes.run_setup.ui import RunSetupUI
-from nqp.command.commander import Commander
-from nqp.command.troupe import Troupe
 
 if TYPE_CHECKING:
     from nqp.core.game import Game

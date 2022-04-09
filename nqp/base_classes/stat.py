@@ -2,11 +2,10 @@ from __future__ import annotations
 
 import logging
 from abc import ABC
-
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing import List, Optional, Tuple, Union, Dict
+    from typing import Dict, List, Optional, Tuple, Union
 
 __all__ = ["Stat"]
 

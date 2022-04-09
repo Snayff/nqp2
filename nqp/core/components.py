@@ -6,9 +6,9 @@ from snecs import RegisteredComponent
 
 from nqp.base_classes.animation import Animation
 from nqp.base_classes.image import Image
+from nqp.command.unit import Unit
 from nqp.core.constants import EntityFacing
 from nqp.world_elements.stats import FloatStat, IntStat
-from nqp.command.unit import Unit
 
 if TYPE_CHECKING:
     from typing import Tuple

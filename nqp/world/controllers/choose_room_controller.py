@@ -5,8 +5,8 @@ from typing import TYPE_CHECKING
 
 import snecs
 
-from nqp.core import queries
 from nqp.base_classes.controller import Controller
+from nqp.core import queries
 from nqp.core.components import Position
 from nqp.core.constants import ChooseRoomState, WorldState
 from nqp.core.debug import Timer
@@ -125,7 +125,7 @@ class ChooseRoomController(Controller):
 
         # TODO - remove when pathfinding is fixed
         # manually move to new room
-        for entity, (position, ) in queries.position:
+        for entity, (position,) in queries.position:
             position.x += 5
 
         # get position of first entity for reference

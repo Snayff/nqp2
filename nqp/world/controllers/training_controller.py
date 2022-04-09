@@ -9,9 +9,9 @@ from nqp.core.debug import Timer
 if TYPE_CHECKING:
     from typing import Dict, List, Optional
 
+    from nqp.command.unit import Unit
     from nqp.core.game import Game
     from nqp.scenes.world.scene import WorldScene
-    from nqp.command.unit import Unit
 
 __all__ = ["TrainingController"]
 

@@ -6,10 +6,10 @@ from typing import TYPE_CHECKING
 from nqp.base_classes.animation import Animation
 from nqp.base_classes.controller import Controller
 from nqp.base_classes.image import Image
-from nqp.core.constants import DEFAULT_IMAGE_SIZE, EventState
-from nqp.core.debug import Timer
 from nqp.command.troupe import Troupe
 from nqp.command.unit import Unit
+from nqp.core.constants import DEFAULT_IMAGE_SIZE, EventState
+from nqp.core.debug import Timer
 
 if TYPE_CHECKING:
     from typing import Any, Dict, Tuple, Union

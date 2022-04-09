@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Tuple
+from typing import Tuple, TYPE_CHECKING
 
 from snecs.typedefs import EntityID
 
@@ -214,4 +214,3 @@ class Troupe:
             return unit.pos
         else:
             return 0, 0
-

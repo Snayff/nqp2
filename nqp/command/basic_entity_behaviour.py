@@ -5,10 +5,10 @@ from typing import TYPE_CHECKING
 import snecs
 from snecs.typedefs import EntityID
 
+from nqp.base_classes.entity_behaviour import EntityBehaviour
+from nqp.command.unit import Unit
 from nqp.core.components import Allegiance, IsDead, IsReadyToAttack, Position, Stats
 from nqp.core.utility import distance_to
-from nqp.command.unit import Unit
-from nqp.base_classes.entity_behaviour import EntityBehaviour
 
 if TYPE_CHECKING:
     from nqp.core.game import Game
@@ -67,12 +67,7 @@ class BasicEntityBehaviour(EntityBehaviour):
             target_pos = self.target_position
 
         # check distance to target
-        if (
-            stats.range.value
-            + stats.size.value
-            + target_stats.size.value
-            < distance_to(pos.pos, target_pos)
-        ) or (
+        if (stats.range.value + stats.size.value + target_stats.size.value < distance_to(pos.pos, target_pos)) or (
             self._unit.behaviour.check_visibility and not self.visibility_line
         ):
             self.state = self.movement_mode
@@ -80,9 +75,7 @@ class BasicEntityBehaviour(EntityBehaviour):
             self.state = "idle"
 
         # attack intent
-        if (
-            (not self._unit.behaviour.check_visibility) or self.visibility_line
-        ) and self.attack_timer <= 0:
+        if ((not self._unit.behaviour.check_visibility) or self.visibility_line) and self.attack_timer <= 0:
             # ensure doesnt al ready have component
             if not snecs.has_component(self._entity, IsReadyToAttack):
                 snecs.add_component(self._entity, IsReadyToAttack())

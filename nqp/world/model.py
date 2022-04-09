@@ -7,16 +7,16 @@ import snecs
 from snecs import World
 from snecs.typedefs import EntityID
 
+from nqp.command.commander import Commander
+from nqp.command.troupe import Troupe
+from nqp.command.unit import Unit
 from nqp.core import systems
 from nqp.core.constants import WorldState
 from nqp.core.debug import Timer
 from nqp.core.definitions import PointLike
-from nqp.command.commander import Commander
+from nqp.topography.terrain import Terrain
 from nqp.world_elements.particle_manager import ParticleManager
 from nqp.world_elements.projectile_manager import ProjectileManager
-from nqp.topography.terrain import Terrain
-from nqp.command.troupe import Troupe
-from nqp.command.unit import Unit
 
 if TYPE_CHECKING:
     from typing import Dict, List, Optional

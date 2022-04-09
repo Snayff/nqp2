@@ -8,8 +8,8 @@ from nqp.core.debug import Timer
 if TYPE_CHECKING:
     from typing import List
 
-    from nqp.core.game import Game
     from nqp.command.troupe import Troupe
+    from nqp.core.game import Game
 
 __all__ = ["Memory"]
 

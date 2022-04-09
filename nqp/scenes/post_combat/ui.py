@@ -5,9 +5,9 @@ from typing import TYPE_CHECKING
 import pygame
 
 from nqp.base_classes.ui import UI
+from nqp.command.unit import Unit
 from nqp.core.constants import DEFAULT_IMAGE_SIZE, FontType, PostCombatState, RewardType, SceneType
 from nqp.ui_elements.generic.ui_frame import UIFrame
-from nqp.command.unit import Unit
 
 if TYPE_CHECKING:
     from typing import Optional

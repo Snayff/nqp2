@@ -4,8 +4,8 @@ from typing import TYPE_CHECKING
 
 import pygame
 
-from nqp.core import utility
 from nqp.base_classes.ui import UI
+from nqp.core import utility
 from nqp.core.constants import (
     ChooseRoomState,
     CombatState,

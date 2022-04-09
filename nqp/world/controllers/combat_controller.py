@@ -4,9 +4,9 @@ import logging
 from typing import TYPE_CHECKING
 
 from nqp.base_classes.controller import Controller
+from nqp.command.troupe import Troupe
 from nqp.core.constants import CombatState, WorldState
 from nqp.core.debug import Timer
-from nqp.command.troupe import Troupe
 
 if TYPE_CHECKING:
     from typing import Any, Dict, List

@@ -5,10 +5,10 @@ from typing import TYPE_CHECKING
 import pygame
 from pygame import SRCALPHA
 
+from nqp.command.unit import Unit
 from nqp.core.constants import DEFAULT_IMAGE_SIZE, FontType, GAP_SIZE, StatModifiedStatus, WindowType
 from nqp.ui_elements.generic.ui_frame import UIFrame
 from nqp.ui_elements.generic.ui_window import UIWindow
-from nqp.command.unit import Unit
 
 if TYPE_CHECKING:
     from typing import Tuple

@@ -9,8 +9,8 @@ if TYPE_CHECKING:
 
     from snecs.typedefs import EntityID
 
-    from nqp.core.game import Game
     from nqp.command.unit import Unit
+    from nqp.core.game import Game
 
 __all__ = ["EntityBehaviour"]
 

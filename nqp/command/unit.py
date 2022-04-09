@@ -171,9 +171,7 @@ class Unit:
             self.entities.append(entity)
 
             # add components that need ref to entity
-            from nqp.command.basic_entity_behaviour import (  # prevent circular import
-                BasicEntityBehaviour,
-            )
+            from nqp.command.basic_entity_behaviour import BasicEntityBehaviour  # prevent circular import
 
             snecs.add_component(entity, AI(BasicEntityBehaviour(self._game, self, entity)))
 
@@ -198,7 +196,7 @@ class Unit:
         Reset the in combat values ready to begin combat.
         """
         # prevent circular import
-        from nqp.core.components import IsDead, Resources, DamageReceived, IsReadyToAttack, RangedAttack
+        from nqp.core.components import DamageReceived, IsDead, IsReadyToAttack, RangedAttack, Resources
 
         health = self.health
         for entity in self.entities:

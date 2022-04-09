@@ -6,6 +6,7 @@ import pygame
 
 from nqp.core.constants import BARRIER_SIZE, TILE_SIZE
 from nqp.core.game import Game
+
 from .pathfinder import Pathfinder
 from .tile import Tile
 

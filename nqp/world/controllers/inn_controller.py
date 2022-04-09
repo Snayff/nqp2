@@ -3,16 +3,16 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from nqp.base_classes.controller import Controller
+from nqp.command.troupe import Troupe
 from nqp.core.constants import InnState
 from nqp.core.debug import Timer
-from nqp.command.troupe import Troupe
 
 if TYPE_CHECKING:
     from typing import List, Optional
 
+    from nqp.command.unit import Unit
     from nqp.core.game import Game
     from nqp.scenes.world.scene import WorldScene
-    from nqp.command.unit import Unit
 
 __all__ = ["InnController"]
 

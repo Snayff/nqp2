@@ -5,10 +5,10 @@ import time
 from typing import TYPE_CHECKING
 
 from nqp.base_classes.scene import Scene
-from nqp.core.constants import PostCombatState, RewardType, SceneType
-from nqp.scenes.post_combat.ui import PostCombatUI
 from nqp.command.troupe import Troupe
 from nqp.command.unit import Unit
+from nqp.core.constants import PostCombatState, RewardType, SceneType
+from nqp.scenes.post_combat.ui import PostCombatUI
 
 if TYPE_CHECKING:
     from typing import Optional

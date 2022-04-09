@@ -18,7 +18,7 @@ __all__ = [
     "damage_resources",
     "ai_not_dead",
     "attack_position_stats_ai_aesthetic_not_dead",
-    "ai_position"
+    "ai_position",
 ]
 
 resources = Query([Resources]).compile()
