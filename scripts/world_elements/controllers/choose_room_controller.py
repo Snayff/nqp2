@@ -100,6 +100,10 @@ class ChooseRoomController(Controller):
             self._parent_scene.model.terrain.ignore_boundaries = True
             self._parent_scene.model.next_terrain.ignore_boundaries = True
 
+            # update camera
+            target_entity = self._parent_scene.model.player_troupe.entities[0]
+            self._parent_scene.ui._worldview.camera.set_target_entity(target_entity)
+
         else:
             raise Exception("begin_move_to_new_room: Not in expected state.")
 
@@ -136,6 +140,7 @@ class ChooseRoomController(Controller):
             self._parent_scene.model.terrain.ignore_boundaries = False
             self._parent_scene.model.next_terrain.ignore_boundaries = False
             self._parent_scene.model.swap_terrains()
+            self._parent_scene.ui._worldview.camera.set_target_entity(None)
             self._assign_room_state()
             self.reset()
             self._parent_scene.model.set_game_speed(1)

@@ -56,7 +56,7 @@ class Audio:
 
                 sound_counter += 1
 
-        logging.debug(f"Sound: {sound_counter} Sounds loaded. ")
+        logging.debug(f"Audio: {sound_counter} Sounds loaded. ")
 
         return sounds
 

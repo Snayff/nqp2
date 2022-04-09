@@ -7,6 +7,9 @@ from typing import Optional, TYPE_CHECKING
 import pygame
 import snecs
 
+from scripts.core.components import DamageReceived, IsReadyToAttack
+from scripts.core.constants import StatModifiedStatus
+
 if TYPE_CHECKING:
     from typing import Dict, List, Tuple
 
@@ -88,7 +91,7 @@ class Unit2:
                 self.border_surface_timer -= 0.5
                 self.generate_border_surface()
 
-        self.behaviour.update(self)
+        self.behaviour.update(delta_time)
 
     @property
     def is_alive(self):
@@ -203,9 +206,13 @@ class Unit2:
             resources = snecs.entity_component(entity, Resources)
             resources.health = health
 
-            # remove dead flags
+            # remove flags
             if snecs.has_component(entity, IsDead):
                 snecs.remove_component(entity, IsDead)
+            if snecs.has_component(entity, IsReadyToAttack):
+                snecs.remove_component(entity, IsReadyToAttack)
+            if snecs.has_component(entity, DamageReceived):
+                snecs.remove_component(entity, DamageReceived)
 
         self._align_entity_positions_to_unit()
 
@@ -305,3 +312,15 @@ class Unit2:
             pygame.draw.lines(self.border_surface_outline_black, (0, 0, 1), False, outline)
             pygame.draw.polygon(self.border_surface, (0, 0, 255), outline)
             self.border_surface.set_alpha(80)
+
+    def add_modifier(self, stat: str, amount: int):
+        """
+        Add a modifier to a stat. Stub/
+        """
+        pass
+
+    def get_modified_status(self, stat: str) -> StatModifiedStatus:
+        """
+        Check if a given stat is modified. Stub.
+        """
+        pass

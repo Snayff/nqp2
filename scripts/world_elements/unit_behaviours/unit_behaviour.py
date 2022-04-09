@@ -55,7 +55,8 @@ class UnitBehaviour:
         for entity in self._game.world.model.get_all_entities():
             other_team = snecs.entity_component(entity, Allegiance).team
             if other_team != self.unit.team:
-                dis = entity.dis(self.unit)
+                other_position = snecs.entity_component(entity, Position)
+                dis = distance_to(self.unit.pos, other_position.pos)
                 if dis < nearest[1]:
                     nearest = [entity, dis]
 

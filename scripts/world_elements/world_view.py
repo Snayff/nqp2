@@ -86,7 +86,7 @@ class WorldView:
         """
         target_pos = self.get_team_center("player")
         if target_pos:
-            self.camera.move_to_position(target_pos)
+            self.camera.set_target_position(target_pos)
             self.camera.update(delta_time)
             # prevent camera from panning from 0,0
             if not self._has_centered_camera:

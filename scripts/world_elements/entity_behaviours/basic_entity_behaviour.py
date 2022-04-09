@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 import snecs
 from snecs.typedefs import EntityID
 
-from ...core.components import Allegiance, IsReadyToAttack, Position, Stats
+from ...core.components import Allegiance, IsDead, IsReadyToAttack, Position, Stats
 from ...core.utility import distance_to
 from ..unit2 import Unit2
 from .entity_behaviour import EntityBehaviour
@@ -41,7 +41,8 @@ class BasicEntityBehaviour(EntityBehaviour):
             self.update_target()
 
         if self.target_entity:
-            if (self.target_entity not in self._unit.behaviour.valid_targets) or (not self.target_entity.alive):
+            is_alive = not snecs.has_component(self.target_entity, IsDead)
+            if (self.target_entity not in self._unit.behaviour.valid_targets) or (not is_alive):
                 self.update_target()
 
             self.determine_next_action()

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Tuple
 
 from scripts.world_elements.entity import Entity
 from scripts.world_elements.unit import Unit
@@ -27,10 +27,13 @@ class Troupe:
         self._units: Dict[int, Unit] = {}
         self.team: str = team
         self.allies: List[str] = allies
+        self._position: Tuple[int, int] = self._get_reference_position()
 
     def update(self, delta_time: float):
         for unit in self.units.values():
             unit.update(delta_time)
+
+        self._position = self._get_reference_position()
 
     @property
     def units(self) -> Dict[int, Unit]:
@@ -201,3 +204,14 @@ class Troupe:
         for unit in self.units.values():
             unit.forced_behaviour = False
             unit.forced_idle = active
+
+    def _get_reference_position(self) -> Tuple[int, int]:
+        """
+        Get the Troupe's reference position, using the position of the first Entity in the dict.
+        """
+        if len(self.units) > 0:
+            unit = list(self.units.values())[0]
+            return unit.pos
+        else:
+            return 0, 0
+

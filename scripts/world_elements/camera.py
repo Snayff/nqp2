@@ -1,5 +1,5 @@
 import weakref
-from typing import Any
+from typing import Any, Optional, TYPE_CHECKING
 
 import pygame
 import snecs
@@ -7,6 +7,9 @@ from snecs.typedefs import EntityID
 
 from scripts.core.components import Position
 from scripts.core.definitions import PointLike
+
+if TYPE_CHECKING:
+    from typing import Dict, List, Tuple, Union
 
 
 class Camera:
@@ -23,8 +26,8 @@ class Camera:
     def __init__(self, size: PointLike):
         self._pos = pygame.Vector2()
         self._size = pygame.Vector2(size)
-        self._target_position = pygame.Vector2()
-        self._target_entity: Any = None
+        self._target_position: Optional[PointLike] = pygame.Vector2()
+        self._target_entity: Optional[EntityID] = None
         self.zoom: float = 0.0
 
     def centre(self, pos: PointLike):
@@ -42,19 +45,22 @@ class Camera:
         self._pos.x += x
         self._pos.y += y
 
-    def move_to_position(self, pos: PointLike):
+    def set_target_position(self, pos: Optional[PointLike]):
         """
-        Move camera to position over time
+        Move camera to position over time. Pass None to clear.
 
         """
-        self._target_position = pygame.Vector2(pos)
+        if pos is None:
+            self._target_position = pos
+        else:
+            self._target_position = pygame.Vector2(pos)
 
-    def follow(self, entity: EntityID):
+    def set_target_entity(self, entity: Optional[EntityID]):
         """
-        Smoothly track a game entity
+        Smoothly track a game entity. Pass None to clear.
 
         """
-        self._target_entity = weakref.ref(entity)
+        self._target_entity = entity
 
     def get_centre(self) -> pygame.Vector2:
         """
@@ -69,7 +75,8 @@ class Camera:
 
         """
         if self._target_entity:
-            self.move_to_position(self._target_entity.pos)
+            pos = snecs.entity_component(self._target_entity, Position)
+            self.set_target_position(pos.pos)
 
         if self._target_position:
             centre = self.get_centre()
@@ -117,7 +124,8 @@ class Camera:
 
         """
         if self._target_entity:
-            self.move_to_position(self._target_entity.pos)
+            pos = snecs.entity_component(self._target_entity, Position)
+            self.set_target_position(pos.pos)
 
         if self._target_position:
             self.centre(self._target_position)

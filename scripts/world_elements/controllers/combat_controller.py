@@ -82,7 +82,7 @@ class CombatController(Controller):
                     (self.last_unit_death[0].pos[1] + self.last_unit_death[1].pos[1]) / 2,
                 )
                 # TODO: decouple this
-                self._parent_scene.ui._worldview.camera.move_to_position(focus_point)
+                self._parent_scene.ui._worldview.camera.set_target_position(focus_point)
 
     def prepare_combat(self):
         """
