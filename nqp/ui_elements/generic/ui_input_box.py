@@ -14,10 +14,19 @@ if TYPE_CHECKING:
 
 
 class UIInputBox:
-    def __init__(self, game, size, pos=[0, 0], colour=(255, 255, 255), input_type="all", text="", font=None):
+    def __init__(
+            self, 
+            game,
+            size: pygame.Vector2,
+            pos: pygame.Vector2 = pygame.Vector2(0, 0),
+            colour=(255, 255, 255),
+            input_type="all",
+            text="",
+            font=None
+    ):
         self._game: Game = game
-        self.size = list(size)
-        self.pos = list(pos)
+        self.size: pygame.Vector2 = size
+        self.pos: pygame.Vector2 = pos
         self.colour = colour
 
         if input_type == "detect":
@@ -39,7 +48,7 @@ class UIInputBox:
         self.font = font
 
         # assign font pos
-        self.font.pos = (self.pos[0] + self.padding, self.pos[1] + (self.size[1] - self.font.line_height) // 2)
+        self.font.pos = (self.pos.x + self.padding, self.pos.y + (self.size.y - self.font.line_height) // 2)
 
     @property
     def value(self):
@@ -53,7 +62,7 @@ class UIInputBox:
     @property
     def should_focus(self, offset=(0, 0)):
         if not self.focused:
-            r = pygame.Rect(self.pos[0] - offset[0], self.pos[1] - offset[1], self.size[0], self.size[1])
+            r = pygame.Rect(self.pos.x - offset[0], self.pos.y - offset[1], self.size.x, self.size.y)
             if r.collidepoint(self._game.input.mouse_pos):
                 if self._game.input.mouse_state["left"]:
                     return True
@@ -61,7 +70,7 @@ class UIInputBox:
             return False
 
         else:
-            r = pygame.Rect(self.pos[0] - offset[0], self.pos[1] - offset[1], self.size[0], self.size[1])
+            r = pygame.Rect(self.pos.x - offset[0], self.pos.y - offset[1], self.size.x, self.size.y)
             if not r.collidepoint(self._game.input.mouse_pos):
                 if self._game.input.mouse_state["left"]:
                     return False
@@ -127,8 +136,8 @@ class UIInputBox:
                     ]:
                         self.font.text += char
 
-    def draw(self, surf, offset=(0, 0)):
-        base_pos = (self.pos[0] - offset[0], self.pos[1] - offset[1])
+    def draw(self, surf, offset: pygame.Vector2 = pygame.Vector2(0, 0)):
+        base_pos = pygame.Vector2(self.pos.x - offset[0], self.pos.y - offset[1])
         border_r = pygame.Rect(*base_pos, *self.size)
         pygame.draw.rect(surf, self.colour, border_r, width=1)
         self.font.draw(surf)
@@ -137,6 +146,6 @@ class UIInputBox:
             pygame.draw.line(
                 surf,
                 self.colour,
-                (base_pos[0] + self.padding + text_width, base_pos[1] + 2),
-                (base_pos[0] + self.padding + text_width, base_pos[1] + self.size[1] - 4),
+                (base_pos.x + self.padding + text_width, base_pos.y + 2),
+                (base_pos.x + self.padding + text_width, base_pos.y + self.size.y - 4),
             )

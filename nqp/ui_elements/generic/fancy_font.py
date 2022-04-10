@@ -115,8 +115,8 @@ class FancyFont:
 
     def draw(self, surface: pygame.Surface):
 
-        start_x = self.pos[0]
-        start_y = self.pos[1]
+        start_x = self.pos.x
+        start_y = self.pos.y
         x_offset = 0
         y_offset = 0
         for line in self._characters:

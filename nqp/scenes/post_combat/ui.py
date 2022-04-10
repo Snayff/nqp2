@@ -179,7 +179,7 @@ class PostCombatUI(UI):
         font = create_font(FontType.POSITIVE, text)
         current_x = (window_width // 2) - font.width
         current_y = start_y
-        frame = UIFrame(self._game, (current_x, current_y), font=font, is_selectable=False)
+        frame = UIFrame(self._game, pygame.Vector2(current_x, current_y), font=font, is_selectable=False)
         self._elements["header"] = frame
 
         # draw gold reward

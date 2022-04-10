@@ -163,11 +163,14 @@ class UnitGrid:
                 unit.forced_behaviour = True
                 target_px = cell.rect.center
                 leader = unit.entities[0]
-                leader.behaviour.current_path = [target_px]
-                leader.behaviour.state = "path_fast"
+                behaviour = snecs.entity_component(leader, AI).behaviour
+                behaviour.current_path = [target_px]
+                behaviour.state = "path_fast"
+
                 for entity in unit.entities[1:]:
-                    entity.behaviour.current_path = [target_px]
-                    entity.behaviour.state = "path_fast"
+                    behaviour = snecs.entity_component(entity, AI).behaviour
+                    behaviour.current_path = [target_px]
+                    behaviour.state = "path_fast"
                 break
 
     def process_input(self):

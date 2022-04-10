@@ -109,8 +109,8 @@ class Unit:
         surface.blit(
             banner_image.surface,
             (
-                self.pos[0] + shift[0] - banner_image.width // 2,
-                self.pos[1] + shift[1] - 20 - banner_image.height,
+                self.pos.x + shift[0] - banner_image.width // 2,
+                self.pos.y + shift[1] - 20 - banner_image.height,
             ),
         )
 
@@ -122,22 +122,22 @@ class Unit:
             surface.blit(
                 self.border_surface_outline_black,
                 (
-                    self.pos[0] + shift[0] - self.border_surface_offset[0] + d[0],
-                    self.pos[1] + shift[1] - self.border_surface_offset[1] + d[1],
+                    self.pos.x + shift[0] - self.border_surface_offset[0] + d[0],
+                    self.pos.y + shift[1] - self.border_surface_offset[1] + d[1],
                 ),
             )
         surface.blit(
             self.border_surface,
             (
-                self.pos[0] + shift[0] - self.border_surface_offset[0],
-                self.pos[1] + shift[1] - self.border_surface_offset[1],
+                self.pos.x + shift[0] - self.border_surface_offset[0],
+                self.pos.y + shift[1] - self.border_surface_offset[1],
             ),
         )
         surface.blit(
             self.border_surface_outline,
             (
-                self.pos[0] + shift[0] - self.border_surface_offset[0],
-                self.pos[1] + shift[1] - self.border_surface_offset[1],
+                self.pos.x + shift[0] - self.border_surface_offset[0],
+                self.pos.y + shift[1] - self.border_surface_offset[1],
             ),
         )
 
@@ -244,8 +244,8 @@ class Unit:
     def _align_entity_positions_to_unit(self):
         from nqp.core.components import Position  # prevent circular import
 
-        unit_x = self.pos[0]
-        unit_y = self.pos[1]
+        unit_x = self.pos.x
+        unit_y = self.pos.y
         max_spread = self.entity_spread_max
 
         for entity in self.entities:
@@ -282,21 +282,21 @@ class Unit:
             # self.border_surface = pygame.Surface(
             #     (max(all_x) - min_x + surf_padding * 2, max(all_y) - min_y + surf_padding * 2)
             # )
-            # self.border_surface_offset = (self.pos[0] - min_x + surf_padding, self.pos[1] - min_y + surf_padding)
+            # self.border_surface_offset = (self.pos.x - min_x + surf_padding, self.pos.y - min_y + surf_padding)
             # self.border_surface.set_colorkey((0, 0, 0))
             #
             # points = [
-            #     (self.pos[0] - outline_padding, self.pos[1]),
-            #     (self.pos[0], self.pos[1] - outline_padding),
-            #     (self.pos[0] + outline_padding, self.pos[1]),
-            #     (self.pos[0], self.pos[1] + outline_padding),
+            #     (self.pos.x - outline_padding, self.pos.y),
+            #     (self.pos.x, self.pos.y - outline_padding),
+            #     (self.pos.x + outline_padding, self.pos.y),
+            #     (self.pos.x, self.pos.y + outline_padding),
             # ]
             #
             # placed_points = []
             #
             # for pos in all_positions + points:
             #     new_pos = (pos[0] - min_x + surf_padding, pos[1] - min_y + surf_padding)
-            #     angle = math.atan2(pos[1] - self.pos[1], pos[0] - self.pos[0])
+            #     angle = math.atan2(pos[1] - self.pos.y, pos[0] - self.pos.x)
             #     new_pos = (
             #         new_pos[0] + outline_padding * math.cos(angle),
             #         new_pos[1] + outline_padding * math.sin(angle),

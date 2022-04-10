@@ -18,7 +18,7 @@ class UIElement(ABC):
     def __init__(self, game: Game, pos: pygame.Vector2, is_selectable: bool = False):
         self._game: Game = game
         self.pos: pygame.Vector2 = pos
-        self.size: pygame.Vector2 = (0, 0)
+        self.size: pygame.Vector2 = pygame.Vector2(0, 0)
         self.surface: pygame.Surface = pygame.Surface(self.size)
 
         self.is_selectable: bool = is_selectable
@@ -61,23 +61,23 @@ class UIElement(ABC):
 
     @property
     def x(self) -> int:
-        return self.pos[0]
+        return int(self.pos.x)
 
     @property
     def y(self) -> int:
-        return self.pos[1]
+        return int(self.pos.y)
 
     @property
     def width(self) -> int:
-        return self.size[0]
+        return int(self.size.x)
 
     @property
     def height(self) -> int:
-        return self.size[1]
+        return int(self.size.y)
 
     def _draw_selector(self, surface: pygame.Surface):
         x = self.x - self._current_selector.image.width
-        y = self.y - self.size[1]
+        y = self.y - self.size.y
         surface.blit(self._current_selector.surface, (x, y))
 
     def set_active(self, is_active: bool):

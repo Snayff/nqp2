@@ -32,17 +32,17 @@ class UIButton:
         if self.push_timer:
             offset[1] += 1
         if type(self.content) != str:
-            surf.blit(self.content, (self.pos[0] + offset[0], self.pos[1] + offset[1]))
+            surf.blit(self.content, (self.pos.x + offset[0], self.pos.y + offset[1]))
         else:
-            r = pygame.Rect(self.pos[0] + offset[0], self.pos[1] + offset[1], *self.size)
+            r = pygame.Rect(self.pos.x + offset[0], self.pos.y + offset[1], *self.size)
             pygame.draw.rect(surf, self.colour, r, width=1)
             self._game.visual._fonts["default"].draw(
                 self.content,
                 surf,
                 (
-                    self.pos[0]
+                    self.pos.x
                     + offset[0]
-                    + (self.size[0] - self._game.visual._fonts["default"].width(self.content)) // 2,
-                    self.pos[1] + offset[1] + (self.size[1] - self._game.visual._fonts["default"].line_height) // 2,
+                    + (self.size.x - self._game.visual._fonts["default"].width(self.content)) // 2,
+                    self.pos.y + offset[1] + (self.size.y - self._game.visual._fonts["default"].line_height) // 2,
                 ),
             )

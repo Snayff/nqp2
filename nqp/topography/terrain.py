@@ -61,8 +61,8 @@ class Terrain:
         self._game = game
         self._biome = biome
         self.tiles: Dict[pygame.Vector2, List[Tile]] = {}
-        self.size = (20, 20)
-        self.pixel_size = (self.size[0] * TILE_SIZE, self.size[1] * TILE_SIZE)
+        self.size: pygame.Vector2 = pygame.Vector2(20, 20)
+        self.pixel_size = (self.size.x * TILE_SIZE, self.size.y * TILE_SIZE)
         self.tile_boundaries = [[], []]
         self.pathfinding_array = list()
         self.boundaries = pygame.Rect(0, 0, 2, 2)

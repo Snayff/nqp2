@@ -43,8 +43,8 @@ class Projectile:
             dis = min(remaining_dis, 4)
             remaining_dis -= dis
 
-            self.pos = ((self.pos[0] + math.cos(self.angle)) * dis, (self.pos[1] + math.sin(self.angle)) * dis)
-            r = pygame.Rect(self.pos[0] - 4, self.pos[1] - 4, 8, 8)  # TODO - what are these magic numbers?
+            self.pos = ((self.pos.x + math.cos(self.angle)) * dis, (self.pos.y + math.sin(self.angle)) * dis)
+            r = pygame.Rect(self.pos.x - 4, self.pos.y - 4, 8, 8)  # TODO - what are these magic numbers?
 
             # check out of bounds
             if not self._game.world.model.terrain.check_tile_hoverable(self.pos):
@@ -66,7 +66,7 @@ class Projectile:
         surf.blit(
             rotated_img,
             (
-                self.pos[0] - rotated_img.get_width() // 2 + offset[0],
-                self.pos[1] - rotated_img.get_height() // 2 + offset[1],
+                self.pos.x - rotated_img.get_width() // 2 + offset[0],
+                self.pos.y - rotated_img.get_height() // 2 + offset[1],
             ),
         )
