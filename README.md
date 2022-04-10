@@ -15,8 +15,8 @@ Details:
 
 Quality of last commit:
 
-[![Check JSON and GH Actions](https://github.com/Snayff/nqp2/actions/workflows/check_json_gh_actions.yml/badge.svg)](https://github.com/Snayff/nqp2/actions/workflows/check_json_gh_actions.yml)
-[![Lint Python](https://github.com/Snayff/nqp2/actions/workflows/lint_and_fix_py.yml/badge.svg)](https://github.com/Snayff/nqp2/actions/workflows/lint_and_fix_py.yml)
+[![Check Codebase](https://github.com/Snayff/nqp2/actions/workflows/check_codebase.yml/badge.svg)](https://github.com/Snayff/nqp2/actions/workflows/check_codebase.yml)
+[![Build Docs](https://github.com/Snayff/nqp2/actions/workflows/build_docs.yml/badge.svg)](https://github.com/Snayff/nqp2/actions/workflows/build_docs.yml)
 
 Progress:
 
@@ -31,7 +31,7 @@ Design and writing by [PuddingChef].
 
 Additional code by [DaFluffyPotato], [douglascdev] and [bitcraft].
 
-Art by [Aleksander Makarov].
+(Most) Art by [Aleksander Makarov].
 
 ## What is it?
 A world exploring, army recruiting, auto-battling adventure to take over the kingdom. 
