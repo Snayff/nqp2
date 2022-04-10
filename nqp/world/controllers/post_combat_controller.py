@@ -4,10 +4,10 @@ import logging
 from typing import Any, Optional, TYPE_CHECKING
 
 from nqp.base_classes.controller import Controller
-from nqp.core.constants import PostCombatState, RewardType
-from nqp.core.debug import Timer
 from nqp.command.troupe import Troupe
 from nqp.command.unit import Unit
+from nqp.core.constants import PostCombatState, RewardType
+from nqp.core.debug import Timer
 
 if TYPE_CHECKING:
     from nqp.core.game import Game

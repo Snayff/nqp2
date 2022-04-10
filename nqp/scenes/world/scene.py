@@ -20,7 +20,6 @@ if TYPE_CHECKING:
 __all__ = ["WorldScene"]
 
 
-
 class WorldScene(Scene):
     """
     The WorldScene works differently to other Scenes and is composed of a Model, UI and Controller. There are several
