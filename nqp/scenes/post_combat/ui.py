@@ -21,6 +21,7 @@ __all__ = ["PostCombatUI"]
 ################ TO DO LIST ##################
 
 
+# noinspection PyTypeChecker
 class PostCombatUI(UI):
     """
     Represent the UI of the RewardScene.

@@ -60,7 +60,7 @@ class Terrain:
     def __init__(self, game: Game, biome: str):
         self._game = game
         self._biome = biome
-        self.tiles: Dict[pygame.Vector2, List[Tile]] = {}
+        self.tiles: Dict[Tuple[int, int], List[Tile]] = {}
         self.size: pygame.Vector2 = pygame.Vector2(20, 20)
         self.pixel_size = (self.size.x * TILE_SIZE, self.size.y * TILE_SIZE)
         self.tile_boundaries = [[], []]
@@ -125,8 +125,11 @@ class Terrain:
             loc[1] - self.tile_boundaries[1][0],
         )
 
-    def px_to_loc(self, pos: pygame.Vector2) -> pygame.Vector2:
-        loc = pygame.Vector2(int(pos.x // TILE_SIZE), int(pos.y // TILE_SIZE))
+    def px_to_loc(self, pos: pygame.Vector2) -> Tuple[int, int]:
+        """
+        Returns tuple location as then used for hashing.
+        """
+        loc = (int(pos.x // TILE_SIZE), int(pos.y // TILE_SIZE))
         return loc
 
     def check_tile_solid(self, pos: pygame.Vector2) -> bool:
@@ -250,9 +253,9 @@ def gen_blob(
         while not placed:
             base = random.choice(blob_points)
             direction = random.choice(directions)
-            new_pos = (base[0] + direction[0], base[1] + direction[1])
-            if new_pos not in blob_points:
-                blob_points.append(new_pos)
+            new_loc = (base[0] + direction[0], base[1] + direction[1])
+            if new_loc not in blob_points:
+                blob_points.append(new_loc)
                 placed = True
 
     for point in blob_points:

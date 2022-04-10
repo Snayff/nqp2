@@ -81,7 +81,8 @@ class UIWindow(UIPanel):
         Build the 9 slice into a single surface
         """
         images = self._images
-        window_width, window_height = self.size.x, self.size.y
+        window_width = self.size.x
+        window_height = self.size.y
 
         # create blank surface
         surface = pygame.Surface(self.size)

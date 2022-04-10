@@ -48,7 +48,7 @@ class UIInputBox:
         self.font = font
 
         # assign font pos
-        self.font.pos = (self.pos.x + self.padding, self.pos.y + (self.size.y - self.font.line_height) // 2)
+        self.font.pos = pygame.Vector2(self.pos.x + self.padding, self.pos.y + (self.size.y - self.font.line_height) // 2)
 
     @property
     def value(self):
@@ -63,7 +63,7 @@ class UIInputBox:
     def should_focus(self, offset=(0, 0)):
         if not self.focused:
             r = pygame.Rect(self.pos.x - offset[0], self.pos.y - offset[1], self.size.x, self.size.y)
-            if r.collidepoint(self._game.input.mouse_pos):
+            if r.collidepoint((self._game.input.mouse_pos.x, self._game.input.mouse_pos.y)):
                 if self._game.input.mouse_state["left"]:
                     return True
 
@@ -71,7 +71,7 @@ class UIInputBox:
 
         else:
             r = pygame.Rect(self.pos.x - offset[0], self.pos.y - offset[1], self.size.x, self.size.y)
-            if not r.collidepoint(self._game.input.mouse_pos):
+            if not r.collidepoint((self._game.input.mouse_pos.x, self._game.input.mouse_pos.y)):
                 if self._game.input.mouse_state["left"]:
                     return False
 

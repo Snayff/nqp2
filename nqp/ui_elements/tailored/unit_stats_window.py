@@ -25,7 +25,7 @@ class UnitStatsWindow(UIWindow):
     """
 
     def __init__(self, game: Game, pos: pygame.Vector2, unit: Unit, is_active: bool = False):
-        size = (100, 200)
+        size = pygame.Vector2(100, 200)
         super().__init__(game, WindowType.BASIC, pos, size, [], is_active)
 
         self._unit: Unit = unit

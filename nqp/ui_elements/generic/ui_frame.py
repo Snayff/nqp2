@@ -159,7 +159,7 @@ class UIFrame(UIElement):
 
         # update font pos (remember, this is relative to the frame)
         y = font.line_height // 2
-        font.pos = (x, y)
+        font.pos = pygame.Vector2(x, y)
 
         # update font size
         if self._max_width is not None:

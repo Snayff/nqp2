@@ -472,7 +472,7 @@ class WorldUI(UI):
                 gold_icon = self._game.visual.get_image("gold", icon_size)
                 frame = UIFrame(
                     self._game,
-                    (current_x + 100, current_y),
+                    pygame.Vector2(current_x + 100, current_y),
                     new_image=gold_icon,
                     font=create_font(gold_font_type, str(upgrade_cost)),
                     is_selectable=False,
@@ -672,7 +672,7 @@ class WorldUI(UI):
 
             # update unit pos
             unit = controller.units_available[i]
-            unit.set_position([current_x, current_y])
+            unit.set_position(pygame.Vector2(current_x, current_y))
 
         panel = UIPanel(self._game, panel_list, True)
         self.add_container(panel, "units")
@@ -782,7 +782,12 @@ class WorldUI(UI):
 
             # create container
             window = UIWindow(
-                self._game, WindowType.BASIC, (start_x, start_y), (ui_window_width, ui_window_height), panel_list, True
+                self._game,
+                WindowType.BASIC,
+                pygame.Vector2(start_x, start_y),
+                pygame.Vector2(ui_window_width, ui_window_height),
+                panel_list,
+                True
             )
             self.add_container(window, "event_window")
 
@@ -861,7 +866,12 @@ class WorldUI(UI):
 
             # create container
             window = UIWindow(
-                self._game, WindowType.BASIC, (start_x, start_y), (ui_window_width, ui_window_height), panel_list, True
+                self._game,
+                WindowType.BASIC,
+                pygame.Vector2(start_x, start_y),
+                pygame.Vector2(ui_window_width, ui_window_height),
+                panel_list,
+                True
             )
             window.set_selectable(False)
             self.add_container(window, "event_window")

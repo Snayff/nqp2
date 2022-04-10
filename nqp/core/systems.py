@@ -57,7 +57,7 @@ def apply_damage():
     Consume damage components and apply their value to the Entity.
     """
     for entity, (damage, resources) in queries.damage_resources:
-        resources.health.value -= damage
+        resources.health.value -= damage.amount
 
         # remove damage
         snecs.remove_component(entity, DamageReceived)
@@ -142,7 +142,7 @@ def _move(movement: pygame.Vector2, position: Position, game: Game) -> List[pyga
     """
     move_count = int(abs(movement[0]) // TILE_SIZE + 1)
     move_count = max(int(abs(movement[1]) // TILE_SIZE + 1), move_count)
-    move_amount = [movement[0] / move_count, movement[1] / move_count]
+    move_amount = pygame.Vector2(movement[0] / move_count, movement[1] / move_count)
     start_pos = position.pos
     new_pos = start_pos
     for i in range(move_count):

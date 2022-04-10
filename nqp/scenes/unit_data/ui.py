@@ -21,6 +21,7 @@ if TYPE_CHECKING:
 __all__ = ["UnitDataUI"]
 
 
+# noinspection PyTypeChecker
 class UnitDataUI(UI):
     """
     Represent the UI of the UnitDataScene.
@@ -128,13 +129,13 @@ class UnitDataUI(UI):
 
         # draw fields and their titles
         font = create_font(FontType.DEFAULT, str(self.current_unit))
-        font.pos = (76 - font.width // 2, 15)
+        font.pos = pygame.Vector2(76 - font.width // 2, 15)
         font.draw(surface)
         for field in self.current_unit_data:
             font = create_font(
                 FontType.DEFAULT,
                 str(self.current_unit),
-                (self.fields[field].pos[0] - 90, self.fields[field].pos[1] + 3),
+                pygame.Vector2(self.fields[field].pos[0] - 90, self.fields[field].pos[1] + 3),
             )
             font.draw(surface)
             self.fields[field].draw(surface)
@@ -164,7 +165,7 @@ class UnitDataUI(UI):
         if self.show_confirmation:
             msg = "Save successful."
             font = create_font(FontType.POSITIVE, msg)
-            font.pos = (window_width - font.width - 35, window_height - font.height)
+            font.pos = pygame.Vector2(window_width - font.width - 35, window_height - font.height)
             # N.B. 32 = button width + 3
             font.draw(surface)
 

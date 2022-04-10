@@ -34,7 +34,8 @@ class Projectile:
         position = snecs.entity_component(self.owner, Position)
         target_pos = snecs.entity_component(target, Position)
         self.angle: float = angle_to(position.pos, target_pos.pos)
-        self.pos: pygame.Vector2 = (position.x, position.y - 5)  # move base firing position towards center of entity
+        # move base firing position towards center of entity
+        self.pos: pygame.Vector2 = pygame.Vector2(position.x, position.y - 5)
         self.is_active: bool = True
 
     def update(self, delta_time: float):
@@ -43,7 +44,7 @@ class Projectile:
             dis = min(remaining_dis, 4)
             remaining_dis -= dis
 
-            self.pos = ((self.pos.x + math.cos(self.angle)) * dis, (self.pos.y + math.sin(self.angle)) * dis)
+            self.pos = pygame.Vector2((self.pos.x + math.cos(self.angle)) * dis, (self.pos.y + math.sin(self.angle)) * dis)
             r = pygame.Rect(self.pos.x - 4, self.pos.y - 4, 8, 8)  # TODO - what are these magic numbers?
 
             # check out of bounds
@@ -56,7 +57,7 @@ class Projectile:
                 other_team = snecs.entity_component(entity, Allegiance).team
                 if team != other_team:
                     other_pos = snecs.entity_component(entity, Position)
-                    if r.collidepoint(other_pos.pos):
+                    if r.collidepoint((other_pos.pos.x, other_pos.pos.y)):
                         snecs.add_component(entity, DamageReceived(self.damage))
                         self.is_active = False
                         return

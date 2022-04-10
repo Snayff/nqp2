@@ -8,11 +8,11 @@ from nqp.core.constants import DEFAULT_IMAGE_SIZE, FontType, GAP_SIZE
 from nqp.ui_elements.generic.ui_frame import UIFrame
 from nqp.ui_elements.generic.ui_panel import UIPanel
 from nqp.ui_elements.generic.ui_window import UIWindow
+import pygame
 
 if TYPE_CHECKING:
     from typing import Dict, Optional, Union
 
-    import pygame
 
     from nqp.core.game import Game
 
@@ -158,7 +158,7 @@ class UI(ABC):
 
         x = self._game.window.width - font.width - 2
         y = 2
-        font.pos = (x, y)
+        font.pos = pygame.Vector2(x, y)
         font.draw(surface)
 
     def _draw_elements(self, surface: pygame.Surface):

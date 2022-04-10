@@ -48,8 +48,6 @@ class Position(RegisteredComponent):
 
     @property
     def x(self) -> int:
-        if isinstance(self.pos, Tuple):
-            breakpoint()
         return int(self.pos.x)
 
     @x.setter

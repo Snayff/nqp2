@@ -114,6 +114,8 @@ class FancyFont:
             self._end_char_index = self.length
 
     def draw(self, surface: pygame.Surface):
+        if isinstance(self.pos, tuple):
+            breakpoint()
 
         start_x = self.pos.x
         start_y = self.pos.y

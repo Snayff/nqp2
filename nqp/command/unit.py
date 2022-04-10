@@ -40,9 +40,7 @@ class Unit:
         self._banner_image = self._game.visual.get_image("banner")
         self.is_ranged: bool = True if unit_data["ammo"] > 0 else False
         self.default_behaviour: str = unit_data["default_behaviour"]  # load after other unit attrs
-        # self.behaviour = self._game.data.behaviours.unit_behaviours[self.default_behaviour](self)
         from nqp.command.unit_behaviour import UnitBehaviour  # prevent circular import
-
         self.behaviour: UnitBehaviour = UnitBehaviour(self._game, self)
 
         self.injuries: int = 0
@@ -50,7 +48,7 @@ class Unit:
         # border
         self.border_surface_timer: float = 0
         self.border_surface: Optional[pygame.surface] = None
-        self.border_surface_offset: pygame.Vector2 = (0, 0)
+        self.border_surface_offset: pygame.Vector2 = pygame.Vector2(0, 0)
         self.border_surface_outline: Optional[pygame.surface] = None
         self.border_surface_outline_black: Optional[pygame.surface] = None
 
@@ -153,7 +151,7 @@ class Unit:
         for _ in range(self.count):
             # universal components
             components = [
-                Position(self.pos),  # TODO - fix being passed tuple
+                Position(self.pos),
                 Aesthetic(self._game.visual.create_animation(self.type, "idle")),
                 Resources(self.health),
                 Stats(self),
@@ -227,12 +225,12 @@ class Unit:
 
         num_entities = len(self.entities)
         if num_entities > 0:
-            unit_pos = [0, 0]
+            unit_pos = pygame.Vector2(0, 0)
             for entity in self.entities:
                 entity_position = snecs.entity_component(entity, Position)
-                unit_pos[0] += entity_position.x
-                unit_pos[1] += entity_position.y
-            self.pos = (unit_pos[0] / num_entities, unit_pos[1] / num_entities)
+                unit_pos.x += entity_position.x
+                unit_pos.y += entity_position.y
+            self.pos = pygame.Vector2(unit_pos.x / num_entities, unit_pos.y / num_entities)
 
     def set_position(self, pos: pygame.Vector2):
         """
@@ -254,7 +252,7 @@ class Unit:
             scatter_y = random.randint(-max_spread, max_spread)
 
             position = snecs.entity_component(entity, Position)
-            position.pos = (unit_x + scatter_x, unit_y + scatter_y)
+            position.pos = pygame.Vector2(unit_x + scatter_x, unit_y + scatter_y)
 
     def generate_border_surface(self):
         """
