@@ -7,5 +7,3 @@ from pygame import Vector2
 
 if TYPE_CHECKING:
     from typing import Dict, List, Optional, Tuple, Union
-
-

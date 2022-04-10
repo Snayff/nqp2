@@ -15,14 +15,14 @@ if TYPE_CHECKING:
 
 class UIInputBox:
     def __init__(
-            self, 
-            game,
-            size: pygame.Vector2,
-            pos: pygame.Vector2 = pygame.Vector2(0, 0),
-            colour=(255, 255, 255),
-            input_type="all",
-            text="",
-            font=None
+        self,
+        game,
+        size: pygame.Vector2,
+        pos: pygame.Vector2 = pygame.Vector2(0, 0),
+        colour=(255, 255, 255),
+        input_type="all",
+        text="",
+        font=None,
     ):
         self._game: Game = game
         self.size: pygame.Vector2 = size
@@ -48,7 +48,9 @@ class UIInputBox:
         self.font = font
 
         # assign font pos
-        self.font.pos = pygame.Vector2(self.pos.x + self.padding, self.pos.y + (self.size.y - self.font.line_height) // 2)
+        self.font.pos = pygame.Vector2(
+            self.pos.x + self.padding, self.pos.y + (self.size.y - self.font.line_height) // 2
+        )
 
     @property
     def value(self):

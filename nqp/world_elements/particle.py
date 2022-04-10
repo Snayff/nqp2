@@ -25,5 +25,5 @@ class Particle:
             return False
         return True
 
-    def draw(self, surf: pygame.Surface , offset: pygame.Vector2 = pygame.Vector2(0, 0)):
-        surf.set_at((int(self.loc.x + offset.x), int(self.loc.y+ offset.y)), self.colour)
+    def draw(self, surf: pygame.Surface, offset: pygame.Vector2 = pygame.Vector2(0, 0)):
+        surf.set_at((int(self.loc.x + offset.x), int(self.loc.y + offset.y)), self.colour)

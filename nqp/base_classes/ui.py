@@ -4,15 +4,15 @@ import logging
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 
+import pygame
+
 from nqp.core.constants import DEFAULT_IMAGE_SIZE, FontType, GAP_SIZE
 from nqp.ui_elements.generic.ui_frame import UIFrame
 from nqp.ui_elements.generic.ui_panel import UIPanel
 from nqp.ui_elements.generic.ui_window import UIWindow
-import pygame
 
 if TYPE_CHECKING:
     from typing import Dict, Optional, Union
-
 
     from nqp.core.game import Game
 

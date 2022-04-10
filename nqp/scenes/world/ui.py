@@ -787,7 +787,7 @@ class WorldUI(UI):
                 pygame.Vector2(start_x, start_y),
                 pygame.Vector2(ui_window_width, ui_window_height),
                 panel_list,
-                True
+                True,
             )
             self.add_container(window, "event_window")
 
@@ -871,7 +871,7 @@ class WorldUI(UI):
                 pygame.Vector2(start_x, start_y),
                 pygame.Vector2(ui_window_width, ui_window_height),
                 panel_list,
-                True
+                True,
             )
             window.set_selectable(False)
             self.add_container(window, "event_window")

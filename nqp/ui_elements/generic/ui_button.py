@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
+
 import pygame
 
 if TYPE_CHECKING:
@@ -9,13 +10,13 @@ if TYPE_CHECKING:
 
 class UIButton:
     def __init__(
-            self,
-            game: Game,
-            content,
-            pos: pygame.Vector2,
-            push_down: bool = True,
-            size: pygame.Vector2 = pygame.Vector2(10, 10),
-            colour=(255, 255, 255)
+        self,
+        game: Game,
+        content,
+        pos: pygame.Vector2,
+        push_down: bool = True,
+        size: pygame.Vector2 = pygame.Vector2(10, 10),
+        colour=(255, 255, 255),
     ):
         self._game = game
         self.pos: pygame.Vector2 = pos

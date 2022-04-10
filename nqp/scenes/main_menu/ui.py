@@ -80,7 +80,10 @@ class MainMenuUI(UI):
 
         # new game
         frame = UIFrame(
-            self._game, pygame.Vector2(current_x, current_y), font=create_font(FontType.DEFAULT, "New Game"), is_selectable=True
+            self._game,
+            pygame.Vector2(current_x, current_y),
+            font=create_font(FontType.DEFAULT, "New Game"),
+            is_selectable=True,
         )
         self._elements["new_game"] = frame
         panel_elements.append(frame)
@@ -88,7 +91,10 @@ class MainMenuUI(UI):
         # load
         current_y += frame.height + GAP_SIZE
         frame = UIFrame(
-            self._game, pygame.Vector2(current_x, current_y), font=create_font(FontType.DEFAULT, "Load Game"), is_selectable=False
+            self._game,
+            pygame.Vector2(current_x, current_y),
+            font=create_font(FontType.DEFAULT, "Load Game"),
+            is_selectable=False,
         )
         self._elements["load_game"] = frame
         panel_elements.append(frame)
@@ -96,7 +102,10 @@ class MainMenuUI(UI):
         # options
         current_y += frame.height + GAP_SIZE
         frame = UIFrame(
-            self._game, pygame.Vector2(current_x, current_y), font=create_font(FontType.DEFAULT, "Settings"), is_selectable=False
+            self._game,
+            pygame.Vector2(current_x, current_y),
+            font=create_font(FontType.DEFAULT, "Settings"),
+            is_selectable=False,
         )
         self._elements["settings"] = frame
         panel_elements.append(frame)
@@ -104,7 +113,10 @@ class MainMenuUI(UI):
         # exit
         current_y += frame.height + GAP_SIZE
         frame = UIFrame(
-            self._game, pygame.Vector2(current_x, current_y), font=create_font(FontType.DEFAULT, "Exit"), is_selectable=True
+            self._game,
+            pygame.Vector2(current_x, current_y),
+            font=create_font(FontType.DEFAULT, "Exit"),
+            is_selectable=True,
         )
         self._elements["exit"] = frame
         panel_elements.append(frame)

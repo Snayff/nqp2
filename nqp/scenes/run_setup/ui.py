@@ -109,12 +109,18 @@ class RunSetupUI(UI):
 
         # name
         frame = UIFrame(
-            self._game, pygame.Vector2(header_x, current_y), font=create_font(FontType.DISABLED, "Name"), is_selectable=False
+            self._game,
+            pygame.Vector2(header_x, current_y),
+            font=create_font(FontType.DISABLED, "Name"),
+            is_selectable=False,
         )
         self._elements["name_header"] = frame
 
         frame = UIFrame(
-            self._game, pygame.Vector2(info_x, current_y), font=create_font(FontType.DEFAULT, commander["name"]), is_selectable=False
+            self._game,
+            pygame.Vector2(info_x, current_y),
+            font=create_font(FontType.DEFAULT, commander["name"]),
+            is_selectable=False,
         )
         self._elements["name"] = frame
 
@@ -137,7 +143,10 @@ class RunSetupUI(UI):
 
         # resources
         frame = UIFrame(
-            self._game, pygame.Vector2(header_x, current_y), font=create_font(FontType.DISABLED, "Charisma"), is_selectable=False
+            self._game,
+            pygame.Vector2(header_x, current_y),
+            font=create_font(FontType.DISABLED, "Charisma"),
+            is_selectable=False,
         )
         self._elements["charisma_header"] = frame
 
@@ -152,7 +161,10 @@ class RunSetupUI(UI):
         current_y += frame.height + GAP_SIZE
 
         frame = UIFrame(
-            self._game, pygame.Vector2(header_x, current_y), font=create_font(FontType.DISABLED, "Leadership"), is_selectable=False
+            self._game,
+            pygame.Vector2(header_x, current_y),
+            font=create_font(FontType.DISABLED, "Leadership"),
+            is_selectable=False,
         )
         self._elements["leadership_header"] = frame
 
@@ -168,12 +180,18 @@ class RunSetupUI(UI):
 
         # gold
         frame = UIFrame(
-            self._game, pygame.Vector2(header_x, current_y), font=create_font(FontType.DISABLED, "Gold"), is_selectable=False
+            self._game,
+            pygame.Vector2(header_x, current_y),
+            font=create_font(FontType.DISABLED, "Gold"),
+            is_selectable=False,
         )
         self._elements["gold_header"] = frame
 
         frame = UIFrame(
-            self._game, pygame.Vector2(info_x, current_y), font=create_font(FontType.DEFAULT, commander["gold"]), is_selectable=False
+            self._game,
+            pygame.Vector2(info_x, current_y),
+            font=create_font(FontType.DEFAULT, commander["gold"]),
+            is_selectable=False,
         )
         self._elements["gold"] = frame
 
@@ -181,7 +199,10 @@ class RunSetupUI(UI):
 
         # allies
         frame = UIFrame(
-            self._game, pygame.Vector2(header_x, current_y), font=create_font(FontType.DISABLED, "Allies"), is_selectable=False
+            self._game,
+            pygame.Vector2(header_x, current_y),
+            font=create_font(FontType.DISABLED, "Allies"),
+            is_selectable=False,
         )
         self._elements["allies_header"] = frame
 

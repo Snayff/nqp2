@@ -41,6 +41,7 @@ class Unit:
         self.is_ranged: bool = True if unit_data["ammo"] > 0 else False
         self.default_behaviour: str = unit_data["default_behaviour"]  # load after other unit attrs
         from nqp.command.unit_behaviour import UnitBehaviour  # prevent circular import
+
         self.behaviour: UnitBehaviour = UnitBehaviour(self._game, self)
 
         self.injuries: int = 0

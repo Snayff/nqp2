@@ -286,11 +286,7 @@ class Visual:
         return final_image
 
     def create_font(
-            self,
-            font_type: FontType,
-            text: str,
-            pos: pygame.Vector2 = pygame.Vector2(0, 0),
-            line_width: int = 0
+        self, font_type: FontType, text: str, pos: pygame.Vector2 = pygame.Vector2(0, 0), line_width: int = 0
     ) -> Font:
         """
         Create a font instance.

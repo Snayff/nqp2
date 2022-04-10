@@ -44,7 +44,9 @@ class Projectile:
             dis = min(remaining_dis, 4)
             remaining_dis -= dis
 
-            self.pos = pygame.Vector2((self.pos.x + math.cos(self.angle)) * dis, (self.pos.y + math.sin(self.angle)) * dis)
+            self.pos = pygame.Vector2(
+                (self.pos.x + math.cos(self.angle)) * dis, (self.pos.y + math.sin(self.angle)) * dis
+            )
             r = pygame.Rect(self.pos.x - 4, self.pos.y - 4, 8, 8)  # TODO - what are these magic numbers?
 
             # check out of bounds
