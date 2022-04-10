@@ -23,7 +23,7 @@ jobs:
         virtualenvs-create: true
         virtualenvs-in-project: true
         installer-parallel: true
-        version: 1.0
+        version: 1.0.0
 
     #----------------------------------------------
     #       load cached venv if cache exists
@@ -40,12 +40,14 @@ jobs:
     #----------------------------------------------
     - name: Install dependencies
       if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-      run: poetry install --no-interaction --no-root
+      run: |
+        poetry install --no-interaction --no-root
     #----------------------------------------------
     # install your root project, if required
     #----------------------------------------------
     - name: Install library
-      run: poetry install --no-interaction
+      run: |
+        poetry install --no-interaction
 
   test:
     needs: build
