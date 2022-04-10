@@ -25,9 +25,6 @@ jobs:
         installer-parallel: true
         version: 1.0.0
 
-    #----------------------------------------------
-    #       load cached venv if cache exists
-    #----------------------------------------------
     - name: Load cached venv
       id: cached-poetry-dependencies
       uses: actions/cache@v2
@@ -35,16 +32,11 @@ jobs:
         path: .venv
         key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
 
-    #----------------------------------------------
-    # install dependencies if cache does not exist
-    #----------------------------------------------
     - name: Install dependencies
       if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
       run: |
         poetry install --no-interaction --no-root
-    #----------------------------------------------
-    # install your root project, if required
-    #----------------------------------------------
+
     - name: Install library
       run: |
         poetry install --no-interaction
@@ -53,10 +45,18 @@ jobs:
       run: |
         source .venv/bin/activate 
 
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
     - name: Run test suite
       run: |
         pytest tests/
 
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
     - name: Lint Code Base
       uses: github/super-linter@v4
       env:
@@ -74,6 +74,10 @@ jobs:
         DEFAULT_BRANCH: develop
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+  format:
+    runs-on: ubuntu-latest
+
+    steps:
     - name: Test if black and isort should reformat the scripts
       id: black_isort_status
       run: |
