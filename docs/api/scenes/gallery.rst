@@ -1,8 +1,8 @@
 Gallery
 ============================================
 
-.. automodule:: scripts.scenes.gallery.scene
+.. automodule:: nqp.scenes.gallery.scene
 
 
-.. automodule:: scripts.scenes.gallery.ui
+.. automodule:: nqp.scenes.gallery.ui
 

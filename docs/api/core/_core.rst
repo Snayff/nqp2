@@ -4,16 +4,21 @@ Core
 ..  toctree::
     :maxdepth: 1
 
-    base_classes/_base_classes
+    audio
+    components
     constants
     data
     debug
+    definitions
+    effect
     game
     input
     memory
+    queries
     rng
-    sounds
+    scheduler
+    systems
     utility
-    visuals
+    visual
     window
 

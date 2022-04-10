@@ -1,0 +1,15 @@
+ammo: 0
+attack: 8
+attack_speed: 0.5
+count: 3
+default_behaviour: light
+defence: 5
+faction: aberrations_of_nature
+gold_cost: 0
+health: 25
+move_speed: 15
+range: 0
+size: 7
+tier: 1
+type: earth_elemental
+weight: 2

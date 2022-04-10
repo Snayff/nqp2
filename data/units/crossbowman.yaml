@@ -1,0 +1,15 @@
+ammo: 10
+attack: 5
+attack_speed: 0.5
+count: 5
+default_behaviour: light
+defence: 1
+faction: members_of_the_court
+gold_cost: 40
+health: 1
+move_speed: 10
+range: 200
+size: 7
+tier: 1
+type: crossbowman
+weight: 4

@@ -1,0 +1,22 @@
+allies:
+- members_of_the_court
+backstory: The Inspiring Leader. Lurent is compassionate, respected, and often refers
+  to herself as an 'influencer' which is met with frequent eye rolling amongst her
+  fellow commanders. Her soldiers are loyal followers and proud to dub themselves
+  'Lurentites', ready and willing to fight for her honour, even to their very last
+  breath if necessary. (Trait) Her inspiring presence grants more morale, and all
+  units have increased health.
+charisma: 10
+gold: 250
+items:
+- lurents_item
+leadership: 12
+morale: 1
+name: Lurent
+rations: 1
+starting_units:
+- peasant_spearman
+- peasant_spearman
+- peasant_spearman
+- conscript_bowman
+type: lurent

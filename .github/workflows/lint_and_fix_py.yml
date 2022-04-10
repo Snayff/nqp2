@@ -14,7 +14,7 @@ jobs:
       - name: Test if black and isort should reformat the scripts
         id: black_isort_status
         run: |
-          if black --check scripts/ && isort --check-only scripts/; then
+          if black --check nqp/ && isort --check-only nqp/; then
             echo "::set-output name=result::false"
           else
             echo "::set-output name=result::true"
@@ -22,8 +22,8 @@ jobs:
       - name: If needed, commit black/isort changes to the pull request
         if: steps.black_isort_status.outputs.result == 'true'
         run: |
-          black "scripts/"
-          isort "scripts/"
+          black "nqp/"
+          isort "nqp/"
           git config --global user.name "Snayff"
           git config --global user.email "Snayff@users.noreply.github.com"
           git remote set-url origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY"

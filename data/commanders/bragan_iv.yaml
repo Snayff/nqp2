@@ -1,0 +1,21 @@
+allies:
+- imperial_forces
+backstory: The Noble's Son. Bragan IV is bratty and incompetent, but money talks so
+  he doesn't have to. With no discernible skills or talents, he'll spend as much of
+  daddy's money as needed to claim a land of his own. Maybe then daddy will love him!
+  (Trait) He has no idea how to train an army. All training is less effective, but
+  a weekly gold allowance should make up for that. Why train them, when you can replace
+  them?
+charisma: 4
+gold: 1000
+items:
+- bragans_item
+leadership: 6
+morale: 1
+name: Bragan IV
+rations: 1
+starting_units:
+- skirmisher
+- infantryman
+- infantryman
+type: bragan_iv

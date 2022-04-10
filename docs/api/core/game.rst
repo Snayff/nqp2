@@ -1,5 +1,5 @@
 Game
 ============================================
 
-.. automodule:: scripts.core.game
+.. automodule:: nqp.core.game
 

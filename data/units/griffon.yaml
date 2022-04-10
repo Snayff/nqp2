@@ -1,0 +1,15 @@
+ammo: -1
+attack: 7
+attack_speed: 1.5
+count: 1
+default_behaviour: light
+defence: 5
+faction: imperial_forces
+gold_cost: 180
+health: 90
+move_speed: 70
+range: 1
+size: 7
+tier: 3
+type: griffon
+weight: 7

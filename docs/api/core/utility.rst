@@ -1,5 +1,5 @@
 Utility
 ============================================
 
-.. automodule:: scripts.core.utility
+.. automodule:: nqp.core.utility
 

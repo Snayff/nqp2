@@ -1,0 +1,13 @@
+biome: ilan
+category: basic
+gold_reward:
+- 50
+- 110
+level_available: 1
+tier: 2
+type: empire4
+units:
+- infantryman
+- infantryman
+- sword_of_the_empire
+- imperial_guard

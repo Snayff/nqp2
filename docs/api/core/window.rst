@@ -1,5 +1,5 @@
 Window
 ============================================
 
-.. automodule:: scripts.core.window
+.. automodule:: nqp.core.window
 
