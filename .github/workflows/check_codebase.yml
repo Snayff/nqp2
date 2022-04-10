@@ -6,7 +6,7 @@ on:
 jobs:
 
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - name: Check out repository code
@@ -24,7 +24,7 @@ jobs:
 
   test:
     needs: build
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     timeout-minutes: 10
 
     steps:
@@ -34,7 +34,7 @@ jobs:
 
   lint:
     needs: test
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - name: Lint Code Base
@@ -56,7 +56,7 @@ jobs:
 
   format:
     needs: lint
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Install black and isort
