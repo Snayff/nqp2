@@ -392,7 +392,7 @@ class WorldUI(UI):
         create_font = self._game.visual.create_font
         icon_width = DEFAULT_IMAGE_SIZE
         icon_height = DEFAULT_IMAGE_SIZE
-        icon_size = (icon_width, icon_height)
+        icon_size = pygame.Vector2(icon_width, icon_height)
         start_x = self._game.window.width - 100
         start_y = 100
         controller = self._parent_scene.choose_room
@@ -413,7 +413,7 @@ class WorldUI(UI):
                 text = room_type
             frame = UIFrame(
                 self._game,
-                (current_x, current_y),
+                pygame.Vector2(current_x, current_y),
                 new_image=icon,
                 font=create_font(FontType.DEFAULT, text),
             )
@@ -443,7 +443,7 @@ class WorldUI(UI):
         create_font = self._game.visual.create_font
         icon_width = DEFAULT_IMAGE_SIZE
         icon_height = DEFAULT_IMAGE_SIZE
-        icon_size = (icon_width, icon_height)
+        icon_size = pygame.Vector2(icon_width, icon_height)
         start_x = self._game.window.centre[0]
         start_y = 100
         controller = self._parent_scene.training
@@ -472,7 +472,7 @@ class WorldUI(UI):
                 gold_icon = self._game.visual.get_image("gold", icon_size)
                 frame = UIFrame(
                     self._game,
-                    (current_x + 100, current_y),
+                    pygame.Vector2(current_x + 100, current_y),
                     new_image=gold_icon,
                     font=create_font(gold_font_type, str(upgrade_cost)),
                     is_selectable=False,
@@ -491,7 +491,7 @@ class WorldUI(UI):
             # draw upgrade icon and details
             frame = UIFrame(
                 self._game,
-                (current_x, current_y),
+                pygame.Vector2(current_x, current_y),
                 new_image=upgrade_icon,
                 font=create_font(font_type, text),
                 is_selectable=is_selectable,
@@ -553,7 +553,7 @@ class WorldUI(UI):
         info_x = highlighted_frame.x + highlighted_frame.width + 20
         font_type = FontType.DEFAULT
 
-        frame = UIFrame(self._game, (info_x, highlighted_frame.y), font=create_font(font_type, desc))
+        frame = UIFrame(self._game, pygame.Vector2(info_x, highlighted_frame.y), font=create_font(font_type, desc))
         self._elements["info_pane"] = frame
 
     def _rebuild_combat_ui(self):
@@ -572,7 +572,7 @@ class WorldUI(UI):
         elif local_state == CombatState.VICTORY:
             frame = UIFrame(
                 self._game,
-                (current_x, current_y),
+                pygame.Vector2(current_x, current_y),
                 font=create_font(FontType.POSITIVE, "Victory"),
                 is_selectable=False,
             )
@@ -586,7 +586,7 @@ class WorldUI(UI):
 
             icon_width = DEFAULT_IMAGE_SIZE
             icon_height = DEFAULT_IMAGE_SIZE
-            icon_size = (icon_width, icon_height)
+            icon_size = pygame.Vector2(icon_width, icon_height)
 
             # draw upgrades
             current_x = start_x
@@ -594,7 +594,7 @@ class WorldUI(UI):
             defeat_icon = self._game.visual.get_image("arrow_button", icon_size)
             frame = UIFrame(
                 self._game,
-                (current_x, current_y),
+                pygame.Vector2(current_x, current_y),
                 new_image=defeat_icon,
                 font=create_font(FontType.NEGATIVE, "Defeated"),
                 is_selectable=False,
@@ -605,7 +605,7 @@ class WorldUI(UI):
 
             frame = UIFrame(
                 self._game,
-                (current_x, current_y),
+                pygame.Vector2(current_x, current_y),
                 new_image=defeat_icon,
                 font=create_font(FontType.DEFAULT, "Press Enter to return to the main menu."),
                 is_selectable=False,
@@ -620,7 +620,7 @@ class WorldUI(UI):
         create_font = self._game.visual.create_font
         icon_width = DEFAULT_IMAGE_SIZE
         icon_height = DEFAULT_IMAGE_SIZE
-        icon_size = (icon_width, icon_height)
+        icon_size = pygame.Vector2(icon_width, icon_height)
         start_x = self._game.window.centre[0]
         start_y = 100
         y_increment = 100
@@ -652,7 +652,7 @@ class WorldUI(UI):
             gold_icon = self._game.visual.get_image("gold", icon_size)
             frame = UIFrame(
                 self._game,
-                (current_x + 20, current_y),
+                pygame.Vector2(current_x + 20, current_y),
                 new_image=gold_icon,
                 font=create_font(gold_font_type, str(upgrade_cost)),
                 is_selectable=False,
@@ -663,7 +663,7 @@ class WorldUI(UI):
             banner = self._game.visual.get_image("banner", icon_size)
             frame = UIFrame(
                 self._game,
-                (current_x, current_y),
+                pygame.Vector2(current_x, current_y),
                 new_image=banner,
                 is_selectable=can_buy,
             )
@@ -672,7 +672,7 @@ class WorldUI(UI):
 
             # update unit pos
             unit = controller.units_available[i]
-            unit.set_position([current_x, current_y])
+            unit.set_position(pygame.Vector2(current_x, current_y))
 
         panel = UIPanel(self._game, panel_list, True)
         self.add_container(panel, "units")
@@ -718,10 +718,10 @@ class WorldUI(UI):
         # draw image
         current_x = start_x
         current_y = start_y + (image_height // 2)
-        image = self._game.visual.get_image(event["image"], (image_width, image_height))
+        image = self._game.visual.get_image(event["image"], pygame.Vector2(image_width, image_height))
         frame = UIFrame(
             self._game,
-            (current_x, current_y),
+            pygame.Vector2(current_x, current_y),
             new_image=image,
             is_selectable=False,
         )
@@ -739,7 +739,7 @@ class WorldUI(UI):
         desc_width = frame_line_width - image_width
         frame = UIFrame(
             self._game,
-            (current_x, current_y),
+            pygame.Vector2(current_x, current_y),
             font=fancy_font,
             max_height=max_height,
             max_width=desc_width,
@@ -755,7 +755,7 @@ class WorldUI(UI):
         line_width = window_width - (offset * 2)
         surface = pygame.Surface((line_width, 1))
         pygame.draw.line(surface, (117, 50, 168), (0, 0), (line_width, 0))
-        frame = UIFrame(self._game, (offset, current_y), surface)
+        frame = UIFrame(self._game, pygame.Vector2(offset, current_y), surface)
         panel_list.append(frame)
 
         # draw event contents; either options or results
@@ -771,7 +771,7 @@ class WorldUI(UI):
                 # build frame
                 frame = UIFrame(
                     self._game,
-                    (current_x, current_y),
+                    pygame.Vector2(current_x, current_y),
                     font=create_font(FontType.DEFAULT, option_text),
                     is_selectable=True,
                 )
@@ -782,7 +782,12 @@ class WorldUI(UI):
 
             # create container
             window = UIWindow(
-                self._game, WindowType.BASIC, (start_x, start_y), (ui_window_width, ui_window_height), panel_list, True
+                self._game,
+                WindowType.BASIC,
+                pygame.Vector2(start_x, start_y),
+                pygame.Vector2(ui_window_width, ui_window_height),
+                panel_list,
+                True,
             )
             self.add_container(window, "event_window")
 
@@ -795,7 +800,7 @@ class WorldUI(UI):
             selected_option = controller.active_event["options"][controller.current_index]["text"]
             frame = UIFrame(
                 self._game,
-                (current_x, current_y),
+                pygame.Vector2(current_x, current_y),
                 font=create_font(FontType.DEFAULT, selected_option),
                 is_selectable=True,
             )
@@ -845,7 +850,7 @@ class WorldUI(UI):
                 # create the frame
                 frame = UIFrame(
                     self._game,
-                    (current_x, current_y),
+                    pygame.Vector2(current_x, current_y),
                     new_image=result_image,
                     font=create_font(font_type, text),
                     is_selectable=False,
@@ -861,7 +866,12 @@ class WorldUI(UI):
 
             # create container
             window = UIWindow(
-                self._game, WindowType.BASIC, (start_x, start_y), (ui_window_width, ui_window_height), panel_list, True
+                self._game,
+                WindowType.BASIC,
+                pygame.Vector2(start_x, start_y),
+                pygame.Vector2(ui_window_width, ui_window_height),
+                panel_list,
+                True,
             )
             window.set_selectable(False)
             self.add_container(window, "event_window")

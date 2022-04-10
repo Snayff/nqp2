@@ -61,8 +61,8 @@ class Terrain:
         self._game = game
         self._biome = biome
         self.tiles: Dict[Tuple[int, int], List[Tile]] = {}
-        self.size = (20, 20)
-        self.pixel_size = (self.size[0] * TILE_SIZE, self.size[1] * TILE_SIZE)
+        self.size: pygame.Vector2 = pygame.Vector2(20, 20)
+        self.pixel_size = (self.size.x * TILE_SIZE, self.size.y * TILE_SIZE)
         self.tile_boundaries = [[], []]
         self.pathfinding_array = list()
         self.boundaries = pygame.Rect(0, 0, 2, 2)
@@ -105,7 +105,7 @@ class Terrain:
 
         self.pathfinder.set_map(self.pathfinding_array)
 
-    def sight_line(self, start, end):
+    def sight_line(self, start: pygame.Vector2, end: pygame.Vector2) -> bool:
         start_loc = self.px_to_loc(start)
         end_loc = self.px_to_loc(end)
         points = grid_walk(start_loc, end_loc)
@@ -125,11 +125,14 @@ class Terrain:
             loc[1] - self.tile_boundaries[1][0],
         )
 
-    def px_to_loc(self, pos) -> Tuple[int, int]:
-        loc = (int(pos[0] // TILE_SIZE), int(pos[1] // TILE_SIZE))
+    def px_to_loc(self, pos: pygame.Vector2) -> Tuple[int, int]:
+        """
+        Returns tuple location as then used for hashing.
+        """
+        loc = (int(pos.x // TILE_SIZE), int(pos.y // TILE_SIZE))
         return loc
 
-    def check_tile_solid(self, pos):
+    def check_tile_solid(self, pos: pygame.Vector2) -> bool:
         loc = self.px_to_loc(pos)
 
         try:
@@ -143,7 +146,7 @@ class Terrain:
 
         return self.ignore_boundaries
 
-    def check_tile_hoverable(self, pos):
+    def check_tile_hoverable(self, pos: pygame.Vector2) -> bool:
         loc = self.px_to_loc(pos)
         if loc in self.tiles:
             for tile in self.tiles[loc]:
@@ -154,10 +157,10 @@ class Terrain:
 
         return True
 
-    def tile_rect(self, loc):
+    def tile_rect(self, loc) -> pygame.Rect:
         return pygame.Rect(loc[0] * TILE_SIZE, loc[1] * TILE_SIZE, TILE_SIZE, TILE_SIZE)
 
-    def tile_rect_px(self, pos):
+    def tile_rect_px(self, pos: pygame.Vector2) -> pygame.Rect:
         loc = self.px_to_loc(pos)
         return self.tile_rect(loc)
 
@@ -165,7 +168,7 @@ class Terrain:
         generate(self._game, self, self._biome)
         self.gen_pathfinding_map()
 
-    def update(self, dt):
+    def update(self, dt: float):
         for trap in self.traps:
             trap.update(dt)
 
@@ -250,9 +253,9 @@ def gen_blob(
         while not placed:
             base = random.choice(blob_points)
             direction = random.choice(directions)
-            new_pos = (base[0] + direction[0], base[1] + direction[1])
-            if new_pos not in blob_points:
-                blob_points.append(new_pos)
+            new_loc = (base[0] + direction[0], base[1] + direction[1])
+            if new_loc not in blob_points:
+                blob_points.append(new_loc)
                 placed = True
 
     for point in blob_points:

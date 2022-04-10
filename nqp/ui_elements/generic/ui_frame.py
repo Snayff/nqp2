@@ -30,7 +30,7 @@ class UIFrame(UIElement):
     def __init__(
         self,
         game: Game,
-        pos: Tuple[int, int],
+        pos: pygame.Vector2,
         image: Optional[pygame.surface] = None,
         font: Optional[Union[Font, FancyFont]] = None,
         is_selectable: bool = False,
@@ -116,7 +116,7 @@ class UIFrame(UIElement):
         if self._max_width is not None:
             width = min(width, self._max_width)
 
-        self.size = (width, height)
+        self.size = pygame.Vector2(width, height)
 
     def _rebuild_surface(self):
         self.surface = pygame.Surface(self.size, SRCALPHA)
@@ -159,7 +159,7 @@ class UIFrame(UIElement):
 
         # update font pos (remember, this is relative to the frame)
         y = font.line_height // 2
-        font.pos = (x, y)
+        font.pos = pygame.Vector2(x, y)
 
         # update font size
         if self._max_width is not None:

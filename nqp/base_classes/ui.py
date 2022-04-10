@@ -4,6 +4,8 @@ import logging
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 
+import pygame
+
 from nqp.core.constants import DEFAULT_IMAGE_SIZE, FontType, GAP_SIZE
 from nqp.ui_elements.generic.ui_frame import UIFrame
 from nqp.ui_elements.generic.ui_panel import UIPanel
@@ -11,8 +13,6 @@ from nqp.ui_elements.generic.ui_window import UIWindow
 
 if TYPE_CHECKING:
     from typing import Dict, Optional, Union
-
-    import pygame
 
     from nqp.core.game import Game
 
@@ -92,7 +92,7 @@ class UI(ABC):
         Build Panel and Frames for key resources on screen. Gold, Rations, Charisma, Leadership.
         """
         # TODO - resources now in WorldModel, this needs to be moved to somewhere that can access that.
-        icon_size = (DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE)
+        icon_size = pygame.Vector2(DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE)
 
         # specify resources
         # key : [value, icon]
@@ -132,7 +132,7 @@ class UI(ABC):
         for key, value in resources.items():
             frame = UIFrame(
                 self._game,
-                (current_x, current_y),
+                pygame.Vector2(current_x, current_y),
                 image=value[0],
                 font=create_font(FontType.DISABLED, value[1]),
                 is_selectable=False,
@@ -158,7 +158,7 @@ class UI(ABC):
 
         x = self._game.window.width - font.width - 2
         y = 2
-        font.pos = (x, y)
+        font.pos = pygame.Vector2(x, y)
         font.draw(surface)
 
     def _draw_elements(self, surface: pygame.Surface):
@@ -202,7 +202,7 @@ class UI(ABC):
         current_x = window_width - (confirm_width + GAP_SIZE)
         current_y = window_height - (font.line_height + GAP_SIZE)
 
-        frame = UIFrame(self._game, (current_x, current_y), font=font, is_selectable=True)
+        frame = UIFrame(self._game, pygame.Vector2(current_x, current_y), font=font, is_selectable=True)
         self._elements["exit"] = frame
         panel = UIPanel(self._game, [frame], True)
         self.add_container(panel, "exit")

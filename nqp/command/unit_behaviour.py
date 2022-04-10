@@ -3,6 +3,7 @@ from __future__ import annotations
 import random
 from typing import TYPE_CHECKING
 
+import pygame
 import snecs
 
 from nqp.core.components import AI, Allegiance, IsDead, Position
@@ -36,8 +37,8 @@ class UnitBehaviour:
         self.regrouping: bool = False
         self.force_retreat: bool = False
         self.retreating: bool = False
-        self.retreat_target: Optional[Tuple[int, int]] = None
-        self.position_log: List[Tuple[int, int]] = []
+        self.retreat_target: Optional[pygame.Vector2] = None
+        self.position_log: List[pygame.Vector2] = []
         self.check_visibility: bool = True if self.unit.is_ranged else False
         self.smart_range_retarget: bool = False
 

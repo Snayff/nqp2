@@ -24,8 +24,8 @@ class UnitStatsWindow(UIWindow):
     A UIWindow designed to show the stats for a given Unit.
     """
 
-    def __init__(self, game: Game, pos: Tuple[int, int], unit: Unit, is_active: bool = False):
-        size = (100, 200)
+    def __init__(self, game: Game, pos: pygame.Vector2, unit: Unit, is_active: bool = False):
+        size = pygame.Vector2(100, 200)
         super().__init__(game, WindowType.BASIC, pos, size, [], is_active)
 
         self._unit: Unit = unit
@@ -43,7 +43,7 @@ class UnitStatsWindow(UIWindow):
 
         # positions and sizes
         start_x, start_y = self.pos
-        stat_icon_size = (DEFAULT_IMAGE_SIZE // 2, DEFAULT_IMAGE_SIZE // 2)
+        stat_icon_size = pygame.Vector2(DEFAULT_IMAGE_SIZE // 2, DEFAULT_IMAGE_SIZE // 2)
         panel_width, panel_height = self.size
 
         current_x = start_x
@@ -54,15 +54,15 @@ class UnitStatsWindow(UIWindow):
         bg_height = panel_height
         bg = pygame.Surface((bg_width, bg_height), SRCALPHA)
         bg.fill((0, 0, 0, 150))
-        frame = UIFrame(self._game, (current_x, current_y), image=bg)
+        frame = UIFrame(self._game, pygame.Vector2(current_x, current_y), image=bg)
         self._elements.append(frame)
 
         # draw icon
         current_x = start_x
         current_y = start_y
         unit_icon = create_animation(self._unit.type, "icon")
-        font = create_fancy_font(self._unit.type, (0, 0))
-        frame = UIFrame(self._game, (current_x, current_y), new_image=unit_icon, font=font)
+        font = create_fancy_font(self._unit.type, pygame.Vector2(0, 0))
+        frame = UIFrame(self._game, pygame.Vector2(current_x, current_y), new_image=unit_icon, font=font)
         self._elements.append(frame)
 
         # increment
@@ -92,7 +92,7 @@ class UnitStatsWindow(UIWindow):
             # draw stat icon and info
             stat_icon = get_image(stat, stat_icon_size)
             font = create_font(font_type, str(getattr(self._unit, stat)))
-            frame = UIFrame(self._game, (frame_x, frame_y), new_image=stat_icon, font=font)
+            frame = UIFrame(self._game, pygame.Vector2(frame_x, frame_y), new_image=stat_icon, font=font)
             self._elements.append(frame)
 
     def set_unit(self, unit: Unit):

@@ -4,6 +4,8 @@ import random
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 
+import pygame
+
 if TYPE_CHECKING:
     from typing import List, Optional, Tuple
 
@@ -28,7 +30,7 @@ class EntityBehaviour(ABC):
         self.state: str = self.movement_mode
         self.target_unit: Optional[Unit] = None
         self.target_entity: Optional[EntityID] = None
-        self.target_position: Optional[Tuple[int, int]] = None
+        self.target_position: Optional[pygame.Vector2] = None
         self.visibility_line: bool = False
         self.attack_timer: float = 0
         self.is_active: bool = True

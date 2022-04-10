@@ -12,7 +12,7 @@ class Hitbox:
 
     def apply(self):
         for entity in self.entities:
-            if (not self.friendly_fire) or (entity.team != owner.team):
+            if (not self.friendly_fire) or (entity.team != self.owner.team):
                 hit = False
                 if self.shape_type == "circle":
                     dis = math.sqrt(

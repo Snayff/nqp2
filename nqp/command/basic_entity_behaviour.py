@@ -42,7 +42,7 @@ class BasicEntityBehaviour(EntityBehaviour):
             if (self.target_entity not in self._unit.behaviour.valid_targets) or (not is_alive):
                 self.update_target_entity()
 
-            self.determine_next_action()
+            self.determine_next_action(True)
 
         # update path
         if self.last_path_update > PATH_UPDATE_FREQ:

@@ -21,7 +21,6 @@ from nqp.core.components import (
     Stats,
 )
 from nqp.core.constants import EntityFacing, PUSH_FORCE, TILE_SIZE, WEIGHT_SCALE
-from nqp.core.definitions import PointLike
 from nqp.core.utility import angle_to, distance_to, get_direction
 
 if TYPE_CHECKING:
@@ -32,7 +31,7 @@ if TYPE_CHECKING:
 __all__ = ["draw_entities", "apply_damage", "process_death"]
 
 
-def draw_entities(surface: pygame.Surface, shift: Tuple[int, int] = (0, 0)):
+def draw_entities(surface: pygame.Surface, shift: pygame.Vector2 = (0, 0)):
     """
     Draw all entities
     """
@@ -58,7 +57,7 @@ def apply_damage():
     Consume damage components and apply their value to the Entity.
     """
     for entity, (damage, resources) in queries.damage_resources:
-        resources.health.value -= damage
+        resources.health.value -= damage.amount
 
         # remove damage
         snecs.remove_component(entity, DamageReceived)
@@ -115,7 +114,7 @@ def process_movement(delta_time: float, game: Game):
 
 def _walk_path(
     delta_time: float, position: Position, stats: Stats, ai: AI, game: Game
-) -> List[Tuple[int, int], Tuple[int, int]]:
+) -> List[pygame.Vector2, pygame.Vector2]:
     """
     Have entity walk along their path.
 
@@ -134,7 +133,7 @@ def _walk_path(
     return move_results
 
 
-def _move(movement: PointLike, position: Position, game: Game) -> List[Tuple[int, int], Tuple[int, int]]:
+def _move(movement: pygame.Vector2, position: Position, game: Game) -> List[pygame.Vector2, pygame.Vector2]:
     """
     Splits the movement operation into smaller amounts to prevent issues with high speed movement.
     Calls the move sub-process anywhere from one to several times depending on the speed.
@@ -143,7 +142,7 @@ def _move(movement: PointLike, position: Position, game: Game) -> List[Tuple[int
     """
     move_count = int(abs(movement[0]) // TILE_SIZE + 1)
     move_count = max(int(abs(movement[1]) // TILE_SIZE + 1), move_count)
-    move_amount = [movement[0] / move_count, movement[1] / move_count]
+    move_amount = pygame.Vector2(movement[0] / move_count, movement[1] / move_count)
     start_pos = position.pos
     new_pos = start_pos
     for i in range(move_count):
@@ -152,7 +151,7 @@ def _move(movement: PointLike, position: Position, game: Game) -> List[Tuple[int
     return [start_pos, new_pos]
 
 
-def _sub_move(movement: PointLike, position: Position, game: Game) -> Tuple[int, int]:
+def _sub_move(movement: pygame.Vector2, position: Position, game: Game) -> pygame.Vector2:
     """
     Small movement. Returns end position.
     """

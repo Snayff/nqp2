@@ -1,4 +1,5 @@
-import weakref
+from __future__ import annotations
+
 from typing import Any, Optional, TYPE_CHECKING
 
 import pygame
@@ -6,7 +7,6 @@ import snecs
 from snecs.typedefs import EntityID
 
 from nqp.core.components import Position
-from nqp.core.definitions import PointLike
 
 if TYPE_CHECKING:
     from typing import Dict, List, Tuple, Union
@@ -23,14 +23,14 @@ class Camera:
 
     """
 
-    def __init__(self, size: PointLike):
+    def __init__(self, size: pygame.Vector2):
         self._pos = pygame.Vector2()
         self._size = pygame.Vector2(size)
-        self._target_position: Optional[PointLike] = pygame.Vector2()
+        self._target_position: Optional[pygame.Vector2] = pygame.Vector2()
         self._target_entity: Optional[EntityID] = None
         self.zoom: float = 0.0
 
-    def centre(self, pos: PointLike):
+    def centre(self, pos: pygame.Vector2):
         """
         Immediately centre the camera on a world point
 
@@ -45,7 +45,7 @@ class Camera:
         self._pos.x += x
         self._pos.y += y
 
-    def set_target_position(self, pos: Optional[PointLike]):
+    def set_target_position(self, pos: Optional[pygame.Vector2]):
         """
         Move camera to position over time. Pass None to clear.
 

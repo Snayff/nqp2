@@ -8,7 +8,6 @@ from nqp.core import systems
 from nqp.world_elements.camera import Camera
 
 if TYPE_CHECKING:
-    from nqp.core.definitions import PointLike
     from nqp.core.game import Game
     from nqp.world.model import WorldModel
 
@@ -64,7 +63,7 @@ class WorldView:
         offset = self.camera.render_offset()
         self._model.terrain.draw(surface, offset)
         if not self.clamp_primary_terrain:
-            next_offset = offset + (self._model.terrain.boundaries.width, 0)
+            next_offset = pygame.Vector2(offset.x + self._model.terrain.boundaries.width, offset.y + 0)
             self._model.next_terrain.draw(surface, next_offset)
         self._draw_units(surface, offset)
         self._model.projectiles.draw(surface, offset)
@@ -120,6 +119,7 @@ class WorldView:
         """
         Draw lines to indicate the pathfinding
         """
+        # FIXME - update to align to ecs
         for entity in self._model.get_all_entities():
             if entity._parent_unit.default_behaviour != "swarm":
                 if entity.behaviour.current_path and len(entity.behaviour.current_path):
@@ -144,7 +144,7 @@ class WorldView:
         else:
             return None
 
-    def view_to_point(self, point: PointLike):
+    def view_to_point(self, point: pygame.Vector2):
         """
         Return map pixel coords under the point
 

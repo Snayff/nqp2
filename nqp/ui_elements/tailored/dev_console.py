@@ -16,8 +16,8 @@ __all__ = ["DevConsole"]
 
 class DevConsole(UIInputBox):
     def __init__(self, game):
-        size = (100, 30)
-        pos = (10, 10)
+        size = pygame.Vector2(100, 30)
+        pos = pygame.Vector2(10, 10)
         super().__init__(game, size, pos)
 
     def update(self, delta_time: float):

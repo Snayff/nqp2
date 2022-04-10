@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import logging
 import time
-from typing import TYPE_CHECKING
+from typing import Any, TYPE_CHECKING
 
 from nqp.base_classes.scene import Scene
 from nqp.command.troupe import Troupe

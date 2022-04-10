@@ -3,6 +3,8 @@ from __future__ import annotations
 import logging
 from typing import TYPE_CHECKING
 
+import pygame
+
 from nqp.base_classes.animation import Animation
 from nqp.base_classes.controller import Controller
 from nqp.base_classes.image import Image
@@ -243,7 +245,7 @@ class EventController(Controller):
         """
         Get an image for the result key given.
         """
-        icon_size = (DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE)
+        icon_size = pygame.Vector2(DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE)
 
         if result_key == "gold":
             image = self._game.visual.get_image("gold", icon_size)

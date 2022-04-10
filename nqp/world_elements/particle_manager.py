@@ -5,6 +5,8 @@ import math
 import random
 from typing import TYPE_CHECKING
 
+import pygame
+
 from nqp.world_elements.particle import Particle
 
 if TYPE_CHECKING:
@@ -22,7 +24,7 @@ class ParticleManager:
             speed = random.random() * (speed_range[1] - speed_range[0]) + speed_range[0]
             dur = random.random() * (dur_range[1] - dur_range[0]) + dur_range[0]
             angle = random.random() * math.pi * 2
-            p = Particle(loc, [math.cos(angle) * speed, math.sin(angle) * speed], dur, colour)
+            p = Particle(loc, pygame.Vector2(math.cos(angle) * speed, math.sin(angle) * speed), dur, colour)
             self.particles.append(p)
 
     def update(self, dt):

@@ -19,7 +19,7 @@ __all__ = ["Unit"]
 
 
 class Unit:
-    def __init__(self, game: Game, id_: int, unit_type: str, team: str, pos: Tuple[int, int]):
+    def __init__(self, game: Game, id_: int, unit_type: str, team: str, pos: pygame.Vector2):
         self._game: Game = game
 
         # get unit data
@@ -30,7 +30,7 @@ class Unit:
         self.id = id_
         self.type: str = unit_type
         self.team: str = team  # this is derived from the Troupe but can be overridden in combat
-        self.pos: Tuple[int, int] = pos
+        self.pos: pygame.Vector2 = pos
         self.is_selected: bool = False
         self.entities: List[EntityID] = []
 
@@ -40,7 +40,6 @@ class Unit:
         self._banner_image = self._game.visual.get_image("banner")
         self.is_ranged: bool = True if unit_data["ammo"] > 0 else False
         self.default_behaviour: str = unit_data["default_behaviour"]  # load after other unit attrs
-        # self.behaviour = self._game.data.behaviours.unit_behaviours[self.default_behaviour](self)
         from nqp.command.unit_behaviour import UnitBehaviour  # prevent circular import
 
         self.behaviour: UnitBehaviour = UnitBehaviour(self._game, self)
@@ -50,7 +49,7 @@ class Unit:
         # border
         self.border_surface_timer: float = 0
         self.border_surface: Optional[pygame.surface] = None
-        self.border_surface_offset: Tuple[int, int] = (0, 0)
+        self.border_surface_offset: pygame.Vector2 = pygame.Vector2(0, 0)
         self.border_surface_outline: Optional[pygame.surface] = None
         self.border_surface_outline_black: Optional[pygame.surface] = None
 
@@ -101,7 +100,7 @@ class Unit:
                 return True
         return False
 
-    def draw_banner(self, surface: pygame.Surface, shift: Tuple[int, int] = (0, 0)):
+    def draw_banner(self, surface: pygame.Surface, shift: pygame.Vector2 = (0, 0)):
         """
         Draw's the Unit's banner.
         """
@@ -109,12 +108,12 @@ class Unit:
         surface.blit(
             banner_image.surface,
             (
-                self.pos[0] + shift[0] - banner_image.width // 2,
-                self.pos[1] + shift[1] - 20 - banner_image.height,
+                self.pos.x + shift[0] - banner_image.width // 2,
+                self.pos.y + shift[1] - 20 - banner_image.height,
             ),
         )
 
-    def draw_border(self, surface: pygame.Surface, shift: Tuple[int, int] = (0, 0)):
+    def draw_border(self, surface: pygame.Surface, shift: pygame.Vector2 = (0, 0)):
         """
         Draw the border around the unit.
         """
@@ -122,22 +121,22 @@ class Unit:
             surface.blit(
                 self.border_surface_outline_black,
                 (
-                    self.pos[0] + shift[0] - self.border_surface_offset[0] + d[0],
-                    self.pos[1] + shift[1] - self.border_surface_offset[1] + d[1],
+                    self.pos.x + shift[0] - self.border_surface_offset[0] + d[0],
+                    self.pos.y + shift[1] - self.border_surface_offset[1] + d[1],
                 ),
             )
         surface.blit(
             self.border_surface,
             (
-                self.pos[0] + shift[0] - self.border_surface_offset[0],
-                self.pos[1] + shift[1] - self.border_surface_offset[1],
+                self.pos.x + shift[0] - self.border_surface_offset[0],
+                self.pos.y + shift[1] - self.border_surface_offset[1],
             ),
         )
         surface.blit(
             self.border_surface_outline,
             (
-                self.pos[0] + shift[0] - self.border_surface_offset[0],
-                self.pos[1] + shift[1] - self.border_surface_offset[1],
+                self.pos.x + shift[0] - self.border_surface_offset[0],
+                self.pos.y + shift[1] - self.border_surface_offset[1],
             ),
         )
 
@@ -227,14 +226,14 @@ class Unit:
 
         num_entities = len(self.entities)
         if num_entities > 0:
-            unit_pos = [0, 0]
+            unit_pos = pygame.Vector2(0, 0)
             for entity in self.entities:
                 entity_position = snecs.entity_component(entity, Position)
-                unit_pos[0] += entity_position.x
-                unit_pos[1] += entity_position.y
-            self.pos = (unit_pos[0] / num_entities, unit_pos[1] / num_entities)
+                unit_pos.x += entity_position.x
+                unit_pos.y += entity_position.y
+            self.pos = pygame.Vector2(unit_pos.x / num_entities, unit_pos.y / num_entities)
 
-    def set_position(self, pos: Tuple[int, int]):
+    def set_position(self, pos: pygame.Vector2):
         """
         Set the unit's position and moves the Entities to match.
         """
@@ -244,8 +243,8 @@ class Unit:
     def _align_entity_positions_to_unit(self):
         from nqp.core.components import Position  # prevent circular import
 
-        unit_x = self.pos[0]
-        unit_y = self.pos[1]
+        unit_x = self.pos.x
+        unit_y = self.pos.y
         max_spread = self.entity_spread_max
 
         for entity in self.entities:
@@ -254,7 +253,7 @@ class Unit:
             scatter_y = random.randint(-max_spread, max_spread)
 
             position = snecs.entity_component(entity, Position)
-            position.pos = (unit_x + scatter_x, unit_y + scatter_y)
+            position.pos = pygame.Vector2(unit_x + scatter_x, unit_y + scatter_y)
 
     def generate_border_surface(self):
         """
@@ -282,21 +281,21 @@ class Unit:
             # self.border_surface = pygame.Surface(
             #     (max(all_x) - min_x + surf_padding * 2, max(all_y) - min_y + surf_padding * 2)
             # )
-            # self.border_surface_offset = (self.pos[0] - min_x + surf_padding, self.pos[1] - min_y + surf_padding)
+            # self.border_surface_offset = (self.pos.x - min_x + surf_padding, self.pos.y - min_y + surf_padding)
             # self.border_surface.set_colorkey((0, 0, 0))
             #
             # points = [
-            #     (self.pos[0] - outline_padding, self.pos[1]),
-            #     (self.pos[0], self.pos[1] - outline_padding),
-            #     (self.pos[0] + outline_padding, self.pos[1]),
-            #     (self.pos[0], self.pos[1] + outline_padding),
+            #     (self.pos.x - outline_padding, self.pos.y),
+            #     (self.pos.x, self.pos.y - outline_padding),
+            #     (self.pos.x + outline_padding, self.pos.y),
+            #     (self.pos.x, self.pos.y + outline_padding),
             # ]
             #
             # placed_points = []
             #
             # for pos in all_positions + points:
             #     new_pos = (pos[0] - min_x + surf_padding, pos[1] - min_y + surf_padding)
-            #     angle = math.atan2(pos[1] - self.pos[1], pos[0] - self.pos[0])
+            #     angle = math.atan2(pos[1] - self.pos.y, pos[0] - self.pos.x)
             #     new_pos = (
             #         new_pos[0] + outline_padding * math.cos(angle),
             #         new_pos[1] + outline_padding * math.sin(angle),

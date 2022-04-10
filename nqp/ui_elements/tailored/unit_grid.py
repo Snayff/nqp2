@@ -52,9 +52,9 @@ class UnitGrid:
         self.selected_cell = None
         self.focused_cell = None
         self.cells: List[GridCell] = list()
-        self.cell_surface: pygame.Surface = None
-        self.cell_surface_hover: pygame.Surface = None
-        self.cell_surface_selected: pygame.Surface = None
+        self.cell_surface: Optional[pygame.Surface] = None
+        self.cell_surface_hover: Optional[pygame.Surface] = None
+        self.cell_surface_selected: Optional[pygame.Surface] = None
         self.line_colour = (0, 100, 0)
         self.line_colour_hover = (0, 140, 0)
         self.line_colour_selected = (0, 180, 0)
@@ -105,7 +105,7 @@ class UnitGrid:
         cell_center_x, cell_center_y = cell.rect.x + self.cell_size // 2, cell.rect.y + self.cell_size // 2
         cell.unit = unit
         # # TODO: fix the following calculation, unit.size is NOT the size of the unit so this is wrong
-        unit.set_position([cell_center_x + unit.size // 2, cell_center_y + unit.size // 2])
+        unit.set_position(pygame.Vector2(cell_center_x + unit.size // 2, cell_center_y + unit.size // 2))
 
     def _walk_cell_to_cell(self, unit: Unit, dest: GridCell):
         """
@@ -163,11 +163,14 @@ class UnitGrid:
                 unit.forced_behaviour = True
                 target_px = cell.rect.center
                 leader = unit.entities[0]
-                leader.behaviour.current_path = [target_px]
-                leader.behaviour.state = "path_fast"
+                behaviour = snecs.entity_component(leader, AI).behaviour
+                behaviour.current_path = [target_px]
+                behaviour.state = "path_fast"
+
                 for entity in unit.entities[1:]:
-                    entity.behaviour.current_path = [target_px]
-                    entity.behaviour.state = "path_fast"
+                    behaviour = snecs.entity_component(entity, AI).behaviour
+                    behaviour.current_path = [target_px]
+                    behaviour.state = "path_fast"
                 break
 
     def process_input(self):
