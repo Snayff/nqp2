@@ -230,7 +230,7 @@ class Visual:
     def get_image(
         self,
         image_name: str,
-        size: Tuple[int, int] = (DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE),
+        size: pygame.Vector2 = (DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE),
         copy: bool = False,
     ) -> Image:
         """
@@ -285,7 +285,7 @@ class Visual:
 
         return final_image
 
-    def create_font(self, font_type: FontType, text: str, pos: Tuple[int, int] = (0, 0), line_width: int = 0) -> Font:
+    def create_font(self, font_type: FontType, text: str, pos: pygame.Vector2 = (0, 0), line_width: int = 0) -> Font:
         """
         Create a font instance.
         """
@@ -297,7 +297,7 @@ class Visual:
     def create_fancy_font(
         self,
         text: str,
-        pos: Tuple[int, int] = (0, 0),
+        pos: pygame.Vector2 = (0, 0),
         line_width: int = 0,
         font_effects: Optional[List[FontEffects]] = None,
     ) -> FancyFont:

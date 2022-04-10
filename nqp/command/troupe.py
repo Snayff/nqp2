@@ -1,8 +1,9 @@
 from __future__ import annotations
 
 import logging
-from typing import Tuple, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
+import pygame
 from snecs.typedefs import EntityID
 
 from nqp.command.unit import Unit
@@ -27,7 +28,7 @@ class Troupe:
         self._units: Dict[int, Unit] = {}
         self.team: str = team
         self.allies: List[str] = allies
-        self._position: Tuple[int, int] = self._get_reference_position()
+        self._position: pygame.Vector2 = self._get_reference_position()
 
     def update(self, delta_time: float):
         for unit in self.units.values():
@@ -82,7 +83,7 @@ class Troupe:
         """
 
         id_ = self._game.memory.generate_id()
-        unit = Unit(self._game, id_, unit_type, self.team, (0, 0))
+        unit = Unit(self._game, id_, unit_type, self.team, pygame.Vector2(0, 0))
         unit.spawn_entities()
         self._units[id_] = unit
         self._unit_ids.append(id_)
@@ -205,7 +206,7 @@ class Troupe:
             unit.forced_behaviour = False
             unit.forced_idle = active
 
-    def _get_reference_position(self) -> Tuple[int, int]:
+    def _get_reference_position(self) -> pygame.Vector2:
         """
         Get the Troupe's reference position, using the position of the first Entity in the dict.
         """
@@ -213,4 +214,4 @@ class Troupe:
             unit = list(self.units.values())[0]
             return unit.pos
         else:
-            return 0, 0
+            return pygame.Vector2(0, 0)

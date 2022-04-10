@@ -8,6 +8,4 @@ from pygame import Vector2
 if TYPE_CHECKING:
     from typing import Dict, List, Optional, Tuple, Union
 
-__all__ = ["PointLike"]
 
-PointLike = Union[Tuple[int, int], List[int], List[float], Vector2]

@@ -34,7 +34,7 @@ class Projectile:
         position = snecs.entity_component(self.owner, Position)
         target_pos = snecs.entity_component(target, Position)
         self.angle: float = angle_to(position.pos, target_pos.pos)
-        self.pos: Tuple[int, int] = (position.x, position.y - 5)  # move base firing position towards center of entity
+        self.pos: pygame.Vector2 = (position.x, position.y - 5)  # move base firing position towards center of entity
         self.is_active: bool = True
 
     def update(self, delta_time: float):

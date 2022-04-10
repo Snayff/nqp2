@@ -3,6 +3,7 @@ from __future__ import annotations
 import logging
 from typing import TYPE_CHECKING
 
+import pygame
 import snecs
 from snecs import World
 from snecs.typedefs import EntityID
@@ -13,7 +14,6 @@ from nqp.command.unit import Unit
 from nqp.core import systems
 from nqp.core.constants import WorldState
 from nqp.core.debug import Timer
-from nqp.core.definitions import PointLike
 from nqp.topography.terrain import Terrain
 from nqp.world_elements.particle_manager import ParticleManager
 from nqp.world_elements.projectile_manager import ProjectileManager
@@ -114,7 +114,7 @@ class WorldModel:
         remaining = self.charisma - num_units
         return remaining
 
-    def px_to_loc(self, pos: PointLike):
+    def px_to_loc(self, pos: pygame.Vector2):
         """
         Convert map coordinates to tile coordinate
 

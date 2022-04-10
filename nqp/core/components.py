@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+import pygame
 from snecs import RegisteredComponent
 
 from nqp.base_classes.animation import Animation
@@ -35,31 +36,31 @@ class Position(RegisteredComponent):
     An Entity's location in the world.
     """
 
-    def __init__(self, pos: Tuple[int, int]):
-        self.pos: Tuple[int, int] = pos
+    def __init__(self, pos: pygame.Vector2):
+        self.pos: pygame.Vector2 = pos
 
     def serialize(self):
         return self.pos
 
     @classmethod
-    def deserialize(cls, pos: Tuple[int, int]):
+    def deserialize(cls, pos: pygame.Vector2):
         return Position(pos)
 
     @property
     def x(self) -> int:
-        return self.pos[0]
+        return int(self.pos.x)
 
     @x.setter
     def x(self, value: int):
-        self.pos = (value, self.pos[1])
+        self.pos = pygame.Vector2(value, self.pos.y)
 
     @property
     def y(self) -> int:
-        return self.pos[1]
+        return int(self.pos.y)
 
     @y.setter
     def y(self, value: int):
-        self.pos = (self.pos[0], value)
+        self.pos = pygame.Vector2(self.pos.x, value)
 
 
 class Aesthetic(RegisteredComponent):

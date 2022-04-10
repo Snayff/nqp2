@@ -161,22 +161,22 @@ def grid_right(selected: int, width: int, height: int):
     return index
 
 
-def distance_to(start_pos: Tuple[int, int], end_pos: Tuple[int, int]) -> float:
+def distance_to(start_pos: pygame.Vector2, end_pos: pygame.Vector2) -> float:
     """
     Find the distance to another position.
     """
     return math.sqrt((start_pos[0] - end_pos[0]) ** 2 + (start_pos[1] - end_pos[1]) ** 2)
 
 
-def angle_to(start_pos: Tuple[int, int], end_pos: Tuple[int, int]) -> float:
+def angle_to(start_pos: pygame.Vector2, end_pos: pygame.Vector2) -> float:
     """
     Find the angle to another position.
     """
     return math.atan2(end_pos[1] - start_pos[1], end_pos[0] - start_pos[0])
 
 
-def get_direction(angle: float, move_distance: float) -> List[float, float]:
+def get_direction(angle: float, move_distance: float) -> pygame.Vector2:
     """
     Find the direction based on the angle and distance
     """
-    return [math.cos(angle) * move_distance, math.sin(angle) * move_distance]
+    return pygame.Vector2(math.cos(angle) * move_distance, math.sin(angle) * move_distance)

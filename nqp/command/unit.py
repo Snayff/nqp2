@@ -19,7 +19,7 @@ __all__ = ["Unit"]
 
 
 class Unit:
-    def __init__(self, game: Game, id_: int, unit_type: str, team: str, pos: Tuple[int, int]):
+    def __init__(self, game: Game, id_: int, unit_type: str, team: str, pos: pygame.Vector2):
         self._game: Game = game
 
         # get unit data
@@ -30,7 +30,7 @@ class Unit:
         self.id = id_
         self.type: str = unit_type
         self.team: str = team  # this is derived from the Troupe but can be overridden in combat
-        self.pos: Tuple[int, int] = pos
+        self.pos: pygame.Vector2 = pos
         self.is_selected: bool = False
         self.entities: List[EntityID] = []
 
@@ -50,7 +50,7 @@ class Unit:
         # border
         self.border_surface_timer: float = 0
         self.border_surface: Optional[pygame.surface] = None
-        self.border_surface_offset: Tuple[int, int] = (0, 0)
+        self.border_surface_offset: pygame.Vector2 = (0, 0)
         self.border_surface_outline: Optional[pygame.surface] = None
         self.border_surface_outline_black: Optional[pygame.surface] = None
 
@@ -101,7 +101,7 @@ class Unit:
                 return True
         return False
 
-    def draw_banner(self, surface: pygame.Surface, shift: Tuple[int, int] = (0, 0)):
+    def draw_banner(self, surface: pygame.Surface, shift: pygame.Vector2 = (0, 0)):
         """
         Draw's the Unit's banner.
         """
@@ -114,7 +114,7 @@ class Unit:
             ),
         )
 
-    def draw_border(self, surface: pygame.Surface, shift: Tuple[int, int] = (0, 0)):
+    def draw_border(self, surface: pygame.Surface, shift: pygame.Vector2 = (0, 0)):
         """
         Draw the border around the unit.
         """
@@ -153,7 +153,7 @@ class Unit:
         for _ in range(self.count):
             # universal components
             components = [
-                Position(self.pos),
+                Position(self.pos),  # TODO - fix being passed tuple
                 Aesthetic(self._game.visual.create_animation(self.type, "idle")),
                 Resources(self.health),
                 Stats(self),
@@ -234,7 +234,7 @@ class Unit:
                 unit_pos[1] += entity_position.y
             self.pos = (unit_pos[0] / num_entities, unit_pos[1] / num_entities)
 
-    def set_position(self, pos: Tuple[int, int]):
+    def set_position(self, pos: pygame.Vector2):
         """
         Set the unit's position and moves the Entities to match.
         """

@@ -30,7 +30,7 @@ class UIFrame(UIElement):
     def __init__(
         self,
         game: Game,
-        pos: Tuple[int, int],
+        pos: pygame.Vector2,
         image: Optional[pygame.surface] = None,
         font: Optional[Union[Font, FancyFont]] = None,
         is_selectable: bool = False,

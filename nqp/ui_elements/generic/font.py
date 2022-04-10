@@ -15,7 +15,7 @@ __all__ = ["Font"]
 
 class Font:
     def __init__(
-        self, path: str, colour: Tuple[int, int, int], text: str, line_width: int = 0, pos: Tuple[int, int] = (0, 0)
+        self, path: str, colour: Tuple[int, int, int], text: str, line_width: int = 0, pos: pygame.Vector2 = (0, 0)
     ):
         # Load the font image and convert to individual images.
         letters, letter_spacing = self._load_font_img(path, colour)
@@ -28,7 +28,7 @@ class Font:
 
         self.text: str = text
         self.line_width: int = line_width
-        self.pos: Tuple[int, int] = pos
+        self.pos: pygame.Vector2 = pos
         self.line_height: int = self.letters[0].get_height() + 5  # FIXME - it isnt returning properly (hence add)
         self.font_order: List[str] = [
             "A",

@@ -115,7 +115,7 @@ class Assets:
         self,
         folder_name: str,
         image_name: str,
-        desired_dimensions: Tuple[int, int] = (DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE),
+        desired_dimensions: pygame.Vector2 = (DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE),
         copy: bool = False,
     ) -> pygame.Surface:
         """
@@ -173,7 +173,7 @@ class Assets:
         else:
             return image
 
-    def create_font(self, font_type: FontType, text: str, pos: Tuple[int, int] = (0, 0), line_width: int = 0) -> Font:
+    def create_font(self, font_type: FontType, text: str, pos: pygame.Vector2 = (0, 0), line_width: int = 0) -> Font:
         """
         Create a font instance.
         """
@@ -185,7 +185,7 @@ class Assets:
     def create_fancy_font(
         self,
         text: str,
-        pos: Tuple[int, int] = (0, 0),
+        pos: pygame.Vector2 = (0, 0),
         line_width: int = 0,
         font_effects: Optional[List[FontEffects]] = None,
     ) -> FancyFont:

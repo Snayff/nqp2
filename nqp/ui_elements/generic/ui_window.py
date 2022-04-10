@@ -25,15 +25,15 @@ class UIWindow(UIPanel):
         self,
         game: Game,
         window_type: WindowType,
-        pos: Tuple[int, int],
-        size: Tuple[int, int],
+        pos: pygame.Vector2,
+        size: pygame.Vector2,
         elements: List,
         is_active: bool = False,
     ):
         super().__init__(game, elements, is_active)
         self._images: Dict[str, Image] = self._load_window_images(window_type)
-        self.pos: Tuple[int, int] = pos
-        self.size: Tuple[int, int] = size
+        self.pos: pygame.Vector2 = pos
+        self.size: pygame.Vector2 = size
 
         self._window_surface: pygame.Surface = self._build_window_surface()
 

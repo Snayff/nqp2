@@ -23,7 +23,7 @@ class FancyFont:
     """
 
     def __init__(
-        self, text: str, pos: Tuple[int, int], line_width: int = 0, font_effects: Optional[List[FontEffects]] = None
+        self, text: str, pos: pygame.Vector2, line_width: int = 0, font_effects: Optional[List[FontEffects]] = None
     ):
 
         # handle mutable default
@@ -42,7 +42,7 @@ class FancyFont:
         parsed_text, font_swap_markers = self._parse_text(text)
 
         self._parsed_text: str = parsed_text
-        self.pos: Tuple[int, int] = pos
+        self.pos: pygame.Vector2 = pos
         self.font: Font = self._fonts[0]
 
         self.line_height: int = self.font.line_height
