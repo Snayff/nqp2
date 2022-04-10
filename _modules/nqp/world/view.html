@@ -204,7 +204,6 @@
 <span class="kn">from</span> <span class="nn">nqp.world_elements.camera</span> <span class="kn">import</span> <span class="n">Camera</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">nqp.core.definitions</span> <span class="kn">import</span> <span class="n">PointLike</span>
     <span class="kn">from</span> <span class="nn">nqp.core.game</span> <span class="kn">import</span> <span class="n">Game</span>
     <span class="kn">from</span> <span class="nn">nqp.world.model</span> <span class="kn">import</span> <span class="n">WorldModel</span>
 
@@ -260,7 +259,7 @@
         <span class="n">offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">render_offset</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">terrain</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">surface</span><span class="p">,</span> <span class="n">offset</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">clamp_primary_terrain</span><span class="p">:</span>
-            <span class="n">next_offset</span> <span class="o">=</span> <span class="n">offset</span> <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">terrain</span><span class="o">.</span><span class="n">boundaries</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">next_offset</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="n">offset</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">terrain</span><span class="o">.</span><span class="n">boundaries</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">offset</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="mi">0</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">next_terrain</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">surface</span><span class="p">,</span> <span class="n">next_offset</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_draw_units</span><span class="p">(</span><span class="n">surface</span><span class="p">,</span> <span class="n">offset</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">projectiles</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">surface</span><span class="p">,</span> <span class="n">offset</span><span class="p">)</span>
@@ -316,6 +315,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Draw lines to indicate the pathfinding</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># FIXME - update to align to ecs</span>
         <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">get_all_entities</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">entity</span><span class="o">.</span><span class="n">_parent_unit</span><span class="o">.</span><span class="n">default_behaviour</span> <span class="o">!=</span> <span class="s2">&quot;swarm&quot;</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">entity</span><span class="o">.</span><span class="n">behaviour</span><span class="o">.</span><span class="n">current_path</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">behaviour</span><span class="o">.</span><span class="n">current_path</span><span class="p">):</span>
@@ -340,7 +340,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="WorldView.view_to_point"><a class="viewcode-back" href="../../../nqp.world.html#nqp.world.view.WorldView.view_to_point">[docs]</a>    <span class="k">def</span> <span class="nf">view_to_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">:</span> <span class="n">PointLike</span><span class="p">):</span>
+<div class="viewcode-block" id="WorldView.view_to_point"><a class="viewcode-back" href="../../../nqp.world.html#nqp.world.view.WorldView.view_to_point">[docs]</a>    <span class="k">def</span> <span class="nf">view_to_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return map pixel coords under the point</span>
 

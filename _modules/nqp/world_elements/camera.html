@@ -194,7 +194,8 @@
                         
                             
   <h1>Source code for nqp.world_elements.camera</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">weakref</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span>
 
 <span class="kn">import</span> <span class="nn">pygame</span>
@@ -202,7 +203,6 @@
 <span class="kn">from</span> <span class="nn">snecs.typedefs</span> <span class="kn">import</span> <span class="n">EntityID</span>
 
 <span class="kn">from</span> <span class="nn">nqp.core.components</span> <span class="kn">import</span> <span class="n">Position</span>
-<span class="kn">from</span> <span class="nn">nqp.core.definitions</span> <span class="kn">import</span> <span class="n">PointLike</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
@@ -219,14 +219,14 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Camera.__init__"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.camera.Camera.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="n">PointLike</span><span class="p">):</span>
+<div class="viewcode-block" id="Camera.__init__"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.camera.Camera.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_pos</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_size</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_target_position</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PointLike</span><span class="p">]</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_target_position</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">]</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_target_entity</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityID</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">zoom</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span></div>
 
-<div class="viewcode-block" id="Camera.centre"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.camera.Camera.centre">[docs]</a>    <span class="k">def</span> <span class="nf">centre</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="n">PointLike</span><span class="p">):</span>
+<div class="viewcode-block" id="Camera.centre"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.camera.Camera.centre">[docs]</a>    <span class="k">def</span> <span class="nf">centre</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Immediately centre the camera on a world point</span>
 
@@ -241,7 +241,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_pos</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="n">x</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_pos</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="n">y</span></div>
 
-<div class="viewcode-block" id="Camera.set_target_position"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.camera.Camera.set_target_position">[docs]</a>    <span class="k">def</span> <span class="nf">set_target_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PointLike</span><span class="p">]):</span>
+<div class="viewcode-block" id="Camera.set_target_position"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.camera.Camera.set_target_position">[docs]</a>    <span class="k">def</span> <span class="nf">set_target_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">]):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Move camera to position over time. Pass None to clear.</span>
 

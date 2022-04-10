@@ -197,8 +197,9 @@
 <span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
+<span class="kn">import</span> <span class="nn">pygame</span>
 <span class="kn">from</span> <span class="nn">snecs.typedefs</span> <span class="kn">import</span> <span class="n">EntityID</span>
 
 <span class="kn">from</span> <span class="nn">nqp.command.unit</span> <span class="kn">import</span> <span class="n">Unit</span>
@@ -223,7 +224,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_units</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Unit</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">team</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">team</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">allies</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">allies</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_position</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_reference_position</span><span class="p">()</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_position</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_reference_position</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="Troupe.update"><a class="viewcode-back" href="../../../nqp.command.html#nqp.command.troupe.Troupe.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">unit</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
@@ -278,7 +279,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">id_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">generate_id</span><span class="p">()</span>
-        <span class="n">unit</span> <span class="o">=</span> <span class="n">Unit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="n">id_</span><span class="p">,</span> <span class="n">unit_type</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">team</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="n">unit</span> <span class="o">=</span> <span class="n">Unit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="n">id_</span><span class="p">,</span> <span class="n">unit_type</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">team</span><span class="p">,</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
         <span class="n">unit</span><span class="o">.</span><span class="n">spawn_entities</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_units</span><span class="p">[</span><span class="n">id_</span><span class="p">]</span> <span class="o">=</span> <span class="n">unit</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_unit_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">id_</span><span class="p">)</span>
@@ -401,7 +402,7 @@
             <span class="n">unit</span><span class="o">.</span><span class="n">forced_behaviour</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="n">unit</span><span class="o">.</span><span class="n">forced_idle</span> <span class="o">=</span> <span class="n">active</span></div>
 
-    <span class="k">def</span> <span class="nf">_get_reference_position</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">_get_reference_position</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the Troupe&#39;s reference position, using the position of the first Entity in the dict.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -409,7 +410,7 @@
             <span class="n">unit</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
             <span class="k">return</span> <span class="n">unit</span><span class="o">.</span><span class="n">pos</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span></div>
+            <span class="k">return</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
 </pre></div>
 
                         

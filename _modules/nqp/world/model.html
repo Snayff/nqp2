@@ -199,6 +199,7 @@
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
+<span class="kn">import</span> <span class="nn">pygame</span>
 <span class="kn">import</span> <span class="nn">snecs</span>
 <span class="kn">from</span> <span class="nn">snecs</span> <span class="kn">import</span> <span class="n">World</span>
 <span class="kn">from</span> <span class="nn">snecs.typedefs</span> <span class="kn">import</span> <span class="n">EntityID</span>
@@ -209,7 +210,6 @@
 <span class="kn">from</span> <span class="nn">nqp.core</span> <span class="kn">import</span> <span class="n">systems</span>
 <span class="kn">from</span> <span class="nn">nqp.core.constants</span> <span class="kn">import</span> <span class="n">WorldState</span>
 <span class="kn">from</span> <span class="nn">nqp.core.debug</span> <span class="kn">import</span> <span class="n">Timer</span>
-<span class="kn">from</span> <span class="nn">nqp.core.definitions</span> <span class="kn">import</span> <span class="n">PointLike</span>
 <span class="kn">from</span> <span class="nn">nqp.topography.terrain</span> <span class="kn">import</span> <span class="n">Terrain</span>
 <span class="kn">from</span> <span class="nn">nqp.world_elements.particle_manager</span> <span class="kn">import</span> <span class="n">ParticleManager</span>
 <span class="kn">from</span> <span class="nn">nqp.world_elements.projectile_manager</span> <span class="kn">import</span> <span class="n">ProjectileManager</span>
@@ -310,7 +310,7 @@
         <span class="n">remaining</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">charisma</span> <span class="o">-</span> <span class="n">num_units</span>
         <span class="k">return</span> <span class="n">remaining</span>
 
-<div class="viewcode-block" id="WorldModel.px_to_loc"><a class="viewcode-back" href="../../../nqp.world.html#nqp.world.model.WorldModel.px_to_loc">[docs]</a>    <span class="k">def</span> <span class="nf">px_to_loc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="n">PointLike</span><span class="p">):</span>
+<div class="viewcode-block" id="WorldModel.px_to_loc"><a class="viewcode-back" href="../../../nqp.world.html#nqp.world.model.WorldModel.px_to_loc">[docs]</a>    <span class="k">def</span> <span class="nf">px_to_loc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Convert map coordinates to tile coordinate</span>
 
