@@ -49,22 +49,14 @@ jobs:
       run: |
         poetry install --no-interaction
 
-  test:
-    needs: build
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
+    - name: Set Source
+      run: |
+        source .venv/bin/activate 
 
-    steps:
     - name: Run test suite
       run: |
-        source .venv/bin/activate
         pytest tests/
 
-  lint:
-    needs: test
-    runs-on: ubuntu-latest
-
-    steps:
     - name: Lint Code Base
       uses: github/super-linter@v4
       env:
@@ -82,15 +74,6 @@ jobs:
         DEFAULT_BRANCH: develop
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  format:
-    needs: lint
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Swap to venv for black and isort
-      run: |
-        source .venv/bin/activate
-
     - name: Test if black and isort should reformat the scripts
       id: black_isort_status
       run: |
@@ -100,7 +83,7 @@ jobs:
           echo "::set-output name=result::true"
         fi
 
-    - name: If needed, commit black/isort changes to the pull request
+    - name: Format code with Black and isort
       if: steps.black_isort_status.outputs.result == 'true'
       run: |
         black "nqp/"
