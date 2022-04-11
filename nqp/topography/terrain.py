@@ -207,8 +207,7 @@ class Terrain:
         return 0 <= loc[0] < self.size.x and 0 <= loc[1] < self.size.y
 
     def passable(self, loc: TileLocation):
-        return True
-        # return loc not in self.walls
+        return loc not in self.walls
 
     def get_exits(self, loc: TileLocation) -> Iterator[TileLocation]:
         """
