@@ -76,7 +76,6 @@ class Terrain:
 
         """
         self.walls = set()
-
         for loc in self.tiles:
             for tile in self.tiles[loc]:
                 if tile.config["solid"]:
@@ -96,12 +95,24 @@ class Terrain:
         return True
 
     def px_to_loc(self, pos: pygame.Vector2) -> TileLocation:
+        """
+        Return the tile where ``pos`` coordinates are within
+
+        """
         return int(pos.x // TILE_SIZE), int(pos.y // TILE_SIZE)
 
     def loc_to_px(self, loc: TileLocation) -> pygame.Vector2:
+        """
+        Convert tile coordinates to map units ("pixels")
+
+        """
         return pygame.Vector2(loc) * TILE_SIZE
 
     def check_tile_inside(self, loc: TileLocation) -> bool:
+        """
+        Test if ``loc`` is inside the barriers "trees"
+
+        """
         return (
             BARRIER_SIZE <= loc[0] < self.size.x - BARRIER_SIZE and BARRIER_SIZE <= loc[1] < self.size.y - BARRIER_SIZE
         )
@@ -109,7 +120,6 @@ class Terrain:
     def check_tile_solid(self, pos: pygame.Vector2) -> bool:
         if self.ignore_boundaries:
             return False
-
         loc = self.px_to_loc(pos)
         return loc in self.walls
 
@@ -204,9 +214,17 @@ class Terrain:
         return 0
 
     def in_bounds(self, loc: TileLocation) -> bool:
+        """
+        Test if ``loc`` is within bounds of the map, including barriers
+
+        """
         return 0 <= loc[0] < self.size.x and 0 <= loc[1] < self.size.y
 
     def passable(self, loc: TileLocation):
+        """
+        Test for pathfinding
+
+        """
         return loc not in self.walls
 
     def get_exits(self, loc: TileLocation) -> Iterator[TileLocation]:
