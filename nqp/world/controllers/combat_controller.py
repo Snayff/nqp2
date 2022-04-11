@@ -7,7 +7,7 @@ import pygame
 
 from nqp.base_classes.controller import Controller
 from nqp.command.troupe import Troupe
-from nqp.core.constants import CombatState, WorldState
+from nqp.core.constants import BARRIER_SIZE, CombatState, TILE_SIZE, WorldState
 from nqp.core.debug import Timer
 
 if TYPE_CHECKING:
@@ -111,21 +111,24 @@ class CombatController(Controller):
         """
         rng = self._game.rng
         combat = self._get_random_combat()
+        terrain = self._parent_scene.model.terrain
         logging.debug(f"{combat['type']} combat chosen.")
         num_units = len(combat["units"])
         enemy_troupe = Troupe(self._game, "enemy", [])
 
         # generate positions
+        minx = miny = (BARRIER_SIZE + 1) * TILE_SIZE
+        maxx = ((terrain.size.x // 2) - 1) * TILE_SIZE
+        maxy = ((terrain.size.y // 2) - 1) * TILE_SIZE
         positions = []
         for i in range(num_units):
-            # choose a random spot on the right side of the map
+            # choose a random spot on the left side of the map
             while True:
                 pos = pygame.Vector2(
-                    self._game.window.base_resolution[0] // 4 * 3
-                    + rng.random() * (self._game.window.base_resolution[0] // 4),
-                    rng.random() * self._game.window.base_resolution[1],
+                    rng.randint(minx, maxx),
+                    rng.randint(miny, maxy),
                 )
-                if not self._parent_scene.model.terrain.check_tile_solid(pos):
+                if not terrain.check_tile_solid(pos):
                     break
             positions.append(pos)
 
@@ -139,7 +142,7 @@ class CombatController(Controller):
         # assign positions and add to combat
         for id_ in ids:
             unit = enemy_troupe.units[id_]
-            unit.pos = positions.pop(0)
+            unit.set_position(positions.pop(0))
 
         troupe_id = self._parent_scene.model.add_troupe(enemy_troupe)
         self.enemy_troupe_id = troupe_id
