@@ -1,6 +1,7 @@
 from heapq import heappop, heappush, heappushpop
 from typing import Any, List
 
+
 class PriorityQueue:
     """
     PriorityQueue implementation using heapq
