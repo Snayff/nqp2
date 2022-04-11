@@ -1,6 +1,5 @@
-from heapq import heappush, heappop, heappushpop
-from typing import List, Any
-
+from heapq import heappop, heappush, heappushpop
+from typing import Any, List
 
 
 class PriorityQueue:

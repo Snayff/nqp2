@@ -1,6 +1,6 @@
 import random
 from itertools import product
-from typing import Dict, List, Iterator, Set
+from typing import Dict, Iterator, List, Set
 
 import pygame
 

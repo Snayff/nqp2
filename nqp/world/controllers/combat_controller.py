@@ -7,7 +7,7 @@ import pygame
 
 from nqp.base_classes.controller import Controller
 from nqp.command.troupe import Troupe
-from nqp.core.constants import CombatState, WorldState, TILE_SIZE, BARRIER_SIZE
+from nqp.core.constants import BARRIER_SIZE, CombatState, TILE_SIZE, WorldState
 from nqp.core.debug import Timer
 
 if TYPE_CHECKING:
