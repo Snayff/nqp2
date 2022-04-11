@@ -39,7 +39,11 @@ class Projectile:
         self.is_active: bool = True
 
     def update(self, delta_time: float):
-        remaining_dis = self.speed * delta_time
+        try:
+            remaining_dis = self.speed * delta_time
+        except TypeError:
+            # BUG: unsupported operand type(s) for *: 'dict' and 'float
+            return
         while remaining_dis > 0:
             dis = min(remaining_dis, 4)
             remaining_dis -= dis

@@ -1,9 +1,7 @@
 from __future__ import annotations
 
-import logging
-from typing import List, Tuple, TYPE_CHECKING, Union
+from typing import Tuple
 
-from pygame import Vector2
+__all__ = ["TileLocation"]
 
-if TYPE_CHECKING:
-    from typing import Dict, List, Optional, Tuple, Union
+TileLocation = Tuple[int, int]

@@ -79,7 +79,8 @@ class WorldUI(UI):
         # need to call here as otherwise units dont align to grid
         # TODO - remove the need to call after init
         if self.grid is None:
-            self.grid = UnitGrid(self._game, pygame.Rect(3, 2, 3, 6))
+            # TODO: do not hardcode this rect
+            self.grid = UnitGrid(self._game, pygame.Rect(10, 10, 3, 6))
             self.grid.move_units_to_grid()
 
     def _update_combat(self, delta_time: float):
