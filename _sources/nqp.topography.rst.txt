@@ -4,10 +4,10 @@ nqp.topography package
 Submodules
 ----------
 
-nqp.topography.pathfinder module
---------------------------------
+nqp.topography.pathfinding module
+---------------------------------
 
-.. automodule:: nqp.topography.pathfinder
+.. automodule:: nqp.topography.pathfinding
    :members:
    :undoc-members:
    :show-inheritance:

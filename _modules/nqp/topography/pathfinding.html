@@ -1,0 +1,310 @@
+
+
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>nqp.topography.pathfinding &mdash; NotQuiteParadise2  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.min.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <a class="site-nav-toggle hidden-lg-up"><i class="icon-menu"></i></a>
+            <a class="site-title" href="../../../index.html">
+                NotQuiteParadise2
+            </a>
+        </div>
+    </header>
+
+
+<div class="breadcrumbs-outer hidden-xs-down">
+    <div class="container">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a></li>
+        
+          <li><a href="../../index.html">Module code</a></li>
+        
+      <li>nqp.topography.pathfinding</li>
+    
+    
+      <li class="breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+</div>
+    </div>
+</div>
+    <div class="main-outer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-3 site-nav">
+                    
+<div role="search">
+    <form class="search" action="../../../search.html" method="get">
+        <div class="icon-input">
+            <input type="text" name="q" placeholder="Search" />
+            <span class="icon-search"></span>
+        </div>
+        <input type="submit" value="Go" class="d-hidden" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+                    <div class="site-nav-tree">
+                        
+                            
+                            
+                                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/base_classes/_base_classes.html">Base Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/animation.html">Animation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/controller.html">Controller</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/entity_behaviour.html">Entity Behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/image.html">Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/scene.html">Scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/stat.html">Stat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/ui.html">UI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/ui_element.html">UI Element</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/command/_command.html">Command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/command/basic_entity_behaviour.html">Basic Entity Behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/command/commander.html">Commander</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/command/troupe.html">Troupe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/command/unit.html">Unit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/command/unit_behaviour.html">Unit Behaviour</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/core/_core.html">Core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/audio.html">Audio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/components.html">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/constants.html">Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/data.html">Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/debug.html">Debug</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/definitions.html">Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/effect.html">Effect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/game.html">Game</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/input.html">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/memory.html">Memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/queries.html">Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/rng.html">RNG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/scheduler.html">Scheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/utility.html">Utility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/window.html">Window</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/effects/_effects.html">Effects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/add_item.html">Add Item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/attribute_modifier.html">Attribute Modifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/sildreths_signature.html">Sildreths Signature</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/scenes/_scenes.html">Scenes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/scenes/gallery.html">Gallery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/scenes/main_menu.html">Main Menu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/scenes/run_setup.html">Run Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/scenes/unit_data.html">Unit Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/scenes/world.html">World</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/topography/_topography.html">Base Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/topography/pathfinder.html">Pathfinder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/topography/terrain.html">Terrain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/topography/tile.html">Tile</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/world/_world.html">World</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world/controllers.html">Controllers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world/model.html">Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world/view.html">View</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/world_elements/_world_elements.html">World Elements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/actions.html">Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/camera.html">Camera</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/hitbox.html">Hitbox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/item.html">Item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/particle.html">Particle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/particle_manager.html">Particle Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/projectile.html">Projectile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/projectile_manager.html">Projectile Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/stats.html">Stats</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer/_developer.html">Developer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../developer/developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../developer/adding_new_content.html">Adding New Content</a></li>
+</ul>
+</li>
+</ul>
+
+                            
+                        
+                    </div>
+                </div>
+                <div class="col-12 col-lg-9">
+                    <div class="document">
+                        
+                            
+  <h1>Source code for nqp.topography.pathfinding</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">heapq</span> <span class="kn">import</span> <span class="n">heappop</span><span class="p">,</span> <span class="n">heappush</span><span class="p">,</span> <span class="n">heappushpop</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span>
+
+
+<div class="viewcode-block" id="PriorityQueue"><a class="viewcode-back" href="../../../nqp.topography.html#nqp.topography.pathfinding.PriorityQueue">[docs]</a><span class="k">class</span> <span class="nc">PriorityQueue</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    PriorityQueue implementation using heapq</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="PriorityQueue.__init__"><a class="viewcode-back" href="../../../nqp.topography.html#nqp.topography.pathfinding.PriorityQueue.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pushback</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+    <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pushback</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">)</span>
+
+<div class="viewcode-block" id="PriorityQueue.put"><a class="viewcode-back" href="../../../nqp.topography.html#nqp.topography.pathfinding.PriorityQueue.put">[docs]</a>    <span class="k">def</span> <span class="nf">put</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">priority</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pushback</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">heappush</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pushback</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pushback</span> <span class="o">=</span> <span class="n">priority</span><span class="p">,</span> <span class="n">item</span></div>
+
+<div class="viewcode-block" id="PriorityQueue.get"><a class="viewcode-back" href="../../../nqp.topography.html#nqp.topography.pathfinding.PriorityQueue.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pushback</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">heappop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">heappushpop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pushback</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_pushback</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="k">return</span> <span class="n">value</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s2">&quot;get from empty queue&quot;</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="search_terrain"><a class="viewcode-back" href="../../../nqp.topography.html#nqp.topography.pathfinding.search_terrain">[docs]</a><span class="k">def</span> <span class="nf">search_terrain</span><span class="p">(</span><span class="n">terrain</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Perform basic a* search on a Terrain</span>
+
+<span class="sd">    - return path from ``start`` to ``end``</span>
+<span class="sd">    - ``start`` will not be included in the list</span>
+<span class="sd">    - ``end`` will be the last item in the returned list</span>
+<span class="sd">    - empty list will be returned if there is no path</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">queue</span> <span class="o">=</span> <span class="n">PriorityQueue</span><span class="p">()</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+    <span class="n">cost_so_far</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+
+    <span class="n">current</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">parent</span><span class="p">[</span><span class="n">start</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">cost_so_far</span><span class="p">[</span><span class="n">start</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+        <span class="n">current</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">current</span> <span class="o">==</span> <span class="n">end</span><span class="p">:</span>
+            <span class="k">break</span>
+
+        <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">terrain</span><span class="o">.</span><span class="n">get_exits</span><span class="p">(</span><span class="n">current</span><span class="p">):</span>
+            <span class="n">cost</span> <span class="o">=</span> <span class="n">cost_so_far</span><span class="p">[</span><span class="n">current</span><span class="p">]</span> <span class="o">+</span> <span class="n">terrain</span><span class="o">.</span><span class="n">cost</span><span class="p">(</span><span class="n">current</span><span class="p">,</span> <span class="n">neighbor</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">neighbor</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cost_so_far</span> <span class="ow">or</span> <span class="n">cost</span> <span class="o">&lt;</span> <span class="n">cost_so_far</span><span class="p">[</span><span class="n">neighbor</span><span class="p">]:</span>
+                <span class="n">parent</span><span class="p">[</span><span class="n">neighbor</span><span class="p">]</span> <span class="o">=</span> <span class="n">current</span>
+                <span class="n">cost_so_far</span><span class="p">[</span><span class="n">neighbor</span><span class="p">]</span> <span class="o">=</span> <span class="n">cost</span>
+                <span class="n">dist</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">neighbor</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">end</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="nb">abs</span><span class="p">(</span><span class="n">neighbor</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">end</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                <span class="n">queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">neighbor</span><span class="p">,</span> <span class="n">cost</span> <span class="o">+</span> <span class="n">dist</span><span class="p">)</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="p">[</span><span class="n">current</span><span class="p">]</span>
+    <span class="k">while</span> <span class="n">parent</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">current</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">current</span> <span class="o">=</span> <span class="n">parent</span><span class="p">[</span><span class="n">current</span><span class="p">]</span>
+        <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current</span><span class="p">)</span>
+    <span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+    <span class="n">path</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">path</span></div>
+</pre></div>
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+    <script type="text/javascript" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+    <div class="footer" role="contentinfo">
+        <div class="container">
+            &#169; Copyright 2019-2022, Josh Snaith.
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.
+        </div>
+    </div>  
+
+</body>
+</html>

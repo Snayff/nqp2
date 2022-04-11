@@ -317,13 +317,13 @@
 </li>
         <li><a href="api/world_elements/particle_manager.html#nqp.world_elements.particle_manager.ParticleManager.__init__">(ParticleManager method)</a>, <a href="nqp.world_elements.html#nqp.world_elements.particle_manager.ParticleManager.__init__">[1]</a>
 </li>
-        <li><a href="api/topography/pathfinder.html#nqp.topography.pathfinder.Pathfinder.__init__">(Pathfinder method)</a>, <a href="nqp.topography.html#nqp.topography.pathfinder.Pathfinder.__init__">[1]</a>
-</li>
         <li><a href="api/core/components.html#nqp.core.components.Position.__init__">(Position method)</a>, <a href="nqp.core.html#nqp.core.components.Position.__init__">[1]</a>
 </li>
         <li><a href="nqp.scenes.post_combat.html#nqp.scenes.post_combat.scene.PostCombatScene.__init__">(PostCombatScene method)</a>
 </li>
         <li><a href="nqp.scenes.post_combat.html#nqp.scenes.post_combat.ui.PostCombatUI.__init__">(PostCombatUI method)</a>
+</li>
+        <li><a href="nqp.topography.html#nqp.topography.pathfinding.PriorityQueue.__init__">(PriorityQueue method)</a>
 </li>
         <li><a href="api/world_elements/projectile.html#nqp.world_elements.projectile.Projectile.__init__">(Projectile method)</a>, <a href="nqp.world_elements.html#nqp.world_elements.projectile.Projectile.__init__">[1]</a>
 </li>
@@ -538,6 +538,8 @@
 </li>
       <li><a href="api/topography/terrain.html#nqp.topography.terrain.Terrain.check_tile_hoverable">check_tile_hoverable() (Terrain method)</a>, <a href="nqp.topography.html#nqp.topography.terrain.Terrain.check_tile_hoverable">[1]</a>
 </li>
+      <li><a href="api/topography/terrain.html#nqp.topography.terrain.Terrain.check_tile_inside">check_tile_inside() (Terrain method)</a>, <a href="nqp.topography.html#nqp.topography.terrain.Terrain.check_tile_inside">[1]</a>
+</li>
       <li><a href="api/topography/terrain.html#nqp.topography.terrain.Terrain.check_tile_solid">check_tile_solid() (Terrain method)</a>, <a href="nqp.topography.html#nqp.topography.terrain.Terrain.check_tile_solid">[1]</a>
 </li>
       <li><a href="api/core/constants.html#nqp.core.constants.WorldState.CHOOSE_NEXT_ROOM">CHOOSE_NEXT_ROOM (WorldState attribute)</a>, <a href="nqp.core.html#nqp.core.constants.WorldState.CHOOSE_NEXT_ROOM">[1]</a>
@@ -577,6 +579,8 @@
       <li><a href="api/base_classes/controller.html#nqp.base_classes.controller.Controller">Controller (class in nqp.base_classes.controller)</a>, <a href="nqp.base_classes.html#nqp.base_classes.controller.Controller">[1]</a>
 </li>
       <li><a href="api/core/input.html#nqp.core.input.ControllerConfig">ControllerConfig (class in nqp.core.input)</a>, <a href="nqp.core.html#nqp.core.input.ControllerConfig">[1]</a>
+</li>
+      <li><a href="api/topography/terrain.html#nqp.topography.terrain.Terrain.cost">cost() (Terrain method)</a>, <a href="nqp.topography.html#nqp.topography.terrain.Terrain.cost">[1]</a>
 </li>
       <li><a href="nqp.core.html#nqp.core.visual.Visual.create_animation">create_animation() (Visual method)</a>
 </li>
@@ -619,8 +623,6 @@
       <li><a href="api/core/input.html#nqp.core.input.ControllerConfig.deadzone">deadzone (ControllerConfig attribute)</a>, <a href="nqp.core.html#nqp.core.input.ControllerConfig.deadzone">[1]</a>
 </li>
       <li><a href="api/command/troupe.html#nqp.command.troupe.Troupe.debug_init_units">debug_init_units() (Troupe method)</a>, <a href="nqp.command.html#nqp.command.troupe.Troupe.debug_init_units">[1]</a>
-</li>
-      <li><a href="api/topography/terrain.html#nqp.topography.terrain.Terrain.debug_map">debug_map() (Terrain method)</a>, <a href="nqp.topography.html#nqp.topography.terrain.Terrain.debug_map">[1]</a>
 </li>
       <li><a href="api/core/debug.html#nqp.core.debug.Debugger">Debugger (class in nqp.core.debug)</a>, <a href="nqp.core.html#nqp.core.debug.Debugger">[1]</a>
 </li>
@@ -678,10 +680,10 @@
         <li><a href="api/core/constants.html#nqp.core.constants.GamepadButton.DOWN">(GamepadButton attribute)</a>, <a href="nqp.core.html#nqp.core.constants.GamepadButton.DOWN">[1]</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core/constants.html#nqp.core.constants.GamepadAxes.DPAD_X">DPAD_X (GamepadAxes attribute)</a>, <a href="nqp.core.html#nqp.core.constants.GamepadAxes.DPAD_X">[1]</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core/constants.html#nqp.core.constants.GamepadAxes.DPAD_Y">DPAD_Y (GamepadAxes attribute)</a>, <a href="nqp.core.html#nqp.core.constants.GamepadAxes.DPAD_Y">[1]</a>
 </li>
       <li><a href="nqp.ui_elements.generic.html#nqp.ui_elements.generic.fancy_font.Character.draw">draw() (Character method)</a>
@@ -840,16 +842,8 @@
 </li>
       <li><a href="api/core/constants.html#nqp.core.constants.GameState">GameState (class in nqp.core.constants)</a>, <a href="nqp.core.html#nqp.core.constants.GameState">[1]</a>
 </li>
-      <li><a href="api/topography/terrain.html#nqp.topography.terrain.gen_blob">gen_blob() (in module nqp.topography.terrain)</a>, <a href="nqp.topography.html#nqp.topography.terrain.gen_blob">[1]</a>
+      <li><a href="api/topography/terrain.html#nqp.topography.terrain.Terrain.generate">generate() (Terrain method)</a>, <a href="nqp.topography.html#nqp.topography.terrain.Terrain.generate">[1]</a>
 </li>
-      <li><a href="api/topography/terrain.html#nqp.topography.terrain.Terrain.gen_pathfinding_map">gen_pathfinding_map() (Terrain method)</a>, <a href="nqp.topography.html#nqp.topography.terrain.Terrain.gen_pathfinding_map">[1]</a>
-</li>
-      <li><a href="api/topography/terrain.html#nqp.topography.terrain.generate">generate() (in module nqp.topography.terrain)</a>, <a href="nqp.topography.html#nqp.topography.terrain.generate">[1]</a>
-
-      <ul>
-        <li><a href="api/topography/terrain.html#nqp.topography.terrain.Terrain.generate">(Terrain method)</a>, <a href="nqp.topography.html#nqp.topography.terrain.Terrain.generate">[1]</a>
-</li>
-      </ul></li>
       <li><a href="api/command/unit.html#nqp.command.unit.Unit.generate_border_surface">generate_border_surface() (Unit method)</a>, <a href="nqp.command.html#nqp.command.unit.Unit.generate_border_surface">[1]</a>
 </li>
       <li><a href="api/world/controllers.html#nqp.world.controllers.combat_controller.CombatController.generate_combat">generate_combat() (CombatController method)</a>, <a href="nqp.world.controllers.html#nqp.world.controllers.combat_controller.CombatController.generate_combat">[1]</a>
@@ -872,6 +866,8 @@
       </ul></li>
       <li><a href="api/world/controllers.html#nqp.world.controllers.training_controller.TrainingController.generate_upgrades">generate_upgrades() (TrainingController method)</a>, <a href="nqp.world.controllers.html#nqp.world.controllers.training_controller.TrainingController.generate_upgrades">[1]</a>
 </li>
+      <li><a href="nqp.topography.html#nqp.topography.pathfinding.PriorityQueue.get">get() (PriorityQueue method)</a>
+</li>
       <li><a href="api/world/model.html#nqp.world.model.WorldModel.get_all_entities">get_all_entities() (WorldModel method)</a>, <a href="nqp.world.html#nqp.world.model.WorldModel.get_all_entities">[1]</a>
 </li>
       <li><a href="api/world/model.html#nqp.world.model.WorldModel.get_all_units">get_all_units() (WorldModel method)</a>, <a href="nqp.world.html#nqp.world.model.WorldModel.get_all_units">[1]</a>
@@ -888,9 +884,11 @@
 </li>
       <li><a href="api/world/controllers.html#nqp.world.controllers.event_controller.EventController.get_event">get_event() (EventController method)</a>, <a href="nqp.world.controllers.html#nqp.world.controllers.event_controller.EventController.get_event">[1]</a>
 </li>
+      <li><a href="api/core/data.html#nqp.core.data.Data.get_event_occur_rate">get_event_occur_rate() (Data method)</a>, <a href="nqp.core.html#nqp.core.data.Data.get_event_occur_rate">[1]</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/core/data.html#nqp.core.data.Data.get_event_occur_rate">get_event_occur_rate() (Data method)</a>, <a href="nqp.core.html#nqp.core.data.Data.get_event_occur_rate">[1]</a>
+      <li><a href="api/topography/terrain.html#nqp.topography.terrain.Terrain.get_exits">get_exits() (Terrain method)</a>, <a href="nqp.topography.html#nqp.topography.terrain.Terrain.get_exits">[1]</a>
 </li>
       <li><a href="nqp.ui_elements.tailored.html#nqp.ui_elements.tailored.unit_grid.UnitGrid.get_focused_cell">get_focused_cell() (UnitGrid method)</a>
 </li>
@@ -1006,6 +1004,8 @@
 </li>
       <li><a href="api/base_classes/image.html#nqp.base_classes.image.Image">Image (class in nqp.base_classes.image)</a>, <a href="nqp.base_classes.html#nqp.base_classes.image.Image">[1]</a>
 </li>
+      <li><a href="api/topography/terrain.html#nqp.topography.terrain.Terrain.in_bounds">in_bounds() (Terrain method)</a>, <a href="nqp.topography.html#nqp.topography.terrain.Terrain.in_bounds">[1]</a>
+</li>
       <li><a href="api/core/debug.html#nqp.core.debug.Debugger.initialise_logging">initialise_logging() (Debugger method)</a>, <a href="nqp.core.html#nqp.core.debug.Debugger.initialise_logging">[1]</a>
 </li>
       <li><a href="api/core/memory.html#nqp.core.memory.Memory.initialise_run">initialise_run() (Memory method)</a>, <a href="nqp.core.html#nqp.core.memory.Memory.initialise_run">[1]</a>
@@ -1018,10 +1018,10 @@
 </li>
       <li><a href="api/core/constants.html#nqp.core.constants.InnState">InnState (class in nqp.core.constants)</a>, <a href="nqp.core.html#nqp.core.constants.InnState">[1]</a>
 </li>
-      <li><a href="api/core/input.html#nqp.core.input.Input">Input (class in nqp.core.input)</a>, <a href="nqp.core.html#nqp.core.input.Input">[1]</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/core/input.html#nqp.core.input.Input">Input (class in nqp.core.input)</a>, <a href="nqp.core.html#nqp.core.input.Input">[1]</a>
+</li>
       <li><a href="api/core/constants.html#nqp.core.constants.InputType">InputType (class in nqp.core.constants)</a>, <a href="nqp.core.html#nqp.core.constants.InputType">[1]</a>
 </li>
       <li><a href="api/core/constants.html#nqp.core.constants.FontType.INSTRUCTION">INSTRUCTION (FontType attribute)</a>, <a href="nqp.core.html#nqp.core.constants.FontType.INSTRUCTION">[1]</a>
@@ -1112,7 +1112,7 @@
 </li>
       <li><a href="api/core/constants.html#nqp.core.constants.GameState.LOADING">LOADING (GameState attribute)</a>, <a href="nqp.core.html#nqp.core.constants.GameState.LOADING">[1]</a>
 </li>
-      <li><a href="api/topography/terrain.html#nqp.topography.terrain.Terrain.loc_to_path">loc_to_path() (Terrain method)</a>, <a href="nqp.topography.html#nqp.topography.terrain.Terrain.loc_to_path">[1]</a>
+      <li><a href="api/topography/terrain.html#nqp.topography.terrain.Terrain.loc_to_px">loc_to_px() (Terrain method)</a>, <a href="nqp.topography.html#nqp.topography.terrain.Terrain.loc_to_px">[1]</a>
 </li>
   </ul></td>
 </tr></table>
@@ -1256,7 +1256,7 @@
 </li>
         <li><a href="nqp.topography.html#module-nqp.topography">nqp.topography</a>
 </li>
-        <li><a href="api/topography/pathfinder.html#module-nqp.topography.pathfinder">nqp.topography.pathfinder</a>, <a href="nqp.topography.html#module-nqp.topography.pathfinder">[1]</a>
+        <li><a href="nqp.topography.html#module-nqp.topography.pathfinding">nqp.topography.pathfinding</a>
 </li>
         <li><a href="api/topography/terrain.html#module-nqp.topography.terrain">nqp.topography.terrain</a>, <a href="nqp.topography.html#module-nqp.topography.terrain">[1]</a>
 </li>
@@ -1810,10 +1810,10 @@
 </li>
       </ul></li>
       <li>
-    nqp.topography.pathfinder
+    nqp.topography.pathfinding
 
       <ul>
-        <li><a href="api/topography/pathfinder.html#module-nqp.topography.pathfinder">module</a>, <a href="nqp.topography.html#module-nqp.topography.pathfinder">[1]</a>
+        <li><a href="nqp.topography.html#module-nqp.topography.pathfinding">module</a>
 </li>
       </ul></li>
       <li>
@@ -2083,7 +2083,11 @@
 </li>
       <li><a href="api/world_elements/particle_manager.html#nqp.world_elements.particle_manager.ParticleManager">ParticleManager (class in nqp.world_elements.particle_manager)</a>, <a href="nqp.world_elements.html#nqp.world_elements.particle_manager.ParticleManager">[1]</a>
 </li>
-      <li><a href="api/topography/pathfinder.html#nqp.topography.pathfinder.Pathfinder">Pathfinder (class in nqp.topography.pathfinder)</a>, <a href="nqp.topography.html#nqp.topography.pathfinder.Pathfinder">[1]</a>
+      <li><a href="api/topography/terrain.html#nqp.topography.terrain.Terrain.passable">passable() (Terrain method)</a>, <a href="nqp.topography.html#nqp.topography.terrain.Terrain.passable">[1]</a>
+</li>
+      <li><a href="api/topography/terrain.html#nqp.topography.terrain.Terrain.pathfind">pathfind() (Terrain method)</a>, <a href="nqp.topography.html#nqp.topography.terrain.Terrain.pathfind">[1]</a>
+</li>
+      <li><a href="api/topography/terrain.html#nqp.topography.terrain.Terrain.pathfind_px">pathfind_px() (Terrain method)</a>, <a href="nqp.topography.html#nqp.topography.terrain.Terrain.pathfind_px">[1]</a>
 </li>
       <li><a href="api/base_classes/animation.html#nqp.base_classes.animation.Animation.pause">pause() (Animation method)</a>, <a href="nqp.base_classes.html#nqp.base_classes.animation.Animation.pause">[1]</a>
 </li>
@@ -2100,6 +2104,10 @@
       <li><a href="api/core/audio.html#nqp.core.audio.Audio.play_sound">play_sound() (Audio method)</a>, <a href="nqp.core.html#nqp.core.audio.Audio.play_sound">[1]</a>
 </li>
       <li><a href="api/world/model.html#nqp.world.model.WorldModel.player_troupe">player_troupe (WorldModel property)</a>, <a href="nqp.world.html#nqp.world.model.WorldModel.player_troupe">[1]</a>
+</li>
+      <li><a href="api/topography/terrain.html#nqp.topography.terrain.Terrain.playfield_rect">playfield_rect() (Terrain method)</a>, <a href="nqp.topography.html#nqp.topography.terrain.Terrain.playfield_rect">[1]</a>
+</li>
+      <li><a href="api/topography/terrain.html#nqp.topography.terrain.Terrain.playfield_rect_px">playfield_rect_px() (Terrain method)</a>, <a href="nqp.topography.html#nqp.topography.terrain.Terrain.playfield_rect_px">[1]</a>
 </li>
       <li><a href="api/core/constants.html#nqp.core.constants.AnimationState.PLAYING">PLAYING (AnimationState attribute)</a>, <a href="nqp.core.html#nqp.core.constants.AnimationState.PLAYING">[1]</a>
 
@@ -2125,10 +2133,10 @@
 </li>
       <li><a href="api/world/controllers.html#nqp.world.controllers.combat_controller.CombatController.prepare_combat">prepare_combat() (CombatController method)</a>, <a href="nqp.world.controllers.html#nqp.world.controllers.combat_controller.CombatController.prepare_combat">[1]</a>
 </li>
-      <li><a href="api/ui_elements/generic.html#nqp.ui_elements.generic.ui_button.UIButton.pressed">pressed (UIButton property)</a>, <a href="nqp.ui_elements.generic.html#nqp.ui_elements.generic.ui_button.UIButton.pressed">[1]</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/ui_elements/generic.html#nqp.ui_elements.generic.ui_button.UIButton.pressed">pressed (UIButton property)</a>, <a href="nqp.ui_elements.generic.html#nqp.ui_elements.generic.ui_button.UIButton.pressed">[1]</a>
+</li>
       <li><a href="api/core/utility.html#nqp.core.utility.previous_number_in_loop">previous_number_in_loop() (in module nqp.core.utility)</a>, <a href="nqp.core.html#nqp.core.utility.previous_number_in_loop">[1]</a>
 </li>
       <li><a href="api/world/model.html#nqp.world.model.WorldModel.previous_state">previous_state (WorldModel property)</a>, <a href="nqp.world.html#nqp.world.model.WorldModel.previous_state">[1]</a>
@@ -2136,6 +2144,8 @@
       <li><a href="api/core/debug.html#nqp.core.debug.Debugger.print_values_to_console">print_values_to_console() (Debugger method)</a>, <a href="nqp.core.html#nqp.core.debug.Debugger.print_values_to_console">[1]</a>
 </li>
       <li><a href="api/world/controllers.html#nqp.world.controllers.event_controller.EventController.prioritise_event">prioritise_event() (EventController method)</a>, <a href="nqp.world.controllers.html#nqp.world.controllers.event_controller.EventController.prioritise_event">[1]</a>
+</li>
+      <li><a href="nqp.topography.html#nqp.topography.pathfinding.PriorityQueue">PriorityQueue (class in nqp.topography.pathfinding)</a>
 </li>
       <li><a href="nqp.core.html#nqp.core.systems.process_ai">process_ai() (in module nqp.core.systems)</a>
 </li>
@@ -2173,7 +2183,7 @@
 </li>
       <li><a href="nqp.core.html#nqp.core.systems.push_entities_away_from_one_another">push_entities_away_from_one_another() (in module nqp.core.systems)</a>
 </li>
-      <li><a href="api/topography/pathfinder.html#nqp.topography.pathfinder.Pathfinder.px_route">px_route() (Pathfinder method)</a>, <a href="nqp.topography.html#nqp.topography.pathfinder.Pathfinder.px_route">[1]</a>
+      <li><a href="nqp.topography.html#nqp.topography.pathfinding.PriorityQueue.put">put() (PriorityQueue method)</a>
 </li>
       <li><a href="api/topography/terrain.html#nqp.topography.terrain.Terrain.px_to_loc">px_to_loc() (Terrain method)</a>, <a href="nqp.topography.html#nqp.topography.terrain.Terrain.px_to_loc">[1]</a>
 
@@ -2321,8 +2331,6 @@
 </li>
       <li><a href="api/world/model.html#nqp.world.model.WorldModel.roll_for_event">roll_for_event() (WorldModel method)</a>, <a href="nqp.world.html#nqp.world.model.WorldModel.roll_for_event">[1]</a>
 </li>
-      <li><a href="api/topography/pathfinder.html#nqp.topography.pathfinder.Pathfinder.route">route() (Pathfinder method)</a>, <a href="nqp.topography.html#nqp.topography.pathfinder.Pathfinder.route">[1]</a>
-</li>
       <li><a href="api/core/game.html#nqp.core.game.Game.run">run() (Game method)</a>, <a href="nqp.core.html#nqp.core.game.Game.run">[1]</a>
 </li>
       <li><a href="api/core/constants.html#nqp.core.constants.SceneType.RUN_SETUP">RUN_SETUP (SceneType attribute)</a>, <a href="nqp.core.html#nqp.core.constants.SceneType.RUN_SETUP">[1]</a>
@@ -2352,6 +2360,8 @@
       <li><a href="api/core/scheduler.html#nqp.core.scheduler.ScheduledItem">ScheduledItem (class in nqp.core.scheduler)</a>, <a href="nqp.core.html#nqp.core.scheduler.ScheduledItem">[1]</a>
 </li>
       <li><a href="api/core/scheduler.html#nqp.core.scheduler.Scheduler">Scheduler (class in nqp.core.scheduler)</a>, <a href="nqp.core.html#nqp.core.scheduler.Scheduler">[1]</a>
+</li>
+      <li><a href="nqp.topography.html#nqp.topography.pathfinding.search_terrain">search_terrain() (in module nqp.topography.pathfinding)</a>
 </li>
       <li><a href="nqp.base_classes.html#nqp.base_classes.ui.UI.select_container">select_container() (UI method)</a>
 </li>
@@ -2405,13 +2415,11 @@
 </li>
       <li><a href="api/command/troupe.html#nqp.command.troupe.Troupe.set_force_idle">set_force_idle() (Troupe method)</a>, <a href="nqp.command.html#nqp.command.troupe.Troupe.set_force_idle">[1]</a>
 </li>
-      <li><a href="api/world/model.html#nqp.world.model.WorldModel.set_game_speed">set_game_speed() (WorldModel method)</a>, <a href="nqp.world.html#nqp.world.model.WorldModel.set_game_speed">[1]</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="nqp.base_classes.html#nqp.base_classes.ui.UI.set_instruction_text">set_instruction_text() (UI method)</a>
+      <li><a href="api/world/model.html#nqp.world.model.WorldModel.set_game_speed">set_game_speed() (WorldModel method)</a>, <a href="nqp.world.html#nqp.world.model.WorldModel.set_game_speed">[1]</a>
 </li>
-      <li><a href="api/topography/pathfinder.html#nqp.topography.pathfinder.Pathfinder.set_map">set_map() (Pathfinder method)</a>, <a href="nqp.topography.html#nqp.topography.pathfinder.Pathfinder.set_map">[1]</a>
+      <li><a href="nqp.base_classes.html#nqp.base_classes.ui.UI.set_instruction_text">set_instruction_text() (UI method)</a>
 </li>
       <li><a href="api/command/unit.html#nqp.command.unit.Unit.set_position">set_position() (Unit method)</a>, <a href="nqp.command.html#nqp.command.unit.Unit.set_position">[1]</a>
 </li>
@@ -2682,6 +2690,8 @@
       <li><a href="api/command/basic_entity_behaviour.html#nqp.command.basic_entity_behaviour.BasicEntityBehaviour.update_path">update_path() (BasicEntityBehaviour method)</a>, <a href="nqp.command.html#nqp.command.basic_entity_behaviour.BasicEntityBehaviour.update_path">[1]</a>
 </li>
       <li><a href="api/command/unit.html#nqp.command.unit.Unit.update_position">update_position() (Unit method)</a>, <a href="nqp.command.html#nqp.command.unit.Unit.update_position">[1]</a>
+</li>
+      <li><a href="api/topography/terrain.html#nqp.topography.terrain.Terrain.update_static_pathfinding_data">update_static_pathfinding_data() (Terrain method)</a>, <a href="nqp.topography.html#nqp.topography.terrain.Terrain.update_static_pathfinding_data">[1]</a>
 </li>
       <li><a href="api/base_classes/entity_behaviour.html#nqp.base_classes.entity_behaviour.EntityBehaviour.update_target_entity">update_target_entity() (EntityBehaviour method)</a>, <a href="nqp.base_classes.html#nqp.base_classes.entity_behaviour.EntityBehaviour.update_target_entity">[1]</a>
 </li>

@@ -235,7 +235,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">is_active</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span></div>
 
 <div class="viewcode-block" id="Projectile.update"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.projectile.Projectile.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
-        <span class="n">remaining_dis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">speed</span> <span class="o">*</span> <span class="n">delta_time</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">remaining_dis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">speed</span> <span class="o">*</span> <span class="n">delta_time</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+            <span class="c1"># BUG: unsupported operand type(s) for *: &#39;dict&#39; and &#39;float</span>
+            <span class="k">return</span>
         <span class="k">while</span> <span class="n">remaining_dis</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">dis</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">remaining_dis</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
             <span class="n">remaining_dis</span> <span class="o">-=</span> <span class="n">dis</span>
