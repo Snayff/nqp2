@@ -1,8 +1,12 @@
 from heapq import heappop, heappush, heappushpop
 from typing import Any, List
 
-
 class PriorityQueue:
+    """
+    PriorityQueue implementation using heapq
+
+    """
+
     def __init__(self):
         self.elements: List[Any] = []
         self._pushback = None
@@ -31,7 +35,12 @@ class PriorityQueue:
 
 def search_terrain(terrain, start, end):
     """
-    perform basic a* search on a Terrain
+    Perform basic a* search on a Terrain
+
+    - return path from ``start`` to ``end``
+    - ``start`` will not be included in the list
+    - ``end`` will be the last item in the returned list
+    - empty list will be returned if there is no path
 
     """
     queue = PriorityQueue()
