@@ -29,24 +29,24 @@ class UnitGrid:
 
     Args:
         game: Game object
-        rect: Rect of grid in tile size
+        pos: Position of the grid in tile coordinates
+        size: size of the grid in cell_size units
+        scale: amount to scale the TILE_SIZE to get cell_size units
 
     """
 
-    def __init__(self, game: Game, rect: pygame.Rect):
+    def __init__(self, game: Game, pos, size, scale: int):
         # TODO:
         #  - show units moving on screen instead of setting their positions
         #  - there's still a bug somewhere that keeps units from switching placement
         self._game: Game = game
-        self.rect: pygame.Rect = rect
-        # TODO: scale value needs to come from the View somewhere
-        scale = 2
-        self.cell_size: int = TILE_SIZE * scale
+        self.pos: pygame.Vector2 = pygame.Vector2(pos)
+        self.size: pygame.Vector2 = pygame.Vector2(size)
+        self.scale: int = scale
+        self.cell_size: int = int(scale * TILE_SIZE)
         # Pixel border of each cell
         self.cell_border_width: int = 1
         self.focused_border_width: int = 3
-        # Number of vertical and horizontal cells
-        # Troupe units for placement
         self.units: List[Unit] = game.world.model.get_all_units()
         self.are_units_aligned_to_grid = False
         self.selected_cell = None
@@ -67,30 +67,24 @@ class UnitGrid:
         Initializes grid cells and graphics
 
         """
-
-        size_border = self.cell_size + (self.cell_border_width * 2)
-        size_internal = self.cell_size + self.cell_border_width
-        width = (self.rect.width * size_internal) + self.cell_border_width
-        height = (self.rect.height * size_internal) + self.cell_border_width
-        cell_rect = pygame.Rect((0, 0), (size_border, size_border))
-
-        top = self.rect.y * self.cell_size
-        right = self.rect.x * self.cell_size
+        cell_rect = pygame.Rect((0, 0), (self.cell_size, self.cell_size))
+        left = int(self.pos.x * TILE_SIZE)
+        top = int(self.pos.y * TILE_SIZE)
 
         self.cells = [
-            GridCell(pygame.Rect((x + right, y + top), cell_rect.size))
-            for y in range(self.cell_border_width, height, size_internal)
-            for x in range(self.cell_border_width, width, size_internal)
+            GridCell(pygame.Rect((x + left, y + top), cell_rect.size))
+            for y in range(0, int(self.size.y * self.cell_size), self.cell_size)
+            for x in range(0, int(self.size.x * self.cell_size), self.cell_size)
         ]
 
         # Surface for cells that were not selected, under current mouse position or gamepad selection
         self.cell_surface = pygame.Surface(cell_rect.size, pygame.SRCALPHA)
-        # pygame.draw.rect(self.cell_surface, self.line_colour, cell_rect, 1)
+        self.cell_surface.fill((32, 32, 32, 32))
 
         # Surface for the cell that's under the current mouse position or gamepad selection, but not selected
         self.cell_surface_hover = pygame.Surface(cell_rect.size, pygame.SRCALPHA)
         pygame.draw.rect(self.cell_surface_hover, self.line_colour_hover, cell_rect, self.focused_border_width, 3)
-        erase = cell_rect.x + (cell_rect.width * 0.12), cell_rect.y, cell_rect.width * 0.78, cell_rect.height
+        erase = cell_rect.x + (cell_rect.width * 0.15), cell_rect.y, cell_rect.width * 0.75, cell_rect.height
         self.cell_surface_hover.fill((0, 0, 0, 0), erase)
 
         # Surface for the cell that was selected
@@ -102,10 +96,11 @@ class UnitGrid:
         Instantly move unit to cell
 
         """
-        cell_center_x, cell_center_y = cell.rect.x + self.cell_size // 2, cell.rect.y + self.cell_size // 2
+        cell_center = pygame.Vector2(cell.rect.center)
         cell.unit = unit
-        # # TODO: fix the following calculation, unit.size is NOT the size of the unit so this is wrong
-        unit.set_position(pygame.Vector2(cell_center_x + unit.size // 2, cell_center_y + unit.size // 2))
+        # TODO: fix the following calculation, unit.size is NOT the size of the unit so this is wrong
+        # unit.set_position(pygame.Vector2(cell_center.x + unit.size // 2, cell_center.y + unit.size // 2))
+        unit.set_position(cell_center)
 
     def _walk_cell_to_cell(self, unit: Unit, dest: GridCell):
         """
@@ -216,6 +211,19 @@ class UnitGrid:
         Draw the grid UI elements
 
         """
+        # draw grid lines
+        left = int(self.pos.x * TILE_SIZE - self.cell_border_width + offset.x)
+        top = int(self.pos.y * TILE_SIZE - self.cell_border_width + offset.y)
+        width = int(self.size.x * self.cell_size)
+        height = int(self.size.y * self.cell_size)
+        bottom = top + height
+        right = left + width
+        pygame.draw.lines(surface, self.line_colour, False, ((left, bottom), (left, top), (right, top)), 1)
+        for x in range(left, right + 1, self.cell_size):
+            pygame.draw.line(surface, self.line_colour, (x, top), (x, bottom))
+        for y in range(top, bottom + 1, self.cell_size):
+            pygame.draw.line(surface, self.line_colour, (left, y), (right, y))
+
         # NOTE: awkward sort because the selected/hovered cell must be drawn last
         draw_list = list()
         for i, cell in enumerate(self.cells):
@@ -299,6 +307,6 @@ class UnitGrid:
                         hover_cell = self.cells[index]
                     else:
                         index = self.cells.index(self.focused_cell)
-                        new_index = movement(index, self.rect.width, self.rect.height)
+                        new_index = movement(index, int(self.size.x), int(self.size.y))
                         hover_cell = self.cells[new_index]
         return hover_cell
