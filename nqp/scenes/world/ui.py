@@ -79,8 +79,8 @@ class WorldUI(UI):
         # need to call here as otherwise units dont align to grid
         # TODO - remove the need to call after init
         if self.grid is None:
-            # TODO: do not hardcode this rect
-            self.grid = UnitGrid(self._game, pygame.Rect(10, 10, 3, 6))
+            # TODO: do not hardcode the params
+            self.grid = UnitGrid(self._game, (12, 12), (3, 6), 2)
             self.grid.move_units_to_grid()
 
     def _update_combat(self, delta_time: float):
@@ -100,6 +100,24 @@ class WorldUI(UI):
 
         state = self._parent_scene.model.state
 
+        #################
+        # DO NOT DELETE #
+        #################
+        # TODO - add flag and add trigger to dev console
+        # manual camera control for debugging
+        if self._game.input.states["up"]:
+            self._game.input.states["up"] = False
+            self._worldview.camera.move(y=-32)
+        if self._game.input.states["down"]:
+            self._game.input.states["down"] = False
+            self._worldview.camera.move(y=32)
+        if self._game.input.states["left"]:
+            self._game.input.states["left"] = False
+            self._worldview.camera.move(x=-32)
+        if self._game.input.states["right"]:
+            self._game.input.states["right"] = False
+            self._worldview.camera.move(x=32)
+
         if state == WorldState.CHOOSE_NEXT_ROOM:
             self._process_choose_next_room_input()
 
@@ -115,24 +133,6 @@ class WorldUI(UI):
             self._process_inn_input()
         elif state == WorldState.EVENT:
             self._process_event_input()
-
-        #################
-        # DO NOT DELETE #
-        #################
-        # TODO - add flag and add trigger to dev console
-        # manual camera control for debugging
-        # if self._game.input.states["up"]:
-        #     self._game.input.states["up"] = False
-        #     self._worldview.camera.move(y=-32)
-        # if self._game.input.states["down"]:
-        #     self._game.input.states["down"] = False
-        #     self._worldview.camera.move(y=32)
-        # if self._game.input.states["left"]:
-        #     self._game.input.states["left"] = False
-        #     self._worldview.camera.move(x=-32)
-        # if self._game.input.states["right"]:
-        #     self._game.input.states["right"] = False
-        #     self._worldview.camera.move(x=32)
 
     def _process_inn_input(self):
         controller = self._parent_scene.inn
