@@ -275,8 +275,8 @@
         <span class="c1"># need to call here as otherwise units dont align to grid</span>
         <span class="c1"># TODO - remove the need to call after init</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="c1"># TODO: do not hardcode this rect</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">grid</span> <span class="o">=</span> <span class="n">UnitGrid</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+            <span class="c1"># TODO: do not hardcode the params</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">grid</span> <span class="o">=</span> <span class="n">UnitGrid</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">move_units_to_grid</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_update_combat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
@@ -296,6 +296,24 @@
 
         <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">state</span>
 
+        <span class="c1">#################</span>
+        <span class="c1"># DO NOT DELETE #</span>
+        <span class="c1">#################</span>
+        <span class="c1"># TODO - add flag and add trigger to dev console</span>
+        <span class="c1"># manual camera control for debugging</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;up&quot;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;up&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_worldview</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">y</span><span class="o">=-</span><span class="mi">32</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;down&quot;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;down&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_worldview</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_worldview</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">x</span><span class="o">=-</span><span class="mi">32</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_worldview</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
+
         <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">CHOOSE_NEXT_ROOM</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_process_choose_next_room_input</span><span class="p">()</span>
 
@@ -311,24 +329,6 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_process_inn_input</span><span class="p">()</span>
         <span class="k">elif</span> <span class="n">state</span> <span class="o">==</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">EVENT</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_process_event_input</span><span class="p">()</span></div>
-
-        <span class="c1">#################</span>
-        <span class="c1"># DO NOT DELETE #</span>
-        <span class="c1">#################</span>
-        <span class="c1"># TODO - add flag and add trigger to dev console</span>
-        <span class="c1"># manual camera control for debugging</span>
-        <span class="c1"># if self._game.input.states[&quot;up&quot;]:</span>
-        <span class="c1">#     self._game.input.states[&quot;up&quot;] = False</span>
-        <span class="c1">#     self._worldview.camera.move(y=-32)</span>
-        <span class="c1"># if self._game.input.states[&quot;down&quot;]:</span>
-        <span class="c1">#     self._game.input.states[&quot;down&quot;] = False</span>
-        <span class="c1">#     self._worldview.camera.move(y=32)</span>
-        <span class="c1"># if self._game.input.states[&quot;left&quot;]:</span>
-        <span class="c1">#     self._game.input.states[&quot;left&quot;] = False</span>
-        <span class="c1">#     self._worldview.camera.move(x=-32)</span>
-        <span class="c1"># if self._game.input.states[&quot;right&quot;]:</span>
-        <span class="c1">#     self._game.input.states[&quot;right&quot;] = False</span>
-        <span class="c1">#     self._worldview.camera.move(x=32)</span>
 
     <span class="k">def</span> <span class="nf">_process_inn_input</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">controller</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span><span class="o">.</span><span class="n">inn</span>
