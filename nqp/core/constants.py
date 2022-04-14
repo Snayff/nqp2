@@ -43,11 +43,12 @@ class GameState(IntEnum):
 
 class WorldState(IntEnum):
     CHOOSE_NEXT_ROOM = auto()
-    MOVING_NEXT_ROOM = auto()
     COMBAT = auto()
-    TRAINING = auto()
-    INN = auto()
     EVENT = auto()
+    INN = auto()
+    MOVING_NEXT_ROOM = auto()
+    POST_COMBAT = auto()
+    TRAINING = auto()
 
 
 class CombatState(IntEnum):

@@ -1,14 +1,11 @@
 from __future__ import annotations
 
-import logging
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing import Dict, List, Optional, Tuple, Union
-
-    from nqp.core.game import Game
-    from nqp.scenes.world.scene import WorldScene
+    from scripts.core.game import Game
+    from scripts.scenes.world.scene import WorldScene
 
 __all__ = ["Controller"]
 
