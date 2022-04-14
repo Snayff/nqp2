@@ -117,28 +117,32 @@ class Unit:
         """
         Draw the border around the unit.
         """
-        for d in [(-1, 0), (1, 0), (0, 1), (0, -1)]:
+        # TODO: better handling of missing outline files
+        if self.border_surface_outline_black:
+            for d in [(-1, 0), (1, 0), (0, 1), (0, -1)]:
+                surface.blit(
+                    self.border_surface_outline_black,
+                    (
+                        self.pos.x + shift[0] - self.border_surface_offset[0] + d[0],
+                        self.pos.y + shift[1] - self.border_surface_offset[1] + d[1],
+                    ),
+                )
+        if self.border_surface:
             surface.blit(
-                self.border_surface_outline_black,
+                self.border_surface,
                 (
-                    self.pos.x + shift[0] - self.border_surface_offset[0] + d[0],
-                    self.pos.y + shift[1] - self.border_surface_offset[1] + d[1],
+                    self.pos.x + shift[0] - self.border_surface_offset[0],
+                    self.pos.y + shift[1] - self.border_surface_offset[1],
                 ),
             )
-        surface.blit(
-            self.border_surface,
-            (
-                self.pos.x + shift[0] - self.border_surface_offset[0],
-                self.pos.y + shift[1] - self.border_surface_offset[1],
-            ),
-        )
-        surface.blit(
-            self.border_surface_outline,
-            (
-                self.pos.x + shift[0] - self.border_surface_offset[0],
-                self.pos.y + shift[1] - self.border_surface_offset[1],
-            ),
-        )
+        if self.border_surface_outline:
+            surface.blit(
+                self.border_surface_outline,
+                (
+                    self.pos.x + shift[0] - self.border_surface_offset[0],
+                    self.pos.y + shift[1] - self.border_surface_offset[1],
+                ),
+            )
 
     def spawn_entities(self):
         """

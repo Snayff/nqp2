@@ -129,4 +129,4 @@ class BasicEntityBehaviour(EntityBehaviour):
                 self.target_position = list(self._unit.behaviour.retreat_target)
             if self.target_position:
                 pos = snecs.entity_component(self._entity, Position)
-                self.current_path = self._game.world.model.terrain.pathfinder.px_route(pos.pos, self.target_position)
+                self.current_path = self._game.world.model.terrain.pathfind_px(pos.pos, self.target_position)
