@@ -418,6 +418,49 @@ has a syntax of key:value&#64;target.</p>
 </dd></dl>
 
 </section>
+<section id="module-nqp.world.controllers.post_combat_controller">
+<span id="nqp-world-controllers-post-combat-controller-module"></span><h2>nqp.world.controllers.post_combat_controller module<a class="headerlink" href="#module-nqp.world.controllers.post_combat_controller" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nqp.world.controllers.post_combat_controller.PostCombatController">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PostCombatController</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="nqp.core.html#nqp.core.game.Game" title="nqp.core.game.Game"><span class="pre">Game</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_scene</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="nqp.scenes.world.html#nqp.scenes.world.scene.WorldScene" title="nqp.scenes.world.scene.WorldScene"><span class="pre">WorldScene</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/world/controllers/post_combat_controller.html#PostCombatController"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.post_combat_controller.PostCombatController" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="nqp.base_classes.html#nqp.base_classes.controller.Controller" title="nqp.base_classes.controller.Controller"><code class="xref py py-class docutils literal notranslate"><span class="pre">nqp.base_classes.controller.Controller</span></code></a></p>
+<p>Handles RewardScene interactions</p>
+<p>RewardScene is used to provide a choice of rewards for the player
+to pick from.</p>
+<ul class="simple">
+<li><p>Modify game state in accordance with game rules</p></li>
+<li><p>Do not draw anything</p></li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.world.controllers.post_combat_controller.PostCombatController.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="nqp.core.html#nqp.core.game.Game" title="nqp.core.game.Game"><span class="pre">Game</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_scene</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="nqp.scenes.world.html#nqp.scenes.world.scene.WorldScene" title="nqp.scenes.world.scene.WorldScene"><span class="pre">WorldScene</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/world/controllers/post_combat_controller.html#PostCombatController.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.post_combat_controller.PostCombatController.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.world.controllers.post_combat_controller.PostCombatController.choose_reward">
+<span class="sig-name descname"><span class="pre">choose_reward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reward</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.10)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/world/controllers/post_combat_controller.html#PostCombatController.choose_reward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.post_combat_controller.PostCombatController.choose_reward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add the current reward and the reward gold.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.world.controllers.post_combat_controller.PostCombatController.generate_reward">
+<span class="sig-name descname"><span class="pre">generate_reward</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/world/controllers/post_combat_controller.html#PostCombatController.generate_reward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.post_combat_controller.PostCombatController.generate_reward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate reward to offer. Overwrites existing rewards.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.world.controllers.post_combat_controller.PostCombatController.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/world/controllers/post_combat_controller.html#PostCombatController.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.post_combat_controller.PostCombatController.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.world.controllers.post_combat_controller.PostCombatController.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/world/controllers/post_combat_controller.html#PostCombatController.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.world.controllers.post_combat_controller.PostCombatController.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
 <section id="module-nqp.world.controllers.training_controller">
 <span id="nqp-world-controllers-training-controller-module"></span><h2>nqp.world.controllers.training_controller module<a class="headerlink" href="#module-nqp.world.controllers.training_controller" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">

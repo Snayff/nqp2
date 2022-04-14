@@ -9,7 +9,6 @@ Subpackages
 
    nqp.scenes.gallery
    nqp.scenes.main_menu
-   nqp.scenes.post_combat
    nqp.scenes.run_setup
    nqp.scenes.unit_data
    nqp.scenes.view_troupe

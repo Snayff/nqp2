@@ -206,6 +206,7 @@
 <span class="kn">from</span> <span class="nn">nqp.world.controllers.combat_controller</span> <span class="kn">import</span> <span class="n">CombatController</span>
 <span class="kn">from</span> <span class="nn">nqp.world.controllers.event_controller</span> <span class="kn">import</span> <span class="n">EventController</span>
 <span class="kn">from</span> <span class="nn">nqp.world.controllers.inn_controller</span> <span class="kn">import</span> <span class="n">InnController</span>
+<span class="kn">from</span> <span class="nn">nqp.world.controllers.post_combat_controller</span> <span class="kn">import</span> <span class="n">PostCombatController</span>
 <span class="kn">from</span> <span class="nn">nqp.world.controllers.training_controller</span> <span class="kn">import</span> <span class="n">TrainingController</span>
 <span class="kn">from</span> <span class="nn">nqp.world.model</span> <span class="kn">import</span> <span class="n">WorldModel</span>
 
@@ -227,7 +228,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="WorldScene.__init__"><a class="viewcode-back" href="../../../../nqp.scenes.world.html#nqp.scenes.world.scene.WorldScene.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">game</span><span class="p">:</span> <span class="n">Game</span><span class="p">):</span>
-        <span class="k">with</span> <span class="n">Timer</span><span class="p">(</span><span class="s2">&quot;WorldScene: initialised&quot;</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">Timer</span><span class="p">(</span><span class="s2">&quot;WorldScene initialised&quot;</span><span class="p">):</span>
             <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">WORLD</span><span class="p">)</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">:</span> <span class="n">WorldModel</span> <span class="o">=</span> <span class="n">WorldModel</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
@@ -237,7 +238,8 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">training</span><span class="p">:</span> <span class="n">TrainingController</span> <span class="o">=</span> <span class="n">TrainingController</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">choose_room</span><span class="p">:</span> <span class="n">ChooseRoomController</span> <span class="o">=</span> <span class="n">ChooseRoomController</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">inn</span><span class="p">:</span> <span class="n">InnController</span> <span class="o">=</span> <span class="n">InnController</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">event</span><span class="p">:</span> <span class="n">EventController</span> <span class="o">=</span> <span class="n">EventController</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">event</span><span class="p">:</span> <span class="n">EventController</span> <span class="o">=</span> <span class="n">EventController</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">post_combat</span><span class="p">:</span> <span class="n">PostCombatController</span> <span class="o">=</span> <span class="n">PostCombatController</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="WorldScene.update"><a class="viewcode-back" href="../../../../nqp.scenes.world.html#nqp.scenes.world.scene.WorldScene.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
         <span class="c1"># get the modified delta time</span>
@@ -252,6 +254,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">choose_room</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">mod_delta_time</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">inn</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">mod_delta_time</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">mod_delta_time</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">post_combat</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">mod_delta_time</span><span class="p">)</span>
 
         <span class="c1"># last, to show updates</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span></div>
@@ -266,7 +269,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">training</span> <span class="o">=</span> <span class="n">TrainingController</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">choose_room</span> <span class="o">=</span> <span class="n">ChooseRoomController</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">inn</span> <span class="o">=</span> <span class="n">InnController</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">event</span> <span class="o">=</span> <span class="n">EventController</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">event</span> <span class="o">=</span> <span class="n">EventController</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">post_combat</span> <span class="o">=</span> <span class="n">PostCombatController</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span></div></div>
 </pre></div>
 
                         

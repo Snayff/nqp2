@@ -36,6 +36,14 @@ nqp.world.controllers.inn\_controller module
    :undoc-members:
    :show-inheritance:
 
+nqp.world.controllers.post\_combat\_controller module
+-----------------------------------------------------
+
+.. automodule:: nqp.world.controllers.post_combat_controller
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 nqp.world.controllers.training\_controller module
 -------------------------------------------------
 

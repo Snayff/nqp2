@@ -6,7 +6,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>nqp.scenes.post_combat.scene &mdash; NotQuiteParadise2  documentation</title>
+  <title>nqp.world.controllers.post_combat_controller &mdash; NotQuiteParadise2  documentation</title>
   
 
   
@@ -69,7 +69,7 @@
         
           <li><a href="../../../index.html">Module code</a></li>
         
-      <li>nqp.scenes.post_combat.scene</li>
+      <li>nqp.world.controllers.post_combat_controller</li>
     
     
       <li class="breadcrumbs-aside">
@@ -193,71 +193,64 @@
                     <div class="document">
                         
                             
-  <h1>Source code for nqp.scenes.post_combat.scene</h1><div class="highlight"><pre>
+  <h1>Source code for nqp.world.controllers.post_combat_controller</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span>
 
-<span class="kn">from</span> <span class="nn">nqp.base_classes.scene</span> <span class="kn">import</span> <span class="n">Scene</span>
+<span class="kn">from</span> <span class="nn">nqp.base_classes.controller</span> <span class="kn">import</span> <span class="n">Controller</span>
 <span class="kn">from</span> <span class="nn">nqp.command.troupe</span> <span class="kn">import</span> <span class="n">Troupe</span>
 <span class="kn">from</span> <span class="nn">nqp.command.unit</span> <span class="kn">import</span> <span class="n">Unit</span>
-<span class="kn">from</span> <span class="nn">nqp.core.constants</span> <span class="kn">import</span> <span class="n">PostCombatState</span><span class="p">,</span> <span class="n">RewardType</span><span class="p">,</span> <span class="n">SceneType</span>
-<span class="kn">from</span> <span class="nn">nqp.scenes.post_combat.ui</span> <span class="kn">import</span> <span class="n">PostCombatUI</span>
+<span class="kn">from</span> <span class="nn">nqp.core.constants</span> <span class="kn">import</span> <span class="n">PostCombatState</span><span class="p">,</span> <span class="n">RewardType</span>
+<span class="kn">from</span> <span class="nn">nqp.core.debug</span> <span class="kn">import</span> <span class="n">Timer</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
-
     <span class="kn">from</span> <span class="nn">nqp.core.game</span> <span class="kn">import</span> <span class="n">Game</span>
+    <span class="kn">from</span> <span class="nn">nqp.scenes.world.scene</span> <span class="kn">import</span> <span class="n">WorldScene</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;PostCombatScene&quot;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;PostCombatController&quot;</span><span class="p">]</span>
 
 
-<div class="viewcode-block" id="PostCombatScene"><a class="viewcode-back" href="../../../../nqp.scenes.post_combat.html#nqp.scenes.post_combat.scene.PostCombatScene">[docs]</a><span class="k">class</span> <span class="nc">PostCombatScene</span><span class="p">(</span><span class="n">Scene</span><span class="p">):</span>
+<div class="viewcode-block" id="PostCombatController"><a class="viewcode-back" href="../../../../nqp.world.controllers.html#nqp.world.controllers.post_combat_controller.PostCombatController">[docs]</a><span class="k">class</span> <span class="nc">PostCombatController</span><span class="p">(</span><span class="n">Controller</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Handles RewardScene interactions and consolidates the rendering. RewardScene is used to provide a choice of</span>
-<span class="sd">    rewards for the player to pick from.</span>
+<span class="sd">    Handles RewardScene interactions</span>
+
+<span class="sd">    RewardScene is used to provide a choice of rewards for the player</span>
+<span class="sd">    to pick from.</span>
+
+<span class="sd">    * Modify game state in accordance with game rules</span>
+<span class="sd">    * Do not draw anything</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="PostCombatScene.__init__"><a class="viewcode-back" href="../../../../nqp.scenes.post_combat.html#nqp.scenes.post_combat.scene.PostCombatScene.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">game</span><span class="p">:</span> <span class="n">Game</span><span class="p">):</span>
-        <span class="c1"># start timer</span>
-        <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<div class="viewcode-block" id="PostCombatController.__init__"><a class="viewcode-back" href="../../../../nqp.world.controllers.html#nqp.world.controllers.post_combat_controller.PostCombatController.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">game</span><span class="p">:</span> <span class="n">Game</span><span class="p">,</span> <span class="n">parent_scene</span><span class="p">:</span> <span class="n">WorldScene</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">Timer</span><span class="p">(</span><span class="s2">&quot;PostCombatController initialised&quot;</span><span class="p">):</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="n">parent_scene</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="p">:</span> <span class="n">PostCombatState</span> <span class="o">=</span> <span class="n">PostCombatState</span><span class="o">.</span><span class="n">VICTORY</span>
 
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="n">SceneType</span><span class="o">.</span><span class="n">POST_COMBAT</span><span class="p">)</span>
+            <span class="c1"># reward management</span>
+            <span class="c1"># holds the current rewards, e.g. troupe_rewards</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">current_rewards</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reward_type</span><span class="p">:</span> <span class="n">RewardType</span> <span class="o">=</span> <span class="n">RewardType</span><span class="o">.</span><span class="n">UNIT</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">num_rewards</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="p">:</span> <span class="n">PostCombatUI</span> <span class="o">=</span> <span class="n">PostCombatUI</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+            <span class="c1"># reward options</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gold_reward</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">troupe_rewards</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Troupe</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">resource_rewards</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">upgrade_rewards</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">action_rewards</span> <span class="o">=</span> <span class="kc">None</span></div>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="p">:</span> <span class="n">PostCombatState</span> <span class="o">=</span> <span class="n">PostCombatState</span><span class="o">.</span><span class="n">VICTORY</span>
+<div class="viewcode-block" id="PostCombatController.update"><a class="viewcode-back" href="../../../../nqp.world.controllers.html#nqp.world.controllers.post_combat_controller.PostCombatController.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="k">pass</span></div>
 
-        <span class="c1"># reward management</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">current_rewards</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># holds the current rewards, e.g. troupe_rewards</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">reward_type</span><span class="p">:</span> <span class="n">RewardType</span> <span class="o">=</span> <span class="n">RewardType</span><span class="o">.</span><span class="n">UNIT</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">num_rewards</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span>
-
-        <span class="c1"># reward options</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">gold_reward</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">troupe_rewards</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Troupe</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">resource_rewards</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">upgrade_rewards</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">action_rewards</span> <span class="o">=</span> <span class="kc">None</span>
-
-        <span class="c1"># record duration</span>
-        <span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RewardScene: initialised in </span><span class="si">{</span><span class="nb">format</span><span class="p">(</span><span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">,</span> <span class="s1">&#39;.2f&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">s.&quot;</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="PostCombatScene.update"><a class="viewcode-back" href="../../../../nqp.scenes.post_combat.html#nqp.scenes.post_combat.scene.PostCombatScene.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="PostCombatScene.reset"><a class="viewcode-back" href="../../../../nqp.scenes.post_combat.html#nqp.scenes.post_combat.scene.PostCombatScene.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="n">PostCombatUI</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
-
+<div class="viewcode-block" id="PostCombatController.reset"><a class="viewcode-back" href="../../../../nqp.world.controllers.html#nqp.world.controllers.post_combat_controller.PostCombatController.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">PostCombatState</span><span class="o">.</span><span class="n">VICTORY</span>
 
         <span class="c1"># reward management</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">current_rewards</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># holds the current rewards, e.g. troupe_rewards</span>
+        <span class="c1"># holds the current rewards, e.g. troupe_rewards</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_rewards</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">reward_type</span> <span class="o">=</span> <span class="n">RewardType</span><span class="o">.</span><span class="n">UNIT</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">num_rewards</span> <span class="o">=</span> <span class="mi">3</span>
 
@@ -269,9 +262,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">upgrade_rewards</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">action_rewards</span> <span class="o">=</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="PostCombatScene.generate_reward"><a class="viewcode-back" href="../../../../nqp.scenes.post_combat.html#nqp.scenes.post_combat.scene.PostCombatScene.generate_reward">[docs]</a>    <span class="k">def</span> <span class="nf">generate_reward</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="PostCombatController.generate_reward"><a class="viewcode-back" href="../../../../nqp.world.controllers.html#nqp.world.controllers.post_combat_controller.PostCombatController.generate_reward">[docs]</a>    <span class="k">def</span> <span class="nf">generate_reward</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate reward to offer. Overwrites existing rewards.</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">gold_min</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;post_combat&quot;</span><span class="p">][</span><span class="s2">&quot;gold_min&quot;</span><span class="p">]</span>
         <span class="n">gold_max</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;post_combat&quot;</span><span class="p">][</span><span class="s2">&quot;gold_max&quot;</span><span class="p">]</span>
@@ -310,7 +304,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">current_rewards</span> <span class="o">=</span> <span class="n">current_reward</span></div>
 
     <span class="k">def</span> <span class="nf">_generate_troupe_rewards</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-
         <span class="c1"># update troupe to match players</span>
         <span class="n">player_troupe</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">player_troupe</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">troupe_rewards</span><span class="o">.</span><span class="n">allies</span> <span class="o">=</span> <span class="n">player_troupe</span><span class="o">.</span><span class="n">allies</span>
@@ -331,9 +324,10 @@
         <span class="sd">&quot;&quot;&quot;STUB&quot;&quot;&quot;</span>
         <span class="k">pass</span>
 
-<div class="viewcode-block" id="PostCombatScene.choose_reward"><a class="viewcode-back" href="../../../../nqp.scenes.post_combat.html#nqp.scenes.post_combat.scene.PostCombatScene.choose_reward">[docs]</a>    <span class="k">def</span> <span class="nf">choose_reward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reward</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
+<div class="viewcode-block" id="PostCombatController.choose_reward"><a class="viewcode-back" href="../../../../nqp.world.controllers.html#nqp.world.controllers.post_combat_controller.PostCombatController.choose_reward">[docs]</a>    <span class="k">def</span> <span class="nf">choose_reward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reward</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add the current reward and the reward gold.</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># add current reward</span>
         <span class="n">reward_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reward_type</span>
@@ -361,7 +355,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">player_troupe</span><span class="o">.</span><span class="n">add_unit</span><span class="p">(</span><span class="n">reward</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Chose </span><span class="si">{</span><span class="n">reward</span><span class="si">}</span><span class="s2"> as a unit reward. As it isnt a unit, something has &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Chose </span><span class="si">{</span><span class="n">reward</span><span class="si">}</span><span class="s2"> as a unit reward. As it isn&#39;t a unit, something has &quot;</span>
                 <span class="sa">f</span><span class="s2">&quot;seriously gone wrong! No reward added.&quot;</span>
             <span class="p">)</span>
 
