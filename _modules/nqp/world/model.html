@@ -197,7 +197,7 @@
 <span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">pygame</span>
 <span class="kn">import</span> <span class="nn">snecs</span>
@@ -208,7 +208,7 @@
 <span class="kn">from</span> <span class="nn">nqp.command.troupe</span> <span class="kn">import</span> <span class="n">Troupe</span>
 <span class="kn">from</span> <span class="nn">nqp.command.unit</span> <span class="kn">import</span> <span class="n">Unit</span>
 <span class="kn">from</span> <span class="nn">nqp.core</span> <span class="kn">import</span> <span class="n">systems</span>
-<span class="kn">from</span> <span class="nn">nqp.core.constants</span> <span class="kn">import</span> <span class="n">WorldState</span>
+<span class="kn">from</span> <span class="nn">nqp.core.constants</span> <span class="kn">import</span> <span class="n">GameSpeed</span><span class="p">,</span> <span class="n">WorldState</span>
 <span class="kn">from</span> <span class="nn">nqp.core.debug</span> <span class="kn">import</span> <span class="n">Timer</span>
 <span class="kn">from</span> <span class="nn">nqp.topography.terrain</span> <span class="kn">import</span> <span class="n">Terrain</span>
 <span class="kn">from</span> <span class="nn">nqp.world_elements.particle_manager</span> <span class="kn">import</span> <span class="n">ParticleManager</span>
@@ -284,9 +284,6 @@
 
             <span class="c1"># history</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_seen_bosses</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-
-            <span class="c1"># config</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_game_speed</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span>
 
             <span class="c1"># add empty player troupe</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">add_troupe</span><span class="p">(</span><span class="n">Troupe</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="s2">&quot;player&quot;</span><span class="p">,</span> <span class="p">[]))</span></div>
@@ -370,10 +367,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">level_boss</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
         <span class="c1"># history</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_seen_bosses</span> <span class="o">=</span> <span class="p">[]</span>
-
-        <span class="c1"># config</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_game_speed</span> <span class="o">=</span> <span class="mi">1</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_seen_bosses</span> <span class="o">=</span> <span class="p">[]</span></div>
 
 <div class="viewcode-block" id="WorldModel.swap_terrains"><a class="viewcode-back" href="../../../nqp.world.html#nqp.world.model.WorldModel.swap_terrains">[docs]</a>    <span class="k">def</span> <span class="nf">swap_terrains</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -505,16 +499,6 @@
         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tried to remove troupe id (</span><span class="si">{</span><span class="n">id_</span><span class="si">}</span><span class="s2"> but not found. Troupes:(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">troupes</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
             <span class="k">raise</span> <span class="ne">Exception</span></div>
-
-<div class="viewcode-block" id="WorldModel.set_game_speed"><a class="viewcode-back" href="../../../nqp.world.html#nqp.world.model.WorldModel.set_game_speed">[docs]</a>    <span class="k">def</span> <span class="nf">set_game_speed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">speed</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Set the game speed. 1 is default.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_game_speed</span> <span class="o">=</span> <span class="n">speed</span></div>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">game_speed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game_speed</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">state</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">WorldState</span><span class="p">:</span>

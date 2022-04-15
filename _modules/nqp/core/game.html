@@ -217,14 +217,10 @@
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Game&quot;</span><span class="p">]</span>
 
 
-<span class="c1">############ TO DO LIST ############</span>
-
-
 <div class="viewcode-block" id="Game"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.game.Game">[docs]</a><span class="k">class</span> <span class="nc">Game</span><span class="p">:</span>
 <div class="viewcode-block" id="Game.__init__"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.game.Game.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">with</span> <span class="n">Timer</span><span class="p">(</span><span class="s2">&quot;Game: initialised&quot;</span><span class="p">):</span>
-            <span class="c1"># imports here to avoid circular references since they&#39;re core and</span>
-            <span class="c1"># controllers require ``Game`` imports for typing.</span>
+            <span class="c1"># imports here to avoid circular references</span>
             <span class="c1"># load modules</span>
             <span class="kn">from</span> <span class="nn">nqp.core.assets</span> <span class="kn">import</span> <span class="n">Assets</span>
             <span class="kn">from</span> <span class="nn">nqp.core.memory</span> <span class="kn">import</span> <span class="n">Memory</span>

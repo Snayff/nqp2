@@ -242,7 +242,9 @@
         <span class="n">surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span>
             <span class="n">pygame</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">animation</span><span class="o">.</span><span class="n">surface</span><span class="p">,</span> <span class="n">flip</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
             <span class="p">(</span>
-                <span class="n">position</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">shift</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">animation</span><span class="o">.</span><span class="n">width</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span>  <span class="c1"># TODO - why minus width and height?</span>
+                <span class="c1"># the x and y are offset here because the game tracks the entity positions at the feet.</span>
+                <span class="c1"># so to render the sprites correctly, the offsets are needed.</span>
+                <span class="n">position</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">shift</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">animation</span><span class="o">.</span><span class="n">width</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span>
                 <span class="n">position</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">shift</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">animation</span><span class="o">.</span><span class="n">height</span><span class="p">,</span>
             <span class="p">),</span>
         <span class="p">)</span></div>

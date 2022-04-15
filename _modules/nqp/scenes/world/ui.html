@@ -209,6 +209,7 @@
     <span class="n">EventState</span><span class="p">,</span>
     <span class="n">FontEffects</span><span class="p">,</span>
     <span class="n">FontType</span><span class="p">,</span>
+    <span class="n">GameSpeed</span><span class="p">,</span>
     <span class="n">GAP_SIZE</span><span class="p">,</span>
     <span class="n">InnState</span><span class="p">,</span>
     <span class="n">PostCombatState</span><span class="p">,</span>
@@ -295,26 +296,28 @@
 <div class="viewcode-block" id="WorldUI.process_input"><a class="viewcode-back" href="../../../../nqp.scenes.world.html#nqp.scenes.world.ui.WorldUI.process_input">[docs]</a>    <span class="k">def</span> <span class="nf">process_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">process_input</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span>
 
-        <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">state</span>
+        <span class="c1"># TODO - add speed control</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_process_game_speed_changes</span><span class="p">()</span>
 
         <span class="c1">#################</span>
         <span class="c1"># DO NOT DELETE #</span>
         <span class="c1">#################</span>
         <span class="c1"># TODO - add flag and add trigger to dev console</span>
-        <span class="c1"># manual camera control for debugging</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;up&quot;</span><span class="p">]:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;up&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_worldview</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">y</span><span class="o">=-</span><span class="mi">32</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;down&quot;</span><span class="p">]:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;down&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_worldview</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">]:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_worldview</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">x</span><span class="o">=-</span><span class="mi">32</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">]:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_worldview</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
+        <span class="c1">#   manual camera control for debugging</span>
+        <span class="c1"># if self._game.input.states[&quot;up&quot;]:</span>
+        <span class="c1">#     self._game.input.states[&quot;up&quot;] = False</span>
+        <span class="c1">#     self._worldview.camera.move(y=-32)</span>
+        <span class="c1"># if self._game.input.states[&quot;down&quot;]:</span>
+        <span class="c1">#     self._game.input.states[&quot;down&quot;] = False</span>
+        <span class="c1">#     self._worldview.camera.move(y=32)</span>
+        <span class="c1"># if self._game.input.states[&quot;left&quot;]:</span>
+        <span class="c1">#     self._game.input.states[&quot;left&quot;] = False</span>
+        <span class="c1">#     self._worldview.camera.move(x=-32)</span>
+        <span class="c1"># if self._game.input.states[&quot;right&quot;]:</span>
+        <span class="c1">#     self._game.input.states[&quot;right&quot;] = False</span>
+        <span class="c1">#     self._worldview.camera.move(x=32)</span>
 
+        <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">state</span>
         <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">CHOOSE_NEXT_ROOM</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_process_choose_next_room_input</span><span class="p">()</span>
 
@@ -332,24 +335,6 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_process_event_input</span><span class="p">()</span>
         <span class="k">elif</span> <span class="n">state</span> <span class="o">==</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">POST_COMBAT</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_process_post_combat_input</span><span class="p">()</span></div>
-
-        <span class="c1">#################</span>
-        <span class="c1"># DO NOT DELETE #</span>
-        <span class="c1">#################</span>
-        <span class="c1"># TODO - add flag and add trigger to dev console</span>
-        <span class="c1"># manual camera control for debugging</span>
-        <span class="c1"># if self._game.input.states[&quot;up&quot;]:</span>
-        <span class="c1">#     self._game.input.states[&quot;up&quot;] = False</span>
-        <span class="c1">#     self._worldview.camera.move(y=-32)</span>
-        <span class="c1"># if self._game.input.states[&quot;down&quot;]:</span>
-        <span class="c1">#     self._game.input.states[&quot;down&quot;] = False</span>
-        <span class="c1">#     self._worldview.camera.move(y=32)</span>
-        <span class="c1"># if self._game.input.states[&quot;left&quot;]:</span>
-        <span class="c1">#     self._game.input.states[&quot;left&quot;] = False</span>
-        <span class="c1">#     self._worldview.camera.move(x=-32)</span>
-        <span class="c1"># if self._game.input.states[&quot;right&quot;]:</span>
-        <span class="c1">#     self._game.input.states[&quot;right&quot;] = False</span>
-        <span class="c1">#     self._worldview.camera.move(x=32)</span>
 
     <span class="k">def</span> <span class="nf">_process_post_combat_input</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">controller</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span><span class="o">.</span><span class="n">post_combat</span>
@@ -622,6 +607,19 @@
 
         <span class="k">if</span> <span class="n">is_ui_dirty</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">rebuild_ui</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_process_game_speed_changes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;speed_slow&quot;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">set_game_speed</span><span class="p">(</span><span class="n">GameSpeed</span><span class="o">.</span><span class="n">SLOW</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;speed_normal&quot;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">set_game_speed</span><span class="p">(</span><span class="n">GameSpeed</span><span class="o">.</span><span class="n">NORMAL</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;speed_fast&quot;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">set_game_speed</span><span class="p">(</span><span class="n">GameSpeed</span><span class="o">.</span><span class="n">FAST</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="s2">&quot;speed_fastest&quot;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">set_game_speed</span><span class="p">(</span><span class="n">GameSpeed</span><span class="o">.</span><span class="n">FASTEST</span><span class="p">)</span>
 
 <div class="viewcode-block" id="WorldUI.rebuild_ui"><a class="viewcode-back" href="../../../../nqp.scenes.world.html#nqp.scenes.world.ui.WorldUI.rebuild_ui">[docs]</a>    <span class="k">def</span> <span class="nf">rebuild_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">rebuild_ui</span><span class="p">()</span>

@@ -197,8 +197,9 @@
 <span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Union</span>
 
+<span class="kn">from</span> <span class="nn">nqp.core.constants</span> <span class="kn">import</span> <span class="n">GameSpeed</span>
 <span class="kn">from</span> <span class="nn">nqp.core.debug</span> <span class="kn">import</span> <span class="n">Timer</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
@@ -222,7 +223,9 @@
 
             <span class="bp">self</span><span class="o">.</span><span class="n">flags</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># event, game or other flags to note key happenings</span>
             <span class="c1"># TODO  - do we need to distinguish between in-run flags and permanent ones?</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_last_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_last_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game_speed</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">GameSpeed</span><span class="o">.</span><span class="n">NORMAL</span><span class="o">.</span><span class="n">value</span></div>
 
 <div class="viewcode-block" id="Memory.initialise_run"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.memory.Memory.initialise_run">[docs]</a>    <span class="k">def</span> <span class="nf">initialise_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">troupe</span><span class="p">:</span> <span class="n">Troupe</span><span class="p">,</span> <span class="n">gold</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">rations</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">morale</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">charisma</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">leadership</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -246,7 +249,20 @@
 <span class="sd">        Create unique ID for an instance, such as a unit.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_last_id</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_last_id</span></div></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_last_id</span></div>
+
+<div class="viewcode-block" id="Memory.set_game_speed"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.memory.Memory.set_game_speed">[docs]</a>    <span class="k">def</span> <span class="nf">set_game_speed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">speed</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">GameSpeed</span><span class="p">]):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the game speed. 1 is default.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">speed</span><span class="p">,</span> <span class="n">GameSpeed</span><span class="p">):</span>
+            <span class="n">speed</span> <span class="o">=</span> <span class="n">speed</span><span class="o">.</span><span class="n">value</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_game_speed</span> <span class="o">=</span> <span class="n">speed</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">game_speed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game_speed</span></div>
 </pre></div>
 
                         

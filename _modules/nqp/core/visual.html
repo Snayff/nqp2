@@ -272,8 +272,9 @@
         <span class="n">active_animations</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_active_animations</span>
 
         <span class="c1"># update animations</span>
+        <span class="n">mod_delta</span> <span class="o">=</span> <span class="n">delta_time</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">game_speed</span>
         <span class="k">for</span> <span class="n">animation</span> <span class="ow">in</span> <span class="n">active_animations</span><span class="p">:</span>
-            <span class="n">animation</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span>
+            <span class="n">animation</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">mod_delta</span><span class="p">)</span>
 
             <span class="c1"># remove the finished animations</span>
             <span class="k">if</span> <span class="n">animation</span><span class="o">.</span><span class="n">is_finished</span> <span class="ow">and</span> <span class="n">animation</span><span class="o">.</span><span class="n">delete_on_finish</span><span class="p">:</span>

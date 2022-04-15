@@ -243,7 +243,7 @@
 
 <div class="viewcode-block" id="WorldScene.update"><a class="viewcode-back" href="../../../../nqp.scenes.world.html#nqp.scenes.world.scene.WorldScene.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
         <span class="c1"># get the modified delta time</span>
-        <span class="n">mod_delta_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">game_speed</span> <span class="o">*</span> <span class="n">delta_time</span>
+        <span class="n">mod_delta_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">game_speed</span> <span class="o">*</span> <span class="n">delta_time</span>
 
         <span class="c1"># update the data</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">mod_delta_time</span><span class="p">)</span>
