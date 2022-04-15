@@ -13,6 +13,7 @@ from nqp.core.constants import (
     EventState,
     FontEffects,
     FontType,
+    GameSpeed,
     GAP_SIZE,
     InnState,
     PostCombatState,
@@ -99,26 +100,28 @@ class WorldUI(UI):
     def process_input(self, delta_time: float):
         super().process_input(delta_time)
 
-        state = self._parent_scene.model.state
+        # TODO - add speed control
+        self._process_game_speed_changes()
 
         #################
         # DO NOT DELETE #
         #################
         # TODO - add flag and add trigger to dev console
-        # manual camera control for debugging
-        if self._game.input.states["up"]:
-            self._game.input.states["up"] = False
-            self._worldview.camera.move(y=-32)
-        if self._game.input.states["down"]:
-            self._game.input.states["down"] = False
-            self._worldview.camera.move(y=32)
-        if self._game.input.states["left"]:
-            self._game.input.states["left"] = False
-            self._worldview.camera.move(x=-32)
-        if self._game.input.states["right"]:
-            self._game.input.states["right"] = False
-            self._worldview.camera.move(x=32)
+        #   manual camera control for debugging
+        # if self._game.input.states["up"]:
+        #     self._game.input.states["up"] = False
+        #     self._worldview.camera.move(y=-32)
+        # if self._game.input.states["down"]:
+        #     self._game.input.states["down"] = False
+        #     self._worldview.camera.move(y=32)
+        # if self._game.input.states["left"]:
+        #     self._game.input.states["left"] = False
+        #     self._worldview.camera.move(x=-32)
+        # if self._game.input.states["right"]:
+        #     self._game.input.states["right"] = False
+        #     self._worldview.camera.move(x=32)
 
+        state = self._parent_scene.model.state
         if state == WorldState.CHOOSE_NEXT_ROOM:
             self._process_choose_next_room_input()
 
@@ -136,24 +139,6 @@ class WorldUI(UI):
             self._process_event_input()
         elif state == WorldState.POST_COMBAT:
             self._process_post_combat_input()
-
-        #################
-        # DO NOT DELETE #
-        #################
-        # TODO - add flag and add trigger to dev console
-        # manual camera control for debugging
-        # if self._game.input.states["up"]:
-        #     self._game.input.states["up"] = False
-        #     self._worldview.camera.move(y=-32)
-        # if self._game.input.states["down"]:
-        #     self._game.input.states["down"] = False
-        #     self._worldview.camera.move(y=32)
-        # if self._game.input.states["left"]:
-        #     self._game.input.states["left"] = False
-        #     self._worldview.camera.move(x=-32)
-        # if self._game.input.states["right"]:
-        #     self._game.input.states["right"] = False
-        #     self._worldview.camera.move(x=32)
 
     def _process_post_combat_input(self):
         controller = self._parent_scene.post_combat
@@ -426,6 +411,19 @@ class WorldUI(UI):
 
         if is_ui_dirty:
             self.rebuild_ui()
+
+    def _process_game_speed_changes(self):
+        if self._game.input.states["speed_slow"]:
+            self._game.memory.set_game_speed(GameSpeed.SLOW)
+
+        elif self._game.input.states["speed_normal"]:
+            self._game.memory.set_game_speed(GameSpeed.NORMAL)
+
+        elif self._game.input.states["speed_fast"]:
+            self._game.memory.set_game_speed(GameSpeed.FAST)
+
+        elif self._game.input.states["speed_fastest"]:
+            self._game.memory.set_game_speed(GameSpeed.FASTEST)
 
     def rebuild_ui(self):
         super().rebuild_ui()

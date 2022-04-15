@@ -21,14 +21,10 @@ if TYPE_CHECKING:
 __all__ = ["Game"]
 
 
-############ TO DO LIST ############
-
-
 class Game:
     def __init__(self):
         with Timer("Game: initialised"):
-            # imports here to avoid circular references since they're core and
-            # controllers require ``Game`` imports for typing.
+            # imports here to avoid circular references
             # load modules
             from nqp.core.assets import Assets
             from nqp.core.memory import Memory

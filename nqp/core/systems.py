@@ -46,7 +46,9 @@ def draw_entities(surface: pygame.Surface, shift: pygame.Vector2 = (0, 0)):
         surface.blit(
             pygame.transform.flip(animation.surface, flip, False),
             (
-                position.x + shift[0] - animation.width // 2,  # TODO - why minus width and height?
+                # the x and y are offset here because the game tracks the entity positions at the feet.
+                # so to render the sprites correctly, the offsets are needed.
+                position.x + shift[0] - animation.width // 2,
                 position.y + shift[1] - animation.height,
             ),
         )
