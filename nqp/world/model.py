@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Union
 
 import pygame
 import snecs
@@ -12,7 +12,7 @@ from nqp.command.commander import Commander
 from nqp.command.troupe import Troupe
 from nqp.command.unit import Unit
 from nqp.core import systems
-from nqp.core.constants import WorldState
+from nqp.core.constants import WorldState, GameSpeed
 from nqp.core.debug import Timer
 from nqp.topography.terrain import Terrain
 from nqp.world_elements.particle_manager import ParticleManager
@@ -310,10 +310,13 @@ class WorldModel:
             logging.warning(f"Tried to remove troupe id ({id_} but not found. Troupes:({self.troupes})")
             raise Exception
 
-    def set_game_speed(self, speed: float):
+    def set_game_speed(self, speed: Union[float, GameSpeed]):
         """
         Set the game speed. 1 is default.
         """
+        if isinstance(speed, GameSpeed):
+            speed = speed.value
+
         self._game_speed = speed
 
     @property

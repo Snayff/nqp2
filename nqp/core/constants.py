@@ -181,3 +181,10 @@ class WindowType(IntEnum):
 class EntityFacing(IntEnum):
     LEFT = auto()
     RIGHT = auto()
+
+
+class GameSpeed(Enum):
+    SLOW = 0.5
+    NORMAL = 1
+    FAST = 3
+    FASTEST = 5

@@ -8,7 +8,7 @@ import snecs
 from nqp.base_classes.controller import Controller
 from nqp.core import queries
 from nqp.core.components import Position
-from nqp.core.constants import ChooseRoomState, WorldState
+from nqp.core.constants import ChooseRoomState, WorldState, GameSpeed
 from nqp.core.debug import Timer
 
 if TYPE_CHECKING:
@@ -92,7 +92,7 @@ class ChooseRoomController(Controller):
             logging.info(f"Moving to new room ({self.selected_room}).")
 
             self._parent_scene.model.state = WorldState.MOVING_NEXT_ROOM
-            self._parent_scene.model.set_game_speed(5)
+            self._parent_scene.model.set_game_speed(GameSpeed.FASTEST)
 
             # allow camera to pan past terrain boundaries
             self._parent_scene.ui._worldview.clamp_primary_terrain = False
@@ -153,7 +153,7 @@ class ChooseRoomController(Controller):
             self._parent_scene.ui._worldview.camera.set_target_entity(None)
             self._assign_room_state()
             self.reset()
-            self._parent_scene.model.set_game_speed(1)
+            self._parent_scene.model.set_game_speed(GameSpeed.NORMAL)
 
     def _assign_room_state(self):
         """
