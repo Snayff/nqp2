@@ -7,7 +7,7 @@ import pygame
 
 from nqp.base_classes.controller import Controller
 from nqp.command.troupe import Troupe
-from nqp.core.constants import BARRIER_SIZE, CombatState, TILE_SIZE, WorldState
+from nqp.core.constants import BARRIER_SIZE, CombatState, TILE_SIZE, WorldState, GameSpeed
 from nqp.core.debug import Timer
 
 if TYPE_CHECKING:
@@ -51,7 +51,7 @@ class CombatController(Controller):
         # if combat ending
         if self._combat_ending_timer != -1:
             self._combat_ending_timer += delta_time
-            self._parent_scene.model.set_game_speed(0.3 - (0.05 * self._combat_ending_timer))
+            self._game.memory.set_game_speed(0.3 - (0.05 * self._combat_ending_timer))
             # self.ui.camera.zoom = 1 + (self._combat_ending_timer / 2)
 
             for troupe in self._parent_scene.model.troupes.values():
@@ -187,7 +187,7 @@ class CombatController(Controller):
         """
         End the combat
         """
-        self._parent_scene.model.set_game_speed(1)
+        self._game.memory.set_game_speed(GameSpeed.NORMAL)
         for troupe in self._parent_scene.model.troupes.values():
             troupe.set_force_idle(True)
         self._process_new_injuries()

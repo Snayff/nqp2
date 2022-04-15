@@ -414,16 +414,16 @@ class WorldUI(UI):
 
     def _process_game_speed_changes(self):
         if self._game.input.states["speed_slow"]:
-            self._parent_scene.model.set_game_speed(GameSpeed.SLOW)
+            self._game.memory.set_game_speed(GameSpeed.SLOW)
 
         elif self._game.input.states["speed_normal"]:
-            self._parent_scene.model.set_game_speed(GameSpeed.NORMAL)
+            self._game.memory.set_game_speed(GameSpeed.NORMAL)
 
         elif self._game.input.states["speed_fast"]:
-            self._parent_scene.model.set_game_speed(GameSpeed.FAST)
+            self._game.memory.set_game_speed(GameSpeed.FAST)
 
         elif self._game.input.states["speed_fastest"]:
-            self._parent_scene.model.set_game_speed(GameSpeed.FASTEST)
+            self._game.memory.set_game_speed(GameSpeed.FASTEST)
 
     def rebuild_ui(self):
         super().rebuild_ui()

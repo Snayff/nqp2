@@ -89,9 +89,6 @@ class WorldModel:
             # history
             self._seen_bosses: List[str] = []
 
-            # config
-            self._game_speed: float = 1
-
             # add empty player troupe
             self.add_troupe(Troupe(self._game, "player", []))
 
@@ -175,9 +172,6 @@ class WorldModel:
 
         # history
         self._seen_bosses = []
-
-        # config
-        self._game_speed = 1
 
     def swap_terrains(self):
         """
@@ -310,18 +304,6 @@ class WorldModel:
             logging.warning(f"Tried to remove troupe id ({id_} but not found. Troupes:({self.troupes})")
             raise Exception
 
-    def set_game_speed(self, speed: Union[float, GameSpeed]):
-        """
-        Set the game speed. 1 is default.
-        """
-        if isinstance(speed, GameSpeed):
-            speed = speed.value
-
-        self._game_speed = speed
-
-    @property
-    def game_speed(self) -> float:
-        return self._game_speed
 
     @property
     def state(self) -> WorldState:

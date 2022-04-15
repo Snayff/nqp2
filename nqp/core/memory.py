@@ -1,8 +1,9 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Union
 
+from nqp.core.constants import GameSpeed
 from nqp.core.debug import Timer
 
 if TYPE_CHECKING:
@@ -28,6 +29,8 @@ class Memory:
             # TODO  - do we need to distinguish between in-run flags and permanent ones?
             self._last_id: int = 0
 
+            self._game_speed: float = GameSpeed.NORMAL.value
+
     def initialise_run(self, troupe: Troupe, gold: int, rations: int, morale: int, charisma: int, leadership: int):
         """
         Initialise the run's values.
@@ -51,3 +54,16 @@ class Memory:
         """
         self._last_id += 1
         return self._last_id
+
+    def set_game_speed(self, speed: Union[float, GameSpeed]):
+        """
+        Set the game speed. 1 is default.
+        """
+        if isinstance(speed, GameSpeed):
+            speed = speed.value
+
+        self._game_speed = speed
+
+    @property
+    def game_speed(self) -> float:
+        return self._game_speed
