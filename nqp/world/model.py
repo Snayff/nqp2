@@ -12,7 +12,7 @@ from nqp.command.commander import Commander
 from nqp.command.troupe import Troupe
 from nqp.command.unit import Unit
 from nqp.core import systems
-from nqp.core.constants import WorldState, GameSpeed
+from nqp.core.constants import GameSpeed, WorldState
 from nqp.core.debug import Timer
 from nqp.topography.terrain import Terrain
 from nqp.world_elements.particle_manager import ParticleManager
@@ -303,7 +303,6 @@ class WorldModel:
         except KeyError:
             logging.warning(f"Tried to remove troupe id ({id_} but not found. Troupes:({self.troupes})")
             raise Exception
-
 
     @property
     def state(self) -> WorldState:

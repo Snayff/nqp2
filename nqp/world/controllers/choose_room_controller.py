@@ -8,7 +8,7 @@ import snecs
 from nqp.base_classes.controller import Controller
 from nqp.core import queries
 from nqp.core.components import Position
-from nqp.core.constants import ChooseRoomState, WorldState, GameSpeed
+from nqp.core.constants import ChooseRoomState, GameSpeed, WorldState
 from nqp.core.debug import Timer
 
 if TYPE_CHECKING:

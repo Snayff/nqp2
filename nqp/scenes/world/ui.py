@@ -13,13 +13,14 @@ from nqp.core.constants import (
     EventState,
     FontEffects,
     FontType,
+    GameSpeed,
     GAP_SIZE,
     InnState,
     PostCombatState,
     SceneType,
     TrainingState,
     WindowType,
-    WorldState, GameSpeed,
+    WorldState,
 )
 from nqp.ui_elements.generic.ui_frame import UIFrame
 from nqp.ui_elements.generic.ui_panel import UIPanel
@@ -101,7 +102,6 @@ class WorldUI(UI):
 
         # TODO - add speed control
         self._process_game_speed_changes()
-
 
         #################
         # DO NOT DELETE #
@@ -1124,4 +1124,3 @@ class WorldUI(UI):
         #         )
         #
         #     row_count += 1
-
