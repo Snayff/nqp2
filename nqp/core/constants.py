@@ -43,11 +43,12 @@ class GameState(IntEnum):
 
 class WorldState(IntEnum):
     CHOOSE_NEXT_ROOM = auto()
-    MOVING_NEXT_ROOM = auto()
     COMBAT = auto()
-    TRAINING = auto()
-    INN = auto()
     EVENT = auto()
+    INN = auto()
+    MOVING_NEXT_ROOM = auto()
+    POST_COMBAT = auto()
+    TRAINING = auto()
 
 
 class CombatState(IntEnum):
@@ -180,3 +181,10 @@ class WindowType(IntEnum):
 class EntityFacing(IntEnum):
     LEFT = auto()
     RIGHT = auto()
+
+
+class GameSpeed(Enum):
+    SLOW = 0.5
+    NORMAL = 1
+    FAST = 3
+    FASTEST = 5

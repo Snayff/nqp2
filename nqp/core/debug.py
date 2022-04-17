@@ -318,7 +318,7 @@ class Debugger:
 
         # game speed
         current_y += 10
-        game_speed = self._game.world.model.game_speed
+        game_speed = self._game.memory.game_speed
         text = f"Game speed = {game_speed}."
         self._fonts.append(self._game.visual.create_font(FontType.DEFAULT, text, pygame.Vector2(current_x, current_y)))
 

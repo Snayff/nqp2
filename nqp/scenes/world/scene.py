@@ -10,6 +10,7 @@ from nqp.world.controllers.choose_room_controller import ChooseRoomController
 from nqp.world.controllers.combat_controller import CombatController
 from nqp.world.controllers.event_controller import EventController
 from nqp.world.controllers.inn_controller import InnController
+from nqp.world.controllers.post_combat_controller import PostCombatController
 from nqp.world.controllers.training_controller import TrainingController
 from nqp.world.model import WorldModel
 
@@ -31,7 +32,7 @@ class WorldScene(Scene):
     """
 
     def __init__(self, game: Game):
-        with Timer("WorldScene: initialised"):
+        with Timer("WorldScene initialised"):
             super().__init__(game, SceneType.WORLD)
 
             self.model: WorldModel = WorldModel(game, self)
@@ -42,10 +43,11 @@ class WorldScene(Scene):
             self.choose_room: ChooseRoomController = ChooseRoomController(game, self)
             self.inn: InnController = InnController(game, self)
             self.event: EventController = EventController(game, self)
+            self.post_combat: PostCombatController = PostCombatController(game, self)
 
     def update(self, delta_time: float):
         # get the modified delta time
-        mod_delta_time = self.model.game_speed * delta_time
+        mod_delta_time = self._game.memory.game_speed * delta_time
 
         # update the data
         self.model.update(mod_delta_time)
@@ -56,6 +58,7 @@ class WorldScene(Scene):
         self.choose_room.update(mod_delta_time)
         self.inn.update(mod_delta_time)
         self.event.update(mod_delta_time)
+        self.post_combat.update(mod_delta_time)
 
         # last, to show updates
         self.ui.update(delta_time)
@@ -71,3 +74,4 @@ class WorldScene(Scene):
         self.choose_room = ChooseRoomController(game, self)
         self.inn = InnController(game, self)
         self.event = EventController(game, self)
+        self.post_combat = PostCombatController(game, self)

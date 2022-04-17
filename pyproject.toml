@@ -8,22 +8,23 @@ authors = ["Snayff <snaith2@gmail.com>"]
 python = "^3.8"
 pygame = "^2.0.1"
 PyTweening = "^1.0.3"
-tcod = "^13.2.0"
 PyYAML = "^6.0"
 snecs = "^1.2.2"
 karma_sphinx_theme = "^0.0.8"
 
 
 [tool.poetry.dev-dependencies]
-mypy = "^0.812"
 isort = "^5.8.0"
 black = "^20.8b1"
 Sphinx = "^4.4.0"
 sphinx-autodoc-annotation = "^1.0-1"
 sphinx-autodoc-typehints = "^1.11.0"
 sphinx-git = "^11.0.0"
+<<<<<<< HEAD
 sphinx-material = "^0.0.35"
 pytest = "^7.1.1"
+=======
+>>>>>>> develop
 
 
 [tool.black]

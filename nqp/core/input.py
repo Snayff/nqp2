@@ -97,6 +97,10 @@ class Input:
                 "toggle_dev_console": False,
                 "typing_enter": False,
                 "tab": False,
+                "speed_slow": False,
+                "speed_normal": False,
+                "speed_fast": False,
+                "speed_fastest": False,
             }
 
             self.mouse_state = {"left": False}
@@ -256,6 +260,18 @@ class Input:
 
                     if event.key == K_v:
                         self.states["view_troupe"] = True
+
+                    if event.key == K_F1:
+                        self.states["speed_slow"] = True
+
+                    if event.key == K_F2:
+                        self.states["speed_normal"] = True
+
+                    if event.key == K_F3:
+                        self.states["speed_fast"] = True
+
+                    if event.key == K_F4:
+                        self.states["speed_fastest"] = True
 
                 if event.type == KEYUP:
                     if event.key == K_RIGHT:

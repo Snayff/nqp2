@@ -76,8 +76,9 @@ class Visual:
         active_animations = self._active_animations
 
         # update animations
+        mod_delta = delta_time * self._game.memory.game_speed
         for animation in active_animations:
-            animation.update(delta_time)
+            animation.update(mod_delta)
 
             # remove the finished animations
             if animation.is_finished and animation.delete_on_finish:
