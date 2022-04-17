@@ -15,7 +15,7 @@ __all__ = [
     "dead",
     "resources",
     "aesthetic_position",
-    "damage_resources",
+    "damage_resources_aesthetic",
     "ai_not_dead",
     "attack_position_stats_ai_aesthetic_not_dead",
     "ai_position",
@@ -33,7 +33,7 @@ ai_not_dead = Query([AI]).filter(~IsDead).compile()
 
 aesthetic_position = Query([Aesthetic, Position]).compile()
 
-damage_resources = Query([DamageReceived, Resources]).compile()
+damage_resources_aesthetic = Query([DamageReceived, Resources, Aesthetic]).compile()
 
 dead_aesthetic_position = Query([IsDead, Aesthetic, Position]).compile()
 

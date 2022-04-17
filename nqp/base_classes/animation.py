@@ -9,7 +9,7 @@ from nqp.base_classes.image import Image
 from nqp.core.constants import AnimationState, DEFAULT_IMAGE_SIZE
 
 if TYPE_CHECKING:
-    from typing import Dict, List
+    from typing import Dict, List, Tuple
 
 __all__ = ["Animation"]
 
@@ -46,16 +46,24 @@ class Animation:
         self._state: AnimationState = AnimationState.PLAYING
         self._current_frame_num: int = 0
         self._duration: float = 0
+        self._flash_timer: float = 0
+        self._flash_colour: None | Tuple[int, int, int] = None
 
     def update(self, delta_time: float, game_speed: float):
         # exit if not playing
         if self._state != AnimationState.PLAYING:
             return
 
+        # mod delta time if needed
         if self.uses_simulation_time:
-            self._duration += delta_time * game_speed
+            delta_time = delta_time * game_speed
         else:
-            self._duration += delta_time
+            delta_time = delta_time
+
+        # update timers
+        self._duration += delta_time
+        if self._flash_timer > 0:
+            self._flash_timer -= delta_time
 
         # have we reached the end?
         if self._duration >= self._animation_length:
@@ -76,6 +84,10 @@ class Animation:
 
         If the name given isnt a valid key no action is taken.
         """
+        # catch if we have been passed current frame set
+        if frame_set_name == self._current_frame_set_name:
+            return
+
         if frame_set_name in self._frame_sets.keys():
             self._current_frame_set_name = frame_set_name
 
@@ -136,7 +148,15 @@ class Animation:
         """
         Return the current frame's surface.
         """
-        return self.get_frame(self._current_frame_num).surface
+        surf = self.get_frame(self._current_frame_num).surface
+
+        # apply flash
+        if self._flash_timer > 0:
+            surf = surf.copy()
+            colour_surf = pygame.Surface(surf.get_size()).convert_alpha()
+            colour_surf.fill(self._flash_colour)
+            surf.blit(colour_surf, (0, 0), special_flags=pygame.BLEND_ADD)
+        return surf
 
     @property
     def is_finished(self) -> bool:
@@ -161,3 +181,10 @@ class Animation:
     @property
     def current_frame_set(self) -> List[Image]:
         return self._frame_sets[self._current_frame_set_name]
+
+    def flash(self, colour: Tuple[int, int, int], duration: float = 0.05):
+        """
+        Change the colour of the sprite for a given period.
+        """
+        self._flash_timer = duration
+        self._flash_colour = colour

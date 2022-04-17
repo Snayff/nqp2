@@ -58,7 +58,7 @@ def apply_damage():
     """
     Consume damage components and apply their value to the Entity.
     """
-    for entity, (damage, resources) in queries.damage_resources:
+    for entity, (damage, resources, aesthetic) in queries.damage_resources_aesthetic:
         resources.health.value -= damage.amount
 
         # remove damage
@@ -67,6 +67,9 @@ def apply_damage():
         # check if dead
         if resources.health.value <= 0:
             snecs.add_component(entity, IsDead())
+        else:
+            # apply flash
+            aesthetic.animation.flash((255, 255, 255))
 
 
 def process_death(game: Game):
