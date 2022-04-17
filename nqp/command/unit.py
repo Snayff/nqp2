@@ -202,7 +202,12 @@ class Unit:
         Reset the in combat values ready to begin combat.
         """
         # prevent circular import
-        from nqp.core.components import DamageReceived, IsDead, IsReadyToAttack, RangedAttack, Resources
+        from nqp.core.components import DamageReceived, IsDead, IsReadyToAttack, RangedAttack, Resources, Stats
+
+        # get stat attrs
+        if snecs.has_component(list(self.entities)[0], Stats):
+            stats = snecs.entity_component(list(self.entities)[0], Stats)
+            stat_attrs = [attr_ for attr_ in dir(stats) if not attr_.startswith('__')]
 
         health = self.health
         for entity in self.entities:
@@ -222,6 +227,12 @@ class Unit:
             if snecs.has_component(entity, RangedAttack):
                 ranged = snecs.entity_component(entity, RangedAttack)
                 ranged.ammo.reset()
+
+            # reset stats
+            if snecs.has_component(entity, Stats):
+                stats = snecs.entity_component(entity, Stats)
+                for stat_name in stat_attrs:
+                    getattr(stats, stat_name).reset()
 
         self._align_entity_positions_to_unit()
 

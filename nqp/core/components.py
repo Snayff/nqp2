@@ -207,9 +207,11 @@ class DamageReceived(RegisteredComponent):
     Damage to be applied to the Entity.
     """
 
-    def __init__(self, amount: int, damage_type: DamageType):
+    def __init__(self, amount: int, damage_type: DamageType, penetration: int, is_crit: bool):
         self.amount: int = amount
         self.type: DamageType = damage_type
+        self.penetration: int = penetration
+        self.is_crit: bool = is_crit
 
     def serialize(self):
         # TODO - add serialisation
