@@ -348,6 +348,13 @@
 
             <span class="n">directory_contents</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">anim_folder_name</span> <span class="ow">in</span> <span class="n">directory_contents</span><span class="p">:</span>
+                <span class="c1"># check we have data for the given animation</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">anim_folder_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">folder</span><span class="p">):</span>
+                        <span class="k">continue</span>
+                <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                    <span class="c1"># we didnt find the folder in Data, so carry on regardless</span>
+                    <span class="k">pass</span>
 
                 <span class="c1"># we expect a sub folder for the item e.g. bosses/test_boss</span>
                 <span class="n">anim_path</span> <span class="o">=</span> <span class="n">path</span> <span class="o">/</span> <span class="n">anim_folder_name</span>

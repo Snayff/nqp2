@@ -218,10 +218,11 @@
 <span class="n">TILE_SIZE</span> <span class="o">=</span> <span class="mi">16</span>
 <span class="n">BARRIER_SIZE</span> <span class="o">=</span> <span class="mi">10</span>
 
-<span class="c1"># algorithm/formula constants</span>
+<span class="c1"># combat values</span>
 <span class="n">WEIGHT_SCALE</span> <span class="o">=</span> <span class="mi">5</span>
 <span class="n">DEFENSE_SCALE</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="n">PUSH_FORCE</span> <span class="o">=</span> <span class="mi">14</span>
+<span class="n">CRIT_MOD</span> <span class="o">=</span> <span class="mf">2.5</span>  <span class="c1"># value to multiply by</span>
 
 <span class="c1"># UI customisation</span>
 <span class="n">TEXT_FADE_OUT_SPEED</span> <span class="o">=</span> <span class="mf">0.5</span>  <span class="c1"># make sure it is slower than the fade in</span>
@@ -379,11 +380,16 @@
     <span class="n">RIGHT</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="GameSpeed"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.constants.GameSpeed">[docs]</a><span class="k">class</span> <span class="nc">GameSpeed</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<div class="viewcode-block" id="GameSpeed"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.constants.GameSpeed">[docs]</a><span class="k">class</span> <span class="nc">GameSpeed</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
     <span class="n">SLOW</span> <span class="o">=</span> <span class="mf">0.5</span>
     <span class="n">NORMAL</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">FAST</span> <span class="o">=</span> <span class="mi">3</span>
     <span class="n">FASTEST</span> <span class="o">=</span> <span class="mi">5</span></div>
+
+
+<div class="viewcode-block" id="DamageType"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.constants.DamageType">[docs]</a><span class="k">class</span> <span class="nc">DamageType</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
+    <span class="n">MUNDANE</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+    <span class="n">MAGICAL</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span></div>
 </pre></div>
 
                         

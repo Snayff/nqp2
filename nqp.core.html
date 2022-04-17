@@ -364,12 +364,12 @@ full-World serialization feature.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="nqp.core.components.DamageReceived">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DamageReceived</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/core/components.html#DamageReceived"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.core.components.DamageReceived" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DamageReceived</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">damage_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nqp.core.constants.DamageType" title="nqp.core.constants.DamageType"><span class="pre">nqp.core.constants.DamageType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">penetration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_crit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/core/components.html#DamageReceived"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.core.components.DamageReceived" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">snecs.component.RegisteredComponent</span></code></p>
 <p>Damage to be applied to the Entity.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="nqp.core.components.DamageReceived.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/core/components.html#DamageReceived.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.core.components.DamageReceived.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">damage_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nqp.core.constants.DamageType" title="nqp.core.constants.DamageType"><span class="pre">nqp.core.constants.DamageType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">penetration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_crit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/core/components.html#DamageReceived.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.core.components.DamageReceived.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -655,6 +655,23 @@ full-World serialization feature.</p>
 </dd></dl>
 
 <dl class="py class">
+<dt class="sig sig-object py" id="nqp.core.constants.DamageType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DamageType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/core/constants.html#DamageType"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.core.constants.DamageType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.IntEnum" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.IntEnum</span></code></a></p>
+<p>An enumeration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nqp.core.constants.DamageType.MAGICAL">
+<span class="sig-name descname"><span class="pre">MAGICAL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#nqp.core.constants.DamageType.MAGICAL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nqp.core.constants.DamageType.MUNDANE">
+<span class="sig-name descname"><span class="pre">MUNDANE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#nqp.core.constants.DamageType.MUNDANE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="nqp.core.constants.Direction">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Direction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/core/constants.html#Direction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.core.constants.Direction" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.IntEnum" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.IntEnum</span></code></a></p>
@@ -772,7 +789,7 @@ full-World serialization feature.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="nqp.core.constants.GameSpeed">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">GameSpeed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/core/constants.html#GameSpeed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.core.constants.GameSpeed" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.IntEnum" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.IntEnum</span></code></a></p>
 <p>An enumeration.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="nqp.core.constants.GameSpeed.FAST">
@@ -791,7 +808,7 @@ full-World serialization feature.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="nqp.core.constants.GameSpeed.SLOW">
-<span class="sig-name descname"><span class="pre">SLOW</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.5</span></em><a class="headerlink" href="#nqp.core.constants.GameSpeed.SLOW" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">SLOW</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#nqp.core.constants.GameSpeed.SLOW" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1776,8 +1793,8 @@ no error is raised.</p>
 <span id="nqp-core-systems-module"></span><h2>nqp.core.systems module<a class="headerlink" href="#module-nqp.core.systems" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="nqp.core.systems.apply_damage">
-<span class="sig-name descname"><span class="pre">apply_damage</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/core/systems.html#apply_damage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.core.systems.apply_damage" title="Permalink to this definition">¶</a></dt>
-<dd><p>Consume damage components and apply their value to the Entity.</p>
+<span class="sig-name descname"><span class="pre">apply_damage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nqp.core.game.Game" title="nqp.core.game.Game"><span class="pre">Game</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/core/systems.html#apply_damage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.core.systems.apply_damage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Consume damage components and apply their value to the Entity, applying any mitigations.</p>
 </dd></dl>
 
 <dl class="py function">
