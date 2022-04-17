@@ -47,7 +47,7 @@ jobs:
 
     - name: Run test suite
       run: |
-        pytest tests/
+        poetry run python -m pytest tests/
 
     - name: Lint Code Base
       uses: github/super-linter@v4
