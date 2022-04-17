@@ -41,7 +41,6 @@ class Unit:
         self.is_ranged: bool = True if unit_data["ammo"] > 0 else False
         self.default_behaviour: str = unit_data["default_behaviour"]  # load after other unit attrs
         from nqp.command.unit_behaviour import UnitBehaviour  # prevent circular import
-
         self.behaviour: UnitBehaviour = UnitBehaviour(self._game, self)
 
         self.injuries: int = 0
@@ -61,10 +60,14 @@ class Unit:
         # stats that include base values
         self.health: int = unit_data["health"] + base_values["health"]
         self.attack: int = unit_data["attack"] + base_values["attack"]
-        self.defence: int = unit_data["defence"] + base_values["defence"]
+        self.damage_type: str = unit_data["damage_type"]
+        self.mundane_defence: int = unit_data["mundane_defence"] + base_values["mundane_defence"]
+        self.magic_defence: int = unit_data["magic_defence"] + base_values["magic_defence"]
         self.range: int = unit_data["range"] + base_values["range"]
         self.attack_speed: float = unit_data["attack_speed"] + base_values["attack_speed"]
         self.move_speed: int = unit_data["move_speed"] + base_values["move_speed"]
+        self.crit_chance: int = unit_data["crit_chance"] + base_values["crit_chance"]
+        self.penetration: int = unit_data["penetration"] + base_values["penetration"]
 
         # ensure faux-null value is respected
         if unit_data["ammo"] in [-1, 0]:
@@ -199,7 +202,12 @@ class Unit:
         Reset the in combat values ready to begin combat.
         """
         # prevent circular import
-        from nqp.core.components import DamageReceived, IsDead, IsReadyToAttack, RangedAttack, Resources
+        from nqp.core.components import DamageReceived, IsDead, IsReadyToAttack, RangedAttack, Resources, Stats
+
+        # get stat attrs
+        if snecs.has_component(list(self.entities)[0], Stats):
+            stats = snecs.entity_component(list(self.entities)[0], Stats)
+            stat_attrs = [attr_ for attr_ in dir(stats) if not attr_.startswith('__')]
 
         health = self.health
         for entity in self.entities:
@@ -219,6 +227,12 @@ class Unit:
             if snecs.has_component(entity, RangedAttack):
                 ranged = snecs.entity_component(entity, RangedAttack)
                 ranged.ammo.reset()
+
+            # reset stats
+            if snecs.has_component(entity, Stats):
+                stats = snecs.entity_component(entity, Stats)
+                for stat_name in stat_attrs:
+                    getattr(stats, stat_name).reset()
 
         self._align_entity_positions_to_unit()
 

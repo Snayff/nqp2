@@ -8,6 +8,7 @@ import snecs
 
 from nqp.base_classes.image import Image
 from nqp.core.components import Allegiance, DamageReceived, Position
+from nqp.core.constants import DamageType
 from nqp.core.utility import angle_to
 
 if TYPE_CHECKING:
@@ -22,7 +23,15 @@ __all__ = ["Projectile"]
 
 class Projectile:
     def __init__(
-        self, game: Game, owner: EntityID, target: EntityID, projectile_data: Dict[str, Union[Image, int]], damage: int
+            self,
+            game: Game,
+            owner: EntityID,
+            target: EntityID,
+            projectile_data: Dict[str, Union[Image, int]],
+            damage: int,
+            damage_type: DamageType,
+            penetration: int,
+            is_crit: bool
     ):
         self._game: Game = game
         self.owner: EntityID = owner
@@ -30,6 +39,9 @@ class Projectile:
         self.image: Image = projectile_data["img"]
         self.speed: int = projectile_data["speed"]
         self.damage: int = damage
+        self.damage_type: DamageType = damage_type
+        self.penetration: int = penetration
+        self.is_crit: bool = is_crit
 
         position = snecs.entity_component(self.owner, Position)
         target_pos = snecs.entity_component(target, Position)
@@ -64,7 +76,9 @@ class Projectile:
                 if team != other_team:
                     other_pos = snecs.entity_component(entity, Position)
                     if r.collidepoint((other_pos.pos.x, other_pos.pos.y)):
-                        snecs.add_component(entity, DamageReceived(self.damage))
+                        snecs.add_component(
+                            entity,
+                            DamageReceived(self.damage, self.damage_type, self.penetration, self.is_crit))
                         self.is_active = False
                         return
 

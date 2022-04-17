@@ -24,49 +24,61 @@ unit_base_values:
     attack: 0
     attack_speed: 0
     count: 0
-    defence: 0
+    mundane_defence: 0
+    magic_defence: 0
     gold_cost: 10
     health: 100
     move_speed: 0
     range: 0
     size: 0
     weight: 0
+    crit_chance: 0
+    penetration: 0
   tier_2:
     ammo: 0
     attack: 0
     attack_speed: 0
     count: 0
-    defence: 0
+    mundane_defence: 0
+    magic_defence: 0
     gold_cost: 30
     health: 100
     move_speed: 0
     range: 0
     size: 0
     weight: 0
+    crit_chance: 0
+    penetration: 0
   tier_3:
     ammo: 0
     attack: 0
     attack_speed: 0
     count: 0
-    defence: 0
+    mundane_defence: 0
+    magic_defence: 0
     gold_cost: 70
     health: 100
     move_speed: 0
     range: 0
     size: 0
     weight: 0
+    crit_chance: 0
+    penetration: 0
   tier_4:
     ammo: 0
     attack: 0
     attack_speed: 0
     count: 0
-    defence: 0
+    mundane_defence: 0
+    magic_defence: 0
     gold_cost: 150
     health: 100
     move_speed: 0
     range: 0
     size: 0
     weight: 0
+    crit_chance: 0
+    penetration: 0
 unit_properties:
   injuries_before_death: 3
 unit_tier_occur_rates:

@@ -20,7 +20,7 @@ from nqp.core.components import (
     RangedAttack,
     Stats,
 )
-from nqp.core.constants import EntityFacing, PUSH_FORCE, TILE_SIZE, WEIGHT_SCALE
+from nqp.core.constants import EntityFacing, PUSH_FORCE, TILE_SIZE, WEIGHT_SCALE, DamageType, CRIT_MOD
 from nqp.core.utility import angle_to, distance_to, get_direction
 
 if TYPE_CHECKING:
@@ -54,19 +54,50 @@ def draw_entities(surface: pygame.Surface, shift: pygame.Vector2 = (0, 0)):
         )
 
 
-def apply_damage():
+def apply_damage(game: Game):
     """
-    Consume damage components and apply their value to the Entity.
+    Consume damage components and apply their value to the Entity, applying any mitigations.
     """
-    for entity, (damage, resources) in queries.damage_resources:
-        resources.health.value -= damage.amount
+    for entity, (damage, resources, aesthetic, stats) in queries.damage_resources_aesthetic_stats:
+        damage_dealt = damage.amount
 
-        # remove damage
+        # get defence
+        if damage.type == DamageType.MAGICAL:
+            defence = stats.magic_defence
+        elif damage.type == DamageType.MUNDANE:
+            defence = stats.mundane_defence
+        else:
+            logging.warning(f"Damage type ({damage.type.name}) not recognised. Defaulted to mundane defence.")
+            defence = stats.mundane_defence
+
+        # crit ignores defence
+        if not damage.is_crit:
+
+            # mitigate damage by defence, accounting for penetration
+            damage_dealt = max((defence.value - damage.penetration) - damage_dealt, 0)
+
+        # reduce defence for being hit
+        defence.value = max(defence.value - 1, 0)
+
+        # apply damage
+        resources.health.value -= damage_dealt
+
+        # remove damage flag
         snecs.remove_component(entity, DamageReceived)
 
         # check if dead
         if resources.health.value <= 0:
             snecs.add_component(entity, IsDead())
+        else:
+            # apply flash
+            aesthetic.animation.flash((255, 255, 255))
+
+            # create blood spray on crit
+            if damage.is_crit:
+                position = snecs.entity_component(entity, Position)
+                create_particle_burst = game.world.model.particles.create_particle_burst
+                create_particle_burst(position.pos, (255, 50, 100), random.randint(10, 16))
+
 
 
 def process_death(game: Game):
@@ -214,7 +245,6 @@ def process_attack(game: Game):
         if not snecs.has_component(target_entity, Stats):
             continue
 
-        stats = snecs.entity_component(entity, Stats)
         target_pos = snecs.entity_component(target_entity, Position)
         target_stats = snecs.entity_component(target_entity, Stats)
 
@@ -232,12 +262,18 @@ def process_attack(game: Game):
                     if snecs.entity_component(entity, Allegiance).team == "player":
                         mod = 9999
 
+            # roll for crit
+            is_crit = False
+            if stats.crit_chance.value > game.rng.roll():
+                mod += CRIT_MOD
+                is_crit = True
+
             # handle ranged attack
             if snecs.has_component(entity, RangedAttack):
                 ranged = snecs.entity_component(entity, RangedAttack)
                 ranged.ammo.value -= 1
                 projectile_data = {"img": ranged.projectile_sprite, "speed": ranged.projectile_speed}
-                add_projectile(entity, target_entity, projectile_data, stats.attack.value + mod)
+                add_projectile(entity, target_entity, projectile_data, stats.attack.value * mod)
 
                 # switch to melee when out of ammo
                 if ranged.ammo.value <= 0:
@@ -245,7 +281,9 @@ def process_attack(game: Game):
 
             else:
                 # add damage component
-                snecs.add_component(target_entity, DamageReceived(stats.attack.value + mod))
+                snecs.add_component(
+                    target_entity,
+                    DamageReceived(stats.attack.value * mod, stats.damage_type, stats.penetration.value, is_crit))
 
             # reset attack timer and remove flag
             ai.behaviour.attack_timer = 1 / stats.attack_speed.value

@@ -38,6 +38,10 @@ class Game:
             pygame.mixer.init()
             pygame.joystick.init()
 
+            self.scene_stack: List[Scene] = []
+            self.state: GameState = GameState.LOADING
+            self.master_clock = 0
+
             # managers
             self.debug: Debugger = Debugger(self)
             self.window: Window = Window(self)
@@ -59,10 +63,6 @@ class Game:
             # dev scenes
             # self.dev_unit_data: UnitDataScene = UnitDataScene(self)  # TODO - fix
             # self.dev_gallery: GalleryScene = GalleryScene(self) # TODO - fix
-
-            self.scene_stack: List[Scene] = []
-            self.state: GameState = GameState.LOADING
-            self.master_clock = 0
 
             # activate main men
             self.add_scene(SceneType.MAIN_MENU)

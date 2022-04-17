@@ -60,9 +60,9 @@ class DevConsole(UIInputBox):
             if SceneType.MAIN_MENU in self._game.scene_stack:
                 confirmation_message = self._add_unit_data_for_each_asset_folder()
 
-        elif command[:13] == "load_unit_csv":
+        elif command[:13] == "load-unit-csv":
             # check active scene
-            if SceneType.MAIN_MENU in self._game.scene_stack:
+            if self._game.main_menu in self._game.scene_stack:
                 confirmation_message = self._load_unit_csv()
 
         elif command[:7] == "gallery":
@@ -208,7 +208,8 @@ class DevConsole(UIInputBox):
 
                         # update data
                         data["health"] = int(row["health"])
-                        data["defence"] = int(row["defence"])
+                        data["mundane_defence"] = int(row["mundane_defence"])
+                        data["magic_defence"] = int(row["magic_defence"])
                         data["attack"] = int(row["attack"])
                         data["range"] = int(row["range"])
                         data["attack_speed"] = float(row["attack_speed"])
@@ -217,7 +218,9 @@ class DevConsole(UIInputBox):
                         data["count"] = int(row["count"])
                         data["tier"] = int(row["tier"])
                         data["faction"] = row["faction"]
-                        data["default_behaviour"] = row["default_behaviour"]
+                        data["damage_type"] = row["damage_type"]
+                        data["crit_chance"] = int(row["crit_chance"])
+                        data["penetration"] = int(row["penetration"])
 
                     # delete previous file
                     os.remove(str_path)
@@ -244,7 +247,7 @@ class DevConsole(UIInputBox):
 
         confirmation_message = f"Updated {num_updated} unit details and created {num_created} units."
 
-        logging.debug(f"->{confirmation_message})")
+        logging.debug(f"-> {confirmation_message})")
 
         return confirmation_message
 

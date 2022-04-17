@@ -152,6 +152,13 @@ class Visual:
 
             directory_contents = os.listdir(path)
             for anim_folder_name in directory_contents:
+                # check we have data for the given animation
+                try:
+                    if anim_folder_name not in getattr(self._game.data, folder):
+                        continue
+                except AttributeError:
+                    # we didnt find the folder in Data, so carry on regardless
+                    pass
 
                 # we expect a sub folder for the item e.g. bosses/test_boss
                 anim_path = path / anim_folder_name

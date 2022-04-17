@@ -22,10 +22,11 @@ GAP_SIZE = 10
 TILE_SIZE = 16
 BARRIER_SIZE = 10
 
-# algorithm/formula constants
+# combat values
 WEIGHT_SCALE = 5
 DEFENSE_SCALE = 10
 PUSH_FORCE = 14
+CRIT_MOD = 2.5  # value to multiply by
 
 # UI customisation
 TEXT_FADE_OUT_SPEED = 0.5  # make sure it is slower than the fade in
@@ -183,8 +184,13 @@ class EntityFacing(IntEnum):
     RIGHT = auto()
 
 
-class GameSpeed(Enum):
+class GameSpeed(IntEnum):
     SLOW = 0.5
     NORMAL = 1
     FAST = 3
     FASTEST = 5
+
+
+class DamageType(IntEnum):
+    MUNDANE = auto()
+    MAGICAL = auto()
