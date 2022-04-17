@@ -43,7 +43,7 @@ class Data:
             self.commanders: Dict[str, Any] = self._load_commanders()
             self.units: Dict[str, Any] = self._load_unit_info()
             self.tiles = self._load_tile_info()  # TODO - can we get rid of this?
-            self.factions: List[str] = self._create_homes_list()
+            self.factions: List[str] = self._create_factions_list()
             self.events: Dict[str, Any] = self._load_events()
             self.upgrades: Dict[str, Any] = self._load_upgrades()
             self.combats: Dict[str, Any] = self._load_combats()
@@ -60,27 +60,32 @@ class Data:
 
         # convert tile IDs to tuples (JSON doesn't allow tuples)
         tile_info = {}
+        counter = 0
         for tile_id in tile_info_raw:
             tile_info[
                 tuple([id_section if i == 0 else int(id_section) for i, id_section in enumerate(tile_id.split("|"))])
             ] = tile_info_raw[tile_id]
+            counter += 1
 
-        logging.debug(f"Data: All tileset data loaded.")
+        logging.debug(f"Data: {counter} tilesets loaded.")
 
         return tile_info
 
     @staticmethod
     def _load_unit_info() -> Dict:
         units = {}
+        counter = 0
         for unit in os.listdir("data/units"):
             data = load_yaml(DATA_PATH / "units" / unit)
             units[data["type"]] = data
 
-        logging.debug(f"Data: All unit data loaded.")
+            counter += 1
+
+        logging.debug(f"Data: {counter} units loaded.")
 
         return units
 
-    def _create_homes_list(self) -> List[str]:
+    def _create_factions_list(self) -> List[str]:
         factions = []
 
         for unit in self.units.values():
@@ -92,22 +97,28 @@ class Data:
     @staticmethod
     def _load_upgrades() -> Dict:
         upgrades = {}
+        counter = 0
         for upgrade in os.listdir("data/upgrades"):
             data = load_yaml(DATA_PATH / "upgrades" / upgrade)
             upgrades[data["type"]] = data
 
-        logging.debug(f"Data: All upgrade data loaded.")
+            counter += 1
+
+        logging.debug(f"Data: {counter} upgrades loaded.")
 
         return upgrades
 
     @staticmethod
     def _load_events() -> Dict:
         events = {}
+        counter = 0
         for event in os.listdir("data/events"):
             data = load_yaml(DATA_PATH / "events" / event)
             events[data["type"]] = data
 
-        logging.debug(f"Data: All event data loaded.")
+            counter += 1
+
+        logging.debug(f"Data: {counter} events loaded.")
 
         return events
 
@@ -121,44 +132,55 @@ class Data:
     @staticmethod
     def _load_commanders() -> Dict:
         commanders = {}
+        counter = 0
         for commander in os.listdir("data/commanders"):
             data = load_yaml(DATA_PATH / "commanders" / commander)
             commanders[data["type"]] = data
 
-        logging.debug(f"Data: All commanders data loaded.")
+            counter += 1
+
+        logging.debug(f"Data: {counter} commanders loaded.")
 
         return commanders
 
     @staticmethod
     def _load_bosses() -> Dict:
         bosses = {}
+        counter = 0
         for commander in os.listdir("data/bosses"):
             data = load_yaml(DATA_PATH / "bosses" / commander)
             bosses[data["type"]] = data
+            counter += 1
 
-        logging.debug(f"Data: All bosses data loaded.")
+        logging.debug(f"Data: {counter} bosses loaded.")
 
         return bosses
 
     @staticmethod
     def _load_combats():
         combats = {}
+        counter = 0
         for combat in os.listdir("data/combats"):
             data = load_yaml(DATA_PATH / "combats" / combat)
             combats[data["type"]] = data
 
-        logging.debug(f"Data: All combats data loaded.")
+            counter += 1
+
+        logging.debug(f"Data: {counter} combats loaded.")
 
         return combats
 
     @staticmethod
     def _load_skills():
         skills = {}
+        counter = 0
         for skill in os.listdir("data/skills"):
             data = DATA_PATH / "skills" / skill
             skills[skill.split(".")[0]] = data
 
-        logging.debug(f"Data: All skills data loaded.")
+            counter += 1
+
+        logging.debug(f"Data: {counter} skills loaded.")
 
         return skills
 
@@ -174,13 +196,16 @@ class Data:
         from nqp.world_elements.item import ItemData
 
         items = {}
+        counter = 0
         for filename in os.listdir("data/items"):
             with open(str(DATA_PATH / "items" / filename), "r") as fp:
                 data = yaml.load(fp, Loader=yaml.SafeLoader)
                 item_data = ItemData(**data)
                 items[filename.split(".")[0]] = item_data
 
-        logging.debug(f"Data: All items data loaded.")
+                counter += 1
+
+        logging.debug(f"Data: {counter} items loaded.")
 
         return items
 
