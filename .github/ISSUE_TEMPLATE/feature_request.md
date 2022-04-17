@@ -12,6 +12,7 @@ Describe the solution you'd like to see with a clear description of what you wan
 
 ## Requirements 
 Specify the feature's requirements with a list of statements that can only be true or false and that detail the functionality required for the feature.
+- [ ]
 
 ## Additional Context
 Add any other context or screenshots about the idea you're suggesting.
