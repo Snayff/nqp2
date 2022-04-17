@@ -20,7 +20,7 @@ Quality of last commit:
 
 Progress:
 
-[![GitHub milestone](https://img.shields.io/github/milestones/progress/Snayff/nqp2/1)](https://github.com/Snayff/nqp2/milestone/1)
+[![GitHub milestone](https://img.shields.io/github/milestones/progress/Snayff/nqp2/2)](https://github.com/Snayff/nqp2/milestone/1)
 [![GitHub commits since tagged version](https://img.shields.io/github/commits-since/Snayff/nqp2/0.0.1)](https://github.com/Snayff/nqp2/commits/develop)
 
 ## Who dunnit? 
@@ -31,7 +31,7 @@ Design and writing by [PuddingChef].
 
 Additional code by [DaFluffyPotato], [douglascdev] and [bitcraft].
 
-(Most) Art by [Aleksander Makarov].
+Art (mostly) by [Aleksander Makarov].
 
 ## What is it?
 A world exploring, army recruiting, auto-battling adventure to take over the kingdom. 
