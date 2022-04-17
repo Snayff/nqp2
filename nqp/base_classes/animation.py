@@ -25,6 +25,7 @@ class Animation:
         frame_duration: float = 0.6,
         loop: bool = True,
         starting_frame_set_name: str = None,
+        uses_simulation_time: bool = True
     ):
         self._frame_sets: Dict[str, List[Image]] = frames
         self._frame_duration: float = max(frame_duration, 0.1)  # must be greater than 1
@@ -33,6 +34,7 @@ class Animation:
             self._current_frame_set_name: str = starting_frame_set_name
         else:
             self._current_frame_set_name: str = list(self._frame_sets)[0]
+        self.uses_simulation_time: bool = uses_simulation_time  # simulation or absolute, i.e. uses game speed
 
         self._current_num_frames: int = len(self.current_frame_set)
         self._animation_length: float = self._current_num_frames * self._frame_duration
@@ -45,12 +47,15 @@ class Animation:
         self._current_frame_num: int = 0
         self._duration: float = 0
 
-    def update(self, delta_time: float):
+    def update(self, delta_time: float, game_speed: float):
         # exit if not playing
         if self._state != AnimationState.PLAYING:
             return
 
-        self._duration += delta_time
+        if self.uses_simulation_time:
+            self._duration += delta_time * game_speed
+        else:
+            self._duration += delta_time
 
         # have we reached the end?
         if self._duration >= self._animation_length:
