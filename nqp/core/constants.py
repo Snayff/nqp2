@@ -183,8 +183,13 @@ class EntityFacing(IntEnum):
     RIGHT = auto()
 
 
-class GameSpeed(Enum):
+class GameSpeed(IntEnum):
     SLOW = 0.5
     NORMAL = 1
     FAST = 3
     FASTEST = 5
+
+
+class DamageType(IntEnum):
+    MUNDANE = auto()
+    MAGICAL = auto()

@@ -14,7 +14,7 @@ __all__ = [
     "dead",
     "resources",
     "aesthetic_position",
-    "damage_resources_aesthetic",
+    "damage_resources_aesthetic_stats",
     "ai_not_dead",
     "attack_position_stats_ai_aesthetic_not_dead",
     "ai_position",
@@ -32,8 +32,9 @@ ai_not_dead: Iterator[Tuple[EntityID, Tuple[AI]]] = Query([AI]).filter(~IsDead).
 
 aesthetic_position: Iterator[Tuple[EntityID, Tuple[Aesthetic, Position]]] = Query([Aesthetic, Position]).compile()
 
-damage_resources_aesthetic: Iterator[Tuple[EntityID, Tuple[DamageReceived, Resources, Aesthetic]]] = Query(
-    [DamageReceived, Resources, Aesthetic]).compile()
+damage_resources_aesthetic_stats: Iterator[Tuple[EntityID, Tuple[DamageReceived, Resources, Aesthetic,
+                                                                 Stats]]] = Query(
+    [DamageReceived, Resources, Aesthetic, Stats]).compile()
 
 dead_aesthetic_position: Iterator[Tuple[EntityID, Tuple[IsDead, Aesthetic, Position]]] = Query(
     [IsDead, Aesthetic, Position]).compile()

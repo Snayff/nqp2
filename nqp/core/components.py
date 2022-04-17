@@ -8,7 +8,7 @@ from snecs import RegisteredComponent
 from nqp.base_classes.animation import Animation
 from nqp.base_classes.image import Image
 from nqp.command.unit import Unit
-from nqp.core.constants import EntityFacing
+from nqp.core.constants import EntityFacing, DamageType
 from nqp.world_elements.stats import FloatStat, IntStat
 
 if TYPE_CHECKING:
@@ -124,13 +124,17 @@ class Stats(RegisteredComponent):
     """
 
     def __init__(self, parent_unit: Unit):
-        self.defence: IntStat = IntStat(parent_unit.defence)
+        self.mundane_defence: IntStat = IntStat(parent_unit.mundane_defence)
+        self.magic_defence: IntStat = IntStat(parent_unit.magic_defence)
         self.attack: IntStat = IntStat(parent_unit.attack)
+        self.damage_type: DamageType = DamageType[parent_unit.damage_type]
         self.range: IntStat = IntStat(parent_unit.range)
         self.attack_speed: FloatStat = FloatStat(parent_unit.attack_speed)
         self.move_speed: IntStat = IntStat(parent_unit.move_speed)
         self.size: IntStat = IntStat(parent_unit.size)
         self.weight: IntStat = IntStat(parent_unit.weight)
+        self.penetration: IntStat = IntStat(parent_unit.penetration)
+        self.crit_chance: IntStat = IntStat(parent_unit.crit_chance)
 
     def serialize(self):
         # TODO - add serialisation
@@ -203,8 +207,9 @@ class DamageReceived(RegisteredComponent):
     Damage to be applied to the Entity.
     """
 
-    def __init__(self, amount: int):
+    def __init__(self, amount: int, damage_type: DamageType):
         self.amount: int = amount
+        self.type: DamageType = damage_type
 
     def serialize(self):
         # TODO - add serialisation

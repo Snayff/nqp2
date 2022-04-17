@@ -20,7 +20,7 @@ from nqp.core.components import (
     RangedAttack,
     Stats,
 )
-from nqp.core.constants import EntityFacing, PUSH_FORCE, TILE_SIZE, WEIGHT_SCALE
+from nqp.core.constants import EntityFacing, PUSH_FORCE, TILE_SIZE, WEIGHT_SCALE, DamageType
 from nqp.core.utility import angle_to, distance_to, get_direction
 
 if TYPE_CHECKING:
@@ -56,12 +56,30 @@ def draw_entities(surface: pygame.Surface, shift: pygame.Vector2 = (0, 0)):
 
 def apply_damage():
     """
-    Consume damage components and apply their value to the Entity.
+    Consume damage components and apply their value to the Entity, applying any mitigations.
     """
-    for entity, (damage, resources, aesthetic) in queries.damage_resources_aesthetic:
-        resources.health.value -= damage.amount
+    for entity, (damage, resources, aesthetic, stats) in queries.damage_resources_aesthetic_stats:
+        damage_dealt = damage.amount
 
-        # remove damage
+        # get defence
+        if damage.type == DamageType.MAGICAL:
+            defence = stats.magic_defence
+        elif damage.type == DamageType.MUNDANE:
+            defence = stats.mundane_defence
+        else:
+            logging.warning(f"Damage type ({damage.type.name}) not recognised. Defaulted to mundane defence.")
+            defence = stats.mundane_defence
+
+        # mitigate damage by defence
+        damage_dealt = max(defence.value - damage_dealt, 0)
+
+        # reduce defence for being hit
+        defence = max(defence.value - 1, 0)
+
+        # apply damage
+        resources.health.value -= damage_dealt
+
+        # remove damage flag
         snecs.remove_component(entity, DamageReceived)
 
         # check if dead
@@ -248,7 +266,7 @@ def process_attack(game: Game):
 
             else:
                 # add damage component
-                snecs.add_component(target_entity, DamageReceived(stats.attack.value + mod))
+                snecs.add_component(target_entity, DamageReceived(stats.attack.value + mod, stats.damage_type))
 
             # reset attack timer and remove flag
             ai.behaviour.attack_timer = 1 / stats.attack_speed.value
