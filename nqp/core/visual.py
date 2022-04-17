@@ -76,9 +76,9 @@ class Visual:
         active_animations = self._active_animations
 
         # update animations
-        mod_delta = delta_time * self._game.memory.game_speed
+        mod_delta = delta_time
         for animation in active_animations:
-            animation.update(mod_delta)
+            animation.update(mod_delta, self._game.memory.game_speed)
 
             # remove the finished animations
             if animation.is_finished and animation.delete_on_finish:
@@ -219,12 +219,22 @@ class Visual:
 
         return tileset_data
 
-    def create_animation(self, animation_name: str, frame_set_name: str, loop: bool = True) -> Animation:
+    def create_animation(
+            self,
+            animation_name: str,
+            frame_set_name: str,
+            loop: bool = True,
+            uses_simulation_time: bool = True) -> Animation:
         """
         Create a new animation and add it to the internal update list.
         """
         frames = self._animation_frames[animation_name]
-        anim = Animation(frames, loop=loop, starting_frame_set_name=frame_set_name)
+        anim = Animation(
+            frames,
+            loop=loop,
+            starting_frame_set_name=frame_set_name,
+            uses_simulation_time=uses_simulation_time
+        )
         self._active_animations.append(anim)
         return anim
 
