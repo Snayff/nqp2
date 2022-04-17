@@ -223,8 +223,16 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">is_active</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">was_previously_selected</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_previously_selected</span><span class="p">:</span> <span class="n">Animation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visual</span><span class="o">.</span><span class="n">create_animation</span><span class="p">(</span><span class="s2">&quot;selector&quot;</span><span class="p">,</span> <span class="s2">&quot;previously_selected&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_selected_selector</span><span class="p">:</span> <span class="n">Animation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visual</span><span class="o">.</span><span class="n">create_animation</span><span class="p">(</span><span class="s2">&quot;selector&quot;</span><span class="p">,</span> <span class="s2">&quot;selected&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_previously_selected</span><span class="p">:</span> <span class="n">Animation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visual</span><span class="o">.</span><span class="n">create_animation</span><span class="p">(</span>
+            <span class="s2">&quot;selector&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;previously_selected&quot;</span><span class="p">,</span>
+            <span class="n">uses_simulation_time</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_selected_selector</span><span class="p">:</span> <span class="n">Animation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visual</span><span class="o">.</span><span class="n">create_animation</span><span class="p">(</span>
+            <span class="s2">&quot;selector&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;selected&quot;</span><span class="p">,</span>
+            <span class="n">uses_simulation_time</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_current_selector</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Animation</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></div>
 
 <div class="viewcode-block" id="UIElement.update"><a class="viewcode-back" href="../../../nqp.base_classes.html#nqp.base_classes.ui_element.UIElement.update">[docs]</a>    <span class="nd">@abstractmethod</span>
