@@ -215,8 +215,8 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="GridCell.__init__"><a class="viewcode-back" href="../../../../nqp.ui_elements.tailored.html#nqp.ui_elements.tailored.unit_grid.GridCell.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rect</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">,</span> <span class="n">unit</span><span class="p">:</span> <span class="n">Unit</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span> <span class="o">=</span> <span class="n">rect</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">unit</span> <span class="o">=</span> <span class="n">unit</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span> <span class="o">=</span> <span class="n">rect</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">unit</span><span class="p">:</span> <span class="n">Unit</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">unit</span></div></div>
 
 
 <div class="viewcode-block" id="UnitGrid"><a class="viewcode-back" href="../../../../nqp.ui_elements.tailored.html#nqp.ui_elements.tailored.unit_grid.UnitGrid">[docs]</a><span class="k">class</span> <span class="nc">UnitGrid</span><span class="p">:</span>
@@ -232,9 +232,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="UnitGrid.__init__"><a class="viewcode-back" href="../../../../nqp.ui_elements.tailored.html#nqp.ui_elements.tailored.unit_grid.UnitGrid.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">game</span><span class="p">:</span> <span class="n">Game</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-        <span class="c1"># TODO:</span>
-        <span class="c1">#  - show units moving on screen instead of setting their positions</span>
-        <span class="c1">#  - there&#39;s still a bug somewhere that keeps units from switching placement</span>
+        <span class="c1"># TODO - there&#39;s still a bug somewhere that keeps units from switching placement</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">:</span> <span class="n">Game</span> <span class="o">=</span> <span class="n">game</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
@@ -245,8 +243,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">focused_border_width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Unit</span><span class="p">]</span> <span class="o">=</span> <span class="n">game</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">get_all_units</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">are_units_aligned_to_grid</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">selected_cell</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">focused_cell</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selected_cell</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">GridCell</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">focused_cell</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">GridCell</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cells</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">GridCell</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cell_surface</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cell_surface_hover</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
@@ -256,7 +254,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">line_colour_selected</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_interaction_owner</span><span class="p">:</span> <span class="n">InputType</span> <span class="o">=</span> <span class="n">InputType</span><span class="o">.</span><span class="n">NONE</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_previous_focused</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">GridCell</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">initialize_cells</span><span class="p">()</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initialize_cells</span><span class="p">()</span>
+
+        <span class="c1"># set selection to first cell</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selected_cell</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cells</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">focused_cell</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cells</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="UnitGrid.initialize_cells"><a class="viewcode-back" href="../../../../nqp.ui_elements.tailored.html#nqp.ui_elements.tailored.unit_grid.UnitGrid.initialize_cells">[docs]</a>    <span class="k">def</span> <span class="nf">initialize_cells</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -349,8 +351,8 @@
 
 <div class="viewcode-block" id="UnitGrid.move_to_empty_cell"><a class="viewcode-back" href="../../../../nqp.ui_elements.tailored.html#nqp.ui_elements.tailored.unit_grid.UnitGrid.move_to_empty_cell">[docs]</a>    <span class="k">def</span> <span class="nf">move_to_empty_cell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unit</span><span class="p">:</span> <span class="n">Unit</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">cells</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">cell</span><span class="o">.</span><span class="n">_unit</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">cell</span><span class="o">.</span><span class="n">_unit</span> <span class="o">=</span> <span class="n">unit</span>
+            <span class="k">if</span> <span class="n">cell</span><span class="o">.</span><span class="n">unit</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">cell</span><span class="o">.</span><span class="n">unit</span> <span class="o">=</span> <span class="n">unit</span>
                 <span class="n">unit</span><span class="o">.</span><span class="n">forced_behaviour</span> <span class="o">=</span> <span class="kc">True</span>
                 <span class="n">target_px</span> <span class="o">=</span> <span class="n">cell</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">center</span>
                 <span class="n">leader</span> <span class="o">=</span> <span class="n">unit</span><span class="o">.</span><span class="n">entities</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>

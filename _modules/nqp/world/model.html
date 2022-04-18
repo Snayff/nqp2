@@ -332,7 +332,7 @@
         <span class="n">systems</span><span class="o">.</span><span class="n">process_ai</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span>
         <span class="n">systems</span><span class="o">.</span><span class="n">process_movement</span><span class="p">(</span><span class="n">delta_time</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">)</span>
         <span class="n">systems</span><span class="o">.</span><span class="n">process_attack</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">)</span>
-        <span class="n">systems</span><span class="o">.</span><span class="n">apply_damage</span><span class="p">()</span>
+        <span class="n">systems</span><span class="o">.</span><span class="n">apply_damage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">)</span>
         <span class="n">systems</span><span class="o">.</span><span class="n">process_death</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">)</span></div>
         <span class="c1"># systems.push_entities_away_from_one_another(delta_time, self._game)</span>
         <span class="c1"># FIXME - this causes everything to go up when moving between rooms</span>

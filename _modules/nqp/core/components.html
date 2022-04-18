@@ -196,7 +196,7 @@
   <h1>Source code for nqp.core.components</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">List</span>
 
 <span class="kn">import</span> <span class="nn">pygame</span>
 <span class="kn">from</span> <span class="nn">snecs</span> <span class="kn">import</span> <span class="n">RegisteredComponent</span>
@@ -323,7 +323,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">mundane_defence</span><span class="p">:</span> <span class="n">IntStat</span> <span class="o">=</span> <span class="n">IntStat</span><span class="p">(</span><span class="n">parent_unit</span><span class="o">.</span><span class="n">mundane_defence</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">magic_defence</span><span class="p">:</span> <span class="n">IntStat</span> <span class="o">=</span> <span class="n">IntStat</span><span class="p">(</span><span class="n">parent_unit</span><span class="o">.</span><span class="n">magic_defence</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">attack</span><span class="p">:</span> <span class="n">IntStat</span> <span class="o">=</span> <span class="n">IntStat</span><span class="p">(</span><span class="n">parent_unit</span><span class="o">.</span><span class="n">attack</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">damage_type</span><span class="p">:</span> <span class="n">DamageType</span> <span class="o">=</span> <span class="n">DamageType</span><span class="p">[</span><span class="n">parent_unit</span><span class="o">.</span><span class="n">damage_type</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">damage_type</span><span class="p">:</span> <span class="n">DamageType</span> <span class="o">=</span> <span class="n">DamageType</span><span class="p">[</span><span class="n">parent_unit</span><span class="o">.</span><span class="n">damage_type</span><span class="o">.</span><span class="n">upper</span><span class="p">()]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">range</span><span class="p">:</span> <span class="n">IntStat</span> <span class="o">=</span> <span class="n">IntStat</span><span class="p">(</span><span class="n">parent_unit</span><span class="o">.</span><span class="n">range</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">attack_speed</span><span class="p">:</span> <span class="n">FloatStat</span> <span class="o">=</span> <span class="n">FloatStat</span><span class="p">(</span><span class="n">parent_unit</span><span class="o">.</span><span class="n">attack_speed</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">move_speed</span><span class="p">:</span> <span class="n">IntStat</span> <span class="o">=</span> <span class="n">IntStat</span><span class="p">(</span><span class="n">parent_unit</span><span class="o">.</span><span class="n">move_speed</span><span class="p">)</span>
@@ -339,7 +339,27 @@
 <div class="viewcode-block" id="Stats.deserialize"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Stats.deserialize">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">deserialize</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">serialised</span><span class="p">):</span>
         <span class="c1"># TODO - add deserialisation</span>
-        <span class="k">return</span> <span class="n">Resources</span><span class="p">(</span><span class="o">*</span><span class="n">serialised</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="n">Resources</span><span class="p">(</span><span class="o">*</span><span class="n">serialised</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Stats.get_stat_names"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Stats.get_stat_names">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_stat_names</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get a list of all the stats.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">stat_attrs</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">&quot;mundane_defence&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;magic_defence&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;attack&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;damage_type&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;range&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;attack_speed&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;move_speed&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;size&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;weight&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;penetration&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;crit_chance&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+        <span class="k">return</span> <span class="n">stat_attrs</span></div></div>
 
 
 <div class="viewcode-block" id="Allegiance"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Allegiance">[docs]</a><span class="k">class</span> <span class="nc">Allegiance</span><span class="p">(</span><span class="n">RegisteredComponent</span><span class="p">):</span>

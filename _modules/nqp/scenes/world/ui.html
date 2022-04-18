@@ -222,6 +222,7 @@
 <span class="kn">from</span> <span class="nn">nqp.ui_elements.generic.ui_panel</span> <span class="kn">import</span> <span class="n">UIPanel</span>
 <span class="kn">from</span> <span class="nn">nqp.ui_elements.generic.ui_window</span> <span class="kn">import</span> <span class="n">UIWindow</span>
 <span class="kn">from</span> <span class="nn">nqp.ui_elements.tailored.unit_grid</span> <span class="kn">import</span> <span class="n">UnitGrid</span>
+<span class="kn">from</span> <span class="nn">nqp.ui_elements.tailored.unit_stats_window</span> <span class="kn">import</span> <span class="n">UnitStatsWindow</span>
 <span class="kn">from</span> <span class="nn">nqp.world.view</span> <span class="kn">import</span> <span class="n">WorldView</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
@@ -296,7 +297,6 @@
 <div class="viewcode-block" id="WorldUI.process_input"><a class="viewcode-back" href="../../../../nqp.scenes.world.html#nqp.scenes.world.ui.WorldUI.process_input">[docs]</a>    <span class="k">def</span> <span class="nf">process_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">process_input</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span>
 
-        <span class="c1"># TODO - add speed control</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_process_game_speed_changes</span><span class="p">()</span>
 
         <span class="c1">#################</span>
@@ -318,12 +318,37 @@
         <span class="c1">#     self._worldview.camera.move(x=32)</span>
 
         <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">state</span>
+        <span class="n">selected_unit</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">CHOOSE_NEXT_ROOM</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_process_choose_next_room_input</span><span class="p">()</span>
 
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent_scene</span><span class="o">.</span><span class="n">choose_room</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="n">ChooseRoomState</span><span class="o">.</span><span class="n">IDLE</span><span class="p">:</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">process_input</span><span class="p">()</span>
+
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">focused_cell</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">focused_cell</span><span class="o">.</span><span class="n">unit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                            <span class="n">selected_unit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">focused_cell</span><span class="o">.</span><span class="n">unit</span>
+
+            <span class="c1"># show unit info</span>
+            <span class="n">should_create_unit_window</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="n">selected_unit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">stat_window</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_containers</span><span class="p">[</span><span class="s2">&quot;unit_info&quot;</span><span class="p">]</span>
+
+                    <span class="c1"># check if it is the same unit, if so overwrite existing</span>
+                    <span class="k">if</span> <span class="n">stat_window</span><span class="o">.</span><span class="n">unit</span> <span class="o">!=</span> <span class="n">selected_unit</span><span class="p">:</span>
+                        <span class="n">should_create_unit_window</span> <span class="o">=</span> <span class="kc">True</span>
+
+                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                    <span class="n">should_create_unit_window</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_containers</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;unit_info&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">should_create_unit_window</span><span class="p">:</span>
+                <span class="n">unit_info_pos</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+                <span class="n">info</span> <span class="o">=</span> <span class="n">UnitStatsWindow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="n">unit_info_pos</span><span class="p">,</span> <span class="n">selected_unit</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_container</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="s2">&quot;unit_info&quot;</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">state</span> <span class="o">==</span> <span class="n">WorldState</span><span class="o">.</span><span class="n">COMBAT</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_process_combat_input</span><span class="p">()</span>
@@ -1148,19 +1173,19 @@
 
         <span class="c1"># draw header</span>
         <span class="n">header_text</span> <span class="o">=</span> <span class="s2">&quot;Victory&quot;</span>
-        <span class="n">header_font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visuals</span><span class="o">.</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="n">header_text</span><span class="p">)</span>
+        <span class="n">header_font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visual</span><span class="o">.</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="n">header_text</span><span class="p">)</span>
         <span class="n">current_x</span> <span class="o">=</span> <span class="p">(</span><span class="n">window_width</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">header_font</span><span class="o">.</span><span class="n">width</span>
         <span class="n">current_y</span> <span class="o">=</span> <span class="n">start_y</span>
-        <span class="n">frame</span> <span class="o">=</span> <span class="n">UIFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span> <span class="n">font</span><span class="o">=</span><span class="n">header_font</span><span class="p">,</span> <span class="n">is_selectable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">UIFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span> <span class="n">font</span><span class="o">=</span><span class="n">header_font</span><span class="p">,</span> <span class="n">is_selectable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="s2">&quot;header&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
 
         <span class="c1"># draw victory message</span>
         <span class="n">current_y</span> <span class="o">+=</span> <span class="mi">50</span>
         <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;That&#39;s all there is. You&#39;ve beaten the boss, so why not try another commander?&quot;</span>
-        <span class="n">victory_font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visuals</span><span class="o">.</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">POSITIVE</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+        <span class="n">victory_font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visual</span><span class="o">.</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">POSITIVE</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
         <span class="n">frame</span> <span class="o">=</span> <span class="n">UIFrame</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span>
-            <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span>
+            <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span>
             <span class="n">font</span><span class="o">=</span><span class="n">victory_font</span><span class="p">,</span>
             <span class="n">is_selectable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="p">)</span>
@@ -1170,7 +1195,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">add_exit_button</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_rebuild_defeat_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">create_font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visuals</span><span class="o">.</span><span class="n">create_font</span>
+        <span class="n">create_font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visual</span><span class="o">.</span><span class="n">create_font</span>
 
         <span class="n">start_x</span> <span class="o">=</span> <span class="mi">20</span>
         <span class="n">start_y</span> <span class="o">=</span> <span class="mi">40</span>
@@ -1184,7 +1209,7 @@
         <span class="n">font</span> <span class="o">=</span> <span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">NEGATIVE</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
         <span class="n">current_x</span> <span class="o">=</span> <span class="p">(</span><span class="n">window_width</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">font</span><span class="o">.</span><span class="n">width</span>
         <span class="n">current_y</span> <span class="o">=</span> <span class="n">start_y</span>
-        <span class="n">frame</span> <span class="o">=</span> <span class="n">UIFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span> <span class="n">font</span><span class="o">=</span><span class="n">font</span><span class="p">,</span> <span class="n">is_selectable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">UIFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span> <span class="n">font</span><span class="o">=</span><span class="n">font</span><span class="p">,</span> <span class="n">is_selectable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="s2">&quot;header&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
 
         <span class="c1"># draw lost morale</span>
@@ -1196,17 +1221,17 @@
             <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Your forces, like your ambitions, lie in ruin.&quot;</span>
             <span class="n">font</span> <span class="o">=</span> <span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DISABLED</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
             <span class="n">current_x</span> <span class="o">=</span> <span class="p">(</span><span class="n">window_width</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">font</span><span class="o">.</span><span class="n">width</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
-            <span class="n">frame</span> <span class="o">=</span> <span class="n">UIFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span> <span class="n">font</span><span class="o">=</span><span class="n">font</span><span class="p">,</span> <span class="n">is_selectable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">frame</span> <span class="o">=</span> <span class="n">UIFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span> <span class="n">font</span><span class="o">=</span><span class="n">font</span><span class="p">,</span> <span class="n">is_selectable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="s2">&quot;morale&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
 
             <span class="c1"># draw exit button</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">add_exit_button</span><span class="p">(</span><span class="s2">&quot;Abandon hope&quot;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># lose morale</span>
-            <span class="n">morale_image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visuals</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">&quot;stats&quot;</span><span class="p">,</span> <span class="s2">&quot;morale&quot;</span><span class="p">)</span>
+            <span class="n">morale_image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visual</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">&quot;morale&quot;</span><span class="p">)</span>
             <span class="n">frame</span> <span class="o">=</span> <span class="n">UIFrame</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span>
-                <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span>
+                <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span>
                 <span class="n">image</span><span class="o">=</span><span class="n">morale_image</span><span class="p">,</span>
                 <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">NEGATIVE</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;-1&quot;</span><span class="p">)),</span>
                 <span class="n">is_selectable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -1219,29 +1244,29 @@
     <span class="k">def</span> <span class="nf">_rebuild_victory_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">window_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">width</span>
         <span class="n">window_height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">height</span>
-        <span class="n">create_font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visuals</span><span class="o">.</span><span class="n">create_font</span>
+        <span class="n">create_font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visual</span><span class="o">.</span><span class="n">create_font</span>
 
         <span class="n">start_x</span> <span class="o">=</span> <span class="mi">20</span>
         <span class="n">start_y</span> <span class="o">=</span> <span class="mi">40</span>
         <span class="n">icon_width</span> <span class="o">=</span> <span class="n">DEFAULT_IMAGE_SIZE</span>
         <span class="n">icon_height</span> <span class="o">=</span> <span class="n">DEFAULT_IMAGE_SIZE</span>
-        <span class="n">icon_size</span> <span class="o">=</span> <span class="p">(</span><span class="n">icon_width</span><span class="p">,</span> <span class="n">icon_height</span><span class="p">)</span>
+        <span class="n">icon_size</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="n">icon_width</span><span class="p">,</span> <span class="n">icon_height</span><span class="p">)</span>
 
         <span class="c1"># draw header</span>
         <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Victory&quot;</span>
         <span class="n">font</span> <span class="o">=</span> <span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">POSITIVE</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
         <span class="n">current_x</span> <span class="o">=</span> <span class="p">(</span><span class="n">window_width</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">font</span><span class="o">.</span><span class="n">width</span>
         <span class="n">current_y</span> <span class="o">=</span> <span class="n">start_y</span>
-        <span class="n">frame</span> <span class="o">=</span> <span class="n">UIFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span> <span class="n">font</span><span class="o">=</span><span class="n">font</span><span class="p">,</span> <span class="n">is_selectable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">UIFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span> <span class="n">font</span><span class="o">=</span><span class="n">font</span><span class="p">,</span> <span class="n">is_selectable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="s2">&quot;header&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
 
         <span class="c1"># draw gold reward</span>
         <span class="n">current_y</span> <span class="o">+=</span> <span class="mi">50</span>
-        <span class="n">gold_icon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visuals</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">&quot;stats&quot;</span><span class="p">,</span> <span class="s2">&quot;gold&quot;</span><span class="p">,</span> <span class="n">icon_size</span><span class="p">)</span>
-        <span class="n">gold_reward</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">post_combat</span><span class="o">.</span><span class="n">gold_reward</span><span class="p">)</span>
+        <span class="n">gold_icon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visual</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="s2">&quot;gold&quot;</span><span class="p">,</span> <span class="n">icon_size</span><span class="p">)</span>
+        <span class="n">gold_reward</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># FIXME - gold amount needs readding</span>
         <span class="n">frame</span> <span class="o">=</span> <span class="n">UIFrame</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span>
-            <span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span>
+            <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span>
             <span class="n">image</span><span class="o">=</span><span class="n">gold_icon</span><span class="p">,</span>
             <span class="n">font</span><span class="o">=</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="n">gold_reward</span><span class="p">),</span>
             <span class="n">is_selectable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
