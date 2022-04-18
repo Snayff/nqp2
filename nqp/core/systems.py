@@ -20,7 +20,7 @@ from nqp.core.components import (
     RangedAttack,
     Stats,
 )
-from nqp.core.constants import EntityFacing, PUSH_FORCE, TILE_SIZE, WEIGHT_SCALE, DamageType, CRIT_MOD
+from nqp.core.constants import EntityFacing, PUSH_FORCE, TILE_SIZE, WEIGHT_SCALE, DamageType, CRIT_MOD, Flags
 from nqp.core.utility import angle_to, distance_to, get_direction
 
 if TYPE_CHECKING:
@@ -256,7 +256,7 @@ def process_attack(game: Game):
 
             # increase damage if in godmode
             mod = 0
-            if "godmode" in game.memory.flags:
+            if game.memory.check_for_flag(Flags.GODMODE):
                 if snecs.has_component(entity, Allegiance):
                     if snecs.entity_component(entity, Allegiance).team == "player":
                         mod = 9999

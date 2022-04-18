@@ -20,7 +20,7 @@ Quality of last commit:
 
 Progress:
 
-[![GitHub milestone](https://img.shields.io/github/milestones/progress/Snayff/nqp2/2)](https://github.com/Snayff/nqp2/milestone/1)
+[![GitHub milestone](https://img.shields.io/github/milestones/progress/Snayff/nqp2/2)](https://github.com/Snayff/nqp2/milestone/2)
 [![GitHub commits since tagged version](https://img.shields.io/github/commits-since/Snayff/nqp2/0.0.1)](https://github.com/Snayff/nqp2/commits/develop)
 
 ## Who dunnit? 

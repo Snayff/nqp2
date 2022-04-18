@@ -60,8 +60,7 @@ class UnitGrid:
         self._previous_focused: Optional[GridCell] = None
         self.initialize_cells()
 
-        # set selection to first cell
-        self.selected_cell = self.cells[0]
+        # set focus to first cell
         self.focused_cell = self.cells[0]
 
     def initialize_cells(self):

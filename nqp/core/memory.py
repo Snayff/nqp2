@@ -1,8 +1,9 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Union
 
+from typing import TYPE_CHECKING, Union
+from enum import Enum
 from nqp.core.constants import GameSpeed
 from nqp.core.debug import Timer
 
@@ -11,6 +12,7 @@ if TYPE_CHECKING:
 
     from nqp.command.troupe import Troupe
     from nqp.core.game import Game
+
 
 __all__ = ["Memory"]
 
@@ -25,7 +27,7 @@ class Memory:
 
             self._game: Game = game
 
-            self.flags: List[str] = []  # event, game or other flags to note key happenings
+            self._flags: List[str] = []  # event, game or other flags to note key happenings
             # TODO  - do we need to distinguish between in-run flags and permanent ones?
             self._last_id: int = 0
 
@@ -67,3 +69,28 @@ class Memory:
     @property
     def game_speed(self) -> float:
         return self._game_speed
+
+    def add_flag(self, flag: str | Enum):
+        if isinstance(flag, Enum):
+            flag = flag.value.lower()
+
+        self._flags.append(flag)
+
+    def remove_flag(self, flag: str | Enum):
+        if isinstance(flag, Enum):
+            flag = flag.value.lower()
+
+        self._flags.remove(flag)
+
+
+    def check_for_flag(self, flag: str | Enum) -> bool:
+        """
+        Check if a flag exists
+        """
+        if isinstance(flag, Enum):
+            flag = flag.value.lower()
+
+        if flag in self._flags:
+            return True
+        else:
+            return False

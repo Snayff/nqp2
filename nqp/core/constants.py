@@ -194,3 +194,24 @@ class GameSpeed(IntEnum):
 class DamageType(IntEnum):
     MUNDANE = auto()
     MAGICAL = auto()
+
+
+class Colour(Enum):
+    WHITE = (255, 255, 255)
+    BLACK = (0, 0, 0)
+    RED = (255, 0, 0)
+    GREEN = (0, 255, 0)
+    BLUE = (0, 0, 255)
+
+
+class ColourPalette(Enum):
+    MAIN_DARK = (12, 13, 12)  # black
+    MAIN_MID = (55, 44, 71)  # purple
+    MAIN_LIGHT = (62, 63, 59)  # grey
+    ACCENT = (107, 74, 107)  # light purple
+    CONTRAST = (235, 202, 113)  # gold
+
+
+class Flags(IntEnum):
+    GODMODE = auto()
+    CHEATED = auto()
