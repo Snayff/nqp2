@@ -26,6 +26,7 @@ from nqp.ui_elements.generic.ui_frame import UIFrame
 from nqp.ui_elements.generic.ui_panel import UIPanel
 from nqp.ui_elements.generic.ui_window import UIWindow
 from nqp.ui_elements.tailored.unit_grid import UnitGrid
+from nqp.ui_elements.tailored.unit_stats_window import UnitStatsWindow
 from nqp.world.view import WorldView
 
 if TYPE_CHECKING:
@@ -100,7 +101,6 @@ class WorldUI(UI):
     def process_input(self, delta_time: float):
         super().process_input(delta_time)
 
-        # TODO - add speed control
         self._process_game_speed_changes()
 
         #################
@@ -122,12 +122,37 @@ class WorldUI(UI):
         #     self._worldview.camera.move(x=32)
 
         state = self._parent_scene.model.state
+        selected_unit = None
         if state == WorldState.CHOOSE_NEXT_ROOM:
             self._process_choose_next_room_input()
 
             if self._parent_scene.choose_room.state == ChooseRoomState.IDLE:
                 if self.grid:
                     self.grid.process_input()
+
+                    if self.grid.focused_cell is not None:
+                        if self.grid.focused_cell.unit is not None:
+                            selected_unit = self.grid.focused_cell.unit
+
+            # show unit info
+            should_create_unit_window = False
+            if selected_unit is not None:
+                try:
+                    stat_window = self._containers["unit_info"]
+
+                    # check if it is the same unit, if so overwrite existing
+                    if stat_window.unit != selected_unit:
+                        should_create_unit_window = True
+
+                except KeyError:
+                    should_create_unit_window = True
+            else:
+                self._containers.pop("unit_info", None)
+
+            if should_create_unit_window:
+                unit_info_pos = pygame.Vector2(10, 100)
+                info = UnitStatsWindow(self._game, unit_info_pos, selected_unit, True)
+                self.add_container(info, "unit_info")
 
         elif state == WorldState.COMBAT:
             self._process_combat_input()
@@ -952,19 +977,19 @@ class WorldUI(UI):
 
         # draw header
         header_text = "Victory"
-        header_font = self._game.visuals.create_font(FontType.DEFAULT, header_text)
+        header_font = self._game.visual.create_font(FontType.DEFAULT, header_text)
         current_x = (window_width // 2) - header_font.width
         current_y = start_y
-        frame = UIFrame(self._game, (current_x, current_y), font=header_font, is_selectable=False)
+        frame = UIFrame(self._game, pygame.Vector2(current_x, current_y), font=header_font, is_selectable=False)
         self._elements["header"] = frame
 
         # draw victory message
         current_y += 50
         text = "That's all there is. You've beaten the boss, so why not try another commander?"
-        victory_font = self._game.visuals.create_font(FontType.POSITIVE, text)
+        victory_font = self._game.visual.create_font(FontType.POSITIVE, text)
         frame = UIFrame(
             self._game,
-            (current_x, current_y),
+            pygame.Vector2(current_x, current_y),
             font=victory_font,
             is_selectable=False,
         )
@@ -974,7 +999,7 @@ class WorldUI(UI):
         self.add_exit_button()
 
     def _rebuild_defeat_ui(self):
-        create_font = self._game.visuals.create_font
+        create_font = self._game.visual.create_font
 
         start_x = 20
         start_y = 40
@@ -988,7 +1013,7 @@ class WorldUI(UI):
         font = create_font(FontType.NEGATIVE, text)
         current_x = (window_width // 2) - font.width
         current_y = start_y
-        frame = UIFrame(self._game, (current_x, current_y), font=font, is_selectable=False)
+        frame = UIFrame(self._game, pygame.Vector2(current_x, current_y), font=font, is_selectable=False)
         self._elements["header"] = frame
 
         # draw lost morale
@@ -1000,17 +1025,17 @@ class WorldUI(UI):
             text = "Your forces, like your ambitions, lie in ruin."
             font = create_font(FontType.DISABLED, text)
             current_x = (window_width // 2) - (font.width // 2)
-            frame = UIFrame(self._game, (current_x, current_y), font=font, is_selectable=False)
+            frame = UIFrame(self._game, pygame.Vector2(current_x, current_y), font=font, is_selectable=False)
             self._elements["morale"] = frame
 
             # draw exit button
             self.add_exit_button("Abandon hope")
         else:
             # lose morale
-            morale_image = self._game.visuals.get_image("stats", "morale")
+            morale_image = self._game.visual.get_image("morale")
             frame = UIFrame(
                 self._game,
-                (current_x, current_y),
+                pygame.Vector2(current_x, current_y),
                 image=morale_image,
                 font=create_font(FontType.NEGATIVE, str("-1")),
                 is_selectable=False,
@@ -1023,29 +1048,29 @@ class WorldUI(UI):
     def _rebuild_victory_ui(self):
         window_width = self._game.window.width
         window_height = self._game.window.height
-        create_font = self._game.visuals.create_font
+        create_font = self._game.visual.create_font
 
         start_x = 20
         start_y = 40
         icon_width = DEFAULT_IMAGE_SIZE
         icon_height = DEFAULT_IMAGE_SIZE
-        icon_size = (icon_width, icon_height)
+        icon_size = pygame.Vector2(icon_width, icon_height)
 
         # draw header
         text = "Victory"
         font = create_font(FontType.POSITIVE, text)
         current_x = (window_width // 2) - font.width
         current_y = start_y
-        frame = UIFrame(self._game, (current_x, current_y), font=font, is_selectable=False)
+        frame = UIFrame(self._game, pygame.Vector2(current_x, current_y), font=font, is_selectable=False)
         self._elements["header"] = frame
 
         # draw gold reward
         current_y += 50
-        gold_icon = self._game.visuals.get_image("stats", "gold", icon_size)
-        gold_reward = str(self._game.post_combat.gold_reward)
+        gold_icon = self._game.visual.get_image("gold", icon_size)
+        gold_reward = str(0)  # FIXME - gold amount needs readding
         frame = UIFrame(
             self._game,
-            (current_x, current_y),
+            pygame.Vector2(current_x, current_y),
             image=gold_icon,
             font=create_font(FontType.DEFAULT, gold_reward),
             is_selectable=False,

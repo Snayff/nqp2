@@ -39,7 +39,6 @@ class Unit:
         self.gold_cost: int = unit_data["gold_cost" ""] + base_values["gold_cost"]
         self._banner_image = self._game.visual.get_image("banner")
         self.is_ranged: bool = True if unit_data["ammo"] > 0 else False
-        self.default_behaviour: str = unit_data["default_behaviour"]  # load after other unit attrs
         from nqp.command.unit_behaviour import UnitBehaviour  # prevent circular import
         self.behaviour: UnitBehaviour = UnitBehaviour(self._game, self)
 
@@ -205,9 +204,7 @@ class Unit:
         from nqp.core.components import DamageReceived, IsDead, IsReadyToAttack, RangedAttack, Resources, Stats
 
         # get stat attrs
-        if snecs.has_component(list(self.entities)[0], Stats):
-            stats = snecs.entity_component(list(self.entities)[0], Stats)
-            stat_attrs = [attr_ for attr_ in dir(stats) if not attr_.startswith('__')]
+        stat_attrs = Stats.get_stat_names()
 
         health = self.health
         for entity in self.entities:

@@ -126,3 +126,19 @@ class UIWindow(UIPanel):
         surface.blit(images["bottom_right"].surface, (x, y))
 
         return surface
+
+    @property
+    def width(self) -> int:
+        return int(self.size[0])
+
+    @property
+    def height(self) -> int:
+        return int(self.size[1])
+
+    @property
+    def x(self) -> int:
+        return int(self.pos[0])
+
+    @property
+    def y(self) -> int:
+        return int(self.pos[1])

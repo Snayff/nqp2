@@ -80,7 +80,7 @@ class FancyFont:
 
     @property
     def width(self) -> int:
-        return self.get_character_width(self._characters[1])
+        return self.get_character_width(self._characters[0])
 
     def update(self, delta_time: float):
         # set visible range, determining what chars are shown

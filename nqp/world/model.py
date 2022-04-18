@@ -136,7 +136,7 @@ class WorldModel:
         systems.process_ai(delta_time)
         systems.process_movement(delta_time, self._game)
         systems.process_attack(self._game)
-        systems.apply_damage()
+        systems.apply_damage(self._game)
         systems.process_death(self._game)
         # systems.push_entities_away_from_one_another(delta_time, self._game)
         # FIXME - this causes everything to go up when moving between rooms

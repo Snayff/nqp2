@@ -40,19 +40,39 @@ class Data:
 
             self._game: Game = game
 
-            self.commanders: Dict[str, Any] = self._load_commanders()
-            self.units: Dict[str, Any] = self._load_unit_info()
-            self.tiles = self._load_tile_info()  # TODO - can we get rid of this?
-            self.factions: List[str] = self._create_factions_list()
-            self.events: Dict[str, Any] = self._load_events()
-            self.upgrades: Dict[str, Any] = self._load_upgrades()
-            self.combats: Dict[str, Any] = self._load_combats()
-            self.bosses: Dict[str, Any] = self._load_bosses()
-            self.skills: Dict[str, Any] = self._load_skills()
-            self.items: Dict[str, ItemData] = self._load_items()
+            self.commanders: Dict[str, Any] = {}
+            self.units: Dict[str, Any] = {}
+            self.tiles = {}  # TODO - can we get rid of this?
+            self.factions: List[str] = []
+            self.events: Dict[str, Any] = {}
+            self.upgrades: Dict[str, Any] = {}
+            self.combats: Dict[str, Any] = {}
+            self.bosses: Dict[str, Any] = {}
+            self.skills: Dict[str, Any] = {}
+            self.items: Dict[str, ItemData] = {}
 
-            self.config: Dict[str, Any] = self._load_config()
-            self.options: Dict[str, Any] = self._load_options()
+            self.config: Dict[str, Any] = {}
+            self.options: Dict[str, Any] = {}
+
+            self.load_all_data()
+
+    def load_all_data(self):
+        """
+        Reload all data
+        """
+        self.commanders = self._load_commanders()
+        self.units = self._load_unit_info()
+        self.factions = self._create_factions_list()  # must call after units
+        self.tiles = self._load_tile_info()  # TODO - can we get rid of this?
+        self.events = self._load_events()
+        self.upgrades = self._load_upgrades()
+        self.combats = self._load_combats()
+        self.bosses = self._load_bosses()
+        self.skills = self._load_skills()
+        self.items = self._load_items()
+
+        self.config = self._load_config()
+        self.options = self._load_options()
 
     @staticmethod
     def _load_tile_info() -> Dict:
@@ -86,6 +106,9 @@ class Data:
         return units
 
     def _create_factions_list(self) -> List[str]:
+        """
+        Create factions list from units data
+        """
         factions = []
 
         for unit in self.units.values():

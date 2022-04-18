@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, List
 
 import pygame
 from snecs import RegisteredComponent
@@ -127,7 +127,7 @@ class Stats(RegisteredComponent):
         self.mundane_defence: IntStat = IntStat(parent_unit.mundane_defence)
         self.magic_defence: IntStat = IntStat(parent_unit.magic_defence)
         self.attack: IntStat = IntStat(parent_unit.attack)
-        self.damage_type: DamageType = DamageType[parent_unit.damage_type]
+        self.damage_type: DamageType = DamageType[parent_unit.damage_type.upper()]
         self.range: IntStat = IntStat(parent_unit.range)
         self.attack_speed: FloatStat = FloatStat(parent_unit.attack_speed)
         self.move_speed: IntStat = IntStat(parent_unit.move_speed)
@@ -144,6 +144,26 @@ class Stats(RegisteredComponent):
     def deserialize(cls, *serialised):
         # TODO - add deserialisation
         return Resources(*serialised)
+
+    @classmethod
+    def get_stat_names(cls) -> List[str]:
+        """
+        Get a list of all the stats.
+        """
+        stat_attrs = [
+            "mundane_defence",
+            "magic_defence",
+            "attack",
+            "damage_type",
+            "range",
+            "attack_speed",
+            "move_speed",
+            "size",
+            "weight",
+            "penetration",
+            "crit_chance",
+        ]
+        return stat_attrs
 
 
 class Allegiance(RegisteredComponent):

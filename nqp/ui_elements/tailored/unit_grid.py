@@ -19,8 +19,8 @@ class GridCell:
     """
 
     def __init__(self, rect: pygame.Rect, unit: Unit = None):
-        self.rect = rect
-        self.unit = unit
+        self.rect: pygame.Rect = rect
+        self.unit: Unit | None = unit
 
 
 class UnitGrid:
@@ -36,9 +36,7 @@ class UnitGrid:
     """
 
     def __init__(self, game: Game, pos, size, scale: int):
-        # TODO:
-        #  - show units moving on screen instead of setting their positions
-        #  - there's still a bug somewhere that keeps units from switching placement
+        # TODO - there's still a bug somewhere that keeps units from switching placement
         self._game: Game = game
         self.pos: pygame.Vector2 = pygame.Vector2(pos)
         self.size: pygame.Vector2 = pygame.Vector2(size)
@@ -49,8 +47,8 @@ class UnitGrid:
         self.focused_border_width: int = 3
         self.units: List[Unit] = game.world.model.get_all_units()
         self.are_units_aligned_to_grid = False
-        self.selected_cell = None
-        self.focused_cell = None
+        self.selected_cell: Optional[GridCell] = None
+        self.focused_cell: Optional[GridCell] = None
         self.cells: List[GridCell] = list()
         self.cell_surface: Optional[pygame.Surface] = None
         self.cell_surface_hover: Optional[pygame.Surface] = None
@@ -61,6 +59,10 @@ class UnitGrid:
         self._interaction_owner: InputType = InputType.NONE
         self._previous_focused: Optional[GridCell] = None
         self.initialize_cells()
+
+        # set selection to first cell
+        self.selected_cell = self.cells[0]
+        self.focused_cell = self.cells[0]
 
     def initialize_cells(self):
         """
@@ -153,8 +155,8 @@ class UnitGrid:
 
     def move_to_empty_cell(self, unit: Unit):
         for cell in self._game.world.ui.grid.cells:
-            if cell._unit is None:
-                cell._unit = unit
+            if cell.unit is None:
+                cell.unit = unit
                 unit.forced_behaviour = True
                 target_px = cell.rect.center
                 leader = unit.entities[0]

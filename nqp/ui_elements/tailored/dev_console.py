@@ -217,8 +217,8 @@ class DevConsole(UIInputBox):
                         data["ammo"] = int(row["ammo"])
                         data["count"] = int(row["count"])
                         data["tier"] = int(row["tier"])
-                        data["faction"] = row["faction"]
-                        data["damage_type"] = row["damage_type"]
+                        data["faction"] = str(row["faction"])
+                        data["damage_type"] = str(row["damage_type"])
                         data["crit_chance"] = int(row["crit_chance"])
                         data["penetration"] = int(row["penetration"])
 
@@ -245,7 +245,9 @@ class DevConsole(UIInputBox):
 
                     num_created += 1
 
-        confirmation_message = f"Updated {num_updated} unit details and created {num_created} units."
+        self._game.data.load_all_data()
+
+        confirmation_message = f"Updated {num_updated} unit details and created {num_created} units. Data reloaded."
 
         logging.debug(f"-> {confirmation_message})")
 
@@ -255,6 +257,7 @@ class DevConsole(UIInputBox):
         """
         Set the result of the current combat. Result should be 'win' or 'lose'.
         """
+        # FIXME - combat is no longer a scene
         if result == "win":
             logging.debug(f"Skipped to combat victory.")
             self._game.combat.end_combat()
