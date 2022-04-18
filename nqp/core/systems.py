@@ -99,7 +99,6 @@ def apply_damage(game: Game):
                 create_particle_burst(position.pos, (255, 50, 100), random.randint(10, 16))
 
 
-
 def process_death(game: Game):
     """
     Update Entity's sprites and intentions.

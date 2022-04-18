@@ -6,6 +6,7 @@ import pygame
 from pygame import SRCALPHA
 
 from nqp.command.unit import Unit
+from nqp.core.components import Stats
 from nqp.core.constants import DEFAULT_IMAGE_SIZE, FontType, GAP_SIZE, StatModifiedStatus, WindowType
 from nqp.ui_elements.generic.ui_frame import UIFrame
 from nqp.ui_elements.generic.ui_window import UIWindow
@@ -69,7 +70,7 @@ class UnitStatsWindow(UIWindow):
         current_y += frame.height + GAP_SIZE
 
         # draw stats
-        stats = ["health", "attack", "defence", "range", "attack_speed", "move_speed", "ammo", "count"]
+        stats = Stats.get_stat_names()
         for count, stat in enumerate(stats):
 
             # recalc x and y
