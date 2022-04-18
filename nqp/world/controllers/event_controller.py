@@ -356,7 +356,7 @@ class EventController(Controller):
         outcome = False
 
         if condition_key == "flag":
-            if condition_value in self._game.memory.flags:
+            if self._game.memory.check_for_flag(condition_value):
                 outcome = True
             else:
                 outcome = False

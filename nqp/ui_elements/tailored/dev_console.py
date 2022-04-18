@@ -7,7 +7,7 @@ import os
 import pygame
 import yaml
 
-from nqp.core.constants import ASSET_PATH, DATA_PATH, SceneType, WorldState
+from nqp.core.constants import ASSET_PATH, DATA_PATH, SceneType, WorldState, Flags
 from nqp.core.utility import scene_to_scene_type
 from nqp.ui_elements.generic.ui_input_box import UIInputBox
 
@@ -128,22 +128,22 @@ class DevConsole(UIInputBox):
         """
         Turns godmode on or off.
         """
-        if "godmode" in self._game.memory.flags:
-            self._game.memory.flags.remove("godmode")
+        if self._game.memory.check_for_flag(Flags.GODMODE):
+            self._game.memory.remove_flag(Flags.GODMODE)
             state = "off"
 
             logging.debug(f"Turned godmode off.")
 
         else:
-            self._game.memory.flags.append("godmode")
+            self._game.memory.add_flag(Flags.GODMODE)
 
             state = "on"
 
             logging.debug(f"Turned godmode on.")
 
             # add cheat flag
-            if "cheated" not in self._game.memory.flags:
-                self._game.memory.flags.append("cheated")
+            if not self._game.memory.check_for_flag(Flags.CHEATED):
+                self._game.memory.add_flag(Flags.CHEATED)
 
         confirmation_message = f"God mode turned {state}."
 
