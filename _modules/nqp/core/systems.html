@@ -216,7 +216,7 @@
     <span class="n">RangedAttack</span><span class="p">,</span>
     <span class="n">Stats</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">nqp.core.constants</span> <span class="kn">import</span> <span class="n">EntityFacing</span><span class="p">,</span> <span class="n">PUSH_FORCE</span><span class="p">,</span> <span class="n">TILE_SIZE</span><span class="p">,</span> <span class="n">WEIGHT_SCALE</span><span class="p">,</span> <span class="n">DamageType</span><span class="p">,</span> <span class="n">CRIT_MOD</span>
+<span class="kn">from</span> <span class="nn">nqp.core.constants</span> <span class="kn">import</span> <span class="n">EntityFacing</span><span class="p">,</span> <span class="n">PUSH_FORCE</span><span class="p">,</span> <span class="n">TILE_SIZE</span><span class="p">,</span> <span class="n">WEIGHT_SCALE</span><span class="p">,</span> <span class="n">DamageType</span><span class="p">,</span> <span class="n">CRIT_MOD</span><span class="p">,</span> <span class="n">Flags</span>
 <span class="kn">from</span> <span class="nn">nqp.core.utility</span> <span class="kn">import</span> <span class="n">angle_to</span><span class="p">,</span> <span class="n">distance_to</span><span class="p">,</span> <span class="n">get_direction</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
@@ -452,7 +452,7 @@
 
             <span class="c1"># increase damage if in godmode</span>
             <span class="n">mod</span> <span class="o">=</span> <span class="mi">0</span>
-            <span class="k">if</span> <span class="s2">&quot;godmode&quot;</span> <span class="ow">in</span> <span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">flags</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">check_for_flag</span><span class="p">(</span><span class="n">Flags</span><span class="o">.</span><span class="n">GODMODE</span><span class="p">):</span>
                 <span class="k">if</span> <span class="n">snecs</span><span class="o">.</span><span class="n">has_component</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">Allegiance</span><span class="p">):</span>
                     <span class="k">if</span> <span class="n">snecs</span><span class="o">.</span><span class="n">entity_component</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">Allegiance</span><span class="p">)</span><span class="o">.</span><span class="n">team</span> <span class="o">==</span> <span class="s2">&quot;player&quot;</span><span class="p">:</span>
                         <span class="n">mod</span> <span class="o">=</span> <span class="mi">9999</span>

@@ -203,7 +203,7 @@
 <span class="kn">import</span> <span class="nn">pygame</span>
 <span class="kn">import</span> <span class="nn">yaml</span>
 
-<span class="kn">from</span> <span class="nn">nqp.core.constants</span> <span class="kn">import</span> <span class="n">ASSET_PATH</span><span class="p">,</span> <span class="n">DATA_PATH</span><span class="p">,</span> <span class="n">SceneType</span><span class="p">,</span> <span class="n">WorldState</span>
+<span class="kn">from</span> <span class="nn">nqp.core.constants</span> <span class="kn">import</span> <span class="n">ASSET_PATH</span><span class="p">,</span> <span class="n">DATA_PATH</span><span class="p">,</span> <span class="n">SceneType</span><span class="p">,</span> <span class="n">WorldState</span><span class="p">,</span> <span class="n">Flags</span>
 <span class="kn">from</span> <span class="nn">nqp.core.utility</span> <span class="kn">import</span> <span class="n">scene_to_scene_type</span>
 <span class="kn">from</span> <span class="nn">nqp.ui_elements.generic.ui_input_box</span> <span class="kn">import</span> <span class="n">UIInputBox</span>
 
@@ -324,22 +324,22 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Turns godmode on or off.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="s2">&quot;godmode&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">flags</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;godmode&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">check_for_flag</span><span class="p">(</span><span class="n">Flags</span><span class="o">.</span><span class="n">GODMODE</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">remove_flag</span><span class="p">(</span><span class="n">Flags</span><span class="o">.</span><span class="n">GODMODE</span><span class="p">)</span>
             <span class="n">state</span> <span class="o">=</span> <span class="s2">&quot;off&quot;</span>
 
             <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Turned godmode off.&quot;</span><span class="p">)</span>
 
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;godmode&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">add_flag</span><span class="p">(</span><span class="n">Flags</span><span class="o">.</span><span class="n">GODMODE</span><span class="p">)</span>
 
             <span class="n">state</span> <span class="o">=</span> <span class="s2">&quot;on&quot;</span>
 
             <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Turned godmode on.&quot;</span><span class="p">)</span>
 
             <span class="c1"># add cheat flag</span>
-            <span class="k">if</span> <span class="s2">&quot;cheated&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">flags</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;cheated&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">check_for_flag</span><span class="p">(</span><span class="n">Flags</span><span class="o">.</span><span class="n">CHEATED</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">add_flag</span><span class="p">(</span><span class="n">Flags</span><span class="o">.</span><span class="n">CHEATED</span><span class="p">)</span>
 
         <span class="n">confirmation_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;God mode turned </span><span class="si">{</span><span class="n">state</span><span class="si">}</span><span class="s2">.&quot;</span>
 
