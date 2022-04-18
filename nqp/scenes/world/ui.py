@@ -130,17 +130,29 @@ class WorldUI(UI):
                 if self.grid:
                     self.grid.process_input()
 
-                    if self.grid.selected_cell is not None:
-                        if self.grid.selected_cell.unit is not None:
-                            selected_unit = self.grid.selected_cell.unit
+                    if self.grid.focused_cell is not None:
+                        if self.grid.focused_cell.unit is not None:
+                            selected_unit = self.grid.focused_cell.unit
 
             # show unit info
+            should_create_unit_window = False
             if selected_unit is not None:
-                pos = selected_unit.pos
-                info = UnitStatsWindow(self._game, pos, selected_unit, True)
-                self.add_container(info, "unit_info")
+                try:
+                    stat_window = self._containers["unit_info"]
+
+                    # check if it is the same unit, if so overwrite existing
+                    if stat_window.unit != selected_unit:
+                        should_create_unit_window = True
+
+                except KeyError:
+                    should_create_unit_window = True
             else:
                 self._containers.pop("unit_info", None)
+
+            if should_create_unit_window:
+                unit_info_pos = pygame.Vector2(10, 100)
+                info = UnitStatsWindow(self._game, unit_info_pos, selected_unit, True)
+                self.add_container(info, "unit_info")
 
         elif state == WorldState.COMBAT:
             self._process_combat_input()
