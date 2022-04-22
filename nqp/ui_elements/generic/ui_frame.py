@@ -8,7 +8,7 @@ from pygame import SRCALPHA
 from nqp.base_classes.animation import Animation
 from nqp.base_classes.image import Image
 from nqp.base_classes.ui_element import UIElement
-from nqp.core.constants import GAP_SIZE
+from nqp.core.constants import GAP_SIZE, TextRelativePosition
 from nqp.core.utility import clamp
 from nqp.ui_elements.generic.fancy_font import FancyFont
 from nqp.ui_elements.generic.font import Font
@@ -37,6 +37,7 @@ class UIFrame(UIElement):
         max_width: Optional[int] = None,
         max_height: Optional[int] = None,
         new_image: Optional[Union[Image, Animation]] = None,
+        text_relative_position: TextRelativePosition = None,
     ):
         super().__init__(game, pos, is_selectable)
 
@@ -45,6 +46,7 @@ class UIFrame(UIElement):
         self._font: Optional[Union[Font, FancyFont]] = font
         self._max_width: Optional[int] = max_width
         self._max_height: Optional[int] = max_height
+        self._text_relative_position: Optional[TextRelativePosition] = text_relative_position
 
         self._override_font_attrs()
         self._recalculate_size()
@@ -125,18 +127,36 @@ class UIFrame(UIElement):
         image = self._image
         font = self._font
         new_image = self._new_image
+        text_relative_position = self._text_relative_position
+        
+        # TODO:
+        # - Fix _recalculate_size for the new sizes
+        # - Test with new_image
+
+        image_position: pygame.Vector2 = pygame.Vector2(0, 0)
+        text_position: pygame.Vector2 = pygame.Vector2(0, 0)
+
+        if text_relative_position is TextRelativePosition.ABOVE_IMAGE:
+            image_position.y += font.height
+        elif text_relative_position is TextRelativePosition.BELOW_IMAGE:
+            text_position.y += image.get_height()
+        elif text_relative_position is TextRelativePosition.RIGHT_OF_IMAGE:
+            text_position.x += image.get_width()
+        elif text_relative_position is TextRelativePosition.LEFT_OF_IMAGE:
+            image_position.x += font.width
 
         # draw image
         if image is not None:
-            surface.blit(image, (0, 0))
+            surface.blit(image, image_position)
 
         if new_image is not None:
-            surface.blit(new_image.surface, (0, 0))
+            surface.blit(new_image.surface, image_position)
 
         # draw text
         if font is not None:
             # Font can be drawn once (FancyFont needs constant redrawing so is handled in the draw method)
             if isinstance(font, Font):
+                font.pos = text_position
                 font.draw(surface)
 
     def _override_font_attrs(self):
