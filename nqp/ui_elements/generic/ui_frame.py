@@ -31,18 +31,16 @@ class UIFrame(UIElement):
         self,
         game: Game,
         pos: pygame.Vector2,
-        image: Optional[pygame.surface] = None,
         font: Optional[Union[Font, FancyFont]] = None,
         is_selectable: bool = False,
         max_width: Optional[int] = None,
         max_height: Optional[int] = None,
-        new_image: Optional[Union[Image, Animation]] = None,
+        image: Optional[Union[Image, Animation]] = None,
         text_relative_position: TextRelativePosition = None,
     ):
         super().__init__(game, pos, is_selectable)
 
-        self._new_image: Optional[Union[Image, Animation]] = new_image
-        self._image: Optional[pygame.surface] = image
+        self._image: Optional[Union[Image, Animation]] = image
         self._font: Optional[Union[Font, FancyFont]] = font
         self._max_width: Optional[int] = max_width
         self._max_height: Optional[int] = max_height
@@ -74,7 +72,7 @@ class UIFrame(UIElement):
                 redraw_font = True
 
             # Animation changes each frame
-            if isinstance(self._new_image, Animation):
+            if isinstance(self._image, Animation):
                 is_dirty = True
 
             # rebuild surface first
@@ -86,26 +84,24 @@ class UIFrame(UIElement):
 
     def _recalculate_size(self):
         image = self._image
+        image_width = image.surface.get_width()
+        image_height = image.surface.get_height()
+
         font = self._font
-        new_image = self._new_image
 
         width = 0
         height = 0
 
         if image is not None:
-            width += image.get_width()
-            height += image.get_height()
-
-        if new_image is not None:
-            width += new_image.width
-            height += new_image.height
+            width += image_width
+            height += image_height
 
         if font is not None:
             width += font.width + GAP_SIZE
 
             # check which is taller, font or image
             if image is not None:
-                height = max(image.get_height(), font.height)
+                height = max(image_height, font.height)
             else:
                 # no image so take font height
                 height += font.height
@@ -126,12 +122,10 @@ class UIFrame(UIElement):
         surface = self.surface
         image = self._image
         font = self._font
-        new_image = self._new_image
         text_relative_position = self._text_relative_position
         
         # TODO:
         # - Fix _recalculate_size for the new sizes
-        # - Test with new_image
 
         image_position: pygame.Vector2 = pygame.Vector2(0, 0)
         text_position: pygame.Vector2 = pygame.Vector2(0, 0)
@@ -139,18 +133,15 @@ class UIFrame(UIElement):
         if text_relative_position is TextRelativePosition.ABOVE_IMAGE:
             image_position.y += font.height
         elif text_relative_position is TextRelativePosition.BELOW_IMAGE:
-            text_position.y += image.get_height()
+            text_position.y += image.height
         elif text_relative_position is TextRelativePosition.RIGHT_OF_IMAGE:
-            text_position.x += image.get_width()
+            text_position.x += image.height
         elif text_relative_position is TextRelativePosition.LEFT_OF_IMAGE:
             image_position.x += font.width
 
         # draw image
         if image is not None:
-            surface.blit(image, image_position)
-
-        if new_image is not None:
-            surface.blit(new_image.surface, image_position)
+            surface.blit(image.surface, image_position)
 
         # draw text
         if font is not None:
@@ -171,7 +162,7 @@ class UIFrame(UIElement):
 
         # offset for image, if there is one
         if image:
-            image_width = image.get_width()
+            image_width = image.surface.get_width()
             x = image_width + GAP_SIZE
         else:
             image_width = 0
@@ -226,9 +217,9 @@ class UIFrame(UIElement):
         tier = clamp(tier, 1, 4)
 
         # create background and blit image onto it
-        bg = pygame.Surface(self._image.get_size())
+        bg = pygame.Surface(self._image.surface.get_size())
         bg.fill(tier_colours[tier])
-        bg.blit(self._image, (0, 0))
+        bg.blit(self._image.surface, (0, 0))
         self._image = bg
 
         self._rebuild_surface()
@@ -237,26 +228,26 @@ class UIFrame(UIElement):
         """
         Pause the animation, if there is one
         """
-        if isinstance(self._new_image, Animation):
-            self._new_image.pause()
+        if isinstance(self._image, Animation):
+            self._image.pause()
 
     def play_animation(self):
         """
         Play the animation, if there is one
         """
-        if isinstance(self._new_image, Animation):
-            self._new_image.play()
+        if isinstance(self._image, Animation):
+            self._image.play()
 
     def reset_animation(self):
         """
         Reset the animation, if there is one
         """
-        if isinstance(self._new_image, Animation):
-            self._new_image.reset()
+        if isinstance(self._image, Animation):
+            self._image.reset()
 
     def stop_animation(self):
         """
         Stop the animation, if there is one
         """
-        if isinstance(self._new_image, Animation):
-            self._new_image.stop()
+        if isinstance(self._image, Animation):
+            self._image.stop()
