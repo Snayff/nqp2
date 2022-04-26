@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING
 
 import pygame
 
+from nqp.base_classes.image import Image
 from nqp.base_classes.ui import UI
 from nqp.core import utility
 from nqp.core.constants import (
@@ -835,7 +836,8 @@ class WorldUI(UI):
         line_width = window_width - (offset * 2)
         surface = pygame.Surface((line_width, 1))
         pygame.draw.line(surface, (117, 50, 168), (0, 0), (line_width, 0))
-        frame = UIFrame(self._game, pygame.Vector2(offset, current_y), surface)
+        surface_image = Image(image=surface)
+        frame = UIFrame(self._game, pygame.Vector2(offset, current_y), image=surface_image)
         panel_list.append(frame)
 
         # draw event contents; either options or results

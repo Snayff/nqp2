@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING
 
 import pygame
 
+from nqp.base_classes.image import Image
 from nqp.base_classes.ui import UI
 from nqp.core.constants import DEFAULT_IMAGE_SIZE, FontEffects, FontType, GAP_SIZE
 from nqp.ui_elements.generic.ui_frame import UIFrame
@@ -68,7 +69,8 @@ class RunSetupUI(UI):
         current_y = start_y
         bg = pygame.Surface((window_width, window_height))
         bg.fill((0, 0, 0))
-        frame = UIFrame(self._game, pygame.Vector2(current_x, current_y), bg, is_selectable=False)
+        bg_image = Image(image=bg)
+        frame = UIFrame(self._game, pygame.Vector2(current_x, current_y), image=bg_image, is_selectable=False)
         self._elements["bg"] = frame
 
         # draw commanders
