@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 from typing import TYPE_CHECKING
 
 import pygame
@@ -17,7 +18,6 @@ if TYPE_CHECKING:
     from typing import Optional, Tuple, Union
 
     from nqp.core.game import Game
-
 
 __all__ = ["UIFrame"]
 
@@ -84,27 +84,33 @@ class UIFrame(UIElement):
 
     def _recalculate_size(self):
         image = self._image
-        image_width = image.surface.get_width()
-        image_height = image.surface.get_height()
-
+        text_relative_position = self._text_relative_position
         font = self._font
 
-        width = 0
-        height = 0
+        logging.info("Recalculating size for ui_frame.")
+
+        width = image_width = 0
+        height = image_height = 0
 
         if image is not None:
+            image_width = image.surface.get_width()
+            image_height = image.surface.get_height()
+
             width += image_width
             height += image_height
 
-        if font is not None:
-            width += font.width + GAP_SIZE
+        logging.debug(f"Dimensions for image: ({image_width}, {image_height})")
 
-            # check which is taller, font or image
-            if image is not None:
-                height = max(image_height, font.height)
+        if font is not None:
+            if text_relative_position in (TextRelativePosition.ABOVE_IMAGE, TextRelativePosition.BELOW_IMAGE):
+                height += font.height + GAP_SIZE
+                width = max(font.width, image_width)
             else:
-                # no image so take font height
-                height += font.height
+                width += font.width + GAP_SIZE
+
+            logging.debug(f"Dimensions for font: ({font.width}, {font.height})")
+
+        logging.debug(f"Size of gap: {GAP_SIZE}")
 
         # respect max height
         if self._max_height is not None:
@@ -113,6 +119,11 @@ class UIFrame(UIElement):
         # respect max width
         if self._max_width is not None:
             width = min(width, self._max_width)
+
+        if text_relative_position:
+            logging.debug(f"Recalculated size ({width}, {height}) for ui_frame with {text_relative_position.name}.")
+        else:
+            logging.debug(f"Recalculated size ({width}, {height}) for ui_frame with no text relative position")
 
         self.size = pygame.Vector2(width, height)
 
@@ -123,9 +134,6 @@ class UIFrame(UIElement):
         image = self._image
         font = self._font
         text_relative_position = self._text_relative_position
-        
-        # TODO:
-        # - Fix _recalculate_size for the new sizes
 
         image_position: pygame.Vector2 = pygame.Vector2(0, 0)
         text_position: pygame.Vector2 = pygame.Vector2(0, 0)
