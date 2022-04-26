@@ -104,12 +104,13 @@ class UIFrame(UIElement):
         if font is not None:
             logging.debug(f"Dimensions for font: ({font.width}, {font.height})")
 
-            if text_relative_position:
+            if text_relative_position is not None:
                 if text_relative_position in (TextRelativePosition.ABOVE_IMAGE, TextRelativePosition.BELOW_IMAGE):
                     height += font.height + GAP_SIZE
                     width = max(font.width, image_width)
                 else:
                     width += font.width + GAP_SIZE
+
             else:
                 width += font.width + GAP_SIZE
 
