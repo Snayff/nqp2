@@ -102,13 +102,23 @@ class UIFrame(UIElement):
         logging.debug(f"Dimensions for image: ({image_width}, {image_height})")
 
         if font is not None:
-            if text_relative_position in (TextRelativePosition.ABOVE_IMAGE, TextRelativePosition.BELOW_IMAGE):
-                height += font.height + GAP_SIZE
-                width = max(font.width, image_width)
+            logging.debug(f"Dimensions for font: ({font.width}, {font.height})")
+
+            if text_relative_position:
+                if text_relative_position in (TextRelativePosition.ABOVE_IMAGE, TextRelativePosition.BELOW_IMAGE):
+                    height += font.height + GAP_SIZE
+                    width = max(font.width, image_width)
+                else:
+                    width += font.width + GAP_SIZE
             else:
                 width += font.width + GAP_SIZE
 
-            logging.debug(f"Dimensions for font: ({font.width}, {font.height})")
+                # check which is taller, font or image
+                if image is not None:
+                    height = max(image_height, font.height)
+                else:
+                    # no image so take font height
+                    height += font.height
 
         logging.debug(f"Size of gap: {GAP_SIZE}")
 
