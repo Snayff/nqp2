@@ -166,7 +166,8 @@ class UIFrame(UIElement):
         if font is not None:
             # Font can be drawn once (FancyFont needs constant redrawing so is handled in the draw method)
             if isinstance(font, Font):
-                font.pos = text_position
+                font.pos.x += text_position.x
+                font.pos.y += text_position.y
                 font.draw(surface)
 
     def _override_font_attrs(self):
