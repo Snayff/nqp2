@@ -231,23 +231,23 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Draw all entities</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">draw_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+    <span class="c1"># organize entities for layered rendering</span>
     <span class="k">for</span> <span class="n">entity</span><span class="p">,</span> <span class="p">(</span><span class="n">aesthetic</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span> <span class="ow">in</span> <span class="n">queries</span><span class="o">.</span><span class="n">aesthetic_position</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">aesthetic</span><span class="o">.</span><span class="n">facing</span> <span class="o">==</span> <span class="n">EntityFacing</span><span class="o">.</span><span class="n">LEFT</span><span class="p">:</span>
-            <span class="n">flip</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">flip</span> <span class="o">=</span> <span class="kc">False</span>
-
+        <span class="n">flip</span> <span class="o">=</span> <span class="n">aesthetic</span><span class="o">.</span><span class="n">facing</span> <span class="o">==</span> <span class="n">EntityFacing</span><span class="o">.</span><span class="n">LEFT</span>
         <span class="n">animation</span> <span class="o">=</span> <span class="n">aesthetic</span><span class="o">.</span><span class="n">animation</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">animation</span><span class="o">.</span><span class="n">surface</span><span class="p">,</span> <span class="n">flip</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="c1"># animation frame offset b/c entity&#39;s position is where their feet are</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">position</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">shift</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">animation</span><span class="o">.</span><span class="n">width</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">position</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">shift</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">animation</span><span class="o">.</span><span class="n">height</span>
+        <span class="n">draw_list</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">position</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">draw_list</span><span class="p">),</span> <span class="n">frame</span><span class="p">))</span>
 
-        <span class="n">surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span>
-            <span class="n">pygame</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">animation</span><span class="o">.</span><span class="n">surface</span><span class="p">,</span> <span class="n">flip</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
-            <span class="p">(</span>
-                <span class="c1"># the x and y are offset here because the game tracks the entity positions at the feet.</span>
-                <span class="c1"># so to render the sprites correctly, the offsets are needed.</span>
-                <span class="n">position</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">shift</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">animation</span><span class="o">.</span><span class="n">width</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span>
-                <span class="n">position</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">shift</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">animation</span><span class="o">.</span><span class="n">height</span><span class="p">,</span>
-            <span class="p">),</span>
-        <span class="p">)</span></div>
+    <span class="c1"># sort so entities higher on the screen are drawn first (painters alg)</span>
+    <span class="n">draw_list</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">operation</span> <span class="ow">in</span> <span class="n">draw_list</span><span class="p">:</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">operation</span>
+        <span class="n">surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="apply_damage"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.systems.apply_damage">[docs]</a><span class="k">def</span> <span class="nf">apply_damage</span><span class="p">(</span><span class="n">game</span><span class="p">:</span> <span class="n">Game</span><span class="p">):</span>
