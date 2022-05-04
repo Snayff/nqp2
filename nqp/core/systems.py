@@ -35,23 +35,23 @@ def draw_entities(surface: pygame.Surface, shift: pygame.Vector2 = (0, 0)):
     """
     Draw all entities
     """
+    draw_list = list()
+
+    # organize entities for layered rendering
     for entity, (aesthetic, position) in queries.aesthetic_position:
-        if aesthetic.facing == EntityFacing.LEFT:
-            flip = True
-        else:
-            flip = False
-
+        flip = aesthetic.facing == EntityFacing.LEFT
         animation = aesthetic.animation
+        frame = pygame.transform.flip(animation.surface, flip, False)
+        # animation frame offset b/c entity's position is where their feet are
+        x = position.x + shift.x - animation.width // 2
+        y = position.y + shift.y - animation.height
+        draw_list.append((position.y, x, y, len(draw_list), frame))
 
-        surface.blit(
-            pygame.transform.flip(animation.surface, flip, False),
-            (
-                # the x and y are offset here because the game tracks the entity positions at the feet.
-                # so to render the sprites correctly, the offsets are needed.
-                position.x + shift[0] - animation.width // 2,
-                position.y + shift[1] - animation.height,
-            ),
-        )
+    # sort so entities higher on the screen are drawn first (painters alg)
+    draw_list.sort()
+    for operation in draw_list:
+        _, x, y, _, frame = operation
+        surface.blit(frame, (x, y))
 
 
 def apply_damage(game: Game):
