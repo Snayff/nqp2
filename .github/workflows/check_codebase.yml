@@ -71,4 +71,4 @@ jobs:
     - name: Test if black and isort should reformat the scripts
       id: black_isort_status
       run: |
-        black --check nqp && isort --check-only nqp
+        black --check nqp nqp2.py && isort --check-only nqp nqp2.py
