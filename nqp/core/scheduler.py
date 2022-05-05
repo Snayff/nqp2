@@ -233,7 +233,14 @@ class Scheduler:
             item.func(now - item.last_ts)
 
             if item.repeat:
-                item.next_ts = item.last_ts + item.interval
+                """
+                If the first execution was at time == 0.001 and an interval of 1,
+                using item.next_ts = item.last_ts + item.interval the next interval
+                would be at 1 and the last would be 0.001, and after that 
+                next interval would be 1.001 instead of 2, so I think this change 
+                makes sense? Let me know if I'm wrong here
+                """
+                item.next_ts += item.interval
                 item.last_ts = now
 
                 # the execution time of this item has already passed,
