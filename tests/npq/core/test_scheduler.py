@@ -79,7 +79,7 @@ class ClockTestCase(unittest.TestCase):
         These 2 next tests assert that a scheduled call with interval=1 
         should also run at 0.001, as they assert next_ts is initialized 
         to self.clock.get_counter(), which is 0, so I'll go with
-        this premisse from now on
+        this premise from now on
         """
         self.assertEqual(self.clock.get_counter(), items[0].next_ts)
         self.assertEqual(self.clock.get_counter(), items[0].last_ts)
@@ -357,7 +357,7 @@ class ClockTestCase(unittest.TestCase):
         
         Even if that is fixed it doesn't make sense for callback_b
         to run frames + 1 times, unless it's running with interval=self.interval,
-        so that it runs once every milisecond.
+        so that it runs once every millisecond.
         
         There's also going to be 2 more calls because of the ticks called manually
         before advancing the clock, so 1002
