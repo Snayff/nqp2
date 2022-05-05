@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING
 
 import pygame
 
+from nqp.base_classes.image import Image
 from nqp.base_classes.ui import UI
 from nqp.core import utility
 from nqp.core.constants import (
@@ -494,7 +495,7 @@ class WorldUI(UI):
             frame = UIFrame(
                 self._game,
                 pygame.Vector2(current_x, current_y),
-                new_image=icon,
+                image=icon,
                 font=create_font(FontType.DEFAULT, text),
             )
 
@@ -553,7 +554,7 @@ class WorldUI(UI):
                 frame = UIFrame(
                     self._game,
                     pygame.Vector2(current_x + 100, current_y),
-                    new_image=gold_icon,
+                    image=gold_icon,
                     font=create_font(gold_font_type, str(upgrade_cost)),
                     is_selectable=False,
                 )
@@ -572,7 +573,7 @@ class WorldUI(UI):
             frame = UIFrame(
                 self._game,
                 pygame.Vector2(current_x, current_y),
-                new_image=upgrade_icon,
+                image=upgrade_icon,
                 font=create_font(font_type, text),
                 is_selectable=is_selectable,
             )
@@ -675,7 +676,7 @@ class WorldUI(UI):
             frame = UIFrame(
                 self._game,
                 pygame.Vector2(current_x, current_y),
-                new_image=defeat_icon,
+                image=defeat_icon,
                 font=create_font(FontType.NEGATIVE, "Defeated"),
                 is_selectable=False,
             )
@@ -686,7 +687,7 @@ class WorldUI(UI):
             frame = UIFrame(
                 self._game,
                 pygame.Vector2(current_x, current_y),
-                new_image=defeat_icon,
+                image=defeat_icon,
                 font=create_font(FontType.DEFAULT, "Press Enter to return to the main menu."),
                 is_selectable=False,
             )
@@ -733,7 +734,7 @@ class WorldUI(UI):
             frame = UIFrame(
                 self._game,
                 pygame.Vector2(current_x + 20, current_y),
-                new_image=gold_icon,
+                image=gold_icon,
                 font=create_font(gold_font_type, str(upgrade_cost)),
                 is_selectable=False,
             )
@@ -744,7 +745,7 @@ class WorldUI(UI):
             frame = UIFrame(
                 self._game,
                 pygame.Vector2(current_x, current_y),
-                new_image=banner,
+                image=banner,
                 is_selectable=can_buy,
             )
             self._elements["banner" + str(i)] = frame
@@ -802,7 +803,7 @@ class WorldUI(UI):
         frame = UIFrame(
             self._game,
             pygame.Vector2(current_x, current_y),
-            new_image=image,
+            image=image,
             is_selectable=False,
         )
         panel_list.append(frame)
@@ -835,7 +836,8 @@ class WorldUI(UI):
         line_width = window_width - (offset * 2)
         surface = pygame.Surface((line_width, 1))
         pygame.draw.line(surface, (117, 50, 168), (0, 0), (line_width, 0))
-        frame = UIFrame(self._game, pygame.Vector2(offset, current_y), surface)
+        surface_image = Image(image=surface)
+        frame = UIFrame(self._game, pygame.Vector2(offset, current_y), image=surface_image)
         panel_list.append(frame)
 
         # draw event contents; either options or results
@@ -931,7 +933,7 @@ class WorldUI(UI):
                 frame = UIFrame(
                     self._game,
                     pygame.Vector2(current_x, current_y),
-                    new_image=result_image,
+                    image=result_image,
                     font=create_font(font_type, text),
                     is_selectable=False,
                 )

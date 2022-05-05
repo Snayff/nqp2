@@ -215,3 +215,10 @@ class ColourPalette(Enum):
 class Flags(IntEnum):
     GODMODE = auto()
     CHEATED = auto()
+
+
+class TextRelativePosition(IntEnum):
+    ABOVE_IMAGE = auto()
+    BELOW_IMAGE = auto()
+    RIGHT_OF_IMAGE = auto()
+    LEFT_OF_IMAGE = auto()

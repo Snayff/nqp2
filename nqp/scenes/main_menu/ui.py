@@ -70,7 +70,7 @@ class MainMenuUI(UI):
 
         # draw background
         background = self._game.visual.get_image("town", pygame.Vector2(window_width, window_height))
-        frame = UIFrame(self._game, pygame.Vector2(0, 0), new_image=background)
+        frame = UIFrame(self._game, pygame.Vector2(0, 0), image=background)
         self._elements["background"] = frame
 
         # draw options

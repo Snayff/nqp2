@@ -52,7 +52,7 @@ class UnitStatsWindow(UIWindow):
         # draw icon
         unit_icon = create_animation(self.unit.type, "icon")
         font = create_fancy_font(self.unit.type, pygame.Vector2(0, 0))
-        frame = UIFrame(self._game, pygame.Vector2(current_x, current_y), new_image=unit_icon, font=font)
+        frame = UIFrame(self._game, pygame.Vector2(current_x, current_y), image=unit_icon, font=font)
         self._elements.append(frame)
 
         # increment
@@ -87,7 +87,7 @@ class UnitStatsWindow(UIWindow):
             frame = UIFrame(
                 self._game,
                 pygame.Vector2(frame_x, frame_y),
-                new_image=stat_icon,
+                image=stat_icon,
                 font=font,
                 max_width=int(stat_icon_size[0])
             )
