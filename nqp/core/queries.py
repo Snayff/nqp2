@@ -7,7 +7,8 @@ from snecs import Query
 from nqp.core.components import Aesthetic, AI, DamageReceived, IsDead, IsReadyToAttack, Position, Resources, Stats
 
 if TYPE_CHECKING:
-    from typing import Dict, List, Optional, Tuple, Union, Iterator
+    from typing import Dict, Iterator, List, Optional, Tuple, Union
+
     from snecs.typedefs import EntityID
 
 __all__ = [
@@ -32,20 +33,22 @@ ai_not_dead: Iterator[Tuple[EntityID, Tuple[AI]]] = Query([AI]).filter(~IsDead).
 
 aesthetic_position: Iterator[Tuple[EntityID, Tuple[Aesthetic, Position]]] = Query([Aesthetic, Position]).compile()
 
-damage_resources_aesthetic_stats: Iterator[Tuple[EntityID, Tuple[DamageReceived, Resources, Aesthetic,
-                                                                 Stats]]] = Query(
-    [DamageReceived, Resources, Aesthetic, Stats]).compile()
+damage_resources_aesthetic_stats: Iterator[Tuple[EntityID, Tuple[DamageReceived, Resources, Aesthetic, Stats]]] = Query(
+    [DamageReceived, Resources, Aesthetic, Stats]
+).compile()
 
 dead_aesthetic_position: Iterator[Tuple[EntityID, Tuple[IsDead, Aesthetic, Position]]] = Query(
-    [IsDead, Aesthetic, Position]).compile()
+    [IsDead, Aesthetic, Position]
+).compile()
 
-position_stats_not_dead: Iterator[Tuple[EntityID, Tuple[Position, Stats]]] = Query(
-    [Position, Stats]).filter(~IsDead).compile()
+position_stats_not_dead: Iterator[Tuple[EntityID, Tuple[Position, Stats]]] = (
+    Query([Position, Stats]).filter(~IsDead).compile()
+)
 
-position_stats_ai_aesthetic_not_dead: Iterator[Tuple[EntityID, Tuple[Position, Stats, AI, Aesthetic]]] = Query(
-    [Position, Stats, AI, Aesthetic]).filter(~IsDead).compile()
+position_stats_ai_aesthetic_not_dead: Iterator[Tuple[EntityID, Tuple[Position, Stats, AI, Aesthetic]]] = (
+    Query([Position, Stats, AI, Aesthetic]).filter(~IsDead).compile()
+)
 
-attack_position_stats_ai_aesthetic_not_dead: Iterator[Tuple[EntityID, Tuple[IsReadyToAttack, Position, Stats, AI,
-                                                                            Aesthetic]]] = (
-    Query([IsReadyToAttack, Position, Stats, AI, Aesthetic]).filter(~IsDead).compile())
-
+attack_position_stats_ai_aesthetic_not_dead: Iterator[
+    Tuple[EntityID, Tuple[IsReadyToAttack, Position, Stats, AI, Aesthetic]]
+] = (Query([IsReadyToAttack, Position, Stats, AI, Aesthetic]).filter(~IsDead).compile())

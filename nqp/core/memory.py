@@ -1,9 +1,9 @@
 from __future__ import annotations
 
 import logging
-
-from typing import TYPE_CHECKING, Union
 from enum import Enum
+from typing import TYPE_CHECKING, Union
+
 from nqp.core.constants import GameSpeed
 from nqp.core.debug import Timer
 
@@ -81,7 +81,6 @@ class Memory:
             flag = flag.value.lower()
 
         self._flags.remove(flag)
-
 
     def check_for_flag(self, flag: str | Enum) -> bool:
         """

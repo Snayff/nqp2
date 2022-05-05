@@ -25,7 +25,7 @@ class Animation:
         frame_duration: float = 0.6,
         loop: bool = True,
         starting_frame_set_name: str = None,
-        uses_simulation_time: bool = True
+        uses_simulation_time: bool = True,
     ):
         self._frame_sets: Dict[str, List[Image]] = frames
         self._frame_duration: float = max(frame_duration, 0.1)  # must be greater than 1
