@@ -2,11 +2,11 @@
 name: Bragan's Signature Item
 is_signature: true
 effects:
-  - name: UnitsAttributeModifier
+  - name: AttributeModifierEffect
     unit_type: all
     attribute: upgrade_effectiveness
     mod_amount: 20%
-  - name: AddItem
+  - name: AddItemEffect
     item_type: gold
     item_count: 1000
     trigger: EnterNewRoom
