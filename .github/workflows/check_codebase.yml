@@ -49,41 +49,41 @@ jobs:
       run: |
         poetry run python -m pytest tests/
 
-    - name: Lint Code Base
-      uses: github/super-linter@v4
-      env:
-        # PYTHON_BLACK_CONFIG_FILE: pyproject.toml
-        # PYTHON_ISORT_CONFIG_FILE: pyproject.toml
-        # PYTHON_MYPY_CONFIG_FILE: mypy.ini
-        LINTER_RULES_PATH: /
-        VALIDATE_GITHUB_ACTIONS: true
-        VALIDATE_YAML: true
-        # VALIDATE_JSON: true
-        # VALIDATE_PYTHON_BLACK: true
-        # VALIDATE_PYTHON_ISORT: true
-        # VALIDATE_PYTHON_MYPY: true
-        VALIDATE_ALL_CODEBASE: false
-        DEFAULT_BRANCH: develop
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Test if black and isort should reformat the scripts
-      id: black_isort_status
-      run: |
-        if black --check nqp/ && isort --check-only nqp/; then
-          echo "::set-output name=result::false"
-        else
-          echo "::set-output name=result::true"
-        fi
-
-    - name: Format code with Black and isort
-      if: steps.black_isort_status.outputs.result == 'true'
-      run: |
-        black "nqp/"
-        isort "nqp/"
-        git config --global user.name "Snayff"
-        git config --global user.email "Snayff@users.noreply.github.com"
-        git remote set-url origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY"
-        git fetch
-        git checkout "$GITHUB_HEAD_REF"
-        git commit -am "nqp formatted code with black and isort"
-        git push
+#    - name: Lint Code Base
+#      uses: github/super-linter@v4
+#      env:
+#        # PYTHON_BLACK_CONFIG_FILE: pyproject.toml
+#        # PYTHON_ISORT_CONFIG_FILE: pyproject.toml
+#        # PYTHON_MYPY_CONFIG_FILE: mypy.ini
+#        LINTER_RULES_PATH: /
+#        VALIDATE_GITHUB_ACTIONS: true
+#        VALIDATE_YAML: true
+#        # VALIDATE_JSON: true
+#        # VALIDATE_PYTHON_BLACK: true
+#        # VALIDATE_PYTHON_ISORT: true
+#        # VALIDATE_PYTHON_MYPY: true
+#        VALIDATE_ALL_CODEBASE: false
+#        DEFAULT_BRANCH: develop
+#        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#
+#    - name: Test if black and isort should reformat the scripts
+#      id: black_isort_status
+#      run: |
+#        if black --check nqp/ && isort --check-only nqp/; then
+#          echo "::set-output name=result::false"
+#        else
+#          echo "::set-output name=result::true"
+#        fi
+#
+#    - name: Format code with Black and isort
+#      if: steps.black_isort_status.outputs.result == 'true'
+#      run: |
+#        black "nqp/"
+#        isort "nqp/"
+#        git config --global user.name "Snayff"
+#        git config --global user.email "Snayff@users.noreply.github.com"
+#        git remote set-url origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY"
+#        git fetch
+#        git checkout "$GITHUB_HEAD_REF"
+#        git commit -am "nqp formatted code with black and isort"
+#        git push
