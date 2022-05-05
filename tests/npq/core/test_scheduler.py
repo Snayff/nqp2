@@ -76,7 +76,7 @@ class ClockTestCase(unittest.TestCase):
         self.assertEqual(1.0, items[0].interval)
         self.assertEqual(self.callback_a, items[0].func)
         """
-        These 2 next tests assert that a scheduled call with repeat=1 
+        These 2 next tests assert that a scheduled call with interval=1 
         should also run at 0.001, as they assert next_ts is initialized 
         to self.clock.get_counter(), which is 0, so I'll go with
         this premisse from now on
