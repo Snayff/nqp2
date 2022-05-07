@@ -17,7 +17,7 @@ class EffectProcessorComponent(RegisteredComponent):
 
 
 class EffectProcessor:
-    def tick(self, time_delta: float, game: Game):
+    def update(self, time_delta: float, game: Game):
         """
         Handle changes for this Processor
 

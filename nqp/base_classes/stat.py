@@ -15,19 +15,19 @@ class Stat(ABC):
     """
 
     def __init__(self, base_value):
-        self.modifiers: Dict[Any:Callable] = dict()
         self._base_value = base_value
+        self._modifiers: Dict[Any:Callable] = dict()
 
     def reset(self):
         """
         Set value back to base value.
         """
-        self.modifiers.clear()
+        self._modifiers.clear()
 
     @property
     def value(self):
         acc = 0
-        for func in self.modifiers.values():
+        for func in self._modifiers.values():
             acc += func(self._base_value)
         return self._base_value + acc
 
@@ -48,7 +48,7 @@ class Stat(ABC):
             key: Unique identifier for adding and removing
 
         """
-        self.modifiers[key] = func
+        self._modifiers[key] = func
 
     def remove_modifier(self, key: Any):
         """
@@ -58,4 +58,14 @@ class Stat(ABC):
             key: Unique identifier for adding and removing
 
         """
-        del self.modifiers[key]
+        del self._modifiers[key]
+
+    def has_modifier(self, key: Any):
+        """
+        Check if modifier is applied
+
+        Args:
+            key: Unique identifier for adding and removing
+
+        """
+        return key in self._modifiers

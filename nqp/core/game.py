@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING
 import pygame
 
 from nqp.base_classes.scene import Scene
+from nqp.core import queries
 from nqp.core.audio import Audio
 from nqp.core.constants import GameState, SceneType
 from nqp.core.data import Data
@@ -86,6 +87,10 @@ class Game:
         # update internal assets
         self.audio.update(delta_time)
         self.visual.update(delta_time)
+
+        # update effects
+        for _, (effect_system,) in queries.effects_processors:
+            effect_system.effect.update(delta_time, self)
 
         # update image ui
         for scene in self.scene_stack:

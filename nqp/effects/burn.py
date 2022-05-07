@@ -25,7 +25,7 @@ class OnFireStatusEffect(RegisteredComponent):
 class OnFireStatusProcessor(EffectProcessor):
     burning = snecs.Query([OnFireStatusEffect])
 
-    def tick(self, time_delta: float, game: Game):
+    def update(self, time_delta: float, game: Game):
         for eid, (burn,) in list(OnFireStatusProcessor.burning):
             burn.ttl -= time_delta
             if burn.ttl <= 0:

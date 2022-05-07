@@ -27,28 +27,28 @@ class StatsTestCase(unittest.TestCase):
         self.stats = Stats(self.parent)
 
     def test_unmodified(self):
-        self.assertEqual(1, self.stats.size.value)
+        self.assertEqual(1, self.stats.attack_speed.value)
 
     def test_increase(self):
-        self.stats.size.apply_modifier(partial(operator.mul, 0.50), 0)
-        self.assertEqual(1.5, self.stats.size.value)
+        self.stats.attack_speed.apply_modifier(partial(operator.mul, 0.50), 0)
+        self.assertEqual(1.5, self.stats.attack_speed.value)
 
     def test_decrease(self):
-        self.stats.size.apply_modifier(partial(operator.mul, -0.50), 0)
-        self.assertEqual(0.5, self.stats.size.value)
+        self.stats.attack_speed.apply_modifier(partial(operator.mul, -0.50), 0)
+        self.assertEqual(0.5, self.stats.attack_speed.value)
 
     def test_apply_and_remove_single(self):
-        self.stats.size.apply_modifier(partial(operator.mul, 0.50), 0)
-        self.assertEqual(1.5, self.stats.size.value)
-        self.stats.size.remove_modifier(0)
-        self.assertEqual(1.0, self.stats.size.value)
+        self.stats.attack_speed.apply_modifier(partial(operator.mul, 0.50), 0)
+        self.assertEqual(1.5, self.stats.attack_speed.value)
+        self.stats.attack_speed.remove_modifier(0)
+        self.assertEqual(1.0, self.stats.attack_speed.value)
 
     def test_apply_and_remove_many(self):
-        self.stats.size.apply_modifier(partial(operator.mul, 0.50), 0)
-        self.assertEqual(1.5, self.stats.size.value)
-        self.stats.size.apply_modifier(partial(operator.mul, 0.25), 1)
-        self.assertEqual(1.75, self.stats.size.value)
-        self.stats.size.remove_modifier(0)
-        self.assertEqual(1.25, self.stats.size.value)
-        self.stats.size.remove_modifier(1)
-        self.assertEqual(1.0, self.stats.size.value)
+        self.stats.attack_speed.apply_modifier(partial(operator.mul, 0.50), 0)
+        self.assertEqual(1.5, self.stats.attack_speed.value)
+        self.stats.attack_speed.apply_modifier(partial(operator.mul, 0.25), 1)
+        self.assertEqual(1.75, self.stats.attack_speed.value)
+        self.stats.attack_speed.remove_modifier(0)
+        self.assertEqual(1.25, self.stats.attack_speed.value)
+        self.stats.attack_speed.remove_modifier(1)
+        self.assertEqual(1.0, self.stats.attack_speed.value)

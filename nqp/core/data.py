@@ -40,6 +40,7 @@ class Data:
         with Timer("Data: initialised"):
             self._game: Game = game
 
+            self.effects: Dict[str:Any] = {}
             self.commanders: Dict[str, Any] = {}
             self.units: Dict[str, Any] = {}
             self.tiles = {}  # TODO - can we get rid of this?
@@ -50,7 +51,6 @@ class Data:
             self.bosses: Dict[str, Any] = {}
             self.skills: Dict[str, Any] = {}
             self.items: Dict[str, ItemData] = {}
-            self.effects: Dict[str:Any] = {}
 
             self.config: Dict[str, Any] = {}
             self.options: Dict[str, Any] = {}
@@ -238,28 +238,25 @@ class Data:
     def _load_effects() -> Dict[str:Any]:
         # TODO: replace with autodiscover
         from nqp.effects.add_item import AddItemEffect
-        from nqp.effects.attribute_modifier import AttributeModifierEffect
+        from nqp.effects.attribute_modifier import StatsEffectSentinel
         from nqp.effects.sildreths_signature import SildrethsSignatureEffect
 
-        effects = {}
-        for effect_class in (
-            AddItemEffect,
-            AttributeModifierEffect,
-            SildrethsSignatureEffect,
-        ):
-            effects[str(effect_class.__name__)] = effect_class
+        effects = {
+            "StatsEffect": StatsEffectSentinel,
+            "AddItemEffect": AddItemEffect,
+            "SildrethsSignatureEffect": SildrethsSignatureEffect,
+        }
         logging.debug(f"Data: {len(effects)} items loaded.")
 
         # TODO: replace with autodiscover
         from nqp.core.effect import EffectProcessorComponent
-        from nqp.effects.attribute_modifier import AttributeModifierEffectProcessor
+        from nqp.effects.attribute_modifier import StatsEffectProcessor
         from nqp.effects.burn import OnFireStatusProcessor
 
         for processor_class in (
-            AttributeModifierEffectProcessor,
+            StatsEffectProcessor,
             OnFireStatusProcessor,
         ):
-            # TODO: consider additional worlds, or markers to separate unit instances from others
             snecs.new_entity([EffectProcessorComponent(processor_class())])
 
         return effects
@@ -325,15 +322,14 @@ class Data:
 
         return occur_rate
 
-    def create_effect(self, data: Dict):
+    def create_effect(self, data: Dict[str, Any], params: Dict[str:Any]):
         """
         Return Effect from data found in data files
 
         """
         name = data.pop("name")
-        klass = self.effects[name]
-        effect = klass.from_dict(data)
-        return effect
+        effect_class = self.effects[name]
+        return effect_class.from_dict(data, params)
 
     def create_item(self, name: str):
         """
@@ -351,7 +347,7 @@ class Data:
             name=item_data.name,
             is_signature=item_data.is_signature,
         )
-        effects = [self.create_effect(data) for data in item_data.effects]
+        effects = [self.create_effect(data, item) for data in item_data.effects]
         components = [item] + effects
         entity = snecs.new_entity(components)
         return entity

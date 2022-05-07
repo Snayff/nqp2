@@ -2,8 +2,8 @@
 name: Albrom's Signature Item
 is_signature: true
 effects:
-  - name: AttributeModifierEffect
-    target: unit
+  - name: StatsEffect
+    target: team
     unit_type: ranged
     attribute: attack
-    mod_amount: 20%
+    modifier: 20%
