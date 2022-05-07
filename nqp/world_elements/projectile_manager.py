@@ -24,17 +24,18 @@ class ProjectileManager:
         self.projectiles: List[Projectile] = []
 
     def add_projectile(
-            self,
-            owner: EntityID,
-            target: EntityID,
-            projectile_data: Dict[str, Union[Image, int]],
-            damage: int,
-            damage_type: DamageType,
-            penetration: int,
-            is_crit: bool
+        self,
+        owner: EntityID,
+        target: EntityID,
+        projectile_data: Dict[str, Union[Image, int]],
+        damage: int,
+        damage_type: DamageType,
+        penetration: int,
+        is_crit: bool,
     ):
-        self.projectiles.append(Projectile(self._game, owner, target, projectile_data, damage, damage_type,
-                                           penetration, is_crit))
+        self.projectiles.append(
+            Projectile(self._game, owner, target, projectile_data, damage, damage_type, penetration, is_crit)
+        )
 
     def update(self, delta_time: float):
         for i, projectile in enumerate(self.projectiles):
