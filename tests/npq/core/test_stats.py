@@ -1,4 +1,6 @@
+import operator
 import unittest
+from functools import partial
 from unittest import mock
 
 from nqp.core.components import Stats
@@ -25,19 +27,28 @@ class StatsTestCase(unittest.TestCase):
         self.stats = Stats(self.parent)
 
     def test_unmodified(self):
-        self.assertEqual(1, self.stats.get_value("size"))
+        self.assertEqual(1, self.stats.size.value)
 
     def test_increase(self):
-        self.stats.apply_modifier("size", 0.50, 0)
-        self.assertEqual(1.5, self.stats.get_value("size"))
+        self.stats.size.apply_modifier(partial(operator.mul, 0.50), 0)
+        self.assertEqual(1.5, self.stats.size.value)
 
     def test_decrease(self):
-        self.stats.apply_modifier("size", -0.50, 0)
-        self.assertEqual(0.5, self.stats.get_value("size"))
+        self.stats.size.apply_modifier(partial(operator.mul, -0.50), 0)
+        self.assertEqual(0.5, self.stats.size.value)
 
-    def test_apply_and_remove(self):
-        self.stats.apply_modifier("size", -0.50, 0)
-        self.stats.apply_modifier("size", -0.50, 1)
-        self.stats.remove_modifier(0)
-        self.stats.remove_modifier(1)
-        self.assertEqual(1.0, self.stats.get_value("size"))
+    def test_apply_and_remove_single(self):
+        self.stats.size.apply_modifier(partial(operator.mul, 0.50), 0)
+        self.assertEqual(1.5, self.stats.size.value)
+        self.stats.size.remove_modifier(0)
+        self.assertEqual(1.0, self.stats.size.value)
+
+    def test_apply_and_remove_many(self):
+        self.stats.size.apply_modifier(partial(operator.mul, 0.50), 0)
+        self.assertEqual(1.5, self.stats.size.value)
+        self.stats.size.apply_modifier(partial(operator.mul, 0.25), 1)
+        self.assertEqual(1.75, self.stats.size.value)
+        self.stats.size.remove_modifier(0)
+        self.assertEqual(1.25, self.stats.size.value)
+        self.stats.size.remove_modifier(1)
+        self.assertEqual(1.0, self.stats.size.value)

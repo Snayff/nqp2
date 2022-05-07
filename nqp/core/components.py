@@ -133,44 +133,18 @@ class Stats(RegisteredComponent):
     An Entity's stats, such as attack.
     """
 
-    stat_attrs = [
-        "mundane_defence",
-        "magic_defence",
-        "attack",
-        "damage_type",
-        "range",
-        "attack_speed",
-        "move_speed",
-        "size",
-        "weight",
-        "penetration",
-        "crit_chance",
-    ]
-
     def __init__(self, parent_unit: Unit):
-        # self.mundane_defence: IntStat = IntStat(parent_unit.mundane_defence)
-        # self.magic_defence: IntStat = IntStat(parent_unit.magic_defence)
-        # self.attack: IntStat = IntStat(parent_unit.attack)
-        # self.damage_type: DamageType = DamageType[parent_unit.damage_type.upper()]
-        # self.range: IntStat = IntStat(parent_unit.range)
-        # self.attack_speed: FloatStat = FloatStat(parent_unit.attack_speed)
-        # self.move_speed: IntStat = IntStat(parent_unit.move_speed)
-        # self.size: IntStat = IntStat(parent_unit.size)
-        # self.weight: IntStat = IntStat(parent_unit.weight)
-        # self.penetration: IntStat = IntStat(parent_unit.penetration)
-        # self.crit_chance: IntStat = IntStat(parent_unit.crit_chance)
-        self.mundane_defence = int(parent_unit.mundane_defence)
-        self.magic_defence = int(parent_unit.magic_defence)
-        self.attack = int(parent_unit.attack)
-        self.damage_type = DamageType[parent_unit.damage_type.upper()]
-        self.range = int(parent_unit.range)
-        self.attack_speed = FloatStat(parent_unit.attack_speed)
-        self.move_speed = int(parent_unit.move_speed)
-        self.size = int(parent_unit.size)
-        self.weight = int(parent_unit.weight)
-        self.penetration = int(parent_unit.penetration)
-        self.crit_chance = int(parent_unit.crit_chance)
-        self._layers = list()
+        self.mundane_defence: IntStat = IntStat(parent_unit.mundane_defence)
+        self.magic_defence: IntStat = IntStat(parent_unit.magic_defence)
+        self.attack: IntStat = IntStat(parent_unit.attack)
+        self.damage_type: DamageType = DamageType[parent_unit.damage_type.upper()]
+        self.range: IntStat = IntStat(parent_unit.range)
+        self.attack_speed: FloatStat = FloatStat(parent_unit.attack_speed)
+        self.move_speed: IntStat = IntStat(parent_unit.move_speed)
+        self.size: IntStat = IntStat(parent_unit.size)
+        self.weight: IntStat = IntStat(parent_unit.weight)
+        self.penetration: IntStat = IntStat(parent_unit.penetration)
+        self.crit_chance: IntStat = IntStat(parent_unit.crit_chance)
 
     def serialize(self):
         # TODO - add serialisation
@@ -186,59 +160,20 @@ class Stats(RegisteredComponent):
         """
         Get a list of all the stats.
         """
-        return list(Stats.stat_attrs)
-
-    def apply_modifier(self, name: str, value: any, key: Any):
-        # TODO: expand
-        # currently only supports basic -/+ % values
-        assert name != "__key__"
-        assert name in Stats.stat_attrs
-        for layer in self._layers:
-            if layer["__key__"] == key:
-                layer[name] = value
-        else:
-            layer = {"__key__": key, name: value}
-            self._layers.append(layer)
-
-    def remove_modifier(self, key: Any):
-        for layer in list(self._layers):
-            if layer.get("__key__") == key:
-                self._layers.remove(layer)
-
-    def get_value(self, name: str):
-        """
-        Get value of stat after modifications are applied
-        """
-        # this will not deal with typing well.
-        # this is going to be slow.  need to cache this or overhaul the
-        # system later
-        assert name in Stats.stat_attrs
-        base_value = getattr(self, name)
-        acc = 0
-        for layer in self._layers:
-            mod = layer.get(name, None)
-            if mod is not None:
-                # currently only supports basic -/+ % values
-                acc += base_value * mod
-        return base_value + acc
-
-    def stat_status(self, name: str):
-        """
-        Get StatValue object describing stat
-
-        WIP
-
-        """
-        assert name in Stats.stat_attrs
-        base_value = getattr(self, name)
-        value = self.get_value(name)
-        return StatValue(
-            value = value,
-            type = None,
-            modified=value != base_value,
-            layers = [],
-            base_value=base_value
-        )
+        stat_attrs = [
+            "mundane_defence",
+            "magic_defence",
+            "attack",
+            "damage_type",
+            "range",
+            "attack_speed",
+            "move_speed",
+            "size",
+            "weight",
+            "penetration",
+            "crit_chance",
+        ]
+        return stat_attrs
 
 
 class Allegiance(RegisteredComponent):
