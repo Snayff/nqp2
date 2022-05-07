@@ -207,10 +207,12 @@
 <h2>Tools Used<a class="headerlink" href="#tools-used" title="Permalink to this headline">¶</a></h2>
 <p>The following tools are used as standard to ensure a consistent and reliable codebase.</p>
 <ul class="simple">
+<li><p><a class="reference external" href="https://pre-commit.com/index.html#intro">pre-commit</a> - a framework for managing and maintaining multi-language pre-commit hooks.</p></li>
 <li><p><a class="reference external" href="https://black.readthedocs.io/en/stable/">black</a> - an opinionated <a class="reference external" href="https://en.wikipedia.org/wiki/Lint_(software)">linter</a>.</p></li>
 <li><p><a class="reference external" href="https://pycqa.github.io/isort/">isort</a> - manage the order of imports.</p></li>
 </ul>
-<p>When you submit a pull request the CI, Github Actions, will run black and isort automatically.</p>
+<p>After installing the pre-commit hook, black and isort automatically reformat your code when you try to commit changes.</p>
+<p>When you submit a pull request the CI, Github Actions, also runs the pre-commit hook to verify if your code is correctly formatted.</p>
 </section>
 <section id="style-guide">
 <h2>Style Guide<a class="headerlink" href="#style-guide" title="Permalink to this headline">¶</a></h2>
@@ -272,6 +274,33 @@ Make use of type hints, with a view to reintroducing MyPy in the future.</p>
 </pre></div>
 </div>
 <p>If you’re not sure where to start helping out you can look at the existing feature requests and issues, <a class="reference external" href="https://github.com/Snayff/nqp2/issues">here</a>. Pick one you think you’d like to tackle and make the relevant changes to your fork.</p>
+</section>
+<section id="committing">
+<h3>Committing<a class="headerlink" href="#committing" title="Permalink to this headline">¶</a></h3>
+<p>Before committing changes to the code developers are expected to install the pre-commit hook by running the following command in the project’s root folder:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pre-commit install
+</pre></div>
+</div>
+<p>From then on, every time you run <cite>git commit</cite>, pre-commit is going to run black and isort automatically to format your files.
+If the pre-commit hook makes any changes after you try to commit code, you’ll see an error message:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>check python ast.........................................................Passed
+check yaml...........................................(no files to check)Skipped
+check toml...........................................(no files to check)Skipped
+black....................................................................Failed
+- hook id: black
+- files were modified by this hook
+
+reformatted nqp2.py
+
+All done! ✨ 🍰 ✨
+1 file reformatted.
+
+isort....................................................................Failed
+- hook id: isort
+- files were modified by this hook
+</pre></div>
+</div>
+<p>At this point your code was reformatted, but the changes are still staged on git, meaning you should <cite>git add</cite> the changed files and commit them again.</p>
 </section>
 <section id="merging">
 <h3>Merging<a class="headerlink" href="#merging" title="Permalink to this headline">¶</a></h3>
