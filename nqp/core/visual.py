@@ -227,20 +227,14 @@ class Visual:
         return tileset_data
 
     def create_animation(
-            self,
-            animation_name: str,
-            frame_set_name: str,
-            loop: bool = True,
-            uses_simulation_time: bool = True) -> Animation:
+        self, animation_name: str, frame_set_name: str, loop: bool = True, uses_simulation_time: bool = True
+    ) -> Animation:
         """
         Create a new animation and add it to the internal update list.
         """
         frames = self._animation_frames[animation_name]
         anim = Animation(
-            frames,
-            loop=loop,
-            starting_frame_set_name=frame_set_name,
-            uses_simulation_time=uses_simulation_time
+            frames, loop=loop, starting_frame_set_name=frame_set_name, uses_simulation_time=uses_simulation_time
         )
         self._active_animations.append(anim)
         return anim
