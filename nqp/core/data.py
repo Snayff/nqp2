@@ -2,14 +2,15 @@ from __future__ import annotations
 
 import logging
 import os
-import time
 from pathlib import Path
 from typing import Any, TYPE_CHECKING, Union
 
+import snecs
 import yaml
 
 from nqp.core.constants import DATA_PATH
 from nqp.core.debug import Timer
+from nqp.world_elements.item import Item
 
 if TYPE_CHECKING:
     from typing import Dict, List
@@ -37,7 +38,6 @@ class Data:
 
     def __init__(self, game: Game):
         with Timer("Data: initialised"):
-
             self._game: Game = game
 
             self.commanders: Dict[str, Any] = {}
@@ -50,6 +50,7 @@ class Data:
             self.bosses: Dict[str, Any] = {}
             self.skills: Dict[str, Any] = {}
             self.items: Dict[str, ItemData] = {}
+            self.effects: Dict[str:Any] = {}
 
             self.config: Dict[str, Any] = {}
             self.options: Dict[str, Any] = {}
@@ -60,6 +61,7 @@ class Data:
         """
         Reload all data
         """
+        self.effects = self._load_effects()
         self.commanders = self._load_commanders()
         self.units = self._load_unit_info()
         self.factions = self._create_factions_list()  # must call after units
@@ -232,6 +234,36 @@ class Data:
 
         return items
 
+    @staticmethod
+    def _load_effects() -> Dict[str:Any]:
+        # TODO: replace with autodiscover
+        from nqp.effects.add_item import AddItemEffect
+        from nqp.effects.attribute_modifier import AttributeModifierEffect
+        from nqp.effects.sildreths_signature import SildrethsSignatureEffect
+
+        effects = {}
+        for effect_class in (
+            AddItemEffect,
+            AttributeModifierEffect,
+            SildrethsSignatureEffect,
+        ):
+            effects[str(effect_class.__name__)] = effect_class
+        logging.debug(f"Data: {len(effects)} items loaded.")
+
+        # TODO: replace with autodiscover
+        from nqp.core.effect import EffectProcessorComponent
+        from nqp.effects.attribute_modifier import AttributeModifierEffectProcessor
+        from nqp.effects.burn import OnFireStatusProcessor
+
+        for processor_class in (
+            AttributeModifierEffectProcessor,
+            OnFireStatusProcessor,
+        ):
+            # TODO: consider additional worlds, or markers to separate unit instances from others
+            snecs.new_entity([EffectProcessorComponent(processor_class())])
+
+        return effects
+
     def get_units_by_category(self, factions: List[str], tiers: List[int] = None) -> List[str]:
         """
         Return list of unit types for all units with a matching faction and tier.
@@ -292,3 +324,34 @@ class Data:
         occur_rate = tier_occur_rates[str(combat_tier)]
 
         return occur_rate
+
+    def create_effect(self, data: Dict):
+        """
+        Return Effect from data found in data files
+
+        """
+        name = data.pop("name")
+        klass = self.effects[name]
+        effect = klass.from_dict(data)
+        return effect
+
+    def create_item(self, name: str):
+        """
+        Return Item by name
+
+        Args:
+            name: Short name, same as the item filename without extension
+
+        Returns:
+            New Item entity id
+
+        """
+        item_data = self.items[name]
+        item = Item(
+            name=item_data.name,
+            is_signature=item_data.is_signature,
+        )
+        effects = [self.create_effect(data) for data in item_data.effects]
+        components = [item] + effects
+        entity = snecs.new_entity(components)
+        return entity

@@ -282,7 +282,8 @@ def process_attack(game: Game):
                 # add damage component
                 snecs.add_component(
                     target_entity,
-                    DamageReceived(stats.attack.value * mod, stats.damage_type, stats.penetration.value, is_crit))
+                    DamageReceived(stats.attack.value * mod, stats.damage_type, stats.penetration.value, is_crit),
+                )
 
             # reset attack timer and remove flag
             ai.behaviour.attack_timer = 1 / stats.attack_speed.value

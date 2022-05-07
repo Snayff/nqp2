@@ -29,6 +29,7 @@ __all__ = [
     "distance_to",
     "angle_to",
     "get_direction",
+    "percent_to_float",
 ]
 
 
@@ -180,3 +181,10 @@ def get_direction(angle: float, move_distance: float) -> pygame.Vector2:
     Find the direction based on the angle and distance
     """
     return pygame.Vector2(math.cos(angle) * move_distance, math.sin(angle) * move_distance)
+
+
+def percent_to_float(percent_string: str):
+    """
+    Convert string representation of percent into a float
+    """
+    return float(percent_string.strip("%")) / 100.0

@@ -3,7 +3,7 @@ from unittest.mock import Mock
 
 from pygame import Vector2
 
-from nqp.topography.pathfinding import PriorityQueue, search_terrain
+from nqp.topography.pathfinding import PriorityQueue
 
 
 class TestPriorityQueue(unittest.TestCase):

@@ -23,15 +23,15 @@ __all__ = ["Projectile"]
 
 class Projectile:
     def __init__(
-            self,
-            game: Game,
-            owner: EntityID,
-            target: EntityID,
-            projectile_data: Dict[str, Union[Image, int]],
-            damage: int,
-            damage_type: DamageType,
-            penetration: int,
-            is_crit: bool
+        self,
+        game: Game,
+        owner: EntityID,
+        target: EntityID,
+        projectile_data: Dict[str, Union[Image, int]],
+        damage: int,
+        damage_type: DamageType,
+        penetration: int,
+        is_crit: bool,
     ):
         self._game: Game = game
         self.owner: EntityID = owner
@@ -77,8 +77,8 @@ class Projectile:
                     other_pos = snecs.entity_component(entity, Position)
                     if r.collidepoint((other_pos.pos.x, other_pos.pos.y)):
                         snecs.add_component(
-                            entity,
-                            DamageReceived(self.damage, self.damage_type, self.penetration, self.is_crit))
+                            entity, DamageReceived(self.damage, self.damage_type, self.penetration, self.is_crit)
+                        )
                         self.is_active = False
                         return
 

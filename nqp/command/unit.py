@@ -40,6 +40,7 @@ class Unit:
         self._banner_image = self._game.visual.get_image("banner")
         self.is_ranged: bool = True if unit_data["ammo"] > 0 else False
         from nqp.command.unit_behaviour import UnitBehaviour  # prevent circular import
+
         self.behaviour: UnitBehaviour = UnitBehaviour(self._game, self)
 
         self.injuries: int = 0

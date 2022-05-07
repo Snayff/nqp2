@@ -82,7 +82,6 @@ class Memory:
 
         self._flags.remove(flag)
 
-
     def check_for_flag(self, flag: str | Enum) -> bool:
         """
         Check if a flag exists

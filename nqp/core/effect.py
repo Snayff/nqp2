@@ -1,35 +1,29 @@
+from __future__ import annotations
+
 import logging
-from typing import Any, Dict
+from typing import TYPE_CHECKING
+
+from snecs import RegisteredComponent
+
+if TYPE_CHECKING:
+    from nqp.core.game import Game
 
 log = logging.getLogger(__name__)
 
 
-class Effect:
-    @classmethod
-    def from_dict(cls, **parameters):
-        instance = cls(**parameters)
-        return instance
+class EffectProcessorComponent(RegisteredComponent):
+    def __init__(self, effect: EffectProcessor):
+        self.effect = effect
 
 
-# TODO: replace with plugins =================================================
-from nqp.effects.add_item import AddItemEffect
-from nqp.effects.attribute_modifier import AttributeModifierEffect
-from nqp.effects.sildreths_signature import SildrethsSignatureEffect
+class EffectProcessor:
+    def tick(self, time_delta: float, game: Game):
+        """
+        Handle changes for this Processor
 
-effect_classes: Dict[str, Any] = dict()
-for klass in (
-    AddItemEffect,
-    AttributeModifierEffect,
-    SildrethsSignatureEffect,
-):
-    effect_classes[str(klass.__name__)] = klass
+        For example:
+            for eid, (burn,) in list(OnFireStatusSystem.burning):
+                burn.ttl -= time_delta
 
-
-# ============================================================================
-
-
-def load_effect(data: Dict[str, str]):
-    name = data.pop("name")
-    klass = effect_classes[name]
-    effect = klass.from_dict(**data)
-    return effect
+        """
+        pass
