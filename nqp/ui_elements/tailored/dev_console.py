@@ -7,7 +7,7 @@ import os
 import pygame
 import yaml
 
-from nqp.core.constants import ASSET_PATH, DATA_PATH, SceneType, WorldState, Flags
+from nqp.core.constants import ASSET_PATH, DATA_PATH, Flags, SceneType, WorldState
 from nqp.core.utility import scene_to_scene_type
 from nqp.ui_elements.generic.ui_input_box import UIInputBox
 
