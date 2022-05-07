@@ -24,16 +24,14 @@ class UITooltip(UIWindow):
     def __init__(
             self,
             game: Game,
-            window_type: WindowType,
             pos: pygame.Vector2,
             tooltip_key: str,
     ):
         self.secondary_tooltips: None | UIWindow = None
 
-        self._retrieve_content(tooltip_key)
-        self._recalculate_size()
+        self._build_self(tooltip_key)
 
-        super().__init__(game, window_type, pos, self.size, self._elements, True)
+        super().__init__(game, WindowType.BASIC, pos, self.size, self._elements, True)
 
     def update(self, delta_time: float):
         super().update(delta_time)
@@ -45,30 +43,38 @@ class UITooltip(UIWindow):
         if self.secondary_tooltips:
             self.secondary_tooltips.draw(surface)
 
-    def _retrieve_content(self, tooltip_key):
+    def _build_self(self, tooltip_key):
+        """
+        Get the content from data and build primary and secondary tooltips. Also recalcs size of self.
+        """
         # build primary tooltip
+        title = self._game.data.tooltips[tooltip_key]["title"]
         text = self._game.data.tooltips[tooltip_key]["text"]
         image_name = self._game.data.tooltips[tooltip_key]["image"]
         text, keys = self._parse_text(text)
-        frame = self._build_frame(text, image_name, self.pos)
-        self._elements.append(frame)
+        frames = self._build_frames(title, text, image_name, self.pos)
+        self._elements = self._elements + frames
+
+        self._recalculate_size()
 
         # build secondary tooltips
-        pos = pygame.Vector2(frame.pos.x + frame.width + 1, frame.pos.y)  # +1 for x offset
+        pos = pygame.Vector2(self.pos.x + self.width + 1, self.pos.y)  # +1 avoid overlap
         secondary_frames = []
         for key in keys:
+            title = self._game.data.tooltips[key]["title"]
             text = self._game.data.tooltips[key]["text"]
             image_name = self._game.data.tooltips[key]["image"]
             text, keys = self._parse_text(text)
-            frame = self._build_frame(text, image_name, pos)
-            secondary_frames.append(frame)
+            frames = self._build_frames(title, text, image_name, pos)
+            secondary_frames = secondary_frames + frames
 
             # increment pos
-            pos = pygame.Vector2(pos.x, pos.y + frame.height + 1)  # +1 for y offset
+            last_frame = frames[-1]
+            pos = pygame.Vector2(pos.x, last_frame.pos.y + last_frame.height + 1)  # +1 avoid overlap
 
         # add secondary frames to a window
         if secondary_frames:
-            pos = pygame.Vector2(self.pos.x + frame.width, self.pos.y)
+            pos = pygame.Vector2(self.pos.x + self.width + 1, self.pos.y) # +1 avoid overlap
             height = 0
             width = secondary_frames[0].width
             for frame in secondary_frames:
@@ -102,17 +108,30 @@ class UITooltip(UIWindow):
 
     def _recalculate_size(self):
         """
-        Recalculate the size of the tooltip based on the first item in self._elements.
+        Recalculate the size of the tooltip based on the the elements.
         """
-        frame = self._elements[0]  # should only have 1, so grab first item
-        self.size = pygame.Vector2(frame.width, frame.height)
+        height = 0
+        width = self._elements[0].width
+        for frame in self._elements:
+            height += frame.height + 1  # account for overlap offset
+        self.size = pygame.Vector2(width, height)
 
-    def _build_frame(self, text: str, image_name: str, pos: pygame.Vector2) -> UIFrame:
+    def _build_frames(self, title: str, text: str, image_name: str, pos: pygame.Vector2) -> List[UIFrame]:
+        """
+        Build the various frames that make up the tooltip
+        """
+        frames = []
+        font = self._game.visual.create_font(FontType.POSITIVE, title)
+        frame = UIFrame(self._game, pos, font)
+        frames.append(frame)
+
         font = self._game.visual.create_font(FontType.DEFAULT, text)
+        pos = pygame.Vector2(pos.x, pos.y + frame.height + 1)  # +1 avoid overlap
         if image_name:
             image = self._game.visual.get_image(image_name)
             frame = UIFrame(self._game, pos, font, image=image)
         else:
             frame = UIFrame(self._game, pos, font)
+        frames.append(frame)
 
-        return frame
+        return frames

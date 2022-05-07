@@ -1,9 +1,12 @@
 mundane_defence:
+  title: "Mundane Defence"
   text: "Resistance to mundane damage."
   image: "mundane_defence.png"
 magic_defence:
+  title: "Magic Defence"
   text: "Resistance to <fire>."
   image: "magic_defence.png"
 fire:
+  title: "Fire"
   text: "Status effect."
   image: null
