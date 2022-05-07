@@ -46,7 +46,7 @@ jobs:
       run: |
         source .venv/bin/activate 
 
-# TODO: uncomment after tests are fixed
+# TODO: uncomment after tests are fixed, also remove pytest and use unittest
 #    - name: Run test suite
 #      run: |
 #        poetry run python -m pytest tests/
