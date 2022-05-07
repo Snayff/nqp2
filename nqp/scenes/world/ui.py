@@ -374,10 +374,13 @@ class WorldUI(UI):
                 controller.state = ChooseRoomState.IDLE
                 self.grid.move_units_to_grid()
                 self._containers["room_choices"].set_selectable(False)
+                self._containers["room_choices"].unselect_all_elements()
 
         elif local_state == ChooseRoomState.INSPECT_STATS:
             if self._game.input.states["ctrl"]:
+                controller.state = ChooseRoomState.IDLE
                 self._containers["unit_info"].set_selectable(False)
+                self._containers["unit_info"].unselect_all_elements()
 
             if self._game.input.states["up"]:
                 self._current_container.select_previous_element()

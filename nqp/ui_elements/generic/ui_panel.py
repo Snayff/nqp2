@@ -82,7 +82,7 @@ class UIPanel:
 
         if len(self._elements) > 0:
             self._selected_index = -1
-            self.select_next_element()
+            self.select_next_element(False)
 
         else:
             logging.warning(f"Panel: Tried to select first element but no element to select in panel.")
@@ -96,7 +96,7 @@ class UIPanel:
 
         self._selected_index = 0
 
-    def select_next_element(self):
+    def select_next_element(self, play_sound: bool = True):
         # unselect current
         self._elements[self.selected_index].is_selected = False
 
@@ -112,14 +112,16 @@ class UIPanel:
             if self._elements[self.selected_index].is_selectable:
                 # select
                 self._elements[self.selected_index].is_selected = True
-                self._game.audio.play_sound("standard_click")
+
+                if play_sound:
+                    self._game.audio.play_sound("standard_click")
 
                 if self.selected_index == starting_index:
                     logging.warning(f"Panel: Looped all the way back to the starting index. No others selectable.")
 
                 break
 
-    def select_previous_element(self):
+    def select_previous_element(self, play_sound: bool = True):
         # unselect current
         self._elements[self.selected_index].is_selected = False
 
@@ -135,7 +137,9 @@ class UIPanel:
             if self._elements[self.selected_index].is_selectable:
                 # select
                 self._elements[self.selected_index].is_selected = True
-                self._game.audio.play_sound("standard_click")
+
+                if play_sound:
+                    self._game.audio.play_sound("standard_click")
 
                 if self.selected_index == starting_index:
                     logging.debug(f"Panel: Looped all the way back to the starting index. No others selectable.")
