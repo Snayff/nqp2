@@ -766,7 +766,7 @@ class Skill(Action):
         if self.__class__.__name__ in skill_blessings:
             relevant_blessings = skill_blessings[self.__class__.__name__]
         for blessing in relevant_blessings:
-            blessing.apply(self.user)
+            blessing.apply(skill_stack, self.user, entity)
         return skill_stack
 
     @classmethod
