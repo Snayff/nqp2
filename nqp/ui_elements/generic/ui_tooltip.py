@@ -16,6 +16,9 @@ if TYPE_CHECKING:
     from nqp.core.game import Game
 
 
+__all__ = ["UITooltip"]
+
+
 class UITooltip(UIWindow):
     """
     A UIWindow subclass for showing specific information about a hovered item.

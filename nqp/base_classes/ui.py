@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING
 import pygame
 
 from nqp.core.constants import DEFAULT_IMAGE_SIZE, FontType, GAP_SIZE
+from nqp.core.definitions import UIContainerLike, UIElementLike
 from nqp.ui_elements.generic.ui_frame import UIFrame
 from nqp.ui_elements.generic.ui_panel import UIPanel
 from nqp.ui_elements.generic.ui_window import UIWindow
@@ -32,9 +33,9 @@ class UI(ABC):
         self._game: Game = game
         self.block_onward_input: bool = block_onward_input  # prevents input being passed to the next scene
 
-        self._elements: Dict[str, Union[UIFrame]] = {}  # any elements not held in a container
-        self._containers: Dict[str, Union[UIPanel, UIWindow]] = {}
-        self._current_container: Optional[UIPanel] = None
+        self._elements: Dict[str, UIElementLike] = {}
+        self._containers: Dict[str, UIContainerLike] = {}
+        self._current_container: UIContainerLike | None = None
 
         self._temporary_instruction_text: str = ""
         self._temporary_instruction_timer: float = 0.0
@@ -211,7 +212,7 @@ class UI(ABC):
 
     def select_container(self, container_name: str, hide_old_container: bool = False):
         """
-        Unselect the current container and move the selection to the specified panel.
+        Unselect the current container and move the selection to the specified container.
         """
         # unselect current
         self._current_container.unselect_all_elements()
@@ -231,3 +232,8 @@ class UI(ABC):
 
         self._current_container.select_first_element()
         self._current_container._is_active = True
+
+    def container_exists(self, container_name: str) -> bool:
+        if container_name in self._containers:
+            return True
+        return False

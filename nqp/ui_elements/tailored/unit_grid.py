@@ -12,6 +12,9 @@ from nqp.core.game import Game
 from nqp.core.utility import grid_down, grid_left, grid_right, grid_up
 
 
+__all__ = ["UnitGrid"]
+
+
 class GridCell:
     """
     A representation of the smallest discrete space in a Grid.
@@ -35,8 +38,8 @@ class UnitGrid:
 
     """
 
-    def __init__(self, game: Game, pos, size, scale: int):
-        # TODO - there's still a bug somewhere that keeps units from switching placement
+    def __init__(self, game: Game, pos: pygame.Vector2, size: pygame.Vector2, scale: int):
+        # FIXME - there's still a bug somewhere that keeps units from switching placement
         self._game: Game = game
         self.pos: pygame.Vector2 = pygame.Vector2(pos)
         self.size: pygame.Vector2 = pygame.Vector2(size)

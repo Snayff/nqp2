@@ -93,6 +93,7 @@ class Input:
                 "cancel": False,
                 "view_troupe": False,
                 "shift": False,
+                "ctrl": False,
                 "backspace": False,
                 "toggle_dev_console": False,
                 "typing_enter": False,
@@ -213,6 +214,9 @@ class Input:
 
                 if event.key in [K_LSHIFT, K_RSHIFT]:
                     self.states["shift"] = True
+
+                if event.key in [K_LCTRL, K_RCTRL]:
+                    self.states["ctrl"] = True
 
                 if event.key == K_BACKSPACE:
                     self.states["backspace"] = True
