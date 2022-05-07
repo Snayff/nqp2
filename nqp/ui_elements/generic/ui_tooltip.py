@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 import pygame
 
 from nqp.core.constants import WindowType, FontType
+from nqp.core.definitions import UIContainerLike
 from nqp.ui_elements.generic.ui_frame import UIFrame
 
 from nqp.ui_elements.generic.ui_window import UIWindow
@@ -27,30 +28,53 @@ class UITooltip(UIWindow):
             pos: pygame.Vector2,
             tooltip_key: str,
     ):
+        self.secondary_tooltips: None | UIWindow = None
+
         self._retrieve_content(tooltip_key)
         self._recalculate_size()
 
         super().__init__(game, window_type, pos, self.size, self._elements, True)
 
+    def update(self, delta_time: float):
+        super().update(delta_time)
+
+    def draw(self, surface: pygame.Surface):
+        self._draw_window(surface)
+        super().draw(surface)
+
+        if self.secondary_tooltips:
+            self.secondary_tooltips.draw(surface)
 
     def _retrieve_content(self, tooltip_key):
-        text = self._game.data.tooltips[tooltip_key]["content"]
+        # build primary tooltip
+        text = self._game.data.tooltips[tooltip_key]["text"]
         image_name = self._game.data.tooltips[tooltip_key]["image"]
         text, keys = self._parse_text(text)
-
-        # build frame
-        font = self._game.visual.create_font(FontType.DEFAULT, text)
-        if image_name:
-            image = self._game.visual.get_image(image_name)
-            frame = UIFrame(self._game, self.pos, font, image=image)
-        else:
-            frame = UIFrame(self._game, self.pos, font)
+        frame = self._build_frame(text, image_name, self.pos)
         self._elements.append(frame)
 
-        # build additional frames
-        if keys:
-            pos = pygame.Vector2(frame.pos.x + frame.width + 1, frame.pos.y)  # +1 for x offset
-            self._build_secondary_tooltips(keys, pos)
+        # build secondary tooltips
+        pos = pygame.Vector2(frame.pos.x + frame.width + 1, frame.pos.y)  # +1 for x offset
+        secondary_frames = []
+        for key in keys:
+            text = self._game.data.tooltips[key]["text"]
+            image_name = self._game.data.tooltips[key]["image"]
+            text, keys = self._parse_text(text)
+            frame = self._build_frame(text, image_name, pos)
+            secondary_frames.append(frame)
+
+            # increment pos
+            pos = pygame.Vector2(pos.x, pos.y + frame.height + 1)  # +1 for y offset
+
+        # add secondary frames to a window
+        if secondary_frames:
+            pos = pygame.Vector2(self.pos.x + frame.width, self.pos.y)
+            height = 0
+            width = secondary_frames[0].width
+            for frame in secondary_frames:
+                height += frame.height + 1
+            self.secondary_tooltips = UIWindow(self._game, self._window_type, pos, pygame.Vector2(width, height),
+                                               secondary_frames, True)
 
     @staticmethod
     def _parse_text(text: str) -> Tuple[str, List[str]]:
@@ -76,86 +100,19 @@ class UITooltip(UIWindow):
 
         return text, secondary_tooltip_keys
 
-
     def _recalculate_size(self):
-        pass
+        """
+        Recalculate the size of the tooltip based on the first item in self._elements.
+        """
+        frame = self._elements[0]  # should only have 1, so grab first item
+        self.size = pygame.Vector2(frame.width, frame.height)
 
-    def _build_secondary_tooltips(self, secondary_tooltip_keys: List[str], pos: pygame.Vector2):
-        pass
+    def _build_frame(self, text: str, image_name: str, pos: pygame.Vector2) -> UIFrame:
+        font = self._game.visual.create_font(FontType.DEFAULT, text)
+        if image_name:
+            image = self._game.visual.get_image(image_name)
+            frame = UIFrame(self._game, pos, font, image=image)
+        else:
+            frame = UIFrame(self._game, pos, font)
 
-#
-# class UITooltip:
-#
-#     """
-#     Tooltips will pop up after <rect_reference> has been hovered for <visible_delay> seconds and will show <text>.
-#     They are bound by the display size and will adjust their placement automatically.
-#     <rect_reference> should be a reference to a Rect that should be used to trigger the tooltip (likely the Rect
-#     attribute of another UIElement).
-#
-#     Please note that Rects can be resized and moved without creating a new instance. This will be necessary when
-#     binding to moving elements.
-#     In the event that an element is in world space rather than an absolute space, the element should have an
-#     alternative rect attribute that gets updated to the absolute rect position.
-#     """
-#
-#     def __init__(self, game, text, font_id, rect_reference, width=200, padding=2, margin=2, alpha=100, visible_delay=1):
-#         self._game = game
-#         self.text = text
-#         self.font_id = font_id
-#         self.rect_reference = rect_reference
-#         self.width = width
-#         self.padding = padding
-#         self.margin = margin
-#         self.alpha = 100
-#         self.cursor_height = 10
-#         self.rect_hover_timer = 0
-#         self.visible_delay = visible_delay
-#         self.generate_text_surf()
-#
-#     def change_text(self, text):
-#         self.text = text
-#         self.generate_text_surf()
-#
-#     def generate_text_surf(self):
-#         text_block = TextBlock(
-#             self.text, self._game.visual.enhanced_fonts[self.font_id], max_width=self.width - self.padding * 2
-#         )
-#         self.text_surf = pygame.Surface(
-#             (text_block.used_width + self.padding * 2, text_block.height + self.padding * 2)
-#         )
-#         self.text_surf.fill((0, 0, 2))
-#         self.text_surf.set_colorkey((0, 0, 2))
-#         text_block.draw(self.text_surf, (self.padding, self.padding))
-#
-#     def update(self, delta_time):
-#         mouse_pos = self._game.input.mouse_pos
-#         if self.rect_reference.collidepoint(mouse_pos):
-#             self.rect_hover_timer += delta_time
-#         else:
-#             self.rect_hover_timer = 0
-#
-#     def draw(self, surf):
-#         if self.rect_hover_timer >= self.visible_delay:
-#             mouse_pos = self._game.input.mouse_pos
-#             display_size = self._game.window.base_resolution
-#
-#             # prioritize placing the tooltip centered above the mouse
-#             base_pos = [
-#                 mouse_pos[0] - self.text_surf.get_width() // 2,
-#                 mouse_pos[1] - self.text_surf.get_height() - self.margin,
-#             ]
-#
-#             # correct position on X axis if showing off of the screen
-#             base_pos[0] = max(base_pos[0], self.margin)
-#             base_pos[0] = min(base_pos[0], display_size[0] - self.text_surf.get_width() - self.margin)
-#
-#             # show tooltip below mouse if it's clipping above the display
-#             if base_pos[1] < self.margin:
-#                 base_pos[1] = mouse_pos[1] + self.margin + self.cursor_height
-#
-#             # just draw an image instead if you don't want a rectangle background
-#             bg_surf = pygame.Surface(self.text_surf.get_size())
-#             bg_surf.set_alpha(self.alpha)
-#
-#             surf.blit(bg_surf, base_pos)
-#             surf.blit(self.text_surf, base_pos)
+        return frame

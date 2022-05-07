@@ -31,6 +31,7 @@ class UIWindow(UIPanel):
         is_active: bool = False,
     ):
         super().__init__(game, elements, is_active)
+        self._window_type: WindowType = window_type
         self._images: Dict[str, Image] = self._load_window_images(window_type)
         self.pos: pygame.Vector2 = pos
         self.size: pygame.Vector2 = size
