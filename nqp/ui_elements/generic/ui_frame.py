@@ -31,11 +31,11 @@ class UIFrame(UIElement):
         self,
         game: Game,
         pos: pygame.Vector2,
-        font: Optional[Union[Font, FancyFont]] = None,
+        font: None | Font | FancyFont = None,
         is_selectable: bool = False,
         max_width: Optional[int] = None,
         max_height: Optional[int] = None,
-        image: Optional[Union[Image, Animation]] = None,
+        image: None | Image | Animation = None,
         text_relative_position: TextRelativePosition = None,
     ):
         super().__init__(game, pos, is_selectable)
@@ -226,6 +226,8 @@ class UIFrame(UIElement):
         """
         Add a background to the frame, based on the tier given. Tiers can be 1-4.
         """
+
+        # TODO - this probably isnt approprioate here anymore and should be on a tailored uielement
         tier_colours = {
             1: (141, 148, 150),
             2: (30, 117, 54),
