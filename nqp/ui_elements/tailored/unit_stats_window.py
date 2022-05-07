@@ -94,8 +94,8 @@ class UnitStatsWindow(UIWindow):
                 pygame.Vector2(frame_x, frame_y),
                 image=stat_icon,
                 font=font,
-                max_width=int(stat_icon_size[0]),
-                is_selectable=True
+                is_selectable=True,
+                tooltip_key=stat
             )
             self._elements.append(frame)
 

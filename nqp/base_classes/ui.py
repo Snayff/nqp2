@@ -10,6 +10,7 @@ from nqp.core.constants import DEFAULT_IMAGE_SIZE, FontType, GAP_SIZE
 from nqp.core.definitions import UIContainerLike, UIElementLike
 from nqp.ui_elements.generic.ui_frame import UIFrame
 from nqp.ui_elements.generic.ui_panel import UIPanel
+from nqp.ui_elements.generic.ui_tooltip import UITooltip
 from nqp.ui_elements.generic.ui_window import UIWindow
 
 if TYPE_CHECKING:
@@ -176,8 +177,19 @@ class UI(ABC):
         for container in self._containers.values():
             container.update(delta_time)
 
+            selected_element = container.selected_element
+            if selected_element.show_tooltip and selected_element.tooltip_key is not None:
+                if "tooltip" not in self._elements:
+                    tooltip = UITooltip(self._game, selected_element.pos, selected_element.tooltip_key)
+                    self._elements["tooltip"] = tooltip
+            else:
+                # delete tooltip
+                self._elements.pop("tooltip", None)
+
         for element in self._elements.values():
             element.update(delta_time)
+
+            # cant select elements not in containers so no need to check here.
 
     def add_container(self, container: Union[UIPanel, UIWindow], name: str):
         """

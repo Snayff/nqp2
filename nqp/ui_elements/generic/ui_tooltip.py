@@ -50,10 +50,15 @@ class UITooltip(UIWindow):
         """
         Get the content from data and build primary and secondary tooltips. Also recalcs size of self.
         """
-        # build primary tooltip
-        title = self._game.data.tooltips[tooltip_key]["title"]
-        text = self._game.data.tooltips[tooltip_key]["text"]
-        image_name = self._game.data.tooltips[tooltip_key]["image"]
+        try:
+            # build primary tooltip
+            title = self._game.data.tooltips[tooltip_key]["title"]
+            text = self._game.data.tooltips[tooltip_key]["text"]
+            image_name = self._game.data.tooltips[tooltip_key]["image"]
+
+        except KeyError:
+            return
+
         text, keys = self._parse_text(text)
         frames = self._build_frames(title, text, image_name, self.pos)
         self._elements = self._elements + frames

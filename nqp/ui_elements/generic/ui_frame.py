@@ -24,7 +24,7 @@ __all__ = ["UIFrame"]
 
 class UIFrame(UIElement):
     """
-    An extension of UIElement to offer more functionality within a helpful wrapper.
+    A complex ui element. Works as an extension of UIElement to offer more functionality within a helpful wrapper.
     """
 
     def __init__(
@@ -37,8 +37,9 @@ class UIFrame(UIElement):
         max_height: Optional[int] = None,
         image: None | Image | Animation = None,
         text_relative_position: TextRelativePosition = None,
+        tooltip_key: str | None = None,
     ):
-        super().__init__(game, pos, is_selectable)
+        super().__init__(game, pos, is_selectable, tooltip_key)
 
         self._image: Optional[Union[Image, Animation]] = image
         self._font: Optional[Union[Font, FancyFont]] = font
@@ -87,7 +88,7 @@ class UIFrame(UIElement):
         text_relative_position = self._text_relative_position
         font = self._font
 
-        logging.info("Recalculating size for ui_frame.")
+        # logging.info("Recalculating size for ui_frame.")
 
         width = image_width = 0
         height = image_height = 0
@@ -99,10 +100,10 @@ class UIFrame(UIElement):
             width += image_width
             height += image_height
 
-        logging.debug(f"Dimensions for image: ({image_width}, {image_height})")
+        # logging.debug(f"Dimensions for image: ({image_width}, {image_height})")
 
         if font is not None:
-            logging.debug(f"Dimensions for font: ({font.width}, {font.height})")
+            # logging.debug(f"Dimensions for font: ({font.width}, {font.height})")
 
             if text_relative_position is not None:
                 if text_relative_position in (TextRelativePosition.ABOVE_IMAGE, TextRelativePosition.BELOW_IMAGE):
@@ -121,7 +122,7 @@ class UIFrame(UIElement):
                     # no image so take font height
                     height += font.height
 
-        logging.debug(f"Size of gap: {GAP_SIZE}")
+        # logging.debug(f"Size of gap: {GAP_SIZE}")
 
         # respect max height
         if self._max_height is not None:
@@ -131,10 +132,10 @@ class UIFrame(UIElement):
         if self._max_width is not None:
             width = min(width, self._max_width)
 
-        if text_relative_position:
-            logging.debug(f"Recalculated size ({width}, {height}) for ui_frame with {text_relative_position.name}.")
-        else:
-            logging.debug(f"Recalculated size ({width}, {height}) for ui_frame with no text relative position")
+        # if text_relative_position:
+        #     logging.debug(f"Recalculated size ({width}, {height}) for ui_frame with {text_relative_position.name}.")
+        # else:
+        #     logging.debug(f"Recalculated size ({width}, {height}) for ui_frame with no text relative position")
 
         self.size = pygame.Vector2(width, height)
 

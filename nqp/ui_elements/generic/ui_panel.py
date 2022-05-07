@@ -6,13 +6,12 @@ from typing import TYPE_CHECKING
 import pygame
 
 from nqp.base_classes.ui_element import UIElement
-from nqp.core.definitions import UIElementLike
-from nqp.ui_elements.generic.ui_frame import UIFrame
 
 if TYPE_CHECKING:
     from typing import List, Union
 
     from nqp.core.game import Game
+    from nqp.core.definitions import UIElementLike
 
 __all__ = ["UIPanel"]
 
@@ -20,7 +19,6 @@ __all__ = ["UIPanel"]
 class UIPanel:
     """
     A container class for UIElements. Offers support for selection management.
-    Sets no visual elements.
     """
 
     def __init__(self, game: Game, elements: List[UIElementLike], is_active: bool = False):
