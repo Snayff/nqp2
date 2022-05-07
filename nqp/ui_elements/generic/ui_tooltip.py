@@ -4,7 +4,8 @@ from typing import TYPE_CHECKING
 
 import pygame
 
-from nqp.core.constants import WindowType
+from nqp.core.constants import WindowType, FontType
+from nqp.ui_elements.generic.ui_frame import UIFrame
 
 from nqp.ui_elements.generic.ui_window import UIWindow
 
@@ -27,19 +28,59 @@ class UITooltip(UIWindow):
             tooltip_key: str,
     ):
         self._retrieve_content(tooltip_key)
-        self._parse_content()
         self._recalculate_size()
 
         super().__init__(game, window_type, pos, self.size, self._elements, True)
 
 
     def _retrieve_content(self, tooltip_key):
-        pass
+        text = self._game.data.tooltips[tooltip_key]["content"]
+        image_name = self._game.data.tooltips[tooltip_key]["image"]
+        text, keys = self._parse_text(text)
 
-    def _parse_content(self):
-        pass
+        # build frame
+        font = self._game.visual.create_font(FontType.DEFAULT, text)
+        if image_name:
+            image = self._game.visual.get_image(image_name)
+            frame = UIFrame(self._game, self.pos, font, image=image)
+        else:
+            frame = UIFrame(self._game, self.pos, font)
+        self._elements.append(frame)
+
+        # build additional frames
+        if keys:
+            pos = pygame.Vector2(frame.pos.x + frame.width + 1, frame.pos.y)  # +1 for x offset
+            self._build_secondary_tooltips(keys, pos)
+
+    @staticmethod
+    def _parse_text(text: str) -> Tuple[str, List[str]]:
+        """
+        Return text without tags and a list of any keys for secondary tooltips.
+        """
+        # check for secondary tag
+        start_indices = [i for i, char in enumerate(text) if char == "<"]
+        end_indices = [i for i, char in enumerate(text) if char == ">"]
+        secondary_tooltip_keys = []
+
+        # confirm results are as expected
+        if len(start_indices) != 0 and len(start_indices) == len(end_indices):
+
+            # loop indices, remove tags and keep strings in tags for getting secondary tooltips
+            for i, index in enumerate(start_indices):
+                end = end_indices[i]
+                secondary_tooltip_keys.append(text[index:end])
+
+            # remove tags from text
+            text = text.replace("<", "")
+            text = text.replace(">", "")
+
+        return text, secondary_tooltip_keys
+
 
     def _recalculate_size(self):
+        pass
+
+    def _build_secondary_tooltips(self, secondary_tooltip_keys: List[str], pos: pygame.Vector2):
         pass
 
 #

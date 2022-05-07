@@ -1,9 +1,9 @@
 mundane_defence:
-  content: "Resistance to mundane damage."
-  image: "stats/mundane_defence.png"
+  text: "Resistance to mundane damage."
+  image: "mundane_defence.png"
 magic_defence:
-  content: "Resistance to <fire>."
-  image: "stats/magic_defence.png"
+  text: "Resistance to <fire>."
+  image: "magic_defence.png"
 fire:
-  content: "Status effect."
+  text: "Status effect."
   image: null

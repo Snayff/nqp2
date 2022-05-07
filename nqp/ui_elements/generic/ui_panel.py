@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING
 import pygame
 
 from nqp.base_classes.ui_element import UIElement
+from nqp.core.definitions import UIElementLike
 from nqp.ui_elements.generic.ui_frame import UIFrame
 
 if TYPE_CHECKING:
@@ -22,9 +23,9 @@ class UIPanel:
     Sets no visual elements.
     """
 
-    def __init__(self, game: Game, elements: List, is_active: bool = False):
+    def __init__(self, game: Game, elements: List[UIElementLike], is_active: bool = False):
         self._game: Game = game
-        self._elements: List[Union[UIFrame, UIElement]] = elements
+        self._elements: List[UIElementLike] = elements
         self._selected_index: int = 0
         self._is_active: bool = is_active
 
