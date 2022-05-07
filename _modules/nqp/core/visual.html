@@ -423,20 +423,14 @@
         <span class="k">return</span> <span class="n">tileset_data</span>
 
 <div class="viewcode-block" id="Visual.create_animation"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.visual.Visual.create_animation">[docs]</a>    <span class="k">def</span> <span class="nf">create_animation</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span>
-            <span class="n">animation_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-            <span class="n">frame_set_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-            <span class="n">loop</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-            <span class="n">uses_simulation_time</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Animation</span><span class="p">:</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">animation_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">frame_set_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">loop</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">uses_simulation_time</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Animation</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a new animation and add it to the internal update list.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">frames</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_animation_frames</span><span class="p">[</span><span class="n">animation_name</span><span class="p">]</span>
         <span class="n">anim</span> <span class="o">=</span> <span class="n">Animation</span><span class="p">(</span>
-            <span class="n">frames</span><span class="p">,</span>
-            <span class="n">loop</span><span class="o">=</span><span class="n">loop</span><span class="p">,</span>
-            <span class="n">starting_frame_set_name</span><span class="o">=</span><span class="n">frame_set_name</span><span class="p">,</span>
-            <span class="n">uses_simulation_time</span><span class="o">=</span><span class="n">uses_simulation_time</span>
+            <span class="n">frames</span><span class="p">,</span> <span class="n">loop</span><span class="o">=</span><span class="n">loop</span><span class="p">,</span> <span class="n">starting_frame_set_name</span><span class="o">=</span><span class="n">frame_set_name</span><span class="p">,</span> <span class="n">uses_simulation_time</span><span class="o">=</span><span class="n">uses_simulation_time</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_active_animations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">anim</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">anim</span></div>

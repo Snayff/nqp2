@@ -219,15 +219,15 @@
 
 <div class="viewcode-block" id="Projectile"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.projectile.Projectile">[docs]</a><span class="k">class</span> <span class="nc">Projectile</span><span class="p">:</span>
 <div class="viewcode-block" id="Projectile.__init__"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.projectile.Projectile.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span>
-            <span class="n">game</span><span class="p">:</span> <span class="n">Game</span><span class="p">,</span>
-            <span class="n">owner</span><span class="p">:</span> <span class="n">EntityID</span><span class="p">,</span>
-            <span class="n">target</span><span class="p">:</span> <span class="n">EntityID</span><span class="p">,</span>
-            <span class="n">projectile_data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">Image</span><span class="p">,</span> <span class="nb">int</span><span class="p">]],</span>
-            <span class="n">damage</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-            <span class="n">damage_type</span><span class="p">:</span> <span class="n">DamageType</span><span class="p">,</span>
-            <span class="n">penetration</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-            <span class="n">is_crit</span><span class="p">:</span> <span class="nb">bool</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">game</span><span class="p">:</span> <span class="n">Game</span><span class="p">,</span>
+        <span class="n">owner</span><span class="p">:</span> <span class="n">EntityID</span><span class="p">,</span>
+        <span class="n">target</span><span class="p">:</span> <span class="n">EntityID</span><span class="p">,</span>
+        <span class="n">projectile_data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">Image</span><span class="p">,</span> <span class="nb">int</span><span class="p">]],</span>
+        <span class="n">damage</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">damage_type</span><span class="p">:</span> <span class="n">DamageType</span><span class="p">,</span>
+        <span class="n">penetration</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">is_crit</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">:</span> <span class="n">Game</span> <span class="o">=</span> <span class="n">game</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">owner</span><span class="p">:</span> <span class="n">EntityID</span> <span class="o">=</span> <span class="n">owner</span>
@@ -273,8 +273,8 @@
                     <span class="n">other_pos</span> <span class="o">=</span> <span class="n">snecs</span><span class="o">.</span><span class="n">entity_component</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">Position</span><span class="p">)</span>
                     <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">collidepoint</span><span class="p">((</span><span class="n">other_pos</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">other_pos</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">y</span><span class="p">)):</span>
                         <span class="n">snecs</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span>
-                            <span class="n">entity</span><span class="p">,</span>
-                            <span class="n">DamageReceived</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">damage</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">damage_type</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">penetration</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_crit</span><span class="p">))</span>
+                            <span class="n">entity</span><span class="p">,</span> <span class="n">DamageReceived</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">damage</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">damage_type</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">penetration</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_crit</span><span class="p">)</span>
+                        <span class="p">)</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">is_active</span> <span class="o">=</span> <span class="kc">False</span>
                         <span class="k">return</span></div>
 
