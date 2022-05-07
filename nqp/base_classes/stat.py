@@ -1,10 +1,10 @@
 from __future__ import annotations
 
 from abc import ABC
-from typing import TYPE_CHECKING, Callable, Any, Dict
+from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    pass
+    from typing import Any, Callable, Dict
 
 __all__ = ["Stat"]
 
@@ -59,21 +59,3 @@ class Stat(ABC):
 
         """
         del self.modifiers[key]
-
-    # def stat_status(self, name: str):
-    #     """
-    #     Get StatValue object describing stat
-    #
-    #     WIP
-    #
-    #     """
-    #     assert name in Stats.stat_attrs
-    #     base_value = getattr(self, name)
-    #     value = self.get_value(name)
-    #     return StatValue(
-    #         value = value,
-    #         type = None,
-    #         modified=value != base_value,
-    #         layers = [],
-    #         base_value=base_value
-    #     )

@@ -4,7 +4,6 @@ import logging
 from typing import TYPE_CHECKING
 
 import pygame
-import snecs
 
 from nqp.base_classes.scene import Scene
 from nqp.core.audio import Audio
@@ -70,9 +69,6 @@ class Game:
 
             # update state to allow action
             self.state = GameState.PLAYING
-
-            # ECS Worlds
-            self.effects_world = snecs.World("effects")
 
     def _update(self):
         # update delta time first

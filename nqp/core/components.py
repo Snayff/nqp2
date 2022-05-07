@@ -1,7 +1,6 @@
 from __future__ import annotations
 
-import dataclasses
-from typing import TYPE_CHECKING, List, Any
+from typing import TYPE_CHECKING
 
 import pygame
 from snecs import RegisteredComponent
@@ -13,7 +12,7 @@ from nqp.core.constants import EntityFacing, DamageType
 from nqp.world_elements.stats import FloatStat, IntStat
 
 if TYPE_CHECKING:
-    from typing import Tuple
+    from typing import List
 
     from nqp.command.basic_entity_behaviour import BasicEntityBehaviour
 
@@ -30,15 +29,6 @@ __all__ = [
     "IsDead",
     "IsReadyToAttack",
 ]
-
-
-@dataclasses.dataclass
-class StatValue:
-    value: Any
-    type: Any
-    modified: bool
-    layers: List[Any]
-    base_value: Any
 
 
 class Position(RegisteredComponent):
