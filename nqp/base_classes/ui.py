@@ -180,7 +180,8 @@ class UI(ABC):
             selected_element = container.selected_element
             if selected_element.show_tooltip and selected_element.tooltip_key is not None:
                 if "tooltip" not in self._elements:
-                    tooltip = UITooltip(self._game, selected_element.pos, selected_element.tooltip_key)
+                    pos = pygame.Vector2(container.x + container.width + 1, container.y)
+                    tooltip = UITooltip(self._game, pos, selected_element.tooltip_key)
                     self._elements["tooltip"] = tooltip
             else:
                 # delete tooltip

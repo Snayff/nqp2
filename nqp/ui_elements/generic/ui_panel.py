@@ -79,10 +79,13 @@ class UIPanel:
         Selects the first element and sets the rest to previously_selected.
         """
         self.unselect_all_elements()
+
         if len(self._elements) > 0:
-            self._elements[0].is_selected = True
+            self._selected_index = -1
+            self.select_next_element()
+
         else:
-            logging.warning(f"Tried to select first element but no element to select in panel.")
+            logging.warning(f"Panel: Tried to select first element but no element to select in panel.")
 
     def unselect_all_elements(self):
         """
@@ -112,7 +115,7 @@ class UIPanel:
                 self._game.audio.play_sound("standard_click")
 
                 if self.selected_index == starting_index:
-                    logging.debug(f"Panel: Looped all the way back to the starting index. No others selectable.")
+                    logging.warning(f"Panel: Looped all the way back to the starting index. No others selectable.")
 
                 break
 

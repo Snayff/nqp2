@@ -7,7 +7,8 @@ from pygame import SRCALPHA
 
 from nqp.command.unit import Unit
 from nqp.core.components import Stats
-from nqp.core.constants import DEFAULT_IMAGE_SIZE, FontType, GAP_SIZE, StatModifiedStatus, WindowType
+from nqp.core.constants import DEFAULT_IMAGE_SIZE, FontType, GAP_SIZE, StatModifiedStatus, WindowType, \
+    TextRelativePosition
 from nqp.ui_elements.generic.ui_frame import UIFrame
 from nqp.ui_elements.generic.ui_window import UIWindow
 
@@ -33,9 +34,6 @@ class UnitStatsWindow(UIWindow):
 
         self._rebuild_stat_frames()
 
-    def update(self, delta_time: float):
-        pass
-
     def _rebuild_stat_frames(self):
         create_font = self._game.visual.create_font
         create_fancy_font = self._game.visual.create_fancy_font
@@ -57,6 +55,7 @@ class UnitStatsWindow(UIWindow):
             pygame.Vector2(current_x, current_y),
             image=unit_icon,
             font=font,
+            text_relative_position=TextRelativePosition.BELOW_IMAGE,
         )
         self._elements.append(frame)
 

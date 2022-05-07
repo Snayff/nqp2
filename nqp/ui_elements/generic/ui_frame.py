@@ -53,12 +53,14 @@ class UIFrame(UIElement):
         self._rebuild_surface()
 
     def update(self, delta_time: float):
+        super().update(delta_time)
+
         if self.is_active:
             # FancyFont changes each frame so needs redrawing
             if isinstance(self._font, FancyFont):
                 self._font.update(delta_time)
 
-            # N.B. Animation is updates centrally so doesnt need to be updated here
+            # N.B. Animation updates centrally so doesnt need to be updated here
 
     def draw(self, surface: pygame.Surface):
         super().draw(surface)
