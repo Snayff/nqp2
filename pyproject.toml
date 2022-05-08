@@ -22,7 +22,7 @@ sphinx-git = "^11.0.0"
 sphinx-material = "^0.0.35"
 pytest = "^7.1.1"
 karma_sphinx_theme = "^0.0.8"
-
+pre-commit = "^2.19.0"
 
 
 [tool.black]
