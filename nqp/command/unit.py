@@ -9,7 +9,7 @@ import snecs
 from nqp.core.constants import StatModifiedStatus
 
 if TYPE_CHECKING:
-    from typing import List, Tuple
+    from typing import List
 
     from snecs.typedefs import EntityID
 

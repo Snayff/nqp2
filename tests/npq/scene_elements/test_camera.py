@@ -17,12 +17,12 @@ class TestCamera(unittest.TestCase):
 
     def test_zoom_out_size(self):
         c = Camera(pygame.Vector2(100, 100))
-        c.zoom = .5
+        c.zoom = 0.5
         self.assertEqual((150, 150), c.get_size())
 
     def test_zoom_in_size(self):
         c = Camera(pygame.Vector2(100, 100))
-        c.zoom = -.5
+        c.zoom = -0.5
         self.assertEqual((50, 50), c.get_size())
 
     def test_offset_no_zoom(self):
@@ -31,12 +31,12 @@ class TestCamera(unittest.TestCase):
 
     def test_offset_zoom_out(self):
         c = Camera(pygame.Vector2(100, 100))
-        c.zoom = .5
+        c.zoom = 0.5
         self.assertEqual((75, 75), c.render_offset())
 
     def test_offset_zoom_in(self):
         c = Camera(pygame.Vector2(100, 100))
-        c.zoom = -.5
+        c.zoom = -0.5
         self.assertEqual((25, 25), c.render_offset())
 
     def test_bound_no_zoom(self):
@@ -51,7 +51,7 @@ class TestCamera(unittest.TestCase):
 
     def test_bounds_zoom_out(self):
         c = Camera(pygame.Vector2(100, 100))
-        c.zoom = .5
+        c.zoom = 0.5
         x, y, w, h = c.get_rect()
         self.assertEqual(-75, x)
         self.assertEqual(-75, y)
@@ -60,7 +60,7 @@ class TestCamera(unittest.TestCase):
 
     def test_bounds_zoom_in(self):
         c = Camera(pygame.Vector2(100, 100))
-        c.zoom = -.5
+        c.zoom = -0.5
         x, y, w, h = c.get_rect()
         self.assertEqual(-25, x)
         self.assertEqual(-25, y)

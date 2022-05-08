@@ -75,6 +75,7 @@ class Scheduler:
 
         """
         self._time: Callable = time_function
+        self._now: float = 0.0
         self._last_ts: float = 0.0
         self._times = collections.deque(maxlen=10)
         self._scheduled_items: List[ScheduledItem] = list()
@@ -98,7 +99,7 @@ class Scheduler:
             Reference to scheduled item.
 
         """
-        return self._schedule(func, delay, 0.0, False, soft)
+        return self.schedule(func, delay, 0.0, False, soft)
 
     def schedule_interval(
         self,
@@ -110,29 +111,31 @@ class Scheduler:
         """
         Schedule a function to run on an interval.
 
+        NOTE!  If delay==0.0, then the interval will start the next frame,
+        meaning, the callback will happen the next tick, and then follow
+        the interval.  If you want to avoid this, then set delay to the same
+        value as the interval.
+
         Items are rescheduled after they are executed.  That means that
         by default, the interval of items may not be consistent with
         the initial time with was scheduled.
-
-        If the delay is not specified, the function will be executed
-        during the next tick.
 
         If the interval is not specified, the function will be executed
         every time the scheduler is ticked.
 
         Parameters:
             func: Function to be called
-            interval: If repeating, repeat on this interval
-            delay: Delay in time unit until it is called
+            interval: Repeat on this interval
+            delay: Delay in time unit until it is called for first time
             soft: See notes about Soft Scheduling
 
         Returns:
             Reference to scheduled item
 
         """
-        return self._schedule(func, delay, interval, True, soft)
+        return self.schedule(func, delay, interval, True, soft)
 
-    def _schedule(self, func: Callable, delay: float, interval: float, repeat: bool, soft: bool):
+    def schedule(self, func: Callable, delay: float, interval: float, repeat: bool, soft: bool):
         assert delay >= 0.0
         assert interval >= 0.0
         if interval:
@@ -307,6 +310,7 @@ class Scheduler:
             this was the first update.
 
         """
+        time_stamp = float(time_stamp)
         # self._last_ts will be -1 before first time set
         if self._last_ts < 0:
             delta_t = 0.0

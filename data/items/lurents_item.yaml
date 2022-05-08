@@ -2,11 +2,13 @@
 name: Lurent's Signature Item
 is_signature: true
 effects:
-  - name: AttributeModifierEffect
+  - name: StatsEffect
     target: unit
+    unit_type: all
     attribute: health
-    mod_amount: 15%
-  - name: AttributeModifierEffect
+    modifier: 15%
+  - name: StatsEffect
     target: self
+    unit_type: all
     attribute: morale
-    mod_amount: 50%
+    modifier: 50%

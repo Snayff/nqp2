@@ -2,7 +2,7 @@
 name: Thrack's Signature Item
 is_signature: true
 effects:
-  - name: AttributeModifierEffect
+  - name: StatsEffect
     target: unit
     attribute: upgrade_effectiveness
-    mod_amount: 150%
+    modifier: 150%

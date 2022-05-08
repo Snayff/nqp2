@@ -2,14 +2,15 @@ from __future__ import annotations
 
 import logging
 import os
-import time
 from pathlib import Path
 from typing import Any, TYPE_CHECKING, Union
 
+import snecs
 import yaml
 
 from nqp.core.constants import DATA_PATH
 from nqp.core.debug import Timer
+from nqp.world_elements.item import Item
 
 if TYPE_CHECKING:
     from typing import Dict, List
@@ -37,9 +38,9 @@ class Data:
 
     def __init__(self, game: Game):
         with Timer("Data: initialised"):
-
             self._game: Game = game
 
+            self.effects: Dict[str:Any] = {}
             self.commanders: Dict[str, Any] = {}
             self.units: Dict[str, Any] = {}
             self.tiles = {}  # TODO - can we get rid of this?
@@ -61,6 +62,7 @@ class Data:
         """
         Reload all data
         """
+        self.effects = self._load_effects()
         self.commanders = self._load_commanders()
         self.units = self._load_unit_info()
         self.factions = self._create_factions_list()  # must call after units
@@ -241,6 +243,33 @@ class Data:
 
         return items
 
+    @staticmethod
+    def _load_effects() -> Dict[str:Any]:
+        # TODO: replace with autodiscover
+        from nqp.effects.add_item import AddItemEffect
+        from nqp.effects.sildreths_signature import SildrethsSignatureEffect
+        from nqp.effects.stats_effect import StatsEffectSentinel
+
+        effects = {
+            "StatsEffect": StatsEffectSentinel,
+            "AddItemEffect": AddItemEffect,
+            "SildrethsSignatureEffect": SildrethsSignatureEffect,
+        }
+        logging.debug(f"Data: {len(effects)} items loaded.")
+
+        # TODO: replace with autodiscover
+        from nqp.core.effect import EffectProcessorComponent
+        from nqp.effects.burn import OnFireStatusProcessor
+        from nqp.effects.stats_effect import StatsEffectProcessor
+
+        for processor_class in (
+            StatsEffectProcessor,
+            OnFireStatusProcessor,
+        ):
+            snecs.new_entity([EffectProcessorComponent(processor_class())])
+
+        return effects
+
     def get_units_by_category(self, factions: List[str], tiers: List[int] = None) -> List[str]:
         """
         Return list of unit types for all units with a matching faction and tier.
@@ -301,3 +330,33 @@ class Data:
         occur_rate = tier_occur_rates[str(combat_tier)]
 
         return occur_rate
+
+    def create_effect(self, data: Dict[str, Any], params: Dict[str:Any]):
+        """
+        Return Effect from data found in data files
+
+        """
+        name = data.pop("name")
+        effect_class = self.effects[name]
+        return effect_class.from_dict(data, params)
+
+    def create_item(self, name: str):
+        """
+        Return Item by name
+
+        Args:
+            name: Short name, same as the item filename without extension
+
+        Returns:
+            New Item entity id
+
+        """
+        item_data = self.items[name]
+        item = Item(
+            name=item_data.name,
+            is_signature=item_data.is_signature,
+        )
+        effects = [self.create_effect(data, item) for data in item_data.effects]
+        components = [item] + effects
+        entity = snecs.new_entity(components)
+        return entity

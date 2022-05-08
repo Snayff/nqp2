@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 from snecs import Query
 
 from nqp.core.components import Aesthetic, AI, DamageReceived, IsDead, IsReadyToAttack, Position, Resources, Stats
+from nqp.core.effect import EffectProcessorComponent
 
 if TYPE_CHECKING:
     from typing import Dict, Iterator, List, Optional, Tuple, Union
@@ -52,3 +53,5 @@ position_stats_ai_aesthetic_not_dead: Iterator[Tuple[EntityID, Tuple[Position, S
 attack_position_stats_ai_aesthetic_not_dead: Iterator[
     Tuple[EntityID, Tuple[IsReadyToAttack, Position, Stats, AI, Aesthetic]]
 ] = (Query([IsReadyToAttack, Position, Stats, AI, Aesthetic]).filter(~IsDead).compile())
+
+effects_processors: Iterator[Tuple[EntityID, Tuple[EffectProcessorComponent]]] = Query([EffectProcessorComponent])

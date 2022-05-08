@@ -1,4 +1,3 @@
-
 ##########################################################################################
 # Use pngcrush to fix the  "libpng warning: iCCP: known incorrect sRGB profile" error
 # on all .png images in folders within specified folder
@@ -25,6 +24,6 @@ for dirpath, subdirs, files in os.walk(path):
 file = r"C:\Users\Gabriel\Downloads\pngcrush_1_8_11_w64.exe"  # pngcrush file
 
 for name in png_files:
-    #cmd = r'{} -ow -rem allb -reduce {}'.format(file, name)  # png crush
+    # cmd = r'{} -ow -rem allb -reduce {}'.format(file, name)  # png crush
     cmd = f"magick mogrify -strip {name}"  # image magick
     os.system(cmd)

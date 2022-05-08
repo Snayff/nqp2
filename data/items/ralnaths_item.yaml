@@ -2,11 +2,11 @@
 name: Ralnath's Signature Item
 is_signature: true
 effects:
-  - name: AttributeModifierEffect
+  - name: StatsEffect
     target: game
     attribute: event_chance
-    mod_amount: 15%
-  - name: AttributeModifierEffect
+    modifier: 15%
+  - name: StatsEffect
     target: game
     attribute: max_events_per_level
-    mod_amount: +10
+    modifier: +10

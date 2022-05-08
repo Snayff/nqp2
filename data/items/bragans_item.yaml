@@ -2,10 +2,11 @@
 name: Bragan's Signature Item
 is_signature: true
 effects:
-  - name: AttributeModifierEffect
+  - name: StatsEffect
+    target: team
     unit_type: all
     attribute: upgrade_effectiveness
-    mod_amount: 20%
+    modifier: 20%
   - name: AddItemEffect
     item_type: gold
     item_count: 1000

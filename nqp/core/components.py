@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import List, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 import pygame
 from snecs import RegisteredComponent
@@ -12,7 +12,7 @@ from nqp.core.constants import DamageType, EntityFacing
 from nqp.world_elements.stats import FloatStat, IntStat
 
 if TYPE_CHECKING:
-    from typing import Tuple
+    from typing import List
 
     from nqp.command.basic_entity_behaviour import BasicEntityBehaviour
 
