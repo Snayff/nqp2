@@ -21,4 +21,4 @@ class Commander:
 
         data = self._game.data.commanders[type_]
         self.name: str = data["name"]
-        # self.items: List[Item] = [create_item(game.data, name) for name in data["items"]]
+        self.items: List[Item] = [game.data.create_item(name) for name in data["items"]]
