@@ -213,6 +213,7 @@
  | <a href="#N"><strong>N</strong></a>
  | <a href="#O"><strong>O</strong></a>
  | <a href="#P"><strong>P</strong></a>
+ | <a href="#Q"><strong>Q</strong></a>
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
@@ -242,8 +243,6 @@
 </li>
         <li><a href="nqp.core.html#nqp.core.assets.Assets.__init__">(Assets method)</a>
 </li>
-        <li><a href="api/effects/attribute_modifier.html#nqp.effects.attribute_modifier.AttributeModifierEffect.__init__">(AttributeModifierEffect method)</a>, <a href="nqp.effects.html#nqp.effects.attribute_modifier.AttributeModifierEffect.__init__">[1]</a>
-</li>
         <li><a href="api/core/audio.html#nqp.core.audio.Audio.__init__">(Audio method)</a>, <a href="nqp.core.html#nqp.core.audio.Audio.__init__">[1]</a>
 </li>
         <li><a href="api/command/basic_entity_behaviour.html#nqp.command.basic_entity_behaviour.BasicEntityBehaviour.__init__">(BasicEntityBehaviour method)</a>, <a href="nqp.command.html#nqp.command.basic_entity_behaviour.BasicEntityBehaviour.__init__">[1]</a>
@@ -269,6 +268,8 @@
         <li><a href="api/core/debug.html#nqp.core.debug.Debugger.__init__">(Debugger method)</a>, <a href="nqp.core.html#nqp.core.debug.Debugger.__init__">[1]</a>
 </li>
         <li><a href="api/ui_elements/tailored.html#nqp.ui_elements.tailored.dev_console.DevConsole.__init__">(DevConsole method)</a>, <a href="nqp.ui_elements.tailored.html#nqp.ui_elements.tailored.dev_console.DevConsole.__init__">[1]</a>
+</li>
+        <li><a href="api/core/effect.html#nqp.core.effect.EffectProcessorComponent.__init__">(EffectProcessorComponent method)</a>, <a href="nqp.core.html#nqp.core.effect.EffectProcessorComponent.__init__">[1]</a>
 </li>
         <li><a href="api/base_classes/entity_behaviour.html#nqp.base_classes.entity_behaviour.EntityBehaviour.__init__">(EntityBehaviour method)</a>, <a href="nqp.base_classes.html#nqp.base_classes.entity_behaviour.EntityBehaviour.__init__">[1]</a>
 </li>
@@ -300,6 +301,8 @@
 </li>
         <li><a href="api/core/memory.html#nqp.core.memory.Memory.__init__">(Memory method)</a>, <a href="nqp.core.html#nqp.core.memory.Memory.__init__">[1]</a>
 </li>
+        <li><a href="nqp.effects.html#nqp.effects.burn.OnFireStatusEffect.__init__">(OnFireStatusEffect method)</a>
+</li>
         <li><a href="api/world_elements/particle.html#nqp.world_elements.particle.Particle.__init__">(Particle method)</a>, <a href="nqp.world_elements.html#nqp.world_elements.particle.Particle.__init__">[1]</a>
 </li>
         <li><a href="api/world_elements/particle_manager.html#nqp.world_elements.particle_manager.ParticleManager.__init__">(ParticleManager method)</a>, <a href="nqp.world_elements.html#nqp.world_elements.particle_manager.ParticleManager.__init__">[1]</a>
@@ -329,6 +332,10 @@
         <li><a href="api/base_classes/stat.html#nqp.base_classes.stat.Stat.__init__">(Stat method)</a>, <a href="nqp.base_classes.html#nqp.base_classes.stat.Stat.__init__">[1]</a>
 </li>
         <li><a href="api/core/components.html#nqp.core.components.Stats.__init__">(Stats method)</a>, <a href="nqp.core.html#nqp.core.components.Stats.__init__">[1]</a>
+</li>
+        <li><a href="nqp.effects.html#nqp.effects.stats_effect.StatsEffect.__init__">(StatsEffect method)</a>
+</li>
+        <li><a href="nqp.effects.html#nqp.effects.stats_effect.StatsEffectSentinel.__init__">(StatsEffectSentinel method)</a>
 </li>
         <li><a href="api/topography/tile.html#nqp.topography.tile.Tile.__init__">(Tile method)</a>, <a href="nqp.topography.html#nqp.topography.tile.Tile.__init__">[1]</a>
 </li>
@@ -397,6 +404,8 @@
 </li>
       <li><a href="api/effects/add_item.html#nqp.effects.add_item.AddItemEffect">AddItemEffect (class in nqp.effects.add_item)</a>, <a href="nqp.effects.html#nqp.effects.add_item.AddItemEffect">[1]</a>
 </li>
+      <li><a href="api/effects/add_item.html#nqp.effects.add_item.AddItemEffectProcessor">AddItemEffectProcessor (class in nqp.effects.add_item)</a>, <a href="nqp.effects.html#nqp.effects.add_item.AddItemEffectProcessor">[1]</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core/components.html#nqp.core.components.Aesthetic">Aesthetic (class in nqp.core.components)</a>, <a href="nqp.core.html#nqp.core.components.Aesthetic">[1]</a>
@@ -415,9 +424,11 @@
 </li>
       <li><a href="nqp.core.html#nqp.core.systems.apply_damage">apply_damage() (in module nqp.core.systems)</a>
 </li>
-      <li><a href="nqp.core.html#nqp.core.assets.Assets">Assets (class in nqp.core.assets)</a>
+      <li><a href="nqp.effects.html#nqp.effects.stats_effect.apply_effects">apply_effects() (in module nqp.effects.stats_effect)</a>
 </li>
-      <li><a href="api/effects/attribute_modifier.html#nqp.effects.attribute_modifier.AttributeModifierEffect">AttributeModifierEffect (class in nqp.effects.attribute_modifier)</a>, <a href="nqp.effects.html#nqp.effects.attribute_modifier.AttributeModifierEffect">[1]</a>
+      <li><a href="api/base_classes/stat.html#nqp.base_classes.stat.Stat.apply_modifier">apply_modifier() (Stat method)</a>, <a href="nqp.base_classes.html#nqp.base_classes.stat.Stat.apply_modifier">[1]</a>
+</li>
+      <li><a href="nqp.core.html#nqp.core.assets.Assets">Assets (class in nqp.core.assets)</a>
 </li>
       <li><a href="api/core/audio.html#nqp.core.audio.Audio">Audio (class in nqp.core.audio)</a>, <a href="nqp.core.html#nqp.core.audio.Audio">[1]</a>
 </li>
@@ -429,6 +440,8 @@
 <h2 id="B">B</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/base_classes/stat.html#nqp.base_classes.stat.Stat.base_value">base_value (Stat property)</a>, <a href="nqp.base_classes.html#nqp.base_classes.stat.Stat.base_value">[1]</a>
+</li>
       <li><a href="api/core/constants.html#nqp.core.constants.WindowType.BASIC">BASIC (WindowType attribute)</a>, <a href="nqp.core.html#nqp.core.constants.WindowType.BASIC">[1]</a>
 </li>
       <li><a href="api/command/basic_entity_behaviour.html#nqp.command.basic_entity_behaviour.BasicEntityBehaviour">BasicEntityBehaviour (class in nqp.command.basic_entity_behaviour)</a>, <a href="nqp.command.html#nqp.command.basic_entity_behaviour.BasicEntityBehaviour">[1]</a>
@@ -446,6 +459,8 @@
       <li><a href="api/core/constants.html#nqp.core.constants.Colour.BLUE">BLUE (Colour attribute)</a>, <a href="nqp.core.html#nqp.core.constants.Colour.BLUE">[1]</a>
 </li>
       <li><a href="api/core/constants.html#nqp.core.constants.PostCombatState.BOSS_VICTORY">BOSS_VICTORY (PostCombatState attribute)</a>, <a href="nqp.core.html#nqp.core.constants.PostCombatState.BOSS_VICTORY">[1]</a>
+</li>
+      <li><a href="nqp.effects.html#nqp.effects.burn.OnFireStatusProcessor.burning">burning (OnFireStatusProcessor attribute)</a>
 </li>
       <li><a href="api/core/input.html#nqp.core.input.ControllerConfig.buttons">buttons (ControllerConfig attribute)</a>, <a href="nqp.core.html#nqp.core.input.ControllerConfig.buttons">[1]</a>
 </li>
@@ -519,6 +534,8 @@
 </li>
       <li><a href="nqp.core.html#nqp.core.visual.Visual.create_animation">create_animation() (Visual method)</a>
 </li>
+      <li><a href="api/core/data.html#nqp.core.data.Data.create_effect">create_effect() (Data method)</a>, <a href="nqp.core.html#nqp.core.data.Data.create_effect">[1]</a>
+</li>
       <li><a href="nqp.core.html#nqp.core.assets.Assets.create_fancy_font">create_fancy_font() (Assets method)</a>
 
       <ul>
@@ -531,7 +548,7 @@
         <li><a href="nqp.core.html#nqp.core.visual.Visual.create_font">(Visual method)</a>
 </li>
       </ul></li>
-      <li><a href="api/world_elements/item.html#nqp.world_elements.item.create_item">create_item() (in module nqp.world_elements.item)</a>, <a href="nqp.world_elements.html#nqp.world_elements.item.create_item">[1]</a>
+      <li><a href="api/core/data.html#nqp.core.data.Data.create_item">create_item() (Data method)</a>, <a href="nqp.core.html#nqp.core.data.Data.create_item">[1]</a>
 </li>
       <li><a href="api/world_elements/particle_manager.html#nqp.world_elements.particle_manager.ParticleManager.create_particle_burst">create_particle_burst() (ParticleManager method)</a>, <a href="nqp.world_elements.html#nqp.world_elements.particle_manager.ParticleManager.create_particle_burst">[1]</a>
 </li>
@@ -667,7 +684,9 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core/constants.html#nqp.core.constants.GamepadButton.EAST">EAST (GamepadButton attribute)</a>, <a href="nqp.core.html#nqp.core.constants.GamepadButton.EAST">[1]</a>
 </li>
-      <li><a href="api/core/effect.html#nqp.core.effect.Effect">Effect (class in nqp.core.effect)</a>, <a href="nqp.core.html#nqp.core.effect.Effect">[1]</a>
+      <li><a href="api/core/effect.html#nqp.core.effect.EffectProcessor">EffectProcessor (class in nqp.core.effect)</a>, <a href="nqp.core.html#nqp.core.effect.EffectProcessor">[1]</a>
+</li>
+      <li><a href="api/core/effect.html#nqp.core.effect.EffectProcessorComponent">EffectProcessorComponent (class in nqp.core.effect)</a>, <a href="nqp.core.html#nqp.core.effect.EffectProcessorComponent">[1]</a>
 </li>
       <li><a href="api/world_elements/item.html#nqp.world_elements.item.ItemData.effects">effects (ItemData attribute)</a>, <a href="nqp.world_elements.html#nqp.world_elements.item.ItemData.effects">[1]</a>
 </li>
@@ -675,10 +694,10 @@
 </li>
       <li><a href="api/world/controllers.html#nqp.world.controllers.combat_controller.CombatController.end_combat">end_combat() (CombatController method)</a>, <a href="nqp.world.controllers.html#nqp.world.controllers.combat_controller.CombatController.end_combat">[1]</a>
 </li>
-      <li><a href="api/command/troupe.html#nqp.command.troupe.Troupe.entities">entities (Troupe property)</a>, <a href="nqp.command.html#nqp.command.troupe.Troupe.entities">[1]</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/command/troupe.html#nqp.command.troupe.Troupe.entities">entities (Troupe property)</a>, <a href="nqp.command.html#nqp.command.troupe.Troupe.entities">[1]</a>
+</li>
       <li><a href="api/base_classes/entity_behaviour.html#nqp.base_classes.entity_behaviour.EntityBehaviour">EntityBehaviour (class in nqp.base_classes.entity_behaviour)</a>, <a href="nqp.base_classes.html#nqp.base_classes.entity_behaviour.EntityBehaviour">[1]</a>
 </li>
       <li><a href="api/core/constants.html#nqp.core.constants.EntityFacing">EntityFacing (class in nqp.core.constants)</a>, <a href="nqp.core.html#nqp.core.constants.EntityFacing">[1]</a>
@@ -731,8 +750,12 @@
 </li>
       <li><a href="api/core/constants.html#nqp.core.constants.FontType">FontType (class in nqp.core.constants)</a>, <a href="nqp.core.html#nqp.core.constants.FontType">[1]</a>
 </li>
-      <li><a href="api/core/effect.html#nqp.core.effect.Effect.from_dict">from_dict() (Effect class method)</a>, <a href="nqp.core.html#nqp.core.effect.Effect.from_dict">[1]</a>
+      <li><a href="api/effects/add_item.html#nqp.effects.add_item.AddItemEffect.from_dict">from_dict() (AddItemEffect class method)</a>, <a href="nqp.effects.html#nqp.effects.add_item.AddItemEffect.from_dict">[1]</a>
+
+      <ul>
+        <li><a href="nqp.effects.html#nqp.effects.stats_effect.StatsEffectSentinel.from_dict">(StatsEffectSentinel class method)</a>
 </li>
+      </ul></li>
       <li><a href="api/core/scheduler.html#nqp.core.scheduler.ScheduledItem.func">func (ScheduledItem attribute)</a>, <a href="nqp.core.html#nqp.core.scheduler.ScheduledItem.func">[1]</a>
 </li>
   </ul></td>
@@ -789,17 +812,19 @@
 </li>
       <li><a href="api/core/scheduler.html#nqp.core.scheduler.Scheduler.get_idle_time">get_idle_time() (Scheduler method)</a>, <a href="nqp.core.html#nqp.core.scheduler.Scheduler.get_idle_time">[1]</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="nqp.core.html#nqp.core.assets.Assets.get_image">get_image() (Assets method)</a>
 
       <ul>
         <li><a href="nqp.core.html#nqp.core.visual.Visual.get_image">(Visual method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core/scheduler.html#nqp.core.scheduler.Scheduler.get_interval">get_interval() (Scheduler method)</a>, <a href="nqp.core.html#nqp.core.scheduler.Scheduler.get_interval">[1]</a>
 </li>
       <li><a href="api/command/unit.html#nqp.command.unit.Unit.get_modified_status">get_modified_status() (Unit method)</a>, <a href="nqp.command.html#nqp.command.unit.Unit.get_modified_status">[1]</a>
+</li>
+      <li><a href="nqp.effects.html#nqp.effects.stats_effect.get_modifier">get_modifier() (in module nqp.effects.stats_effect)</a>
 </li>
       <li><a href="api/world/controllers.html#nqp.world.controllers.event_controller.EventController.get_random_event">get_random_event() (EventController method)</a>, <a href="nqp.world.controllers.html#nqp.world.controllers.event_controller.EventController.get_random_event">[1]</a>
 </li>
@@ -847,6 +872,8 @@
 <h2 id="H">H</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/base_classes/stat.html#nqp.base_classes.stat.Stat.has_modifier">has_modifier() (Stat method)</a>, <a href="nqp.base_classes.html#nqp.base_classes.stat.Stat.has_modifier">[1]</a>
+</li>
       <li><a href="api/core/input.html#nqp.core.input.ControllerConfig.hat">hat (ControllerConfig attribute)</a>, <a href="nqp.core.html#nqp.core.input.ControllerConfig.hat">[1]</a>
 </li>
       <li><a href="api/base_classes/animation.html#nqp.base_classes.animation.Animation.height">height (Animation property)</a>, <a href="nqp.base_classes.html#nqp.base_classes.animation.Animation.height">[1]</a>
@@ -989,8 +1016,6 @@
 </li>
       <li><a href="api/core/data.html#nqp.core.data.Data.load_all_data">load_all_data() (Data method)</a>, <a href="nqp.core.html#nqp.core.data.Data.load_all_data">[1]</a>
 </li>
-      <li><a href="api/core/effect.html#nqp.core.effect.load_effect">load_effect() (in module nqp.core.effect)</a>, <a href="nqp.core.html#nqp.core.effect.load_effect">[1]</a>
-</li>
       <li><a href="api/world/controllers.html#nqp.world.controllers.event_controller.EventController.load_event">load_event() (EventController method)</a>, <a href="nqp.world.controllers.html#nqp.world.controllers.event_controller.EventController.load_event">[1]</a>
 </li>
       <li><a href="nqp.core.html#nqp.core.assets.Assets.load_image_dir">load_image_dir() (Assets method)</a>
@@ -1018,6 +1043,8 @@
       <li><a href="api/core/constants.html#nqp.core.constants.SceneType.MAIN_MENU">MAIN_MENU (SceneType attribute)</a>, <a href="nqp.core.html#nqp.core.constants.SceneType.MAIN_MENU">[1]</a>
 </li>
       <li><a href="api/core/constants.html#nqp.core.constants.ColourPalette.MAIN_MID">MAIN_MID (ColourPalette attribute)</a>, <a href="nqp.core.html#nqp.core.constants.ColourPalette.MAIN_MID">[1]</a>
+</li>
+      <li><a href="nqp.effects.html#nqp.effects.stats_effect.StatsEffectSentinel.maybe_apply">maybe_apply() (StatsEffectSentinel method)</a>
 </li>
       <li><a href="api/core/memory.html#nqp.core.memory.Memory">Memory (class in nqp.core.memory)</a>, <a href="nqp.core.html#nqp.core.memory.Memory">[1]</a>
 </li>
@@ -1091,9 +1118,11 @@
 </li>
         <li><a href="api/effects/add_item.html#module-nqp.effects.add_item">nqp.effects.add_item</a>, <a href="nqp.effects.html#module-nqp.effects.add_item">[1]</a>
 </li>
-        <li><a href="api/effects/attribute_modifier.html#module-nqp.effects.attribute_modifier">nqp.effects.attribute_modifier</a>, <a href="nqp.effects.html#module-nqp.effects.attribute_modifier">[1]</a>
+        <li><a href="nqp.effects.html#module-nqp.effects.burn">nqp.effects.burn</a>
 </li>
         <li><a href="api/effects/sildreths_signature.html#module-nqp.effects.sildreths_signature">nqp.effects.sildreths_signature</a>, <a href="nqp.effects.html#module-nqp.effects.sildreths_signature">[1]</a>
+</li>
+        <li><a href="nqp.effects.html#module-nqp.effects.stats_effect">nqp.effects.stats_effect</a>
 </li>
         <li><a href="nqp.scenes.html#module-nqp.scenes">nqp.scenes</a>
 </li>
@@ -1204,6 +1233,8 @@
         <li><a href="api/core/constants.html#nqp.core.constants.StatModifiedStatus.NEGATIVE">(StatModifiedStatus attribute)</a>, <a href="nqp.core.html#nqp.core.constants.StatModifiedStatus.NEGATIVE">[1]</a>
 </li>
       </ul></li>
+      <li><a href="nqp.effects.html#nqp.effects.stats_effect.new_stats_effect">new_stats_effect() (in module nqp.effects.stats_effect)</a>
+</li>
       <li><a href="api/core/utility.html#nqp.core.utility.next_number_in_loop">next_number_in_loop() (in module nqp.core.utility)</a>, <a href="nqp.core.html#nqp.core.utility.next_number_in_loop">[1]</a>
 </li>
       <li><a href="api/core/scheduler.html#nqp.core.scheduler.ScheduledItem.next_ts">next_ts (ScheduledItem attribute)</a>, <a href="nqp.core.html#nqp.core.scheduler.ScheduledItem.next_ts">[1]</a>
@@ -1452,10 +1483,10 @@
 </li>
       </ul></li>
       <li>
-    nqp.effects.attribute_modifier
+    nqp.effects.burn
 
       <ul>
-        <li><a href="api/effects/attribute_modifier.html#module-nqp.effects.attribute_modifier">module</a>, <a href="nqp.effects.html#module-nqp.effects.attribute_modifier">[1]</a>
+        <li><a href="nqp.effects.html#module-nqp.effects.burn">module</a>
 </li>
       </ul></li>
       <li>
@@ -1463,6 +1494,13 @@
 
       <ul>
         <li><a href="api/effects/sildreths_signature.html#module-nqp.effects.sildreths_signature">module</a>, <a href="nqp.effects.html#module-nqp.effects.sildreths_signature">[1]</a>
+</li>
+      </ul></li>
+      <li>
+    nqp.effects.stats_effect
+
+      <ul>
+        <li><a href="nqp.effects.html#module-nqp.effects.stats_effect">module</a>
 </li>
       </ul></li>
       <li>
@@ -1771,6 +1809,14 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core/utility.html#nqp.core.utility.offset">offset() (in module nqp.core.utility)</a>, <a href="nqp.core.html#nqp.core.utility.offset">[1]</a>
 </li>
+      <li><a href="nqp.effects.html#nqp.effects.burn.OnFireStatusEffect">OnFireStatusEffect (class in nqp.effects.burn)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="nqp.effects.html#nqp.effects.burn.OnFireStatusProcessor">OnFireStatusProcessor (class in nqp.effects.burn)</a>
+</li>
+      <li><a href="api/base_classes/stat.html#nqp.base_classes.stat.Stat.override">override() (Stat method)</a>, <a href="nqp.base_classes.html#nqp.base_classes.stat.Stat.override">[1]</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -1788,6 +1834,8 @@
       <li><a href="api/ui_elements/generic.html#nqp.ui_elements.generic.ui_frame.UIFrame.pause_animation">pause_animation() (UIFrame method)</a>, <a href="nqp.ui_elements.generic.html#nqp.ui_elements.generic.ui_frame.UIFrame.pause_animation">[1]</a>
 </li>
       <li><a href="api/core/constants.html#nqp.core.constants.AnimationState.PAUSED">PAUSED (AnimationState attribute)</a>, <a href="nqp.core.html#nqp.core.constants.AnimationState.PAUSED">[1]</a>
+</li>
+      <li><a href="api/core/utility.html#nqp.core.utility.percent_to_float">percent_to_float() (in module nqp.core.utility)</a>, <a href="nqp.core.html#nqp.core.utility.percent_to_float">[1]</a>
 </li>
       <li><a href="api/core/debug.html#nqp.core.debug.Debugger.performance_test">performance_test() (Debugger static method)</a>, <a href="nqp.core.html#nqp.core.debug.Debugger.performance_test">[1]</a>
 </li>
@@ -1852,6 +1900,14 @@
   </ul></td>
 </tr></table>
 
+<h2 id="Q">Q</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/effects/add_item.html#nqp.effects.add_item.AddItemEffectProcessor.queued_items">queued_items (AddItemEffectProcessor attribute)</a>, <a href="nqp.effects.html#nqp.effects.add_item.AddItemEffectProcessor.queued_items">[1]</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -1872,6 +1928,8 @@
       <li><a href="api/command/troupe.html#nqp.command.troupe.Troupe.remove_all_units">remove_all_units() (Troupe method)</a>, <a href="nqp.command.html#nqp.command.troupe.Troupe.remove_all_units">[1]</a>
 </li>
       <li><a href="api/core/memory.html#nqp.core.memory.Memory.remove_flag">remove_flag() (Memory method)</a>, <a href="nqp.core.html#nqp.core.memory.Memory.remove_flag">[1]</a>
+</li>
+      <li><a href="api/base_classes/stat.html#nqp.base_classes.stat.Stat.remove_modifier">remove_modifier() (Stat method)</a>, <a href="nqp.base_classes.html#nqp.base_classes.stat.Stat.remove_modifier">[1]</a>
 </li>
       <li><a href="api/command/troupe.html#nqp.command.troupe.Troupe.remove_unit">remove_unit() (Troupe method)</a>, <a href="nqp.command.html#nqp.command.troupe.Troupe.remove_unit">[1]</a>
 </li>
@@ -1953,6 +2011,8 @@
 </li>
       <li><a href="api/core/constants.html#nqp.core.constants.SceneType">SceneType (class in nqp.core.constants)</a>, <a href="nqp.core.html#nqp.core.constants.SceneType">[1]</a>
 </li>
+      <li><a href="api/core/scheduler.html#nqp.core.scheduler.Scheduler.schedule">schedule() (Scheduler method)</a>, <a href="nqp.core.html#nqp.core.scheduler.Scheduler.schedule">[1]</a>
+</li>
       <li><a href="api/core/scheduler.html#nqp.core.scheduler.Scheduler.schedule_interval">schedule_interval() (Scheduler method)</a>, <a href="nqp.core.html#nqp.core.scheduler.Scheduler.schedule_interval">[1]</a>
 </li>
       <li><a href="api/core/scheduler.html#nqp.core.scheduler.Scheduler.schedule_once">schedule_once() (Scheduler method)</a>, <a href="nqp.core.html#nqp.core.scheduler.Scheduler.schedule_once">[1]</a>
@@ -2006,17 +2066,15 @@
       <ul>
         <li><a href="api/world_elements/stats.html#nqp.world_elements.stats.IntStat.set_base_value">(IntStat method)</a>, <a href="nqp.world_elements.html#nqp.world_elements.stats.IntStat.set_base_value">[1]</a>
 </li>
-        <li><a href="api/base_classes/stat.html#nqp.base_classes.stat.Stat.set_base_value">(Stat method)</a>, <a href="nqp.base_classes.html#nqp.base_classes.stat.Stat.set_base_value">[1]</a>
-</li>
       </ul></li>
       <li><a href="api/base_classes/animation.html#nqp.base_classes.animation.Animation.set_current_frame_set_name">set_current_frame_set_name() (Animation method)</a>, <a href="nqp.base_classes.html#nqp.base_classes.animation.Animation.set_current_frame_set_name">[1]</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/command/troupe.html#nqp.command.troupe.Troupe.set_force_idle">set_force_idle() (Troupe method)</a>, <a href="nqp.command.html#nqp.command.troupe.Troupe.set_force_idle">[1]</a>
 </li>
       <li><a href="api/core/memory.html#nqp.core.memory.Memory.set_game_speed">set_game_speed() (Memory method)</a>, <a href="nqp.core.html#nqp.core.memory.Memory.set_game_speed">[1]</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/command/unit.html#nqp.command.unit.Unit.set_position">set_position() (Unit method)</a>, <a href="nqp.command.html#nqp.command.unit.Unit.set_position">[1]</a>
 </li>
       <li><a href="api/core/rng.html#nqp.core.rng.RNG.set_seed">set_seed() (RNG method)</a>, <a href="nqp.core.html#nqp.core.rng.RNG.set_seed">[1]</a>
@@ -2060,6 +2118,12 @@
       <li><a href="api/core/constants.html#nqp.core.constants.StatModifiedStatus">StatModifiedStatus (class in nqp.core.constants)</a>, <a href="nqp.core.html#nqp.core.constants.StatModifiedStatus">[1]</a>
 </li>
       <li><a href="api/core/components.html#nqp.core.components.Stats">Stats (class in nqp.core.components)</a>, <a href="nqp.core.html#nqp.core.components.Stats">[1]</a>
+</li>
+      <li><a href="nqp.effects.html#nqp.effects.stats_effect.StatsEffect">StatsEffect (class in nqp.effects.stats_effect)</a>
+</li>
+      <li><a href="nqp.effects.html#nqp.effects.stats_effect.StatsEffectProcessor">StatsEffectProcessor (class in nqp.effects.stats_effect)</a>
+</li>
+      <li><a href="nqp.effects.html#nqp.effects.stats_effect.StatsEffectSentinel">StatsEffectSentinel (class in nqp.effects.stats_effect)</a>
 </li>
       <li><a href="api/base_classes/animation.html#nqp.base_classes.animation.Animation.stop">stop() (Animation method)</a>, <a href="nqp.base_classes.html#nqp.base_classes.animation.Animation.stop">[1]</a>
 </li>
@@ -2153,9 +2217,11 @@
         <li><a href="api/core/constants.html#nqp.core.constants.GamepadButton.UP">(GamepadButton attribute)</a>, <a href="nqp.core.html#nqp.core.constants.GamepadButton.UP">[1]</a>
 </li>
       </ul></li>
-      <li><a href="api/base_classes/animation.html#nqp.base_classes.animation.Animation.update">update() (Animation method)</a>, <a href="nqp.base_classes.html#nqp.base_classes.animation.Animation.update">[1]</a>
+      <li><a href="api/effects/add_item.html#nqp.effects.add_item.AddItemEffectProcessor.update">update() (AddItemEffectProcessor method)</a>, <a href="nqp.effects.html#nqp.effects.add_item.AddItemEffectProcessor.update">[1]</a>
 
       <ul>
+        <li><a href="api/base_classes/animation.html#nqp.base_classes.animation.Animation.update">(Animation method)</a>, <a href="nqp.base_classes.html#nqp.base_classes.animation.Animation.update">[1]</a>
+</li>
         <li><a href="api/core/audio.html#nqp.core.audio.Audio.update">(Audio method)</a>, <a href="nqp.core.html#nqp.core.audio.Audio.update">[1]</a>
 </li>
         <li><a href="api/command/basic_entity_behaviour.html#nqp.command.basic_entity_behaviour.BasicEntityBehaviour.update">(BasicEntityBehaviour method)</a>, <a href="nqp.command.html#nqp.command.basic_entity_behaviour.BasicEntityBehaviour.update">[1]</a>
@@ -2174,6 +2240,8 @@
 </li>
         <li><a href="api/ui_elements/tailored.html#nqp.ui_elements.tailored.dev_console.DevConsole.update">(DevConsole method)</a>, <a href="nqp.ui_elements.tailored.html#nqp.ui_elements.tailored.dev_console.DevConsole.update">[1]</a>
 </li>
+        <li><a href="api/core/effect.html#nqp.core.effect.EffectProcessor.update">(EffectProcessor method)</a>, <a href="nqp.core.html#nqp.core.effect.EffectProcessor.update">[1]</a>
+</li>
         <li><a href="api/base_classes/entity_behaviour.html#nqp.base_classes.entity_behaviour.EntityBehaviour.update">(EntityBehaviour method)</a>, <a href="nqp.base_classes.html#nqp.base_classes.entity_behaviour.EntityBehaviour.update">[1]</a>
 </li>
         <li><a href="api/world/controllers.html#nqp.world.controllers.event_controller.EventController.update">(EventController method)</a>, <a href="nqp.world.controllers.html#nqp.world.controllers.event_controller.EventController.update">[1]</a>
@@ -2184,6 +2252,8 @@
 </li>
         <li><a href="api/core/input.html#nqp.core.input.Input.update">(Input method)</a>, <a href="nqp.core.html#nqp.core.input.Input.update">[1]</a>
 </li>
+        <li><a href="nqp.effects.html#nqp.effects.burn.OnFireStatusProcessor.update">(OnFireStatusProcessor method)</a>
+</li>
         <li><a href="api/world_elements/particle.html#nqp.world_elements.particle.Particle.update">(Particle method)</a>, <a href="nqp.world_elements.html#nqp.world_elements.particle.Particle.update">[1]</a>
 </li>
         <li><a href="api/world_elements/particle_manager.html#nqp.world_elements.particle_manager.ParticleManager.update">(ParticleManager method)</a>, <a href="nqp.world_elements.html#nqp.world_elements.particle_manager.ParticleManager.update">[1]</a>
@@ -2193,6 +2263,8 @@
         <li><a href="api/world_elements/projectile.html#nqp.world_elements.projectile.Projectile.update">(Projectile method)</a>, <a href="nqp.world_elements.html#nqp.world_elements.projectile.Projectile.update">[1]</a>
 </li>
         <li><a href="api/world_elements/projectile_manager.html#nqp.world_elements.projectile_manager.ProjectileManager.update">(ProjectileManager method)</a>, <a href="nqp.world_elements.html#nqp.world_elements.projectile_manager.ProjectileManager.update">[1]</a>
+</li>
+        <li><a href="nqp.effects.html#nqp.effects.stats_effect.StatsEffectProcessor.update">(StatsEffectProcessor method)</a>
 </li>
         <li><a href="api/world/controllers.html#nqp.world.controllers.training_controller.TrainingController.update">(TrainingController method)</a>, <a href="nqp.world.controllers.html#nqp.world.controllers.training_controller.TrainingController.update">[1]</a>
 </li>

@@ -194,41 +194,35 @@
                         
                             
   <h1>Source code for nqp.core.effect</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="kn">from</span> <span class="nn">snecs</span> <span class="kn">import</span> <span class="n">RegisteredComponent</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">nqp.core.game</span> <span class="kn">import</span> <span class="n">Game</span>
 
 <span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="Effect"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.effect.Effect">[docs]</a><span class="k">class</span> <span class="nc">Effect</span><span class="p">:</span>
-<div class="viewcode-block" id="Effect.from_dict"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.effect.Effect.from_dict">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">parameters</span><span class="p">):</span>
-        <span class="n">instance</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">parameters</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">instance</span></div></div>
+<div class="viewcode-block" id="EffectProcessorComponent"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.effect.EffectProcessorComponent">[docs]</a><span class="k">class</span> <span class="nc">EffectProcessorComponent</span><span class="p">(</span><span class="n">RegisteredComponent</span><span class="p">):</span>
+<div class="viewcode-block" id="EffectProcessorComponent.__init__"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.effect.EffectProcessorComponent.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">effect</span><span class="p">:</span> <span class="n">EffectProcessor</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">effect</span> <span class="o">=</span> <span class="n">effect</span></div></div>
 
 
-<span class="c1"># TODO: replace with plugins =================================================</span>
-<span class="kn">from</span> <span class="nn">nqp.effects.add_item</span> <span class="kn">import</span> <span class="n">AddItemEffect</span>
-<span class="kn">from</span> <span class="nn">nqp.effects.attribute_modifier</span> <span class="kn">import</span> <span class="n">AttributeModifierEffect</span>
-<span class="kn">from</span> <span class="nn">nqp.effects.sildreths_signature</span> <span class="kn">import</span> <span class="n">SildrethsSignatureEffect</span>
+<div class="viewcode-block" id="EffectProcessor"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.effect.EffectProcessor">[docs]</a><span class="k">class</span> <span class="nc">EffectProcessor</span><span class="p">:</span>
+<div class="viewcode-block" id="EffectProcessor.update"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.effect.EffectProcessor.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_delta</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">game</span><span class="p">:</span> <span class="n">Game</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handle changes for this Processor</span>
 
-<span class="n">effect_classes</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">klass</span> <span class="ow">in</span> <span class="p">(</span>
-    <span class="n">AddItemEffect</span><span class="p">,</span>
-    <span class="n">AttributeModifierEffect</span><span class="p">,</span>
-    <span class="n">SildrethsSignatureEffect</span><span class="p">,</span>
-<span class="p">):</span>
-    <span class="n">effect_classes</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">klass</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)]</span> <span class="o">=</span> <span class="n">klass</span>
+<span class="sd">        For example:</span>
+<span class="sd">            for eid, (burn,) in list(OnFireStatusSystem.burning):</span>
+<span class="sd">                burn.ttl -= time_delta</span>
 
-
-<span class="c1"># ============================================================================</span>
-
-
-<div class="viewcode-block" id="load_effect"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.effect.load_effect">[docs]</a><span class="k">def</span> <span class="nf">load_effect</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]):</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
-    <span class="n">klass</span> <span class="o">=</span> <span class="n">effect_classes</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
-    <span class="n">effect</span> <span class="o">=</span> <span class="n">klass</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">effect</span></div>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div></div>
 </pre></div>
 
                         

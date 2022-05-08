@@ -1,0 +1,427 @@
+
+
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>nqp.effects.stats_effect &mdash; NotQuiteParadise2  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.min.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <a class="site-nav-toggle hidden-lg-up"><i class="icon-menu"></i></a>
+            <a class="site-title" href="../../../index.html">
+                NotQuiteParadise2
+            </a>
+        </div>
+    </header>
+
+
+<div class="breadcrumbs-outer hidden-xs-down">
+    <div class="container">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a></li>
+        
+          <li><a href="../../index.html">Module code</a></li>
+        
+      <li>nqp.effects.stats_effect</li>
+    
+    
+      <li class="breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+</div>
+    </div>
+</div>
+    <div class="main-outer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-3 site-nav">
+                    
+<div role="search">
+    <form class="search" action="../../../search.html" method="get">
+        <div class="icon-input">
+            <input type="text" name="q" placeholder="Search" />
+            <span class="icon-search"></span>
+        </div>
+        <input type="submit" value="Go" class="d-hidden" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+                    <div class="site-nav-tree">
+                        
+                            
+                            
+                                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/base_classes/_base_classes.html">Base Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/animation.html">Animation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/controller.html">Controller</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/entity_behaviour.html">Entity Behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/image.html">Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/scene.html">Scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/stat.html">Stat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/ui.html">UI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/ui_element.html">UI Element</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/command/_command.html">Command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/command/basic_entity_behaviour.html">Basic Entity Behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/command/commander.html">Commander</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/command/troupe.html">Troupe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/command/unit.html">Unit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/command/unit_behaviour.html">Unit Behaviour</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/core/_core.html">Core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/audio.html">Audio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/components.html">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/constants.html">Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/data.html">Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/debug.html">Debug</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/definitions.html">Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/effect.html">Effect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/game.html">Game</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/input.html">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/memory.html">Memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/queries.html">Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/rng.html">RNG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/scheduler.html">Scheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/utility.html">Utility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/window.html">Window</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/effects/_effects.html">Effects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/add_item.html">Add Item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/attribute_modifier.html">Attribute Modifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/sildreths_signature.html">Sildreths Signature</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/scenes/_scenes.html">Scenes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/scenes/gallery.html">Gallery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/scenes/main_menu.html">Main Menu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/scenes/run_setup.html">Run Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/scenes/unit_data.html">Unit Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/scenes/world.html">World</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/topography/_topography.html">Base Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/topography/pathfinder.html">Pathfinder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/topography/terrain.html">Terrain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/topography/tile.html">Tile</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/world/_world.html">World</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world/controllers.html">Controllers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world/model.html">Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world/view.html">View</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/world_elements/_world_elements.html">World Elements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/actions.html">Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/camera.html">Camera</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/hitbox.html">Hitbox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/item.html">Item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/particle.html">Particle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/particle_manager.html">Particle Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/projectile.html">Projectile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/projectile_manager.html">Projectile Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/stats.html">Stats</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer/_developer.html">Developer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../developer/developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../developer/adding_new_content.html">Adding New Content</a></li>
+</ul>
+</li>
+</ul>
+
+                            
+                        
+                    </div>
+                </div>
+                <div class="col-12 col-lg-9">
+                    <div class="document">
+                        
+                            
+  <h1>Source code for nqp.effects.stats_effect</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span> <span class="nn">operator</span>
+<span class="kn">import</span> <span class="nn">uuid</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="kn">import</span> <span class="nn">snecs</span>
+<span class="kn">from</span> <span class="nn">snecs.typedefs</span> <span class="kn">import</span> <span class="n">EntityID</span>
+
+<span class="kn">from</span> <span class="nn">nqp.base_classes.stat</span> <span class="kn">import</span> <span class="n">Stat</span>
+<span class="kn">from</span> <span class="nn">nqp.core.components</span> <span class="kn">import</span> <span class="n">Allegiance</span><span class="p">,</span> <span class="n">Stats</span>
+<span class="kn">from</span> <span class="nn">nqp.core.effect</span> <span class="kn">import</span> <span class="n">EffectProcessor</span>
+<span class="kn">from</span> <span class="nn">nqp.core.utility</span> <span class="kn">import</span> <span class="n">percent_to_float</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
+
+    <span class="kn">from</span> <span class="nn">nqp.core.game</span> <span class="kn">import</span> <span class="n">Game</span>
+
+
+<div class="viewcode-block" id="get_modifier"><a class="viewcode-back" href="../../../nqp.effects.html#nqp.effects.stats_effect.get_modifier">[docs]</a><span class="k">def</span> <span class="nf">get_modifier</span><span class="p">(</span><span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">string</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;%&quot;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">partial</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">mul</span><span class="p">,</span> <span class="n">percent_to_float</span><span class="p">(</span><span class="n">string</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">&quot;+&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">string</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="StatsEffect"><a class="viewcode-back" href="../../../nqp.effects.html#nqp.effects.stats_effect.StatsEffect">[docs]</a><span class="k">class</span> <span class="nc">StatsEffect</span><span class="p">(</span><span class="n">snecs</span><span class="o">.</span><span class="n">RegisteredComponent</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Currently, only modifying ``Stats`` components are supported</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        stat: Stat instance on the Stats component</span>
+<span class="sd">        ttl: Time To Live</span>
+
+<span class="sd">    ttl:</span>
+<span class="sd">         -1 : never removed</span>
+<span class="sd">          0 : runs once</span>
+<span class="sd">        &gt; 0 : lasts X seconds</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="StatsEffect.__init__"><a class="viewcode-back" href="../../../nqp.effects.html#nqp.effects.stats_effect.StatsEffect.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stat</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">ttl</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stat</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">stat</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ttl</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">ttl</span></div></div>
+
+
+<div class="viewcode-block" id="StatsEffectSentinel"><a class="viewcode-back" href="../../../nqp.effects.html#nqp.effects.stats_effect.StatsEffectSentinel">[docs]</a><span class="k">class</span> <span class="nc">StatsEffectSentinel</span><span class="p">(</span><span class="n">snecs</span><span class="o">.</span><span class="n">RegisteredComponent</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Fancy way to search for targets of an effect</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="StatsEffectSentinel.__init__"><a class="viewcode-back" href="../../../nqp.effects.html#nqp.effects.stats_effect.StatsEffectSentinel.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">unit_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">attribute</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">modifier</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">:</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">ttl</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="k">if</span> <span class="n">params</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="n">target</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">unit_type</span> <span class="o">=</span> <span class="n">unit_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attribute</span> <span class="o">=</span> <span class="n">attribute</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">modifier</span> <span class="o">=</span> <span class="n">get_modifier</span><span class="p">(</span><span class="n">modifier</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="n">params</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ttl</span> <span class="o">=</span> <span class="n">ttl</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="StatsEffectSentinel.from_dict"><a class="viewcode-back" href="../../../nqp.effects.html#nqp.effects.stats_effect.StatsEffectSentinel.from_dict">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return new instance using data loaded from a file</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            data: Dictionary of generic params, probably from a file</span>
+<span class="sd">            params: Dictionary of data unique to the context</span>
+
+<span class="sd">        For params, consider an effect which would affect the users</span>
+<span class="sd">        &quot;team&quot;.  We cannot know which team that is in the data files,</span>
+<span class="sd">        since it is only known when the effect is created.  So the</span>
+<span class="sd">        ``params`` dictionary is required to get the team value when</span>
+<span class="sd">        the effect is created.  See ``maybe_apply``.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">target</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;target&quot;</span><span class="p">)</span>
+        <span class="n">unit_type</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;unit_type&quot;</span><span class="p">)</span>
+        <span class="n">attribute</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;attribute&quot;</span><span class="p">)</span>
+        <span class="n">modifier</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;modifier&quot;</span><span class="p">)</span>
+        <span class="n">ttl</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ttl&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">target</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="s2">&quot;game&quot;</span><span class="p">,</span> <span class="s2">&quot;self&quot;</span><span class="p">,</span> <span class="s2">&quot;team&quot;</span><span class="p">,</span> <span class="s2">&quot;unit&quot;</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported target </span><span class="si">{</span><span class="n">target</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">unit_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="s2">&quot;ranged&quot;</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported unit_type </span><span class="si">{</span><span class="n">unit_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">unit_type</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">modifier</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">ttl</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="StatsEffectSentinel.maybe_apply"><a class="viewcode-back" href="../../../nqp.effects.html#nqp.effects.stats_effect.StatsEffectSentinel.maybe_apply">[docs]</a>    <span class="k">def</span> <span class="nf">maybe_apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">allg</span><span class="p">:</span> <span class="n">Allegiance</span><span class="p">,</span> <span class="n">stats</span><span class="p">:</span> <span class="n">Stats</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Match and test modifier.  Apply if needed.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">target</span> <span class="o">==</span> <span class="s2">&quot;all&quot;</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">target</span> <span class="o">==</span> <span class="s2">&quot;team&quot;</span> <span class="ow">and</span> <span class="n">allg</span><span class="o">.</span><span class="n">team</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;team&quot;</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">target</span> <span class="o">==</span> <span class="s2">&quot;unit&quot;</span> <span class="ow">and</span> <span class="n">allg</span><span class="o">.</span><span class="n">unit</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;unit&quot;</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">unit_type</span> <span class="o">==</span> <span class="s2">&quot;all&quot;</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">unit_type</span> <span class="o">!=</span> <span class="n">allg</span><span class="o">.</span><span class="n">unit</span><span class="o">.</span><span class="n">type</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="n">stat</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">stats</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">attribute</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">stat</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stat</span><span class="p">,</span> <span class="n">Stat</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported attribute </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">attribute</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">stat</span><span class="o">.</span><span class="n">has_modifier</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">):</span>
+            <span class="n">stat</span><span class="o">.</span><span class="n">apply_modifier</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">modifier</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
+            <span class="n">attrib_modifier</span> <span class="o">=</span> <span class="n">StatsEffect</span><span class="p">(</span><span class="n">stat</span><span class="p">)</span>
+            <span class="n">snecs</span><span class="o">.</span><span class="n">new_entity</span><span class="p">((</span><span class="n">attrib_modifier</span><span class="p">,</span> <span class="n">stats</span><span class="p">))</span></div></div>
+
+
+<div class="viewcode-block" id="new_stats_effect"><a class="viewcode-back" href="../../../nqp.effects.html#nqp.effects.stats_effect.new_stats_effect">[docs]</a><span class="k">def</span> <span class="nf">new_stats_effect</span><span class="p">(</span>
+    <span class="n">stat</span><span class="p">:</span> <span class="n">Stat</span><span class="p">,</span>
+    <span class="n">stats</span><span class="p">:</span> <span class="n">Stats</span><span class="p">,</span>
+    <span class="n">modifier</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">ttl</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">EntityID</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Apply StatsEffect to Stat</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        stat: Stat instance to modify</span>
+<span class="sd">        stats: Stats Component containing ``stat``</span>
+<span class="sd">        modifier: Modifier string; &quot;50%&quot;, &quot;-50&quot;. &quot;-200%&quot;, etc</span>
+<span class="sd">        ttl: Time To Live</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">modifier</span> <span class="o">=</span> <span class="n">get_modifier</span><span class="p">(</span><span class="n">modifier</span><span class="p">)</span>
+    <span class="n">attrib_modifier</span> <span class="o">=</span> <span class="n">StatsEffect</span><span class="p">(</span><span class="n">stat</span><span class="p">,</span> <span class="n">ttl</span><span class="p">)</span>
+    <span class="n">eid</span> <span class="o">=</span> <span class="n">snecs</span><span class="o">.</span><span class="n">new_entity</span><span class="p">((</span><span class="n">attrib_modifier</span><span class="p">,</span> <span class="n">stats</span><span class="p">))</span>
+    <span class="n">stat</span><span class="o">.</span><span class="n">apply_modifier</span><span class="p">(</span><span class="n">modifier</span><span class="p">,</span> <span class="n">attrib_modifier</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">eid</span></div>
+
+
+<span class="n">stats_query</span><span class="p">:</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">EntityID</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Stats</span><span class="p">]]]</span>
+<span class="n">stats_query</span> <span class="o">=</span> <span class="n">snecs</span><span class="o">.</span><span class="n">Query</span><span class="p">([</span><span class="n">Stats</span><span class="p">])</span>
+<span class="n">effect_stats_query</span><span class="p">:</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">EntityID</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">StatsEffect</span><span class="p">,</span> <span class="n">Stats</span><span class="p">]]]</span>
+<span class="n">effect_stats_query</span> <span class="o">=</span> <span class="n">snecs</span><span class="o">.</span><span class="n">Query</span><span class="p">([</span><span class="n">StatsEffect</span><span class="p">,</span> <span class="n">Stats</span><span class="p">])</span>
+<span class="n">sentinels_query</span><span class="p">:</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">EntityID</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">StatsEffectSentinel</span><span class="p">]]]</span>
+<span class="n">sentinels_query</span> <span class="o">=</span> <span class="n">snecs</span><span class="o">.</span><span class="n">Query</span><span class="p">([</span><span class="n">StatsEffectSentinel</span><span class="p">])</span>
+
+
+<div class="viewcode-block" id="apply_effects"><a class="viewcode-back" href="../../../nqp.effects.html#nqp.effects.stats_effect.apply_effects">[docs]</a><span class="k">def</span> <span class="nf">apply_effects</span><span class="p">(</span><span class="n">entities</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">EntityID</span><span class="p">]):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Enable effects for entity by checking the sentinels</span>
+
+<span class="sd">    New entities may be created after an effect was started.  This can</span>
+<span class="sd">    be used to search for effects that would affect the entity and apply</span>
+<span class="sd">    them.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># TODO: get components from sentinel and batch search</span>
+    <span class="n">search_components</span> <span class="o">=</span> <span class="p">(</span><span class="n">Allegiance</span><span class="p">,</span> <span class="n">Stats</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">sentinel_eid</span><span class="p">,</span> <span class="p">(</span><span class="n">sentinel</span><span class="p">,)</span> <span class="ow">in</span> <span class="n">sentinels_query</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">eid</span> <span class="ow">in</span> <span class="n">entities</span><span class="p">:</span>
+            <span class="n">components</span> <span class="o">=</span> <span class="n">snecs</span><span class="o">.</span><span class="n">entity_components</span><span class="p">(</span><span class="n">eid</span><span class="p">,</span> <span class="n">search_components</span><span class="p">)</span>
+            <span class="n">sentinel</span><span class="o">.</span><span class="n">maybe_apply</span><span class="p">(</span><span class="n">components</span><span class="p">[</span><span class="n">Allegiance</span><span class="p">],</span> <span class="n">components</span><span class="p">[</span><span class="n">Stats</span><span class="p">])</span></div>
+
+
+<div class="viewcode-block" id="StatsEffectProcessor"><a class="viewcode-back" href="../../../nqp.effects.html#nqp.effects.stats_effect.StatsEffectProcessor">[docs]</a><span class="k">class</span> <span class="nc">StatsEffectProcessor</span><span class="p">(</span><span class="n">EffectProcessor</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Processor for Effects</span>
+
+<span class="sd">    * Remove expired effects</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="StatsEffectProcessor.update"><a class="viewcode-back" href="../../../nqp.effects.html#nqp.effects.stats_effect.StatsEffectProcessor.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_delta</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">game</span><span class="p">:</span> <span class="n">Game</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">eid</span><span class="p">,</span> <span class="p">(</span><span class="n">effect</span><span class="p">,</span> <span class="n">stats</span><span class="p">)</span> <span class="ow">in</span> <span class="n">effect_stats_query</span><span class="p">:</span>
+            <span class="c1"># remove expired modifiers</span>
+            <span class="k">if</span> <span class="n">effect</span><span class="o">.</span><span class="n">ttl</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">effect</span><span class="o">.</span><span class="n">ttl</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">effect</span><span class="o">.</span><span class="n">ttl</span> <span class="o">-=</span> <span class="n">time_delta</span>
+                <span class="k">if</span> <span class="n">effect</span><span class="o">.</span><span class="n">ttl</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">effect</span><span class="o">.</span><span class="n">stat</span><span class="o">.</span><span class="n">remove_modifier</span><span class="p">(</span><span class="n">effect</span><span class="p">)</span>
+                    <span class="n">snecs</span><span class="o">.</span><span class="n">schedule_for_deletion</span><span class="p">(</span><span class="n">eid</span><span class="p">)</span></div></div>
+</pre></div>
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+    <script type="text/javascript" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+    <div class="footer" role="contentinfo">
+        <div class="container">
+            &#169; Copyright 2019-2022, Josh Snaith.
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.
+        </div>
+    </div>  
+
+</body>
+</html>

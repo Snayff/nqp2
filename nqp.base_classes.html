@@ -389,24 +389,69 @@ Return True if this animation has finished playing.</p>
 <span id="nqp-base-classes-stat-module"></span><h2>nqp.base_classes.stat module<a class="headerlink" href="#module-nqp.base_classes.stat" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="nqp.base_classes.stat.Stat">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Stat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/base_classes/stat.html#Stat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.base_classes.stat.Stat" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Stat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/base_classes/stat.html#Stat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.base_classes.stat.Stat" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/abc.html#abc.ABC" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></a></p>
-<p>A container for an Entities Stat. If current_value is None then defaults to base_value.</p>
+<p>A container for an Entities Stat</p>
+<p>Overrider value is a hack until all the ad-hoc changes without
+modifiers are removed.  To be clear, we should be using effects to
+change the value, not setting directly.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="nqp.base_classes.stat.Stat.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/base_classes/stat.html#Stat.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.base_classes.stat.Stat.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/base_classes/stat.html#Stat.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.base_classes.stat.Stat.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.base_classes.stat.Stat.apply_modifier">
+<span class="sig-name descname"><span class="pre">apply_modifier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/base_classes/stat.html#Stat.apply_modifier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.base_classes.stat.Stat.apply_modifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a modifier</p>
+<p>When value is calculated, <code class="docutils literal notranslate"><span class="pre">func</span></code> will be called with the base value</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> – Any callable function</p></li>
+<li><p><strong>key</strong> – Unique identifier for adding and removing</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="nqp.base_classes.stat.Stat.base_value">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">base_value</span></span><a class="headerlink" href="#nqp.base_classes.stat.Stat.base_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.base_classes.stat.Stat.has_modifier">
+<span class="sig-name descname"><span class="pre">has_modifier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/base_classes/stat.html#Stat.has_modifier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.base_classes.stat.Stat.has_modifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if modifier is applied</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>key</strong> – Unique identifier for adding and removing</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.base_classes.stat.Stat.override">
+<span class="sig-name descname"><span class="pre">override</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/base_classes/stat.html#Stat.override"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.base_classes.stat.Stat.override" title="Permalink to this definition">¶</a></dt>
+<dd><p>Force the value and ignore modifiers</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.base_classes.stat.Stat.remove_modifier">
+<span class="sig-name descname"><span class="pre">remove_modifier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/base_classes/stat.html#Stat.remove_modifier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.base_classes.stat.Stat.remove_modifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove a modifier</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>key</strong> – Unique identifier for adding and removing</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="nqp.base_classes.stat.Stat.reset">
 <span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/base_classes/stat.html#Stat.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.base_classes.stat.Stat.reset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set value back to base value.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="nqp.base_classes.stat.Stat.set_base_value">
-<span class="sig-name descname"><span class="pre">set_base_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/base_classes/stat.html#Stat.set_base_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.base_classes.stat.Stat.set_base_value" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set the base or original value for the Stat.</p>
 </dd></dl>
 
 <dl class="py property">

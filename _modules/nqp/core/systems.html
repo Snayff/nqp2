@@ -414,8 +414,7 @@
         <span class="k">if</span> <span class="n">ai</span><span class="o">.</span><span class="n">behaviour</span><span class="o">.</span><span class="n">new_move_speed</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">snecs</span><span class="o">.</span><span class="n">has_component</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">Stats</span><span class="p">):</span>
                 <span class="n">stats</span> <span class="o">=</span> <span class="n">snecs</span><span class="o">.</span><span class="n">entity_component</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">Stats</span><span class="p">)</span>
-                <span class="n">stats</span><span class="o">.</span><span class="n">move_speed</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">ai</span><span class="o">.</span><span class="n">behaviour</span><span class="o">.</span><span class="n">new_move_speed</span>
-
+                <span class="n">stats</span><span class="o">.</span><span class="n">move_speed</span><span class="o">.</span><span class="n">override</span><span class="p">(</span><span class="n">ai</span><span class="o">.</span><span class="n">behaviour</span><span class="o">.</span><span class="n">new_move_speed</span><span class="p">)</span>
                 <span class="n">ai</span><span class="o">.</span><span class="n">behaviour</span><span class="o">.</span><span class="n">new_move_speed</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="k">if</span> <span class="n">ai</span><span class="o">.</span><span class="n">behaviour</span><span class="o">.</span><span class="n">reset_move_speed</span><span class="p">:</span>

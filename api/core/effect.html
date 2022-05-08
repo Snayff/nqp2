@@ -203,20 +203,34 @@
   <section id="module-nqp.core.effect">
 <span id="effect"></span><h1>Effect<a class="headerlink" href="#module-nqp.core.effect" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="nqp.core.effect.Effect">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Effect</span></span><a class="reference internal" href="../../_modules/nqp/core/effect.html#Effect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.core.effect.Effect" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="nqp.core.effect.EffectProcessor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">EffectProcessor</span></span><a class="reference internal" href="../../_modules/nqp/core/effect.html#EffectProcessor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.core.effect.EffectProcessor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="py method">
-<dt class="sig sig-object py" id="nqp.core.effect.Effect.from_dict">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/core/effect.html#Effect.from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.core.effect.Effect.from_dict" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="nqp.core.effect.EffectProcessor.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time_delta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Game</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/core/effect.html#EffectProcessor.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.core.effect.EffectProcessor.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handle changes for this Processor</p>
+<dl class="simple">
+<dt>For example:</dt><dd><dl class="simple">
+<dt>for eid, (burn,) in list(OnFireStatusSystem.burning):</dt><dd><p>burn.ttl -= time_delta</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="nqp.core.effect.load_effect">
-<span class="sig-name descname"><span class="pre">load_effect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.10)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/core/effect.html#load_effect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.core.effect.load_effect" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="nqp.core.effect.EffectProcessorComponent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">EffectProcessorComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">effect</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../nqp.core.html#nqp.core.effect.EffectProcessor" title="nqp.core.effect.EffectProcessor"><span class="pre">nqp.core.effect.EffectProcessor</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/core/effect.html#EffectProcessorComponent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.core.effect.EffectProcessorComponent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">snecs.component.RegisteredComponent</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.core.effect.EffectProcessorComponent.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">effect</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../nqp.core.html#nqp.core.effect.EffectProcessor" title="nqp.core.effect.EffectProcessor"><span class="pre">nqp.core.effect.EffectProcessor</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/core/effect.html#EffectProcessorComponent.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.core.effect.EffectProcessorComponent.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+</dd></dl>
 
 </section>
 

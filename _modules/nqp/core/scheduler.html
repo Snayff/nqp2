@@ -271,6 +271,7 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_time</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="n">time_function</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_now</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_last_ts</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_times</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">deque</span><span class="p">(</span><span class="n">maxlen</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_scheduled_items</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ScheduledItem</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
@@ -294,7 +295,7 @@
 <span class="sd">            Reference to scheduled item.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_schedule</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">delay</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">soft</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">schedule</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">delay</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">soft</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Scheduler.schedule_interval"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.scheduler.Scheduler.schedule_interval">[docs]</a>    <span class="k">def</span> <span class="nf">schedule_interval</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -306,29 +307,31 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Schedule a function to run on an interval.</span>
 
+<span class="sd">        NOTE!  If delay==0.0, then the interval will start the next frame,</span>
+<span class="sd">        meaning, the callback will happen the next tick, and then follow</span>
+<span class="sd">        the interval.  If you want to avoid this, then set delay to the same</span>
+<span class="sd">        value as the interval.</span>
+
 <span class="sd">        Items are rescheduled after they are executed.  That means that</span>
 <span class="sd">        by default, the interval of items may not be consistent with</span>
 <span class="sd">        the initial time with was scheduled.</span>
-
-<span class="sd">        If the delay is not specified, the function will be executed</span>
-<span class="sd">        during the next tick.</span>
 
 <span class="sd">        If the interval is not specified, the function will be executed</span>
 <span class="sd">        every time the scheduler is ticked.</span>
 
 <span class="sd">        Parameters:</span>
 <span class="sd">            func: Function to be called</span>
-<span class="sd">            interval: If repeating, repeat on this interval</span>
-<span class="sd">            delay: Delay in time unit until it is called</span>
+<span class="sd">            interval: Repeat on this interval</span>
+<span class="sd">            delay: Delay in time unit until it is called for first time</span>
 <span class="sd">            soft: See notes about Soft Scheduling</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            Reference to scheduled item</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_schedule</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">delay</span><span class="p">,</span> <span class="n">interval</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">soft</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">schedule</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">delay</span><span class="p">,</span> <span class="n">interval</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">soft</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">_schedule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">delay</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">interval</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">repeat</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">soft</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+<div class="viewcode-block" id="Scheduler.schedule"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.scheduler.Scheduler.schedule">[docs]</a>    <span class="k">def</span> <span class="nf">schedule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">delay</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">interval</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">repeat</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">soft</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
         <span class="k">assert</span> <span class="n">delay</span> <span class="o">&gt;=</span> <span class="mf">0.0</span>
         <span class="k">assert</span> <span class="n">interval</span> <span class="o">&gt;=</span> <span class="mf">0.0</span>
         <span class="k">if</span> <span class="n">interval</span><span class="p">:</span>
@@ -350,7 +353,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">heappush</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_scheduled_items</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">item</span>
+        <span class="k">return</span> <span class="n">item</span></div>
 
 <div class="viewcode-block" id="Scheduler.unschedule"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.scheduler.Scheduler.unschedule">[docs]</a>    <span class="k">def</span> <span class="nf">unschedule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -503,6 +506,7 @@
 <span class="sd">            this was the first update.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">time_stamp</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">time_stamp</span><span class="p">)</span>
         <span class="c1"># self._last_ts will be -1 before first time set</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_last_ts</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">delta_t</span> <span class="o">=</span> <span class="mf">0.0</span>

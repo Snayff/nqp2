@@ -12,10 +12,10 @@ nqp.effects.add\_item module
    :undoc-members:
    :show-inheritance:
 
-nqp.effects.attribute\_modifier module
---------------------------------------
+nqp.effects.burn module
+-----------------------
 
-.. automodule:: nqp.effects.attribute_modifier
+.. automodule:: nqp.effects.burn
    :members:
    :undoc-members:
    :show-inheritance:
@@ -24,6 +24,14 @@ nqp.effects.sildreths\_signature module
 ---------------------------------------
 
 .. automodule:: nqp.effects.sildreths_signature
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.effects.stats\_effect module
+--------------------------------
+
+.. automodule:: nqp.effects.stats_effect
    :members:
    :undoc-members:
    :show-inheritance:

@@ -334,22 +334,29 @@ display.  Returned value is averaged from last 10 ticks.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="nqp.core.scheduler.Scheduler.schedule">
+<span class="sig-name descname"><span class="pre">schedule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.10)"><span class="pre">Callable</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">repeat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">soft</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/core/scheduler.html#Scheduler.schedule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.core.scheduler.Scheduler.schedule" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="nqp.core.scheduler.Scheduler.schedule_interval">
 <span class="sig-name descname"><span class="pre">schedule_interval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.10)"><span class="pre">Callable</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">soft</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/core/scheduler.html#Scheduler.schedule_interval"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.core.scheduler.Scheduler.schedule_interval" title="Permalink to this definition">¶</a></dt>
 <dd><p>Schedule a function to run on an interval.</p>
+<p>NOTE!  If delay==0.0, then the interval will start the next frame,
+meaning, the callback will happen the next tick, and then follow
+the interval.  If you want to avoid this, then set delay to the same
+value as the interval.</p>
 <p>Items are rescheduled after they are executed.  That means that
 by default, the interval of items may not be consistent with
 the initial time with was scheduled.</p>
-<p>If the delay is not specified, the function will be executed
-during the next tick.</p>
 <p>If the interval is not specified, the function will be executed
 every time the scheduler is ticked.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>func</strong> – Function to be called</p></li>
-<li><p><strong>interval</strong> – If repeating, repeat on this interval</p></li>
-<li><p><strong>delay</strong> – Delay in time unit until it is called</p></li>
+<li><p><strong>interval</strong> – Repeat on this interval</p></li>
+<li><p><strong>delay</strong> – Delay in time unit until it is called for first time</p></li>
 <li><p><strong>soft</strong> – See notes about Soft Scheduling</p></li>
 </ul>
 </dd>

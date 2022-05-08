@@ -205,26 +205,81 @@
 <span id="nqp-effects-add-item-module"></span><h2>nqp.effects.add_item module<a class="headerlink" href="#module-nqp.effects.add_item" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="nqp.effects.add_item.AddItemEffect">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">AddItemEffect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trigger</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/effects/add_item.html#AddItemEffect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.effects.add_item.AddItemEffect" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="nqp.core.html#nqp.core.effect.Effect" title="nqp.core.effect.Effect"><code class="xref py py-class docutils literal notranslate"><span class="pre">nqp.core.effect.Effect</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">AddItemEffect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">item_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">trigger</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/effects/add_item.html#AddItemEffect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.effects.add_item.AddItemEffect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">snecs.component.RegisteredComponent</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="nqp.effects.add_item.AddItemEffect.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trigger</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/effects/add_item.html#AddItemEffect.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.effects.add_item.AddItemEffect.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">item_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">trigger</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/effects/add_item.html#AddItemEffect.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.effects.add_item.AddItemEffect.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.effects.add_item.AddItemEffect.from_dict">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">data:</span> <span class="pre">Dict[str,</span> <span class="pre">str],</span> <span class="pre">params:</span> <span class="pre">Dict[str:Any]</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/effects/add_item.html#AddItemEffect.from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.effects.add_item.AddItemEffect.from_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return new instance using data loaded from a file</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nqp.effects.add_item.AddItemEffectProcessor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">AddItemEffectProcessor</span></span><a class="reference internal" href="_modules/nqp/effects/add_item.html#AddItemEffectProcessor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.effects.add_item.AddItemEffectProcessor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="nqp.core.html#nqp.core.effect.EffectProcessor" title="nqp.core.effect.EffectProcessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">nqp.core.effect.EffectProcessor</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nqp.effects.add_item.AddItemEffectProcessor.queued_items">
+<span class="sig-name descname"><span class="pre">queued_items</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;snecs.query.Query</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#nqp.effects.add_item.AddItemEffectProcessor.queued_items" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.effects.add_item.AddItemEffectProcessor.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time_delta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Game</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/effects/add_item.html#AddItemEffectProcessor.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.effects.add_item.AddItemEffectProcessor.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handle changes for this Processor</p>
+<dl class="simple">
+<dt>For example:</dt><dd><dl class="simple">
+<dt>for eid, (burn,) in list(OnFireStatusSystem.burning):</dt><dd><p>burn.ttl -= time_delta</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
 </section>
-<section id="module-nqp.effects.attribute_modifier">
-<span id="nqp-effects-attribute-modifier-module"></span><h2>nqp.effects.attribute_modifier module<a class="headerlink" href="#module-nqp.effects.attribute_modifier" title="Permalink to this headline">¶</a></h2>
+<section id="module-nqp.effects.burn">
+<span id="nqp-effects-burn-module"></span><h2>nqp.effects.burn module<a class="headerlink" href="#module-nqp.effects.burn" title="Permalink to this headline">¶</a></h2>
+<p>not in design docs, just testing.  maybe use later?</p>
 <dl class="py class">
-<dt class="sig sig-object py" id="nqp.effects.attribute_modifier.AttributeModifierEffect">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">AttributeModifierEffect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mod_amount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/effects/attribute_modifier.html#AttributeModifierEffect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.effects.attribute_modifier.AttributeModifierEffect" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="nqp.core.html#nqp.core.effect.Effect" title="nqp.core.effect.Effect"><code class="xref py py-class docutils literal notranslate"><span class="pre">nqp.core.effect.Effect</span></code></a></p>
+<dt class="sig sig-object py" id="nqp.effects.burn.OnFireStatusEffect">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">OnFireStatusEffect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ttl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/effects/burn.html#OnFireStatusEffect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.effects.burn.OnFireStatusEffect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">snecs.component.RegisteredComponent</span></code></p>
 <dl class="py method">
-<dt class="sig sig-object py" id="nqp.effects.attribute_modifier.AttributeModifierEffect.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mod_amount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/effects/attribute_modifier.html#AttributeModifierEffect.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.effects.attribute_modifier.AttributeModifierEffect.__init__" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="nqp.effects.burn.OnFireStatusEffect.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ttl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/effects/burn.html#OnFireStatusEffect.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.effects.burn.OnFireStatusEffect.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nqp.effects.burn.OnFireStatusProcessor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">OnFireStatusProcessor</span></span><a class="reference internal" href="_modules/nqp/effects/burn.html#OnFireStatusProcessor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.effects.burn.OnFireStatusProcessor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="nqp.core.html#nqp.core.effect.EffectProcessor" title="nqp.core.effect.EffectProcessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">nqp.core.effect.EffectProcessor</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nqp.effects.burn.OnFireStatusProcessor.burning">
+<span class="sig-name descname"><span class="pre">burning</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;snecs.query.Query</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#nqp.effects.burn.OnFireStatusProcessor.burning" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.effects.burn.OnFireStatusProcessor.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time_delta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Game</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/effects/burn.html#OnFireStatusProcessor.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.effects.burn.OnFireStatusProcessor.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handle changes for this Processor</p>
+<dl class="simple">
+<dt>For example:</dt><dd><dl class="simple">
+<dt>for eid, (burn,) in list(OnFireStatusSystem.burning):</dt><dd><p>burn.ttl -= time_delta</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -234,12 +289,135 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="nqp.effects.sildreths_signature.SildrethsSignatureEffect">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SildrethsSignatureEffect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mod_amount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/effects/sildreths_signature.html#SildrethsSignatureEffect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.effects.sildreths_signature.SildrethsSignatureEffect" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="nqp.core.html#nqp.core.effect.Effect" title="nqp.core.effect.Effect"><code class="xref py py-class docutils literal notranslate"><span class="pre">nqp.core.effect.Effect</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="nqp.core.html#nqp.core.effect.EffectProcessor" title="nqp.core.effect.EffectProcessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">nqp.core.effect.EffectProcessor</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="nqp.effects.sildreths_signature.SildrethsSignatureEffect.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mod_amount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/effects/sildreths_signature.html#SildrethsSignatureEffect.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.effects.sildreths_signature.SildrethsSignatureEffect.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+</dd></dl>
+
+</section>
+<section id="module-nqp.effects.stats_effect">
+<span id="nqp-effects-stats-effect-module"></span><h2>nqp.effects.stats_effect module<a class="headerlink" href="#module-nqp.effects.stats_effect" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nqp.effects.stats_effect.StatsEffect">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">StatsEffect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ttl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/effects/stats_effect.html#StatsEffect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.effects.stats_effect.StatsEffect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">snecs.component.RegisteredComponent</span></code></p>
+<p>Currently, only modifying <code class="docutils literal notranslate"><span class="pre">Stats</span></code> components are supported</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stat</strong> – Stat instance on the Stats component</p></li>
+<li><p><strong>ttl</strong> – Time To Live</p></li>
+</ul>
+</dd>
+</dl>
+<dl>
+<dt>ttl:</dt><dd><blockquote>
+<div><dl class="simple">
+<dt>-1<span class="classifier">never removed</span></dt><dd><p>0 : runs once</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>&gt; 0 : lasts X seconds</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.effects.stats_effect.StatsEffect.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ttl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/effects/stats_effect.html#StatsEffect.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.effects.stats_effect.StatsEffect.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nqp.effects.stats_effect.StatsEffectProcessor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">StatsEffectProcessor</span></span><a class="reference internal" href="_modules/nqp/effects/stats_effect.html#StatsEffectProcessor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.effects.stats_effect.StatsEffectProcessor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="nqp.core.html#nqp.core.effect.EffectProcessor" title="nqp.core.effect.EffectProcessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">nqp.core.effect.EffectProcessor</span></code></a></p>
+<p>Processor for Effects</p>
+<ul class="simple">
+<li><p>Remove expired effects</p></li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.effects.stats_effect.StatsEffectProcessor.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time_delta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Game</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/effects/stats_effect.html#StatsEffectProcessor.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.effects.stats_effect.StatsEffectProcessor.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handle changes for this Processor</p>
+<dl class="simple">
+<dt>For example:</dt><dd><dl class="simple">
+<dt>for eid, (burn,) in list(OnFireStatusSystem.burning):</dt><dd><p>burn.ttl -= time_delta</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nqp.effects.stats_effect.StatsEffectSentinel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">StatsEffectSentinel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit_type:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modifier:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params:</span> <span class="pre">Optional[Dict[str:Any]]</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ttl:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/effects/stats_effect.html#StatsEffectSentinel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.effects.stats_effect.StatsEffectSentinel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">snecs.component.RegisteredComponent</span></code></p>
+<p>Fancy way to search for targets of an effect</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.effects.stats_effect.StatsEffectSentinel.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit_type:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modifier:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params:</span> <span class="pre">Optional[Dict[str:Any]]</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ttl:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/effects/stats_effect.html#StatsEffectSentinel.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.effects.stats_effect.StatsEffectSentinel.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.effects.stats_effect.StatsEffectSentinel.from_dict">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/effects/stats_effect.html#StatsEffectSentinel.from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.effects.stats_effect.StatsEffectSentinel.from_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return new instance using data loaded from a file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> – Dictionary of generic params, probably from a file</p></li>
+<li><p><strong>params</strong> – Dictionary of data unique to the context</p></li>
+</ul>
+</dd>
+</dl>
+<p>For params, consider an effect which would affect the users
+“team”.  We cannot know which team that is in the data files,
+since it is only known when the effect is created.  So the
+<code class="docutils literal notranslate"><span class="pre">params</span></code> dictionary is required to get the team value when
+the effect is created.  See <code class="docutils literal notranslate"><span class="pre">maybe_apply</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.effects.stats_effect.StatsEffectSentinel.maybe_apply">
+<span class="sig-name descname"><span class="pre">maybe_apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">allg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="nqp.core.html#nqp.core.components.Allegiance" title="nqp.core.components.Allegiance"><span class="pre">nqp.core.components.Allegiance</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">stats</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="nqp.core.html#nqp.core.components.Stats" title="nqp.core.components.Stats"><span class="pre">nqp.core.components.Stats</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/effects/stats_effect.html#StatsEffectSentinel.maybe_apply"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.effects.stats_effect.StatsEffectSentinel.maybe_apply" title="Permalink to this definition">¶</a></dt>
+<dd><p>Match and test modifier.  Apply if needed.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nqp.effects.stats_effect.apply_effects">
+<span class="sig-name descname"><span class="pre">apply_effects</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">entities</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">EntityID</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/effects/stats_effect.html#apply_effects"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.effects.stats_effect.apply_effects" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable effects for entity by checking the sentinels</p>
+<p>New entities may be created after an effect was started.  This can
+be used to search for effects that would affect the entity and apply
+them.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nqp.effects.stats_effect.get_modifier">
+<span class="sig-name descname"><span class="pre">get_modifier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/effects/stats_effect.html#get_modifier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.effects.stats_effect.get_modifier" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nqp.effects.stats_effect.new_stats_effect">
+<span class="sig-name descname"><span class="pre">new_stats_effect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="nqp.base_classes.html#nqp.base_classes.stat.Stat" title="nqp.base_classes.stat.Stat"><span class="pre">nqp.base_classes.stat.Stat</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">stats</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="nqp.core.html#nqp.core.components.Stats" title="nqp.core.components.Stats"><span class="pre">nqp.core.components.Stats</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">modifier</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">ttl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></span><a class="reference internal" href="_modules/nqp/effects/stats_effect.html#new_stats_effect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.effects.stats_effect.new_stats_effect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply StatsEffect to Stat</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stat</strong> – Stat instance to modify</p></li>
+<li><p><strong>stats</strong> – Stats Component containing <code class="docutils literal notranslate"><span class="pre">stat</span></code></p></li>
+<li><p><strong>modifier</strong> – Modifier string; “50%”, “-50”. “-200%”, etc</p></li>
+<li><p><strong>ttl</strong> – Time To Live</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </section>

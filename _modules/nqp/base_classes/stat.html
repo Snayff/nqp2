@@ -196,46 +196,98 @@
   <h1>Source code for nqp.base_classes.stat</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">weakref</span>
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Stat&quot;</span><span class="p">]</span>
 
 
 <div class="viewcode-block" id="Stat"><a class="viewcode-back" href="../../../nqp.base_classes.html#nqp.base_classes.stat.Stat">[docs]</a><span class="k">class</span> <span class="nc">Stat</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    A container for an Entities Stat. If current_value is None then defaults to base_value.</span>
+<span class="sd">    A container for an Entities Stat</span>
+
+<span class="sd">    Overrider value is a hack until all the ad-hoc changes without</span>
+<span class="sd">    modifiers are removed.  To be clear, we should be using effects to</span>
+<span class="sd">    change the value, not setting directly.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Stat.__init__"><a class="viewcode-back" href="../../../nqp.base_classes.html#nqp.base_classes.stat.Stat.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base_value</span><span class="p">,</span> <span class="n">current_value</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Stat.__init__"><a class="viewcode-back" href="../../../nqp.base_classes.html#nqp.base_classes.stat.Stat.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base_value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_base_value</span> <span class="o">=</span> <span class="n">base_value</span>
-        <span class="k">if</span> <span class="n">current_value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">current_value</span> <span class="o">=</span> <span class="n">base_value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_current_value</span> <span class="o">=</span> <span class="n">current_value</span></div>
+        <span class="c1"># weakkey dict will drop modifiers if they have been deleted</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_modifiers</span> <span class="o">=</span> <span class="n">weakref</span><span class="o">.</span><span class="n">WeakKeyDictionary</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_override_value</span> <span class="o">=</span> <span class="kc">None</span></div>
 
 <div class="viewcode-block" id="Stat.reset"><a class="viewcode-back" href="../../../nqp.base_classes.html#nqp.base_classes.stat.Stat.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set value back to base value.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_current_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_value</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_override_value</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_modifiers</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_value</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_override_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_override_value</span>
+        <span class="n">acc</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">func</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modifiers</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">acc</span> <span class="o">+=</span> <span class="n">func</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_base_value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_value</span> <span class="o">+</span> <span class="n">acc</span>
 
-    <span class="nd">@value</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_current_value</span> <span class="o">=</span> <span class="n">value</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">base_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_value</span>
 
-<div class="viewcode-block" id="Stat.set_base_value"><a class="viewcode-back" href="../../../nqp.base_classes.html#nqp.base_classes.stat.Stat.set_base_value">[docs]</a>    <span class="k">def</span> <span class="nf">set_base_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="nd">@base_value</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">base_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the base or original value for the Stat.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_base_value</span> <span class="o">=</span> <span class="n">value</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_base_value</span> <span class="o">=</span> <span class="n">value</span>
+
+<div class="viewcode-block" id="Stat.override"><a class="viewcode-back" href="../../../nqp.base_classes.html#nqp.base_classes.stat.Stat.override">[docs]</a>    <span class="k">def</span> <span class="nf">override</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Force the value and ignore modifiers</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_override_value</span> <span class="o">=</span> <span class="n">value</span></div>
+
+<div class="viewcode-block" id="Stat.apply_modifier"><a class="viewcode-back" href="../../../nqp.base_classes.html#nqp.base_classes.stat.Stat.apply_modifier">[docs]</a>    <span class="k">def</span> <span class="nf">apply_modifier</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a modifier</span>
+
+<span class="sd">        When value is calculated, ``func`` will be called with the base value</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            func: Any callable function</span>
+<span class="sd">            key: Unique identifier for adding and removing</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_modifiers</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">func</span></div>
+
+<div class="viewcode-block" id="Stat.remove_modifier"><a class="viewcode-back" href="../../../nqp.base_classes.html#nqp.base_classes.stat.Stat.remove_modifier">[docs]</a>    <span class="k">def</span> <span class="nf">remove_modifier</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Remove a modifier</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            key: Unique identifier for adding and removing</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modifiers</span><span class="p">[</span><span class="n">key</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="Stat.has_modifier"><a class="viewcode-back" href="../../../nqp.base_classes.html#nqp.base_classes.stat.Stat.has_modifier">[docs]</a>    <span class="k">def</span> <span class="nf">has_modifier</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if modifier is applied</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            key: Unique identifier for adding and removing</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modifiers</span></div></div>
 </pre></div>
 
                         

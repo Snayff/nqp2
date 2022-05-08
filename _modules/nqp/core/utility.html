@@ -225,6 +225,7 @@
     <span class="s2">&quot;distance_to&quot;</span><span class="p">,</span>
     <span class="s2">&quot;angle_to&quot;</span><span class="p">,</span>
     <span class="s2">&quot;get_direction&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;percent_to_float&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 
 
@@ -376,6 +377,13 @@
 <span class="sd">    Find the direction based on the angle and distance</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span> <span class="o">*</span> <span class="n">move_distance</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span> <span class="o">*</span> <span class="n">move_distance</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="percent_to_float"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.utility.percent_to_float">[docs]</a><span class="k">def</span> <span class="nf">percent_to_float</span><span class="p">(</span><span class="n">percent_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert string representation of percent into a float</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">percent_string</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;%&quot;</span><span class="p">))</span> <span class="o">/</span> <span class="mf">100.0</span></div>
 </pre></div>
 
                         
