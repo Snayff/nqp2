@@ -11,6 +11,7 @@ from nqp.ui_elements.generic.ui_panel import UIPanel
 if TYPE_CHECKING:
     from typing import Dict, List, Tuple
 
+    from nqp.core.definitions import UIElementLike
     from nqp.core.game import Game
 
 __all__ = ["UIWindow"]
@@ -27,18 +28,16 @@ class UIWindow(UIPanel):
         window_type: WindowType,
         pos: pygame.Vector2,
         size: pygame.Vector2,
-        elements: List,
+        elements: List[UIElementLike],
         is_active: bool = False,
     ):
         super().__init__(game, elements, is_active)
+        self._window_type: WindowType = window_type
         self._images: Dict[str, Image] = self._load_window_images(window_type)
         self.pos: pygame.Vector2 = pos
         self.size: pygame.Vector2 = size
 
         self._window_surface: pygame.Surface = self._build_window_surface()
-
-    def update(self, delta_time: float):
-        super().update(delta_time)
 
     def draw(self, surface: pygame.Surface):
         self._draw_window(surface)

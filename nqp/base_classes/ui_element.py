@@ -15,17 +15,20 @@ __all__ = ["UIElement"]
 
 
 class UIElement(ABC):
-    def __init__(self, game: Game, pos: pygame.Vector2, is_selectable: bool = False):
+    def __init__(self, game: Game, pos: pygame.Vector2, is_selectable: bool = False, tooltip_key: str | None = None):
         self._game: Game = game
         self.pos: pygame.Vector2 = pos
         self.size: pygame.Vector2 = pygame.Vector2(0, 0)
         self.surface: pygame.Surface = pygame.Surface(self.size)
+        self.tooltip_key: None | str = tooltip_key
 
         self.is_selectable: bool = is_selectable
         self._was_selectable: bool = is_selectable  # when deactivated keep the original state of selectable
         self._is_selected: bool = False
         self.is_active: bool = True
         self.was_previously_selected: bool = False
+        self._tooltip_counter: float = 0
+        self.show_tooltip: bool = False
 
         self._previously_selected: Animation = self._game.visual.create_animation(
             "selector", "previously_selected", uses_simulation_time=False
@@ -35,15 +38,19 @@ class UIElement(ABC):
         )
         self._current_selector: Optional[Animation] = None
 
-    @abstractmethod
     def update(self, delta_time: float):
-        pass
+        # update tooltip counter and flag
+        if self.is_selected and not self.show_tooltip:
+            self._tooltip_counter += delta_time
+
+            if self._tooltip_counter > self._game.data.options["tooltip_delay"]:
+                self.show_tooltip = True
 
     def draw(self, surface: pygame.Surface):
         if self.is_active:
             surface.blit(self.surface, self.pos)
 
-            if self._current_selector is not None:
+            if self.is_selected and self._current_selector is not None:
                 self._draw_selector(surface)
 
     @property
@@ -58,6 +65,8 @@ class UIElement(ABC):
             self._current_selector = self._selected_selector
         else:
             self._current_selector = None
+            self._tooltip_counter = 0
+            self.show_tooltip = False
 
     @abstractmethod
     def _rebuild_surface(self):

@@ -88,6 +88,7 @@ class EventState(IntEnum):
 class ChooseRoomState(IntEnum):
     IDLE = auto()
     CHOOSE_ROOM = auto()
+    INSPECT_STATS = auto()
 
 
 class AnimationState(IntEnum):

@@ -6,11 +6,10 @@ authors = ["Snayff <snaith2@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-pygame = "^2.0.1"
+pygame = "^2.1.2"
 PyTweening = "^1.0.3"
 PyYAML = "^6.0"
 snecs = "^1.2.2"
-karma_sphinx_theme = "^0.0.8"
 
 
 [tool.poetry.dev-dependencies]
@@ -22,8 +21,8 @@ sphinx-autodoc-typehints = "^1.11.0"
 sphinx-git = "^11.0.0"
 sphinx-material = "^0.0.35"
 pytest = "^7.1.1"
+karma_sphinx_theme = "^0.0.8"
 pre-commit = "^2.19.0"
-
 
 
 [tool.black]
@@ -45,3 +44,7 @@ lines_between_types = 0
 [build-system]
 requires = ["poetry-core>=1.1.0"]
 build-backend = "poetry.core.masonry.api"
+
+
+
+

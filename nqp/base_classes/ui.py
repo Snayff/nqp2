@@ -7,8 +7,10 @@ from typing import TYPE_CHECKING
 import pygame
 
 from nqp.core.constants import DEFAULT_IMAGE_SIZE, FontType, GAP_SIZE
+from nqp.core.definitions import UIContainerLike, UIElementLike
 from nqp.ui_elements.generic.ui_frame import UIFrame
 from nqp.ui_elements.generic.ui_panel import UIPanel
+from nqp.ui_elements.generic.ui_tooltip import UITooltip
 from nqp.ui_elements.generic.ui_window import UIWindow
 
 if TYPE_CHECKING:
@@ -32,9 +34,9 @@ class UI(ABC):
         self._game: Game = game
         self.block_onward_input: bool = block_onward_input  # prevents input being passed to the next scene
 
-        self._elements: Dict[str, Union[UIFrame]] = {}  # any elements not held in a container
-        self._containers: Dict[str, Union[UIPanel, UIWindow]] = {}
-        self._current_container: Optional[UIPanel] = None
+        self._elements: Dict[str, UIElementLike] = {}
+        self._containers: Dict[str, UIContainerLike] = {}
+        self._current_container: UIContainerLike | None = None
 
         self._temporary_instruction_text: str = ""
         self._temporary_instruction_timer: float = 0.0
@@ -48,7 +50,7 @@ class UI(ABC):
         if self._temporary_instruction_timer <= 0:
             self._temporary_instruction_text = ""
 
-        self.update_elements(delta_time)
+        self._update_elements(delta_time)
 
     def process_input(self, delta_time: float):
         if self._game.input.states["toggle_dev_console"]:
@@ -164,19 +166,24 @@ class UI(ABC):
     def _draw_elements(self, surface: pygame.Surface):
         """
         Draw all elements, both those held in _elements and _containers.
+        Loose elements are drawn before elements in containers.
         """
-        for container in self._containers.values():
-            container.draw(surface)
-
         for element in self._elements.values():
             element.draw(surface)
 
-    def update_elements(self, delta_time: float):
         for container in self._containers.values():
-            container.update(delta_time)
+            container.draw(surface)
 
+    def _update_elements(self, delta_time: float):
+        """
+        Update all elements, both those held in _elements and _containers.
+        Loose elements are drawn before elements in containers.
+        """
         for element in self._elements.values():
             element.update(delta_time)
+
+        for container in self._containers.values():
+            container.update(delta_time)
 
     def add_container(self, container: Union[UIPanel, UIWindow], name: str):
         """
@@ -211,7 +218,7 @@ class UI(ABC):
 
     def select_container(self, container_name: str, hide_old_container: bool = False):
         """
-        Unselect the current container and move the selection to the specified panel.
+        Unselect the current container and move the selection to the specified container.
         """
         # unselect current
         self._current_container.unselect_all_elements()
@@ -225,9 +232,14 @@ class UI(ABC):
 
         except KeyError:
             logging.critical(
-                f"Tried to change to {container_name} panel, but does not exist. Selected first panel " f"instead."
+                f"Tried to change to {container_name} panel, but does not exist. Selected first panel instead."
             )
             self._current_container = list(self._containers)[0]
 
         self._current_container.select_first_element()
         self._current_container._is_active = True
+
+    def container_exists(self, container_name: str) -> bool:
+        if container_name in self._containers:
+            return True
+        return False

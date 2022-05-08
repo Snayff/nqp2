@@ -93,6 +93,7 @@ class Input:
                 "cancel": False,
                 "view_troupe": False,
                 "shift": False,
+                "ctrl": False,
                 "backspace": False,
                 "toggle_dev_console": False,
                 "typing_enter": False,
@@ -112,8 +113,8 @@ class Input:
 
             self.mouse_moved = False
             self.mouse_pos: pygame.Vector2 = pygame.Vector2(0, 0)
-            self.mouse_pos_raw: pygame.Vector2 = self.mouse_pos.copy()
-            self._old_mouse: pygame.Vector2 = self.mouse_pos_raw.copy()
+            self.mouse_pos_raw: pygame.Vector2 = self.mouse_pos
+            self._old_mouse: pygame.Vector2 = self.mouse_pos_raw
 
             self._gamepads = dict()
             self._scan_gamepads()
@@ -142,11 +143,11 @@ class Input:
         self.soft_reset()
 
         self.mouse_pos = pygame.Vector2(pygame.mouse.get_pos())
-        self.mouse_pos_raw = self.mouse_pos.copy()
+        self.mouse_pos_raw = self.mouse_pos
         self.mouse_pos[0] *= self._game.window.base_resolution[0] / self._game.window.scaled_resolution[0]
         self.mouse_pos[1] *= self._game.window.base_resolution[1] / self._game.window.scaled_resolution[1]
         self.mouse_moved = self.mouse_pos_raw != self._old_mouse
-        self._old_mouse = self.mouse_pos_raw.copy()
+        self._old_mouse = self.mouse_pos_raw
 
         chars = [
             ".",
@@ -213,6 +214,9 @@ class Input:
 
                 if event.key in [K_LSHIFT, K_RSHIFT]:
                     self.states["shift"] = True
+
+                if event.key in [K_LCTRL, K_RCTRL]:
+                    self.states["ctrl"] = True
 
                 if event.key == K_BACKSPACE:
                     self.states["backspace"] = True
