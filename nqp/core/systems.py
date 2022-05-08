@@ -20,7 +20,7 @@ from nqp.core.components import (
     RangedAttack,
     Stats,
 )
-from nqp.core.constants import EntityFacing, PUSH_FORCE, TILE_SIZE, WEIGHT_SCALE, DamageType, CRIT_MOD, Flags
+from nqp.core.constants import CRIT_MOD, DamageType, EntityFacing, Flags, PUSH_FORCE, TILE_SIZE, WEIGHT_SCALE
 from nqp.core.utility import angle_to, distance_to, get_direction
 
 if TYPE_CHECKING:

@@ -7,7 +7,8 @@ from snecs import Query
 from nqp.core.components import Aesthetic, AI, DamageReceived, IsDead, IsReadyToAttack, Position, Resources, Stats
 
 if TYPE_CHECKING:
-    from typing import Dict, List, Optional, Tuple, Union, Iterator
+    from typing import Dict, Iterator, List, Optional, Tuple, Union
+
     from snecs.typedefs import EntityID
 
 __all__ = [
