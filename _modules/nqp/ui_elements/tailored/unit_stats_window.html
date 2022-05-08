@@ -203,7 +203,14 @@
 
 <span class="kn">from</span> <span class="nn">nqp.command.unit</span> <span class="kn">import</span> <span class="n">Unit</span>
 <span class="kn">from</span> <span class="nn">nqp.core.components</span> <span class="kn">import</span> <span class="n">Stats</span>
-<span class="kn">from</span> <span class="nn">nqp.core.constants</span> <span class="kn">import</span> <span class="n">DEFAULT_IMAGE_SIZE</span><span class="p">,</span> <span class="n">FontType</span><span class="p">,</span> <span class="n">GAP_SIZE</span><span class="p">,</span> <span class="n">StatModifiedStatus</span><span class="p">,</span> <span class="n">WindowType</span>
+<span class="kn">from</span> <span class="nn">nqp.core.constants</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">DEFAULT_IMAGE_SIZE</span><span class="p">,</span>
+    <span class="n">FontType</span><span class="p">,</span>
+    <span class="n">GAP_SIZE</span><span class="p">,</span>
+    <span class="n">StatModifiedStatus</span><span class="p">,</span>
+    <span class="n">TextRelativePosition</span><span class="p">,</span>
+    <span class="n">WindowType</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">nqp.ui_elements.generic.ui_frame</span> <span class="kn">import</span> <span class="n">UIFrame</span>
 <span class="kn">from</span> <span class="nn">nqp.ui_elements.generic.ui_window</span> <span class="kn">import</span> <span class="n">UIWindow</span>
 
@@ -229,9 +236,6 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_rebuild_stat_frames</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="UnitStatsWindow.update"><a class="viewcode-back" href="../../../../nqp.ui_elements.tailored.html#nqp.ui_elements.tailored.unit_stats_window.UnitStatsWindow.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
-        <span class="k">pass</span></div>
-
     <span class="k">def</span> <span class="nf">_rebuild_stat_frames</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">create_font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visual</span><span class="o">.</span><span class="n">create_font</span>
         <span class="n">create_fancy_font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visual</span><span class="o">.</span><span class="n">create_fancy_font</span>
@@ -248,7 +252,13 @@
         <span class="c1"># draw icon</span>
         <span class="n">unit_icon</span> <span class="o">=</span> <span class="n">create_animation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unit</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="s2">&quot;icon&quot;</span><span class="p">)</span>
         <span class="n">font</span> <span class="o">=</span> <span class="n">create_fancy_font</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unit</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
-        <span class="n">frame</span> <span class="o">=</span> <span class="n">UIFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span> <span class="n">image</span><span class="o">=</span><span class="n">unit_icon</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="n">font</span><span class="p">)</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">UIFrame</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span>
+            <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="n">current_x</span><span class="p">,</span> <span class="n">current_y</span><span class="p">),</span>
+            <span class="n">image</span><span class="o">=</span><span class="n">unit_icon</span><span class="p">,</span>
+            <span class="n">font</span><span class="o">=</span><span class="n">font</span><span class="p">,</span>
+            <span class="n">text_relative_position</span><span class="o">=</span><span class="n">TextRelativePosition</span><span class="o">.</span><span class="n">BELOW_IMAGE</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
 
         <span class="c1"># increment</span>
@@ -285,7 +295,8 @@
                 <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="n">frame_x</span><span class="p">,</span> <span class="n">frame_y</span><span class="p">),</span>
                 <span class="n">image</span><span class="o">=</span><span class="n">stat_icon</span><span class="p">,</span>
                 <span class="n">font</span><span class="o">=</span><span class="n">font</span><span class="p">,</span>
-                <span class="n">max_width</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">stat_icon_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+                <span class="n">is_selectable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">tooltip_key</span><span class="o">=</span><span class="n">stat</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
 

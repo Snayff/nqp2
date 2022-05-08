@@ -207,6 +207,7 @@
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
 
+    <span class="kn">from</span> <span class="nn">nqp.core.definitions</span> <span class="kn">import</span> <span class="n">UIElementLike</span>
     <span class="kn">from</span> <span class="nn">nqp.core.game</span> <span class="kn">import</span> <span class="n">Game</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;UIWindow&quot;</span><span class="p">]</span>
@@ -223,18 +224,16 @@
         <span class="n">window_type</span><span class="p">:</span> <span class="n">WindowType</span><span class="p">,</span>
         <span class="n">pos</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">,</span>
         <span class="n">size</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">,</span>
-        <span class="n">elements</span><span class="p">:</span> <span class="n">List</span><span class="p">,</span>
+        <span class="n">elements</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">UIElementLike</span><span class="p">],</span>
         <span class="n">is_active</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="n">elements</span><span class="p">,</span> <span class="n">is_active</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_window_type</span><span class="p">:</span> <span class="n">WindowType</span> <span class="o">=</span> <span class="n">window_type</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_images</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Image</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_window_images</span><span class="p">(</span><span class="n">window_type</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span> <span class="o">=</span> <span class="n">pos</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span> <span class="o">=</span> <span class="n">size</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_window_surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_window_surface</span><span class="p">()</span></div>
-
-<div class="viewcode-block" id="UIWindow.update"><a class="viewcode-back" href="../../../../nqp.ui_elements.generic.html#nqp.ui_elements.generic.ui_window.UIWindow.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UIWindow.draw"><a class="viewcode-back" href="../../../../nqp.ui_elements.generic.html#nqp.ui_elements.generic.ui_window.UIWindow.draw">[docs]</a>    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_draw_window</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>

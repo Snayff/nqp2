@@ -242,7 +242,10 @@
 
         <span class="c1"># update path</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_path_update</span> <span class="o">&gt;</span> <span class="n">PATH_UPDATE_FREQ</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">update_path</span><span class="p">()</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_path</span><span class="p">()</span>
+
+        <span class="c1"># update attack timer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attack_timer</span> <span class="o">-=</span> <span class="n">delta_time</span></div>
 
 <div class="viewcode-block" id="BasicEntityBehaviour.determine_next_action"><a class="viewcode-back" href="../../../nqp.command.html#nqp.command.basic_entity_behaviour.BasicEntityBehaviour.determine_next_action">[docs]</a>    <span class="k">def</span> <span class="nf">determine_next_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">focus_entity</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>

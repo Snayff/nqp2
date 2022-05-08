@@ -249,6 +249,7 @@
 
             <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tooltips</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">load_all_data</span><span class="p">()</span></div>
 
@@ -268,7 +269,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">items</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_items</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_config</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_options</span><span class="p">()</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_options</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tooltips</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_tooltips</span><span class="p">()</span></div>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_load_tile_info</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
@@ -376,7 +378,7 @@
         <span class="k">return</span> <span class="n">bosses</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_load_combats</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">_load_combats</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="n">combats</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">combat</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s2">&quot;data/combats&quot;</span><span class="p">):</span>
@@ -390,7 +392,7 @@
         <span class="k">return</span> <span class="n">combats</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_load_skills</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">_load_skills</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="n">skills</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">skill</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s2">&quot;data/skills&quot;</span><span class="p">):</span>
@@ -404,11 +406,18 @@
         <span class="k">return</span> <span class="n">skills</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_load_options</span><span class="p">():</span>
-        <span class="n">config</span> <span class="o">=</span> <span class="n">load_yaml</span><span class="p">(</span><span class="n">DATA_PATH</span> <span class="o">/</span> <span class="s2">&quot;options.yaml&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_load_options</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="n">load_yaml</span><span class="p">(</span><span class="n">DATA_PATH</span> <span class="o">/</span> <span class="s2">&quot;options.yaml&quot;</span><span class="p">)</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data: Options data loaded.&quot;</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">config</span>
+        <span class="k">return</span> <span class="n">options</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_load_tooltips</span><span class="p">():</span>
+        <span class="n">tooltips</span> <span class="o">=</span> <span class="n">load_yaml</span><span class="p">(</span><span class="n">DATA_PATH</span> <span class="o">/</span> <span class="s2">&quot;tooltips.yaml&quot;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data: Tooltips data loaded.&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">tooltips</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_load_items</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">:</span><span class="n">ItemData</span><span class="p">]:</span>

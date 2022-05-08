@@ -194,86 +194,197 @@
                         
                             
   <h1>Source code for nqp.ui_elements.generic.ui_tooltip</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">pygame</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="c1"># use font_enhanced.formatted_text_gen if you want colors</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="kn">import</span> <span class="nn">pygame</span>
+
+<span class="kn">from</span> <span class="nn">nqp.core.constants</span> <span class="kn">import</span> <span class="n">FontType</span><span class="p">,</span> <span class="n">GAP_SIZE</span><span class="p">,</span> <span class="n">WindowType</span>
+<span class="kn">from</span> <span class="nn">nqp.ui_elements.generic.ui_frame</span> <span class="kn">import</span> <span class="n">UIFrame</span>
+<span class="kn">from</span> <span class="nn">nqp.ui_elements.generic.ui_window</span> <span class="kn">import</span> <span class="n">UIWindow</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
+
+    <span class="kn">from</span> <span class="nn">nqp.core.definitions</span> <span class="kn">import</span> <span class="n">UIContainerLike</span>
+    <span class="kn">from</span> <span class="nn">nqp.core.game</span> <span class="kn">import</span> <span class="n">Game</span>
 
 
-<div class="viewcode-block" id="UITooltip"><a class="viewcode-back" href="../../../../nqp.ui_elements.generic.html#nqp.ui_elements.generic.ui_tooltip.UITooltip">[docs]</a><span class="k">class</span> <span class="nc">UITooltip</span><span class="p">:</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;UITooltip&quot;</span><span class="p">]</span>
 
+
+<div class="viewcode-block" id="UITooltip"><a class="viewcode-back" href="../../../../nqp.ui_elements.generic.html#nqp.ui_elements.generic.ui_tooltip.UITooltip">[docs]</a><span class="k">class</span> <span class="nc">UITooltip</span><span class="p">(</span><span class="n">UIWindow</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Tooltips will pop up after &lt;rect_reference&gt; has been hovered for &lt;visible_delay&gt; seconds and will show &lt;text&gt;.</span>
-<span class="sd">    They are bound by the display size and will adjust their placement automatically.</span>
-<span class="sd">    &lt;rect_reference&gt; should be a reference to a Rect that should be used to trigger the tooltip (likely the Rect</span>
-<span class="sd">    attribute of another UIElement).</span>
-
-<span class="sd">    Please note that Rects can be resized and moved without creating a new instance. This will be necessary when</span>
-<span class="sd">    binding to moving elements.</span>
-<span class="sd">    In the event that an element is in world space rather than an absolute space, the element should have an</span>
-<span class="sd">    alternative rect attribute that gets updated to the absolute rect position.</span>
+<span class="sd">    A UIWindow subclass for showing specific information about a hovered item.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="UITooltip.__init__"><a class="viewcode-back" href="../../../../nqp.ui_elements.generic.html#nqp.ui_elements.generic.ui_tooltip.UITooltip.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">game</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">font_id</span><span class="p">,</span> <span class="n">rect_reference</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">margin</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">visible_delay</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_game</span> <span class="o">=</span> <span class="n">game</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">font_id</span> <span class="o">=</span> <span class="n">font_id</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rect_reference</span> <span class="o">=</span> <span class="n">rect_reference</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">width</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">padding</span> <span class="o">=</span> <span class="n">padding</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">margin</span> <span class="o">=</span> <span class="n">margin</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="mi">100</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cursor_height</span> <span class="o">=</span> <span class="mi">10</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rect_hover_timer</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">visible_delay</span> <span class="o">=</span> <span class="n">visible_delay</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">generate_text_surf</span><span class="p">()</span></div>
+<div class="viewcode-block" id="UITooltip.__init__"><a class="viewcode-back" href="../../../../nqp.ui_elements.generic.html#nqp.ui_elements.generic.ui_tooltip.UITooltip.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">game</span><span class="p">:</span> <span class="n">Game</span><span class="p">,</span>
+        <span class="n">pos</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">,</span>
+        <span class="n">tooltip_key</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">tooltip_content</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Needs either tooltip_key or tooltip_content. tooltip_key takes precedent over</span>
+<span class="sd">        tooltip_content, if both are provided only the key is used.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="n">WindowType</span><span class="o">.</span><span class="n">BASIC</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">[],</span> <span class="kc">True</span><span class="p">)</span>
 
-<div class="viewcode-block" id="UITooltip.change_text"><a class="viewcode-back" href="../../../../nqp.ui_elements.generic.html#nqp.ui_elements.generic.ui_tooltip.UITooltip.change_text">[docs]</a>    <span class="k">def</span> <span class="nf">change_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">generate_text_surf</span><span class="p">()</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">secondary_tooltips</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">UIWindow</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span>
 
-<div class="viewcode-block" id="UITooltip.generate_text_surf"><a class="viewcode-back" href="../../../../nqp.ui_elements.generic.html#nqp.ui_elements.generic.ui_tooltip.UITooltip.generate_text_surf">[docs]</a>    <span class="k">def</span> <span class="nf">generate_text_surf</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">text_block</span> <span class="o">=</span> <span class="n">TextBlock</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visual</span><span class="o">.</span><span class="n">enhanced_fonts</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">font_id</span><span class="p">],</span> <span class="n">max_width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span> <span class="o">*</span> <span class="mi">2</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">text_surf</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">(</span>
-            <span class="p">(</span><span class="n">text_block</span><span class="o">.</span><span class="n">used_width</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">text_block</span><span class="o">.</span><span class="n">height</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">text_surf</span><span class="o">.</span><span class="n">fill</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">text_surf</span><span class="o">.</span><span class="n">set_colorkey</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
-        <span class="n">text_block</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text_surf</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">))</span></div>
+        <span class="c1"># get the content from either param</span>
+        <span class="k">if</span> <span class="n">tooltip_key</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_content</span><span class="p">(</span><span class="n">tooltip_key</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">content</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">title</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">image_name</span> <span class="o">=</span> <span class="n">content</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_build_self</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">image_name</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">tooltip_content</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">title</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">image_name</span> <span class="o">=</span> <span class="n">tooltip_content</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_build_self</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">image_name</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="UITooltip.update"><a class="viewcode-back" href="../../../../nqp.ui_elements.generic.html#nqp.ui_elements.generic.ui_tooltip.UITooltip.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_time</span><span class="p">):</span>
-        <span class="n">mouse_pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">mouse_pos</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect_reference</span><span class="o">.</span><span class="n">collidepoint</span><span class="p">(</span><span class="n">mouse_pos</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">rect_hover_timer</span> <span class="o">+=</span> <span class="n">delta_time</span>
+<div class="viewcode-block" id="UITooltip.update"><a class="viewcode-back" href="../../../../nqp.ui_elements.generic.html#nqp.ui_elements.generic.ui_tooltip.UITooltip.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="UITooltip.draw"><a class="viewcode-back" href="../../../../nqp.ui_elements.generic.html#nqp.ui_elements.generic.ui_tooltip.UITooltip.draw">[docs]</a>    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">secondary_tooltips</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">secondary_tooltips</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_get_content</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tooltip_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the content from the tooltip data, using the key.</span>
+<span class="sd">        Returns None if key not found.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">title</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">tooltips</span><span class="p">[</span><span class="n">tooltip_key</span><span class="p">][</span><span class="s2">&quot;title&quot;</span><span class="p">]</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">tooltips</span><span class="p">[</span><span class="n">tooltip_key</span><span class="p">][</span><span class="s2">&quot;text&quot;</span><span class="p">]</span>
+            <span class="n">image_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">tooltips</span><span class="p">[</span><span class="n">tooltip_key</span><span class="p">][</span><span class="s2">&quot;image&quot;</span><span class="p">]</span>
+
+            <span class="k">return</span> <span class="n">title</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">image_name</span>
+
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">return</span>
+
+    <span class="k">def</span> <span class="nf">_build_self</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">image_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Build primary and secondary tooltips.</span>
+<span class="sd">        Also recalcs size of self and rebuilds the window surface to align to the new size.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">text</span><span class="p">,</span> <span class="n">keys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_text</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">GAP_SIZE</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">GAP_SIZE</span><span class="p">)</span>
+        <span class="n">frames</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_frames</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">image_name</span><span class="p">,</span> <span class="n">pos</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span> <span class="o">+</span> <span class="n">frames</span>
+
+        <span class="c1"># need to recalc size and rebuild window to match</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_recalculate_size</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_window_surface</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_window_surface</span><span class="p">()</span>
+
+        <span class="c1"># build secondary tooltips</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">+</span> <span class="n">GAP_SIZE</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">GAP_SIZE</span><span class="p">)</span>
+        <span class="n">secondary_frames</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
+            <span class="n">title</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">image_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_content</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+            <span class="n">text</span><span class="p">,</span> <span class="n">keys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_text</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+            <span class="n">frames</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_frames</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">image_name</span><span class="p">,</span> <span class="n">pos</span><span class="p">)</span>
+            <span class="n">secondary_frames</span> <span class="o">=</span> <span class="n">secondary_frames</span> <span class="o">+</span> <span class="n">frames</span>
+
+            <span class="c1"># increment pos</span>
+            <span class="n">last_frame</span> <span class="o">=</span> <span class="n">frames</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">pos</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">last_frame</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">last_frame</span><span class="o">.</span><span class="n">height</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># +1 avoid overlap</span>
+
+        <span class="c1"># add secondary frames to a window</span>
+        <span class="k">if</span> <span class="n">secondary_frames</span><span class="p">:</span>
+            <span class="c1"># recalc size</span>
+            <span class="n">height</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">width</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">secondary_frames</span><span class="p">:</span>
+                <span class="n">height</span> <span class="o">+=</span> <span class="n">frame</span><span class="o">.</span><span class="n">height</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="n">frame</span><span class="o">.</span><span class="n">width</span> <span class="o">&gt;</span> <span class="n">width</span><span class="p">:</span>
+                    <span class="n">width</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">width</span>
+
+            <span class="c1"># add gap for whitespace</span>
+            <span class="n">width</span> <span class="o">+=</span> <span class="n">GAP_SIZE</span>
+            <span class="n">height</span> <span class="o">+=</span> <span class="n">GAP_SIZE</span> <span class="o">*</span> <span class="mi">2</span>
+
+            <span class="n">pos</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>  <span class="c1"># +1 avoid overlap</span>
+            <span class="c1"># create window, not tooltip, as we&#39;ve already done all the work and we dont want recursive tooltips</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">secondary_tooltips</span> <span class="o">=</span> <span class="n">UIWindow</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_window_type</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">),</span> <span class="n">secondary_frames</span><span class="p">,</span> <span class="kc">True</span>
+            <span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_parse_text</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return text without tags and a list of any keys for secondary tooltips.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># check for secondary tag</span>
+        <span class="n">start_indices</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">char</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="k">if</span> <span class="n">char</span> <span class="o">==</span> <span class="s2">&quot;&lt;&quot;</span><span class="p">]</span>
+        <span class="n">end_indices</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">char</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="k">if</span> <span class="n">char</span> <span class="o">==</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">]</span>
+        <span class="n">secondary_tooltip_keys</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># confirm results are as expected</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">start_indices</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">start_indices</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">end_indices</span><span class="p">):</span>
+
+            <span class="c1"># loop indices, remove tags and keep strings in tags for getting secondary tooltips</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">start_indices</span><span class="p">):</span>
+                <span class="n">end</span> <span class="o">=</span> <span class="n">end_indices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">secondary_tooltip_keys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">text</span><span class="p">[</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:</span> <span class="n">end</span><span class="p">])</span>
+
+            <span class="c1"># remove tags from text</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&lt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">text</span><span class="p">,</span> <span class="n">secondary_tooltip_keys</span>
+
+    <span class="k">def</span> <span class="nf">_recalculate_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Recalculate the size of the tooltip based on the the elements.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">width</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">:</span>
+            <span class="n">height</span> <span class="o">+=</span> <span class="n">frame</span><span class="o">.</span><span class="n">height</span> <span class="o">+</span> <span class="mi">1</span>  <span class="c1"># account for overlap offset</span>
+
+            <span class="c1"># get biggest width</span>
+            <span class="k">if</span> <span class="n">frame</span><span class="o">.</span><span class="n">width</span> <span class="o">&gt;</span> <span class="n">width</span><span class="p">:</span>
+                <span class="n">width</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">width</span>
+
+        <span class="c1"># add gap for whitespace</span>
+        <span class="n">width</span> <span class="o">+=</span> <span class="n">GAP_SIZE</span>
+        <span class="n">height</span> <span class="o">+=</span> <span class="n">GAP_SIZE</span> <span class="o">*</span> <span class="mi">2</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_build_frames</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">image_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">UIFrame</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Build the various frames that make up the tooltip</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">frames</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># title frame</span>
+        <span class="n">font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visual</span><span class="o">.</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">POSITIVE</span><span class="p">,</span> <span class="n">title</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">image_name</span><span class="p">:</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visual</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="n">image_name</span><span class="p">)</span>
+            <span class="n">frame</span> <span class="o">=</span> <span class="n">UIFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">font</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="n">image</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">rect_hover_timer</span> <span class="o">=</span> <span class="mi">0</span></div>
+            <span class="n">frame</span> <span class="o">=</span> <span class="n">UIFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">font</span><span class="p">)</span>
+        <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
 
-<div class="viewcode-block" id="UITooltip.draw"><a class="viewcode-back" href="../../../../nqp.ui_elements.generic.html#nqp.ui_elements.generic.ui_tooltip.UITooltip.draw">[docs]</a>    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surf</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect_hover_timer</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">visible_delay</span><span class="p">:</span>
-            <span class="n">mouse_pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">mouse_pos</span>
-            <span class="n">display_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">base_resolution</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">height</span>
 
-            <span class="c1"># prioritize placing the tooltip centered above the mouse</span>
-            <span class="n">base_pos</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="n">mouse_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_surf</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span>
-                <span class="n">mouse_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_surf</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">margin</span><span class="p">,</span>
-            <span class="p">]</span>
+        <span class="c1"># content frame</span>
+        <span class="n">font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visual</span><span class="o">.</span><span class="n">create_font</span><span class="p">(</span><span class="n">FontType</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">pos</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">frame</span><span class="o">.</span><span class="n">height</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># +1 avoid overlap</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">UIFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">font</span><span class="p">,</span> <span class="n">max_width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_width</span><span class="p">)</span>
+        <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
 
-            <span class="c1"># correct position on X axis if showing off of the screen</span>
-            <span class="n">base_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">base_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">margin</span><span class="p">)</span>
-            <span class="n">base_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">base_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">display_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_surf</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">margin</span><span class="p">)</span>
+        <span class="n">height</span> <span class="o">+=</span> <span class="n">frame</span><span class="o">.</span><span class="n">height</span>
 
-            <span class="c1"># show tooltip below mouse if it&#39;s clipping above the display</span>
-            <span class="k">if</span> <span class="n">base_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">margin</span><span class="p">:</span>
-                <span class="n">base_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">mouse_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">margin</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor_height</span>
-
-            <span class="c1"># just draw an image instead if you don&#39;t want a rectangle background</span>
-            <span class="n">bg_surf</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text_surf</span><span class="o">.</span><span class="n">get_size</span><span class="p">())</span>
-            <span class="n">bg_surf</span><span class="o">.</span><span class="n">set_alpha</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">)</span>
-
-            <span class="n">surf</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">bg_surf</span><span class="p">,</span> <span class="n">base_pos</span><span class="p">)</span>
-            <span class="n">surf</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text_surf</span><span class="p">,</span> <span class="n">base_pos</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="n">frames</span></div>
 </pre></div>
 
                         

@@ -202,12 +202,13 @@
 <span class="kn">import</span> <span class="nn">pygame</span>
 
 <span class="kn">from</span> <span class="nn">nqp.base_classes.ui_element</span> <span class="kn">import</span> <span class="n">UIElement</span>
-<span class="kn">from</span> <span class="nn">nqp.ui_elements.generic.ui_frame</span> <span class="kn">import</span> <span class="n">UIFrame</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
 
+    <span class="kn">from</span> <span class="nn">nqp.core.definitions</span> <span class="kn">import</span> <span class="n">UIElementLike</span>
     <span class="kn">from</span> <span class="nn">nqp.core.game</span> <span class="kn">import</span> <span class="n">Game</span>
+    <span class="kn">from</span> <span class="nn">nqp.ui_elements.generic.ui_tooltip</span> <span class="kn">import</span> <span class="n">UITooltip</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;UIPanel&quot;</span><span class="p">]</span>
 
@@ -215,20 +216,24 @@
 <div class="viewcode-block" id="UIPanel"><a class="viewcode-back" href="../../../../nqp.ui_elements.generic.html#nqp.ui_elements.generic.ui_panel.UIPanel">[docs]</a><span class="k">class</span> <span class="nc">UIPanel</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A container class for UIElements. Offers support for selection management.</span>
-<span class="sd">    Sets no visual elements.</span>
+<span class="sd">    Note that UIPanel doesnt have a position or size so one is inferred from it&#39;s contained</span>
+<span class="sd">    elements.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="UIPanel.__init__"><a class="viewcode-back" href="../../../../nqp.ui_elements.generic.html#nqp.ui_elements.generic.ui_panel.UIPanel.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">game</span><span class="p">:</span> <span class="n">Game</span><span class="p">,</span> <span class="n">elements</span><span class="p">:</span> <span class="n">List</span><span class="p">,</span> <span class="n">is_active</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="UIPanel.__init__"><a class="viewcode-back" href="../../../../nqp.ui_elements.generic.html#nqp.ui_elements.generic.ui_panel.UIPanel.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">game</span><span class="p">:</span> <span class="n">Game</span><span class="p">,</span> <span class="n">elements</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">UIElementLike</span><span class="p">],</span> <span class="n">is_active</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">:</span> <span class="n">Game</span> <span class="o">=</span> <span class="n">game</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">UIFrame</span><span class="p">,</span> <span class="n">UIElement</span><span class="p">]]</span> <span class="o">=</span> <span class="n">elements</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">UIElementLike</span><span class="p">]</span> <span class="o">=</span> <span class="n">elements</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_selected_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_active</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">is_active</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tooltip_ref</span><span class="p">:</span> <span class="n">UITooltip</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Used to keep track of the tooltip in _elements</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">set_active</span><span class="p">(</span><span class="n">is_active</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UIPanel.update"><a class="viewcode-back" href="../../../../nqp.ui_elements.generic.html#nqp.ui_elements.generic.ui_panel.UIPanel.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">:</span>
-            <span class="n">element</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span></div>
+            <span class="n">element</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_time</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_process_tooltip</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="UIPanel.draw"><a class="viewcode-back" href="../../../../nqp.ui_elements.generic.html#nqp.ui_elements.generic.ui_panel.UIPanel.draw">[docs]</a>    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">:</span>
@@ -239,8 +244,12 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_active</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">selected_element</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">UIElement</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span><span class="p">]</span>
+    <span class="k">def</span> <span class="nf">selected_element</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">UIElement</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">element</span><span class="o">.</span><span class="n">is_selected</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">element</span>
+        <span class="c1"># return self._elements[self.selected_index]</span>
+        <span class="k">return</span> <span class="kc">None</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">selected_index</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
@@ -276,10 +285,13 @@
 <span class="sd">        Selects the first element and sets the rest to previously_selected.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">unselect_all_elements</span><span class="p">()</span>
+
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">is_selected</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_selected_index</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">select_next_element</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tried to select first element but no element to select in panel.&quot;</span><span class="p">)</span></div>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Panel: Tried to select first element but no element to select in panel.&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UIPanel.unselect_all_elements"><a class="viewcode-back" href="../../../../nqp.ui_elements.generic.html#nqp.ui_elements.generic.ui_panel.UIPanel.unselect_all_elements">[docs]</a>    <span class="k">def</span> <span class="nf">unselect_all_elements</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -288,11 +300,13 @@
         <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">:</span>
             <span class="n">element</span><span class="o">.</span><span class="n">is_selected</span> <span class="o">=</span> <span class="kc">False</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_selected_index</span> <span class="o">=</span> <span class="mi">0</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_selected_index</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_clear_tooltip</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="UIPanel.select_next_element"><a class="viewcode-back" href="../../../../nqp.ui_elements.generic.html#nqp.ui_elements.generic.ui_panel.UIPanel.select_next_element">[docs]</a>    <span class="k">def</span> <span class="nf">select_next_element</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="UIPanel.select_next_element"><a class="viewcode-back" href="../../../../nqp.ui_elements.generic.html#nqp.ui_elements.generic.ui_panel.UIPanel.select_next_element">[docs]</a>    <span class="k">def</span> <span class="nf">select_next_element</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">play_sound</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
         <span class="c1"># unselect current</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span><span class="p">]</span><span class="o">.</span><span class="n">is_selected</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_clear_tooltip</span><span class="p">()</span>
 
         <span class="n">starting_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span>
 
@@ -306,16 +320,19 @@
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span><span class="p">]</span><span class="o">.</span><span class="n">is_selectable</span><span class="p">:</span>
                 <span class="c1"># select</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span><span class="p">]</span><span class="o">.</span><span class="n">is_selected</span> <span class="o">=</span> <span class="kc">True</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">audio</span><span class="o">.</span><span class="n">play_sound</span><span class="p">(</span><span class="s2">&quot;standard_click&quot;</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">play_sound</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">audio</span><span class="o">.</span><span class="n">play_sound</span><span class="p">(</span><span class="s2">&quot;standard_click&quot;</span><span class="p">)</span>
 
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span> <span class="o">==</span> <span class="n">starting_index</span><span class="p">:</span>
-                    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Panel: Looped all the way back to the starting index. No others selectable.&quot;</span><span class="p">)</span>
+                    <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Panel: Looped all the way back to the starting index. No others selectable.&quot;</span><span class="p">)</span>
 
                 <span class="k">break</span></div>
 
-<div class="viewcode-block" id="UIPanel.select_previous_element"><a class="viewcode-back" href="../../../../nqp.ui_elements.generic.html#nqp.ui_elements.generic.ui_panel.UIPanel.select_previous_element">[docs]</a>    <span class="k">def</span> <span class="nf">select_previous_element</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="UIPanel.select_previous_element"><a class="viewcode-back" href="../../../../nqp.ui_elements.generic.html#nqp.ui_elements.generic.ui_panel.UIPanel.select_previous_element">[docs]</a>    <span class="k">def</span> <span class="nf">select_previous_element</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">play_sound</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
         <span class="c1"># unselect current</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span><span class="p">]</span><span class="o">.</span><span class="n">is_selected</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_clear_tooltip</span><span class="p">()</span>
 
         <span class="n">starting_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span>
 
@@ -329,12 +346,69 @@
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span><span class="p">]</span><span class="o">.</span><span class="n">is_selectable</span><span class="p">:</span>
                 <span class="c1"># select</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span><span class="p">]</span><span class="o">.</span><span class="n">is_selected</span> <span class="o">=</span> <span class="kc">True</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">audio</span><span class="o">.</span><span class="n">play_sound</span><span class="p">(</span><span class="s2">&quot;standard_click&quot;</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">play_sound</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">audio</span><span class="o">.</span><span class="n">play_sound</span><span class="p">(</span><span class="s2">&quot;standard_click&quot;</span><span class="p">)</span>
 
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_index</span> <span class="o">==</span> <span class="n">starting_index</span><span class="p">:</span>
                     <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Panel: Looped all the way back to the starting index. No others selectable.&quot;</span><span class="p">)</span>
 
-                <span class="k">break</span></div></div>
+                <span class="k">break</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">width</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">width</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">element</span><span class="o">.</span><span class="n">width</span> <span class="o">&gt;</span> <span class="n">width</span><span class="p">:</span>
+                <span class="n">width</span> <span class="o">=</span> <span class="n">element</span><span class="o">.</span><span class="n">width</span>
+        <span class="k">return</span> <span class="n">width</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">height</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">:</span>
+            <span class="n">height</span> <span class="o">+=</span> <span class="n">element</span><span class="o">.</span><span class="n">height</span>
+        <span class="k">return</span> <span class="n">height</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">x</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">x</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">y</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">y</span>
+
+    <span class="k">def</span> <span class="nf">_process_tooltip</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if tooltip is needed and create or delete as required.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">selected_element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_element</span>
+
+        <span class="k">if</span> <span class="n">selected_element</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_active</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="n">selected_element</span><span class="o">.</span><span class="n">show_tooltip</span> <span class="ow">and</span> <span class="n">selected_element</span><span class="o">.</span><span class="n">tooltip_key</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tooltip_ref</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">pos</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+                <span class="kn">from</span> <span class="nn">nqp.ui_elements.generic.ui_tooltip</span> <span class="kn">import</span> <span class="n">UITooltip</span>
+
+                <span class="n">tooltip</span> <span class="o">=</span> <span class="n">UITooltip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">selected_element</span><span class="o">.</span><span class="n">tooltip_key</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_add_tooltip</span><span class="p">(</span><span class="n">tooltip</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_clear_tooltip</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_clear_tooltip</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tooltip_ref</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tooltip_ref</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="c1"># we dont care that it failed as it means there is no tooltip</span>
+            <span class="c1"># but set to None just to be sure</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tooltip_ref</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">_add_tooltip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tooltip</span><span class="p">:</span> <span class="n">UITooltip</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tooltip_ref</span> <span class="o">=</span> <span class="n">tooltip</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tooltip_ref</span><span class="p">)</span></div>
 </pre></div>
 
                         
