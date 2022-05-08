@@ -43,6 +43,10 @@ class RunSetupUI(UI):
         elif self._current_container == self._containers["exit"]:
             self._handle_exit_input()
 
+        # info panel
+        elif self._current_container == self._containers["info"]:
+            self._handle_info_input()
+
     def draw(self, surface: pygame.Surface):
 
         self._draw_instruction(surface)
@@ -100,6 +104,7 @@ class RunSetupUI(UI):
             # increment draw pos and counter
             current_x += icon_width + GAP_SIZE
 
+        # create panel
         panel = UIPanel(self._game, panel_elements, True)
         self.add_container(panel, "commanders")
 
@@ -143,6 +148,9 @@ class RunSetupUI(UI):
 
         current_y = (window_height // 2) + 70
 
+        # new panel
+        panel_elements = []
+
         # resources
         frame = UIFrame(
             self._game,
@@ -156,67 +164,75 @@ class RunSetupUI(UI):
             self._game,
             pygame.Vector2(info_x, current_y),
             font=create_font(FontType.DEFAULT, commander["charisma"]),
-            is_selectable=False,
+            is_selectable=True,
+            tooltip_key="charisma"
         )
         self._elements["charisma"] = frame
+        panel_elements.append(frame)
 
-        current_y += frame.height + GAP_SIZE
+        # create panel
+        panel = UIPanel(self._game, panel_elements, True)
+        self.add_container(panel, "info")
 
-        frame = UIFrame(
-            self._game,
-            pygame.Vector2(header_x, current_y),
-            font=create_font(FontType.DISABLED, "Leadership"),
-            is_selectable=False,
-        )
-        self._elements["leadership_header"] = frame
+        #
+        # current_y += frame.height + GAP_SIZE
+        #
+        # frame = UIFrame(
+        #     self._game,
+        #     pygame.Vector2(header_x, current_y),
+        #     font=create_font(FontType.DISABLED, "Leadership"),
+        #     is_selectable=False,
+        # )
+        # self._elements["leadership_header"] = frame
+        #
+        # frame = UIFrame(
+        #     self._game,
+        #     pygame.Vector2(info_x, current_y),
+        #     font=create_font(FontType.DEFAULT, commander["leadership"]),
+        #     is_selectable=False,
+        # )
+        # self._elements["leadership"] = frame
+        #
+        # current_y += frame.height + GAP_SIZE
+        #
+        # # gold
+        # frame = UIFrame(
+        #     self._game,
+        #     pygame.Vector2(header_x, current_y),
+        #     font=create_font(FontType.DISABLED, "Gold"),
+        #     is_selectable=False,
+        # )
+        # self._elements["gold_header"] = frame
+        #
+        # frame = UIFrame(
+        #     self._game,
+        #     pygame.Vector2(info_x, current_y),
+        #     font=create_font(FontType.DEFAULT, commander["gold"]),
+        #     is_selectable=False,
+        # )
+        # self._elements["gold"] = frame
+        #
+        # current_y += frame.height + GAP_SIZE
+        #
+        # # allies
+        # frame = UIFrame(
+        #     self._game,
+        #     pygame.Vector2(header_x, current_y),
+        #     font=create_font(FontType.DISABLED, "Allies"),
+        #     is_selectable=False,
+        # )
+        # self._elements["allies_header"] = frame
+        #
+        # # draw each faction image
+        # for count, ally in enumerate(commander["allies"]):
+        #     image = get_image(ally, pygame.Vector2(DEFAULT_IMAGE_SIZE * 2, DEFAULT_IMAGE_SIZE * 2))
+        #     frame = UIFrame(self._game, pygame.Vector2(info_x, current_y), image=image, is_selectable=False)
+        #     self._elements[f"allies{count}"] = frame
+        #     info_x += image.width + 2
 
-        frame = UIFrame(
-            self._game,
-            pygame.Vector2(info_x, current_y),
-            font=create_font(FontType.DEFAULT, commander["leadership"]),
-            is_selectable=False,
-        )
-        self._elements["leadership"] = frame
-
-        current_y += frame.height + GAP_SIZE
-
-        # gold
-        frame = UIFrame(
-            self._game,
-            pygame.Vector2(header_x, current_y),
-            font=create_font(FontType.DISABLED, "Gold"),
-            is_selectable=False,
-        )
-        self._elements["gold_header"] = frame
-
-        frame = UIFrame(
-            self._game,
-            pygame.Vector2(info_x, current_y),
-            font=create_font(FontType.DEFAULT, commander["gold"]),
-            is_selectable=False,
-        )
-        self._elements["gold"] = frame
-
-        current_y += frame.height + GAP_SIZE
-
-        # allies
-        frame = UIFrame(
-            self._game,
-            pygame.Vector2(header_x, current_y),
-            font=create_font(FontType.DISABLED, "Allies"),
-            is_selectable=False,
-        )
-        self._elements["allies_header"] = frame
-
-        # draw each faction image
-        for count, ally in enumerate(commander["allies"]):
-            image = get_image(ally, pygame.Vector2(DEFAULT_IMAGE_SIZE * 2, DEFAULT_IMAGE_SIZE * 2))
-            frame = UIFrame(self._game, pygame.Vector2(info_x, current_y), image=image, is_selectable=False)
-            self._elements[f"allies{count}"] = frame
-            info_x += image.width + 2
-
-        # restore selection
-        self._current_container.set_selected_index(self._selected_index)
+        # restore selection in commanders (we want info to reset on commander change)
+        if self._current_container == self._containers["commanders"]:
+            self._current_container.set_selected_index(self._selected_index)
 
         self.add_exit_button()
 
@@ -258,6 +274,9 @@ class RunSetupUI(UI):
 
             self.select_container("exit")
 
+        if self._game.input.states["ctrl"]:
+            self.select_container("info")
+
     def _handle_exit_input(self):
         if self._game.input.states["select"]:
             self._game.run_setup.start_run()
@@ -268,3 +287,14 @@ class RunSetupUI(UI):
 
             # change to commanders
             self._current_container = self._containers["commanders"]
+
+    def _handle_info_input(self):
+        if self._game.input.states["ctrl"]:
+            self.select_container("commanders")
+
+            # selections within panel
+            if self._game.input.states["up"]:
+                self._current_container.select_previous_element()
+
+            if self._game.input.states["down"]:
+                self._current_container.select_next_element()

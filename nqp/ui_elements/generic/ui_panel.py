@@ -12,6 +12,7 @@ if TYPE_CHECKING:
 
     from nqp.core.game import Game
     from nqp.core.definitions import UIElementLike
+    from nqp.ui_elements.generic.ui_tooltip import UITooltip
 
 __all__ = ["UIPanel"]
 
@@ -28,12 +29,15 @@ class UIPanel:
         self._elements: List[UIElementLike] = elements
         self._selected_index: int = 0
         self._is_active: bool = is_active
+        self._tooltip_ref: UITooltip | None = None  # Used to keep track of the tooltip in _elements
 
         self.set_active(is_active)
 
     def update(self, delta_time: float):
         for element in self._elements:
             element.update(delta_time)
+
+        self._process_tooltip()
 
     def draw(self, surface: pygame.Surface):
         for element in self._elements:
@@ -44,8 +48,12 @@ class UIPanel:
         return self._is_active
 
     @property
-    def selected_element(self) -> UIElement:
-        return self._elements[self.selected_index]
+    def selected_element(self) -> UIElement | None:
+        for element in self._elements:
+            if element.is_selected:
+                return element
+        #return self._elements[self.selected_index]
+        return None
 
     @property
     def selected_index(self) -> int:
@@ -97,10 +105,12 @@ class UIPanel:
             element.is_selected = False
 
         self._selected_index = 0
+        self._clear_tooltip()
 
     def select_next_element(self, play_sound: bool = True):
         # unselect current
         self._elements[self.selected_index].is_selected = False
+        self._clear_tooltip()
 
         starting_index = self.selected_index
 
@@ -115,8 +125,6 @@ class UIPanel:
                 # select
                 self._elements[self.selected_index].is_selected = True
 
-                #print(f"Selected {self._elements[self.selected_index]._font.text}")
-
                 if play_sound:
                     self._game.audio.play_sound("standard_click")
 
@@ -128,6 +136,7 @@ class UIPanel:
     def select_previous_element(self, play_sound: bool = True):
         # unselect current
         self._elements[self.selected_index].is_selected = False
+        self._clear_tooltip()
 
         starting_index = self.selected_index
 
@@ -172,3 +181,34 @@ class UIPanel:
     @property
     def y(self) -> int:
         return self._elements[0].y
+
+    def _process_tooltip(self):
+        """
+        Check if tooltip is needed and create or delete as required.
+        """
+        selected_element = self.selected_element
+
+        if selected_element is None or not self.is_active:
+            return
+
+        if selected_element.show_tooltip and selected_element.tooltip_key is not None:
+            if self._tooltip_ref is None:
+                pos = pygame.Vector2(self.x + self.width + 1, self.y)
+                from nqp.ui_elements.generic.ui_tooltip import UITooltip
+                tooltip = UITooltip(self._game, pos, selected_element.tooltip_key)
+                self._add_tooltip(tooltip)
+        else:
+            self._clear_tooltip()
+
+    def _clear_tooltip(self):
+        try:
+            self._elements.remove(self._tooltip_ref)
+            self._tooltip_ref = None
+        except ValueError:
+            # we dont care that it failed as it means there is no tooltip
+            # but set to None just to be sure
+            self._tooltip_ref = None
+
+    def _add_tooltip(self, tooltip: UITooltip):
+        self._tooltip_ref = tooltip
+        self._elements.append(self._tooltip_ref)

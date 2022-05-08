@@ -177,20 +177,8 @@ class UI(ABC):
         for container in self._containers.values():
             container.update(delta_time)
 
-            selected_element = container.selected_element
-            if selected_element.show_tooltip and selected_element.tooltip_key is not None:
-                if "tooltip" not in self._elements:
-                    pos = pygame.Vector2(container.x + container.width + 1, container.y)
-                    tooltip = UITooltip(self._game, pos, selected_element.tooltip_key)
-                    self._elements["tooltip"] = tooltip
-            else:
-                # delete tooltip
-                self._elements.pop("tooltip", None)
-
         for element in self._elements.values():
             element.update(delta_time)
-
-            # cant select elements not in containers so no need to check here.
 
     def add_container(self, container: Union[UIPanel, UIWindow], name: str):
         """

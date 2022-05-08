@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 import pygame
 
 from nqp.core.constants import WindowType, FontType, GAP_SIZE
-from nqp.core.definitions import UIContainerLike
 from nqp.ui_elements.generic.ui_frame import UIFrame
 
 from nqp.ui_elements.generic.ui_window import UIWindow
@@ -14,6 +13,7 @@ if TYPE_CHECKING:
     from typing import Dict, List, Tuple
 
     from nqp.core.game import Game
+    from nqp.core.definitions import UIContainerLike
 
 
 __all__ = ["UITooltip"]

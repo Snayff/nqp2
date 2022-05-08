@@ -62,6 +62,10 @@ range:
   title: "Range"
   text: "How far away an entity's attack can reach."
   image: "range"
+ally:
+  title: "Ally"
+  text: "Those who are willing to join you in your ambitions."
+  image: null
 aberrations_of_nature:
   title: "Aberrations of Nature"
   text: "Self-identified as the Naturists, they are widely known as the Aberrations of Nature. Brought into existence by the quirks of fate, or the whims of the gods, they desire most to be acknowledged as alive. Champions of the natural order of the world they despise the Hammerites above all else, and will stop at nothing to prevent them from claiming rule, as this threatens their entire existence."
