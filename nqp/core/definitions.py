@@ -13,4 +13,3 @@ __all__ = ["TileLocation", "UIElementLike", "UIContainerLike"]
 TileLocation = Tuple[int, int]
 UIElementLike = UIElement | UIFrame
 UIContainerLike = UIPanel | UIWindow | UnitStatsWindow
-

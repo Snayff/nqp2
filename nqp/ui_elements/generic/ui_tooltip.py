@@ -4,16 +4,15 @@ from typing import TYPE_CHECKING
 
 import pygame
 
-from nqp.core.constants import WindowType, FontType, GAP_SIZE
+from nqp.core.constants import FontType, GAP_SIZE, WindowType
 from nqp.ui_elements.generic.ui_frame import UIFrame
-
 from nqp.ui_elements.generic.ui_window import UIWindow
 
 if TYPE_CHECKING:
     from typing import Dict, List, Tuple
 
-    from nqp.core.game import Game
     from nqp.core.definitions import UIContainerLike
+    from nqp.core.game import Game
 
 
 __all__ = ["UITooltip"]
@@ -25,11 +24,11 @@ class UITooltip(UIWindow):
     """
 
     def __init__(
-            self,
-            game: Game,
-            pos: pygame.Vector2,
-            tooltip_key: str | None = None,
-            tooltip_content: Tuple[str, str, str] | None = None
+        self,
+        game: Game,
+        pos: pygame.Vector2,
+        tooltip_key: str | None = None,
+        tooltip_content: Tuple[str, str, str] | None = None,
     ):
         """
         Needs either tooltip_key or tooltip_content. tooltip_key takes precedent over
@@ -118,14 +117,8 @@ class UITooltip(UIWindow):
             pos = pygame.Vector2(self.pos.x + self.width + 1, self.pos.y)  # +1 avoid overlap
             # create window, not tooltip, as we've already done all the work and we dont want recursive tooltips
             self.secondary_tooltips = UIWindow(
-                self._game,
-                self._window_type,
-                pos,
-                pygame.Vector2(width, height),
-                secondary_frames,
-                True
+                self._game, self._window_type, pos, pygame.Vector2(width, height), secondary_frames, True
             )
-
 
     @staticmethod
     def _parse_text(text: str) -> Tuple[str, List[str]]:
@@ -143,7 +136,7 @@ class UITooltip(UIWindow):
             # loop indices, remove tags and keep strings in tags for getting secondary tooltips
             for i, index in enumerate(start_indices):
                 end = end_indices[i]
-                secondary_tooltip_keys.append(text[index + 1:end])
+                secondary_tooltip_keys.append(text[index + 1 : end])
 
             # remove tags from text
             text = text.replace("<", "")

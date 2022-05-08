@@ -51,7 +51,7 @@ jobs:
 #      run: |
 #        poetry run python -m pytest tests/
 
-    - name: Lint Code Base
+    - name: Lint Actions and YAML
       uses: github/super-linter@v4
       env:
         # PYTHON_BLACK_CONFIG_FILE: pyproject.toml

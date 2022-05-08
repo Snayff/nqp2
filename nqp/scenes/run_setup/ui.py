@@ -159,7 +159,7 @@ class RunSetupUI(UI):
             is_selectable=True,
             tooltip_key="charisma",
         )
-        #self._elements["charisma_header"] = frame
+        # self._elements["charisma_header"] = frame
         panel_elements.append(frame)
 
         frame = UIFrame(
@@ -180,7 +180,7 @@ class RunSetupUI(UI):
             tooltip_key="leadership",
         )
         panel_elements.append(frame)
-        #self._elements["leadership_header"] = frame
+        # self._elements["leadership_header"] = frame
 
         frame = UIFrame(
             self._game,
@@ -201,7 +201,7 @@ class RunSetupUI(UI):
             tooltip_key="gold",
         )
         panel_elements.append(frame)
-       # self._elements["gold_header"] = frame
+        # self._elements["gold_header"] = frame
 
         frame = UIFrame(
             self._game,
@@ -222,7 +222,7 @@ class RunSetupUI(UI):
             tooltip_key="ally",
         )
         panel_elements.append(frame)
-        #self._elements["allies_header"] = frame
+        # self._elements["allies_header"] = frame
 
         # draw each faction image
         for count, ally in enumerate(commander["allies"]):
@@ -235,7 +235,7 @@ class RunSetupUI(UI):
                 tooltip_key=ally,
             )
             panel_elements.append(frame)
-            #self._elements[f"allies{count}"] = frame
+            # self._elements[f"allies{count}"] = frame
             info_x += image.width + 2
 
         # create panel

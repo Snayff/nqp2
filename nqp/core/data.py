@@ -301,5 +301,3 @@ class Data:
         occur_rate = tier_occur_rates[str(combat_tier)]
 
         return occur_rate
-
-

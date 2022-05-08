@@ -10,8 +10,8 @@ from nqp.base_classes.ui_element import UIElement
 if TYPE_CHECKING:
     from typing import List, Union
 
-    from nqp.core.game import Game
     from nqp.core.definitions import UIElementLike
+    from nqp.core.game import Game
     from nqp.ui_elements.generic.ui_tooltip import UITooltip
 
 __all__ = ["UIPanel"]
@@ -52,7 +52,7 @@ class UIPanel:
         for element in self._elements:
             if element.is_selected:
                 return element
-        #return self._elements[self.selected_index]
+        # return self._elements[self.selected_index]
         return None
 
     @property
@@ -195,6 +195,7 @@ class UIPanel:
             if self._tooltip_ref is None:
                 pos = pygame.Vector2(self.x + self.width + 1, self.y)
                 from nqp.ui_elements.generic.ui_tooltip import UITooltip
+
                 tooltip = UITooltip(self._game, pos, selected_element.tooltip_key)
                 self._add_tooltip(tooltip)
         else:
