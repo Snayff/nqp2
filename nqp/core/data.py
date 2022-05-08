@@ -238,7 +238,7 @@ class Data:
     def _load_effects() -> Dict[str:Any]:
         # TODO: replace with autodiscover
         from nqp.effects.add_item import AddItemEffect
-        from nqp.effects.attribute_modifier import StatsEffectSentinel
+        from nqp.effects.stats_effect import StatsEffectSentinel
         from nqp.effects.sildreths_signature import SildrethsSignatureEffect
 
         effects = {
@@ -250,7 +250,7 @@ class Data:
 
         # TODO: replace with autodiscover
         from nqp.core.effect import EffectProcessorComponent
-        from nqp.effects.attribute_modifier import StatsEffectProcessor
+        from nqp.effects.stats_effect import StatsEffectProcessor
         from nqp.effects.burn import OnFireStatusProcessor
 
         for processor_class in (

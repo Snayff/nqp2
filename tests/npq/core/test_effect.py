@@ -6,13 +6,12 @@ import snecs
 from nqp.core import queries
 from nqp.core.components import Position, Aesthetic, Resources, Stats, Allegiance
 from nqp.core.data import Data
-from nqp.effects.attribute_modifier import (
-    StatsEffectSentinel,
-    enable_effect,
-    new_stats_effect,
-    enable_new_effects_from_sentinels,
-)
 from nqp.effects.burn import OnFireStatusEffect
+from nqp.effects.stats_effect import (
+    StatsEffectSentinel,
+    new_stats_effect,
+    apply_effects,
+)
 
 
 class EffectTestCase(unittest.TestCase):
@@ -26,19 +25,36 @@ class EffectTestCase(unittest.TestCase):
         snecs.ecs.move_world(snecs.World())
         self.data = Data(mock.Mock())
         self.game = mock.Mock()
-        self.mock_stats = mock.Mock()
-        self.mock_unit = mock.Mock(team="myteam", type="ranged")
-        self.mock_unit.attack_speed = 1.0
-        self.mock_unit.damage_type = "mundane"
-        self.stats = Stats(self.mock_unit)
+        # unit 0
+        self.unit0 = mock.Mock(team="team0", type="ranged")
+        self.unit0.attack_speed = 1.0
+        self.unit0.damage_type = "mundane"
+        self.stats0 = Stats(self.unit0)
         components = [
             Position(None),
             Aesthetic(None),
             Resources(None),
-            self.stats,
-            Allegiance("myteam", self.mock_unit),
+            self.stats0,
+            Allegiance("team0", self.unit0),
         ]
-        self.entity_id = snecs.new_entity(components)
+        self.entity_id0 = snecs.new_entity(components)
+        # unit 1
+        self.unit1 = mock.Mock(team="team0", type="not-ranged")
+        self.unit1.attack_speed = 1.0
+        self.unit1.damage_type = "mundane"
+        self.stats1 = Stats(self.unit0)
+        components = [
+            Position(None),
+            Aesthetic(None),
+            Resources(None),
+            self.stats1,
+            Allegiance("team1", self.unit1),
+        ]
+        self.entity_id1 = snecs.new_entity(components)
+
+    def tick(self, dt=1000):
+        for _, (effect_system,) in queries.effects_processors:
+            effect_system.effect.update(dt, self.game)
 
     def test_sentinel_from_dict(self):
         sentinel = StatsEffectSentinel.from_dict(
@@ -48,50 +64,76 @@ class EffectTestCase(unittest.TestCase):
                 attribute="attack_speed",
                 modifier="50%",
             ),
-            params={"team": "myteam"},
+            params={"team": "team0"},
         )
+        self.assertEqual("team", sentinel.target)
+        self.assertEqual("ranged", sentinel.unit_type)
+        self.assertEqual("attack_speed", sentinel.attribute)
+        self.assertEqual({"team": "team0"}, sentinel.params)
 
     def test_attribute_modifier_timeout(self):
         """
         effect should be removed after an update
         """
         new_stats_effect(
-            stat=self.stats.attack_speed,
-            stats=self.stats,
+            stat=self.stats0.attack_speed,
+            stats=self.stats0,
             modifier="50%",
             ttl=1,
         )
-        for _, (effect_system,) in queries.effects_processors:
-            effect_system.effect.update(10, self.game)
-        self.assertEqual(1.0, self.stats.attack_speed.value)
+        self.tick()
+        self.assertEqual(1.0, self.stats0.attack_speed.value)
 
     def test_multiply_modifier(self):
         new_stats_effect(
-            stat=self.stats.attack_speed,
-            stats=self.stats,
+            stat=self.stats0.attack_speed,
+            stats=self.stats0,
             modifier="50%",
         )
-        self.assertEqual(1.5, self.stats.attack_speed.value)
+        self.assertEqual(1.5, self.stats0.attack_speed.value)
 
     def test_addition_modifier(self):
         new_stats_effect(
-            stat=self.stats.attack_speed,
-            stats=self.stats,
+            stat=self.stats0.attack_speed,
+            stats=self.stats0,
             modifier="50",
         )
-        self.assertEqual(51, self.stats.attack_speed.value)
+        self.assertEqual(51, self.stats0.attack_speed.value)
 
-    def test_sentinels(self):
+    def test_sentinels_match_team(self):
         sentinel = StatsEffectSentinel(
             target="team",
             unit_type="ranged",
             attribute="attack_speed",
             modifier="50%",
-            params={"team": "myteam"},
+            params={"team": "team0"},
         )
         snecs.new_entity((sentinel,))
-        enable_new_effects_from_sentinels([self.entity_id])
-        self.assertEqual(1.5, self.stats.attack_speed.value)
+        apply_effects([self.entity_id0, self.entity_id1])
+        self.assertEqual(1.5, self.stats0.attack_speed.value)
+        self.assertEqual(1.0, self.stats1.attack_speed.value)
+
+    def test_sentinels_match_unit_type(self):
+        sentinel = StatsEffectSentinel(
+            target="all",
+            unit_type="ranged",
+            attribute="attack_speed",
+            modifier="50%",
+        )
+        snecs.new_entity((sentinel,))
+        apply_effects([self.entity_id0, self.entity_id1])
+        self.assertEqual(1.5, self.stats0.attack_speed.value)
+        self.assertEqual(1.0, self.stats1.attack_speed.value)
+
+    def test_removing_entity_removes_modifier(self):
+        eid = new_stats_effect(
+            stat=self.stats0.attack_speed,
+            stats=self.stats0,
+            modifier="50",
+        )
+        self.assertEqual(51, self.stats0.attack_speed.value)
+        snecs.delete_entity_immediately(eid)
+        self.assertEqual(1, self.stats0.attack_speed.value)
 
     def test_item_no_errors(self):
         item = self.data.create_item("albroms_item")
@@ -102,8 +144,7 @@ class EffectTestCase(unittest.TestCase):
         # item = self.data.create_item("thracks_item")
 
     def test_fire(self):
-        snecs.add_component(self.entity_id, OnFireStatusEffect())
-        self.assertTrue(snecs.has_component(self.entity_id, OnFireStatusEffect))
-        for _, (effect_system,) in queries.effects_processors:
-            effect_system.effect.update(1000, self.game)
-        self.assertFalse(snecs.has_component(self.entity_id, OnFireStatusEffect))
+        snecs.add_component(self.entity_id0, OnFireStatusEffect())
+        self.assertTrue(snecs.has_component(self.entity_id0, OnFireStatusEffect))
+        self.tick()
+        self.assertFalse(snecs.has_component(self.entity_id0, OnFireStatusEffect))

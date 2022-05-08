@@ -218,8 +218,7 @@ def process_ai(delta_time: float):
         if ai.behaviour.new_move_speed is not None:
             if snecs.has_component(entity, Stats):
                 stats = snecs.entity_component(entity, Stats)
-                stats.move_speed.value = ai.behaviour.new_move_speed
-
+                stats.move_speed.override(ai.behaviour.new_move_speed)
                 ai.behaviour.new_move_speed = None
 
         if ai.behaviour.reset_move_speed:

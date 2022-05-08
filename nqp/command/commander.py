@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import List, TYPE_CHECKING
 
-from nqp.world_elements.item import create_item, Item
+from nqp.world_elements.item import Item
 
 if TYPE_CHECKING:
     from nqp.core.game import Game
@@ -21,4 +21,4 @@ class Commander:
 
         data = self._game.data.commanders[type_]
         self.name: str = data["name"]
-        self.items: List[Item] = [create_item(game.data, name) for name in data["items"]]
+        # self.items: List[Item] = [create_item(game.data, name) for name in data["items"]]
