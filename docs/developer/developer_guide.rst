@@ -7,10 +7,13 @@ Tools Used
 -------------------
 The following tools are used as standard to ensure a consistent and reliable codebase.
 
+* `pre-commit <https://pre-commit.com/index.html#intro>`_ - a framework for managing and maintaining multi-language pre-commit hooks.
 * `black <https://black.readthedocs.io/en/stable/>`_ - an opinionated `linter <https://en.wikipedia.org/wiki/Lint_(software)>`_.
 * `isort <https://pycqa.github.io/isort/>`_ - manage the order of imports.
 
-When you submit a pull request the CI, Github Actions, will run black and isort automatically.
+After installing the pre-commit hook, black and isort automatically reformat your code when you try to commit changes.
+
+When you submit a pull request the CI, Github Actions, also runs the pre-commit hook to verify if your code is correctly formatted.
 
 
 Style Guide
@@ -72,6 +75,39 @@ To run NQP2, navigate the terminal to the game directory and then use::
 
 
 If you're not sure where to start helping out you can look at the existing feature requests and issues, `here <https://github.com/Snayff/nqp2/issues>`_. Pick one you think you'd like to tackle and make the relevant changes to your fork.
+
+Committing
+^^^^^^^^^^
+
+Before committing changes to the code developers are expected to install the pre-commit hook by running the following command in the project's root folder:
+
+.. code-block:: console
+
+    $ pre-commit install
+
+From then on, every time you run `git commit`, pre-commit is going to run black and isort automatically to format your files.
+If the pre-commit hook makes any changes after you try to commit code, you'll see an error message:
+
+::
+
+    check python ast.........................................................Passed
+    check yaml...........................................(no files to check)Skipped
+    check toml...........................................(no files to check)Skipped
+    black....................................................................Failed
+    - hook id: black
+    - files were modified by this hook
+
+    reformatted nqp2.py
+
+    All done! ✨ 🍰 ✨
+    1 file reformatted.
+
+    isort....................................................................Failed
+    - hook id: isort
+    - files were modified by this hook
+
+At this point your code was reformatted, but the changes are still staged on git, meaning you should `git add` the changed files and commit them again.
+
 
 Merging
 ^^^^^^^^^^^^^^^^^^^

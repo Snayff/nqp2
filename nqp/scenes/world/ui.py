@@ -58,7 +58,6 @@ class WorldUI(UI):
         self._worldview.draw(surface)
         offset = self._worldview.camera.render_offset()
 
-        # TODO: create and move to mouse tool system
         if state == WorldState.CHOOSE_NEXT_ROOM:
             if self.grid:
                 self.grid.draw(surface, offset)
@@ -123,38 +122,8 @@ class WorldUI(UI):
         #     self._worldview.camera.move(x=32)
 
         state = self._parent_scene.model.state
-        selected_unit = None
         if state == WorldState.CHOOSE_NEXT_ROOM:
             self._process_choose_next_room_input()
-
-            if self._parent_scene.choose_room.state == ChooseRoomState.IDLE:
-                if self.grid:
-                    self.grid.process_input()
-
-                    if self.grid.focused_cell is not None:
-                        if self.grid.focused_cell.unit is not None:
-                            selected_unit = self.grid.focused_cell.unit
-
-            # show unit info
-            should_create_unit_window = False
-            if selected_unit is not None:
-                try:
-                    stat_window = self._containers["unit_info"]
-
-                    # check if it is the same unit, if so overwrite existing
-                    if stat_window.unit != selected_unit:
-                        should_create_unit_window = True
-
-                except KeyError:
-                    should_create_unit_window = True
-            else:
-                self._containers.pop("unit_info", None)
-
-            if should_create_unit_window:
-                unit_info_pos = pygame.Vector2(10, 100)
-                info = UnitStatsWindow(self._game, unit_info_pos, selected_unit, True)
-                self.add_container(info, "unit_info")
-
         elif state == WorldState.COMBAT:
             self._process_combat_input()
         elif state == WorldState.TRAINING:
@@ -362,12 +331,23 @@ class WorldUI(UI):
         is_ui_dirty = False
 
         if local_state == ChooseRoomState.IDLE:
+            if self.grid:
+                self.grid.process_input()
+
+            self._conditionally_create_stat_window()
+
             # move to select room
             if self._game.input.states["shift"]:
                 controller.state = ChooseRoomState.CHOOSE_ROOM
                 self._current_container.set_selectable(True)
 
-        if local_state == ChooseRoomState.CHOOSE_ROOM:
+            # toggle to inspect stats
+            if self._game.input.states["ctrl"]:
+                if self.container_exists("unit_info"):
+                    controller.state = ChooseRoomState.INSPECT_STATS
+                    self.select_container("unit_info")
+
+        elif local_state == ChooseRoomState.CHOOSE_ROOM:
             # frame selection
             current_index = controller.current_index
             new_index = current_index
@@ -382,7 +362,7 @@ class WorldUI(UI):
             # set new index to track selection
             controller.current_index = new_index
 
-            # select upgrade
+            # select room to move to
             if self._game.input.states["select"]:
                 controller.selected_room = controller.choices[controller.current_index][0]
                 controller.begin_move_to_new_room()
@@ -393,7 +373,20 @@ class WorldUI(UI):
             if self._game.input.states["shift"]:
                 controller.state = ChooseRoomState.IDLE
                 self.grid.move_units_to_grid()
-                self._current_container.set_selectable(False)
+                self._containers["room_choices"].set_selectable(False)
+                self._containers["room_choices"].unselect_all_elements()
+
+        elif local_state == ChooseRoomState.INSPECT_STATS:
+            if self._game.input.states["ctrl"]:
+                controller.state = ChooseRoomState.IDLE
+                self._containers["unit_info"].set_selectable(False)
+                self._containers["unit_info"].unselect_all_elements()
+
+            if self._game.input.states["up"]:
+                self._current_container.select_previous_element()
+
+            if self._game.input.states["down"]:
+                self._current_container.select_next_element()
 
         if is_ui_dirty:
             self.rebuild_ui()
@@ -1151,3 +1144,36 @@ class WorldUI(UI):
         #         )
         #
         #     row_count += 1
+
+    def _conditionally_create_stat_window(self):
+        """
+        Check if the unit stat window is needed and create it if it is.
+        """
+        selected_unit = None
+
+        # get selected unit from grid
+        if self.grid:
+            if self.grid.focused_cell is not None:
+                if self.grid.focused_cell.unit is not None:
+                    selected_unit = self.grid.focused_cell.unit
+
+        # show unit info
+        should_create_unit_window = False
+        if selected_unit is not None:
+            try:
+                stat_window = self._containers["unit_info"]
+
+                # check if it is the same unit, if so overwrite existing
+                if stat_window.unit != selected_unit:
+                    should_create_unit_window = True
+
+            except KeyError:
+                should_create_unit_window = True
+        else:
+            # no unit selected so del window
+            self._containers.pop("unit_info", None)
+
+        if should_create_unit_window:
+            unit_info_pos = pygame.Vector2(10, 100)
+            info = UnitStatsWindow(self._game, unit_info_pos, selected_unit, True)
+            self.add_container(info, "unit_info")

@@ -54,6 +54,7 @@ class Data:
 
             self.config: Dict[str, Any] = {}
             self.options: Dict[str, Any] = {}
+            self.tooltips: Dict[str, Any] = {}
 
             self.load_all_data()
 
@@ -75,6 +76,7 @@ class Data:
 
         self.config = self._load_config()
         self.options = self._load_options()
+        self.tooltips = self._load_tooltips()
 
     @staticmethod
     def _load_tile_info() -> Dict:
@@ -182,7 +184,7 @@ class Data:
         return bosses
 
     @staticmethod
-    def _load_combats():
+    def _load_combats() -> Dict:
         combats = {}
         counter = 0
         for combat in os.listdir("data/combats"):
@@ -196,7 +198,7 @@ class Data:
         return combats
 
     @staticmethod
-    def _load_skills():
+    def _load_skills() -> Dict:
         skills = {}
         counter = 0
         for skill in os.listdir("data/skills"):
@@ -210,11 +212,18 @@ class Data:
         return skills
 
     @staticmethod
-    def _load_options():
-        config = load_yaml(DATA_PATH / "options.yaml")
+    def _load_options() -> Dict:
+        options = load_yaml(DATA_PATH / "options.yaml")
         logging.debug(f"Data: Options data loaded.")
 
-        return config
+        return options
+
+    @staticmethod
+    def _load_tooltips():
+        tooltips = load_yaml(DATA_PATH / "tooltips.yaml")
+        logging.debug(f"Data: Tooltips data loaded.")
+
+        return tooltips
 
     @staticmethod
     def _load_items() -> Dict[str:ItemData]:

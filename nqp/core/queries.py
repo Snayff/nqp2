@@ -8,7 +8,8 @@ from nqp.core.components import Aesthetic, AI, DamageReceived, IsDead, IsReadyTo
 from nqp.core.effect import EffectProcessorComponent
 
 if TYPE_CHECKING:
-    from typing import Dict, List, Optional, Tuple, Union, Iterator
+    from typing import Dict, Iterator, List, Optional, Tuple, Union
+
     from snecs.typedefs import EntityID
 
 __all__ = [

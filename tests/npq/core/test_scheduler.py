@@ -4,7 +4,6 @@ from unittest.mock import call
 
 from nqp.core.scheduler import Scheduler
 
-
 raise unittest.SkipTest("Needs attention.  Skipping for now")
 
 

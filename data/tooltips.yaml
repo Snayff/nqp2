@@ -1,0 +1,108 @@
+mundane_defence:
+  title: "Mundane Defence"
+  text: "Resistance to mundane damage. Reduces after taking damage."
+  image: "mundane_defence"
+magic_defence:
+  title: "Magic Defence"
+  text: "Resistance to magic damage. Reduces after taking damage."
+  image: "magic_defence"
+ammo:
+  title: "Ammo"
+  text: "Number of times each entity can fire before resorting to melee."
+  image: "ammo"
+attack:
+  title: "Attack Damage"
+  text: "Damage dealt per attack."
+  image: "attack"
+attack_speed:
+  title: "Attack Speed"
+  text: "Number of attacks per second."
+  image: "attack_speed"
+charisma:
+  title: "Charisma"
+  text: "???"
+  image: "charisma"
+leadership:
+  title: "Leadership"
+  text: "???"
+  image: "leadership"
+count:
+  title: "Count"
+  text: "Number of entities in the unit."
+  image: "count"
+crit_chance:
+  title: "Critical Hit Chance"
+  text: "Chance of dealing a <critical> hit."
+  image: "crit_chance"
+critical:
+  title: "Critical Hit"
+  text: "Extra damaging attack that ignores defence."
+  image: null
+damage_type:
+  title: "Damage Type"
+  text: "Type of damage dealt by an attack."
+  image: "damage_type"
+gold:
+  title: "Gold"
+  text: "Gold can be exchanged for goods and services."
+  image: "gold"
+health:
+  title: "Health"
+  text: "How much damage can be taken before an entity dies."
+  image: "health"
+move_speed:
+  title: "Move Speed"
+  text: "How fast an entity moves."
+  image: "move_speed"
+penetration:
+  title: "Penetration"
+  text: "The amount removed from defence before damage is calculated."
+  image: "penetration"
+range:
+  title: "Range"
+  text: "How far away an entity's attack can reach."
+  image: "range"
+ally:
+  title: "Ally"
+  text: "Those who are willing to join you in your ambitions."
+  image: null
+aberrations_of_nature:
+  title: "Aberrations of Nature"
+  text: "Self-identified as the Naturists, they are widely known as the Aberrations of Nature. Brought into existence by the quirks of fate, or the whims of the gods, they desire most to be acknowledged as alive. Champions of the natural order of the world they despise the Hammerites above all else, and will stop at nothing to prevent them from claiming rule, as this threatens their entire existence."
+  image: "aberrations_of_nature"
+cabalists:
+  title: "Cabalists"
+  text: "For years the Cabalists have attempted to infiltrate the Court, to twist it into a shape of their desire. Now is their chance, with the world ablaze with chaos, to ensure that the new ruler of Esteria is one of simple mind and weak soul; though only when the Cabalists are speaking, of course."
+  image: "cabalists"
+chivalric_order:
+  title: "Chivalric Order"
+  text: "As the throne crumbles it is only right that the mighty should exert themselves over the weak. The Chivalric Order, as they insist on being called, revel in the irony of that name as they plunder Esteria, stripping what riches they find from those unable to stop them. They do, however, pride themselves on their treatment of the fairer sex; provided they don't stand in their way."
+  image: "chivalric_order"
+hammerites:
+  title: "Hammerites"
+  text: "The Hammer brings enlightenment through their gifts of knowledge and the devout have long aspired to bring the light of their forges to Esteria and the world. With the God-Queen gone, it is time to install a new order of things and The Hammer has some thoughts on what the order might be. The future of this land relies on technology, there is simply no longer a place for the old, out-moded ways."
+  image: "hammerites"
+imperial_forces:
+  title: "Imperial Forces"
+  text: "The Empire of Ilan has long been at peace with Esteria, now that means nothing to the Emperor in the wake of Esteria's descent into chaos. Usually, Emperor Evander devotes his time to his fabled Steepled Gardens, basking in their beauty, but this upending of the normal state of affairs will only disrupt his ability to focus on his endeavours and that cannot be abided. It is rumoured that Emperor Evander gave the God-Queen her mortal ailment himself. If true, it is the world's first recorded instance of biological warfare."
+  image: "imperial_forces"
+members_of_the_court:
+  title: "Members of the Court"
+  text: "As the true rulers of Esteria for the past generations, who better to maintain the God-Queen's vision than they? Peasants are always afraid of what they don't know and they require a solid government around them to help them through their days. The Ecclesiastical Court will be that government once more. Naturally, a war campaign of this scale will raise taxes, but the people will understand... right?"
+  image: "members_of_the_court"
+minions_of_ztar:
+  title: "Minions of Z'tar"
+  text: "Not much is known of Z'tar across Esteria; not much thought is given to the sylan lands of the Southern Sprawl or its mysterious makings, and its mythical inhabitants are thought to be brainless, unorganised, and wild. Z'tar blossomed in this ignorance and has amassed a loyal, fierce following in secrecy, absorbing all other sects to one common cause. Now! Now is the time to expand the hand of Z'tar into the heart of Esteria, and expose the world to the majesty, beauty, and treachery of the lady of the Southern Sprawl."
+  image: "minions_of_ztar"
+royalists:
+  title: "Royalists"
+  text: "The oldest of the old guard, devoted to the God-Queen, the Royalists desire for nothing more than to return to the splendour of the God-Queen's rule. Fearing the uncertainty of the future, and the folly of prophecy, they revel in the glories of the past; any deviation from the tenets of old will only bring devastation on us all."
+  image: "royalists"
+the_swarm:
+  title: "The Swarm"
+  text: "The down-trodden, the ridiculed, the outcasts. No more! Brothers and sisters are united under their shared hatred of the giants of the land. Not until the world is in ash will they stop their pogrom. Chaos will continue eternal; no rule, no order. They will destroy all who make claim and promise structure. So much rage in such a tiny package."
+  image: "the_swarm"
+wasters:
+  title: "Wasters"
+  text: "Perhaps they might seize opportunity in this confusion and find some small tract of land on which to live a life not filled with the inhospitable, bleakness of the Wastes. Barren at the best of times, the Northern Wastes are rife with disease, scavengers, and bandits driven by the necessity to survive. Long have its inhabitants been pillaged and pushed further north by opportunists and banished criminals from Esteria. Perhaps now they have a chance to emigrate south to live, maybe even thrive, in a land of abundance and wealth. Perhaps."
+  image: "wasters"
