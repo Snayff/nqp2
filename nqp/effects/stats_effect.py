@@ -9,12 +9,13 @@ import snecs
 from snecs.typedefs import EntityID
 
 from nqp.base_classes.stat import Stat
-from nqp.core.components import Stats, Allegiance
+from nqp.core.components import Allegiance, Stats
 from nqp.core.effect import EffectProcessor
 from nqp.core.utility import percent_to_float
 
 if TYPE_CHECKING:
-    from typing import Dict, Any, Iterator, Tuple, List, Optional
+    from typing import Any, Dict, Iterator, List, Optional, Tuple
+
     from nqp.core.game import Game
 
 
