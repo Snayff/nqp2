@@ -50,7 +50,7 @@ class UI(ABC):
         if self._temporary_instruction_timer <= 0:
             self._temporary_instruction_text = ""
 
-        self.update_elements(delta_time)
+        self._update_elements(delta_time)
 
     def process_input(self, delta_time: float):
         if self._game.input.states["toggle_dev_console"]:
@@ -166,19 +166,24 @@ class UI(ABC):
     def _draw_elements(self, surface: pygame.Surface):
         """
         Draw all elements, both those held in _elements and _containers.
+        Loose elements are drawn before elements in containers.
         """
-        for container in self._containers.values():
-            container.draw(surface)
-
         for element in self._elements.values():
             element.draw(surface)
 
-    def update_elements(self, delta_time: float):
         for container in self._containers.values():
-            container.update(delta_time)
+            container.draw(surface)
 
+    def _update_elements(self, delta_time: float):
+        """
+        Update all elements, both those held in _elements and _containers.
+        Loose elements are drawn before elements in containers.
+        """
         for element in self._elements.values():
             element.update(delta_time)
+
+        for container in self._containers.values():
+            container.update(delta_time)
 
     def add_container(self, container: Union[UIPanel, UIWindow], name: str):
         """
