@@ -115,6 +115,7 @@ class UITooltip(UIWindow):
             height += GAP_SIZE * 2
 
             pos = pygame.Vector2(self.pos.x + self.width + 1, self.pos.y)  # +1 avoid overlap
+            # create window, not tooltip, as we've already done all the work and we dont want recursive tooltips
             self.secondary_tooltips = UIWindow(
                 self._game,
                 self._window_type,
@@ -177,7 +178,7 @@ class UITooltip(UIWindow):
         # title frame
         font = self._game.visual.create_font(FontType.POSITIVE, title)
         if image_name:
-            image = self._game.visual.get_image(image_name, )
+            image = self._game.visual.get_image(image_name)
             frame = UIFrame(self._game, pos, font, image=image)
         else:
             frame = UIFrame(self._game, pos, font)

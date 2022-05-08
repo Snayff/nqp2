@@ -48,6 +48,9 @@ class BasicEntityBehaviour(EntityBehaviour):
         if self.last_path_update > PATH_UPDATE_FREQ:
             self.update_path()
 
+        # update attack timer
+        self.attack_timer -= delta_time
+
     def determine_next_action(self, focus_entity: bool):
         """
         Determine what to do next, i.e. what state to transition into.

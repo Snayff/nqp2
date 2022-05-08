@@ -1,12 +1,61 @@
 mundane_defence:
   title: "Mundane Defence"
-  text: "Resistance to mundane damage."
+  text: "Resistance to mundane damage. Reduces after taking damage."
   image: "mundane_defence"
 magic_defence:
   title: "Magic Defence"
-  text: "Resistance to <fire>."
+  text: "Resistance to magic damage. Reduces after taking damage."
   image: "magic_defence"
-fire:
-  title: "Fire"
-  text: "Status effect."
+ammo:
+  title: "Ammo"
+  text: "Number of times each entity can fire before resorting to melee."
+  image: "ammo"
+attack:
+  title: "Attack Damage"
+  text: "Damage dealt per attack."
+  image: "attack"
+attack_speed:
+  title: "Attack Speed"
+  text: "Number of attacks per second."
+  image: "attack_speed"
+charisma:
+  title: "Charisma"
+  text: "Number of units that can be recruited at once."
+  image: "charisma"
+count:
+  title: "Count"
+  text: "Number of entities in the unit."
+  image: "count"
+crit_chance:
+  title: "Critical Hit Chance"
+  text: "Chance of dealing a <critical> hit."
+  image: "crit_chance"
+critical:
+  title: "Critical Hit"
+  text: "Extra damaging attack that ignores defence."
   image: null
+damage_type:
+  title: "Damage Type"
+  text: "Type of damage dealt by an attack."
+  image: "damage_type"
+gold:
+  title: "Gold"
+  text: "Gold can be exchanged for goods and services."
+  image: "gold"
+health:
+  title: "Health"
+  text: "How much damage can be taken before an entity dies."
+  image: "health"
+move_speed:
+  title: "Move Speed"
+  text: "How fast an entity moves."
+  image: "move_speed"
+penetration:
+  title: "Penetration"
+  text: "The amount removed from defence before damage is calculated."
+  image: "penetration"
+range:
+  title: "Range"
+  text: "How far away an entity's attack can reach."
+  image: "range"
+
