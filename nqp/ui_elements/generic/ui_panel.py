@@ -19,6 +19,8 @@ __all__ = ["UIPanel"]
 class UIPanel:
     """
     A container class for UIElements. Offers support for selection management.
+    Note that UIPanel doesnt have a position or size so one is inferred from it's contained
+    elements.
     """
 
     def __init__(self, game: Game, elements: List[UIElementLike], is_active: bool = False):
@@ -113,6 +115,8 @@ class UIPanel:
                 # select
                 self._elements[self.selected_index].is_selected = True
 
+                #print(f"Selected {self._elements[self.selected_index]._font.text}")
+
                 if play_sound:
                     self._game.audio.play_sound("standard_click")
 
@@ -145,3 +149,26 @@ class UIPanel:
                     logging.debug(f"Panel: Looped all the way back to the starting index. No others selectable.")
 
                 break
+
+    @property
+    def width(self) -> int:
+        width = 0
+        for element in self._elements:
+            if element.width > width:
+                width = element.width
+        return width
+
+    @property
+    def height(self) -> int:
+        height = 0
+        for element in self._elements:
+            height += element.height
+        return height
+
+    @property
+    def x(self) -> int:
+        return self._elements[0].x
+
+    @property
+    def y(self) -> int:
+        return self._elements[0].y

@@ -239,7 +239,7 @@ class UI(ABC):
 
         except KeyError:
             logging.critical(
-                f"Tried to change to {container_name} panel, but does not exist. Selected first panel " f"instead."
+                f"Tried to change to {container_name} panel, but does not exist. Selected first panel instead."
             )
             self._current_container = list(self._containers)[0]
 

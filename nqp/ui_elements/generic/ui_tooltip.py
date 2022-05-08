@@ -38,6 +38,7 @@ class UITooltip(UIWindow):
         super().__init__(game, WindowType.BASIC, pos, pygame.Vector2(0, 0), [], True)
 
         self.secondary_tooltips: None | UIWindow = None
+        self.max_width: int = 100
 
         # get the content from either param
         if tooltip_key is not None:
@@ -189,7 +190,7 @@ class UITooltip(UIWindow):
         # content frame
         font = self._game.visual.create_font(FontType.DEFAULT, text)
         pos = pygame.Vector2(pos.x, pos.y + frame.height + 1)  # +1 avoid overlap
-        frame = UIFrame(self._game, pos, font)
+        frame = UIFrame(self._game, pos, font, max_width=self.max_width)
         frames.append(frame)
 
         height += frame.height
