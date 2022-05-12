@@ -11,6 +11,7 @@ from nqp.base_classes.image import Image
 from nqp.core.constants import ASSET_PATH, DEFAULT_IMAGE_SIZE, FontEffects, FontType, IMG_FORMATS
 from nqp.core.debug import Timer
 from nqp.core.utility import clamp, clip
+from nqp.resource_controllers.image_resource_controller import ImageResourceController
 from nqp.ui_elements.generic.fancy_font import FancyFont
 from nqp.ui_elements.generic.font import Font
 
@@ -65,7 +66,7 @@ class Visual:
                 for tileset in os.listdir(ASSET_PATH / "tiles")
             }
 
-            self._images: Dict[str, pygame.Surface] = self._load_images()  # image_name: surface
+            self._images: ImageResourceController = ImageResourceController(self._image_folders)
             self._animation_frames: Dict[str, Dict[str, List[Image]]] = self._load_animation_frames()
             # folder_name: {frame_name, [animation_frames]}
             self._fonts: Dict[FontType, Tuple[str, Tuple[int, int, int]]] = self._load_fonts()  # FontType: path, colour
@@ -94,47 +95,6 @@ class Visual:
             FontType.INSTRUCTION: (str(ASSET_PATH / "fonts/small_font.png"), (240, 205, 48)),
             FontType.NOTIFICATION: (str(ASSET_PATH / "fonts/large_font.png"), (117, 50, 168)),
         }
-
-    def _load_images(self) -> Dict[str, pygame.Surface]:
-        """
-        Load all images specified in self._image_folders
-        """
-        images = {}
-        folders = self._image_folders
-        counter = 0
-
-        for folder in folders:
-            path = ASSET_PATH / folder
-            for image_name in os.listdir(path):
-                if image_name.split(".")[-1] in IMG_FORMATS:
-
-                    # warn about duplicates
-                    if image_name in images.keys():
-                        logging.warning(f"{image_name} already loaded, non-unique file name.")
-
-                    # load image
-                    image = pygame.image.load(str(path / image_name)).convert_alpha()
-
-                    # store image
-                    width = image.get_width()
-                    height = image.get_height()
-                    images[f"{image_name.split('.')[0]}@{width}x{height}"] = image  # split to remove extension
-
-                    counter += 1
-
-        # add not found image
-        image = pygame.image.load(str(ASSET_PATH / "debug/image_not_found.png")).convert_alpha()
-        images[f"not_found@{DEFAULT_IMAGE_SIZE}x{DEFAULT_IMAGE_SIZE}"] = image
-
-        counter += 1
-        logging.debug(f"Visual: {counter} Images loaded.")
-
-        # add transparent surface
-        image = pygame.Surface((DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE))
-        image.set_alpha(0)
-        images[f"blank@{DEFAULT_IMAGE_SIZE}x{DEFAULT_IMAGE_SIZE}"] = image
-
-        return images
 
     def _load_animation_frames(self) -> Dict[str, Dict[str, List[Image]]]:
         """
