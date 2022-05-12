@@ -134,10 +134,10 @@ class EffectTestCase(unittest.TestCase):
     def test_item_no_errors(self):
         item = self.data.create_item("albroms_item")
         item = self.data.create_item("bragans_item")
-        # item = self.data.create_item("lurents_item")
-        # item = self.data.create_item("ralnaths_item")
-        # item = self.data.create_item("sildreths_item")
-        # item = self.data.create_item("thracks_item")
+        item = self.data.create_item("lurents_item")
+        item = self.data.create_item("ralnaths_item")
+        item = self.data.create_item("sildreths_item")
+        item = self.data.create_item("thracks_item")
 
     def test_fire(self):
         snecs.add_component(self.entity_id0, OnFireStatusEffect())
