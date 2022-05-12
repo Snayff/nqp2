@@ -11,6 +11,7 @@ Subpackages
    nqp.command
    nqp.core
    nqp.effects
+   nqp.resource_controllers
    nqp.scenes
    nqp.topography
    nqp.ui_elements

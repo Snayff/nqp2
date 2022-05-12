@@ -207,6 +207,7 @@
 <span class="kn">from</span> <span class="nn">nqp.core.constants</span> <span class="kn">import</span> <span class="n">ASSET_PATH</span><span class="p">,</span> <span class="n">DEFAULT_IMAGE_SIZE</span><span class="p">,</span> <span class="n">FontEffects</span><span class="p">,</span> <span class="n">FontType</span><span class="p">,</span> <span class="n">IMG_FORMATS</span>
 <span class="kn">from</span> <span class="nn">nqp.core.debug</span> <span class="kn">import</span> <span class="n">Timer</span>
 <span class="kn">from</span> <span class="nn">nqp.core.utility</span> <span class="kn">import</span> <span class="n">clamp</span><span class="p">,</span> <span class="n">clip</span>
+<span class="kn">from</span> <span class="nn">nqp.resource_controllers.image_resource_controller</span> <span class="kn">import</span> <span class="n">ImageResourceController</span>
 <span class="kn">from</span> <span class="nn">nqp.ui_elements.generic.fancy_font</span> <span class="kn">import</span> <span class="n">FancyFont</span>
 <span class="kn">from</span> <span class="nn">nqp.ui_elements.generic.font</span> <span class="kn">import</span> <span class="n">Font</span>
 
@@ -261,7 +262,7 @@
                 <span class="k">for</span> <span class="n">tileset</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">ASSET_PATH</span> <span class="o">/</span> <span class="s2">&quot;tiles&quot;</span><span class="p">)</span>
             <span class="p">}</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">_images</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_images</span><span class="p">()</span>  <span class="c1"># image_name: surface</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_images</span><span class="p">:</span> <span class="n">ImageResourceController</span> <span class="o">=</span> <span class="n">ImageResourceController</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_image_folders</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_animation_frames</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Image</span><span class="p">]]]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_animation_frames</span><span class="p">()</span>
             <span class="c1"># folder_name: {frame_name, [animation_frames]}</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_fonts</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">FontType</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_fonts</span><span class="p">()</span>  <span class="c1"># FontType: path, colour</span>
@@ -290,47 +291,6 @@
             <span class="n">FontType</span><span class="o">.</span><span class="n">INSTRUCTION</span><span class="p">:</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ASSET_PATH</span> <span class="o">/</span> <span class="s2">&quot;fonts/small_font.png&quot;</span><span class="p">),</span> <span class="p">(</span><span class="mi">240</span><span class="p">,</span> <span class="mi">205</span><span class="p">,</span> <span class="mi">48</span><span class="p">)),</span>
             <span class="n">FontType</span><span class="o">.</span><span class="n">NOTIFICATION</span><span class="p">:</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ASSET_PATH</span> <span class="o">/</span> <span class="s2">&quot;fonts/large_font.png&quot;</span><span class="p">),</span> <span class="p">(</span><span class="mi">117</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">168</span><span class="p">)),</span>
         <span class="p">}</span>
-
-    <span class="k">def</span> <span class="nf">_load_images</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Load all images specified in self._image_folders</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">images</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">folders</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_image_folders</span>
-        <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
-
-        <span class="k">for</span> <span class="n">folder</span> <span class="ow">in</span> <span class="n">folders</span><span class="p">:</span>
-            <span class="n">path</span> <span class="o">=</span> <span class="n">ASSET_PATH</span> <span class="o">/</span> <span class="n">folder</span>
-            <span class="k">for</span> <span class="n">image_name</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-                <span class="k">if</span> <span class="n">image_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="n">IMG_FORMATS</span><span class="p">:</span>
-
-                    <span class="c1"># warn about duplicates</span>
-                    <span class="k">if</span> <span class="n">image_name</span> <span class="ow">in</span> <span class="n">images</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-                        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">image_name</span><span class="si">}</span><span class="s2"> already loaded, non-unique file name.&quot;</span><span class="p">)</span>
-
-                    <span class="c1"># load image</span>
-                    <span class="n">image</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">path</span> <span class="o">/</span> <span class="n">image_name</span><span class="p">))</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">()</span>
-
-                    <span class="c1"># store image</span>
-                    <span class="n">width</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span>
-                    <span class="n">height</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span>
-                    <span class="n">images</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">image_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">@</span><span class="si">{</span><span class="n">width</span><span class="si">}</span><span class="s2">x</span><span class="si">{</span><span class="n">height</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">image</span>  <span class="c1"># split to remove extension</span>
-
-                    <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
-
-        <span class="c1"># add not found image</span>
-        <span class="n">image</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ASSET_PATH</span> <span class="o">/</span> <span class="s2">&quot;debug/image_not_found.png&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">()</span>
-        <span class="n">images</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;not_found@</span><span class="si">{</span><span class="n">DEFAULT_IMAGE_SIZE</span><span class="si">}</span><span class="s2">x</span><span class="si">{</span><span class="n">DEFAULT_IMAGE_SIZE</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">image</span>
-
-        <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Visual: </span><span class="si">{</span><span class="n">counter</span><span class="si">}</span><span class="s2"> Images loaded.&quot;</span><span class="p">)</span>
-
-        <span class="c1"># add transparent surface</span>
-        <span class="n">image</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">((</span><span class="n">DEFAULT_IMAGE_SIZE</span><span class="p">,</span> <span class="n">DEFAULT_IMAGE_SIZE</span><span class="p">))</span>
-        <span class="n">image</span><span class="o">.</span><span class="n">set_alpha</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-        <span class="n">images</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;blank@</span><span class="si">{</span><span class="n">DEFAULT_IMAGE_SIZE</span><span class="si">}</span><span class="s2">x</span><span class="si">{</span><span class="n">DEFAULT_IMAGE_SIZE</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">image</span>
-
-        <span class="k">return</span> <span class="n">images</span>
 
     <span class="k">def</span> <span class="nf">_load_animation_frames</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Image</span><span class="p">]]]:</span>
         <span class="sd">&quot;&quot;&quot;</span>

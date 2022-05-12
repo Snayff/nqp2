@@ -1,0 +1,21 @@
+nqp.resource\_controllers package
+=================================
+
+Submodules
+----------
+
+nqp.resource\_controllers.image\_resource\_controller module
+------------------------------------------------------------
+
+.. automodule:: nqp.resource_controllers.image_resource_controller
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: nqp.resource_controllers
+   :members:
+   :undoc-members:
+   :show-inheritance:

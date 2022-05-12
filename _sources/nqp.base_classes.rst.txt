@@ -36,6 +36,14 @@ nqp.base\_classes.image module
    :undoc-members:
    :show-inheritance:
 
+nqp.base\_classes.resource\_controller module
+---------------------------------------------
+
+.. automodule:: nqp.base_classes.resource_controller
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 nqp.base\_classes.scene module
 ------------------------------
 

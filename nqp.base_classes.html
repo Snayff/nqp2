@@ -382,6 +382,46 @@ Return True if this animation has finished playing.</p>
 </dd></dl>
 
 </section>
+<section id="module-nqp.base_classes.resource_controller">
+<span id="nqp-base-classes-resource-controller-module"></span><h2>nqp.base_classes.resource_controller module<a class="headerlink" href="#module-nqp.base_classes.resource_controller" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nqp.base_classes.resource_controller.ResourceController">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ResourceController</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loader</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.10)"><span class="pre">Callable</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_weakref</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/base_classes/resource_controller.html#ResourceController"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.base_classes.resource_controller.ResourceController" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Base class with a general specification for lazily loading game resources.</p>
+<p>Resources in a ResourceController can be accessed just like in a dictionary.</p>
+<p>Initialize a ResourceController.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>loader</strong> – function used to create a new object. When it does not exist,</p>
+</dd>
+</dl>
+<p>the loader function gets called with the key passed to the controller as an
+argument.
+:param is_weakref: weakref is used to allow garbage collecting values that are no longer used
+even if they are referenced by the dictionary, meaning the cache dictionary
+does not increase the reference count for its values, so they get can be
+released from memory when not referenced elsewhere.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.base_classes.resource_controller.ResourceController.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loader</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.10)"><span class="pre">Callable</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_weakref</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/base_classes/resource_controller.html#ResourceController.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.base_classes.resource_controller.ResourceController.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize a ResourceController.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>loader</strong> – function used to create a new object. When it does not exist,</p>
+</dd>
+</dl>
+<p>the loader function gets called with the key passed to the controller as an
+argument.
+:param is_weakref: weakref is used to allow garbage collecting values that are no longer used
+even if they are referenced by the dictionary, meaning the cache dictionary
+does not increase the reference count for its values, so they get can be
+released from memory when not referenced elsewhere.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
 <section id="nqp-base-classes-scene-module">
 <h2>nqp.base_classes.scene module<a class="headerlink" href="#nqp-base-classes-scene-module" title="Permalink to this headline">¶</a></h2>
 </section>

@@ -1,0 +1,323 @@
+
+
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>nqp.resource_controllers.image_resource_controller &mdash; NotQuiteParadise2  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.min.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <a class="site-nav-toggle hidden-lg-up"><i class="icon-menu"></i></a>
+            <a class="site-title" href="../../../index.html">
+                NotQuiteParadise2
+            </a>
+        </div>
+    </header>
+
+
+<div class="breadcrumbs-outer hidden-xs-down">
+    <div class="container">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a></li>
+        
+          <li><a href="../../index.html">Module code</a></li>
+        
+      <li>nqp.resource_controllers.image_resource_controller</li>
+    
+    
+      <li class="breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+</div>
+    </div>
+</div>
+    <div class="main-outer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-3 site-nav">
+                    
+<div role="search">
+    <form class="search" action="../../../search.html" method="get">
+        <div class="icon-input">
+            <input type="text" name="q" placeholder="Search" />
+            <span class="icon-search"></span>
+        </div>
+        <input type="submit" value="Go" class="d-hidden" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+                    <div class="site-nav-tree">
+                        
+                            
+                            
+                                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/base_classes/_base_classes.html">Base Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/animation.html">Animation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/controller.html">Controller</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/entity_behaviour.html">Entity Behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/image.html">Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/scene.html">Scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/stat.html">Stat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/ui.html">UI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/base_classes/ui_element.html">UI Element</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/command/_command.html">Command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/command/basic_entity_behaviour.html">Basic Entity Behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/command/commander.html">Commander</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/command/troupe.html">Troupe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/command/unit.html">Unit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/command/unit_behaviour.html">Unit Behaviour</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/core/_core.html">Core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/audio.html">Audio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/components.html">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/constants.html">Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/data.html">Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/debug.html">Debug</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/definitions.html">Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/effect.html">Effect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/game.html">Game</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/input.html">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/memory.html">Memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/queries.html">Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/rng.html">RNG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/scheduler.html">Scheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/utility.html">Utility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core/window.html">Window</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/effects/_effects.html">Effects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/add_item.html">Add Item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/attribute_modifier.html">Attribute Modifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/sildreths_signature.html">Sildreths Signature</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/scenes/_scenes.html">Scenes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/scenes/gallery.html">Gallery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/scenes/main_menu.html">Main Menu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/scenes/run_setup.html">Run Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/scenes/unit_data.html">Unit Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/scenes/world.html">World</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/topography/_topography.html">Base Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/topography/pathfinder.html">Pathfinder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/topography/terrain.html">Terrain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/topography/tile.html">Tile</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/world/_world.html">World</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world/controllers.html">Controllers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world/model.html">Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world/view.html">View</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/world_elements/_world_elements.html">World Elements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/actions.html">Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/camera.html">Camera</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/hitbox.html">Hitbox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/item.html">Item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/particle.html">Particle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/particle_manager.html">Particle Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/projectile.html">Projectile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/projectile_manager.html">Projectile Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/world_elements/stats.html">Stats</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer/_developer.html">Developer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../developer/developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../developer/adding_new_content.html">Adding New Content</a></li>
+</ul>
+</li>
+</ul>
+
+                            
+                        
+                    </div>
+                </div>
+                <div class="col-12 col-lg-9">
+                    <div class="document">
+                        
+                            
+  <h1>Source code for nqp.resource_controllers.image_resource_controller</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+<span class="kn">import</span> <span class="nn">pygame</span>
+
+<span class="kn">from</span> <span class="nn">nqp.base_classes.resource_controller</span> <span class="kn">import</span> <span class="n">ResourceController</span>
+<span class="kn">from</span> <span class="nn">nqp.core.constants</span> <span class="kn">import</span> <span class="n">ASSET_PATH</span><span class="p">,</span> <span class="n">DEFAULT_IMAGE_SIZE</span><span class="p">,</span> <span class="n">IMG_FORMATS</span>
+
+
+<div class="viewcode-block" id="ImageResourceController"><a class="viewcode-back" href="../../../nqp.resource_controllers.html#nqp.resource_controllers.image_resource_controller.ImageResourceController">[docs]</a><span class="k">class</span> <span class="nc">ImageResourceController</span><span class="p">(</span><span class="n">ResourceController</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Controls lazy loading for images</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ImageResourceController.__init__"><a class="viewcode-back" href="../../../nqp.resource_controllers.html#nqp.resource_controllers.image_resource_controller.ImageResourceController.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image_folders</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the super class without using weakref to avoid reloading images that don&#39;t</span>
+<span class="sd">        always keep references in the Scene and would need to reload many times. It&#39;d be better</span>
+<span class="sd">        to use weakref but that would require images to be manually referenced at the Scene to</span>
+<span class="sd">        keep them from having to reload.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ResourceController</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">loader</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_load_image</span><span class="p">,</span> <span class="n">is_weakref</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_image_name_to_path_dict</span><span class="p">(</span><span class="n">image_folders</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_add_blank_surface_to_cache</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="nf">_initialize_image_name_to_path_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image_folders</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a dictionary attribute mapping each image name to its path in disk</span>
+<span class="sd">        :param image_folders: list of folders with image assets</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Convert string paths to Path objects</span>
+        <span class="n">image_folders_paths</span> <span class="o">=</span> <span class="p">[</span><span class="n">Path</span><span class="p">(</span><span class="n">ASSET_PATH</span> <span class="o">/</span> <span class="n">image_path</span><span class="p">)</span> <span class="k">for</span> <span class="n">image_path</span> <span class="ow">in</span> <span class="n">image_folders</span><span class="p">]</span>
+
+        <span class="c1"># Map each image name(without extension) to its file path</span>
+        <span class="n">name_to_path</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">image_name</span><span class="o">.</span><span class="n">stem</span><span class="p">:</span> <span class="n">image_path</span> <span class="o">/</span> <span class="n">image_name</span>
+            <span class="k">for</span> <span class="n">image_path</span> <span class="ow">in</span> <span class="n">image_folders_paths</span>
+            <span class="k">for</span> <span class="n">image_name</span> <span class="ow">in</span> <span class="n">image_path</span><span class="o">.</span><span class="n">iterdir</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">image_name</span><span class="o">.</span><span class="n">suffix</span><span class="o">.</span><span class="n">lower</span><span class="p">()[</span><span class="mi">1</span><span class="p">:]</span> <span class="ow">in</span> <span class="n">IMG_FORMATS</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Include the path of the image used when an image is not found</span>
+        <span class="n">name_to_path</span><span class="p">[</span><span class="s2">&quot;not_found&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ASSET_PATH</span> <span class="o">/</span> <span class="s2">&quot;debug&quot;</span> <span class="o">/</span> <span class="s2">&quot;image_not_found.png&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_image_name_to_path_dict</span> <span class="o">=</span> <span class="n">name_to_path</span>
+
+    <span class="k">def</span> <span class="nf">_add_blank_surface_to_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add the &quot;blank&quot; image to the cache with a blank alpha image</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">blank_size</span> <span class="o">=</span> <span class="n">DEFAULT_IMAGE_SIZE</span><span class="p">,</span> <span class="n">DEFAULT_IMAGE_SIZE</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_blank_surface</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">(</span><span class="n">blank_size</span><span class="p">,</span> <span class="n">pygame</span><span class="o">.</span><span class="n">SRCALPHA</span><span class="p">)</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_blank_surface</span><span class="o">.</span><span class="n">get_size</span><span class="p">()</span> <span class="o">!=</span> <span class="n">blank_size</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_blank_surface</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_blank_surface</span><span class="p">,</span> <span class="n">blank_size</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="p">[</span><span class="s2">&quot;blank&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_blank_surface</span>
+
+    <span class="k">def</span> <span class="nf">_load_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load a new image from the passed item.</span>
+
+<span class="sd">        :param item: a string specifying the image&#39;s name and resolution, formatted as file@WidthxHeight,</span>
+<span class="sd">        such as town@640.0x360.0</span>
+<span class="sd">        :return: a Surface with the loaded image.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loading image &#39;</span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+
+        <span class="c1"># The image&#39;s name is before the at sign, width and height are after</span>
+        <span class="n">name</span><span class="p">,</span> <span class="n">after_at_sign</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;@&quot;</span><span class="p">)</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Width and height are strings formatted as floats so we get each string by splitting at &quot;x&quot;,</span>
+<span class="sd">        convert each to float then to int to later compare with the integer size of the surface</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">expected_size</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">map</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">after_at_sign</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">))))</span>
+
+        <span class="n">surface</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_image_name_to_path_dict</span><span class="p">[</span><span class="n">name</span><span class="p">])</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">surface</span><span class="o">.</span><span class="n">get_size</span><span class="p">()</span> <span class="o">!=</span> <span class="n">expected_size</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Image had to be rescaled from </span><span class="si">{</span><span class="n">surface</span><span class="o">.</span><span class="n">get_size</span><span class="p">()</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">expected_size</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">surface</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">surface</span><span class="p">,</span> <span class="n">expected_size</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">surface</span></div>
+</pre></div>
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+    <script type="text/javascript" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+    <div class="footer" role="contentinfo">
+        <div class="container">
+            &#169; Copyright 2019-2022, Josh Snaith.
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.
+        </div>
+    </div>  
+
+</body>
+</html>
