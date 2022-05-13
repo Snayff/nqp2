@@ -4,6 +4,7 @@ from unittest.mock import Mock
 from pygame import Vector2
 
 from nqp.topography.pathfinding import PriorityQueue
+from nqp.topography.terrain import Terrain
 
 
 class TestPriorityQueue(unittest.TestCase):
@@ -73,20 +74,16 @@ class TestPriorityQueue(unittest.TestCase):
 
 class TestSearchTerrain(unittest.TestCase):
     def setUp(self):
-        from nqp.topography.terrain import Terrain
-
         self.t = Terrain(Mock(), "biome")
 
-    @unittest.skip("broken")
     def test_search_endpoints_px(self):
         # changes to TILE_SIZE will fail this test
-        start = Vector2(8, 16)
+        start = Vector2(8, 15)
         end = Vector2(96, 96)
         result = self.t.pathfind_px(start, end)
-        self.assertEqual((0, 16), tuple(result[0]))
-        self.assertEqual((96, 96), tuple(result[-1]))
+        self.assertEqual((8, 24), tuple(result[0]))
+        self.assertEqual((104, 104), tuple(result[-1]))
 
-    @unittest.skip("broken")
     def test_search_path_px(self):
         # changes to TILE_SIZE will fail this test
         # Changes to pathfinding may cause test to fail even if path is valid
@@ -95,18 +92,18 @@ class TestSearchTerrain(unittest.TestCase):
         result = self.t.pathfind_px(start, end)
         result = list(map(tuple, result))
         expected = [
-            (0.0, 16.0),
-            (0.0, 32.0),
-            (0.0, 48.0),
-            (0.0, 64.0),
-            (0.0, 80.0),
-            (0.0, 96.0),
-            (16.0, 96.0),
-            (32.0, 96.0),
-            (48.0, 96.0),
-            (64.0, 96.0),
-            (80.0, 96.0),
-            (96.0, 96.0),
+            (8.0, 24.0),
+            (8.0, 40.0),
+            (8.0, 56.0),
+            (8.0, 72.0),
+            (8.0, 88.0),
+            (8.0, 104.0),
+            (24.0, 104.0),
+            (40.0, 104.0),
+            (56.0, 104.0),
+            (72.0, 104.0),
+            (88.0, 104.0),
+            (104.0, 104.0),
         ]
         self.assertEqual(expected, result)
 

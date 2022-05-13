@@ -119,11 +119,11 @@ class UnitGrid:
         target_px = dest.rect.center
         leader = unit.behaviour.leader
         leader_behaviour = snecs.entity_component(leader, AI).behaviour
-        leader_behaviour.current_path = [target_px]
+        leader_behaviour.target_position = pygame.Vector2(target_px)
         leader_behaviour.state = "path_fast"
         for entity in unit.entities[1:]:
             behaviour = snecs.entity_component(entity, AI).behaviour
-            behaviour.current_path = [target_px]
+            behaviour.target_position = pygame.Vector2(target_px)
             behaviour.state = "path_fast"
 
     def _swap_cells(self, a: GridCell, b: GridCell):
@@ -162,12 +162,12 @@ class UnitGrid:
                 target_px = cell.rect.center
                 leader = unit.entities[0]
                 behaviour = snecs.entity_component(leader, AI).behaviour
-                behaviour.current_path = [target_px]
+                behaviour.target_position = pygame.Vector2(target_px)
                 behaviour.state = "path_fast"
 
                 for entity in unit.entities[1:]:
                     behaviour = snecs.entity_component(entity, AI).behaviour
-                    behaviour.current_path = [target_px]
+                    behaviour.target_position = pygame.Vector2(target_px)
                     behaviour.state = "path_fast"
                 break
 

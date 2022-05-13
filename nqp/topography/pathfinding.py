@@ -55,10 +55,8 @@ def search_terrain(terrain, start, end):
 
     while queue:
         current = queue.get()
-
         if current == end:
             break
-
         for neighbor in terrain.get_exits(current):
             cost = cost_so_far[current] + terrain.cost(current, neighbor)
             if neighbor not in cost_so_far or cost < cost_so_far[neighbor]:
