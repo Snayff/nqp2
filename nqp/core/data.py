@@ -356,7 +356,5 @@ class Data:
             name=item_data.name,
             is_signature=item_data.is_signature,
         )
-        effects = [self.create_effect(data, item) for data in item_data.effects]
-        components = [item] + effects
-        entity = snecs.new_entity(components)
+        entity = snecs.new_entity((item,))
         return entity

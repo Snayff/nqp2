@@ -62,16 +62,24 @@ Contributing
 Forking
 ^^^^^^^^^^^^^^^
 
-To get started, `fork the repository <https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/fork-a-repo>`_ and open it up in your favorite editor. Next, open your terminal and point it to where you just saved the NQP2 repository. If you want to use `poetry <https://python-poetry.org/>`_ you would then run::
+To get started, `fork the repository <https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/fork-a-repo>`_.
 
-    pip install poetry
-    poetry install
+To correctly download the game's resources along with the code, install `git LFS` as described `here <https://docs.github.com/en/repositories/working-with-files/managing-large-files/installing-git-large-file-storage>`_, then clone your forked repository as usual.
+
+After that, open it up in your favorite editor. Next, open your terminal and point it to where you just saved the NQP2 repository. If you want to use `poetry <https://python-poetry.org/>`_ you would then run:
+
+.. code-block:: console
+
+    $ pip install poetry
+    $ poetry install
 
 This will install all of the dependencies needed, using poetry.
 
-To run NQP2, navigate the terminal to the game directory and then use::
+To run NQP2, navigate the terminal to the game directory and then use:
 
-    python nqp2.py
+.. code-block:: console
+
+    $ python nqp2.py
 
 
 If you're not sure where to start helping out you can look at the existing feature requests and issues, `here <https://github.com/Snayff/nqp2/issues>`_. Pick one you think you'd like to tackle and make the relevant changes to your fork.
