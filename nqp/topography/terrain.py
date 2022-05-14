@@ -197,6 +197,7 @@ class Terrain:
         Pathfind between map coordinates ("pixel coordinates")
 
         """
+        # offset is used so units pathfind to the center of a tile
         offset = pygame.Vector2(TILE_SIZE) / 2
         path_px = []
         for loc in self.pathfind(self.px_to_loc(start), self.px_to_loc(end)):

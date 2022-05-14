@@ -47,19 +47,19 @@ class Position(RegisteredComponent):
         return Position(pos)
 
     @property
-    def x(self) -> int:
-        return int(self.pos.x)
+    def x(self) -> float:
+        return self.pos.x
 
     @x.setter
-    def x(self, value: int):
+    def x(self, value: int | float):
         self.pos = pygame.Vector2(value, self.pos.y)
 
     @property
-    def y(self) -> int:
-        return int(self.pos.y)
+    def y(self) -> float:
+        return self.pos.y
 
     @y.setter
-    def y(self, value: int):
+    def y(self, value: int | float):
         self.pos = pygame.Vector2(self.pos.x, value)
 
 

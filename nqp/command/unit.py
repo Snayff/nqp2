@@ -34,7 +34,7 @@ class Unit:
         self.is_selected: bool = False
         self.entities: List[EntityID] = []
 
-        self.entity_spread_max = unit_data["entity_spread"] if "entity_spread" in unit_data else 48
+        self.entity_spread_max = unit_data["entity_spread"] if "entity_spread" in unit_data else 24
         self.count: int = unit_data["count"] + base_values["count"]  # number of entities spawned
         self.gold_cost: int = unit_data["gold_cost" ""] + base_values["gold_cost"]
         self._banner_image = self._game.visual.get_image("banner")
