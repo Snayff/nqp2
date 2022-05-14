@@ -251,10 +251,8 @@
 
     <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
         <span class="n">current</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-
         <span class="k">if</span> <span class="n">current</span> <span class="o">==</span> <span class="n">end</span><span class="p">:</span>
             <span class="k">break</span>
-
         <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">terrain</span><span class="o">.</span><span class="n">get_exits</span><span class="p">(</span><span class="n">current</span><span class="p">):</span>
             <span class="n">cost</span> <span class="o">=</span> <span class="n">cost_so_far</span><span class="p">[</span><span class="n">current</span><span class="p">]</span> <span class="o">+</span> <span class="n">terrain</span><span class="o">.</span><span class="n">cost</span><span class="p">(</span><span class="n">current</span><span class="p">,</span> <span class="n">neighbor</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">neighbor</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cost_so_far</span> <span class="ow">or</span> <span class="n">cost</span> <span class="o">&lt;</span> <span class="n">cost_so_far</span><span class="p">[</span><span class="n">neighbor</span><span class="p">]:</span>
