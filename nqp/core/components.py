@@ -10,6 +10,7 @@ from nqp.base_classes.image import Image
 from nqp.command.unit import Unit
 from nqp.core.constants import DamageType, EntityFacing
 from nqp.world_elements.stats import FloatStat, IntStat
+from nqp.world_elements.unit_attribute import UnitAttribute
 
 if TYPE_CHECKING:
     from typing import List
@@ -261,3 +262,22 @@ class IsReadyToAttack(RegisteredComponent):
 
     # doesnt need init as has no details
     # doesnt need serialising as will never be about to attack when saving.
+
+
+class Attributes(RegisteredComponent):
+    """
+    A series of flags defining the attributes of a Unit
+    """
+
+    def __init__(self):
+        self.can_be_healed_by_other = UnitAttribute(True)
+        self.can_be_healed_by_self = UnitAttribute(True)
+
+    def serialize(self):
+        # TODO - add serialisation
+        return True
+
+    @classmethod
+    def deserialize(cls, *serialised):
+        # TODO - add deserialisation
+        return Attributes(*serialised)

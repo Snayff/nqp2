@@ -1,0 +1,12 @@
+---
+name: Lucky
+description: Increased <crit_chance> and <dodge>.
+effects:
+  - name: StatsEffect
+    target: self
+    attribute: crit_chance
+    modifier: 10
+  - name: StatsEffect
+    target: self
+    attribute: dodge
+    modifier: 5

@@ -1,0 +1,15 @@
+---
+name: Living Dead
+description:  |
+  The dead have risen! Though their form slowly pulls itself together while they
+  walk the land it eschews outside helps.
+  Self regen and cant be healed by others.
+effects:
+  - name: StatsEffect
+    target: self
+    attribute: regen
+    modifier: 20%*max_health
+  - name: AttributeEffect
+    target: self
+    attribute: CanBeHealedByOther
+    state: false

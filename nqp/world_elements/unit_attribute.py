@@ -7,21 +7,20 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from typing import Any, Callable
 
-__all__ = ["Stat"]
+__all__ = ["UnitAttribute"]
 
 
-class Stat(ABC):
+class UnitAttribute(ABC):
     """
-    A container for an Entities Stat
+    A container for a Unit's Attribute
 
-    N.B. Override value is a hack until all the ad-hoc changes without
-    modifiers are removed.  To be clear, we should be using effects to
-    change the value, not setting directly.
+    # TODO - This is currently a copy of Stat and needs to be updated to work for bools only
+        with False taking precedence over True
 
     """
 
-    def __init__(self, base_value):
-        self._base_value = base_value
+    def __init__(self, base_value: bool):
+        self._base_value: bool = base_value
         # weakkey dict will drop modifiers if they have been deleted
         self._modifiers = weakref.WeakKeyDictionary()
         self._override_value = None

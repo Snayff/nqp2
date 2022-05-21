@@ -1,0 +1,12 @@
+---
+name: Armoured
+description: Particularly resistant to damage, especially from ranged attacks.
+effects:
+  - name: DamageResistanceEffect
+    target: self
+    attack_type: ranged
+    modifier: -20
+  - name: DamageResistanceEffect
+    target: self
+    attack_type: melee
+    modifier: -10

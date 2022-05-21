@@ -1,3 +1,4 @@
+# Unit stats
 mundane_defence:
   title: "Mundane Defence"
   text: "Resistance to mundane damage. Reduces after taking damage."
@@ -42,10 +43,6 @@ damage_type:
   title: "Damage Type"
   text: "Type of damage dealt by an attack."
   image: "damage_type"
-gold:
-  title: "Gold"
-  text: "Gold can be exchanged for goods and services."
-  image: "gold"
 health:
   title: "Health"
   text: "How much damage can be taken before an entity dies."
@@ -62,10 +59,24 @@ range:
   title: "Range"
   text: "How far away an entity's attack can reach."
   image: "range"
+dodge:
+  title: "Dodge"
+  text: "Chance to ignore an attack entirely."
+  image: null
+
+# Resources
+gold:
+  title: "Gold"
+  text: "Gold can be exchanged for goods and services."
+  image: "gold"
+
+ # Commander Stats
 ally:
   title: "Ally"
   text: "Those who are willing to join you in your ambitions."
   image: null
+
+# Factions
 aberrations_of_nature:
   title: "Aberrations of Nature"
   text: "Self-identified as the Naturists, they are widely known as the Aberrations of Nature. Brought into existence by the quirks of fate, or the whims of the gods, they desire most to be acknowledged as alive. Champions of the natural order of the world they despise the Hammerites above all else, and will stop at nothing to prevent them from claiming rule, as this threatens their entire existence."

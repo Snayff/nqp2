@@ -11,6 +11,9 @@ if TYPE_CHECKING:
     from nqp.core.game import Game
 
 
+__all__ = ["AddItemEffect", "AddItemEffectProcessor"]
+
+
 class AddItemEffect(RegisteredComponent):
     def __init__(self, item_type: str, item_count: int, trigger=None):
         self.item_type = item_type
