@@ -311,3 +311,50 @@ yaml Example
       result:
       - gold:100
       displayed_result: "+gold"
+
+
+Items
+-------------------
+
+Adding New
+^^^^^^^^^^^^^^^^^^^^^^^
+To add a new Item you need to add 1 thing:
+1. a yaml with the combat's name in the ``data/items`` folder
+
+yaml Explained
+^^^^^^^^^^^^^^^^^^^^^^^
+.. code-block:: yaml
+
+    ---
+    name: Albrom's Signature Item
+    is_signature: true
+    effects:
+        # name must be "StatsEffect", no other type is implemented
+      - name: StatsEffect
+        # target can be "all", "team", "unit".  matched against Allegiance.team or unit
+        target: team
+        # not sure what all types are, but is matched against Allegiance.unit.type
+        unit_type: ranged
+        # name of a stat on the Stats component
+        attribute: attack
+        # can be + (implied) or -.  Adding a percent will calculate the value from the base value of the stat
+        modifier: 20%
+
+
+
+yaml Example
+^^^^^^^^^^^^^^^^^^^^^^^
+Basic combat
+
+.. code-block:: yaml
+
+    ---
+    name: Albrom's Signature Item
+    is_signature: true
+    effects:
+      - name: StatsEffect
+        target: team
+        unit_type: ranged
+        attribute: attack
+        modifier: 20%
+

@@ -158,7 +158,9 @@ sentinels_query = snecs.Query([StatsEffectSentinel])
 
 def apply_effects(entities: List[EntityID]):
     """
-    Enable effects for entity by checking the sentinels
+    Enable effects for entity by checking the sentinels.
+
+    Should be called whenever a new entity or sentinel is created.
 
     New entities may be created after an effect was started.  This can
     be used to search for effects that would affect the entity and apply
