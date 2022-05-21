@@ -9,7 +9,7 @@ effects:
     target: self
     attribute: regen
     modifier: 20%*max_health
-  - name: AttributeEffect
+  - name: StatsEffect
     target: self
     attribute: CanBeHealedByOther
     state: false
