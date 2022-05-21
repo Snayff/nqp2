@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import logging
 from pathlib import Path
 from typing import List
@@ -6,6 +8,8 @@ import pygame
 
 from nqp.base_classes.resource_controller import ResourceController
 from nqp.core.constants import ASSET_PATH, DEFAULT_IMAGE_SIZE, IMG_FORMATS
+
+__all__ = ["ImageResourceController"]
 
 
 class ImageResourceController(ResourceController):
@@ -69,7 +73,7 @@ class ImageResourceController(ResourceController):
         such as town@640.0x360.0
         :return: a Surface with the loaded image.
         """
-        logging.info(f"Loading image '{item}'")
+        # logging.info(f"Loading image '{item}'")
 
         # The image's name is before the at sign, width and height are after
         name, after_at_sign = item.split("@")

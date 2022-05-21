@@ -31,7 +31,6 @@ class Game:
             from nqp.core.memory import Memory
             from nqp.scenes.main_menu.scene import MainMenuScene
             from nqp.scenes.run_setup.scene import RunSetupScene
-            from nqp.scenes.view_troupe.scene import ViewTroupeScene
             from nqp.scenes.world.scene import WorldScene
 
             # init libraries
@@ -58,7 +57,6 @@ class Game:
             # TODO - should these be private?
             self.main_menu: MainMenuScene = MainMenuScene(self)
             self.run_setup: RunSetupScene = RunSetupScene(self)
-            self.troupe: ViewTroupeScene = ViewTroupeScene(self)
             self.world: WorldScene = WorldScene(self)
 
             # dev scenes
