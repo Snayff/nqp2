@@ -7,8 +7,8 @@ from snecs.typedefs import EntityID
 
 from nqp.base_classes.entity_behaviour import EntityBehaviour
 from nqp.command.unit import Unit
-from nqp.core.components import Allegiance, IsDead, IsReadyToAttack, Position, Stats
 from nqp.core.utility import distance_to
+from nqp.world_elements.entity_components import Allegiance, IsDead, IsReadyToAttack, Position, Stats
 
 if TYPE_CHECKING:
     from nqp.core.game import Game

@@ -29,6 +29,7 @@ __all__ = [
     "DamageReceived",
     "IsDead",
     "IsReadyToAttack",
+    "Attributes",
 ]
 
 

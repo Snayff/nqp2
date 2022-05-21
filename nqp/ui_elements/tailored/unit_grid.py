@@ -6,10 +6,10 @@ import pygame
 import snecs
 
 from nqp.command.unit import Unit
-from nqp.core.components import AI
 from nqp.core.constants import InputType, TILE_SIZE
 from nqp.core.game import Game
 from nqp.core.utility import grid_down, grid_left, grid_right, grid_up
+from nqp.world_elements.entity_components import AI
 
 __all__ = ["UnitGrid"]
 

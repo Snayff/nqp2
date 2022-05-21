@@ -96,7 +96,7 @@ class Unit:
 
     @property
     def is_alive(self):
-        from nqp.core.components import IsDead  # prevent circular import
+        from nqp.world_elements.entity_components import IsDead  # prevent circular import
 
         for entity in self.entities:
             if not snecs.has_component(entity, IsDead):
@@ -152,7 +152,15 @@ class Unit:
         Spawn the Unit's Entities. Deletes any existing Entities first.
         """
         # prevent circular import error
-        from nqp.core.components import Aesthetic, AI, Allegiance, Position, RangedAttack, Resources, Stats
+        from nqp.world_elements.entity_components import (
+            Aesthetic,
+            AI,
+            Allegiance,
+            Position,
+            RangedAttack,
+            Resources,
+            Stats,
+        )
 
         self.delete_entities()
 
@@ -202,7 +210,14 @@ class Unit:
         Reset the in combat values ready to begin combat.
         """
         # prevent circular import
-        from nqp.core.components import DamageReceived, IsDead, IsReadyToAttack, RangedAttack, Resources, Stats
+        from nqp.world_elements.entity_components import (
+            DamageReceived,
+            IsDead,
+            IsReadyToAttack,
+            RangedAttack,
+            Resources,
+            Stats,
+        )
 
         # get stat attrs
         stat_attrs = Stats.get_stat_names()
@@ -238,7 +253,7 @@ class Unit:
         """
         Update unit position by averaging the positions of all its entities.
         """
-        from nqp.core.components import Position  # prevent circular import
+        from nqp.world_elements.entity_components import Position  # prevent circular import
 
         num_entities = len(self.entities)
         if num_entities > 0:
@@ -257,7 +272,7 @@ class Unit:
         self._align_entity_positions_to_unit()
 
     def _align_entity_positions_to_unit(self):
-        from nqp.core.components import Position  # prevent circular import
+        from nqp.world_elements.entity_components import Position  # prevent circular import
 
         unit_x = self.pos.x
         unit_y = self.pos.y

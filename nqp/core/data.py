@@ -246,9 +246,8 @@ class Data:
     @staticmethod
     def _load_effects() -> Dict[str:Any]:
         # TODO: replace with autodiscover
-        from nqp.effects.add_item import AddItemEffect
+        from nqp.effects.effect_components import AddItemEffect, StatsEffectSentinel
         from nqp.effects.sildreths_signature import SildrethsSignatureEffect
-        from nqp.effects.stats_effect import StatsEffectSentinel
 
         effects = {
             "StatsEffect": StatsEffectSentinel,
@@ -258,9 +257,8 @@ class Data:
         logging.debug(f"Data: {len(effects)} items loaded.")
 
         # TODO: replace with autodiscover
-        from nqp.core.effect import EffectProcessorComponent
         from nqp.effects.burn import OnFireStatusProcessor
-        from nqp.effects.stats_effect import StatsEffectProcessor
+        from nqp.effects.processors import EffectProcessorComponent, StatsEffectProcessor
 
         for processor_class in (
             StatsEffectProcessor,

@@ -4,10 +4,11 @@ from unittest import mock
 import snecs
 
 from nqp.core import queries
-from nqp.core.components import Aesthetic, Allegiance, Position, Resources, Stats
 from nqp.core.data import Data
+from nqp.effects.actions import apply_effects, new_stats_effect
 from nqp.effects.burn import OnFireStatusEffect
-from nqp.effects.stats_effect import apply_effects, new_stats_effect, StatsEffectSentinel
+from nqp.effects.effect_components import StatsEffectSentinel
+from nqp.world_elements.entity_components import Aesthetic, Allegiance, Position, Resources, Stats
 
 
 class EffectTestCase(unittest.TestCase):

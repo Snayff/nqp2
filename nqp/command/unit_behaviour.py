@@ -6,12 +6,12 @@ from typing import TYPE_CHECKING
 import pygame
 import snecs
 
-from nqp.core.components import AI, Allegiance, IsDead, Position
 from nqp.core.constants import TILE_SIZE
 from nqp.core.utility import distance_to
+from nqp.world_elements.entity_components import AI, Allegiance, IsDead, Position
 
 if TYPE_CHECKING:
-    from typing import List, Optional, Tuple
+    from typing import List, Optional
 
     from snecs.typedefs import EntityID
 

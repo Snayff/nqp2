@@ -1,4 +1,4 @@
-from nqp.core.effect import EffectProcessor
+from nqp.base_classes.effect_processor import EffectProcessor
 
 
 class SildrethsSignatureEffect(EffectProcessor):

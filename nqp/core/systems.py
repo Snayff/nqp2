@@ -9,8 +9,9 @@ import pygame
 import snecs
 
 from nqp.core import queries
-from nqp.core.components import (
-    Aesthetic,
+from nqp.core.constants import CRIT_MOD, DamageType, EntityFacing, Flags, PUSH_FORCE, TILE_SIZE, WEIGHT_SCALE
+from nqp.core.utility import angle_to, distance_to, get_direction
+from nqp.world_elements.entity_components import (
     AI,
     Allegiance,
     DamageReceived,
@@ -20,11 +21,9 @@ from nqp.core.components import (
     RangedAttack,
     Stats,
 )
-from nqp.core.constants import CRIT_MOD, DamageType, EntityFacing, Flags, PUSH_FORCE, TILE_SIZE, WEIGHT_SCALE
-from nqp.core.utility import angle_to, distance_to, get_direction
 
 if TYPE_CHECKING:
-    from typing import Dict, List, Optional, Tuple, Union
+    from typing import List
 
     from nqp.core.game import Game
 

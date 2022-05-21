@@ -1,22 +1,18 @@
 from __future__ import annotations
 
 import logging
+from abc import ABC
 from typing import TYPE_CHECKING
-
-from snecs import RegisteredComponent
 
 if TYPE_CHECKING:
     from nqp.core.game import Game
 
 log = logging.getLogger(__name__)
 
-
-class EffectProcessorComponent(RegisteredComponent):
-    def __init__(self, effect: EffectProcessor):
-        self.effect = effect
+__all__ = ["EffectProcessor"]
 
 
-class EffectProcessor:
+class EffectProcessor(ABC):
     def update(self, time_delta: float, game: Game):
         """
         Handle changes for this Processor
