@@ -1,12 +1,18 @@
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 import snecs
 from snecs import RegisteredComponent
 
 from nqp.base_classes.effect_processor import EffectProcessor
-from nqp.core.game import Game
-from nqp.effects.actions import effect_stats_query
 from nqp.effects.effect_components import AddItemEffect
+
+if TYPE_CHECKING:
+    from nqp.core.game import Game
+
+
+__all__ = ["EffectProcessorComponent", "AddItemEffectProcessor", "StatsEffectProcessor"]
 
 
 class EffectProcessorComponent(RegisteredComponent):
@@ -31,6 +37,8 @@ class StatsEffectProcessor(EffectProcessor):
     """
 
     def update(self, time_delta: float, game: Game):
+        from nqp.core.queries import effect_stats_query
+
         for eid, (effect, stats) in effect_stats_query:
             # remove expired modifiers
             if effect.ttl == -1:

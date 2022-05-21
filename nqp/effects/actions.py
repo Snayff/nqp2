@@ -8,10 +8,7 @@ import snecs
 from snecs.typedefs import EntityID
 
 from nqp.base_classes.stat import Stat
-from nqp.core.queries import sentinels_query
 from nqp.core.utility import percent_to_float
-from nqp.effects.effect_components import StatsEffect
-from nqp.world_elements.entity_components import Allegiance, Stats
 
 if TYPE_CHECKING:
     from typing import List
@@ -42,6 +39,8 @@ def new_stats_effect(
 
     """
     modifier = get_modifier(modifier)
+    from nqp.effects.effect_components import StatsEffect
+
     attrib_modifier = StatsEffect(stat, ttl)
     eid = snecs.new_entity((attrib_modifier, stats))
     stat.apply_modifier(modifier, attrib_modifier)
@@ -60,7 +59,11 @@ def apply_effects(entities: List[EntityID]):
 
     """
     # TODO: get components from sentinel and batch search
+    from nqp.world_elements.entity_components import Allegiance, Stats
+
     search_components = (Allegiance, Stats)
+    from nqp.core.queries import sentinels_query
+
     for sentinel_eid, (sentinel,) in sentinels_query:
         for eid in entities:
             components = snecs.entity_components(eid, search_components)
