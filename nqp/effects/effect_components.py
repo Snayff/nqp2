@@ -7,6 +7,7 @@ import snecs
 from snecs import RegisteredComponent
 
 from nqp.base_classes.stat import Stat
+from nqp.core.constants import INFINITE
 from nqp.effects.actions import get_modifier
 from nqp.world_elements.entity_components import Allegiance, Stats
 
@@ -48,7 +49,7 @@ class StatsEffectSentinel(RegisteredComponent):
         attribute: str,
         modifier: str,
         params: Optional[Dict[str:Any]] = None,
-        ttl: float = -1,
+        ttl: float = INFINITE,
     ):
         if params is None:
             params = dict()
@@ -80,7 +81,7 @@ class StatsEffectSentinel(RegisteredComponent):
         unit_type = data.get("unit_type")
         attribute = data.get("attribute")
         modifier = data.get("modifier")
-        ttl = float(data.get("ttl", -1))
+        ttl = float(data.get("ttl", INFINITE))
 
         if target not in ("all", "game", "self", "team", "unit"):
             raise ValueError(f"Unsupported target {target}")
@@ -122,12 +123,12 @@ class StatsEffect(RegisteredComponent):
             ttl: Time To Live
 
     ttl:
-             -1 : never removed
+             INFINITE : never removed
               0 : runs once
             > 0 : lasts X seconds
 
     """
 
-    def __init__(self, stat: Any, ttl: float = -1):
+    def __init__(self, stat: Any, ttl: float = INFINITE):
         self.stat: Any = stat
         self.ttl: float = ttl

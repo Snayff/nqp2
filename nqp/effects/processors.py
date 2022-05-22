@@ -6,6 +6,7 @@ import snecs
 from snecs import RegisteredComponent
 
 from nqp.base_classes.effect_processor import EffectProcessor
+from nqp.core.constants import INFINITE
 from nqp.effects.effect_components import AddItemEffect
 
 if TYPE_CHECKING:
@@ -41,7 +42,7 @@ class StatsEffectProcessor(EffectProcessor):
 
         for eid, (effect, stats) in effect_stats_query:
             # remove expired modifiers
-            if effect.ttl == -1:
+            if effect.ttl == INFINITE:
                 continue
             if effect.ttl >= 0:
                 effect.ttl -= time_delta

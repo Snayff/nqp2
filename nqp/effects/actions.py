@@ -8,6 +8,7 @@ import snecs
 from snecs.typedefs import EntityID
 
 from nqp.base_classes.stat import Stat
+from nqp.core.constants import INFINITE
 from nqp.core.utility import percent_to_float
 from nqp.world_elements.entity_components import Stats
 
@@ -27,7 +28,7 @@ def new_stats_effect(
     stat: Stat,
     stats: Stats,
     modifier: str,
-    ttl: float = -1,
+    ttl: float = INFINITE,
 ) -> EntityID:
     """
     Apply StatsEffect to Stat

@@ -7,7 +7,7 @@ from typing import Any, TYPE_CHECKING
 
 import pygame
 
-from nqp.core.constants import ASSET_PATH
+from nqp.core.constants import ASSET_PATH, INFINITE
 from nqp.core.debug import Timer
 
 if TYPE_CHECKING:
@@ -69,7 +69,15 @@ class Audio:
         allow_duplicates: bool = True,
     ):
         """
-        Play sound. Set loops = -1 to make the sound loop infinitely. Can still be stopped.
+        Play sound.
+
+        Args:
+            sound_name: the name of the sound
+            loops: how many loops. set to INFINITE to make the sound loop infinitely. Can still be stopped.
+            max_time: how long the sound can play for. -1 means until end.
+            fade_in_ms: how long the sound will take to get to full volume. -1 means start at full.
+            allow_duplicates: when the same sound can be played while this is still active.
+
         """
         # check if currently blocked as unique
         if sound_name in self._unique_sounds.keys():
@@ -83,6 +91,8 @@ class Audio:
                 max_time = 0
             if fade_in_ms == -1:
                 fade_in_ms = 0
+            if loops == INFINITE:
+                loops = -1
 
             sound.play(loops, max_time, fade_in_ms)
 
