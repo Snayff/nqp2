@@ -68,6 +68,8 @@ class Unit:
         self.move_speed: int = unit_data["move_speed"] + base_values["move_speed"]
         self.crit_chance: int = unit_data["crit_chance"] + base_values["crit_chance"]
         self.penetration: int = unit_data["penetration"] + base_values["penetration"]
+        self.regen: int = unit_data["regen"] + base_values["regen"]
+        self.dodge: int = unit_data["dodge"] + base_values["dodge"]
 
         # ensure faux-null value is respected
         if unit_data["ammo"] in [-1, 0]:

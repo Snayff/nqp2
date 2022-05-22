@@ -9,7 +9,9 @@ from nqp.effects.processors import EffectProcessorComponent
 from nqp.world_elements.entity_components import (
     Aesthetic,
     AI,
+    Attributes,
     DamageReceived,
+    HealReceived,
     IsDead,
     IsReadyToAttack,
     Position,
@@ -23,23 +25,26 @@ if TYPE_CHECKING:
     from snecs.typedefs import EntityID
 
 __all__ = [
-    "dead",
-    "resources",
     "aesthetic_position",
-    "damage_resources_aesthetic_stats",
     "ai_not_dead",
+    "ai_position",
     "attack_position_stats_ai_aesthetic_not_dead",
-    "ai_position",
-    "position",
-    "ai_position",
+    "damage_resources_aesthetic_stats",
+    "dead",
     "dead_aesthetic_position",
+    "effect_stats_query",
+    "effects_processors",
+    "heal_stats_attributes_not_dead",
+    "position",
     "position_stats_not_dead",
     "position_stats_ai_aesthetic_not_dead",
-    "effects_processors",
-    "stats_query",
-    "effect_stats_query",
+    "resources",
     "sentinels_query",
+    "stats_query",
 ]
+
+heal_stats_attributes_not_dead: Iterator[Tuple[EntityID, Tuple[HealReceived, Stats, Attributes]]]
+heal_stats_attributes_not_dead = Query([HealReceived, Stats, Attributes]).filter(~IsDead).compile()
 
 resources: Iterator[Tuple[EntityID, Tuple[Resources]]]
 resources = Query([Resources]).compile()

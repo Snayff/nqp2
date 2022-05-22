@@ -9,7 +9,16 @@ import pygame
 import snecs
 
 from nqp.core import queries
-from nqp.core.constants import CRIT_MOD, DamageType, EntityFacing, Flags, PUSH_FORCE, TILE_SIZE, WEIGHT_SCALE
+from nqp.core.constants import (
+    CRIT_MOD,
+    DamageType,
+    EntityFacing,
+    Flags,
+    HealingSource,
+    PUSH_FORCE,
+    TILE_SIZE,
+    WEIGHT_SCALE,
+)
 from nqp.core.utility import angle_to, distance_to, get_direction
 from nqp.world_elements.entity_components import (
     AI,
@@ -56,6 +65,7 @@ def draw_entities(surface: pygame.Surface, shift: pygame.Vector2 = (0, 0)):
 def apply_damage(game: Game):
     """
     Consume damage components and apply their value to the Entity, applying any mitigations.
+    Dodge may negate damage.
     """
     for entity, (damage, resources, aesthetic, stats) in queries.damage_resources_aesthetic_stats:
         damage_dealt = damage.amount
@@ -75,27 +85,34 @@ def apply_damage(game: Game):
             # mitigate damage by defence, accounting for penetration
             damage_dealt = max((defence.value - damage.penetration) - damage_dealt, 0)
 
-        # reduce defence for being hit
-        defence.value = max(defence.value - 1, 0)
+        # calc dodge
+        dodge_successful = False
+        if game.rng.roll() <= stats.dodge.value:
+            dodge_successful = True
 
-        # apply damage
-        resources.health.value -= damage_dealt
+        # apply hit effects if no dodge
+        if dodge_successful:
+            # reduce defence for being hit
+            defence.value = max(defence.value - 1, 0)
+
+            # apply damage
+            resources.health.value -= damage_dealt
+
+            # check if dead
+            if resources.health.value <= 0:
+                snecs.add_component(entity, IsDead())
+            else:
+                # apply flash
+                aesthetic.animation.flash((255, 255, 255))
+
+                # create blood spray on crit
+                if damage.is_crit:
+                    position = snecs.entity_component(entity, Position)
+                    create_particle_burst = game.world.model.particles.create_particle_burst
+                    create_particle_burst(position.pos, (255, 50, 100), random.randint(10, 16))
 
         # remove damage flag
         snecs.remove_component(entity, DamageReceived)
-
-        # check if dead
-        if resources.health.value <= 0:
-            snecs.add_component(entity, IsDead())
-        else:
-            # apply flash
-            aesthetic.animation.flash((255, 255, 255))
-
-            # create blood spray on crit
-            if damage.is_crit:
-                position = snecs.entity_component(entity, Position)
-                create_particle_burst = game.world.model.particles.create_particle_burst
-                create_particle_burst(position.pos, (255, 50, 100), random.randint(10, 16))
 
 
 def process_death(game: Game):
@@ -334,3 +351,17 @@ def push_entities_away_from_one_another(delta_time: float, game: Game):
                         )
                         movement = get_direction(other_angle, move_distance)
                         _move(movement, position, game)
+
+
+def process_healing():
+    """
+    Process all the Healing Received components, applying healing where allowed.
+    """
+    for entity, (healing_received, stats, attributes) in queries.heal_stats_attributes_not_dead:
+        for heal in healing_received.heals:
+            amount, source = heal
+
+            if (source == HealingSource.SELF and attributes.can_be_healed_by_self) or (
+                source == HealingSource.OTHER and attributes.can_be_healed_by_other
+            ):
+                stats.health.base_value += amount

@@ -35,7 +35,7 @@ class AddItemEffect(RegisteredComponent):
         return cls(item_type, item_count, trigger)
 
 
-class StatsEffectSentinel(snecs.RegisteredComponent):
+class StatsEffectSentinel(RegisteredComponent):
     """
     Fancy way to search for targets of an effect
 
@@ -89,20 +89,20 @@ class StatsEffectSentinel(snecs.RegisteredComponent):
 
         return cls(target, unit_type, attribute, modifier, params, ttl)
 
-    def maybe_apply(self, allg: Allegiance, stats: Stats):
+    def maybe_apply(self, allegiance: Allegiance, stats: Stats):
         """
         Match and test modifier.  Apply if needed.
 
         """
         if self.target == "all":
             pass
-        elif self.target == "team" and allg.team != self.params["team"]:
+        elif self.target == "team" and allegiance.team != self.params["team"]:
             return False
-        elif self.target == "unit" and allg.unit != self.params["unit"]:
+        elif self.target == "unit" and allegiance.unit != self.params["unit"]:
             return False
         if self.unit_type == "all":
             pass
-        elif self.unit_type != allg.unit.type:
+        elif self.unit_type != allegiance.unit.type:
             return False
         stat = getattr(stats, self.attribute, None)
         if stat is None or not isinstance(stat, Stat):
@@ -113,7 +113,7 @@ class StatsEffectSentinel(snecs.RegisteredComponent):
             snecs.new_entity((attrib_modifier, stats))
 
 
-class StatsEffect(snecs.RegisteredComponent):
+class StatsEffect(RegisteredComponent):
     """
     Currently, only modifying ``Stats`` components are supported
 

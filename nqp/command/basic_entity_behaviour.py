@@ -7,14 +7,12 @@ from snecs.typedefs import EntityID
 
 from nqp.base_classes.entity_behaviour import EntityBehaviour
 from nqp.command.unit import Unit
+from nqp.core.constants import HealingSource, PATH_UPDATE_FREQ
 from nqp.core.utility import distance_to
-from nqp.world_elements.entity_components import Allegiance, IsDead, IsReadyToAttack, Position, Stats
+from nqp.world_elements.entity_components import Allegiance, HealReceived, IsDead, IsReadyToAttack, Position, Stats
 
 if TYPE_CHECKING:
     from nqp.core.game import Game
-
-
-PATH_UPDATE_FREQ = 0.4  # TODO - move to consts
 
 
 __all__ = ["BasicEntityBehaviour"]
@@ -48,8 +46,14 @@ class BasicEntityBehaviour(EntityBehaviour):
         if self.last_path_update > PATH_UPDATE_FREQ:
             self.update_path()
 
-        # update attack timer
+        # apply and reset regen, if needed
+        if self.regen_timer < 0:
+            self.apply_regen()
+            self.regen_timer = 1
+
+        # update timers
         self.attack_timer -= delta_time
+        self.regen_timer -= delta_time
 
     def determine_next_action(self, focus_entity: bool):
         """
@@ -133,3 +137,17 @@ class BasicEntityBehaviour(EntityBehaviour):
             if self.target_position:
                 pos = snecs.entity_component(self._entity, Position)
                 self.current_path = self._game.world.model.terrain.pathfind_px(pos.pos, self.target_position)
+
+    def apply_regen(self):
+        """
+        Create heal component on entity
+        """
+        stats = snecs.entity_component(self._entity, Stats)
+
+        # try to apply
+        try:
+            snecs.add_component(self._entity, HealReceived(stats.regen.value, HealingSource.SELF))
+
+        except ValueError:
+            heal_received = snecs.entity_component(self._entity, HealReceived)
+            heal_received.add_heal(stats.regen.value, HealingSource.SELF)

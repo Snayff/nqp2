@@ -20,8 +20,13 @@ class IntStat(Stat):
     def value(self) -> int:
         return super().value
 
-    def set_base_value(self, value: int):
-        self._base_value = value
+    @property
+    def base_value(self) -> int:
+        return super().base_value
+
+    @base_value.setter
+    def base_value(self, value: int):
+        super().base_value = value
 
 
 class FloatStat(Stat):
@@ -34,5 +39,10 @@ class FloatStat(Stat):
     def value(self) -> float:
         return super().value
 
-    def set_base_value(self, value: float):
-        self._base_value = value
+    @property
+    def base_value(self) -> float:
+        return super().base_value
+
+    @base_value.setter
+    def base_value(self, value: float):
+        super().base_value = value

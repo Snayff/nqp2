@@ -28,6 +28,9 @@ DEFENSE_SCALE = 10
 PUSH_FORCE = 14
 CRIT_MOD = 2.5  # value to multiply by
 
+# ai
+PATH_UPDATE_FREQ = 0.4
+
 # UI customisation
 TEXT_FADE_OUT_SPEED = 0.5  # make sure it is slower than the fade in
 TEXT_FADE_IN_SPEED = 4  # font messes up if this is greater than 4
@@ -223,3 +226,8 @@ class TextRelativePosition(IntEnum):
     BELOW_IMAGE = auto()
     RIGHT_OF_IMAGE = auto()
     LEFT_OF_IMAGE = auto()
+
+
+class HealingSource(IntEnum):
+    SELF = auto()
+    OTHER = auto()

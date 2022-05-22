@@ -62,7 +62,11 @@ range:
 dodge:
   title: "Dodge"
   text: "Chance to ignore an attack entirely."
-  image: null
+  image: dodge
+regen:
+  title: "Regeneration"
+  text: "Amount of health gained per second."
+  image: regen
 
 # Resources
 gold:
