@@ -109,8 +109,7 @@ def apply_damage(game: Game):
                 # create blood spray on crit
                 if damage.is_crit:
                     position = snecs.entity_component(entity, Position)
-                    create_particle_burst = game.world.model.particles.create_particle_burst
-                    create_particle_burst(position.pos, (255, 50, 100), random.randint(10, 16))
+                    game.world.model.particles.create_blood_spray()
 
         # remove damage flag
         snecs.remove_component(entity, DamageReceived)
@@ -120,7 +119,6 @@ def process_death(game: Game):
     """
     Update Entity's sprites and intentions.
     """
-    create_particle_burst = game.world.model.particles.create_particle_burst
 
     for entity, (dead, aesthetic, position) in queries.dead_aesthetic_position:
 
@@ -129,7 +127,7 @@ def process_death(game: Game):
         aesthetic.animation.delete_on_finish = False
         aesthetic.animation.loop = False
 
-        create_particle_burst(position.pos, (255, 50, 100), random.randint(10, 16))
+        game.world.model.particles.create_blood_spray(position.pos)
 
 
 def process_movement(delta_time: float, game: Game):

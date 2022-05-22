@@ -201,11 +201,16 @@ class DamageType(IntEnum):
 
 
 class Colour(Enum):
+    # basics
     WHITE = (255, 255, 255)
     BLACK = (0, 0, 0)
     RED = (255, 0, 0)
     GREEN = (0, 255, 0)
     BLUE = (0, 0, 255)
+
+    # specifics
+    BLOOD_RED = (143, 3, 3)
+    GREY_SMOKE = (63, 58, 71)
 
 
 class ColourPalette(Enum):
