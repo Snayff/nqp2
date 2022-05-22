@@ -24,6 +24,7 @@ from nqp.world_elements.entity_components import (
     AI,
     Allegiance,
     DamageReceived,
+    HealReceived,
     IsDead,
     IsReadyToAttack,
     Position,
@@ -67,7 +68,7 @@ def apply_damage(game: Game):
     Consume damage components and apply their value to the Entity, applying any mitigations.
     Dodge may negate damage.
     """
-    for entity, (damage, resources, aesthetic, stats) in queries.damage_resources_aesthetic_stats:
+    for entity, (damage, aesthetic, stats) in queries.damage_aesthetic_stats:
         damage_dealt = damage.amount
 
         # get defence
@@ -96,10 +97,10 @@ def apply_damage(game: Game):
             defence.value = max(defence.value - 1, 0)
 
             # apply damage
-            resources.health.value -= damage_dealt
+            stats.health.value -= damage_dealt
 
             # check if dead
-            if resources.health.value <= 0:
+            if stats.health.value <= 0:
                 snecs.add_component(entity, IsDead())
             else:
                 # apply flash
@@ -365,3 +366,6 @@ def process_healing():
                 source == HealingSource.OTHER and attributes.can_be_healed_by_other
             ):
                 stats.health.base_value += amount
+
+        # remove component
+        snecs.remove_component(entity, HealReceived)

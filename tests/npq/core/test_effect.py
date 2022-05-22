@@ -8,7 +8,7 @@ from nqp.core.data import Data
 from nqp.effects.actions import apply_effects, new_stats_effect
 from nqp.effects.burn import OnFireStatusEffect
 from nqp.effects.effect_components import StatsEffectSentinel
-from nqp.world_elements.entity_components import Aesthetic, Allegiance, Position, Resources, Stats
+from nqp.world_elements.entity_components import Aesthetic, Allegiance, Position, Stats
 
 
 class EffectTestCase(unittest.TestCase):
@@ -30,7 +30,6 @@ class EffectTestCase(unittest.TestCase):
         components = [
             Position(None),
             Aesthetic(None),
-            Resources(None),
             self.stats0,
             Allegiance("team0", self.unit0),
         ]
@@ -43,7 +42,6 @@ class EffectTestCase(unittest.TestCase):
         components = [
             Position(None),
             Aesthetic(None),
-            Resources(None),
             self.stats1,
             Allegiance("team1", self.unit1),
         ]

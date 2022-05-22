@@ -158,9 +158,9 @@ class Unit:
             Aesthetic,
             AI,
             Allegiance,
+            Attributes,
             Position,
             RangedAttack,
-            Resources,
             Stats,
         )
 
@@ -171,9 +171,9 @@ class Unit:
             components = [
                 Position(self.pos),
                 Aesthetic(self._game.visual.create_animation(self.type, "idle")),
-                Resources(self.health),
                 Stats(self),
                 Allegiance(self.team, self),
+                Attributes(),
             ]
 
             # conditional components
@@ -212,23 +212,13 @@ class Unit:
         Reset the in combat values ready to begin combat.
         """
         # prevent circular import
-        from nqp.world_elements.entity_components import (
-            DamageReceived,
-            IsDead,
-            IsReadyToAttack,
-            RangedAttack,
-            Resources,
-            Stats,
-        )
+        from nqp.world_elements.entity_components import DamageReceived, IsDead, IsReadyToAttack, RangedAttack, Stats
 
         # get stat attrs
         stat_attrs = Stats.get_stat_names()
 
         health = self.health
         for entity in self.entities:
-            # heal to full
-            resources = snecs.entity_component(entity, Resources)
-            resources.health = health
 
             # remove flags
             if snecs.has_component(entity, IsDead):
@@ -247,7 +237,7 @@ class Unit:
             if snecs.has_component(entity, Stats):
                 stats = snecs.entity_component(entity, Stats)
                 for stat_name in stat_attrs:
-                    getattr(stats, stat_name).reset()
+                    getattr(stats, stat_name).base_value = getattr(self, stat_name)
 
         self._align_entity_positions_to_unit()
 

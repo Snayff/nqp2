@@ -21,7 +21,6 @@ __all__ = [
     "Position",
     "Aesthetic",
     "Tracked",
-    "Resources",
     "Stats",
     "Allegiance",
     "AI",
@@ -30,6 +29,7 @@ __all__ = [
     "IsDead",
     "IsReadyToAttack",
     "Attributes",
+    "HealReceived",
 ]
 
 
@@ -102,24 +102,6 @@ class Tracked(RegisteredComponent):
         return Tracked(*serialised)
 
 
-class Resources(RegisteredComponent):
-    """
-    An Entity's resources, such as health.
-    """
-
-    def __init__(self, health: int):
-        self.health: IntStat = IntStat(health)  # TODO - move to Stats
-
-    def serialize(self):
-        # TODO - add serialisation
-        return True
-
-    @classmethod
-    def deserialize(cls, *serialised):
-        # TODO - add deserialisation
-        return Resources(*serialised)
-
-
 class Stats(RegisteredComponent):
     """
     An Entity's stats, such as attack.
@@ -148,14 +130,17 @@ class Stats(RegisteredComponent):
     @classmethod
     def deserialize(cls, *serialised):
         # TODO - add deserialisation
-        return Resources(*serialised)
+        return Stats(*serialised)
 
     @classmethod
     def get_stat_names(cls) -> List[str]:
         """
         Get a list of all the stats.
+
+        N.B. this is manually populated so if a stat is missing check here.
         """
         stat_attrs = [
+            "health",
             "mundane_defence",
             "magic_defence",
             "attack",
@@ -167,6 +152,8 @@ class Stats(RegisteredComponent):
             "weight",
             "penetration",
             "crit_chance",
+            "regen",
+            "dodge",
         ]
         return stat_attrs
 
