@@ -12,11 +12,11 @@ __all__ = ["Stat"]
 
 class Stat(ABC):
     """
-    A container for an Entities Stat
+    A container for an Entities Stat and related functionality.
 
-    N.B. Override value is a hack until all the ad-hoc changes without
-    modifiers are removed.  To be clear, we should be using effects to
-    change the value, not setting directly.
+    `base_value` is used as the reference for modifiers.
+    `value` is the result after modifiers are applied.
+    `override` forces a specific value to be used, ignoring modifiers.
 
     """
 
@@ -28,7 +28,7 @@ class Stat(ABC):
 
     def reset(self):
         """
-        Set value back to base value.
+        Remove any modifiers and override.
         """
         self._override_value = None
         self._modifiers.clear()

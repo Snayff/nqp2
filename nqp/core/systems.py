@@ -94,10 +94,10 @@ def apply_damage(game: Game):
         # apply hit effects if no dodge
         if dodge_successful:
             # reduce defence for being hit
-            defence.value = max(defence.value - 1, 0)
+            defence.base_value = max(defence.value - 1, 0)
 
             # apply damage
-            stats.health.value -= damage_dealt
+            stats.health.base_value -= damage_dealt
 
             # check if dead
             if stats.health.value <= 0:
@@ -290,13 +290,13 @@ def process_attack(game: Game):
             # handle ranged attack
             if snecs.has_component(entity, RangedAttack):
                 ranged = snecs.entity_component(entity, RangedAttack)
-                ranged.ammo.value -= 1
+                ranged.ammo.base_value -= 1
                 projectile_data = {"img": ranged.projectile_sprite, "speed": ranged.projectile_speed}
                 add_projectile(entity, target_entity, projectile_data, stats.attack.value * mod)
 
                 # switch to melee when out of ammo
                 if ranged.ammo.value <= 0:
-                    stats.range.value = 0
+                    stats.range.override(0)
 
             else:
                 # add damage component
