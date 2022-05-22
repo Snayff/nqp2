@@ -30,7 +30,7 @@ class UnitStatsWindow(UIWindow):
     """
 
     def __init__(self, game: Game, pos: pygame.Vector2, unit: Unit, is_active: bool = False):
-        size = pygame.Vector2(100, 160)
+        size = pygame.Vector2(100, 280)
         super().__init__(game, WindowType.BASIC, pos, size, [], is_active)
 
         self.unit: Unit = unit
@@ -48,7 +48,7 @@ class UnitStatsWindow(UIWindow):
         stat_icon_size = pygame.Vector2(DEFAULT_IMAGE_SIZE, DEFAULT_IMAGE_SIZE)
 
         current_x = start_x + ((self.width // 2) - (stat_icon_size[0] // 2))
-        current_y = start_y + 2
+        current_y = start_y + GAP_SIZE + 8
 
         # draw icon
         unit_icon = create_animation(self.unit.type, "icon")
@@ -64,7 +64,7 @@ class UnitStatsWindow(UIWindow):
 
         # increment
         current_x = start_x + GAP_SIZE
-        current_y += unit_icon.height + (GAP_SIZE * 2)
+        current_y += unit_icon.height + (GAP_SIZE * 3)
 
         # draw stats
         stats = Stats.get_stat_names()
@@ -72,9 +72,9 @@ class UnitStatsWindow(UIWindow):
         for count, stat in enumerate(stats):
 
             # recalc x and y
-            y_mod = count % 4  # this is the rows in the col
-            x_mod = count // 4  # must match int used for y
-            frame_x = current_x + (x_mod * (stat_icon_size[0] + GAP_SIZE))
+            x_mod = count % 2  # this is the rows in the col
+            y_mod = count // 2  # must match int used for y
+            frame_x = current_x + (x_mod * (stat_icon_size[0] + (GAP_SIZE * 3)))
             frame_y = current_y + (y_mod * (stat_icon_size[1] + GAP_SIZE))
 
             # determine font to use

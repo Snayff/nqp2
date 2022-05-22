@@ -254,7 +254,7 @@ class Assets:
         images = {}
 
         # specify folders in assets that need to be loaded
-        folders = ["rooms", "stats", "ui"]
+        folders = ["rooms"]
 
         for folder in folders:
             path = ASSET_PATH / folder

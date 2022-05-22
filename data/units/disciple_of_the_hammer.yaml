@@ -4,6 +4,7 @@ attack_speed: 0.7
 count: 6
 crit_chance: 1
 damage_type: mundane
+dodge: 0
 faction: hammerites
 gold_cost: 0
 health: 10
@@ -12,6 +13,7 @@ move_speed: 30
 mundane_defence: 2
 penetration: 10
 range: 0
+regen: 0
 size: 1
 tier: 1
 type: disciple_of_the_hammer

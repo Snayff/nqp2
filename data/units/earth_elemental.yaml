@@ -4,6 +4,7 @@ attack_speed: 0.5
 count: 3
 crit_chance: 1
 damage_type: mundane
+dodge: 0
 faction: aberrations_of_nature
 gold_cost: 0
 health: 25
@@ -12,6 +13,7 @@ move_speed: 15
 mundane_defence: 5
 penetration: 10
 range: 0
+regen: 0
 size: 1
 tier: 1
 type: earth_elemental
