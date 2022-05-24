@@ -125,7 +125,7 @@ class UITooltip(UIWindow):
         """
         Return text without tags and a list of any keys for secondary tooltips.
         """
-        # check for secondary tag
+        # check for secondary tags
         start_indices = [i for i, char in enumerate(text) if char == "<"]
         end_indices = [i for i, char in enumerate(text) if char == ">"]
         secondary_tooltip_keys = []

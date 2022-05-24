@@ -11,7 +11,7 @@ from typing import TYPE_CHECKING
 import snecs
 from snecs import RegisteredComponent
 
-from nqp.core.effect import EffectProcessor
+from nqp.base_classes.effect_processor import EffectProcessor
 
 if TYPE_CHECKING:
     from nqp.core.game import Game

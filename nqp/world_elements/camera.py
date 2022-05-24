@@ -1,15 +1,15 @@
 from __future__ import annotations
 
-from typing import Any, Optional, TYPE_CHECKING
+from typing import Optional, TYPE_CHECKING
 
 import pygame
 import snecs
 from snecs.typedefs import EntityID
 
-from nqp.core.components import Position
+from nqp.world_elements.entity_components import Position
 
 if TYPE_CHECKING:
-    from typing import Dict, List, Tuple, Union
+    pass
 
 
 class Camera:

@@ -1,8 +1,16 @@
+from __future__ import annotations
+
 import weakref
-from typing import Callable
+from abc import ABC
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from typing import Callable
+
+__all__ = ["ResourceController"]
 
 
-class ResourceController:
+class ResourceController(ABC):
     """
     Base class with a general specification for lazily loading game resources.
 

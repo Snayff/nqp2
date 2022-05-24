@@ -221,6 +221,8 @@ class DevConsole(UIInputBox):
                         data["damage_type"] = str(row["damage_type"])
                         data["crit_chance"] = int(row["crit_chance"])
                         data["penetration"] = int(row["penetration"])
+                        data["regen"] = int(row["regen"])
+                        data["dodge"] = int(row["dodge"])
 
                     # delete previous file
                     os.remove(str_path)

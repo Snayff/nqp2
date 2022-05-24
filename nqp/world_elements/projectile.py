@@ -7,12 +7,12 @@ import pygame
 import snecs
 
 from nqp.base_classes.image import Image
-from nqp.core.components import Allegiance, DamageReceived, Position
 from nqp.core.constants import DamageType
 from nqp.core.utility import angle_to
+from nqp.world_elements.entity_components import Allegiance, DamageReceived, Position
 
 if TYPE_CHECKING:
-    from typing import Dict, Tuple, Union
+    from typing import Dict, Union
 
     from snecs.typedefs import EntityID
 

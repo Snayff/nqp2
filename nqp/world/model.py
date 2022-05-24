@@ -134,6 +134,7 @@ class WorldModel:
         Process the non-drawing related ECS systems.
         """
         systems.process_ai(delta_time)
+        systems.process_healing()
         systems.process_movement(delta_time, self._game)
         systems.process_attack(self._game)
         systems.apply_damage(self._game)

@@ -4,6 +4,7 @@ attack_speed: 1.0
 count: 5
 crit_chance: 1
 damage_type: mundane
+dodge: 0
 faction: wasters
 gold_cost: 0
 health: 1
@@ -12,6 +13,7 @@ move_speed: 15
 mundane_defence: 1
 penetration: 10
 range: 200
+regen: 0
 size: 1
 tier: 1
 type: harpy

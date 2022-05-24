@@ -7,28 +7,27 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from typing import Any, Callable
 
-__all__ = ["Stat"]
+__all__ = ["UnitAttribute"]
 
 
-class Stat(ABC):
+class UnitAttribute(ABC):
     """
-    A container for an Entities Stat and related functionality.
+    A container for a Unit's Attribute
 
-    `base_value` is used as the reference for modifiers.
-    `value` is the result after modifiers are applied.
-    `override` forces a specific value to be used, ignoring modifiers.
+    # TODO - This is currently a copy of Stat and needs to be updated to work for bools only
+        with False taking precedence over True
 
     """
 
-    def __init__(self, base_value):
-        self._base_value = base_value
+    def __init__(self, base_value: bool):
+        self._base_value: bool = base_value
         # weakkey dict will drop modifiers if they have been deleted
         self._modifiers = weakref.WeakKeyDictionary()
         self._override_value = None
 
     def reset(self):
         """
-        Remove any modifiers and override.
+        Set value back to base value.
         """
         self._override_value = None
         self._modifiers.clear()

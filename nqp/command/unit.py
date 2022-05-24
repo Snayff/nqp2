@@ -68,6 +68,8 @@ class Unit:
         self.move_speed: int = unit_data["move_speed"] + base_values["move_speed"]
         self.crit_chance: int = unit_data["crit_chance"] + base_values["crit_chance"]
         self.penetration: int = unit_data["penetration"] + base_values["penetration"]
+        self.regen: int = unit_data["regen"] + base_values["regen"]
+        self.dodge: int = unit_data["dodge"] + base_values["dodge"]
 
         # ensure faux-null value is respected
         if unit_data["ammo"] in [-1, 0]:
@@ -96,7 +98,7 @@ class Unit:
 
     @property
     def is_alive(self):
-        from nqp.core.components import IsDead  # prevent circular import
+        from nqp.world_elements.entity_components import IsDead  # prevent circular import
 
         for entity in self.entities:
             if not snecs.has_component(entity, IsDead):
@@ -152,7 +154,15 @@ class Unit:
         Spawn the Unit's Entities. Deletes any existing Entities first.
         """
         # prevent circular import error
-        from nqp.core.components import Aesthetic, AI, Allegiance, Position, RangedAttack, Resources, Stats
+        from nqp.world_elements.entity_components import (
+            Aesthetic,
+            AI,
+            Allegiance,
+            Attributes,
+            Position,
+            RangedAttack,
+            Stats,
+        )
 
         self.delete_entities()
 
@@ -161,9 +171,9 @@ class Unit:
             components = [
                 Position(self.pos),
                 Aesthetic(self._game.visual.create_animation(self.type, "idle")),
-                Resources(self.health),
                 Stats(self),
                 Allegiance(self.team, self),
+                Attributes(),
             ]
 
             # conditional components
@@ -202,16 +212,13 @@ class Unit:
         Reset the in combat values ready to begin combat.
         """
         # prevent circular import
-        from nqp.core.components import DamageReceived, IsDead, IsReadyToAttack, RangedAttack, Resources, Stats
+        from nqp.world_elements.entity_components import DamageReceived, IsDead, IsReadyToAttack, RangedAttack, Stats
 
         # get stat attrs
         stat_attrs = Stats.get_stat_names()
 
         health = self.health
         for entity in self.entities:
-            # heal to full
-            resources = snecs.entity_component(entity, Resources)
-            resources.health = health
 
             # remove flags
             if snecs.has_component(entity, IsDead):
@@ -230,7 +237,7 @@ class Unit:
             if snecs.has_component(entity, Stats):
                 stats = snecs.entity_component(entity, Stats)
                 for stat_name in stat_attrs:
-                    getattr(stats, stat_name).reset()
+                    getattr(stats, stat_name).base_value = getattr(self, stat_name)
 
         self._align_entity_positions_to_unit()
 
@@ -238,7 +245,7 @@ class Unit:
         """
         Update unit position by averaging the positions of all its entities.
         """
-        from nqp.core.components import Position  # prevent circular import
+        from nqp.world_elements.entity_components import Position  # prevent circular import
 
         num_entities = len(self.entities)
         if num_entities > 0:
@@ -257,7 +264,7 @@ class Unit:
         self._align_entity_positions_to_unit()
 
     def _align_entity_positions_to_unit(self):
-        from nqp.core.components import Position  # prevent circular import
+        from nqp.world_elements.entity_components import Position  # prevent circular import
 
         unit_x = self.pos.x
         unit_y = self.pos.y

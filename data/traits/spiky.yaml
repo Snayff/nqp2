@@ -1,0 +1,10 @@
+---
+name: Spiky
+description: A prickly exterior. Return damage on being attacked in melee.
+effects:
+  - name: DamageEffect
+    target: attacker
+    received_attack_type: melee
+    trigger: OnAttacked
+    amount: 10
+    damage_type: mundane

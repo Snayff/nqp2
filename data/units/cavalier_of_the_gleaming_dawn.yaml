@@ -4,6 +4,7 @@ attack_speed: 1.3
 count: 3
 crit_chance: 1
 damage_type: mundane
+dodge: 0
 faction: chivalric_order
 gold_cost: 0
 health: 50
@@ -12,6 +13,7 @@ move_speed: 80
 mundane_defence: 10
 penetration: 10
 range: 10
+regen: 0
 size: 1
 tier: 3
 type: cavalier_of_the_gleaming_dawn

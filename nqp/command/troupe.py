@@ -118,10 +118,11 @@ class Troupe:
         duplicates: bool = False,
     ) -> List[int]:
         """
-        Generate units for the Troupe, based on parameters given. If no unit types are given then any unit type can
-        be chosen from any ally. Returns list of created ids.
+        Generate units for the Troupe, based on parameters given.
 
-        unit_types is expressed as [unit.type, ...]
+        Returns:
+             list of created ids.
+
         """
 
         unit_types = []

@@ -8,11 +8,12 @@ from snecs import RegisteredComponent
 from nqp.base_classes.animation import Animation
 from nqp.base_classes.image import Image
 from nqp.command.unit import Unit
-from nqp.core.constants import DamageType, EntityFacing
+from nqp.core.constants import DamageType, EntityFacing, HealingSource
 from nqp.world_elements.stats import FloatStat, IntStat
+from nqp.world_elements.unit_attribute import UnitAttribute
 
 if TYPE_CHECKING:
-    from typing import List
+    from typing import List, Tuple
 
     from nqp.command.basic_entity_behaviour import BasicEntityBehaviour
 
@@ -20,7 +21,6 @@ __all__ = [
     "Position",
     "Aesthetic",
     "Tracked",
-    "Resources",
     "Stats",
     "Allegiance",
     "AI",
@@ -28,6 +28,8 @@ __all__ = [
     "DamageReceived",
     "IsDead",
     "IsReadyToAttack",
+    "Attributes",
+    "HealReceived",
 ]
 
 
@@ -100,30 +102,13 @@ class Tracked(RegisteredComponent):
         return Tracked(*serialised)
 
 
-class Resources(RegisteredComponent):
-    """
-    An Entity's resources, such as health.
-    """
-
-    def __init__(self, health: int):
-        self.health: IntStat = IntStat(health)
-
-    def serialize(self):
-        # TODO - add serialisation
-        return True
-
-    @classmethod
-    def deserialize(cls, *serialised):
-        # TODO - add deserialisation
-        return Resources(*serialised)
-
-
 class Stats(RegisteredComponent):
     """
     An Entity's stats, such as attack.
     """
 
     def __init__(self, parent_unit: Unit):
+        self.health: IntStat = IntStat(parent_unit.health)
         self.mundane_defence: IntStat = IntStat(parent_unit.mundane_defence)
         self.magic_defence: IntStat = IntStat(parent_unit.magic_defence)
         self.attack: IntStat = IntStat(parent_unit.attack)
@@ -135,6 +120,8 @@ class Stats(RegisteredComponent):
         self.weight: IntStat = IntStat(parent_unit.weight)
         self.penetration: IntStat = IntStat(parent_unit.penetration)
         self.crit_chance: IntStat = IntStat(parent_unit.crit_chance)
+        self.regen: IntStat = IntStat(parent_unit.regen)
+        self.dodge: IntStat = IntStat(parent_unit.dodge)
 
     def serialize(self):
         # TODO - add serialisation
@@ -143,14 +130,17 @@ class Stats(RegisteredComponent):
     @classmethod
     def deserialize(cls, *serialised):
         # TODO - add deserialisation
-        return Resources(*serialised)
+        return Stats(*serialised)
 
     @classmethod
     def get_stat_names(cls) -> List[str]:
         """
         Get a list of all the stats.
+
+        N.B. this is manually populated so if a stat is missing check here.
         """
         stat_attrs = [
+            "health",
             "mundane_defence",
             "magic_defence",
             "attack",
@@ -162,6 +152,8 @@ class Stats(RegisteredComponent):
             "weight",
             "penetration",
             "crit_chance",
+            "regen",
+            "dodge",
         ]
         return stat_attrs
 
@@ -240,7 +232,28 @@ class DamageReceived(RegisteredComponent):
     @classmethod
     def deserialize(cls, *serialised):
         # TODO - add deserialisation
-        return Allegiance(*serialised)
+        return DamageReceived(*serialised)
+
+
+class HealReceived(RegisteredComponent):
+    """
+    Healing to be applied to the Entity.
+    """
+
+    def __init__(self, amount: int, healing_source: HealingSource):
+        self.heals: List[Tuple[int, HealingSource]] = [(amount, healing_source)]
+
+    def serialize(self):
+        # TODO - add serialisation
+        return True
+
+    @classmethod
+    def deserialize(cls, *serialised):
+        # TODO - add deserialisation
+        return DamageReceived(*serialised)
+
+    def add_heal(self, amount: int, healing_source: HealingSource):
+        self.heals.append((amount, healing_source))
 
 
 class IsDead(RegisteredComponent):
@@ -261,3 +274,22 @@ class IsReadyToAttack(RegisteredComponent):
 
     # doesnt need init as has no details
     # doesnt need serialising as will never be about to attack when saving.
+
+
+class Attributes(RegisteredComponent):
+    """
+    A series of flags defining the attributes of a Unit
+    """
+
+    def __init__(self):
+        self.can_be_healed_by_other = UnitAttribute(True)
+        self.can_be_healed_by_self = UnitAttribute(True)
+
+    def serialize(self):
+        # TODO - add serialisation
+        return True
+
+    @classmethod
+    def deserialize(cls, *serialised):
+        # TODO - add deserialisation
+        return Attributes(*serialised)

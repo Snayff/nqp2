@@ -3,8 +3,8 @@ import unittest
 from functools import partial
 from unittest import mock
 
-from nqp.core.components import Stats
 from nqp.core.data import Data
+from nqp.world_elements.entity_components import Stats
 
 data = Data(mock.Mock())
 

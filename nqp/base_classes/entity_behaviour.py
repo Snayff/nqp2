@@ -6,6 +6,8 @@ from typing import TYPE_CHECKING
 
 import pygame
 
+from nqp.core.constants import PATH_UPDATE_FREQ
+
 if TYPE_CHECKING:
     from typing import List, Optional, Tuple
 
@@ -15,8 +17,6 @@ if TYPE_CHECKING:
     from nqp.core.game import Game
 
 __all__ = ["EntityBehaviour"]
-
-PATH_UPDATE_FREQ = 0.4  # TODO - move to constants
 
 
 class EntityBehaviour(ABC):
@@ -33,6 +33,7 @@ class EntityBehaviour(ABC):
         self.target_position: Optional[pygame.Vector2] = None
         self.visibility_line: bool = False
         self.attack_timer: float = 0
+        self.regen_timer: float = 0
         self.is_active: bool = True
 
         # update flags

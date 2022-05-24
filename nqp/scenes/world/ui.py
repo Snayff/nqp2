@@ -1174,6 +1174,6 @@ class WorldUI(UI):
             self._containers.pop("unit_info", None)
 
         if should_create_unit_window:
-            unit_info_pos = pygame.Vector2(10, 100)
+            unit_info_pos = pygame.Vector2(10, 40)
             info = UnitStatsWindow(self._game, unit_info_pos, selected_unit, True)
             self.add_container(info, "unit_info")

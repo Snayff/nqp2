@@ -4,6 +4,7 @@ attack_speed: 1.2
 count: 12
 crit_chance: 1
 damage_type: mundane
+dodge: 0
 faction: members_of_the_court
 gold_cost: 0
 health: 5
@@ -12,6 +13,7 @@ move_speed: 30
 mundane_defence: 1
 penetration: 10
 range: 50
+regen: 0
 size: 1
 tier: 1
 type: peasant_spearman
