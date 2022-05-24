@@ -142,6 +142,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../api/effects/add_item.html">Add Item</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/effects/attribute_modifier.html">Attribute Modifier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/effects/sildreths_signature.html">Sildreths Signature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/stats_effect.html">Stats Effect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/_effects.html#using-effects">Using Effects</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../api/scenes/_scenes.html">Scenes</a><ul>
@@ -264,6 +266,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">move_speed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">unit_data</span><span class="p">[</span><span class="s2">&quot;move_speed&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">base_values</span><span class="p">[</span><span class="s2">&quot;move_speed&quot;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">crit_chance</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">unit_data</span><span class="p">[</span><span class="s2">&quot;crit_chance&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">base_values</span><span class="p">[</span><span class="s2">&quot;crit_chance&quot;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">penetration</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">unit_data</span><span class="p">[</span><span class="s2">&quot;penetration&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">base_values</span><span class="p">[</span><span class="s2">&quot;penetration&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">regen</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">unit_data</span><span class="p">[</span><span class="s2">&quot;regen&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">base_values</span><span class="p">[</span><span class="s2">&quot;regen&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dodge</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">unit_data</span><span class="p">[</span><span class="s2">&quot;dodge&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">base_values</span><span class="p">[</span><span class="s2">&quot;dodge&quot;</span><span class="p">]</span>
 
         <span class="c1"># ensure faux-null value is respected</span>
         <span class="k">if</span> <span class="n">unit_data</span><span class="p">[</span><span class="s2">&quot;ammo&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]:</span>
@@ -292,7 +296,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">is_alive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">nqp.core.components</span> <span class="kn">import</span> <span class="n">IsDead</span>  <span class="c1"># prevent circular import</span>
+        <span class="kn">from</span> <span class="nn">nqp.world_elements.entity_components</span> <span class="kn">import</span> <span class="n">IsDead</span>  <span class="c1"># prevent circular import</span>
 
         <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">entities</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">snecs</span><span class="o">.</span><span class="n">has_component</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">IsDead</span><span class="p">):</span>
@@ -348,7 +352,15 @@
 <span class="sd">        Spawn the Unit&#39;s Entities. Deletes any existing Entities first.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># prevent circular import error</span>
-        <span class="kn">from</span> <span class="nn">nqp.core.components</span> <span class="kn">import</span> <span class="n">Aesthetic</span><span class="p">,</span> <span class="n">AI</span><span class="p">,</span> <span class="n">Allegiance</span><span class="p">,</span> <span class="n">Position</span><span class="p">,</span> <span class="n">RangedAttack</span><span class="p">,</span> <span class="n">Resources</span><span class="p">,</span> <span class="n">Stats</span>
+        <span class="kn">from</span> <span class="nn">nqp.world_elements.entity_components</span> <span class="kn">import</span> <span class="p">(</span>
+            <span class="n">Aesthetic</span><span class="p">,</span>
+            <span class="n">AI</span><span class="p">,</span>
+            <span class="n">Allegiance</span><span class="p">,</span>
+            <span class="n">Attributes</span><span class="p">,</span>
+            <span class="n">Position</span><span class="p">,</span>
+            <span class="n">RangedAttack</span><span class="p">,</span>
+            <span class="n">Stats</span><span class="p">,</span>
+        <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">delete_entities</span><span class="p">()</span>
 
@@ -357,9 +369,9 @@
             <span class="n">components</span> <span class="o">=</span> <span class="p">[</span>
                 <span class="n">Position</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">),</span>
                 <span class="n">Aesthetic</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">visual</span><span class="o">.</span><span class="n">create_animation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="s2">&quot;idle&quot;</span><span class="p">)),</span>
-                <span class="n">Resources</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">health</span><span class="p">),</span>
                 <span class="n">Stats</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span>
                 <span class="n">Allegiance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">team</span><span class="p">,</span> <span class="bp">self</span><span class="p">),</span>
+                <span class="n">Attributes</span><span class="p">(),</span>
             <span class="p">]</span>
 
             <span class="c1"># conditional components</span>
@@ -398,16 +410,13 @@
 <span class="sd">        Reset the in combat values ready to begin combat.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># prevent circular import</span>
-        <span class="kn">from</span> <span class="nn">nqp.core.components</span> <span class="kn">import</span> <span class="n">DamageReceived</span><span class="p">,</span> <span class="n">IsDead</span><span class="p">,</span> <span class="n">IsReadyToAttack</span><span class="p">,</span> <span class="n">RangedAttack</span><span class="p">,</span> <span class="n">Resources</span><span class="p">,</span> <span class="n">Stats</span>
+        <span class="kn">from</span> <span class="nn">nqp.world_elements.entity_components</span> <span class="kn">import</span> <span class="n">DamageReceived</span><span class="p">,</span> <span class="n">IsDead</span><span class="p">,</span> <span class="n">IsReadyToAttack</span><span class="p">,</span> <span class="n">RangedAttack</span><span class="p">,</span> <span class="n">Stats</span>
 
         <span class="c1"># get stat attrs</span>
         <span class="n">stat_attrs</span> <span class="o">=</span> <span class="n">Stats</span><span class="o">.</span><span class="n">get_stat_names</span><span class="p">()</span>
 
         <span class="n">health</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">health</span>
         <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">entities</span><span class="p">:</span>
-            <span class="c1"># heal to full</span>
-            <span class="n">resources</span> <span class="o">=</span> <span class="n">snecs</span><span class="o">.</span><span class="n">entity_component</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">Resources</span><span class="p">)</span>
-            <span class="n">resources</span><span class="o">.</span><span class="n">health</span> <span class="o">=</span> <span class="n">health</span>
 
             <span class="c1"># remove flags</span>
             <span class="k">if</span> <span class="n">snecs</span><span class="o">.</span><span class="n">has_component</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">IsDead</span><span class="p">):</span>
@@ -426,7 +435,7 @@
             <span class="k">if</span> <span class="n">snecs</span><span class="o">.</span><span class="n">has_component</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">Stats</span><span class="p">):</span>
                 <span class="n">stats</span> <span class="o">=</span> <span class="n">snecs</span><span class="o">.</span><span class="n">entity_component</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">Stats</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">stat_name</span> <span class="ow">in</span> <span class="n">stat_attrs</span><span class="p">:</span>
-                    <span class="nb">getattr</span><span class="p">(</span><span class="n">stats</span><span class="p">,</span> <span class="n">stat_name</span><span class="p">)</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+                    <span class="nb">getattr</span><span class="p">(</span><span class="n">stats</span><span class="p">,</span> <span class="n">stat_name</span><span class="p">)</span><span class="o">.</span><span class="n">base_value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stat_name</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_align_entity_positions_to_unit</span><span class="p">()</span></div>
 
@@ -434,7 +443,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Update unit position by averaging the positions of all its entities.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">nqp.core.components</span> <span class="kn">import</span> <span class="n">Position</span>  <span class="c1"># prevent circular import</span>
+        <span class="kn">from</span> <span class="nn">nqp.world_elements.entity_components</span> <span class="kn">import</span> <span class="n">Position</span>  <span class="c1"># prevent circular import</span>
 
         <span class="n">num_entities</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">entities</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">num_entities</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -453,7 +462,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_align_entity_positions_to_unit</span><span class="p">()</span></div>
 
     <span class="k">def</span> <span class="nf">_align_entity_positions_to_unit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">nqp.core.components</span> <span class="kn">import</span> <span class="n">Position</span>  <span class="c1"># prevent circular import</span>
+        <span class="kn">from</span> <span class="nn">nqp.world_elements.entity_components</span> <span class="kn">import</span> <span class="n">Position</span>  <span class="c1"># prevent circular import</span>
 
         <span class="n">unit_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span>
         <span class="n">unit_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">y</span>

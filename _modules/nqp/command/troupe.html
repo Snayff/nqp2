@@ -142,6 +142,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../api/effects/add_item.html">Add Item</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/effects/attribute_modifier.html">Attribute Modifier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/effects/sildreths_signature.html">Sildreths Signature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/stats_effect.html">Stats Effect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/_effects.html#using-effects">Using Effects</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../api/scenes/_scenes.html">Scenes</a><ul>
@@ -314,10 +316,11 @@
         <span class="n">duplicates</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Generate units for the Troupe, based on parameters given. If no unit types are given then any unit type can</span>
-<span class="sd">        be chosen from any ally. Returns list of created ids.</span>
+<span class="sd">        Generate units for the Troupe, based on parameters given.</span>
 
-<span class="sd">        unit_types is expressed as [unit.type, ...]</span>
+<span class="sd">        Returns:</span>
+<span class="sd">             list of created ids.</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">unit_types</span> <span class="o">=</span> <span class="p">[]</span>

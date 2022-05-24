@@ -145,6 +145,8 @@
 <li class="toctree-l2"><a class="reference internal" href="api/effects/add_item.html">Add Item</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/effects/attribute_modifier.html">Attribute Modifier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/effects/sildreths_signature.html">Sildreths Signature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/effects/stats_effect.html">Stats Effect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/effects/_effects.html#using-effects">Using Effects</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api/scenes/_scenes.html">Scenes</a><ul>
@@ -211,6 +213,12 @@
 <dt class="sig sig-object py" id="nqp.command.basic_entity_behaviour.BasicEntityBehaviour.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Game</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nqp.command.unit.Unit" title="nqp.command.unit.Unit"><span class="pre">Unit</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">entity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">EntityID</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/command/basic_entity_behaviour.html#BasicEntityBehaviour.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.command.basic_entity_behaviour.BasicEntityBehaviour.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nqp.command.basic_entity_behaviour.BasicEntityBehaviour.apply_regen">
+<span class="sig-name descname"><span class="pre">apply_regen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nqp/command/basic_entity_behaviour.html#BasicEntityBehaviour.apply_regen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.command.basic_entity_behaviour.BasicEntityBehaviour.apply_regen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create heal component on entity</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="nqp.command.basic_entity_behaviour.BasicEntityBehaviour.determine_next_action">
@@ -287,9 +295,12 @@ will be overwritten by the target entity’s position.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="nqp.command.troupe.Troupe.generate_units">
 <span class="sig-name descname"><span class="pre">generate_units</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">number_of_units</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">tiers_allowed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/nqp/command/troupe.html#Troupe.generate_units"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.command.troupe.Troupe.generate_units" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generate units for the Troupe, based on parameters given. If no unit types are given then any unit type can
-be chosen from any ally. Returns list of created ids.</p>
-<p>unit_types is expressed as [unit.type, …]</p>
+<dd><p>Generate units for the Troupe, based on parameters given.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list of created ids.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">

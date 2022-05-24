@@ -145,6 +145,8 @@
 <li class="toctree-l2"><a class="reference internal" href="api/effects/add_item.html">Add Item</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/effects/attribute_modifier.html">Attribute Modifier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/effects/sildreths_signature.html">Sildreths Signature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/effects/stats_effect.html">Stats Effect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/effects/_effects.html#using-effects">Using Effects</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api/scenes/_scenes.html">Scenes</a><ul>
@@ -206,6 +208,7 @@
 <li class="toctree-l2"><a class="reference internal" href="nqp.base_classes.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nqp.base_classes.html#module-nqp.base_classes.animation">nqp.base_classes.animation module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nqp.base_classes.html#module-nqp.base_classes.controller">nqp.base_classes.controller module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nqp.base_classes.html#module-nqp.base_classes.effect_processor">nqp.base_classes.effect_processor module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nqp.base_classes.html#module-nqp.base_classes.entity_behaviour">nqp.base_classes.entity_behaviour module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nqp.base_classes.html#module-nqp.base_classes.image">nqp.base_classes.image module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nqp.base_classes.html#module-nqp.base_classes.resource_controller">nqp.base_classes.resource_controller module</a></li>
@@ -230,12 +233,10 @@
 <li class="toctree-l2"><a class="reference internal" href="nqp.core.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nqp.core.html#module-nqp.core.assets">nqp.core.assets module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nqp.core.html#module-nqp.core.audio">nqp.core.audio module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="nqp.core.html#module-nqp.core.components">nqp.core.components module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nqp.core.html#module-nqp.core.constants">nqp.core.constants module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nqp.core.html#module-nqp.core.data">nqp.core.data module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nqp.core.html#module-nqp.core.debug">nqp.core.debug module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nqp.core.html#nqp-core-definitions-module">nqp.core.definitions module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="nqp.core.html#module-nqp.core.effect">nqp.core.effect module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nqp.core.html#nqp-core-game-module">nqp.core.game module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nqp.core.html#module-nqp.core.input">nqp.core.input module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nqp.core.html#module-nqp.core.memory">nqp.core.memory module</a></li>
@@ -251,10 +252,11 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="nqp.effects.html">nqp.effects package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="nqp.effects.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="nqp.effects.html#module-nqp.effects.add_item">nqp.effects.add_item module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nqp.effects.html#module-nqp.effects.actions">nqp.effects.actions module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nqp.effects.html#module-nqp.effects.burn">nqp.effects.burn module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nqp.effects.html#module-nqp.effects.effect_components">nqp.effects.effect_components module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nqp.effects.html#module-nqp.effects.processors">nqp.effects.processors module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nqp.effects.html#module-nqp.effects.sildreths_signature">nqp.effects.sildreths_signature module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="nqp.effects.html#module-nqp.effects.stats_effect">nqp.effects.stats_effect module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nqp.effects.html#module-nqp.effects">Module contents</a></li>
 </ul>
 </li>
@@ -292,13 +294,6 @@
 <li class="toctree-l4"><a class="reference internal" href="nqp.scenes.unit_data.html#nqp-scenes-unit-data-scene-module">nqp.scenes.unit_data.scene module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="nqp.scenes.unit_data.html#nqp-scenes-unit-data-ui-module">nqp.scenes.unit_data.ui module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="nqp.scenes.unit_data.html#module-nqp.scenes.unit_data">Module contents</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="nqp.scenes.view_troupe.html">nqp.scenes.view_troupe package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="nqp.scenes.view_troupe.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="nqp.scenes.view_troupe.html#nqp-scenes-view-troupe-scene-module">nqp.scenes.view_troupe.scene module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="nqp.scenes.view_troupe.html#nqp-scenes-view-troupe-ui-module">nqp.scenes.view_troupe.ui module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="nqp.scenes.view_troupe.html#module-nqp.scenes.view_troupe">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="nqp.scenes.world.html">nqp.scenes.world package</a><ul>
@@ -374,6 +369,7 @@
 <li class="toctree-l2"><a class="reference internal" href="nqp.world_elements.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nqp.world_elements.html#module-nqp.world_elements.actions">nqp.world_elements.actions module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nqp.world_elements.html#module-nqp.world_elements.camera">nqp.world_elements.camera module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nqp.world_elements.html#module-nqp.world_elements.entity_components">nqp.world_elements.entity_components module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nqp.world_elements.html#module-nqp.world_elements.hitbox">nqp.world_elements.hitbox module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nqp.world_elements.html#module-nqp.world_elements.item">nqp.world_elements.item module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nqp.world_elements.html#module-nqp.world_elements.particle">nqp.world_elements.particle module</a></li>
@@ -381,6 +377,7 @@
 <li class="toctree-l2"><a class="reference internal" href="nqp.world_elements.html#module-nqp.world_elements.projectile">nqp.world_elements.projectile module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nqp.world_elements.html#module-nqp.world_elements.projectile_manager">nqp.world_elements.projectile_manager module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nqp.world_elements.html#module-nqp.world_elements.stats">nqp.world_elements.stats module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nqp.world_elements.html#module-nqp.world_elements.unit_attribute">nqp.world_elements.unit_attribute module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nqp.world_elements.html#module-nqp.world_elements">Module contents</a></li>
 </ul>
 </li>

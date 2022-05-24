@@ -143,6 +143,8 @@
 <li class="toctree-l2"><a class="reference internal" href="api/effects/add_item.html">Add Item</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/effects/attribute_modifier.html">Attribute Modifier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/effects/sildreths_signature.html">Sildreths Signature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/effects/stats_effect.html">Stats Effect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/effects/_effects.html#using-effects">Using Effects</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api/scenes/_scenes.html">Scenes</a><ul>
@@ -229,6 +231,11 @@
      <tr class="cg-1">
        <td></td>
        <td>&#160;&#160;&#160;
+       <a href="nqp.base_classes.html#module-nqp.base_classes.effect_processor"><code class="xref">nqp.base_classes.effect_processor</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
        <a href="nqp.base_classes.html#module-nqp.base_classes.entity_behaviour"><code class="xref">nqp.base_classes.entity_behaviour</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-1">
@@ -299,11 +306,6 @@
      <tr class="cg-1">
        <td></td>
        <td>&#160;&#160;&#160;
-       <a href="nqp.core.html#module-nqp.core.components"><code class="xref">nqp.core.components</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
        <a href="nqp.core.html#module-nqp.core.constants"><code class="xref">nqp.core.constants</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-1">
@@ -315,11 +317,6 @@
        <td></td>
        <td>&#160;&#160;&#160;
        <a href="nqp.core.html#module-nqp.core.debug"><code class="xref">nqp.core.debug</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="nqp.core.html#module-nqp.core.effect"><code class="xref">nqp.core.effect</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-1">
        <td></td>
@@ -374,7 +371,7 @@
      <tr class="cg-1">
        <td></td>
        <td>&#160;&#160;&#160;
-       <a href="nqp.effects.html#module-nqp.effects.add_item"><code class="xref">nqp.effects.add_item</code></a></td><td>
+       <a href="nqp.effects.html#module-nqp.effects.actions"><code class="xref">nqp.effects.actions</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-1">
        <td></td>
@@ -384,12 +381,17 @@
      <tr class="cg-1">
        <td></td>
        <td>&#160;&#160;&#160;
-       <a href="nqp.effects.html#module-nqp.effects.sildreths_signature"><code class="xref">nqp.effects.sildreths_signature</code></a></td><td>
+       <a href="nqp.effects.html#module-nqp.effects.effect_components"><code class="xref">nqp.effects.effect_components</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-1">
        <td></td>
        <td>&#160;&#160;&#160;
-       <a href="nqp.effects.html#module-nqp.effects.stats_effect"><code class="xref">nqp.effects.stats_effect</code></a></td><td>
+       <a href="nqp.effects.html#module-nqp.effects.processors"><code class="xref">nqp.effects.processors</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="nqp.effects.html#module-nqp.effects.sildreths_signature"><code class="xref">nqp.effects.sildreths_signature</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-1">
        <td></td>
@@ -425,11 +427,6 @@
        <td></td>
        <td>&#160;&#160;&#160;
        <a href="nqp.scenes.unit_data.html#module-nqp.scenes.unit_data"><code class="xref">nqp.scenes.unit_data</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="nqp.scenes.view_troupe.html#module-nqp.scenes.view_troupe"><code class="xref">nqp.scenes.view_troupe</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-1">
        <td></td>
@@ -579,6 +576,11 @@
      <tr class="cg-1">
        <td></td>
        <td>&#160;&#160;&#160;
+       <a href="nqp.world_elements.html#module-nqp.world_elements.entity_components"><code class="xref">nqp.world_elements.entity_components</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
        <a href="nqp.world_elements.html#module-nqp.world_elements.hitbox"><code class="xref">nqp.world_elements.hitbox</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-1">
@@ -610,6 +612,11 @@
        <td></td>
        <td>&#160;&#160;&#160;
        <a href="nqp.world_elements.html#module-nqp.world_elements.stats"><code class="xref">nqp.world_elements.stats</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="nqp.world_elements.html#module-nqp.world_elements.unit_attribute"><code class="xref">nqp.world_elements.unit_attribute</code></a></td><td>
        <em></em></td></tr>
    </table>
 

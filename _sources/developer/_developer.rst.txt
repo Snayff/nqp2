@@ -2,8 +2,7 @@ Developer
 ============================================
 
 ..  toctree::
-    :maxdepth: 1
+    :maxdepth: 2
 
     developer_guide
     adding_new_content
-    todo

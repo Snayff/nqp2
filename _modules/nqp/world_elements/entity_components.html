@@ -6,7 +6,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>nqp.core.components &mdash; NotQuiteParadise2  documentation</title>
+  <title>nqp.world_elements.entity_components &mdash; NotQuiteParadise2  documentation</title>
   
 
   
@@ -69,7 +69,7 @@
         
           <li><a href="../../index.html">Module code</a></li>
         
-      <li>nqp.core.components</li>
+      <li>nqp.world_elements.entity_components</li>
     
     
       <li class="breadcrumbs-aside">
@@ -142,6 +142,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../api/effects/add_item.html">Add Item</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/effects/attribute_modifier.html">Attribute Modifier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/effects/sildreths_signature.html">Sildreths Signature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/stats_effect.html">Stats Effect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/_effects.html#using-effects">Using Effects</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../api/scenes/_scenes.html">Scenes</a><ul>
@@ -193,7 +195,7 @@
                     <div class="document">
                         
                             
-  <h1>Source code for nqp.core.components</h1><div class="highlight"><pre>
+  <h1>Source code for nqp.world_elements.entity_components</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
@@ -204,11 +206,12 @@
 <span class="kn">from</span> <span class="nn">nqp.base_classes.animation</span> <span class="kn">import</span> <span class="n">Animation</span>
 <span class="kn">from</span> <span class="nn">nqp.base_classes.image</span> <span class="kn">import</span> <span class="n">Image</span>
 <span class="kn">from</span> <span class="nn">nqp.command.unit</span> <span class="kn">import</span> <span class="n">Unit</span>
-<span class="kn">from</span> <span class="nn">nqp.core.constants</span> <span class="kn">import</span> <span class="n">DamageType</span><span class="p">,</span> <span class="n">EntityFacing</span>
+<span class="kn">from</span> <span class="nn">nqp.core.constants</span> <span class="kn">import</span> <span class="n">DamageType</span><span class="p">,</span> <span class="n">EntityFacing</span><span class="p">,</span> <span class="n">HealingSource</span>
 <span class="kn">from</span> <span class="nn">nqp.world_elements.stats</span> <span class="kn">import</span> <span class="n">FloatStat</span><span class="p">,</span> <span class="n">IntStat</span>
+<span class="kn">from</span> <span class="nn">nqp.world_elements.unit_attribute</span> <span class="kn">import</span> <span class="n">UnitAttribute</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
 
     <span class="kn">from</span> <span class="nn">nqp.command.basic_entity_behaviour</span> <span class="kn">import</span> <span class="n">BasicEntityBehaviour</span>
 
@@ -216,7 +219,6 @@
     <span class="s2">&quot;Position&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Aesthetic&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Tracked&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;Resources&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Stats&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Allegiance&quot;</span><span class="p">,</span>
     <span class="s2">&quot;AI&quot;</span><span class="p">,</span>
@@ -224,21 +226,23 @@
     <span class="s2">&quot;DamageReceived&quot;</span><span class="p">,</span>
     <span class="s2">&quot;IsDead&quot;</span><span class="p">,</span>
     <span class="s2">&quot;IsReadyToAttack&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Attributes&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;HealReceived&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 
 
-<div class="viewcode-block" id="Position"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Position">[docs]</a><span class="k">class</span> <span class="nc">Position</span><span class="p">(</span><span class="n">RegisteredComponent</span><span class="p">):</span>
+<div class="viewcode-block" id="Position"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.Position">[docs]</a><span class="k">class</span> <span class="nc">Position</span><span class="p">(</span><span class="n">RegisteredComponent</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    An Entity&#39;s location in the world.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Position.__init__"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Position.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">):</span>
+<div class="viewcode-block" id="Position.__init__"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.Position.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span> <span class="o">=</span> <span class="n">pos</span></div>
 
-<div class="viewcode-block" id="Position.serialize"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Position.serialize">[docs]</a>    <span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Position.serialize"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.Position.serialize">[docs]</a>    <span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos</span></div>
 
-<div class="viewcode-block" id="Position.deserialize"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Position.deserialize">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Position.deserialize"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.Position.deserialize">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">deserialize</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">Position</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span></div>
 
@@ -259,67 +263,50 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="Aesthetic"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Aesthetic">[docs]</a><span class="k">class</span> <span class="nc">Aesthetic</span><span class="p">(</span><span class="n">RegisteredComponent</span><span class="p">):</span>
+<div class="viewcode-block" id="Aesthetic"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.Aesthetic">[docs]</a><span class="k">class</span> <span class="nc">Aesthetic</span><span class="p">(</span><span class="n">RegisteredComponent</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    An Entity&#39;s visual information</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Aesthetic.__init__"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Aesthetic.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">animation</span><span class="p">:</span> <span class="n">Animation</span><span class="p">):</span>
+<div class="viewcode-block" id="Aesthetic.__init__"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.Aesthetic.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">animation</span><span class="p">:</span> <span class="n">Animation</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">animation</span><span class="p">:</span> <span class="n">Animation</span> <span class="o">=</span> <span class="n">animation</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">facing</span><span class="p">:</span> <span class="n">EntityFacing</span> <span class="o">=</span> <span class="n">EntityFacing</span><span class="o">.</span><span class="n">RIGHT</span></div>
 
-<div class="viewcode-block" id="Aesthetic.serialize"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Aesthetic.serialize">[docs]</a>    <span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Aesthetic.serialize"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.Aesthetic.serialize">[docs]</a>    <span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># TODO - add serialisation</span>
         <span class="k">return</span> <span class="kc">True</span></div>
 
-<div class="viewcode-block" id="Aesthetic.deserialize"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Aesthetic.deserialize">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Aesthetic.deserialize"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.Aesthetic.deserialize">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">deserialize</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">serialised</span><span class="p">):</span>
         <span class="c1"># TODO - add deserialisation</span>
         <span class="k">return</span> <span class="n">Aesthetic</span><span class="p">(</span><span class="o">*</span><span class="n">serialised</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="Tracked"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Tracked">[docs]</a><span class="k">class</span> <span class="nc">Tracked</span><span class="p">(</span><span class="n">RegisteredComponent</span><span class="p">):</span>
+<div class="viewcode-block" id="Tracked"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.Tracked">[docs]</a><span class="k">class</span> <span class="nc">Tracked</span><span class="p">(</span><span class="n">RegisteredComponent</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A component to track an entity&#39;s actions.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Tracked.__init__"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Tracked.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Tracked.__init__"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.Tracked.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span></div>
 
-<div class="viewcode-block" id="Tracked.serialize"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Tracked.serialize">[docs]</a>    <span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Tracked.serialize"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.Tracked.serialize">[docs]</a>    <span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># TODO - add serialisation</span>
         <span class="k">return</span> <span class="kc">True</span></div>
 
-<div class="viewcode-block" id="Tracked.deserialize"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Tracked.deserialize">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Tracked.deserialize"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.Tracked.deserialize">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">deserialize</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">serialised</span><span class="p">):</span>
         <span class="c1"># TODO - add deserialisation</span>
         <span class="k">return</span> <span class="n">Tracked</span><span class="p">(</span><span class="o">*</span><span class="n">serialised</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="Resources"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Resources">[docs]</a><span class="k">class</span> <span class="nc">Resources</span><span class="p">(</span><span class="n">RegisteredComponent</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    An Entity&#39;s resources, such as health.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-<div class="viewcode-block" id="Resources.__init__"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Resources.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">health</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">health</span><span class="p">:</span> <span class="n">IntStat</span> <span class="o">=</span> <span class="n">IntStat</span><span class="p">(</span><span class="n">health</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="Resources.serialize"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Resources.serialize">[docs]</a>    <span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># TODO - add serialisation</span>
-        <span class="k">return</span> <span class="kc">True</span></div>
-
-<div class="viewcode-block" id="Resources.deserialize"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Resources.deserialize">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">deserialize</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">serialised</span><span class="p">):</span>
-        <span class="c1"># TODO - add deserialisation</span>
-        <span class="k">return</span> <span class="n">Resources</span><span class="p">(</span><span class="o">*</span><span class="n">serialised</span><span class="p">)</span></div></div>
-
-
-<div class="viewcode-block" id="Stats"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Stats">[docs]</a><span class="k">class</span> <span class="nc">Stats</span><span class="p">(</span><span class="n">RegisteredComponent</span><span class="p">):</span>
+<div class="viewcode-block" id="Stats"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.Stats">[docs]</a><span class="k">class</span> <span class="nc">Stats</span><span class="p">(</span><span class="n">RegisteredComponent</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    An Entity&#39;s stats, such as attack.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Stats.__init__"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Stats.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent_unit</span><span class="p">:</span> <span class="n">Unit</span><span class="p">):</span>
+<div class="viewcode-block" id="Stats.__init__"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.Stats.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent_unit</span><span class="p">:</span> <span class="n">Unit</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">health</span><span class="p">:</span> <span class="n">IntStat</span> <span class="o">=</span> <span class="n">IntStat</span><span class="p">(</span><span class="n">parent_unit</span><span class="o">.</span><span class="n">health</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mundane_defence</span><span class="p">:</span> <span class="n">IntStat</span> <span class="o">=</span> <span class="n">IntStat</span><span class="p">(</span><span class="n">parent_unit</span><span class="o">.</span><span class="n">mundane_defence</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">magic_defence</span><span class="p">:</span> <span class="n">IntStat</span> <span class="o">=</span> <span class="n">IntStat</span><span class="p">(</span><span class="n">parent_unit</span><span class="o">.</span><span class="n">magic_defence</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">attack</span><span class="p">:</span> <span class="n">IntStat</span> <span class="o">=</span> <span class="n">IntStat</span><span class="p">(</span><span class="n">parent_unit</span><span class="o">.</span><span class="n">attack</span><span class="p">)</span>
@@ -330,23 +317,28 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">:</span> <span class="n">IntStat</span> <span class="o">=</span> <span class="n">IntStat</span><span class="p">(</span><span class="n">parent_unit</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">:</span> <span class="n">IntStat</span> <span class="o">=</span> <span class="n">IntStat</span><span class="p">(</span><span class="n">parent_unit</span><span class="o">.</span><span class="n">weight</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">penetration</span><span class="p">:</span> <span class="n">IntStat</span> <span class="o">=</span> <span class="n">IntStat</span><span class="p">(</span><span class="n">parent_unit</span><span class="o">.</span><span class="n">penetration</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">crit_chance</span><span class="p">:</span> <span class="n">IntStat</span> <span class="o">=</span> <span class="n">IntStat</span><span class="p">(</span><span class="n">parent_unit</span><span class="o">.</span><span class="n">crit_chance</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">crit_chance</span><span class="p">:</span> <span class="n">IntStat</span> <span class="o">=</span> <span class="n">IntStat</span><span class="p">(</span><span class="n">parent_unit</span><span class="o">.</span><span class="n">crit_chance</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">regen</span><span class="p">:</span> <span class="n">IntStat</span> <span class="o">=</span> <span class="n">IntStat</span><span class="p">(</span><span class="n">parent_unit</span><span class="o">.</span><span class="n">regen</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dodge</span><span class="p">:</span> <span class="n">IntStat</span> <span class="o">=</span> <span class="n">IntStat</span><span class="p">(</span><span class="n">parent_unit</span><span class="o">.</span><span class="n">dodge</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Stats.serialize"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Stats.serialize">[docs]</a>    <span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Stats.serialize"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.Stats.serialize">[docs]</a>    <span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># TODO - add serialisation</span>
         <span class="k">return</span> <span class="kc">True</span></div>
 
-<div class="viewcode-block" id="Stats.deserialize"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Stats.deserialize">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Stats.deserialize"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.Stats.deserialize">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">deserialize</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">serialised</span><span class="p">):</span>
         <span class="c1"># TODO - add deserialisation</span>
-        <span class="k">return</span> <span class="n">Resources</span><span class="p">(</span><span class="o">*</span><span class="n">serialised</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">Stats</span><span class="p">(</span><span class="o">*</span><span class="n">serialised</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Stats.get_stat_names"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Stats.get_stat_names">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Stats.get_stat_names"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.Stats.get_stat_names">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">get_stat_names</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get a list of all the stats.</span>
+
+<span class="sd">        N.B. this is manually populated so if a stat is missing check here.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">stat_attrs</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">&quot;health&quot;</span><span class="p">,</span>
             <span class="s2">&quot;mundane_defence&quot;</span><span class="p">,</span>
             <span class="s2">&quot;magic_defence&quot;</span><span class="p">,</span>
             <span class="s2">&quot;attack&quot;</span><span class="p">,</span>
@@ -358,105 +350,147 @@
             <span class="s2">&quot;weight&quot;</span><span class="p">,</span>
             <span class="s2">&quot;penetration&quot;</span><span class="p">,</span>
             <span class="s2">&quot;crit_chance&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;regen&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;dodge&quot;</span><span class="p">,</span>
         <span class="p">]</span>
         <span class="k">return</span> <span class="n">stat_attrs</span></div></div>
 
 
-<div class="viewcode-block" id="Allegiance"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Allegiance">[docs]</a><span class="k">class</span> <span class="nc">Allegiance</span><span class="p">(</span><span class="n">RegisteredComponent</span><span class="p">):</span>
+<div class="viewcode-block" id="Allegiance"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.Allegiance">[docs]</a><span class="k">class</span> <span class="nc">Allegiance</span><span class="p">(</span><span class="n">RegisteredComponent</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    An Entity&#39;s allegiance.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Allegiance.__init__"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Allegiance.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">team</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">unit</span><span class="p">:</span> <span class="n">Unit</span><span class="p">):</span>
+<div class="viewcode-block" id="Allegiance.__init__"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.Allegiance.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">team</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">unit</span><span class="p">:</span> <span class="n">Unit</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">team</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">team</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">unit</span><span class="p">:</span> <span class="n">Unit</span> <span class="o">=</span> <span class="n">unit</span></div>
 
-<div class="viewcode-block" id="Allegiance.serialize"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Allegiance.serialize">[docs]</a>    <span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Allegiance.serialize"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.Allegiance.serialize">[docs]</a>    <span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># TODO - add serialisation</span>
         <span class="k">return</span> <span class="kc">True</span></div>
 
-<div class="viewcode-block" id="Allegiance.deserialize"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.Allegiance.deserialize">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Allegiance.deserialize"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.Allegiance.deserialize">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">deserialize</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">serialised</span><span class="p">):</span>
         <span class="c1"># TODO - add deserialisation</span>
         <span class="k">return</span> <span class="n">Allegiance</span><span class="p">(</span><span class="o">*</span><span class="n">serialised</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="AI"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.AI">[docs]</a><span class="k">class</span> <span class="nc">AI</span><span class="p">(</span><span class="n">RegisteredComponent</span><span class="p">):</span>
+<div class="viewcode-block" id="AI"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.AI">[docs]</a><span class="k">class</span> <span class="nc">AI</span><span class="p">(</span><span class="n">RegisteredComponent</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    An Entity&#39;s AI. This should handle the outputs of AI decisions and actions.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="AI.__init__"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.AI.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">behaviour</span><span class="p">:</span> <span class="n">BasicEntityBehaviour</span><span class="p">):</span>
+<div class="viewcode-block" id="AI.__init__"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.AI.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">behaviour</span><span class="p">:</span> <span class="n">BasicEntityBehaviour</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">behaviour</span><span class="p">:</span> <span class="n">BasicEntityBehaviour</span> <span class="o">=</span> <span class="n">behaviour</span></div>
 
-<div class="viewcode-block" id="AI.serialize"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.AI.serialize">[docs]</a>    <span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="AI.serialize"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.AI.serialize">[docs]</a>    <span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># TODO - add serialisation</span>
         <span class="k">return</span> <span class="kc">True</span></div>
 
-<div class="viewcode-block" id="AI.deserialize"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.AI.deserialize">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="AI.deserialize"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.AI.deserialize">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">deserialize</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">serialised</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">AI</span><span class="p">()</span></div></div>
 
 
-<div class="viewcode-block" id="RangedAttack"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.RangedAttack">[docs]</a><span class="k">class</span> <span class="nc">RangedAttack</span><span class="p">(</span><span class="n">RegisteredComponent</span><span class="p">):</span>
+<div class="viewcode-block" id="RangedAttack"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.RangedAttack">[docs]</a><span class="k">class</span> <span class="nc">RangedAttack</span><span class="p">(</span><span class="n">RegisteredComponent</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    An Entity&#39;s ability to use projectiles.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="RangedAttack.__init__"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.RangedAttack.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ammo</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">projectile_sprite</span><span class="p">:</span> <span class="n">Image</span><span class="p">,</span> <span class="n">projectile_speed</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<div class="viewcode-block" id="RangedAttack.__init__"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.RangedAttack.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ammo</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">projectile_sprite</span><span class="p">:</span> <span class="n">Image</span><span class="p">,</span> <span class="n">projectile_speed</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ammo</span><span class="p">:</span> <span class="n">IntStat</span> <span class="o">=</span> <span class="n">IntStat</span><span class="p">(</span><span class="n">ammo</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">projectile_sprite</span><span class="p">:</span> <span class="n">Image</span> <span class="o">=</span> <span class="n">projectile_sprite</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">projectile_speed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">projectile_speed</span></div>
 
-<div class="viewcode-block" id="RangedAttack.serialize"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.RangedAttack.serialize">[docs]</a>    <span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="RangedAttack.serialize"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.RangedAttack.serialize">[docs]</a>    <span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># TODO - add serialisation</span>
         <span class="k">return</span> <span class="kc">True</span></div>
 
-<div class="viewcode-block" id="RangedAttack.deserialize"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.RangedAttack.deserialize">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="RangedAttack.deserialize"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.RangedAttack.deserialize">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">deserialize</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">serialised</span><span class="p">):</span>
         <span class="c1"># TODO - add deserialisation</span>
         <span class="k">return</span> <span class="n">Allegiance</span><span class="p">(</span><span class="o">*</span><span class="n">serialised</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="DamageReceived"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.DamageReceived">[docs]</a><span class="k">class</span> <span class="nc">DamageReceived</span><span class="p">(</span><span class="n">RegisteredComponent</span><span class="p">):</span>
+<div class="viewcode-block" id="DamageReceived"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.DamageReceived">[docs]</a><span class="k">class</span> <span class="nc">DamageReceived</span><span class="p">(</span><span class="n">RegisteredComponent</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Damage to be applied to the Entity.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="DamageReceived.__init__"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.DamageReceived.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">damage_type</span><span class="p">:</span> <span class="n">DamageType</span><span class="p">,</span> <span class="n">penetration</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">is_crit</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+<div class="viewcode-block" id="DamageReceived.__init__"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.DamageReceived.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">damage_type</span><span class="p">:</span> <span class="n">DamageType</span><span class="p">,</span> <span class="n">penetration</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">is_crit</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">amount</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">amount</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">:</span> <span class="n">DamageType</span> <span class="o">=</span> <span class="n">damage_type</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">penetration</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">penetration</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">is_crit</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">is_crit</span></div>
 
-<div class="viewcode-block" id="DamageReceived.serialize"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.DamageReceived.serialize">[docs]</a>    <span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DamageReceived.serialize"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.DamageReceived.serialize">[docs]</a>    <span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># TODO - add serialisation</span>
         <span class="k">return</span> <span class="kc">True</span></div>
 
-<div class="viewcode-block" id="DamageReceived.deserialize"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.DamageReceived.deserialize">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="DamageReceived.deserialize"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.DamageReceived.deserialize">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">deserialize</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">serialised</span><span class="p">):</span>
         <span class="c1"># TODO - add deserialisation</span>
-        <span class="k">return</span> <span class="n">Allegiance</span><span class="p">(</span><span class="o">*</span><span class="n">serialised</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="n">DamageReceived</span><span class="p">(</span><span class="o">*</span><span class="n">serialised</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="IsDead"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.IsDead">[docs]</a><span class="k">class</span> <span class="nc">IsDead</span><span class="p">(</span><span class="n">RegisteredComponent</span><span class="p">):</span>
+<div class="viewcode-block" id="HealReceived"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.HealReceived">[docs]</a><span class="k">class</span> <span class="nc">HealReceived</span><span class="p">(</span><span class="n">RegisteredComponent</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Healing to be applied to the Entity.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="HealReceived.__init__"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.HealReceived.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">healing_source</span><span class="p">:</span> <span class="n">HealingSource</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">heals</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">HealingSource</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[(</span><span class="n">amount</span><span class="p">,</span> <span class="n">healing_source</span><span class="p">)]</span></div>
+
+<div class="viewcode-block" id="HealReceived.serialize"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.HealReceived.serialize">[docs]</a>    <span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># TODO - add serialisation</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="HealReceived.deserialize"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.HealReceived.deserialize">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">deserialize</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">serialised</span><span class="p">):</span>
+        <span class="c1"># TODO - add deserialisation</span>
+        <span class="k">return</span> <span class="n">DamageReceived</span><span class="p">(</span><span class="o">*</span><span class="n">serialised</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="HealReceived.add_heal"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.HealReceived.add_heal">[docs]</a>    <span class="k">def</span> <span class="nf">add_heal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">healing_source</span><span class="p">:</span> <span class="n">HealingSource</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">heals</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">amount</span><span class="p">,</span> <span class="n">healing_source</span><span class="p">))</span></div></div>
+
+
+<div class="viewcode-block" id="IsDead"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.IsDead">[docs]</a><span class="k">class</span> <span class="nc">IsDead</span><span class="p">(</span><span class="n">RegisteredComponent</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Flag to indicate if the Entity is dead.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="IsDead.__init__"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.IsDead.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="IsDead.__init__"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.IsDead.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">is_processed</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span></div></div>
 
     <span class="c1"># doesnt need serialising as will never be dead when saving.</span>
 
 
-<div class="viewcode-block" id="IsReadyToAttack"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.components.IsReadyToAttack">[docs]</a><span class="k">class</span> <span class="nc">IsReadyToAttack</span><span class="p">(</span><span class="n">RegisteredComponent</span><span class="p">):</span>
+<div class="viewcode-block" id="IsReadyToAttack"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.IsReadyToAttack">[docs]</a><span class="k">class</span> <span class="nc">IsReadyToAttack</span><span class="p">(</span><span class="n">RegisteredComponent</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Flag to indicate if the Entity is ready to attack.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
     <span class="c1"># doesnt need init as has no details</span>
     <span class="c1"># doesnt need serialising as will never be about to attack when saving.</span>
+
+
+<div class="viewcode-block" id="Attributes"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.Attributes">[docs]</a><span class="k">class</span> <span class="nc">Attributes</span><span class="p">(</span><span class="n">RegisteredComponent</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A series of flags defining the attributes of a Unit</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Attributes.__init__"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.Attributes.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">can_be_healed_by_other</span> <span class="o">=</span> <span class="n">UnitAttribute</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">can_be_healed_by_self</span> <span class="o">=</span> <span class="n">UnitAttribute</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Attributes.serialize"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.Attributes.serialize">[docs]</a>    <span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># TODO - add serialisation</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="Attributes.deserialize"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.entity_components.Attributes.deserialize">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">deserialize</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">serialised</span><span class="p">):</span>
+        <span class="c1"># TODO - add deserialisation</span>
+        <span class="k">return</span> <span class="n">Attributes</span><span class="p">(</span><span class="o">*</span><span class="n">serialised</span><span class="p">)</span></div></div>
 </pre></div>
 
                         

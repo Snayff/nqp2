@@ -20,14 +20,6 @@ nqp.core.audio module
    :undoc-members:
    :show-inheritance:
 
-nqp.core.components module
---------------------------
-
-.. automodule:: nqp.core.components
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 nqp.core.constants module
 -------------------------
 
@@ -56,14 +48,6 @@ nqp.core.definitions module
 ---------------------------
 
 .. automodule:: nqp.core.definitions
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-nqp.core.effect module
-----------------------
-
-.. automodule:: nqp.core.effect
    :members:
    :undoc-members:
    :show-inheritance:

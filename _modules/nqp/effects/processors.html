@@ -6,7 +6,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>nqp.effects.add_item &mdash; NotQuiteParadise2  documentation</title>
+  <title>nqp.effects.processors &mdash; NotQuiteParadise2  documentation</title>
   
 
   
@@ -69,7 +69,7 @@
         
           <li><a href="../../index.html">Module code</a></li>
         
-      <li>nqp.effects.add_item</li>
+      <li>nqp.effects.processors</li>
     
     
       <li class="breadcrumbs-aside">
@@ -142,6 +142,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../api/effects/add_item.html">Add Item</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/effects/attribute_modifier.html">Attribute Modifier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/effects/sildreths_signature.html">Sildreths Signature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/stats_effect.html">Stats Effect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/_effects.html#using-effects">Using Effects</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../api/scenes/_scenes.html">Scenes</a><ul>
@@ -193,48 +195,58 @@
                     <div class="document">
                         
                             
-  <h1>Source code for nqp.effects.add_item</h1><div class="highlight"><pre>
+  <h1>Source code for nqp.effects.processors</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
 <span class="kn">import</span> <span class="nn">snecs</span>
 <span class="kn">from</span> <span class="nn">snecs</span> <span class="kn">import</span> <span class="n">RegisteredComponent</span>
 
-<span class="kn">from</span> <span class="nn">nqp.core.effect</span> <span class="kn">import</span> <span class="n">EffectProcessor</span>
+<span class="kn">from</span> <span class="nn">nqp.base_classes.effect_processor</span> <span class="kn">import</span> <span class="n">EffectProcessor</span>
+<span class="kn">from</span> <span class="nn">nqp.core.constants</span> <span class="kn">import</span> <span class="n">INFINITE</span>
+<span class="kn">from</span> <span class="nn">nqp.effects.effect_components</span> <span class="kn">import</span> <span class="n">AddItemEffect</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">nqp.core.game</span> <span class="kn">import</span> <span class="n">Game</span>
 
 
-<div class="viewcode-block" id="AddItemEffect"><a class="viewcode-back" href="../../../nqp.effects.html#nqp.effects.add_item.AddItemEffect">[docs]</a><span class="k">class</span> <span class="nc">AddItemEffect</span><span class="p">(</span><span class="n">RegisteredComponent</span><span class="p">):</span>
-<div class="viewcode-block" id="AddItemEffect.__init__"><a class="viewcode-back" href="../../../nqp.effects.html#nqp.effects.add_item.AddItemEffect.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">item_count</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">trigger</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">item_type</span> <span class="o">=</span> <span class="n">item_type</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">item_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">item_count</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">trigger</span> <span class="o">=</span> <span class="n">trigger</span></div>
-
-<div class="viewcode-block" id="AddItemEffect.from_dict"><a class="viewcode-back" href="../../../nqp.effects.html#nqp.effects.add_item.AddItemEffect.from_dict">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">:</span><span class="n">Any</span><span class="p">]):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Return new instance using data loaded from a file</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">item_type</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;item_type&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">item_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;gold&quot;</span><span class="p">]:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported item_type </span><span class="si">{</span><span class="n">item_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="n">trigger</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;trigger&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">trigger</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;EnterNewRoom&quot;</span><span class="p">]:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported unit_type </span><span class="si">{</span><span class="n">trigger</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="n">item_count</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;item_count&quot;</span><span class="p">))</span>
-        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">item_type</span><span class="p">,</span> <span class="n">item_count</span><span class="p">,</span> <span class="n">trigger</span><span class="p">)</span></div></div>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;EffectProcessorComponent&quot;</span><span class="p">,</span> <span class="s2">&quot;AddItemEffectProcessor&quot;</span><span class="p">,</span> <span class="s2">&quot;StatsEffectProcessor&quot;</span><span class="p">]</span>
 
 
-<div class="viewcode-block" id="AddItemEffectProcessor"><a class="viewcode-back" href="../../../nqp.effects.html#nqp.effects.add_item.AddItemEffectProcessor">[docs]</a><span class="k">class</span> <span class="nc">AddItemEffectProcessor</span><span class="p">(</span><span class="n">EffectProcessor</span><span class="p">):</span>
+<div class="viewcode-block" id="EffectProcessorComponent"><a class="viewcode-back" href="../../../nqp.effects.html#nqp.effects.processors.EffectProcessorComponent">[docs]</a><span class="k">class</span> <span class="nc">EffectProcessorComponent</span><span class="p">(</span><span class="n">RegisteredComponent</span><span class="p">):</span>
+<div class="viewcode-block" id="EffectProcessorComponent.__init__"><a class="viewcode-back" href="../../../nqp.effects.html#nqp.effects.processors.EffectProcessorComponent.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">effect</span><span class="p">:</span> <span class="n">EffectProcessor</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">effect</span> <span class="o">=</span> <span class="n">effect</span></div></div>
+
+
+<div class="viewcode-block" id="AddItemEffectProcessor"><a class="viewcode-back" href="../../../nqp.effects.html#nqp.effects.processors.AddItemEffectProcessor">[docs]</a><span class="k">class</span> <span class="nc">AddItemEffectProcessor</span><span class="p">(</span><span class="n">EffectProcessor</span><span class="p">):</span>
     <span class="n">queued_items</span> <span class="o">=</span> <span class="n">snecs</span><span class="o">.</span><span class="n">Query</span><span class="p">([</span><span class="n">AddItemEffect</span><span class="p">])</span>
 
-<div class="viewcode-block" id="AddItemEffectProcessor.update"><a class="viewcode-back" href="../../../nqp.effects.html#nqp.effects.add_item.AddItemEffectProcessor.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_delta</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">game</span><span class="p">:</span> <span class="n">Game</span><span class="p">):</span>
+<div class="viewcode-block" id="AddItemEffectProcessor.update"><a class="viewcode-back" href="../../../nqp.effects.html#nqp.effects.processors.AddItemEffectProcessor.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_delta</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">game</span><span class="p">:</span> <span class="n">Game</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">eid</span><span class="p">,</span> <span class="p">(</span><span class="n">comp</span><span class="p">,)</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">AddItemEffectProcessor</span><span class="o">.</span><span class="n">queued_items</span><span class="p">):</span>
             <span class="k">pass</span></div></div>
+
+
+<div class="viewcode-block" id="StatsEffectProcessor"><a class="viewcode-back" href="../../../nqp.effects.html#nqp.effects.processors.StatsEffectProcessor">[docs]</a><span class="k">class</span> <span class="nc">StatsEffectProcessor</span><span class="p">(</span><span class="n">EffectProcessor</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Processor for Effects</span>
+
+<span class="sd">    * Remove expired effects</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="StatsEffectProcessor.update"><a class="viewcode-back" href="../../../nqp.effects.html#nqp.effects.processors.StatsEffectProcessor.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_delta</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">game</span><span class="p">:</span> <span class="n">Game</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">nqp.core.queries</span> <span class="kn">import</span> <span class="n">effect_stats_query</span>
+
+        <span class="k">for</span> <span class="n">eid</span><span class="p">,</span> <span class="p">(</span><span class="n">effect</span><span class="p">,</span> <span class="n">stats</span><span class="p">)</span> <span class="ow">in</span> <span class="n">effect_stats_query</span><span class="p">:</span>
+            <span class="c1"># remove expired modifiers</span>
+            <span class="k">if</span> <span class="n">effect</span><span class="o">.</span><span class="n">ttl</span> <span class="o">==</span> <span class="n">INFINITE</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">effect</span><span class="o">.</span><span class="n">ttl</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">effect</span><span class="o">.</span><span class="n">ttl</span> <span class="o">-=</span> <span class="n">time_delta</span>
+                <span class="k">if</span> <span class="n">effect</span><span class="o">.</span><span class="n">ttl</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">effect</span><span class="o">.</span><span class="n">stat</span><span class="o">.</span><span class="n">remove_modifier</span><span class="p">(</span><span class="n">effect</span><span class="p">)</span>
+                    <span class="n">snecs</span><span class="o">.</span><span class="n">schedule_for_deletion</span><span class="p">(</span><span class="n">eid</span><span class="p">)</span></div></div>
 </pre></div>
 
                         

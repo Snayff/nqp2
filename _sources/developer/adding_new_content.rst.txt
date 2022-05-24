@@ -311,3 +311,167 @@ yaml Example
       result:
       - gold:100
       displayed_result: "+gold"
+
+
+Items and Traits
+-------------------
+
+Adding New
+^^^^^^^^^^^^^^^^^^^^^^^
+To add a new Item or Trait you need to add 1 thing:
+1. a yaml with the items' or traits' name in their respective folder, i.e.  ``data/items`` or ``data/traits``
+
+yaml Explained
+^^^^^^^^^^^^^^^^^^^^^^^
+.. code-block:: yaml
+
+    ---
+    name: Albrom's Signature Item
+    is_signature: true
+    effects:
+      - name: StatsEffect  # name of the effect to use
+        target: team  #  matched against Allegiance.team or unit
+        unit_type: ranged  # is matched against Allegiance.unit.type
+        attribute: attack # name of a stat on the Stats component
+        modifier: 20%  # int, the amount to change by
+
+
+yaml Example
+^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: yaml
+
+    ---
+    name: Albrom's Signature Item
+    is_signature: true
+    effects:
+      - name: StatsEffect
+        target: team
+        unit_type: ranged
+        attribute: attack
+        modifier: 20%
+
+Parameters
+^^^^^^^^^^^^
+
+Name
+""""""""""
+.. list-table:: Title
+   :widths: 50 50 50
+   :header-rows: 1
+
+   * - Key
+     - Definition
+     - Additional Notes
+   * - ``StatsEffect``
+     - Modify the Stats or Attributes of a Unit, or Resources of a Commander
+     -
+
+Target
+""""""""""
+.. list-table:: Title
+   :widths: 50 50 50
+   :header-rows: 1
+
+   * - Key
+     - Definition
+     - Additional Notes
+   * - all
+     - Affects everyone
+     - This means enemy and ally units/entities.
+   * - team
+     - Affects same team as affected unit/entities
+     -
+   * - unit
+     - Affects the unit the affected entity/unit is in
+     - Cannot be used is affected is commander
+   * - self
+     - Affects the affected only
+     -
+
+Unit Type
+""""""""""
+
+.. warning::
+    This currently uses ranged/melee but elsewhere means the name of the unit.
+    Needs to be clarified.
+
+.. list-table:: Title
+   :widths: 50 50 50
+   :header-rows: 1
+
+   * - Key
+     - Definition
+     - Additional Notes
+   * -
+     -
+     -
+
+Attribute
+""""""""""
+
+.. note::
+    See `Stats` or `Attribute` component's attrs for options.
+
+Modifier
+""""""""""
+.. list-table:: Title
+   :widths: 50 50 50
+   :header-rows: 1
+
+   * - Key
+     - Definition
+     - Additional Notes
+   * - [int]
+     -
+     - can be + (implied) or -.  Appending a percent will calculate the value from the base value of the stat
+
+
+Trigger
+""""""""""
+.. list-table:: Title
+   :widths: 50 50 50
+   :header-rows: 1
+
+   * - Key
+     - Definition
+     - Additional Notes
+   * - OnAttacked
+     - When Entity receives an attack
+     -
+   * - EnterNewRoom
+     - When player moves to a new room
+     -
+
+
+Attack Type
+""""""""""
+.. list-table:: Title
+   :widths: 50 50 50
+   :header-rows: 1
+
+   * - Key
+     - Definition
+     - Additional Notes
+   * - ranged
+     - A ranged Unit
+     -
+   * - melee
+     - A Melee Unit
+     -
+
+State
+""""""""""
+.. list-table:: Title
+   :widths: 50 50 50
+   :header-rows: 1
+
+   * - Key
+     - Definition
+     - Additional Notes
+   * - true
+     -
+     -
+   * - false
+     -
+     -

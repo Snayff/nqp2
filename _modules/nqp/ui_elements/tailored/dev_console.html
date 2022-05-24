@@ -142,6 +142,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../api/effects/add_item.html">Add Item</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../api/effects/attribute_modifier.html">Attribute Modifier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../api/effects/sildreths_signature.html">Sildreths Signature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/effects/stats_effect.html">Stats Effect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/effects/_effects.html#using-effects">Using Effects</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../api/scenes/_scenes.html">Scenes</a><ul>
@@ -417,6 +419,8 @@
                         <span class="n">data</span><span class="p">[</span><span class="s2">&quot;damage_type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;damage_type&quot;</span><span class="p">])</span>
                         <span class="n">data</span><span class="p">[</span><span class="s2">&quot;crit_chance&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;crit_chance&quot;</span><span class="p">])</span>
                         <span class="n">data</span><span class="p">[</span><span class="s2">&quot;penetration&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;penetration&quot;</span><span class="p">])</span>
+                        <span class="n">data</span><span class="p">[</span><span class="s2">&quot;regen&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;regen&quot;</span><span class="p">])</span>
+                        <span class="n">data</span><span class="p">[</span><span class="s2">&quot;dodge&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;dodge&quot;</span><span class="p">])</span>
 
                     <span class="c1"># delete previous file</span>
                     <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">str_path</span><span class="p">)</span>

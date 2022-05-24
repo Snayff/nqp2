@@ -142,6 +142,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../api/effects/add_item.html">Add Item</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/effects/attribute_modifier.html">Attribute Modifier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/effects/sildreths_signature.html">Sildreths Signature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/stats_effect.html">Stats Effect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/_effects.html#using-effects">Using Effects</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../api/scenes/_scenes.html">Scenes</a><ul>
@@ -203,14 +205,12 @@
 
 <span class="kn">from</span> <span class="nn">nqp.base_classes.entity_behaviour</span> <span class="kn">import</span> <span class="n">EntityBehaviour</span>
 <span class="kn">from</span> <span class="nn">nqp.command.unit</span> <span class="kn">import</span> <span class="n">Unit</span>
-<span class="kn">from</span> <span class="nn">nqp.core.components</span> <span class="kn">import</span> <span class="n">Allegiance</span><span class="p">,</span> <span class="n">IsDead</span><span class="p">,</span> <span class="n">IsReadyToAttack</span><span class="p">,</span> <span class="n">Position</span><span class="p">,</span> <span class="n">Stats</span>
+<span class="kn">from</span> <span class="nn">nqp.core.constants</span> <span class="kn">import</span> <span class="n">HealingSource</span><span class="p">,</span> <span class="n">PATH_UPDATE_FREQ</span>
 <span class="kn">from</span> <span class="nn">nqp.core.utility</span> <span class="kn">import</span> <span class="n">distance_to</span>
+<span class="kn">from</span> <span class="nn">nqp.world_elements.entity_components</span> <span class="kn">import</span> <span class="n">Allegiance</span><span class="p">,</span> <span class="n">HealReceived</span><span class="p">,</span> <span class="n">IsDead</span><span class="p">,</span> <span class="n">IsReadyToAttack</span><span class="p">,</span> <span class="n">Position</span><span class="p">,</span> <span class="n">Stats</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">nqp.core.game</span> <span class="kn">import</span> <span class="n">Game</span>
-
-
-<span class="n">PATH_UPDATE_FREQ</span> <span class="o">=</span> <span class="mf">0.4</span>  <span class="c1"># TODO - move to consts</span>
 
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;BasicEntityBehaviour&quot;</span><span class="p">]</span>
@@ -244,8 +244,14 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_path_update</span> <span class="o">&gt;</span> <span class="n">PATH_UPDATE_FREQ</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">update_path</span><span class="p">()</span>
 
-        <span class="c1"># update attack timer</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">attack_timer</span> <span class="o">-=</span> <span class="n">delta_time</span></div>
+        <span class="c1"># apply and reset regen, if needed</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">regen_timer</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">apply_regen</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">regen_timer</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="c1"># update timers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attack_timer</span> <span class="o">-=</span> <span class="n">delta_time</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">regen_timer</span> <span class="o">-=</span> <span class="n">delta_time</span></div>
 
 <div class="viewcode-block" id="BasicEntityBehaviour.determine_next_action"><a class="viewcode-back" href="../../../nqp.command.html#nqp.command.basic_entity_behaviour.BasicEntityBehaviour.determine_next_action">[docs]</a>    <span class="k">def</span> <span class="nf">determine_next_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">focus_entity</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -328,7 +334,21 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">target_position</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_unit</span><span class="o">.</span><span class="n">behaviour</span><span class="o">.</span><span class="n">retreat_target</span><span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_position</span><span class="p">:</span>
                 <span class="n">pos</span> <span class="o">=</span> <span class="n">snecs</span><span class="o">.</span><span class="n">entity_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_entity</span><span class="p">,</span> <span class="n">Position</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">current_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">terrain</span><span class="o">.</span><span class="n">pathfind_px</span><span class="p">(</span><span class="n">pos</span><span class="o">.</span><span class="n">pos</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_position</span><span class="p">)</span></div></div>
+                <span class="bp">self</span><span class="o">.</span><span class="n">current_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">terrain</span><span class="o">.</span><span class="n">pathfind_px</span><span class="p">(</span><span class="n">pos</span><span class="o">.</span><span class="n">pos</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_position</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BasicEntityBehaviour.apply_regen"><a class="viewcode-back" href="../../../nqp.command.html#nqp.command.basic_entity_behaviour.BasicEntityBehaviour.apply_regen">[docs]</a>    <span class="k">def</span> <span class="nf">apply_regen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create heal component on entity</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">stats</span> <span class="o">=</span> <span class="n">snecs</span><span class="o">.</span><span class="n">entity_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_entity</span><span class="p">,</span> <span class="n">Stats</span><span class="p">)</span>
+
+        <span class="c1"># try to apply</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">snecs</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_entity</span><span class="p">,</span> <span class="n">HealReceived</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">regen</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">HealingSource</span><span class="o">.</span><span class="n">SELF</span><span class="p">))</span>
+
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="n">heal_received</span> <span class="o">=</span> <span class="n">snecs</span><span class="o">.</span><span class="n">entity_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_entity</span><span class="p">,</span> <span class="n">HealReceived</span><span class="p">)</span>
+            <span class="n">heal_received</span><span class="o">.</span><span class="n">add_heal</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">regen</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">HealingSource</span><span class="o">.</span><span class="n">SELF</span><span class="p">)</span></div></div>
 </pre></div>
 
                         

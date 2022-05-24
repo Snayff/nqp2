@@ -6,7 +6,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>nqp.world_elements.actions &mdash; NotQuiteParadise2  documentation</title>
+  <title>nqp.base_classes.effect_processor &mdash; NotQuiteParadise2  documentation</title>
   
 
   
@@ -69,7 +69,7 @@
         
           <li><a href="../../index.html">Module code</a></li>
         
-      <li>nqp.world_elements.actions</li>
+      <li>nqp.base_classes.effect_processor</li>
     
     
       <li class="breadcrumbs-aside">
@@ -195,33 +195,32 @@
                     <div class="document">
                         
                             
-  <h1>Source code for nqp.world_elements.actions</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">nqp.world_elements.hitbox</span> <span class="kn">import</span> <span class="n">Hitbox</span>
+  <h1>Source code for nqp.base_classes.effect_processor</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">nqp.core.game</span> <span class="kn">import</span> <span class="n">Game</span>
+
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;EffectProcessor&quot;</span><span class="p">]</span>
 
 
-<div class="viewcode-block" id="Action"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.actions.Action">[docs]</a><span class="k">class</span> <span class="nc">Action</span><span class="p">:</span>
-<div class="viewcode-block" id="Action.__init__"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.actions.Action.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">game</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_game</span> <span class="o">=</span> <span class="n">game</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">target_type</span> <span class="o">=</span> <span class="s2">&quot;free&quot;</span></div>
+<div class="viewcode-block" id="EffectProcessor"><a class="viewcode-back" href="../../../nqp.base_classes.html#nqp.base_classes.effect_processor.EffectProcessor">[docs]</a><span class="k">class</span> <span class="nc">EffectProcessor</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<div class="viewcode-block" id="EffectProcessor.update"><a class="viewcode-back" href="../../../nqp.base_classes.html#nqp.base_classes.effect_processor.EffectProcessor.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_delta</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">game</span><span class="p">:</span> <span class="n">Game</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handle changes for this Processor</span>
 
-<div class="viewcode-block" id="Action.use"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.actions.Action.use">[docs]</a>    <span class="k">def</span> <span class="nf">use</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="sd">        For example:</span>
+<span class="sd">            for eid, (burn,) in list(OnFireStatusSystem.burning):</span>
+<span class="sd">                burn.ttl -= time_delta</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span></div></div>
-
-
-<div class="viewcode-block" id="Fireball"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.actions.Fireball">[docs]</a><span class="k">class</span> <span class="nc">Fireball</span><span class="p">(</span><span class="n">Action</span><span class="p">):</span>
-<div class="viewcode-block" id="Fireball.__init__"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.actions.Fireball.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="s2">&quot;fireball&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">target_type</span> <span class="o">=</span> <span class="s2">&quot;free&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">damage</span> <span class="o">=</span> <span class="mi">50</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">=</span> <span class="mi">30</span></div>
-
-<div class="viewcode-block" id="Fireball.use"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.actions.Fireball.use">[docs]</a>    <span class="k">def</span> <span class="nf">use</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">location</span><span class="p">):</span>
-        <span class="n">hitbox</span> <span class="o">=</span> <span class="n">Hitbox</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_game</span><span class="o">.</span><span class="n">combat</span><span class="o">.</span><span class="n">all_entities</span><span class="p">,</span> <span class="s2">&quot;circle&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">location</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">damage</span><span class="p">)</span>
-        <span class="n">hitbox</span><span class="o">.</span><span class="n">apply</span><span class="p">()</span></div></div>
-
-
-<span class="n">actions</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;fireball&quot;</span><span class="p">:</span> <span class="n">Fireball</span><span class="p">}</span>
 </pre></div>
 
                         

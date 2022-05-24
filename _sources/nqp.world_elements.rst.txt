@@ -20,6 +20,14 @@ nqp.world\_elements.camera module
    :undoc-members:
    :show-inheritance:
 
+nqp.world\_elements.entity\_components module
+---------------------------------------------
+
+.. automodule:: nqp.world_elements.entity_components
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 nqp.world\_elements.hitbox module
 ---------------------------------
 
@@ -72,6 +80,14 @@ nqp.world\_elements.stats module
 --------------------------------
 
 .. automodule:: nqp.world_elements.stats
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.world\_elements.unit\_attribute module
+------------------------------------------
+
+.. automodule:: nqp.world_elements.unit_attribute
    :members:
    :undoc-members:
    :show-inheritance:

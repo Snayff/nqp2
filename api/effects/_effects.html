@@ -147,6 +147,8 @@
 <li class="toctree-l2"><a class="reference internal" href="add_item.html">Add Item</a></li>
 <li class="toctree-l2"><a class="reference internal" href="attribute_modifier.html">Attribute Modifier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sildreths_signature.html">Sildreths Signature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stats_effect.html">Stats Effect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-effects">Using Effects</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../scenes/_scenes.html">Scenes</a><ul>
@@ -205,8 +207,39 @@
 <li class="toctree-l1"><a class="reference internal" href="add_item.html">Add Item</a></li>
 <li class="toctree-l1"><a class="reference internal" href="attribute_modifier.html">Attribute Modifier</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sildreths_signature.html">Sildreths Signature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stats_effect.html">Stats Effect</a></li>
 </ul>
 </div>
+<section id="using-effects">
+<h2>Using Effects<a class="headerlink" href="#using-effects" title="Permalink to this headline">¶</a></h2>
+<p>Effects are defined in data files and then built during play. As the state cannot be known ahead of time we must account
+for this “unknowability”.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>See the Adding New Content section for the data schema.</p>
+</div>
+<p>At a high level, there are a few parts:</p>
+<ul class="simple">
+<li><p><a href="#id1"><span class="problematic" id="id2">*</span></a>Effect components, which track the changes to a stats object</p></li>
+<li><p><a href="#id3"><span class="problematic" id="id4">*</span></a>EffectSentinel components, which can find the right targets for stats using the data from yaml</p></li>
+<li><p>Stat/Attribute objects, which can have multiple modifiers against the base value</p></li>
+</ul>
+<p>Let’s take a specific example, the <cite>StatEffect</cite>.
+StatEffects will add themselves and a modifier function to a Stat object.  Whenever the value of a Stat object
+is queried (stat.value), the <cite>base_value</cite> is computed against all modifiers. When a StatsEffect object is removed
+from play, the modifier is also removed, lazily, the next time the Stat value is computed.
+StatsEffectSentinels bridge the gap between the YAML and the game, and are a sort of simple query language, for
+matching stats in the YAML to game entities in play.</p>
+<p>Creating the effect looks like this:</p>
+<p>And when creating a new entity it should look like this:</p>
+<section id="a-word-on-effectsentinels">
+<h3>A Word on EffectSentinels<a class="headerlink" href="#a-word-on-effectsentinels" title="Permalink to this headline">¶</a></h3>
+<p>The Sentinels are regular ecs components, and if removed from the ecs, will no longer apply effects to new game
+entities.</p>
+<p>Sentinels are not required if an <a href="#id5"><span class="problematic" id="id6">*</span></a><cite>Effect</cite> is applied directly, only if we want to use the Sentinel to apply the effect
+when required.</p>
+</section>
+</section>
 </section>
 
 

@@ -149,6 +149,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../effects/add_item.html">Add Item</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../effects/attribute_modifier.html">Attribute Modifier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../effects/sildreths_signature.html">Sildreths Signature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../effects/stats_effect.html">Stats Effect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../effects/_effects.html#using-effects">Using Effects</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../scenes/_scenes.html">Scenes</a><ul>
@@ -239,9 +241,12 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="nqp.command.troupe.Troupe.generate_units">
 <span class="sig-name descname"><span class="pre">generate_units</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">number_of_units</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">tiers_allowed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/nqp/command/troupe.html#Troupe.generate_units"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.command.troupe.Troupe.generate_units" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generate units for the Troupe, based on parameters given. If no unit types are given then any unit type can
-be chosen from any ally. Returns list of created ids.</p>
-<p>unit_types is expressed as [unit.type, …]</p>
+<dd><p>Generate units for the Troupe, based on parameters given.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list of created ids.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">

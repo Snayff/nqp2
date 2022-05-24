@@ -149,6 +149,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../effects/add_item.html">Add Item</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../effects/attribute_modifier.html">Attribute Modifier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../effects/sildreths_signature.html">Sildreths Signature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../effects/stats_effect.html">Stats Effect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../effects/_effects.html#using-effects">Using Effects</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../scenes/_scenes.html">Scenes</a><ul>
@@ -206,10 +208,10 @@
 <dt class="sig sig-object py" id="nqp.base_classes.stat.Stat">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Stat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/base_classes/stat.html#Stat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.base_classes.stat.Stat" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/abc.html#abc.ABC" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></a></p>
-<p>A container for an Entities Stat</p>
-<p>Overrider value is a hack until all the ad-hoc changes without
-modifiers are removed.  To be clear, we should be using effects to
-change the value, not setting directly.</p>
+<p>A container for an Entities Stat and related functionality.</p>
+<p><cite>base_value</cite> is used as the reference for modifiers.
+<cite>value</cite> is the result after modifiers are applied.
+<cite>override</cite> forces a specific value to be used, ignoring modifiers.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="nqp.base_classes.stat.Stat.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/base_classes/stat.html#Stat.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.base_classes.stat.Stat.__init__" title="Permalink to this definition">¶</a></dt>
@@ -266,7 +268,7 @@ change the value, not setting directly.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="nqp.base_classes.stat.Stat.reset">
 <span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nqp/base_classes/stat.html#Stat.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nqp.base_classes.stat.Stat.reset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set value back to base value.</p>
+<dd><p>Remove any modifiers and override.</p>
 </dd></dl>
 
 <dl class="py property">

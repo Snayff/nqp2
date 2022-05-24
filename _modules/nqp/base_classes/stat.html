@@ -142,6 +142,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../api/effects/add_item.html">Add Item</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/effects/attribute_modifier.html">Attribute Modifier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/effects/sildreths_signature.html">Sildreths Signature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/stats_effect.html">Stats Effect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/_effects.html#using-effects">Using Effects</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../api/scenes/_scenes.html">Scenes</a><ul>
@@ -208,11 +210,11 @@
 
 <div class="viewcode-block" id="Stat"><a class="viewcode-back" href="../../../nqp.base_classes.html#nqp.base_classes.stat.Stat">[docs]</a><span class="k">class</span> <span class="nc">Stat</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    A container for an Entities Stat</span>
+<span class="sd">    A container for an Entities Stat and related functionality.</span>
 
-<span class="sd">    Overrider value is a hack until all the ad-hoc changes without</span>
-<span class="sd">    modifiers are removed.  To be clear, we should be using effects to</span>
-<span class="sd">    change the value, not setting directly.</span>
+<span class="sd">    `base_value` is used as the reference for modifiers.</span>
+<span class="sd">    `value` is the result after modifiers are applied.</span>
+<span class="sd">    `override` forces a specific value to be used, ignoring modifiers.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -224,7 +226,7 @@
 
 <div class="viewcode-block" id="Stat.reset"><a class="viewcode-back" href="../../../nqp.base_classes.html#nqp.base_classes.stat.Stat.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Set value back to base value.</span>
+<span class="sd">        Remove any modifiers and override.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_override_value</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_modifiers</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>

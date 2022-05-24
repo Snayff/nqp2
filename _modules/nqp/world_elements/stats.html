@@ -142,6 +142,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../api/effects/add_item.html">Add Item</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/effects/attribute_modifier.html">Attribute Modifier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/effects/sildreths_signature.html">Sildreths Signature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/stats_effect.html">Stats Effect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/_effects.html#using-effects">Using Effects</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../api/scenes/_scenes.html">Scenes</a><ul>
@@ -216,8 +218,13 @@
     <span class="k">def</span> <span class="nf">value</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">value</span>
 
-<div class="viewcode-block" id="IntStat.set_base_value"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.stats.IntStat.set_base_value">[docs]</a>    <span class="k">def</span> <span class="nf">set_base_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_base_value</span> <span class="o">=</span> <span class="n">value</span></div></div>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">base_value</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_value</span>
+
+    <span class="nd">@base_value</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">base_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_base_value</span> <span class="o">=</span> <span class="n">value</span></div>
 
 
 <div class="viewcode-block" id="FloatStat"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.stats.FloatStat">[docs]</a><span class="k">class</span> <span class="nc">FloatStat</span><span class="p">(</span><span class="n">Stat</span><span class="p">):</span>
@@ -230,8 +237,13 @@
     <span class="k">def</span> <span class="nf">value</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">value</span>
 
-<div class="viewcode-block" id="FloatStat.set_base_value"><a class="viewcode-back" href="../../../nqp.world_elements.html#nqp.world_elements.stats.FloatStat.set_base_value">[docs]</a>    <span class="k">def</span> <span class="nf">set_base_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_base_value</span> <span class="o">=</span> <span class="n">value</span></div></div>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">base_value</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_value</span>
+
+    <span class="nd">@base_value</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">base_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_base_value</span> <span class="o">=</span> <span class="n">value</span></div>
 </pre></div>
 
                         

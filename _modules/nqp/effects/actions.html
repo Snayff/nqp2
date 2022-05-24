@@ -6,7 +6,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>nqp.core.effect &mdash; NotQuiteParadise2  documentation</title>
+  <title>nqp.effects.actions &mdash; NotQuiteParadise2  documentation</title>
   
 
   
@@ -69,7 +69,7 @@
         
           <li><a href="../../index.html">Module code</a></li>
         
-      <li>nqp.core.effect</li>
+      <li>nqp.effects.actions</li>
     
     
       <li class="breadcrumbs-aside">
@@ -142,6 +142,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../api/effects/add_item.html">Add Item</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/effects/attribute_modifier.html">Attribute Modifier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/effects/sildreths_signature.html">Sildreths Signature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/stats_effect.html">Stats Effect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/_effects.html#using-effects">Using Effects</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../api/scenes/_scenes.html">Scenes</a><ul>
@@ -193,36 +195,79 @@
                     <div class="document">
                         
                             
-  <h1>Source code for nqp.core.effect</h1><div class="highlight"><pre>
+  <h1>Source code for nqp.effects.actions</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">operator</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
-<span class="kn">from</span> <span class="nn">snecs</span> <span class="kn">import</span> <span class="n">RegisteredComponent</span>
+<span class="kn">import</span> <span class="nn">snecs</span>
+<span class="kn">from</span> <span class="nn">snecs.typedefs</span> <span class="kn">import</span> <span class="n">EntityID</span>
+
+<span class="kn">from</span> <span class="nn">nqp.base_classes.stat</span> <span class="kn">import</span> <span class="n">Stat</span>
+<span class="kn">from</span> <span class="nn">nqp.core.constants</span> <span class="kn">import</span> <span class="n">INFINITE</span>
+<span class="kn">from</span> <span class="nn">nqp.core.utility</span> <span class="kn">import</span> <span class="n">percent_to_float</span>
+<span class="kn">from</span> <span class="nn">nqp.world_elements.entity_components</span> <span class="kn">import</span> <span class="n">Stats</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">nqp.core.game</span> <span class="kn">import</span> <span class="n">Game</span>
-
-<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
 
 
-<div class="viewcode-block" id="EffectProcessorComponent"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.effect.EffectProcessorComponent">[docs]</a><span class="k">class</span> <span class="nc">EffectProcessorComponent</span><span class="p">(</span><span class="n">RegisteredComponent</span><span class="p">):</span>
-<div class="viewcode-block" id="EffectProcessorComponent.__init__"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.effect.EffectProcessorComponent.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">effect</span><span class="p">:</span> <span class="n">EffectProcessor</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">effect</span> <span class="o">=</span> <span class="n">effect</span></div></div>
+<div class="viewcode-block" id="get_modifier"><a class="viewcode-back" href="../../../nqp.effects.html#nqp.effects.actions.get_modifier">[docs]</a><span class="k">def</span> <span class="nf">get_modifier</span><span class="p">(</span><span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">string</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;%&quot;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">partial</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">mul</span><span class="p">,</span> <span class="n">percent_to_float</span><span class="p">(</span><span class="n">string</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">&quot;+&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">string</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="EffectProcessor"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.effect.EffectProcessor">[docs]</a><span class="k">class</span> <span class="nc">EffectProcessor</span><span class="p">:</span>
-<div class="viewcode-block" id="EffectProcessor.update"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.effect.EffectProcessor.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_delta</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">game</span><span class="p">:</span> <span class="n">Game</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Handle changes for this Processor</span>
+<div class="viewcode-block" id="new_stats_effect"><a class="viewcode-back" href="../../../nqp.effects.html#nqp.effects.actions.new_stats_effect">[docs]</a><span class="k">def</span> <span class="nf">new_stats_effect</span><span class="p">(</span>
+    <span class="n">stat</span><span class="p">:</span> <span class="n">Stat</span><span class="p">,</span>
+    <span class="n">stats</span><span class="p">:</span> <span class="n">Stats</span><span class="p">,</span>
+    <span class="n">modifier</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">ttl</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">INFINITE</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">EntityID</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Apply StatsEffect to Stat</span>
 
-<span class="sd">        For example:</span>
-<span class="sd">            for eid, (burn,) in list(OnFireStatusSystem.burning):</span>
-<span class="sd">                burn.ttl -= time_delta</span>
+<span class="sd">    Args:</span>
+<span class="sd">        stat: Stat instance to modify</span>
+<span class="sd">        stats: Stats Component containing ``stat``</span>
+<span class="sd">        modifier: Modifier string; &quot;50%&quot;, &quot;-50&quot;, &quot;-200%&quot;, etc</span>
+<span class="sd">        ttl: Time To Live</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">pass</span></div></div>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">modifier</span> <span class="o">=</span> <span class="n">get_modifier</span><span class="p">(</span><span class="n">modifier</span><span class="p">)</span>
+    <span class="kn">from</span> <span class="nn">nqp.effects.effect_components</span> <span class="kn">import</span> <span class="n">StatsEffect</span>
+
+    <span class="n">attrib_modifier</span> <span class="o">=</span> <span class="n">StatsEffect</span><span class="p">(</span><span class="n">stat</span><span class="p">,</span> <span class="n">ttl</span><span class="p">)</span>
+    <span class="n">eid</span> <span class="o">=</span> <span class="n">snecs</span><span class="o">.</span><span class="n">new_entity</span><span class="p">((</span><span class="n">attrib_modifier</span><span class="p">,</span> <span class="n">stats</span><span class="p">))</span>
+    <span class="n">stat</span><span class="o">.</span><span class="n">apply_modifier</span><span class="p">(</span><span class="n">modifier</span><span class="p">,</span> <span class="n">attrib_modifier</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">eid</span></div>
+
+
+<div class="viewcode-block" id="apply_effects"><a class="viewcode-back" href="../../../nqp.effects.html#nqp.effects.actions.apply_effects">[docs]</a><span class="k">def</span> <span class="nf">apply_effects</span><span class="p">(</span><span class="n">entities</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">EntityID</span><span class="p">]):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Enable effects for entity by checking the sentinels.</span>
+
+<span class="sd">    Should be called whenever a new entity or sentinel is created.</span>
+
+<span class="sd">    New entities may be created after an effect was started.  This can</span>
+<span class="sd">    be used to search for effects that would affect the entity and apply</span>
+<span class="sd">    them.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># TODO: get components from sentinel and batch search</span>
+    <span class="kn">from</span> <span class="nn">nqp.world_elements.entity_components</span> <span class="kn">import</span> <span class="n">Allegiance</span><span class="p">,</span> <span class="n">Stats</span>
+
+    <span class="n">search_components</span> <span class="o">=</span> <span class="p">(</span><span class="n">Allegiance</span><span class="p">,</span> <span class="n">Stats</span><span class="p">)</span>
+    <span class="kn">from</span> <span class="nn">nqp.core.queries</span> <span class="kn">import</span> <span class="n">sentinels_query</span>
+
+    <span class="k">for</span> <span class="n">sentinel_eid</span><span class="p">,</span> <span class="p">(</span><span class="n">sentinel</span><span class="p">,)</span> <span class="ow">in</span> <span class="n">sentinels_query</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">eid</span> <span class="ow">in</span> <span class="n">entities</span><span class="p">:</span>
+            <span class="n">components</span> <span class="o">=</span> <span class="n">snecs</span><span class="o">.</span><span class="n">entity_components</span><span class="p">(</span><span class="n">eid</span><span class="p">,</span> <span class="n">search_components</span><span class="p">)</span>
+            <span class="n">sentinel</span><span class="o">.</span><span class="n">maybe_apply</span><span class="p">(</span><span class="n">components</span><span class="p">[</span><span class="n">Allegiance</span><span class="p">],</span> <span class="n">components</span><span class="p">[</span><span class="n">Stats</span><span class="p">])</span></div>
 </pre></div>
 
                         

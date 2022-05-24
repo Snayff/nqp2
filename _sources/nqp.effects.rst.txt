@@ -4,10 +4,10 @@ nqp.effects package
 Submodules
 ----------
 
-nqp.effects.add\_item module
-----------------------------
+nqp.effects.actions module
+--------------------------
 
-.. automodule:: nqp.effects.add_item
+.. automodule:: nqp.effects.actions
    :members:
    :undoc-members:
    :show-inheritance:
@@ -20,18 +20,26 @@ nqp.effects.burn module
    :undoc-members:
    :show-inheritance:
 
-nqp.effects.sildreths\_signature module
----------------------------------------
+nqp.effects.effect\_components module
+-------------------------------------
 
-.. automodule:: nqp.effects.sildreths_signature
+.. automodule:: nqp.effects.effect_components
    :members:
    :undoc-members:
    :show-inheritance:
 
-nqp.effects.stats\_effect module
---------------------------------
+nqp.effects.processors module
+-----------------------------
 
-.. automodule:: nqp.effects.stats_effect
+.. automodule:: nqp.effects.processors
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nqp.effects.sildreths\_signature module
+---------------------------------------
+
+.. automodule:: nqp.effects.sildreths_signature
    :members:
    :undoc-members:
    :show-inheritance:

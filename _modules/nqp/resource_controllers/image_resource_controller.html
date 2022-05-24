@@ -142,6 +142,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../api/effects/add_item.html">Add Item</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/effects/attribute_modifier.html">Attribute Modifier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/effects/sildreths_signature.html">Sildreths Signature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/stats_effect.html">Stats Effect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/_effects.html#using-effects">Using Effects</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../api/scenes/_scenes.html">Scenes</a><ul>
@@ -194,7 +196,9 @@
                         
                             
   <h1>Source code for nqp.resource_controllers.image_resource_controller</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
 
@@ -202,6 +206,8 @@
 
 <span class="kn">from</span> <span class="nn">nqp.base_classes.resource_controller</span> <span class="kn">import</span> <span class="n">ResourceController</span>
 <span class="kn">from</span> <span class="nn">nqp.core.constants</span> <span class="kn">import</span> <span class="n">ASSET_PATH</span><span class="p">,</span> <span class="n">DEFAULT_IMAGE_SIZE</span><span class="p">,</span> <span class="n">IMG_FORMATS</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ImageResourceController&quot;</span><span class="p">]</span>
 
 
 <div class="viewcode-block" id="ImageResourceController"><a class="viewcode-back" href="../../../nqp.resource_controllers.html#nqp.resource_controllers.image_resource_controller.ImageResourceController">[docs]</a><span class="k">class</span> <span class="nc">ImageResourceController</span><span class="p">(</span><span class="n">ResourceController</span><span class="p">):</span>
@@ -265,7 +271,7 @@
 <span class="sd">        such as town@640.0x360.0</span>
 <span class="sd">        :return: a Surface with the loaded image.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loading image &#39;</span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+        <span class="c1"># logging.info(f&quot;Loading image &#39;{item}&#39;&quot;)</span>
 
         <span class="c1"># The image&#39;s name is before the at sign, width and height are after</span>
         <span class="n">name</span><span class="p">,</span> <span class="n">after_at_sign</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;@&quot;</span><span class="p">)</span>

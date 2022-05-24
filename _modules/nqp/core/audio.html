@@ -142,6 +142,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../api/effects/add_item.html">Add Item</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/effects/attribute_modifier.html">Attribute Modifier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/effects/sildreths_signature.html">Sildreths Signature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/stats_effect.html">Stats Effect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/_effects.html#using-effects">Using Effects</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../api/scenes/_scenes.html">Scenes</a><ul>
@@ -203,7 +205,7 @@
 
 <span class="kn">import</span> <span class="nn">pygame</span>
 
-<span class="kn">from</span> <span class="nn">nqp.core.constants</span> <span class="kn">import</span> <span class="n">ASSET_PATH</span>
+<span class="kn">from</span> <span class="nn">nqp.core.constants</span> <span class="kn">import</span> <span class="n">ASSET_PATH</span><span class="p">,</span> <span class="n">INFINITE</span>
 <span class="kn">from</span> <span class="nn">nqp.core.debug</span> <span class="kn">import</span> <span class="n">Timer</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
@@ -265,7 +267,15 @@
         <span class="n">allow_duplicates</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Play sound. Set loops = -1 to make the sound loop infinitely. Can still be stopped.</span>
+<span class="sd">        Play sound.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            sound_name: the name of the sound</span>
+<span class="sd">            loops: how many loops. set to INFINITE to make the sound loop infinitely. Can still be stopped.</span>
+<span class="sd">            max_time: how long the sound can play for. -1 means until end.</span>
+<span class="sd">            fade_in_ms: how long the sound will take to get to full volume. -1 means start at full.</span>
+<span class="sd">            allow_duplicates: when the same sound can be played while this is still active.</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># check if currently blocked as unique</span>
         <span class="k">if</span> <span class="n">sound_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unique_sounds</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
@@ -279,6 +289,8 @@
                 <span class="n">max_time</span> <span class="o">=</span> <span class="mi">0</span>
             <span class="k">if</span> <span class="n">fade_in_ms</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
                 <span class="n">fade_in_ms</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">if</span> <span class="n">loops</span> <span class="o">==</span> <span class="n">INFINITE</span><span class="p">:</span>
+                <span class="n">loops</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
 
             <span class="n">sound</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="n">loops</span><span class="p">,</span> <span class="n">max_time</span><span class="p">,</span> <span class="n">fade_in_ms</span><span class="p">)</span>
 

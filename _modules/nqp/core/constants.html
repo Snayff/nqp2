@@ -142,6 +142,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../api/effects/add_item.html">Add Item</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/effects/attribute_modifier.html">Attribute Modifier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/effects/sildreths_signature.html">Sildreths Signature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/stats_effect.html">Stats Effect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/effects/_effects.html#using-effects">Using Effects</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../api/scenes/_scenes.html">Scenes</a><ul>
@@ -223,6 +225,9 @@
 <span class="n">DEFENSE_SCALE</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="n">PUSH_FORCE</span> <span class="o">=</span> <span class="mi">14</span>
 <span class="n">CRIT_MOD</span> <span class="o">=</span> <span class="mf">2.5</span>  <span class="c1"># value to multiply by</span>
+
+<span class="c1"># ai</span>
+<span class="n">PATH_UPDATE_FREQ</span> <span class="o">=</span> <span class="mf">0.4</span>
 
 <span class="c1"># UI customisation</span>
 <span class="n">TEXT_FADE_OUT_SPEED</span> <span class="o">=</span> <span class="mf">0.5</span>  <span class="c1"># make sure it is slower than the fade in</span>
@@ -394,11 +399,16 @@
 
 
 <div class="viewcode-block" id="Colour"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.constants.Colour">[docs]</a><span class="k">class</span> <span class="nc">Colour</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="c1"># basics</span>
     <span class="n">WHITE</span> <span class="o">=</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
     <span class="n">BLACK</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
     <span class="n">RED</span> <span class="o">=</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
     <span class="n">GREEN</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="n">BLUE</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span></div>
+    <span class="n">BLUE</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
+
+    <span class="c1"># specifics</span>
+    <span class="n">BLOOD_RED</span> <span class="o">=</span> <span class="p">(</span><span class="mi">143</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="n">GREY_SMOKE</span> <span class="o">=</span> <span class="p">(</span><span class="mi">63</span><span class="p">,</span> <span class="mi">58</span><span class="p">,</span> <span class="mi">71</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ColourPalette"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.constants.ColourPalette">[docs]</a><span class="k">class</span> <span class="nc">ColourPalette</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
@@ -419,6 +429,11 @@
     <span class="n">BELOW_IMAGE</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
     <span class="n">RIGHT_OF_IMAGE</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
     <span class="n">LEFT_OF_IMAGE</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="HealingSource"><a class="viewcode-back" href="../../../nqp.core.html#nqp.core.constants.HealingSource">[docs]</a><span class="k">class</span> <span class="nc">HealingSource</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
+    <span class="n">SELF</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+    <span class="n">OTHER</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span></div>
 </pre></div>
 
                         

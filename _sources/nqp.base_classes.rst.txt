@@ -20,6 +20,14 @@ nqp.base\_classes.controller module
    :undoc-members:
    :show-inheritance:
 
+nqp.base\_classes.effect\_processor module
+------------------------------------------
+
+.. automodule:: nqp.base_classes.effect_processor
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 nqp.base\_classes.entity\_behaviour module
 ------------------------------------------
 
